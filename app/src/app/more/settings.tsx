@@ -77,7 +77,7 @@ export default function SettingsPage() {
                 pushToken: token,
             });
         } catch (e) {
-            alert('Changing Push Notification setting failed.\n\n' + e);
+            alert(getTranslation('settings.error.pushnotification', { error: e }));
         }
         setLoadingPushNotificationEnabled(false);
     };
@@ -111,7 +111,7 @@ export default function SettingsPage() {
                 pushTokenWeb: token,
             });
         } catch (e) {
-            alert('Changing Push Notification setting failed.\n\n' + e);
+            alert(getTranslation('settings.error.pushnotification', { error: e }));
         }
         setLoadingPushNotificationEnabled(false);
     };

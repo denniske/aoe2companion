@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Alert, StyleSheet, View, AppState, TouchableOpacity } from 'react-native';
+import { useTranslation } from '@app/helper/translate';
 import { supabaseClient } from '../../../data/src/helper/supabase';
 import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
@@ -23,6 +24,7 @@ export default function Login() {
     const [email, setEmail] = useState('dennis.keil10+12@gmail.com')
     const [password, setPassword] = useState('test1234')
     const [loading, setLoading] = useState(false)
+    const getTranslation = useTranslation();
     const account = useAccount();
     const queryClient = useQueryClient();
 
@@ -41,7 +43,7 @@ export default function Login() {
         if (error) {
             Alert.alert(error.message)
         } else {
-            Alert.alert('Please check your inbox for resetting your password!')
+            Alert.alert(getTranslation('login.inboxreset'))
         }
 
         setLoading(false)
@@ -51,11 +53,11 @@ export default function Login() {
 
     async function forgotPassword() {
         Alert.alert(
-            'Reset password',
-            `Are you sure you want to reset your password for ${email}?`,
+            getTranslation('login.dialog.title.resetpassword'),
+            getTranslation('login.dialog.message.resetpassword', { email }),
             [
-                { text: 'Cancel', style: 'cancel' },
-                { text: 'Reset password', onPress: resetPassword },
+                { text: getTranslation('login.dialog.cancel'), style: 'cancel' },
+                { text: getTranslation('login.dialog.confirm'), onPress: resetPassword },
             ],
             { cancelable: false }
         );
@@ -93,7 +95,7 @@ export default function Login() {
         if (error) {
             Alert.alert(error.message)
         } else {
-            Alert.alert('Please check your inbox for email verification!')
+            Alert.alert(getTranslation('login.inboxverification'))
         }
 
         // const {
@@ -123,7 +125,7 @@ export default function Login() {
             <View style={[styles.verticallySpaced, styles.mt20]}>
                 {/*<MyText>Email</MyText>*/}
                 <Field
-                    placeholder="email@address.com"
+                    placeholder={getTranslation('login.placeholder.email')}
                     type="email"
                     autoFocus={!__DEV__}
                     onChangeText={setEmail}
@@ -133,7 +135,7 @@ export default function Login() {
             <View style={styles.verticallySpaced}>
                 {/*<MyText>Password</MyText>*/}
                 <Field
-                    placeholder="Password"
+                    placeholder={getTranslation('login.placeholder.password')}
                     type="password"
                     onChangeText={setPassword}
                     value={password}
@@ -142,7 +144,7 @@ export default function Login() {
 
             <View className="flex-row justify-end">
                 <TouchableOpacity className="p-2" onPress={() => forgotPassword()}>
-                    <Text variant="body">Forgot password?</Text>
+                    <Text variant="body">{getTranslation('login.forgotpassword')}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -151,7 +153,7 @@ export default function Login() {
                         disabled={loading}
                         onPress={() => signInWithEmail()}
                 >
-                    Sign in
+                    {getTranslation('login.signin')}
                 </Button>
             </View>
             <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -159,7 +161,7 @@ export default function Login() {
                         disabled={loading}
                         onPress={() => signUpWithEmail()}
                 >
-                    Create new account
+                    {getTranslation('login.createnewaccount')}
                 </Button>
             </View>
         </View>
