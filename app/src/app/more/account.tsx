@@ -103,33 +103,33 @@ export default function AccountPage() {
 
     return (
         <ScrollView contentContainerStyle="min-h-full p-5">
-            <Stack.Screen options={{ title: !loggedIn ? 'Sign In' : getTranslation('account.title')}} />
+            <Stack.Screen options={{ title: !loggedIn ? getTranslation('login.signin') : getTranslation('account.title')}} />
 
             {!loggedIn && <Login />}
 
             {loggedIn && (
                 <View className="gap-6">
                     <View className="gap-2">
-                        <Text variant="header-sm">Profile Information</Text>
+                        <Text variant="header-sm">{getTranslation('account.profileinfo')}</Text>
                         <Text variant="label">Email</Text>
                         <MyText style={styles.content}>{user.email}</MyText>
                     </View>
 
                     <View className="gap-2">
-                        <Text variant="header-sm">Patreon</Text>
-                        <Text variant="body">Link your Patreon account to access exclusive benefits</Text>
+                        <Text variant="header-sm">{getTranslation('account.patreon.title')}</Text>
+                        <Text variant="body">{getTranslation('account.patreon.description')}</Text>
                         {
                             account.data?.patreonId &&
                             <>
-                                <Text variant="label">Membership Status</Text>
+                                <Text variant="label">{getTranslation('account.patreon.membershipstatus')}</Text>
                                 <View className="flex-row gap-2 items-center">
                                     <FontAwesome5 name="heart" size={14} color={theme.textNoteColor} />
-                                    <Text variant="body">Free Membership</Text>
+                                    <Text variant="body">{getTranslation('account.patreon.freestatus')}</Text>
                                 </View>
                                 <Button onPress={() => unlinkPatreon()}
                                         className={'w-60 mt-2'}
                                 >
-                                    Unlink Patreon Account
+                                    {getTranslation('account.patreon.unlink')}
                                 </Button>
                             </>
                         }
@@ -139,18 +139,18 @@ export default function AccountPage() {
                                     // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
                                     className={'w-40'}
                             >
-                                Link Patreon
+                                {getTranslation('account.patreon.link')}
                             </Button>
                         }
                     </View>
 
                     <View className="gap-2">
-                        <Text variant="header-sm">Steam</Text>
-                        <Text variant="body">Link your Steam account</Text>
+                        <Text variant="header-sm">{getTranslation('account.steam.title')}</Text>
+                        <Text variant="body">{getTranslation('account.steam.description')}</Text>
                         {
                             account.data?.steamId &&
                             <>
-                                <Text variant="label">Steam ID</Text>
+                                <Text variant="label">{getTranslation('account.steam.id')}</Text>
                                 <View className="flex-row gap-2 items-center">
                                     <FontAwesome5 name="steam" size={14} color={theme.textNoteColor} />
                                     <Text variant="body">{account.data.steamId}</Text>
@@ -158,7 +158,7 @@ export default function AccountPage() {
                                 <Button onPress={() => unlinkSteam()}
                                         className={'w-60 mt-2'}
                                 >
-                                    Unlink Steam Account
+                                    {getTranslation('account.steam.unlink')}
                                 </Button>
                             </>
                         }
@@ -168,7 +168,7 @@ export default function AccountPage() {
                                     // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
                                     className={'w-40'}
                             >
-                                Link Steam
+                                {getTranslation('account.steam.link')}
                             </Button>
                         }
                     </View>
@@ -178,7 +178,7 @@ export default function AccountPage() {
                         <Button onPress={() => logout()}
                                 className={'w-40'}
                         >
-                            Logout
+                            {getTranslation('account.action.logout')}
                         </Button>
                     </View>
                 </View>
