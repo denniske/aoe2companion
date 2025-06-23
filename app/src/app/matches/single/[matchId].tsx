@@ -174,15 +174,17 @@ export default function MatchPage() {
                 {/*<FontAwesome name={'check-square'} size={14} color={theme.textNoteColor} />*/}
 
                 <View className="flex-col gap-1">
-                    <Text>Game Mode: {match.gameModeName}</Text>
-                    <Text>Team Settings</Text>
+                    <Text>
+                        {getTranslation('match.gameMode')}: {match.gameModeName}
+                    </Text>
+                    <Text>{getTranslation('match.teamSettings')}</Text>
                     <View className="flex-row items-center gap-1">
                         <FontAwesome5 name={match.lockTeams ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                        <Text>Lock Teams</Text>
+                        <Text>{getTranslation('match.lockTeams')}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
                         <FontAwesome5 name={match.teamTogether ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                        <Text>Team Together</Text>
+                        <Text>{getTranslation('match.teamTogether')}</Text>
                     </View>
                 </View>
 

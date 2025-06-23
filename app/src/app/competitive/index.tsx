@@ -24,8 +24,10 @@ import compact from 'lodash/compact';
 import { useCallback, useEffect, useState } from 'react';
 import { Platform, TouchableOpacity, View } from 'react-native';
 import WebView from 'react-native-webview';
+import { useTranslation } from '@app/helper/translate';
 
 export default function Competitive() {
+    const getTranslation = useTranslation();
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const { matches } = useOngoing({ verified: true });
     const { data: tournamentMatches, isLoading: isLoadingUpcomingMatches } = useTournamentMatches();
@@ -165,8 +167,12 @@ export default function Competitive() {
                 {tournamentsEnabled && (
                     <View className="gap-2">
                         <View className="flex-row justify-between items-center px-4">
-                            <Text variant="header-lg">Featured Tournaments</Text>
-                            <Link href="/competitive/tournaments">View All</Link>
+                        <Text variant="header-lg">
+                            {getTranslation('home.featuredTournaments')}
+                        </Text>
+                            <Link href="/competitive/tournaments">
+                                {getTranslation('home.viewAll')}
+                            </Link>
                         </View>
 
                         <FlatList
@@ -186,7 +192,7 @@ export default function Competitive() {
                 {tournamentsEnabled && (
                     <View className="gap-2">
                         <Text className="px-4" variant="header-lg">
-                            Upcoming Tournament Matches
+                            {getTranslation('competitive.upcomingMatches.title')}
                         </Text>
 
                         <FlatList
@@ -207,7 +213,13 @@ export default function Competitive() {
                             contentContainerStyle="gap-2.5 px-4"
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            ListEmptyComponent={<Text>No upcoming matches right now. Check back later!</Text>}
+                            ListEmptyComponent={
+                                <Text>
+                                    {getTranslation(
+                                        'competitive.upcomingMatches.empty'
+                                    )}
+                                </Text>
+                            }
                         />
                     </View>
                 )}
@@ -215,7 +227,11 @@ export default function Competitive() {
                 {liveTwitch && (
                     <View className="px-4 gap-3">
                         <View className="flex-row justify-between items-center">
-                            <Text variant="header-lg">Twitch Stream - {liveTwitch.user_name}</Text>
+                            <Text variant="header-lg">
+                                {getTranslation('competitive.twitchStream.title', {
+                                    user: liveTwitch.user_name,
+                                })}
+                            </Text>
                             <Tag leftComponent={<View className="w-2 h-2 rounded-full bg-red-600" />}>{liveTwitch.viewer_count.toString()}</Tag>
                         </View>
 

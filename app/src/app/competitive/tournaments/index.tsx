@@ -100,7 +100,7 @@ export default function TournamentsList() {
                     title: getTranslation('tournaments.title'),
                     headerRight: () => (
                         <Button size="small" href="/competitive/tournaments/all">
-                            View All
+                            {getTranslation('home.viewAll')}
                         </Button>
                     ),
                 }}

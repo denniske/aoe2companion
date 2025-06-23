@@ -10,6 +10,12 @@
   "home.followedPlayers": "Followed Players",
   "home.findPlayer": "Find Player",
 
+  "home.current": "Current",
+  "home.mostRecent": "Most Recent",
+  "home.favoriteBuildOrders": "Favorite Build Orders",
+  "home.featuredTournaments": "Featured Tournaments",
+  "home.viewAll": "View All",
+
   "matches.findPlayer": "Find Player",
 
   "main.title": "Me",
@@ -245,6 +251,14 @@
   "lobbies.datausagewarning": "Only use with WiFi.",
   "lobbies.datausagewarning2": "Only use with WiFi. Data usage: {usage} MB",
 
+  "competitive.activeGames.title": "Active Competitive Games",
+  "competitive.activeGames.empty": "No active games.",
+
+  "competitive.upcomingMatches.title": "Upcoming Tournament Matches",
+  "competitive.upcomingMatches.empty": "No upcoming matches right now. Check back later!",
+
+  "competitive.twitchStream.title": "Twitch Stream - {user}",
+
   "ongoing.title": "Ongoing Matches",
   "ongoing.description": "View live matches from the players you follow! Click on a row to show player list.",
   "ongoing.emptydescription": "There are currently no live matches from your followed players. Follow some more players or check back soon!",
@@ -268,6 +282,10 @@
   "search.show": "Show",
   "search.heading.name": "Name",
   "search.heading.games": "Games",
+
+  "search.findmyaccount.title": "Find My Account",
+  "search.findmyaccount.description": "Enter your AoE username to track your games",
+  "search.findmyaccount.action": "Choose",
 
   "privacy.title": "Privacy",
 
@@ -416,6 +434,10 @@
   "feed.following.yplayingnow": "playing now",
 
   "match.versus": "VS",
+  "match.gameMode": "Game Mode",
+  "match.teamSettings": "Team Settings",
+  "match.lockTeams": "Lock Teams",
+  "match.teamTogether": "Team Together",
 
   "playerlist.heading.name": "Name",
   "playerlist.heading.games": "Games",
@@ -472,6 +494,10 @@
   "tournaments.showmatch": "Showmatch",
   "tournaments.results": "Results",
   "tournaments.fullschedule": "Full Schedule",
+  "tournaments.schedulenotavailable": "Schedule not available",
+
+  "notfound.title": "Not Found",
+  "notfound.home": "Go Home",
 
   "checkbox.active": "Active",
   "checkbox.inactive": "Inactive",

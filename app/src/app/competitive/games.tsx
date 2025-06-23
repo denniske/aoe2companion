@@ -10,20 +10,28 @@ import compact from 'lodash/compact';
 import groupBy from 'lodash/groupBy';
 import React, { Fragment } from 'react';
 import { View } from 'react-native';
+import { useTranslation } from '@app/helper/translate';
 
 export default function OngoingMatchesPage() {
+    const getTranslation = useTranslation();
     const { matches, isLoading } = useOngoing({ verified: true });
 
     return (
         <>
-            <Stack.Screen options={{ title: 'Active Competitive Games' }} />
+            <Stack.Screen
+                options={{ title: getTranslation('competitive.activeGames.title') }}
+            />
 
             <FlatList
                 refreshControl={<RefreshControlThemed refreshing={isLoading} />}
                 refreshing={isLoading}
                 className="flex-1"
                 contentContainerStyle="p-4 gap-2"
-                ListEmptyComponent={isLoading ? null : <Text>No active games.</Text>}
+                ListEmptyComponent={
+                    isLoading ? null : (
+                        <Text>{getTranslation('competitive.activeGames.empty')}</Text>
+                    )
+                }
                 data={matches}
                 renderItem={({ item: match }) => {
                     const highlightedUsers = match.players.filter(p => p.verified).map(p => p.profileId);
