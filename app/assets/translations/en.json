@@ -16,7 +16,13 @@
     "home.featuredTournaments": "Featured Tournaments",
     "home.viewAll": "View All",
 
+    "matches.search.title": "Find Player",
+
+    "matches.follow.title": "Follow Player",
+
     "matches.findPlayer": "Find Player",
+    "matches.liveandrecentmatches": "Live and Recent Matches",
+    "matches.viewlobbies": "View Lobbies",
 
     "main.title": "Me",
     "main.heading.profile": "Profile",
@@ -33,12 +39,13 @@
     "main.stats.heading.won": "Won",
     "main.stats.showmore": "Show more",
     "main.stats.thelastmatches": "The last {matches} matches:",
-    "main.stats.nomatches": "No matches yet for ",
+    "main.stats.nomatches": "No matches yet.",
     "main.stats.footer.note": "based on matches with known result",
     "main.stats.duration.lessThan5Minutes": "< 5 min",
     "main.stats.duration.lessThan30Minutes": "5 - 30 min",
     "main.stats.duration.lessThan60Minutes": "30 - 60 min",
     "main.stats.duration.greaterThan60Minutes": "> 60 min",
+    "main.profile.noleaderboarddata": "No leaderboard data yet.",
     "main.profile.heading.board": "Board",
     "main.profile.heading.rank": "Rank",
     "main.profile.heading.rating": "Rating",
@@ -58,6 +65,7 @@
     "main.profile.unlink.note": "Do you really want to unlink your steam account?",
     "main.profile.unlink.action.cancel": "Cancel",
     "main.profile.unlink.action.reset": "Unlink",
+    "main.profile.steamfamilysharing": "Steam Family Sharing",
     "main.matches.nomatches": "No matches.",
 
     "enum.slottype.player": "Player",

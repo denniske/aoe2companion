@@ -10,10 +10,11 @@ import { useUnfollowMutation } from '@app/mutations/unfollow';
 import { useTranslation } from '@app/helper/translate';
 
 export default function Follow() {
+    const getTranslation = useTranslation();
     const navigation = useNavigation();
 
     useEffect(() => {
-        navigation.setOptions({ title: 'Follow Player' });
+        navigation.setOptions({ title: getTranslation('matches.follow.title') });
     }, [navigation]);
 
     return (

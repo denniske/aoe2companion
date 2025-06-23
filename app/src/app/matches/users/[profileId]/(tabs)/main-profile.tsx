@@ -32,9 +32,8 @@ export default function MainProfile(props: any) {
 
     const { data: profile, refetch, isRefetching } = useWithRefetching(useProfile(profileId));
 
-    const myParams = useGlobalSearchParams();
-    const myParams2 = useLocalSearchParams();
-
+    // const myParams = useGlobalSearchParams();
+    // const myParams2 = useLocalSearchParams();
     // console.log('PROFILE', props, myParams, myParams2);
     // console.log('PROFILE', profile);
 
@@ -97,7 +96,7 @@ export default function MainProfile(props: any) {
                                 if (profile === null)
                                     return (
                                         <View style={styles.container}>
-                                            <MyText>No leaderboard data yet.</MyText>
+                                            <MyText>{getTranslation('main.profile.noleaderboarddata')}</MyText>
                                         </View>
                                     );
                                 return <Profile data={profile} profileId={profileId} ready={profile != null && rating != null} />;

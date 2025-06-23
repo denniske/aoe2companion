@@ -117,8 +117,8 @@ export default function MatchesPage() {
             </View>
 
             <View className="flex-row justify-between items-center px-4">
-                <Text variant="header-lg">Live and Recent Matches</Text>
-                <Link href="/matches/live">View Lobbies</Link>
+                <Text variant="header-lg">{getTranslation('matches.liveandrecentmatches')}</Text>
+                <Link href="/matches/live">{getTranslation('matches.viewlobbies')}</Link>
             </View>
 
             {error ? (

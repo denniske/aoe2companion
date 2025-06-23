@@ -49,17 +49,18 @@ export default function MainStats() {
     const statsAlly = cachedData?.allies;
     const statsOpponent = cachedData?.opponents;
 
-    const hasStats = cachedData != null;
+    const statsLoaded = cachedData != null;
+    const hasStats = statsCiv?.length || statsMap?.length || statsAlly?.length || statsOpponent?.length;
 
     const list = [
         { type: 'stats-header' as const },
         ...(statsAlly?.length !== 0 ? [{ type: 'header' as const, title: getTranslation('main.stats.heading.ally') }] : []),
         ...(statsAlly?.map((row) => ({ type: 'ally' as const, data: row })) ?? Array(8).fill({ type: 'ally' as const, data: null })),
-        { type: 'header' as const, title: getTranslation('main.stats.heading.opponent') },
+        ...(statsOpponent?.length !== 0 ? [{ type: 'header' as const, title: getTranslation('main.stats.heading.opponent') }] : []),
         ...(statsOpponent?.map((row) => ({ type: 'opponent' as const, data: row })) ?? Array(8).fill({ type: 'opponent' as const, data: null })),
-        { type: 'header' as const, title: getTranslation('main.stats.heading.civ') },
+        ...(statsCiv?.length !== 0 ? [{ type: 'header' as const, title: getTranslation('main.stats.heading.civ') }] : []),
         ...(statsCiv?.map((row) => ({ type: 'civ' as const, data: row })) ?? Array(8).fill({ type: 'civ' as const, data: null })),
-        { type: 'header' as const, title: getTranslation('main.stats.heading.map') },
+        ...(statsMap?.length !== 0 ? [{ type: 'header' as const, title: getTranslation('main.stats.heading.map') }] : []),
         ...(statsMap?.map((row) => ({ type: 'map' as const, data: row })) ?? Array(8).fill({ type: 'map' as const, data: null })),
     ];
 
@@ -105,11 +106,12 @@ export default function MainStats() {
                                                 onLeaderboardIdChange={(x) => setLeaderboardId(x ?? undefined)}
                                             />
                                         </View>
-                                        <TextLoader ready={hasStats} style={styles.info}>
-                                            {statsMap && statsMap.length === 0
-                                                ? getTranslation('main.stats.nomatches') + leaderboardTitle
-                                                : 'Stats for ' + leaderboardTitle}
-                                        </TextLoader>
+                                        {
+                                            statsLoaded && !hasStats &&
+                                            <MyText style={styles.info}>
+                                                {getTranslation('main.stats.nomatches')}
+                                            </MyText>
+                                        }
                                     </View>
                                 );
                             case 'header':
@@ -147,7 +149,6 @@ const useStyles = createStylesheet((theme) =>
             flexDirection: 'row',
             alignItems: 'center',
             paddingRight: 20,
-            marginBottom: 20,
             zIndex: 100,
         },
         list: {
