@@ -436,7 +436,7 @@ export default function LeaderboardPage() {
         <View style={styles.container2}>
             <Stack.Screen
                 options={{
-                    headerTitle: () => <HeaderTitle title="Leaderboards" />,
+                    title: getTranslation('leaderboard.title'),
                 }}
             />
 
