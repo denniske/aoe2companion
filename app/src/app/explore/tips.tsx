@@ -282,7 +282,7 @@ export default function TipsPage() {
 
     return (
         <View style={styles.container}>
-            <Stack.Screen options={{ title: 'Tips' }} />
+            <Stack.Screen options={{ title: getTranslation('tips.title') }} />
             <View style={styles.showcaseContainer}>
                 <View style={styles.showcaseInner}>
                     <Image

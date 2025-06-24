@@ -150,7 +150,7 @@ export default function LivePage() {
     const navigation = useNavigation();
 
     useEffect(() => {
-        navigation.setOptions({ title: 'Lobbies' });
+        navigation.setOptions({ title: getTranslation('lobbies.title') });
     }, [navigation]);
 
     const styles = useStyles();

@@ -96,7 +96,7 @@ export default function Competitive() {
             <Stack.Screen
                 options={{
                     animation: 'none',
-                    title: 'Competitive',
+                    title: getTranslation('competitive.title'),
                 }}
             />
             {selectedMatch && (

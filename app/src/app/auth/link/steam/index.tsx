@@ -30,9 +30,9 @@ export default function AuthLinkSteam() {
         <View>
             <Stack.Screen options={{
                 animation: 'none',
-                title: 'Account',
+                title: getTranslation('account.title'),
                 headerShown: true,
-                header: Header
+                header: Header as any
             }} />
 
             <View className="flex w-full pt-20 items-center justify-center">

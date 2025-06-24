@@ -8,7 +8,7 @@ import { useTranslation } from '@app/helper/translate';
 
 export default function PrivacyPage() {
     const getTranslation = useTranslation();
-    const htmlContent = privacyHtmlEn.replace('{APP}', Constants.expoConfig?.scheme || '');
+    const htmlContent = privacyHtmlEn.replace('{APP}', Constants.expoConfig?.scheme as string || '');
     return (
         <>
             <Stack.Screen options={{ title: getTranslation('privacy.title') }} />

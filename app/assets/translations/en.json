@@ -310,15 +310,13 @@
     "lobbies.datausagewarning": "Only use with WiFi.",
     "lobbies.datausagewarning2": "Only use with WiFi. Data usage: {usage} MB",
 
+    "competitive.title": "Competitive",
     "competitive.onlineVerifiedPlayers.title": "Online Verified Players",
     "competitive.onlineVerifiedPlayers.viewGames": "View Games",
-
     "competitive.activeGames.title": "Active Competitive Games",
     "competitive.activeGames.empty": "No active games.",
-
     "competitive.upcomingMatches.title": "Upcoming Tournament Matches",
     "competitive.upcomingMatches.empty": "No upcoming matches right now. Check back later!",
-
     "competitive.twitchStream.title": "Twitch Stream - {user}",
 
     "ongoing.title": "Ongoing Matches",
