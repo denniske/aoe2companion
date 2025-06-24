@@ -1,16 +1,12 @@
 import { FlatList } from '@app/components/flat-list';
 import { AnimatedValueText } from '@app/view/components/animated-value-text';
-import { CountryImageForDropDown, CountryImageLoader, SpecialImageForDropDown } from '@app/view/components/country-image';
+import { CountryImageLoader } from '@app/view/components/country-image';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import { MyText } from '@app/view/components/my-text';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { countriesDistinct, Country } from '@nex/data';
-import { appConfig } from '@nex/dataset';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useIsFocused } from '@react-navigation/native';
 import { router, Stack } from 'expo-router';
-import { useColorScheme } from 'nativewind';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     Animated,
@@ -28,18 +24,15 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fetchLeaderboard, fetchLeaderboards } from '../../api/helper/api';
 import { ILeaderboardPlayer } from '../../api/helper/api.types';
-import { getCountryName } from '../../helper/flags';
 import { getValue } from '../../helper/util-component';
 import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
-import { setLeaderboardCountry, useMutate, useSelector } from '../../redux/reducer';
+import { useSelector } from '../../redux/reducer';
 import { createStylesheet } from '../../theming-new';
 import { leaderboardsByType } from '@app/helper/leaderboard';
 import { useQuery } from '@tanstack/react-query';
-import { useAuthProfileId, useFollowedAndMeProfileIds, useProfileFast } from '@app/queries/all';
-import Picker from '@app/view/components/picker';
-import { HeaderTitle } from '@app/components/header-title';
+import { useAuthProfileId, useFollowedAndMeProfileIds } from '@app/queries/all';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
-import { CountrySelect, countryEarth, isCountry } from '@app/components/select/country-select';
+import { countryEarth, CountrySelect, isCountry } from '@app/components/select/country-select';
 import { useTranslation } from '@app/helper/translate';
 
 const ROW_HEIGHT = 45;
@@ -51,9 +44,6 @@ const pageSize = 100;
 
 export default function LeaderboardPage() {
     const getTranslation = useTranslation();
-    const { colorScheme } = useColorScheme();
-
-    const mutate = useMutate();
 
     const { data: leaderboards } = useQuery({
         queryKey: ['leaderboards'],
@@ -61,9 +51,6 @@ export default function LeaderboardPage() {
     });
 
     const [leaderboardId, setLeaderboardId] = useState<string | null>(null);
-
-    // const [leaderboardType, setLeaderboardType] = useState<'pc' | 'xbox'>('pc');
-    // const leaderboardId = leaderboardsByType(leaderboards ?? [], leaderboardType)?.[0]?.leaderboardId;
 
     useEffect(() => {
         const firstLeaderboardId = leaderboardsByType(leaderboards ?? [], 'pc')?.[0]?.leaderboardId;
@@ -404,33 +391,9 @@ export default function LeaderboardPage() {
         return getTranslation('leaderboard.noplayerfound');
     };
 
-    const [platform, setPlatform] = useState<'pc' | 'xbox'>('pc');
-    const [leaderboardIds, setLeaderboardIds] = useState<string[]>([]);
-
-    const onLeaderboardSelected = async (selLeaderboardId: string) => {
-        if (leaderboardIds.length === 1 && leaderboardIds[0] === selLeaderboardId) {
-            setLeaderboardIds([]);
-        } else {
-            setLeaderboardIds([selLeaderboardId]);
-        }
-    };
-
     if (!leaderboards || !leaderboardId) {
         return <View />;
     }
-
-    const renderLeaderboard = (value: string, selected: boolean) => {
-        return (
-            <View style={styles.col}>
-                <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal' }]}>
-                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationTitle}
-                </MyText>
-                <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal' }]}>
-                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationSubtitle}
-                </MyText>
-            </View>
-        );
-    };
 
     return (
         <View style={styles.container2}>
