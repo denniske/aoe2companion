@@ -45,7 +45,7 @@ export const BuildFilters: React.FC<BuildFiltersProps> = ({ builds, filters: { c
                     label={getTranslation('builds.filters.difficulty')}
                     value={difficulty}
                     options={(['all', 1, 2, 3] as const).map((d) => ({
-                        label: getDifficultyName(d) ?? getTranslation('builds.filters.all'),
+                        label: getDifficultyName(getTranslation, d) ?? getTranslation('builds.filters.all'),
                         value: d,
                     }))}
                 />

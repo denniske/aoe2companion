@@ -142,7 +142,7 @@ export default function BuildDetail() {
             </View>
 
             <View style={styles.tagsContainer}>
-                {difficultyIcon && <Tag icon={difficultyIcon}>{getDifficultyName(build.difficulty)}</Tag>}
+                {difficultyIcon && <Tag icon={difficultyIcon}>{getDifficultyName(getTranslation, build.difficulty)}</Tag>}
                 {build.attributes.map((attribute) => (
                     <Tag key={attribute}>{startCase(attribute)}</Tag>
                 ))}
