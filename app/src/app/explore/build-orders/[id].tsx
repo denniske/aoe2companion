@@ -9,7 +9,7 @@ import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
 import startCase from 'lodash/startCase';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
-import { StyleSheet, View, Linking, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Linking, TouchableOpacity, Platform } from 'react-native';
 
 import { IBuildOrderStandardResources, sortBuildAges, getBuildById } from '../../../../../data/src/helper/builds';
 import { getDifficultyIcon, getDifficultyName } from '../../../helper/difficulties';
@@ -68,9 +68,10 @@ export default function BuildDetail() {
     const uptimes: Record<string, any> = build.uptime;
 
     useEffect(() => {
-        // if (config.preventScreenLockOnGuidePage) {
-            activateKeepAwakeAsync('guide-page');
-        // }
+        if (Platform.OS === 'web') return;
+
+        activateKeepAwakeAsync('guide-page');
+
         return () => {
             // It may happen that we did not activate the keep awake, so we need to catch the error.
             deactivateKeepAwake('guide-page').catch(() => {});
