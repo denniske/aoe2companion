@@ -49,14 +49,15 @@ export async function fetchAssets() {
 
 export async function fetchProfile(params: IFetchProfileParams) {
     // console.log('fetchProfile', params);
+    const { profileId, ...restParams } = params;
     const queryString = makeQueryString(
         decamelizeKeys({
-            ...removeReactQueryParams(params),
-            page: params.page || params.pageParam || 1,
+            ...removeReactQueryParams(restParams),
+            page: restParams.page || restParams.pageParam || 1,
             language: getInternalLanguage(),
         })
     );
-    const url = `${getHost('aoe2companion-data')}api/profiles/${params.profileId}?${queryString}`;
+    const url = `${getHost('aoe2companion-data')}api/profiles/${profileId}?${queryString}`;
     return camelizeKeys(await fetchJson('fetchProfile', url, undefined, dateReviver)) as IProfileResult;
 }
 
@@ -83,13 +84,14 @@ export async function fetchProfiles(params: IFetchProfileParams) {
 // }
 
 export async function fetchMatch(params: IFetchMatchParams) {
+    const { matchId, ...restParams } = params;
     const queryString = makeQueryString(
         decamelizeKeys({
-            ...removeReactQueryParams(params),
+            ...removeReactQueryParams(restParams),
             language: getInternalLanguage(),
         })
     );
-    const url = `${getHost('aoe2companion-data')}api/matches/${params.matchId}?${queryString}`;
+    const url = `${getHost('aoe2companion-data')}api/matches/${matchId}?${queryString}`;
     return camelizeKeys(await fetchJson('fetchMatch', url, undefined, dateReviver)) as IMatchNew;
 }
 
