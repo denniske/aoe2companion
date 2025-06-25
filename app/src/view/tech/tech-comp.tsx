@@ -16,7 +16,7 @@ export function TechIcon({tech: tech} : any) {
     if (techInfo.civ) {
         return (
             <View>
-                <Image style={styles.unitIconBig} source={getTechIcon(tech)}/>
+                <Image style={styles.unitIconBig} source={getTechIcon(tech)} cachePolicy="memory-disk"/>
                 <Image style={styles.unitIconBigBanner} source={getCivIconLocal(techInfo.civ)}/>
             </View>
         );
