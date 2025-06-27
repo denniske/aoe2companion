@@ -118,18 +118,19 @@ export function useTranslations(language?: string) {
     });
 }
 
-export async function loadTranslatonStringsAsync(language: string) {
+export async function loadTranslatonStringsAsync(language: string): Promise<any> {
     if (Platform.OS === 'web' && window.self !== window.parent) {
         console.log('Skipping translation strings loading in iframe');
     }
     else if (language === 'en') {
+        // Translations for 'en' are already loaded at the end of this file from en.json
         console.log('Skipping translation strings loading for EN');
     } else {
         console.log('Loading translation strings for', language);
-        let response = await fetch(
-            `https://i18n.cdn.aoe2companion.com/translations/${language}.json`
-        );
-        return await response.json();
+        // let response = await fetch(
+        //     `https://i18n.cdn.aoe2companion.com/translations/${language}.json`
+        // );
+        // return await response.json();
     }
 }
 
