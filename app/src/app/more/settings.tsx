@@ -116,9 +116,9 @@ export default function SettingsPage() {
     };
 
     const togglePushNotifications = () => {
-        if (Platform.OS === 'web') {
-            return enablePushNotificationsWeb(!account?.notificationsEnabled);
-        }
+        // if (Platform.OS === 'web') {
+        //     return enablePushNotificationsWeb(!account?.notificationsEnabled);
+        // }
         return enablePushNotificationsMobile(!account?.notificationsEnabled);
     };
 
@@ -168,51 +168,66 @@ export default function SettingsPage() {
         <ScrollView contentContainerStyle="min-h-full p-5">
             <Stack.Screen options={{ title: getTranslation('settings.title') }} />
 
-            <View style={styles.row}>
-                <View style={styles.cellName}>
-                    <MyText>{getTranslation('settings.pushnotifications')}</MyText>
-                    <MyText style={styles.small}>{getTranslation('settings.pushnotifications.note')}</MyText>
-                </View>
-                <View style={styles.cellValueCol}>
-                    <View style={styles.row2}>
-                        <CheckboxNew
-                            disabled={loadingPushNotificationEnabled}
-                            checked={account?.notificationsEnabled}
-                            onPress={togglePushNotifications}
-                        />
-                        <View className="flex-1" />
-                        <Button onPress={() => router.navigate('/more/push')}>
-                            {getTranslation('settings.pushnotifications.action.test')}
-                        </Button>
+            {Platform.OS !== 'web' && (
+                <View style={styles.row}>
+                    <View style={styles.cellName}>
+                        <MyText>{getTranslation('settings.pushnotifications')}</MyText>
+                        <MyText style={styles.small}>{getTranslation('settings.pushnotifications.note')}</MyText>
                     </View>
-                    {/*<View style={styles.row2}>*/}
-                    {/*    <CheckboxNew checked={booly} onPress={() => setBooly(!booly)} />*/}
-                    {/*</View>*/}
-                    {/*<View style={styles.row2}>*/}
-                    {/*    /!*<FontAwesome6 name="check" size={14} color={theme.textNoteColor} />*!/*/}
-                    {/*    /!*<FontAwesome5 name="check" size={14} color={theme.textNoteColor} />*!/*/}
-                    {/*    /!*<FontAwesome name="check"  size={14} color={theme.textNoteColor}/>*!/*/}
-                    {/*    /!*<FontAwesome6 name="square-check" size={24} color="black" />*!/*/}
-                    {/*    /!*<FontAwesome6 name="check" size={24} color="black" />*!/*/}
-                    {/*    /!*<Icon icon="check-circle" color="brand" size={20}  />*!/*/}
-                    {/*    /!*<Icon icon="check" color="brand" size={20}  />*!/*/}
-                    {/*    /!*<Icon icon="square" color="brand" size={20}  />*!/*/}
-                    {/*    /!*<Icon icon="square" color="brand" prefix="fass" size={20}  />*!/*/}
-                    {/*    <Icon icon="square-check" color="brand" size={20}  />*/}
-                    {/*    <Icon icon="square-check" color="brand" prefix="fasr" size={20}  />*/}
-                    {/*    <Icon icon="square" color="brand" prefix="fasr" size={20}  />*/}
-                    {/*</View>*/}
-
-
-                    {/*<Button onPress={() => router.navigate('/more/push')}>*/}
-                    {/*    {getTranslation('settings.pushnotifications.action.test')}*/}
-                    {/*</Button>*/}
-
-                    {/*<Button onPress={() => router.navigate('/more/push')} mode="contained" compact uppercase={false} dark>*/}
-                    {/*    {getTranslation('settings.pushnotifications.action.test')}*/}
-                    {/*</Button>*/}
+                    <View style={styles.cellValueCol}>
+                        <View style={styles.row2}>
+                            <CheckboxNew
+                                disabled={loadingPushNotificationEnabled}
+                                checked={account?.notificationsEnabled}
+                                onPress={togglePushNotifications}
+                            />
+                            <View className="flex-1" />
+                            <Button onPress={() => router.navigate('/more/push')}>
+                                {getTranslation('settings.pushnotifications.action.test')}
+                            </Button>
+                        </View>
+                    </View>
                 </View>
-            </View>
+            )}
+
+            {/*<View style={styles.row}>*/}
+            {/*    <View style={styles.cellName}>*/}
+            {/*        <MyText>{getTranslation('settings.pusher')}</MyText>*/}
+            {/*        <MyText style={styles.small}>{getTranslation('settings.pusher.note')}</MyText>*/}
+            {/*    </View>*/}
+            {/*    <View style={styles.cellValueCol}>*/}
+            {/*        <View style={styles.row2}>*/}
+            {/*            <CheckboxNew checked={account?.pusherEnabled} onPress={() => togglePusher()} />*/}
+            {/*        </View>*/}
+            {/*    </View>*/}
+            {/*</View>*/}
+
+            {/*<View style={styles.row2}>*/}
+            {/*    <CheckboxNew checked={booly} onPress={() => setBooly(!booly)} />*/}
+            {/*</View>*/}
+            {/*<View style={styles.row2}>*/}
+            {/*    /!*<FontAwesome6 name="check" size={14} color={theme.textNoteColor} />*!/*/}
+            {/*    /!*<FontAwesome5 name="check" size={14} color={theme.textNoteColor} />*!/*/}
+            {/*    /!*<FontAwesome name="check"  size={14} color={theme.textNoteColor}/>*!/*/}
+            {/*    /!*<FontAwesome6 name="square-check" size={24} color="black" />*!/*/}
+            {/*    /!*<FontAwesome6 name="check" size={24} color="black" />*!/*/}
+            {/*    /!*<Icon icon="check-circle" color="brand" size={20}  />*!/*/}
+            {/*    /!*<Icon icon="check" color="brand" size={20}  />*!/*/}
+            {/*    /!*<Icon icon="square" color="brand" size={20}  />*!/*/}
+            {/*    /!*<Icon icon="square" color="brand" prefix="fass" size={20}  />*!/*/}
+            {/*    <Icon icon="square-check" color="brand" size={20}  />*/}
+            {/*    <Icon icon="square-check" color="brand" prefix="fasr" size={20}  />*/}
+            {/*    <Icon icon="square" color="brand" prefix="fasr" size={20}  />*/}
+            {/*</View>*/}
+
+
+            {/*<Button onPress={() => router.navigate('/more/push')}>*/}
+            {/*    {getTranslation('settings.pushnotifications.action.test')}*/}
+            {/*</Button>*/}
+
+            {/*<Button onPress={() => router.navigate('/more/push')} mode="contained" compact uppercase={false} dark>*/}
+            {/*    {getTranslation('settings.pushnotifications.action.test')}*/}
+            {/*</Button>*/}
 
             {/*<View style={styles.row}>*/}
             {/*    <View style={styles.cellName}>*/}
