@@ -8,6 +8,8 @@ export function TranslationModeOverlay() {
     const keyHeldRef = useRef(false);
 
     useEffect(() => {
+        if (window.self === window.parent) return;
+
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.repeat) return; // Ignore repeated key presses
 
