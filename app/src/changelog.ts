@@ -18,6 +18,12 @@ export interface IChangelog {
 // https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
 
 export const changelog4: IChangelog = {
+    '23.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix navigation to home page using bottom navigation bar (Android)',
+        },
+    ],
     '22.0.0': [
         {
             type: 'minor',
@@ -256,10 +262,16 @@ export const changelog: IChangelog = {
     //         content: 'Link your Patreon account to access exclusive benefits'
     //     },
     // ],
+    // '136.0.0': [
+    //     {
+    //         type: 'feature',
+    //         title: 'UI translation',
+    //     },
+    // ],
     '135.0.0': [
         {
-            type: 'feature',
-            title: 'UI translation',
+            type: 'bugfix',
+            title: 'Fix navigation to home page using bottom navigation bar (Android)',
         },
         {
             type: 'bugfix',
