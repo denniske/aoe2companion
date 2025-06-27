@@ -87,7 +87,7 @@ export function MatchCard(props: MatchCardProps) {
                 <View className="relative">
                     <Image
                         source={getMapImage(match)}
-                        className={`w-14 h-14 ${appConfig.game === 'aoe2de' ? '' : 'border border-gold-500'}`}
+                        className={`w-14 h-14 ${appConfig.game === 'aoe2de' ? '' : 'border border-gold-500 rounded'}`}
                         contentFit="cover"
                     />
                     <View className={`absolute ${appConfig.game === 'aoe2de' ? 'top-0 left-0' : 'top-1 left-1'}`}>
