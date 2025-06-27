@@ -5,9 +5,8 @@ import initSentry from '@app/helper/sentry';
 import {
     getInternalLanguage,
     getTranslationInternal,
-    setTranslations,
+    mmkvDefaultInstance,
     useMMKWTranslationCache,
-    useTranslations,
 } from '@app/helper/translate';
 import { getInternalAoeString } from '@app/helper/translate-data';
 import store from '@app/redux/store';
@@ -24,10 +23,10 @@ import * as Sentry from '@sentry/react-native';
 import { focusManager, QueryClientProvider } from '@tanstack/react-query';
 import * as Device from 'expo-device';
 import * as Notifications from '../service/notifications';
-import { SplashScreen, Stack, useNavigation, useRouter } from 'expo-router';
+import { SplashScreen, Stack, useNavigation, usePathname, useRootNavigationState, useRouter } from 'expo-router';
 import { LiveActivity } from 'modules/widget';
 import { useColorScheme as useTailwindColorScheme } from 'nativewind';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, useColorScheme, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -41,10 +40,12 @@ import { useEventListener } from 'expo';
 import { useAccountData } from '@app/queries/all';
 import { PortalProvider } from '@app/components/portal/portal-host';
 import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/account';
-import { useMMKVString } from 'react-native-mmkv';
 import { queryClient } from '@app/service/query-client';
 import { TranslationModeOverlay } from '@app/components/translation/translation-mode-overlay';
 import { PostMessageTranslationsController } from '@app/components/translation/post-message-translation';
+import { clearLastNotificationResponseAsync, useLastNotificationResponse } from 'expo-notifications';
+import { setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
+import { useMMKV } from 'react-native-mmkv';
 
 initSentry();
 
@@ -137,6 +138,12 @@ const isMobile = ['Android', 'iOS'].includes(Device.osName!);
 // a rerender of the AppWrapper which costs performance.
 function LanguageController() {
     useMMKWTranslationCache();
+
+    return <View />;
+}
+
+function AccountController() {
+    useMMKWAccountCache();
 
     return <View />;
 }
@@ -286,9 +293,10 @@ function AppWrapper() {
                     >
                         <StatusBar barStyle={contentTheme} backgroundColor="transparent" translucent />
 
+                        <StartupNavigationController />
+                        <AccountController />
                         <LanguageController />
                         <LiveActivityController />
-                        {/*<AccountController />*/}
                         {Platform.OS === 'web' && <PostMessageTranslationsController />}
                         {Platform.OS === 'web' && <TranslationModeOverlay />}
 
@@ -305,10 +313,9 @@ function AppWrapper() {
                             {/*<ErrorSnackbar />*/}
                         </View>
 
-
                         <PortalProvider>
                             <>
-                                <Stack screenOptions={{ header: Header }}></Stack>
+                                <Stack screenOptions={{ header: (props) => <Header {...props} /> }}></Stack>
                                 <TabBar></TabBar>
                             </>
                         </PortalProvider>
@@ -317,6 +324,68 @@ function AppWrapper() {
             </ConditionalTester>
         </GestureHandlerRootView>
     );
+}
+
+
+function useIsNavigationReady() {
+    // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
+    const pathname = usePathname();
+
+    const rootNavigationState = useRootNavigationState();
+    return rootNavigationState?.key != null;
+}
+
+const mmkvConfigMainPage = mmkvDefaultInstance.getString('configMainPage');
+console.log('mmkvConfigMainPage', mmkvConfigMainPage);
+
+export function useMMKWAccountCache() {
+    const mmkv = useMMKV();
+    const setConfigMainPage = (value: string) => mmkv.set('configMainPage', value);
+
+    const configMainPage = useAccountData(data => data.mainPage);
+
+    useEffect(() => {
+        if (!configMainPage) {
+            console.log('No configMainPage available, skipping cache update');
+            return;
+        }
+        setConfigMainPage(configMainPage);
+    }, [configMainPage]);
+}
+
+function StartupNavigationController() {
+    const router = useRouter();
+
+    const notificationResponse = useLastNotificationResponse();
+    const configMainPage = useAccountData(data => data.mainPage) ?? mmkvConfigMainPage;
+    const mainPageShown = useSelector((state) => state.mainPageShown);
+    const mutate = useMutate();
+    const isNavigationReady = useIsNavigationReady();
+
+    useEffect(() => {
+        if (!isNavigationReady) return;
+
+        // Prioritize notification handling over main page config
+        if (
+            notificationResponse &&
+            notificationResponse.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER
+        ) {
+            if (router.canDismiss()) router.dismissAll();
+
+            router.replace(`/matches?match_id=${notificationResponse.notification.request.content?.data?.match_id}`);
+            clearLastNotificationResponseAsync();
+            return;
+        }
+
+        if (Platform.OS !== 'web' && configMainPage && mainPageShown !== true) {
+            if (router.canDismiss()) router.dismissAll();
+
+            router.replace(configMainPage);
+            mutate(setMainPageShown(true));
+        }
+    }, [isNavigationReady, notificationResponse, configMainPage, mainPageShown]);
+
+    return <View />;
 }
 
 function HomeLayout() {

@@ -33,7 +33,7 @@ export default function AuthLinkPatreon() {
                 animation: 'none',
                 title: getTranslation('account.title'),
                 headerShown: true,
-                header: Header as any
+                header: (props) => <Header {...props} />
             }} />
 
             <View className="flex w-full pt-20 items-center justify-center">

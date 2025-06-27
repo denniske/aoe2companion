@@ -3,7 +3,7 @@ import { getLanguage } from '@nex/data';
 import { Platform } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '@app/service/query-client';
-import { QUERY_KEY_ACCOUNT, useLanguage } from '@app/queries/all';
+import { QUERY_KEY_ACCOUNT, useAccountData, useLanguage } from '@app/queries/all';
 import { MMKV, useMMKV, useMMKVString } from 'react-native-mmkv';
 import { useEffect } from 'react';
 
@@ -48,7 +48,7 @@ export function getTranslationInternal(key: keyof typeof local001, params?: Reco
 
     // console.log('getTranslation', language, key);
 
-    const mode = defaultInstance.getString('translationMode')
+    const mode = mmkvDefaultInstance.getString('translationMode')
     if (mode === 'key') {
         return key;
     }
@@ -67,12 +67,12 @@ export function getTranslationInternal(key: keyof typeof local001, params?: Reco
     return translated || '';
 }
 
-const defaultInstance = new MMKV();
-const mmkvLanguage = defaultInstance.getString('language');
+export const mmkvDefaultInstance = new MMKV();
+const mmkvLanguage = mmkvDefaultInstance.getString('language');
 console.log('mmkvLanguage', mmkvLanguage);
 
 if (mmkvLanguage) {
-    const translations = defaultInstance.getString('translations');
+    const translations = mmkvDefaultInstance.getString('translations');
     if (translations) {
         try {
             setTranslations(mmkvLanguage, JSON.parse(translations));
@@ -136,12 +136,12 @@ export async function loadTranslatonStringsAsync(language: string): Promise<any>
 
 
 export function useMMKWTranslationCache() {
-    const language = useLanguage();
-    const { data: translations } = useTranslations(language);
-
     const mmkv = useMMKV();
     const setCachedLanguage = (value: string) => mmkv.set('language', value);
     const setCachedTranslations = (value: string) => mmkv.set('translations', value);
+
+    const language = useLanguage();
+    const { data: translations } = useTranslations(language);
 
     useEffect(() => {
         if (!language || !translations) {

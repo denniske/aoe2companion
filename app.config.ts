@@ -2,7 +2,7 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
 
 const app = process.env.APP === 'aoe2' ? {
     folder: 'app',
-    version: '134.0.0',
+    version: '135.0.0',
     name: "AoE II Companion",
     description: "Track your AoE II Definitive Edition matches. This app fetches information about your matches so you are always up-to-date.",
     slug: 'aoe2companion',
@@ -34,7 +34,7 @@ const app = process.env.APP === 'aoe2' ? {
     adaptiveIconBackgroundColor: "#fbebd3",
 } : {
     folder: 'app4',
-    version: '22.0.0',
+    version: '23.0.0',
     name: "AoE IV Companion",
     description: "Track your AoE IV matches. This app fetches information about your matches so you are always up-to-date.",
     slug: 'aoe4companion',

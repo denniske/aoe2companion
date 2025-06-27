@@ -9,7 +9,7 @@ export default function Unmatched() {
     return (
         <View className="flex-1 items-center justify-center">
             <Stack.Screen
-                options={{ title: getTranslation('notfound.title'), headerShown: true, header: Header }}
+                options={{ title: getTranslation('notfound.title'), headerShown: true, header: (props) => <Header {...props} /> }}
             />
 
             <Button href="/">{getTranslation('notfound.home')}</Button>

@@ -50,7 +50,7 @@ export default function AuthConfirm() {
                     animation: 'none',
                     title: getTranslation('account.title'),
                     headerShown: true,
-                    header: Header,
+                    header: (props) => <Header {...props} />,
                 }}
             />
 

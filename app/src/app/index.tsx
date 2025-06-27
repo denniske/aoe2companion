@@ -49,11 +49,6 @@ export default function IndexPage() {
     const router = useRouter();
     const { favorites, refetch } = useFavoritedBuilds();
     const { followedIds, refetch: refetchTournament } = useFollowedTournaments();
-    const configMainPage = useAccountData(data => data.mainPage);
-    const mainPageShown = useSelector((state) => state.mainPageShown);
-    // const rootNavigation = useRootNavigationState();
-    // const isNavigationReady = rootNavigation?.key != null;
-    // const mutate = useMutate();
 
     useFocusEffect(
         useCallback(() => {
@@ -61,21 +56,6 @@ export default function IndexPage() {
             refetchTournament();
         }, [])
     );
-
-    const response = Notifications.useLastNotificationResponse();
-    useEffect(() => {
-        if (response && response.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
-            router.navigate(`/matches?match_id=${response.notification.request.content?.data?.match_id}`);
-        }
-    }, [response]);
-
-    // useEffect(() => {
-    //     if (Platform.OS !== 'web' && isNavigationReady && configMainPage && mainPageShown !== true) {
-    //         router.navigate(configMainPage);
-    //         mutate(setMainPageShown(true));
-    //     }
-    // }, [isNavigationReady]);
-
 
     // useEffect(() => {
     //     // setTimeout(() => openMatch(382667281), 1000); // some water

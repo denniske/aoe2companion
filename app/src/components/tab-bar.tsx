@@ -4,7 +4,7 @@ import { IconName } from '@fortawesome/fontawesome-svg-core';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useColorScheme } from 'nativewind';
 import React, { useEffect, useRef } from 'react';
-import { Animated, ColorValue, Platform, Pressable, View } from 'react-native';
+import { Animated, Platform, Pressable, View } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Button } from './button';
@@ -12,10 +12,8 @@ import { Icon } from './icon';
 import { Text } from './text';
 import { usePathname, useRootNavigationState, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { setMainPageShown, useMutate, useMutateScroll, useScrollPosition, useSelector } from '@app/redux/reducer';
-import { useAccountData } from '@app/queries/all';
+import { useMutateScroll, useScrollPosition } from '@app/redux/reducer';
 import { useTranslation } from '@app/helper/translate';
-
 
 function useCurrentTabName() {
     // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
@@ -40,45 +38,24 @@ function useCurrentTabName() {
 
     return name;
 }
-
-function useIsNavigationReady() {
-    // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
-    const pathname = usePathname();
-
-    const rootNavigationState = useRootNavigationState();
-    return rootNavigationState?.key != null;
-}
-
 export const TabBar: React.FC = ({}) => {
     const getTranslation = useTranslation();
     const insets = useSafeAreaInsets();
     const { bottom } = insets;
     const router = useRouter();
     const routeName = useCurrentTabName();
-    const isNavigationReady = useIsNavigationReady();
     const shadow = tw.style('shadow-blue-50 dark:shadow-black', Platform.OS === 'web' && 'shadow-2xl');
     const { colorScheme } = useColorScheme();
     const gradient =
         colorScheme === 'dark'
-            ? [tw.color('blue-950/0') ?? 'black', tw.color('blue-950/90') ?? 'black'] as const
-            : [tw.color('gold-50/0') ?? 'white', tw.color('gold-50/90') ?? 'white'] as const;
+            ? ([tw.color('blue-950/0') ?? 'black', tw.color('blue-950/90') ?? 'black'] as const)
+            : ([tw.color('gold-50/0') ?? 'white', tw.color('gold-50/90') ?? 'white'] as const);
 
     const scrollPosition = useScrollPosition();
     const { setScrollPosition, setScrollToTop } = useMutateScroll();
 
     const showTabBar = scrollPosition === 0;
     const opacity = useRef(new Animated.Value(1)).current;
-
-    const configMainPage = useAccountData(data => data.mainPage);
-    const mainPageShown = useSelector((state) => state.mainPageShown);
-    const mutate = useMutate();
-
-    useEffect(() => {
-        if (Platform.OS !== 'web' && isNavigationReady && configMainPage && mainPageShown !== true) {
-            router.navigate(configMainPage);
-            mutate(setMainPageShown(true));
-        }
-    }, [isNavigationReady]);
 
     useEffect(() => {
         const toValue = showTabBar ? 1 : 0;
