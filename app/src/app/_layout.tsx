@@ -43,9 +43,9 @@ import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/
 import { queryClient } from '@app/service/query-client';
 import { TranslationModeOverlay } from '@app/components/translation/translation-mode-overlay';
 import { PostMessageTranslationsController } from '@app/components/translation/post-message-translation';
-import { clearLastNotificationResponseAsync, useLastNotificationResponse } from 'expo-notifications';
 import { setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
 import { useMMKV } from 'react-native-mmkv';
+import { clearLastNotificationResponseAsync, useLastNotificationResponse } from '@app/service/notifications';
 
 initSentry();
 

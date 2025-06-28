@@ -2,19 +2,29 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { MyText } from '@app/view/components/my-text';
 import Constants from 'expo-constants';
-import * as Notifications from '../../service/notifications';
 import { Button } from '@app/components/button';
 import { maskAccountId, maskToken } from '../../service/push';
-import { useSelector } from '../../redux/reducer';
 import Space from '@app/view/components/space';
 import { createStylesheet } from '../../theming-new';
 import { sendTestPushNotificationWeb } from '../../api/following';
 import { initPusher } from '../../helper/pusher';
-import { Stack, router } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import * as Device from 'expo-device';
 import { useAccountData } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
+import {
+    addNotificationReceivedListener,
+    AndroidImportance,
+    DEFAULT_ACTION_IDENTIFIER,
+    EventSubscription,
+    getExpoPushTokenAsync,
+    getPermissionsAsync,
+    Notification,
+    requestPermissionsAsync,
+    setNotificationChannelAsync,
+    useLastNotificationResponse,
+} from '@app/service/notifications';
 
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
 async function sendTestPushNotification(expoPushToken: string) {
@@ -42,9 +52,9 @@ export default function PushPage() {
     const styles = useStyles();
     const [messages, setMessages] = useState<string[]>([]);
     const [pushToken, setPushToken] = useState<string>();
-    const [notification, setNotification] = useState<Notifications.Notification>();
-    const notificationListener = useRef<any>();
-    const lastNotificationResponse = Notifications.useLastNotificationResponse();
+    const [notification, setNotification] = useState<Notification>();
+    const notificationListener = useRef<EventSubscription>(undefined);
+    const lastNotificationResponse = useLastNotificationResponse();
     const accountId = useAccountData((state) => state.accountId);
 
     const log = (...message: any) => {
@@ -55,7 +65,7 @@ export default function PushPage() {
     const registerForPushNotificationsAsync = async () => {
         let token;
         if (Device.isDevice) {
-            // const settings = await Notifications.getPermissionsAsync();
+            // const settings = await getPermissionsAsync();
             // let newStatus = settings.granted || settings.ios?.status === IosAuthorizationStatus.PROVISIONAL;
             // log('newPermission', newStatus);
             // const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
@@ -71,10 +81,10 @@ export default function PushPage() {
             //     return;
             // }
 
-            const { status: existingStatus } = await Notifications.getPermissionsAsync();
+            const { status: existingStatus } = await getPermissionsAsync();
             let finalStatus = existingStatus;
             if (existingStatus !== 'granted') {
-                const { status } = await Notifications.requestPermissionsAsync();
+                const { status } = await requestPermissionsAsync();
                 finalStatus = status;
             }
             if (finalStatus !== 'granted') {
@@ -83,24 +93,22 @@ export default function PushPage() {
             }
 
             // throw "Deliberate Error!";
-            const projectId =
-                Constants?.expoConfig?.extra?.eas?.projectId ??
-                Constants?.easConfig?.projectId;
+            const projectId = Constants?.expoConfig?.extra?.eas?.projectId ?? Constants?.easConfig?.projectId;
             if (!projectId) {
                 throw new Error('Project ID not found');
             }
             log('projectId: ', projectId);
             token = (
-                await Notifications.getExpoPushTokenAsync({
+                await getExpoPushTokenAsync({
                     projectId,
                 })
             ).data;
             log(maskToken(token));
 
             if (Platform.OS === 'android') {
-                await Notifications.setNotificationChannelAsync('default', {
+                await setNotificationChannelAsync('default', {
                     name: 'default',
-                    importance: Notifications.AndroidImportance.MAX,
+                    importance: AndroidImportance.MAX,
                     vibrationPattern: [0, 250, 250, 250],
                     lightColor: '#FF231F7C',
                 });
@@ -133,7 +141,7 @@ export default function PushPage() {
 
         try {
             // This listener is fired whenever a notification is received while the app is foregrounded
-            notificationListener.current = Notifications.addNotificationReceivedListener((notification2) => {
+            notificationListener.current = addNotificationReceivedListener((notification2) => {
                 log('notificationListener (PUSH)', notification2);
                 setNotification(notification2);
             });
@@ -143,7 +151,7 @@ export default function PushPage() {
 
         return () => {
             try {
-                Notifications.removeNotificationSubscription(notificationListener.current);
+                notificationListener.current?.remove();
             } catch (e) {
                 log(e);
             }
@@ -152,7 +160,7 @@ export default function PushPage() {
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
     useEffect(() => {
-        if (lastNotificationResponse && lastNotificationResponse.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
+        if (lastNotificationResponse && lastNotificationResponse.actionIdentifier === DEFAULT_ACTION_IDENTIFIER) {
             log('responseListener (PUSH)', lastNotificationResponse.notification);
             setNotification(lastNotificationResponse.notification);
         }
@@ -203,7 +211,7 @@ export default function PushPage() {
                             router.navigate(`/matches?match_id${'xxx' + new Date().getTime()}`);
                         }}
                     >
-                        {getTranslation('push.action.sendtestnotification')} Direct
+                        {getTranslation('push.action.sendtestnotification') + ' Direct'}
                     </Button>
                 </>
             )}
