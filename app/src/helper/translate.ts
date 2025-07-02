@@ -127,10 +127,12 @@ export async function loadTranslatonStringsAsync(language: string): Promise<any>
         console.log('Skipping translation strings loading for EN');
     } else {
         console.log('Loading translation strings for', language);
-        // let response = await fetch(
-        //     `https://i18n.cdn.aoe2companion.com/translations/${language}.json`
-        // );
-        // return await response.json();
+        if (language === 'es') {
+            let response = await fetch(
+                `https://i18n.cdn.aoe2companion.com/translations/${language}.json`
+            );
+            return await response.json();
+        }
     }
 }
 
