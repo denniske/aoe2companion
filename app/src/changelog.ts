@@ -275,6 +275,10 @@ export const changelog: IChangelog = {
             author: 'Sihing Mo',
             // author: '[Sihing Mo](https://www.aoe2companion.com/profile/223576)',
         },
+        {
+            type: 'bugfix',
+            title: 'Update some unit armor class names',
+        },
     ],
     '135.0.0': [
         {

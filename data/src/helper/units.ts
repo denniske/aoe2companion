@@ -4216,9 +4216,9 @@ export interface IUnitInfo {
 }
 
 const unitClasses = {
-    0: "unused",
+    0: "unused", // wonders
     1: "infantry",
-    2: "turtleships",
+    2: "heavywarships",
     3: "pierce",
     4: "melee",
     5: "warelephants",
@@ -4243,9 +4243,9 @@ const unitClasses = {
     24: "boars",
     25: "monks",
     26: "castle",
-    27: "spearmen",
+    27: "spearunits",
     28: "cavalryarchers",
-    29: "eaglewarriors",
+    29: "shockinfantry",
     30: "camels",
     31: "antileitis",
     32: "condottieros",
@@ -4253,10 +4253,10 @@ const unitClasses = {
     34: "fishingships",
     35: "mamelukes",
     36: "heroesandkings",
-    37: "hussitewagon",
+    37: "heavysiege",
     38: 'skirmishers',
     39: 'cavalryresistance',
-    40: 'unknown',
+    40: 'houses',
 } as const;
 
 export const attackClasses = [
