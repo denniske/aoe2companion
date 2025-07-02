@@ -283,11 +283,11 @@ function AppWrapper() {
     console.log();
 
     return (
-        <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black` : ``}`}>
+        <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black ${isMobile ? '' : 'py-5'}` : ``}`}>
             <ConditionalTester>
                 <ThemeProvider value={customTheme}>
                     <View
-                        className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full h-[900px] mx-auto my-auto ${isMobile ? '' : 'border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
+                        className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full mx-auto my-auto flex-1 ${isMobile ? '' : 'max-h-[900px] border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
                         style={{ paddingTop: insets.top }}
                         onLayout={onLayoutRootView}
                     >
