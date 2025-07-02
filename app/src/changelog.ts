@@ -272,7 +272,8 @@ export const changelog: IChangelog = {
         {
             type: 'feature',
             title: 'Added Spanish translation for UI',
-            author: '[Sihing Mo](https://www.aoe2companion.com/profile/223576)',
+            author: 'Sihing Mo',
+            // author: '[Sihing Mo](https://www.aoe2companion.com/profile/223576)',
         },
     ],
     '135.0.0': [
