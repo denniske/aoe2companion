@@ -7,13 +7,15 @@ import { openLink } from '../../../helper/url';
 import { useQuery } from '@tanstack/react-query';
 
 interface Props {
-    channel: string;
-    channelUrl: string;
+    channel?: string;
+    channelUrl?: string;
     condensed?: boolean;
 }
 
 export default function TwitchBadge(props: Props) {
     const { channelUrl, channel, condensed } = props;
+
+    if (!channel || !channelUrl) return null;
 
     const { data: playerTwitchLive } = useQuery({
         queryKey: ['twitch-live', channel],

@@ -3,6 +3,7 @@ import {fetchJson} from '../api/util';
 // import * as FileSystem from 'expo-file-system';
 // import {cacheDirectory, getInfoAsync, writeAsStringAsync} from 'expo-file-system';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useQuery } from '@tanstack/react-query';
 
 // export async function downloadOrGetFromCache(remoteURI: string, cacheKey: string) {
 //     const filesystemURI = FileSystem.cacheDirectory + '/'  + cacheKey;
@@ -56,8 +57,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // }
 // const json = await fetchJsonOrGetFromCache('aoe-reference-data', requestUrl, 60);
 
+export const useAoeReferenceData = () =>
+    useQuery({
+        queryKey: ['reference-data'],
+        staleTime: 0,
+        queryFn: fetchAoeReferenceData,
+    });
+
 export async function fetchAoeReferenceData() {
-    // console.log('fetchAoeReferenceData');
+    console.log('fetchAoeReferenceData');
     // await sleep(5000);
 
     try {
@@ -67,7 +75,8 @@ export async function fetchAoeReferenceData() {
         });
         const requestUrl = `https://yaml-to-json.vercel.app/api/convert?${queryString}`;
         const json = await fetchJson('fetchAoeReferenceData', requestUrl);
-        setAoeReferenceData({ players: json });
+        // setAoeReferenceData({ players: json });
+        return json;
     } catch (err) {
 
     }

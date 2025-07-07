@@ -12,6 +12,7 @@ import { Platform, Pressable, TouchableOpacity, View } from 'react-native';
 import { Icon } from '../icon';
 import { Text } from '../text';
 import TwitchBadge from '@app/view/components/badge/twitch-badge';
+import React from 'react';
 
 const playerColors: Record<string, string> = {
     '#405BFF': '#4B4AC8',
@@ -40,8 +41,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
     };
     const playerColor = playerColors[player.colorHex] ?? player.colorHex;
     const { liveTwitchAccounts } = useLiveTwitchAccounts();
-    const verifiedPlayer = getVerifiedPlayer(Number(player.profileId));
-    const twitch = verifiedPlayer && liveTwitchAccounts?.find((twitch) => twitch.user_login === getTwitchChannel(verifiedPlayer));
+    const twitch = player.socialTwitchChannel && liveTwitchAccounts?.find((twitch) => twitch.user_login === player.socialTwitchChannel);
 
     return (
         <View className="flex-row items-center gap-2">
@@ -66,12 +66,12 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
             <Link href={`/matches/users/${player.profileId}?name=${player.name}`} asChild>
                 <TouchableOpacity className="flex-1 flex-row gap-1 items-center" onPress={onClose}>
                     <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1}>
-                        {verifiedPlayer ? verifiedPlayer.name : player.name}
+                        {player.name}
                     </Text>
                     {player.status === 'player' && player.verified && <Icon icon="check-circle" color="brand" size={12} />}
                     {twitch && (
                         <View className="ml-2">
-                            <TwitchBadge channelUrl={twitch.user_login} condensed />
+                            <TwitchBadge channelUrl={player?.socialTwitchChannelUrl} channel={player?.socialTwitchChannel} condensed />
                         </View>
                     )}
                     {player.status === 'player' && !player.verified && player.shared && <Icon icon="family" color="brand" size={12} />}

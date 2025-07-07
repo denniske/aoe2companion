@@ -94,8 +94,6 @@ export default function MatchPage() {
 
     // const player = match.teams.flatMap((team) => team.players).find((p) => p.profileId === user);
     const player = match.teams.flatMap((team) => team.players).find((p) => p.profileId === 1);
-    const verifiedPlayer = getVerifiedPlayer(Number(player?.profileId));
-    const name = verifiedPlayer?.name ?? player?.name;
 
     const { tournament, format } = tournamentMatch ?? { tournament: undefined, format: undefined };
     const freeForAll = isMatchFreeForAll(match);

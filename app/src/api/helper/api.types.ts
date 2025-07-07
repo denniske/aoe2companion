@@ -178,6 +178,7 @@ export interface IProfileResult {
     stats: IStatNew[];
     linkedProfiles: ILinkedProfile[];
 
+    socialLiquipedia?: string;
     socialTwitchChannel?: string;
     socialTwitchChannelUrl?: string;
     socialYoutubeChannelUrl?: string;
@@ -266,6 +267,14 @@ export interface IProfilesResultProfile {
     clan: string
     avatarhash: string
     verified: boolean
+
+    socialLiquipedia?: string;
+    socialTwitchChannel?: string;
+    socialTwitchChannelUrl?: string;
+    socialYoutubeChannelUrl?: string;
+    socialDouyuChannelUrl?: string;
+    socialDiscordInvitationUrl?: string;
+    socialDiscordInvitation?: string;
 }
 
 export interface IProfilesResult {
@@ -351,6 +360,13 @@ export interface IPlayerNew {
     replay?: boolean
     verified: boolean
     shared?: boolean
+    socialLiquipedia?: string;
+    socialTwitchChannel?: string;
+    socialTwitchChannelUrl?: string;
+    socialYoutubeChannelUrl?: string;
+    socialDouyuChannelUrl?: string;
+    socialDiscordInvitationUrl?: string;
+    socialDiscordInvitation?: string;
 }
 
 

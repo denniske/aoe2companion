@@ -76,7 +76,7 @@ export default function MatchesPage() {
 
     const filterAndSortPlayers = (players: IPlayerNew[]) => {
         let filteredPlayers = players.filter(
-            (p) => followedPlayers.filter((f) => f.profileId === p.profileId).length > 0 || p.profileId == authProfileId
+            (p) => (followedPlayers ?? []).filter((f) => f.profileId === p.profileId).length > 0 || p.profileId == authProfileId
         );
         filteredPlayers = orderBy(filteredPlayers, (p) => p.profileId == authProfileId);
         return filteredPlayers;

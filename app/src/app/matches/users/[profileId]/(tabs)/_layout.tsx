@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
-import { Country, getVerifiedPlayer } from '@nex/data';
+import { Country } from '@nex/data';
 import { Text } from '@app/components/text';
 import { useAccount, useAuthProfileId, useProfile, useProfileFast } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
@@ -71,8 +71,7 @@ export function UserMenu({ profile }: UserMenuProps) {
 
     const router = useRouter();
 
-    const verifiedPlayer = getVerifiedPlayer(profileId!);
-    const { data: liquipediaProfile } = useTournamentPlayer(verifiedPlayer?.liquipedia);
+    const { data: liquipediaProfile } = useTournamentPlayer(profile?.socialLiquipedia);
 
     const { data: profileFull } = useProfile(profileId!);
 
@@ -210,7 +209,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                                                 className="flex-row gap-1 items-center"
                                                 onPress={() => navigateToLinkedProfile(linkedProfile.profileId)}
                                             >
-                                                <CountryImage country={verifiedPlayer?.country || linkedProfile.country} />
+                                                <CountryImage country={profileFull.verified ? profileFull?.country || linkedProfile.country : linkedProfile.country} />
                                                 <Text variant="body">{linkedProfile.name}</Text>
                                                 {linkedProfile.verified && (
                                                     <Icon
@@ -285,8 +284,6 @@ type UserPageParams = {
 
 function UserTitle({ profile }: UserMenuProps) {
     const getTranslation = useTranslation();
-    const profileId = profile?.profileId;
-    const verifiedPlayer = profileId ? getVerifiedPlayer(profileId) : null;
 
     const avatarUrl = `https://avatars.akamai.steamstatic.com/${profile?.avatarhash}_full.jpg`;
 
@@ -300,8 +297,8 @@ function UserTitle({ profile }: UserMenuProps) {
             title={profile?.name || ''}
             subtitle={
                 <>
-                    <CountryImage style={{ fontSize: 14 }} country={verifiedPlayer?.country || profile?.country} />
-                    <MyText> {getCountryName((verifiedPlayer?.country || profile.country) as Country)}</MyText>
+                    <CountryImage style={{ fontSize: 14 }} country={profile?.country} />
+                    <MyText> {getCountryName(profile.country as Country)}</MyText>
                     <MyText>{profile.clan ? ', ' + getTranslation('main.profile.clan') + ' ' + profile.clan : ''}</MyText>
                 </>
             }

@@ -36,6 +36,20 @@ export function MatchPopup(props: MatchPopupProps) {
     const verifiedPlayer = getVerifiedPlayer(Number(player?.profileId));
     const name = verifiedPlayer?.name ?? player?.name;
 
+    // const hhhh = tournamentMatches?.find(
+    //     (tournamentMatch) =>
+    //         tournamentMatch.startTime &&
+    //         Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 240 &&
+    //         players.every((player) =>
+    //             tournamentMatch.participants
+    //                 .map((tournamentParticipant) => tournamentParticipant.name?.toLowerCase())
+    //                 .includes(getVerifiedPlayer(player.profileId)?.liquipedia?.toLowerCase()?.replaceAll('_', '') ?? '')
+    //         )
+    // );
+    //
+    // console.log('tournamentMatches', tournamentMatches);
+    // console.log('hhhh', hhhh);
+
     const players = flatten(match?.teams.map((t) => t.players));
     const tournamentMatch = useMemo(
         () =>

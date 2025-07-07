@@ -50,11 +50,9 @@ export default function Competitive() {
     const activePlayers = orderBy(
         compact(
             activePlayerIds.map(({ player, match }) => {
-                const verifiedPlayer = getVerifiedPlayer(player.profileId);
-                const twitch = verifiedPlayer && liveTwitchAccounts?.find((twitch) => twitch.user_login === getTwitchChannel(verifiedPlayer));
+                const twitch = player.socialTwitchChannel && liveTwitchAccounts?.find((twitch) => twitch.user_login === player.socialTwitchChannel);
                 return {
                     ...player,
-                    ...verifiedPlayer,
                     match,
                     isLive: !!twitch,
                     viewerCount: twitch ? twitch.viewer_count : 0,

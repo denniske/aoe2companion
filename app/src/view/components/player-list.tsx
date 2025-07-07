@@ -21,6 +21,7 @@ export interface IPlayerListPlayer {
     name?: string;
     profileId: number;
     steamId?: string;
+    verified?: string;
 }
 
 interface IPlayerProps<PlayerType extends IPlayerListPlayer> {
@@ -103,10 +104,6 @@ function Player<PlayerType extends IPlayerListPlayer>({
         selectedUser!(player);
     };
 
-    const isVerified = isVerifiedPlayer(player.profileId);
-    const verifiedPlayer = getVerifiedPlayer(player.profileId);
-    const name = isVerified && verifiedPlayer?.platforms.rl?.[0] === player.profileId.toString() ? verifiedPlayer?.name : player.name;
-
     if (variant === 'horizontal') {
         return (
             <Card direction="vertical" className="items-center justify-center gap-0 pt-1 pb-2 px-2.5 w-[5.5rem]" style={playerStyle} onPress={onSelect}>
@@ -115,17 +112,17 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 ) : (
                     <CountryImage
                         style={{ textAlign: 'center', fontSize: 24 }}
-                        country={verifiedPlayer ? verifiedPlayer?.country : player.country}
+                        country={player.country}
                         allowFontScaling={false}
                     />
                 )}
-                {name && (
+                {player.name && (
                     <View className="flex-row gap-1 max-w-full items-center">
                         <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
-                            {name}
+                            {player.name}
                         </Text>
                         {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
-                        {!isMe && !hideIcons && player.profileId && isVerified && <Icon color="brand" icon="circle-check" size={12} />}
+                        {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon="circle-check" size={12} />}
                     </View>
                 )}
 
@@ -150,15 +147,15 @@ function Player<PlayerType extends IPlayerListPlayer>({
             {image ? (
                 image(player)
             ) : (
-                <CountryImage style={{ textAlign: 'center', fontSize: 30 }} country={isVerified ? verifiedPlayer?.country : player.country} />
+                <CountryImage style={{ textAlign: 'center', fontSize: 30 }} country={player.country} />
             )}
             <View>
                 <View className="flex-row gap-1 items-center">
                     <Text numberOfLines={1} variant="label">
-                        {name}
+                        {player.name}
                     </Text>
                     {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
-                    {!isMe && !hideIcons && player.profileId && isVerified && <Icon color="brand" icon="circle-check" size={12} />}
+                    {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon="circle-check" size={12} />}
                 </View>
                 {footer ? (
                     footer(player)

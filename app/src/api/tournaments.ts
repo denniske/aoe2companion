@@ -24,6 +24,7 @@ export const useUpcomingTournaments = () =>
     useQuery<Tournament[]>({
         queryKey: ['tournaments'],
         staleTime: 120000,
+        // staleTime: 0,
         queryFn: async () => await liquipedia.aoe.getUpcomingTournaments(appConfig.game === 'aoe2de' ? GameVersion.Age2 : GameVersion.Age4),
         enabled: tournamentsEnabled,
     });
@@ -86,16 +87,20 @@ export const useTournamentPlayerOverview = (id?: string) =>
         enabled: tournamentsEnabled && !!id,
     });
 
-export const useTournamentMatches = (enabled?: boolean) => {
+export const useTournamentMatches = (enabled: boolean = true) => {
     const { data: upcomingTournaments, isLoading: isLoadingTournaments } = useUpcomingTournaments();
     const { data, isLoading, ...query } = useQuery<Match[]>({
         queryKey: ['tournament', 'matches'],
         queryFn: async () => await liquipedia.aoe.getMatches(),
         enabled: tournamentsEnabled && enabled,
+        // staleTime: 0,
         staleTime: 60000,
         refetchOnWindowFocus: true,
     });
     const upcomingTournamentIds = upcomingTournaments?.map((tournament) => encodeURIComponent(tournament.path));
+
+    // console.log('upcomingTournamentIds', upcomingTournamentIds);
+    // console.log('data', data);
 
     return {
         data: data?.filter((match) => upcomingTournamentIds?.includes(encodeURIComponent(match.tournament.path))),

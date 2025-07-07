@@ -34,20 +34,21 @@ export default function OngoingMatchesPage() {
                 }
                 data={matches}
                 renderItem={({ item: match }) => {
-                    const highlightedUsers = match.players.filter(p => p.verified).map(p => p.profileId);
+                    const highlightedUsers = match.players.filter(p => p.verified);
+                    const highlightedUserIds = match.players.filter(p => p.verified).map(p => p.profileId);
                     return (
                         <View className="gap-2">
                             <View className="flex-row items-center flex-wrap" style={{ columnGap: 8 }}>
-                                {highlightedUsers.map((playerId, index) => (
-                                    <Fragment key={playerId.toString()}>
+                                {highlightedUsers.map((player, index) => (
+                                    <Fragment key={player.profileId.toString()}>
                                         {index !== 0 && <Icon prefix="fasr" icon="plus" size={10} />}
-                                        <Text variant="label">{getVerifiedPlayer(playerId)?.name}</Text>
+                                        <Text variant="label">{player?.name}</Text>
                                     </Fragment>
                                 ))}
                             </View>
                             <Match
-                                user={highlightedUsers[0]}
-                                highlightedUsers={highlightedUsers}
+                                user={highlightedUserIds[0]}
+                                highlightedUsers={highlightedUserIds}
                                 match={{
                                     ...match,
                                     teams: Object.entries(groupBy(match.players, 'team')).map(([teamId, players]) => ({

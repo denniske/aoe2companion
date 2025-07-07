@@ -17,6 +17,7 @@ import BottomSheet from '../../bottom-sheet';
 import { MyText } from '../../components/my-text';
 import { TournamentMarkdown } from '../tournament-markdown';
 import { useTranslation } from '@app/helper/translate';
+import { getTwitchChannel } from '@nex/data';
 
 export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; setVisible: (visible: boolean) => void; tournamentPath?: string }> = ({
     match: selectedMatch,
@@ -102,7 +103,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                                 {getTranslation('tournaments.live')}
                             </Text>
 
-                            {twitch && <TwitchBadge channelUrl={twitch} />}
+                            {twitch && <TwitchBadge channelUrl={twitch} channel={getTwitchChannel(twitch)} />}
                         </View>
                     )}
 

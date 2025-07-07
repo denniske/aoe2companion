@@ -128,22 +128,20 @@ interface IProfileProps {
 
 export function ProfileLive({ data }: { data: IPlayerNew }) {
     const styles = useStyles();
-    const verifiedPlayer = data ? getVerifiedPlayer(data?.profileId!) : null;
-
-    const channel = verifiedPlayer ? getTwitchChannel(verifiedPlayer) : '';
+    const { socialTwitchChannel, socialTwitchChannelUrl } = data;
 
     const { data: playerTwitchLive } = useQuery({
-        queryKey: ['twitch-live', channel],
-        queryFn: () => twitchLive(channel),
-        enabled: !!channel,
+        queryKey: ['twitch-live', socialTwitchChannel],
+        queryFn: () => twitchLive(socialTwitchChannel),
+        enabled: !!socialTwitchChannel,
     });
 
-    if (!playerTwitchLive) {
+    if (!playerTwitchLive || !socialTwitchChannel || !socialTwitchChannelUrl) {
         return <MyText />;
     }
 
     return (
-        <MyText style={styles.row} onPress={() => openLink(`https://www.twitch.tv/${channel}`)}>
+        <MyText style={styles.row} onPress={() => openLink(socialTwitchChannelUrl)}>
             {playerTwitchLive?.type === 'live' && (
                 <>
                     <MyText style={{ color: '#e91a16' }}> ● </MyText>

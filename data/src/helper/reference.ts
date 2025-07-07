@@ -84,8 +84,8 @@ export function getVerifiedPlayerIds() {
     return verifiedProfileIds;
 }
 
-export function getTwitchChannel(verifiedPlayer: IReferencePlayer) {
-    return verifiedPlayer?.twitch?.[0]
+export function getTwitchChannel(channel: string) {
+    return channel
         ?.replace('http://', '')
         ?.replace('https://', '')
         ?.replace('www.', '')
@@ -93,30 +93,30 @@ export function getTwitchChannel(verifiedPlayer: IReferencePlayer) {
         ?.replace('/', '');
 }
 
-export function getDiscordInvitationId(verifiedPlayer: IReferencePlayer) {
-    return verifiedPlayer?.discord?.[0]
-        ?.replace('http://', '')
-        ?.replace('https://', '')
-        ?.replace('www.', '')
-        ?.replace('discord.gg/', '')
-        ?.replace('/', '');
-}
-
-// "https://www.youtube.com/user/TheViperAOC"
-
-export function getYoutubePath(verifiedPlayer: IReferencePlayer) {
-    return verifiedPlayer?.youtube?.[0]
-        ?.replace('http://', '')
-        ?.replace('https://', '')
-        ?.replace('www.', '')
-        ?.replace('youtube.com/', '');
-}
-
-export function getDoyouChannel(verifiedPlayer: IReferencePlayer) {
-    return verifiedPlayer?.douyu?.[0]
-        ?.replace('http://', '')
-        ?.replace('https://', '')
-        ?.replace('www.', '')
-        ?.replace('douyu.com', '')
-        ?.replace('/', '');
-}
+// export function getDiscordInvitationId(verifiedPlayer: IReferencePlayer) {
+//     return verifiedPlayer?.discord?.[0]
+//         ?.replace('http://', '')
+//         ?.replace('https://', '')
+//         ?.replace('www.', '')
+//         ?.replace('discord.gg/', '')
+//         ?.replace('/', '');
+// }
+//
+// // "https://www.youtube.com/user/TheViperAOC"
+//
+// export function getYoutubePath(verifiedPlayer: IReferencePlayer) {
+//     return verifiedPlayer?.youtube?.[0]
+//         ?.replace('http://', '')
+//         ?.replace('https://', '')
+//         ?.replace('www.', '')
+//         ?.replace('youtube.com/', '');
+// }
+//
+// export function getDoyouChannel(verifiedPlayer: IReferencePlayer) {
+//     return verifiedPlayer?.douyu?.[0]
+//         ?.replace('http://', '')
+//         ?.replace('https://', '')
+//         ?.replace('www.', '')
+//         ?.replace('douyu.com', '')
+//         ?.replace('/', '');
+// }
