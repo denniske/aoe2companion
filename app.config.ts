@@ -99,7 +99,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
     // new arch scroll up on leaderboard page
     // https://github.com/facebook/react-native/issues/49077
-    newArchEnabled: false,
+    newArchEnabled: false, // react-native-nitro-image, and also see gradle.properties
     experiments: {
         // react-compiler-runtime needs to be installed for android
         // but then android fails with wierd async storage error
