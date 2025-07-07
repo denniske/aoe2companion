@@ -87,6 +87,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
     contentText: {
         fontSize: 11,
+        lineHeight: 14,
     },
     logo: {
         width: 14,

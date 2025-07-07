@@ -20,7 +20,7 @@ import FlatListLoadingIndicator from '../../../../../view/components/flat-list-l
 import { MyText } from '../../../../../view/components/my-text';
 import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
 import TemplatePicker from '../../../../../view/components/template-picker';
-import { useAuthProfileId } from '@app/queries/all';
+import { useAuthProfileId, useProfile } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
@@ -40,6 +40,8 @@ export default function MainMatches() {
 
     const realText = text.trim().length < 3 ? '' : text.trim();
     const debouncedSearch = useDebounce(realText, 600);
+
+    const { data: profile } = useProfile(profileId);
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery({
         queryKey: ['matches', profileId, withMe, debouncedSearch, leaderboardIds],
@@ -125,6 +127,16 @@ export default function MainMatches() {
         if (!isFetchingNextPage) return null;
         return <FlatListLoadingIndicator />;
     };
+
+    if (profile?.sharedHistory === false) {
+        return (
+            <View style={styles.container}>
+                <View style={styles.content}>
+                    <MyText style={styles.header}>{getTranslation('main.matches.sharedhistory.disabled')}</MyText>
+                </View>
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>

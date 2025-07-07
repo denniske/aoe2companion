@@ -71,12 +71,11 @@ export default function SettingsPage() {
             }
 
             saveAccountMutation.mutate({
-                ...account!,
                 notificationsEnabled,
                 pushToken: token,
             });
         } catch (e) {
-            alert(getTranslation('settings.error.pushnotification', { error: e }));
+            alert(getTranslation('settings.error.pushnotification', { error: e as string }));
         }
         setLoadingPushNotificationEnabled(false);
     };
@@ -105,12 +104,11 @@ export default function SettingsPage() {
             }
 
             saveAccountMutation.mutate({
-                ...account!,
                 notificationsEnabled,
                 pushTokenWeb: token,
             });
         } catch (e) {
-            alert(getTranslation('settings.error.pushnotification', { error: e }));
+            alert(getTranslation('settings.error.pushnotification', { error: e as string }));
         }
         setLoadingPushNotificationEnabled(false);
     };
@@ -156,7 +154,6 @@ export default function SettingsPage() {
 
     const onMainPageSelected = async (mainPage: string) => {
         saveAccountMutation.mutate({
-            ...account!,
             mainPage,
         });
         mutate(setMainPageShown(true));

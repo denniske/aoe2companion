@@ -1,14 +1,13 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { getDiscordInvitationId, getDoyouChannel, getTwitchChannel, getVerifiedPlayer, getYoutubePath } from '@nex/data';
+import { getTwitchChannel, getVerifiedPlayer } from '@nex/data';
 import { Image, ImageStyle } from 'expo-image';
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import DiscordBadge from './badge/discord-badge';
 import DouyuBadge from './badge/doyou-badge';
 import TwitchBadge from './badge/twitch-badge';
 import YoutubeBadge from './badge/youtube-badge';
-import { CountryImageLoader } from './country-image';
 import { TextLoader } from './loader/text-loader';
 import { MyText } from './my-text';
 import { twitchLive } from '../../api/following';
@@ -17,13 +16,12 @@ import { getLeaderboardTextColor } from '../../helper/colors';
 import { openLink } from '../../helper/url';
 import { useAppTheme } from '../../theming';
 import { createStylesheet } from '../../theming-new';
-import { TournamentPlayerPopup } from '../tournaments/player-popup';
-import { TournamentMarkdown } from '../tournaments/tournament-markdown';
-import { Icon } from '@app/components/icon';
-import { FontAwesomeIconStyle } from '@fortawesome/react-native-fontawesome';
-import { Link } from 'expo-router';
+import { router } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from '@app/helper/translate';
+import { Button } from '@app/components/button';
+import useAuth from '../../../../data/src/hooks/use-auth';
+import { useAccount } from '@app/queries/all';
 
 interface ILeaderboardRowProps {
     data: IProfileLeaderboardResult;
@@ -123,9 +121,9 @@ function LeaderboardRow2({ data }: ILeaderboardRowProps) {
 // }
 
 interface IProfileProps {
-    data?: IProfileResult | null,
-    ready: boolean,
-    profileId?: number,
+    data?: IProfileResult | null;
+    ready: boolean;
+    profileId?: number;
 }
 
 export function ProfileLive({ data }: { data: IPlayerNew }) {
@@ -133,13 +131,13 @@ export function ProfileLive({ data }: { data: IPlayerNew }) {
     const verifiedPlayer = data ? getVerifiedPlayer(data?.profileId!) : null;
 
     const channel = verifiedPlayer ? getTwitchChannel(verifiedPlayer) : '';
-    
+
     const { data: playerTwitchLive } = useQuery({
         queryKey: ['twitch-live', channel],
         queryFn: () => twitchLive(channel),
         enabled: !!channel,
     });
-    
+
     if (!playerTwitchLive) {
         return <MyText />;
     }
@@ -164,7 +162,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
 
     const styles = useStyles();
 
-    const verifiedPlayer = getVerifiedPlayer(profileId!);
+    // const verifiedPlayer = getVerifiedPlayer(profileId!);
 
     // Set country for use in leaderboard country dropdown
     // useEffect(() => {
@@ -178,73 +176,70 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     // console.log('verifiedPlayer===>', verifiedPlayer);
     // console.log('data?.linkedProfiles===>', data?.linkedProfiles);
 
+    const user = useAuth();
+    const account = useAccount();
+    const loggedIn = user && !user.is_anonymous && account.data;
+
     return (
         <View style={styles.container}>
             <View className="space-y-3">
-                {/*<View style={styles.row}>*/}
-                {/*    <View style={{ flex: 1 }}>*/}
-                {/*        <View style={styles.row}>*/}
-                {/*            <CountryImageLoader country={verifiedPlayer?.country || data?.country} ready={data} />*/}
+                {(data?.socialDiscordInvitationUrl ||
+                    data?.socialYoutubeChannelUrl ||
+                    data?.socialDouyuChannelUrl ||
+                    data?.socialTwitchChannelUrl != null) && (
+                    <View style={styles.row}>
+                        {data?.socialDiscordInvitationUrl && data?.socialDiscordInvitation && (
+                            <View style={styles.badge}>
+                                <DiscordBadge invitationUrl={data?.socialDiscordInvitationUrl} invitation={data?.socialDiscordInvitation} />
+                            </View>
+                        )}
+                        {data?.socialYoutubeChannelUrl && (
+                            <View style={styles.badge}>
+                                <YoutubeBadge channelUrl={data?.socialYoutubeChannelUrl} />
+                            </View>
+                        )}
+                        {data?.socialDouyuChannelUrl && (
+                            <View style={styles.badge}>
+                                <DouyuBadge channelUrl={data?.socialDouyuChannelUrl} />
+                            </View>
+                        )}
+                        {data?.socialTwitchChannelUrl && data?.socialTwitchChannel && (
+                            <View style={styles.badge}>
+                                <TwitchBadge channelUrl={data?.socialTwitchChannelUrl} channel={data?.socialTwitchChannel} />
+                            </View>
+                        )}
+                    </View>
+                )}
 
-                {/*            <TextLoader>{data?.name}</TextLoader>*/}
-                {/*            {data?.verified && (*/}
-                {/*                <Icon icon="check-circle" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />*/}
-                {/*            )}*/}
-                {/*            {!data?.verified && data?.shared && (*/}
-                {/*                <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />*/}
-                {/*            )}*/}
-                {/*            {!!data?.clan && (*/}
-                {/*                <MyText>*/}
-                {/*                    {' '}*/}
-                {/*                    ({getTranslation('main.profile.clan')}: {data?.clan})*/}
-                {/*                </MyText>*/}
-                {/*            )}*/}
-                {/*        </View>*/}
-                {/*        <View style={styles.row}>*/}
-                {/*            <TextLoader ready={data}>*/}
-                {/*                {getTranslation('main.profile.games', { games: data?.games })},{' '}*/}
-                {/*                {getTranslation('main.profile.drops', { drops: data?.drops })} (*/}
-                {/*                {(((data?.drops as any) / (data?.games as any)) * 100).toFixed(2)} %)*/}
-                {/*            </TextLoader>*/}
-                {/*        </View>*/}
-                {/*    </View>*/}
-                {/*    /!*<View style={styles.expanded}/>*!/*/}
-                {/*    <View style={styles.menu}>*/}
-                {/*        {!!data?.profileId && (*/}
-                {/*            <TouchableOpacity style={styles.menuButton} onPress={() => openLink(xboxProfileUrl)}>*/}
-                {/*                <FontAwesome5 style={styles.menuIcon} name="xbox" size={20} />*/}
-                {/*            </TouchableOpacity>*/}
-                {/*        )}*/}
-                {/*        {!!data?.steamId && (*/}
-                {/*            <TouchableOpacity style={styles.menuButton} onPress={() => openLink(steamProfileUrl)}>*/}
-                {/*                <FontAwesome5 style={styles.menuIcon} name="steam" size={20} />*/}
-                {/*            </TouchableOpacity>*/}
-                {/*        )}*/}
-                {/*    </View>*/}
+                {/*<TouchableOpacity className="flex-row gap-3 py-4 items-center" onPress={() => router.push(path)}>*/}
+
+                {/*<View className="space-y-3">*/}
+
+                {/*    <Link href="/profile">*/}
+                {/*        Sign up*/}
+                {/*    </Link> to manage your profile.*/}
+
                 {/*</View>*/}
 
-                {(verifiedPlayer?.discord || verifiedPlayer?.youtube || verifiedPlayer?.douyu || verifiedPlayer?.twitch != null) && (
-                    <View style={styles.row}>
-                        {verifiedPlayer?.discord && (
-                            <View style={styles.badge}>
-                                <DiscordBadge invitationId={getDiscordInvitationId(verifiedPlayer)} />
-                            </View>
-                        )}
-                        {verifiedPlayer?.youtube && (
-                            <View style={styles.badge}>
-                                <YoutubeBadge path={getYoutubePath(verifiedPlayer)} />
-                            </View>
-                        )}
-                        {verifiedPlayer?.douyu && (
-                            <View style={styles.badge}>
-                                <DouyuBadge channel={getDoyouChannel(verifiedPlayer)} />
-                            </View>
-                        )}
-                        {verifiedPlayer?.twitch != null && (
-                            <View style={styles.badge}>
-                                <TwitchBadge channel={getTwitchChannel(verifiedPlayer)} />
-                            </View>
-                        )}
+                {/*<MyText>*/}
+                {/*    <Link href="/more/account" asChild>*/}
+                {/*        <MyText className="text-blue-600 underline">Sign up</MyText>*/}
+                {/*    </Link>*/}
+                {/*    {' '}to manage your data and socials.*/}
+                {/*</MyText>*/}
+
+                {(false || !loggedIn) && (
+                    <View className="space-x-2 flex-row items-center">
+                        {/*<Pressable*/}
+                        {/*    onPress={() => router.push('/more/account')}*/}
+                        {/*    className="bg-blue-600 px-4 py-2 rounded"*/}
+                        {/*>*/}
+                        {/*    <MyText className="text-white text-center">Sign up</MyText>*/}
+                        {/*</Pressable>*/}
+
+                        <Button onPress={() => router.push('/more/account')}>Sign up</Button>
+
+                        <MyText>to manage your profile.</MyText>
                     </View>
                 )}
 
@@ -264,42 +259,6 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 {/*                onClose={() => setShowTournamentPlayer(false)}*/}
                 {/*            />*/}
                 {/*        )}*/}
-                {/*    </View>*/}
-                {/*)}*/}
-
-                {/*{(data?.linkedProfiles?.length || 0) > 0 && (*/}
-                {/*    <View className="space-y-1">*/}
-                {/*        <MyText>Linked</MyText>*/}
-                {/*        {data?.linkedProfiles?.map((linkedProfile) => {*/}
-                {/*            return (*/}
-                {/*                <Link key={linkedProfile?.profileId} href={`/matches/users/${linkedProfile?.profileId}?name=${linkedProfile?.name}`} asChild>*/}
-                {/*                    <TouchableOpacity className="flex-1 flex-row gap-1 items-center">*/}
-                {/*                        <CountryImageLoader country={verifiedPlayer?.country || linkedProfile?.country} ready={linkedProfile} />*/}
-
-                {/*                        <TextLoader>{linkedProfile?.name}</TextLoader>*/}
-                {/*                        {linkedProfile?.verified && (*/}
-                {/*                            <Icon icon="check-circle" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />*/}
-                {/*                        )}*/}
-                {/*                        {!linkedProfile?.verified && linkedProfile?.shared && (*/}
-                {/*                            <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />*/}
-                {/*                        )}*/}
-                {/*                        {!!linkedProfile?.clan && (*/}
-                {/*                            <MyText>*/}
-                {/*                                {' '}*/}
-                {/*                                ({getTranslation('main.profile.clan')}: {linkedProfile?.clan})*/}
-                {/*                            </MyText>*/}
-                {/*                        )}*/}
-                {/*                    </TouchableOpacity>*/}
-                {/*                </Link>*/}
-                {/*            );*/}
-                {/*        })}*/}
-                {/*    </View>*/}
-                {/*)}*/}
-
-                {/*{data?.verified && data?.shared && (*/}
-                {/*    <View className="flex-row items-center space-x-2">*/}
-                {/*        <Icon icon="family" color="brand" size={14} />*/}
-                {/*        <MyText>Steam Family Sharing</MyText>*/}
                 {/*    </View>*/}
                 {/*)}*/}
 
@@ -549,5 +508,5 @@ const useStyles = createStylesheet((theme) =>
         menuIcon: {
             color: theme.textNoteColor,
         },
-    }),
+    })
 );

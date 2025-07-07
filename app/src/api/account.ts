@@ -37,6 +37,13 @@ export interface IAccount {
     patreonTier?: string;
     preferences?: IPrefs;
     followedPlayers: IAccountFollowedPlayer[];
+    authRelicId?: number;
+    twitchChannel?: string;
+    youtubeChannel?: string;
+    youtubeChannelName?: string;
+    discordName?: string;
+    discordInvitation?: string;
+    sharedHistory?: boolean;
 
     email: string;
     emailVerified: boolean;
@@ -140,6 +147,11 @@ interface IResult {
     result: string;
 }
 
+interface IRelicVerifyResult {
+    token: string;
+    verified: boolean;
+}
+
 export const saveAccountThrottled = throttle(saveAccount, 1000);
 
 export type PartialAccountWithPartialPrefs = Omit<Partial<IAccount>, 'preferences'> & {
@@ -221,6 +233,26 @@ export async function unfollowV2(profileIds: number[]): Promise<IResult> {
     });
 }
 
+export async function accountRelicVerify(): Promise<IRelicVerifyResult> {
+    const url = getHost('aoe2companion-api') + `v2/account/relic/verify`;
+
+    const { data: session } = await supabaseClient.auth.getSession();
+
+    const data = {
+
+    };
+
+    return await fetchJson('accountRelicVerify', url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${session?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(data),
+    });
+}
+
 export async function accountUnlinkSteam(): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/unlink/steam`;
 
@@ -261,6 +293,86 @@ export async function accountUnlinkPatreon(): Promise<any> {
     });
 }
 
+export async function accountUnlinkYoutube(): Promise<any> {
+    const url = getHost('aoe2companion-api') + `v2/account/unlink/youtube`;
+
+    const { data: session } = await supabaseClient.auth.getSession();
+
+    const data = {
+
+    };
+
+    return await fetchJson('accountUnlinkYoutube', url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${session?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(data),
+    });
+}
+
+export async function accountUnlinkDiscord(): Promise<any> {
+    const url = getHost('aoe2companion-api') + `v2/account/unlink/discord`;
+
+    const { data: session } = await supabaseClient.auth.getSession();
+
+    const data = {
+
+    };
+
+    return await fetchJson('accountUnlinkDiscord', url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${session?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(data),
+    });
+}
+
+export async function accountUnlinkTwitch(): Promise<any> {
+    const url = getHost('aoe2companion-api') + `v2/account/unlink/twitch`;
+
+    const { data: session } = await supabaseClient.auth.getSession();
+
+    const data = {
+
+    };
+
+    return await fetchJson('accountUnlinkTwitch', url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${session?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(data),
+    });
+}
+
+export async function accountDiscordInvitation(invitation: string): Promise<any> {
+    const url = getHost('aoe2companion-api') + `v2/account/discord/invitation`;
+
+    const { data: session } = await supabaseClient.auth.getSession();
+
+    const data = {
+        invitation,
+    };
+
+    return await fetchJson('accountUnlinkTwitch', url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${session?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    });
+}
+
 export async function authLinkSteam(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/steam?${makeQueryString(params)}`;
 
@@ -280,6 +392,57 @@ export async function authLinkSteam(params: any): Promise<any> {
 
 export async function authLinkPatreon(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/patreon?${makeQueryString(params)}`;
+
+    const { data: session } = await supabaseClient.auth.getSession();
+
+    return await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': `bearer ${session?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(data),
+    });
+}
+
+
+export async function authLinkYoutube(params: any): Promise<any> {
+    const url = getHost('aoe2companion-api') + `auth/link/youtube?${makeQueryString(params)}`;
+
+    const { data: session } = await supabaseClient.auth.getSession();
+
+    return await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': `bearer ${session?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(data),
+    });
+}
+
+
+export async function authLinkDiscord(params: any): Promise<any> {
+    const url = getHost('aoe2companion-api') + `auth/link/discord?${makeQueryString(params)}`;
+
+    const { data: session } = await supabaseClient.auth.getSession();
+
+    return await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': `bearer ${session?.session?.access_token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(data),
+    });
+}
+
+
+export async function authLinkTwitch(params: any): Promise<any> {
+    const url = getHost('aoe2companion-api') + `auth/link/twitch?${makeQueryString(params)}`;
 
     const { data: session } = await supabaseClient.auth.getSession();
 

@@ -102,7 +102,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                                 {getTranslation('tournaments.live')}
                             </Text>
 
-                            {twitch && <TwitchBadge channel={twitch} />}
+                            {twitch && <TwitchBadge channelUrl={twitch} />}
                         </View>
                     )}
 

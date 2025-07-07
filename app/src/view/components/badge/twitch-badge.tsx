@@ -8,11 +8,12 @@ import { useQuery } from '@tanstack/react-query';
 
 interface Props {
     channel: string;
+    channelUrl: string;
     condensed?: boolean;
 }
 
 export default function TwitchBadge(props: Props) {
-    const { channel, condensed } = props;
+    const { channelUrl, channel, condensed } = props;
 
     const { data: playerTwitchLive } = useQuery({
         queryKey: ['twitch-live', channel],
@@ -25,7 +26,7 @@ export default function TwitchBadge(props: Props) {
     }
 
     return (
-        <TouchableOpacity onPress={() => openLink(`https://www.twitch.tv/${channel}`)}>
+        <TouchableOpacity onPress={() => openLink(channelUrl)}>
             <Badge
                 label={!condensed ? 'Twitch' : ''}
                 labelColor="#6441a5"

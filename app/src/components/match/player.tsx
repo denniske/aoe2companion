@@ -71,7 +71,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                     {player.status === 'player' && player.verified && <Icon icon="check-circle" color="brand" size={12} />}
                     {twitch && (
                         <View className="ml-2">
-                            <TwitchBadge channel={twitch.user_login} condensed />
+                            <TwitchBadge channelUrl={twitch.user_login} condensed />
                         </View>
                     )}
                     {player.status === 'player' && !player.verified && player.shared && <Icon icon="family" color="brand" size={12} />}

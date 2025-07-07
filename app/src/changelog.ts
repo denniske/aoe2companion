@@ -276,6 +276,11 @@ export const changelog: IChangelog = {
             // author: '[Sihing Mo](https://www.aoe2companion.com/profile/223576)',
         },
         {
+            type: 'feature',
+            title: 'Account creation',
+            content: 'You can now create an account to save your settings and followed players across devices. You can also link your game account to prove ownership of your profile. You can also link your Patreon account to access exclusive benefits.',
+        },
+        {
             type: 'bugfix',
             title: 'Update some unit armor class names',
         },

@@ -7,16 +7,17 @@ import { openLink } from '../../../helper/url';
 import { useQuery } from '@tanstack/react-query';
 
 interface Props {
-    invitationId?: string;
+    invitation: string;
+    invitationUrl: string;
 }
 
 export default function DiscordBadge(props: Props) {
-    const { invitationId } = props;
+    const { invitationUrl, invitation } = props;
 
     const { data: info } = useQuery({
-        queryKey: ['discord-online', invitationId!],
-        queryFn: () => discordOnline(invitationId!),
-        enabled: !!invitationId && !__DEV__,
+        queryKey: ['discord-online', invitation!],
+        queryFn: () => discordOnline(invitation!),
+        enabled: !!invitation && !__DEV__,
     });
 
     let content = undefined;
@@ -25,7 +26,7 @@ export default function DiscordBadge(props: Props) {
     }
 
     return (
-        <TouchableOpacity onPress={() => openLink(`https://discord.gg/${invitationId}`)}>
+        <TouchableOpacity onPress={() => openLink(invitationUrl)}>
             <Badge
                 label="Discord"
                 labelColor="#6B85CD"

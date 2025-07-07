@@ -16,9 +16,12 @@ export interface IHostService {
 export function getHost(host: Host) {
     const hostService = getService(SERVICE_NAME.HOST_SERVICE) as IHostService;
     const platform = hostService.getPlatform();
-    const dev = false && hostService.getEnvironment() == 'development';
+    const dev = true && hostService.getEnvironment() == 'development';
     const hostIP = Constants.expoConfig?.hostUri?.split(':')[0];
-    const platformHost = Device.isDevice ? hostIP : Platform.select({ios: 'localhost', android: '10.0.2.2'});
+    // console.log('Platform.OS:', Platform.OS);
+    // console.log('Device.isDevice:', Device.isDevice);
+    const platformHost = Platform.OS === 'web' ? 'localhost' :
+        Device.isDevice ? hostIP : Platform.select({ios: 'localhost', android: '10.0.2.2'});
     // console.log('Metro IP via Constants:', hostIP);
 
     switch (host) {

@@ -97,7 +97,7 @@ export function useTranslation() {
         };
     }
 
-    return (key: keyof typeof local001, params?: Record<string, string | number>) => {
+    return (key: keyof typeof local001, params?: Record<string, string | number | undefined>) => {
         let translated = translations && key in translations ? translations[key] : translationsEn?.[key];
         if (translated && params) {
             for (const key in params) {
@@ -125,6 +125,7 @@ export async function loadTranslatonStringsAsync(language: string): Promise<any>
     else if (language === 'en') {
         // Translations for 'en' are already loaded at the end of this file from en.json
         console.log('Skipping translation strings loading for EN');
+        return require('../../assets/translations/en.json');
     } else {
         console.log('Loading translation strings for', language);
         if (language === 'es') {

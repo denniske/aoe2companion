@@ -172,10 +172,18 @@ export interface IProfileResult {
     countryIcon: string;
     verified: boolean;
     shared: boolean;
+    sharedHistory?: boolean;
     leaderboards: IProfileLeaderboardResult[];
     ratings: IProfileRatingsLeaderboard[];
     stats: IStatNew[];
     linkedProfiles: ILinkedProfile[];
+
+    socialTwitchChannel?: string;
+    socialTwitchChannelUrl?: string;
+    socialYoutubeChannelUrl?: string;
+    socialDouyuChannelUrl?: string;
+    socialDiscordInvitationUrl?: string;
+    socialDiscordInvitation?: string;
 }
 
 interface ILinkedProfile {

@@ -8,7 +8,6 @@ import { fetchLeaderboards } from '../../../../../api/helper/api';
 import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
 import { createStylesheet } from '../../../../../theming-new';
 import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
-import { TextLoader } from '../../../../../view/components/loader/text-loader';
 import { MyText } from '../../../../../view/components/my-text';
 import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
 import { StatsHeader, StatsRow } from '../../../../../view/components/stats-rows';
@@ -82,6 +81,16 @@ export default function MainStats() {
         return <View />;
     }
 
+    if (profileWithStats?.sharedHistory === false) {
+        return (
+            <View style={styles.container}>
+                <View style={styles.content}>
+                    <MyText style={styles.header}>{getTranslation('main.matches.sharedhistory.disabled')}</MyText>
+                </View>
+            </View>
+        );
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -133,6 +142,10 @@ const useStyles = createStylesheet((theme) =>
         info: {
             marginBottom: 10,
             marginLeft: 5,
+        },
+        header: {
+            textAlign: 'center',
+            padding: 20,
         },
 
         col: {

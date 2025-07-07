@@ -6,14 +6,14 @@ import {openLink} from "../../../helper/url";
 
 
 interface Props {
-    channel: string;
+    channelUrl: string;
 }
 
 export default function DouyuBadge(props: Props) {
-    const { channel } = props;
+    const { channelUrl } = props;
 
     return (
-        <TouchableOpacity onPress={() => openLink(`https://www.douyu.com/${channel}`)}>
+        <TouchableOpacity onPress={() => openLink(channelUrl)}>
             <Badge
                 label="Douyu"
                 labelColor="#FFFFFF"
