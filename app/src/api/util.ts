@@ -14,11 +14,21 @@ class FetchNotOkError extends Error {
 
 async function fetchAndParseJson(input: RequestInfo, init?: RequestInit, reviver?: any): Promise<any> {
     const response = await fetch(input, init);
-    if (!response.ok) {
-        throw new FetchNotOkError(response.statusText, response.status);
+
+    const contentType = response.headers.get('content-type') ?? '';
+    const isJson = contentType.includes('application/json');
+
+    let body: any = null;
+    if (isJson) {
+        const text = await response.text();
+        body = JSON.parse(text, reviver);
     }
-    const text = await response.text();
-    return JSON.parse(text, reviver);
+
+    if (!response.ok) {
+        throw new FetchNotOkError((body as any).error, response.status);
+    }
+
+    return body;
 }
 
 // Here we implement a retry mechanism for network requests.
@@ -41,6 +51,9 @@ export async function fetchJson(title: string, input: RequestInfo, init?: Reques
 }
 
 function throwAndShowError(e: Error, title: string, input: RequestInfo) {
+
+    // console.log('throwAndShowError', e)
+
     const titlePrefix = (e instanceof FetchNotOkError && e.status === 500) ? 'Server Error' : 'Network Request Failed';
 
     store.dispatch(

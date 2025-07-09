@@ -645,6 +645,8 @@ export interface IFetchLeaderboardParams {
 
 
 export type IAnalysis = {
+    error?: string
+
     guid: string
     version: string
     duration: string

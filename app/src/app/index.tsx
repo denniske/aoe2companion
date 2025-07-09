@@ -16,7 +16,7 @@ import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large
 import * as Notifications from '../service/notifications';
 import { Stack, useFocusEffect, useRootNavigationState, useRouter } from 'expo-router';
 import React, { useCallback, useEffect } from 'react';
-import { Platform, View } from 'react-native';
+import { ActivityIndicator, Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
 import {
     useAccountData,
@@ -68,12 +68,16 @@ export default function IndexPage() {
     // }, [isNavigationReady]);
 
     // const matchId = 384963389; // me trying walls
-    const matchId = 382486559; // nomad with water 4 players
+    // const matchId = 382486559; // nomad with water 4 players
+    // const matchId = 3824865590000; // non existing match to test error handling
+    const matchId = 396138956; // non existing match to test error handling
     // const matchId = 382919732;
 
-    const { data: match } = useWithRefetching(useMatch(matchId));
-    const { data: analysis } = useWithRefetching(useMatchAnalysis(matchId));
+    const { data: match, error: matchError, isLoading: matchLoading } = useWithRefetching(useMatch(matchId));
+    const { data: analysis, error: analysisError, isLoading: analysisLoading } = useWithRefetching(useMatchAnalysis(matchId, !!match));
     const { data: analysisSvgUrl } = useWithRefetching(useMatchAnalysisSvg(matchId, !!analysis));
+
+    console.log('IndexPage', match, analysis, analysisError);
 
     return (
         <ScrollView contentContainerStyle="p-4 gap-5">
@@ -93,15 +97,49 @@ export default function IndexPage() {
             {/*<MatchMap3></MatchMap3>*/}
             {/*<MatchMap2></MatchMap2>*/}
 
-            <SkiaLoader
-                getComponent={() => import('@app/view/components/match-map/match-map')}
-                fallback={<Text style={{ textAlign: 'center' }}>Loading Skia...</Text>}
-                componentProps={{
-                    match,
-                    analysis,
-                    analysisSvgUrl,
-                }}
-            />
+            {
+                matchError && (
+                    <View className="bg-red-100 p-4 rounded-lg">
+                        <Text className="text-red-800">
+                            {matchError?.message}
+                        </Text>
+                    </View>
+                )
+            }
+            {
+                analysisError && (
+                    <View className="bg-red-100 p-4 rounded-lg">
+                        <Text className="text-red-800">
+                            {analysisError?.message}
+                        </Text>
+                    </View>
+                )
+            }
+            {
+                analysis && !analysis?.error && (
+                    <SkiaLoader
+                        getComponent={() => import('@app/view/components/match-map/match-map')}
+                        fallback={<Text style={{ textAlign: 'center' }}>Loading Skia...</Text>}
+                        componentProps={{
+                            match,
+                            analysis,
+                            analysisSvgUrl,
+                        }}
+                    />
+                )
+            }
+
+            {
+                matchLoading || analysisLoading &&
+                    <View className="flex-row gap-2">
+                        <Text variant="body">Loading Analysis...</Text>
+                        <ActivityIndicator animating size="small" color="#999"/>
+                    </View>
+            }
+
+
+            {/*<MatchMap2 match={match} analysis={analysis} analysisSvgUrl={analysisSvgUrl} />*/}
+
 
             {/*<MatchMap*/}
             {/*    match={match}*/}

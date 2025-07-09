@@ -57,11 +57,11 @@ export const useMatch = (matchId: number) =>
         enabled: !!matchId,
     });
 
-export const useMatchAnalysis = (matchId: number) =>
+export const useMatchAnalysis = (matchId: number, enabled: boolean) =>
     useQuery({
         queryKey: ['match', matchId, 'analysis'],
         queryFn: () => fetchMatchAnalysis({ matchId }),
-        enabled: !!matchId,
+        enabled: !!matchId && enabled,
     });
 
 export const useMatchAnalysisSvg = (matchId: number, enabled: boolean) =>

@@ -1,17 +1,16 @@
-import { fromUnixTime } from 'date-fns';
 import { makeQueryString, removeReactQueryParams } from './util';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import {
     IAnalysis,
     IAssetsResult,
     IFetchLeaderboardParams,
-    IFetchMatchesParams, IFetchMatchParams,
+    IFetchMatchesParams,
+    IFetchMatchParams,
     IFetchProfileParams,
-    IFetchProfileRatingParams,
     ILeaderboard,
     ILeaderboardDef,
-    IMatchesResult, IMatchNew,
-    IProfileRatingsResult,
+    IMatchesResult,
+    IMatchNew,
     IProfileResult,
     IProfilesResult,
 } from './api.types';
@@ -19,36 +18,12 @@ import { dateReviver, getHost } from '@nex/data';
 import { fetchJson } from '@app/api/util';
 import { getInternalLanguage } from '@app/helper/translate';
 
-export async function fetchProfileRatings(params: IFetchProfileRatingParams) {
-    console.log('fetchProfileRatings', params);
-    const queryString = makeQueryString(
-        decamelizeKeys({
-            ...removeReactQueryParams(params),
-            page: params.page || params.pageParam || 1,
-            language: getInternalLanguage(),
-        })
-    );
-    const url = `${getHost('aoe2companion-data')}api/profile/${params.profileId}/ratings?${queryString}`;
-    return camelizeKeys(await fetchJson('fetchProfileRatings', url, undefined, dateReviver)) as IProfileRatingsResult;
-}
-
-// export async function fetchProfileLeaderboard(params: IFetchProfileRatingParams) {
-//     console.log('fetchProfileLeaderboard', params);
-//     const queryString = makeQueryString(decamelizeKeys({
-//         ...removeReactQueryParams(params),
-//         page: params.page || params.pageParam || 1,
-//     }));
-//     const url = `${getHost('aoe2companion-data')}api/profile/ratings?${queryString}`;
-//     return camelizeKeys(await fetchJson('fetchProfileLeaderboard', url, undefined, dateReviver)) as IProfileRatingsResult;
-// }
-
 export async function fetchAssets() {
     const url = `${getHost('aoe2companion-data')}api/assets`;
     return camelizeKeys(await fetchJson('fetchAssets', url, undefined, dateReviver)) as IAssetsResult;
 }
 
 export async function fetchProfile(params: IFetchProfileParams) {
-    // console.log('fetchProfile', params);
     const { profileId, ...restParams } = params;
     const queryString = makeQueryString(
         decamelizeKeys({
@@ -73,16 +48,6 @@ export async function fetchProfiles(params: IFetchProfileParams) {
     return camelizeKeys(await fetchJson('fetchProfile', url, undefined, dateReviver)) as IProfilesResult;
 }
 
-// export async function fetchProfile(params: IFetchProfileParams) {
-//     console.log('fetchProfile', params);
-//     const queryString = makeQueryString(decamelizeKeys({
-//         ...removeReactQueryParams(params),
-//         page: params.page || params.pageParam || 1,
-//     }));
-//     const url = `${getHost('aoe2companion-data')}api/profile?${queryString}`;
-//     return camelizeKeys(await fetchJson('fetchProfile', url, undefined, dateReviver)) as IProfilesResult;
-// }
-
 export async function fetchMatch(params: IFetchMatchParams) {
     const { matchId, ...restParams } = params;
     const queryString = makeQueryString(
@@ -96,13 +61,14 @@ export async function fetchMatch(params: IFetchMatchParams) {
 }
 
 export async function fetchMatchAnalysis(params: IFetchMatchParams) {
+    const { matchId, ...restParams } = params;
     const queryString = makeQueryString(
         decamelizeKeys({
-            ...removeReactQueryParams(params),
+            ...removeReactQueryParams(restParams),
             language: getInternalLanguage(),
         })
     );
-    const url = `${getHost('aoe2companion-data')}api/matches/${params.matchId}/analysis?${queryString}`;
+    const url = `${getHost('aoe2companion-data')}api/matches/${matchId}/analysis?${queryString}`;
     return camelizeKeys(await fetchJson('fetchMatchAnalysis', url, undefined, dateReviver)) as IAnalysis;
 }
 
@@ -111,7 +77,6 @@ export async function fetchMatchAnalysisSvg(params: IFetchMatchParams) {
 }
 
 export async function fetchMatches(params: IFetchMatchesParams) {
-    //    console.log('fetchMatches', params);
     const queryString = makeQueryString(
         decamelizeKeys({
             ...removeReactQueryParams(params),
