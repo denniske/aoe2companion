@@ -27,8 +27,7 @@ import {
     useWithRefetching,
 } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
-// import { WithSkiaWeb } from '@shopify/react-native-skia/lib/module/web';
-// import { version } from 'canvaskit-wasm/package.json';
+import SkiaLoader from '@app/components/skia-loader';
 
 // export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 //     return (
@@ -72,9 +71,9 @@ export default function IndexPage() {
     const matchId = 382486559; // nomad with water 4 players
     // const matchId = 382919732;
 
-    // const { data: match } = withRefetching(useMatch(matchId));
-    // const { data: analysis } = withRefetching(useMatchAnalysis(matchId));
-    // const { data: analysisSvgUrl } = withRefetching(useMatchAnalysisSvg(matchId, !!analysis));
+    const { data: match } = useWithRefetching(useMatch(matchId));
+    const { data: analysis } = useWithRefetching(useMatchAnalysis(matchId));
+    const { data: analysisSvgUrl } = useWithRefetching(useMatchAnalysisSvg(matchId, !!analysis));
 
     return (
         <ScrollView contentContainerStyle="p-4 gap-5">
@@ -94,29 +93,21 @@ export default function IndexPage() {
             {/*<MatchMap3></MatchMap3>*/}
             {/*<MatchMap2></MatchMap2>*/}
 
-            {/*<WithSkiaWeb*/}
-            {/*    opts={{ locateFile: (file) => `https://cdn.jsdelivr.net/npm/canvaskit-wasm@${version}/bin/full/${file}` }}*/}
-            {/*    getComponent={() => import('@app/view/components/match-map/match-map')}*/}
-            {/*    fallback={<Text style={{ textAlign: 'center' }}>Loading Skia...</Text>}*/}
-            {/*    componentProps={{*/}
-            {/*        match,*/}
-            {/*        analysis,*/}
-            {/*        analysisSvgUrl,*/}
-            {/*    }}*/}
-            {/*/>*/}
-
-            {/*<WithSkiaWeb*/}
-            {/*    opts={{ locateFile: (file) => `https://cdn.jsdelivr.net/npm/canvaskit-wasm@${version}/bin/full/${file}` }}*/}
-            {/*    getComponent={() => import('@app/view/components/match-map/match-map2')}*/}
-            {/*    fallback={<Text style={{ textAlign: 'center' }}>Loading Skia...</Text>}*/}
-            {/*/>*/}
+            <SkiaLoader
+                getComponent={() => import('@app/view/components/match-map/match-map')}
+                fallback={<Text style={{ textAlign: 'center' }}>Loading Skia...</Text>}
+                componentProps={{
+                    match,
+                    analysis,
+                    analysisSvgUrl,
+                }}
+            />
 
             {/*<MatchMap*/}
             {/*    match={match}*/}
             {/*    analysis={analysis}*/}
             {/*    analysisSvgUrl={analysisSvgUrl}*/}
             {/*/>*/}
-
 
             <View className="-mx-4">
                 <FollowedPlayers />

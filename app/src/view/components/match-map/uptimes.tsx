@@ -46,13 +46,13 @@ export default function Uptimes({ time, teams }: Props) {
             <View className="flex-row items-center gap-0 mb-2">
                 <Text className="w-[118px] px-1">
                 </Text>
-                <View className="text-xs w-[60px] px-1 flex-row justify-center border0 border-green-200">
+                <View className="text-xs flex-1 px-1 flex-row justify-center border0 border-green-200">
                     <Image className={'w-5 h-5'} source={getAgeIcon('Feudal')} contentFit="contain" />
                 </View>
-                <View className="text-xs w-[60px] px-1 flex-row justify-center border0 border-green-200">
+                <View className="text-xs flex-1 px-1 flex-row justify-center border0 border-green-200">
                     <Image className={'w-5 h-5'} source={getAgeIcon('Castle')} contentFit="contain" />
                 </View>
-                <View className="text-xs w-[60px] px-1 flex-row justify-center border0 border-green-200">
+                <View className="text-xs flex-1 px-1 flex-row justify-center border0 border-green-200">
                     <Image className={'w-5 h-5'} source={getAgeIcon('Imperial')} contentFit="contain" />
                 </View>
             </View>
@@ -65,9 +65,9 @@ export default function Uptimes({ time, teams }: Props) {
                             <Text className="w-[100px] px-1">
                                 {player.name}
                             </Text>
-                            {player.uptimes.map(uptime => (
-                                <Text key={uptime.timestamp} className="text-xs w-[60px] px-1">
-                                    {formatTimeFromMs(getTimestampMs(uptime.timestamp))}
+                            {padArr(player.uptimes, 3).map(uptime => (
+                                <Text key={uptime?.timestamp} className="text-xs flex-1 px-1 text-center">
+                                    {uptime ? formatTimeFromMs(getTimestampMs(uptime.timestamp)) : ''}
                                 </Text>
                             ))}
                         </View>
@@ -76,4 +76,9 @@ export default function Uptimes({ time, teams }: Props) {
             ))}
         </View>
     );
+}
+
+function padArr<T>(arr: T[], targetLength: number, padValue: T | null = null): (T | null)[] {
+    if (arr.length >= targetLength) return arr.slice(0, targetLength);
+    return [...arr, ...Array(targetLength - arr.length).fill(padValue)];
 }

@@ -19,8 +19,6 @@ import { useMatch, useMatchAnalysis, useMatchAnalysisSvg, useWithRefetching } fr
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useAppTheme } from '@app/theming';
 import Space from '@app/view/components/space';
-import { SvgUri } from 'react-native-svg';
-import MatchMap from '@app/view/components/match-map/match-map';
 import { useTranslation } from '@app/helper/translate';
 
 type MatchPopupProps = MatchProps & Pick<BottomSheetProps, 'isActive' | 'onClose'>;
@@ -115,13 +113,11 @@ export default function MatchPage() {
 
             <View className="gap-2">
 
-                <MatchMap
-                    match={match}
-                    analysis={analysis}
-                    analysisSvgUrl={analysisSvgUrl}
-                    />
-
-
+                {/*<MatchMap*/}
+                {/*    match={match}*/}
+                {/*    analysis={analysis}*/}
+                {/*    analysisSvgUrl={analysisSvgUrl}*/}
+                {/*    />*/}
 
                 {/*<View className=" border border-gray-700">*/}
                 {/*    <SvgUri viewBox="0 0 120 120" width="240px" height="240px" uri={analysisSvgUrl} />*/}

@@ -27,7 +27,7 @@ interface Props {
 export default function Eapm({ teams }: Props) {
     const theme = useAppTheme();
 
-    const font = matchFont(fontStyle as any);
+    const font = Platform.OS === 'web' ? undefined : matchFont(fontStyle as any);
 
     // We need to supply our custom tick formatter because otherwise victory native will
     // print too much ticks on the x-axis.

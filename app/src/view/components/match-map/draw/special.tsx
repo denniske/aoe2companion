@@ -54,8 +54,6 @@ export default function Special(props: Props) {
         )!,
     }
 
-    const svg = useSVG(require('../../../../../assets/analysis/icons/house.svg'));
-
     const opacity = useDerivedValue(() => {
         return (time.value - timeStart) / (1 * 60 * 1000);
     });
@@ -141,7 +139,5 @@ export default function Special(props: Props) {
         //     // }}
         //
         // />
-
-
     );
 }
