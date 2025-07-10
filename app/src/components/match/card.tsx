@@ -52,7 +52,7 @@ const formatDuration = (durationInSeconds: number) => {
 };
 
 export function MatchCard(props: MatchCardProps) {
-    const { match, user, highlightedUsers, expanded = false, showLiveActivity = false, onPress } = props;
+    const { flat, match, user, highlightedUsers, expanded = false, showLiveActivity = false, onPress } = props;
     const players = flatten(match?.teams.map((t) => t.players));
     const freeForAll = isMatchFreeForAll(match);
     const attributes = [teamRatio(match)];
@@ -82,6 +82,7 @@ export function MatchCard(props: MatchCardProps) {
 
     return (
         <Card
+            flat={flat}
             onPress={onPress}
             header={
                 <View className="relative">

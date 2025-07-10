@@ -8,11 +8,19 @@ export interface CardProps extends ViewProps {
     direction?: 'horizontal' | 'vertical';
     href?: string;
     disabled?: boolean;
+    flat?: boolean;
 }
 
-export const Card: React.FC<CardProps> = ({ onPress, header, children, footer, direction = 'horizontal', href, ...props }) => {
+export const Card: React.FC<CardProps> = ({ flat, onPress, header, children, footer, direction = 'horizontal', href, ...props }) => {
     const Component = onPress || href ? Pressable : View;
-    const directionStyles = direction === 'horizontal' ? 'flex-row p-2 items-center' : 'flex-col py-3 px-2';
+    let colorStyles = `bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800`;
+    let paddingStyles = direction === 'horizontal' ? 'p-2 items-center' : 'py-3 px-2';
+    const directionStyles = direction === 'horizontal' ? 'flex-row items-center' : 'flex-col';
+
+    if (flat) {
+        colorStyles = '';
+        paddingStyles = '';
+    }
 
     return (
         <Component
@@ -23,8 +31,7 @@ export const Card: React.FC<CardProps> = ({ onPress, header, children, footer, d
                 onPress?.(e);
             }}
             {...props}
-            // className={`gap-2 ${directionStyles}`}
-            className={`bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800 gap-2 ${directionStyles}`}
+            className={`gap-2 ${colorStyles} ${paddingStyles} ${directionStyles}`}
         >
             {header}
             {children}

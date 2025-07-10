@@ -5,14 +5,37 @@ import { sleep } from './helper/util';
 class FetchNotOkError extends Error {
     constructor(
         message: string,
-        public status: number
+        public status: number,
+        public code: string,
     ) {
         super(message);
         this.name = 'FetchNotOkError';
     }
 }
 
-async function fetchAndParseJson(input: RequestInfo, init?: RequestInit, reviver?: any): Promise<any> {
+// async function fetchAndParseJson(input: RequestInfo, init?: RequestInit, reviver?: any): Promise<any> {
+//     const response = await fetch(input, init);
+//
+//     const contentType = response.headers.get('content-type') ?? '';
+//     const isJson = contentType.includes('application/json');
+//
+//     let body: any = null;
+//     if (isJson) {
+//         const text = await response.text();
+//         body = JSON.parse(text, reviver);
+//     }
+//
+//     if (!response.ok) {
+//         console.log('Fetch not ok', response.status, response.statusText, body);
+//         throw new FetchNotOkError((body as any).error, 500, (body as any).code);
+//     }
+//
+//     return body;
+// }
+
+// Here we implement a retry mechanism for network requests.
+// So we set QueryClientProvider retry to 0 for react query in _layout.tsx.
+export async function fetchJson(title: string, input: RequestInfo, init?: RequestInit, reviver?: any) {
     const response = await fetch(input, init);
 
     const contentType = response.headers.get('content-type') ?? '';
@@ -25,29 +48,31 @@ async function fetchAndParseJson(input: RequestInfo, init?: RequestInit, reviver
     }
 
     if (!response.ok) {
-        throw new FetchNotOkError((body as any).error, response.status);
+        // console.log('Fetch not ok', response.status, response.statusText, body);
+        throw new FetchNotOkError((body as any).error, response.status, (body as any).code);
     }
 
     return body;
-}
 
-// Here we implement a retry mechanism for network requests.
-// So we set QueryClientProvider retry to 0 for react query in _layout.tsx.
-export async function fetchJson(title: string, input: RequestInfo, init?: RequestInit, reviver?: any) {
-    try {
-        return await fetchAndParseJson(input, init, reviver);
-    } catch (e) {
-        // Don't retry on 400 errors
-        if (e instanceof FetchNotOkError && e.status === 400) {
-            throwAndShowError(e as Error, title, input);
-        }
-        try {
-            await sleep(Math.random() * 100);
-            return await fetchAndParseJson(input, init, reviver);
-        } catch (e) {
-            throwAndShowError(e as Error, title, input);
-        }
-    }
+
+
+
+
+
+    // try {
+    //     return await fetchAndParseJson(input, init, reviver);
+    // } catch (e) {
+    //     // Don't retry on 400 errors
+    //     if (e instanceof FetchNotOkError && e.status === 400) {
+    //         throwAndShowError(e as Error, title, input);
+    //     }
+    //     // try {
+    //     //     await sleep(Math.random() * 100);
+    //     //     return await fetchAndParseJson(input, init, reviver);
+    //     // } catch (e) {
+    //     //     throwAndShowError(e as Error, title, input);
+    //     // }
+    // }
 }
 
 function throwAndShowError(e: Error, title: string, input: RequestInfo) {

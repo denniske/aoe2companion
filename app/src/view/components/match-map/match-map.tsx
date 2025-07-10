@@ -17,7 +17,6 @@ import Special, { getSpecialOrigin } from '@app/view/components/match-map/draw/s
 import Chat from '@app/view/components/match-map/chat';
 import Legend from './legend';
 import Uptimes from '@app/view/components/match-map/uptimes';
-import Eapm from '@app/view/components/match-map/eapm';
 
 interface Props {
     match?: IMatchNew;

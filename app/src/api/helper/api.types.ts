@@ -335,6 +335,22 @@ export interface IMatchNew {
     revealMap: number
     privacy: number
     teams: ITeamNew[]
+
+    difficultyName?: string;
+    startingAgeName?: string;
+    endingAgeName?: string;
+    mapSizeName?: string;
+    resourcesName?: string;
+    civilizationSetName?: string;
+    victoryName?: string;
+    revealMapName?: string;
+    antiquityMode?: boolean;
+
+    biomeName?: string;
+    startingResourcesName?: string;
+    mapStateName?: string;
+    winConditionsName?: string;
+    cheats?: boolean;
 }
 
 export interface ITeamNew {
