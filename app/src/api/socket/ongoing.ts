@@ -3,8 +3,7 @@ import { useFocusEffect } from 'expo-router';
 import produce from 'immer';
 import { useCallback, useState } from 'react';
 import { ICloseEvent, w3cwebsocket } from 'websocket';
-
-import { IMatchesMatch } from './helper/api.types';
+import { IMatchesMatch } from '../helper/api.types';
 import { makeQueryString } from '@app/api/helper/util';
 import { decamelizeKeys } from 'humps';
 
@@ -140,7 +139,7 @@ export const useOngoing = ({profileIds, verified}: IUseOngoingParams) => {
             return () => {
                 socket?.close();
             };
-        }, [])
+        }, [profileIds])
     );
 
     return { matches, connected, isLoading };

@@ -1,10 +1,10 @@
 import { getMapImage } from '@app/helper/maps';
 import { formatAgo, isMatchFreeForAll, teamRatio } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { differenceInSeconds } from 'date-fns';
+import { differenceInMilliseconds, differenceInSeconds } from 'date-fns';
 import { Image } from 'expo-image';
 import { flatten, startCase } from 'lodash';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { View } from 'react-native';
 
 import { MatchProps } from '.';
@@ -14,6 +14,8 @@ import { Icon } from '../icon';
 import { Skeleton, SkeletonText } from '../skeleton';
 import { Text } from '../text';
 import { IMatchNew } from '@app/api/helper/api.types';
+import { FormatAgoLive } from '@app/components/format-ago-live';
+import { useSecondRerender } from '@app/hooks/use-second-rerender';
 
 export interface MatchCardProps extends MatchProps {
     onPress?: () => void;
@@ -51,6 +53,19 @@ const formatDuration = (durationInSeconds: number) => {
     return `${hours.length < 2 ? hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} h`;
 };
 
+// const formatDuration = (durationInSeconds: number) => {
+//     if (!durationInSeconds) return '00:00:00 h'; // divide-by-0 protection
+//
+//     const totalSeconds = Math.abs(durationInSeconds);
+//     const hours = Math.floor(totalSeconds / 3600);
+//     const minutes = Math.floor((totalSeconds % 3600) / 60);
+//     const seconds = Math.floor(totalSeconds % 60);
+//
+//     const pad = (n: number) => n.toString().padStart(2, '0');
+//
+//     return `${pad(hours)}:${pad(minutes)}:${pad(seconds)} h`;
+// };
+
 export function MatchCard(props: MatchCardProps) {
     const { flat, match, user, highlightedUsers, expanded = false, showLiveActivity = false, onPress } = props;
     const players = flatten(match?.teams.map((t) => t.players));
@@ -77,6 +92,7 @@ export function MatchCard(props: MatchCardProps) {
     if (match.started) {
         const finished = match.finished || new Date();
         duration = formatDuration(differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed));
+        // console.log('getSpeedFactor(match.speed as AoeSpeed)', getSpeedFactor(match.speed as AoeSpeed))
     }
     if (appConfig.game !== 'aoe2de') duration = '';
 
@@ -114,14 +130,44 @@ export function MatchCard(props: MatchCardProps) {
                     {match.server && <Text> - {match.server}</Text>}
                 </Text>
                 <Text numberOfLines={1}>{attributes.join(' - ')}</Text>
-                <Text numberOfLines={1}>
-                    {!matchIsFinishedOrTimedOut(match) && duration}
-                    {matchIsFinishedOrTimedOut(match) ? (match.started ? formatAgo(match.started) : 'none') : null}
-                </Text>
+
+                <ElapsedTimeOrDuration match={match} />
             </View>
         </Card>
     );
 }
+
+// interface SecondRerenderProps {
+//     children: ReactNode;
+// }
+// const SecondRerender: React.FC<SecondRerenderProps> = ({ children }) => {
+//     useSecondRerender();
+//     return <>{children}</>;
+// };
+
+interface ElapsedTimeOrDurationProps {
+    match: IMatchNew;
+}
+const ElapsedTimeOrDuration: React.FC<ElapsedTimeOrDurationProps> = ({ match }) => {
+    useSecondRerender();
+
+    let duration: string = '';
+    if (match.started) {
+        const finished = match.finished || new Date();
+        // It seems the game speed is not exactly 1.7 for normal speed in AoE2:DE, so we need to correct it
+        const CORRECTION_FACTOR = appConfig.game === 'aoe2de' ? 1.05416666667 : 1;
+        duration = formatDuration(differenceInMilliseconds(finished, match.started) / 1000 * getSpeedFactor(match.speed as AoeSpeed) / CORRECTION_FACTOR);
+        // console.log('getSpeedFactor(match.speed as AoeSpeed)', getSpeedFactor(match.speed as AoeSpeed))
+    }
+    if (appConfig.game !== 'aoe2de') duration = '';
+
+    return (
+        <Text numberOfLines={1}>
+            {!matchIsFinishedOrTimedOut(match) && duration}
+            {matchIsFinishedOrTimedOut(match) ? (match.started ? formatAgo(match.started) : 'none') : null}
+        </Text>
+    );
+};
 
 export const MarchCardSkeleton = () => {
     return (

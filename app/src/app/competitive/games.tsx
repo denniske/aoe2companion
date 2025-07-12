@@ -1,4 +1,4 @@
-import { useOngoing } from '@app/api/ongoing';
+import { useOngoing } from '@app/api/socket/ongoing';
 import { FlatList } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
 import { Match } from '@app/components/match';

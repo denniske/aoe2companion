@@ -9,7 +9,7 @@ import { Text } from '@app/components/text';
 import { setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
 import { useFollowedTournaments } from '@app/service/followed-tournaments';
 import { useFavoritedBuilds } from '@app/service/storage';
-import { useCurrentMatches } from '@app/utils/match';
+import { useAccountMostRecentMatches } from '@app/utils/match';
 import { useNews } from '@app/utils/news';
 import BuildCard from '@app/view/components/build-order/build-card';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
@@ -42,8 +42,8 @@ export default function IndexPage() {
     const getTranslation = useTranslation();
     const authProfileId = useAuthProfileId();
     const tournament = useFeaturedTournament();
-    const matches = useCurrentMatches(1);
-    const currentMatch = matches?.length ? matches[0] : null;
+    const accountMostRecentMatches = useAccountMostRecentMatches(1);
+    const accountMostRecentMatch = accountMostRecentMatches?.length ? accountMostRecentMatches[0] : null;
     const { data: news = Array(3).fill(null) } = useNews(3);
     const router = useRouter();
     const { favorites, refetch } = useFavoritedBuilds();
@@ -151,19 +151,36 @@ export default function IndexPage() {
                 <FollowedPlayers />
             </View>
 
+            {/*{authProfileId && (*/}
+            {/*    <View className="gap-2">*/}
+            {/*        <Text variant="header-lg">*/}
+            {/*            Current Lobby/Match*/}
+            {/*        </Text>*/}
+            {/*        <Link href="/matches/current">*/}
+            {/*            {getTranslation('home.viewAll')}*/}
+            {/*        </Link>*/}
+            {/*        /!*<View className="gap-2">*!/*/}
+            {/*        /!*    <Match user={accountMostRecentMatch?.filteredPlayers[0]} highlightedUsers={accountMostRecentMatch?.filteredPlayers} match={accountMostRecentMatch} />*!/*/}
+            {/*        /!*</View>*!/*/}
+            {/*    </View>*/}
+            {/*)}*/}
+
             {authProfileId && (
                 <View className="gap-2">
-                    <Text variant="header-lg">
-                        {getTranslation(
-                            currentMatch?.finished === null
-                                ? 'home.current'
-                                : 'home.mostRecent'
-                        )}{' '}
-                        Match
-                    </Text>
 
+                    <View className="flex-row justify-between items-center">
+                        <Text variant="header-lg">
+                            {getTranslation(
+                                accountMostRecentMatch?.finished === null
+                                    ? 'home.current'
+                                    : 'home.mostRecent'
+                            )}{' '}
+                            Match
+                        </Text>
+                        <Link href="/matches/current">Open Live Dashboard</Link>
+                    </View>
                     <View className="gap-2">
-                        <Match user={currentMatch?.filteredPlayers[0]} highlightedUsers={currentMatch?.filteredPlayers} match={currentMatch} />
+                        <Match user={accountMostRecentMatch?.filteredPlayers[0]} highlightedUsers={accountMostRecentMatch?.filteredPlayers} match={accountMostRecentMatch} />
                     </View>
                 </View>
             )}

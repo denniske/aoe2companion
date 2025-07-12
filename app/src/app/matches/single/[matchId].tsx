@@ -21,6 +21,7 @@ import { useAppTheme } from '@app/theming';
 import Space from '@app/view/components/space';
 import { useTranslation } from '@app/helper/translate';
 import MatchAnalysis from '@app/view/components/match-map/match-analysis';
+import MatchOptions from '@app/view/components/match-map/match-options';
 
 type MatchPopupProps = MatchProps & Pick<BottomSheetProps, 'isActive' | 'onClose'>;
 
@@ -110,20 +111,7 @@ export default function MatchPage() {
         <ScrollView contentContainerStyle="p-4 gap-4">
             {/*<MatchCard match={match} />*/}
 
-            {/* w-60 h-60 scale-y-[0.5] -rotate-45 */}
-            {/* border border-gray-700 */}
-
             <View className="gap-2">
-
-                {/*<MatchMap*/}
-                {/*    match={match}*/}
-                {/*    analysis={analysis}*/}
-                {/*    analysisSvgUrl={analysisSvgUrl}*/}
-                {/*    />*/}
-
-                {/*<View className=" border border-gray-700">*/}
-                {/*    <SvgUri viewBox="0 0 120 120" width="240px" height="240px" uri={analysisSvgUrl} />*/}
-                {/*</View>*/}
 
                 <ScrollView horizontal contentContainerStyle="items-center gap-4 pb-3">
                     {tournament && (
@@ -196,123 +184,9 @@ export default function MatchPage() {
                     matchLoading={matchLoading}
                 />
 
-                {/*<FontAwesome5 name={'check-square'} size={14} color={theme.textNoteColor} />*/}
-                {/*<FontAwesome name={'check-square'} size={14} color={theme.textNoteColor} />*/}
-
-                <View className="flex-col gap-1 bg-gray-100 p-5">
-                    <Text className="mb-1">{getTranslation('match.gameSettings')}</Text>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.gameMode')}:</Text>
-                        <Text>{match.gameModeName}</Text>
-                    </View>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.map')}:</Text>
-                        <Text>{match.mapName}</Text>
-                    </View>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.mapsize')}:</Text>
-                        <Text>{match.mapSizeName}</Text>
-                    </View>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.aidifficulty')}:</Text>
-                        <Text>{match.difficultyName}</Text>
-                    </View>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.resources')}:</Text>
-                        <Text>{match.resourcesName}</Text>
-                    </View>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.population')}:</Text>
-                        <Text>{match.population}</Text>
-                    </View>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.gamespeed')}:</Text>
-                        <Text>{match.speedName}</Text>
-                    </View>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.revealmap')}:</Text>
-                        <Text>{match.revealMapName}</Text>
-                    </View>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.startingage')}:</Text>
-                        <Text>{match.startingAgeName}</Text>
-                    </View>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.endingage')}:</Text>
-                        <Text>{match.endingAgeName}</Text>
-                    </View>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.treatylength')}:</Text>
-                        <Text>{match.treatyLength} minutes</Text>
-                    </View>
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[120px]">{getTranslation('match.victory')}:</Text>
-                        <Text>{match.victoryName}</Text>
-                    </View>
-
-                    <View className="flex-row gap-1 mt-2">
-                        <View className="flex-col gap-1 w-[50%]">
-                            <Text className="mb-1">{getTranslation('match.teamSettings')}</Text>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.lockTeams ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.lockTeams')}</Text>
-                            </View>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.teamTogether ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.teamTogether')}</Text>
-                            </View>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.teamPositions ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.teamPositions')}</Text>
-                            </View>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.sharedExploration ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.sharedExploration')}</Text>
-                            </View>
-                        </View>
-                        <View className="flex-col gap-1">
-                            <Text className="mb-1">{getTranslation('match.advancedSettings')}</Text>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.lockSpeed ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.lockSpeed')}</Text>
-                            </View>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.allowCheats ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.allowCheats')}</Text>
-                            </View>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.turboMode ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.turboMode')}</Text>
-                            </View>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.fullTechTree ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.fullTechTree')}</Text>
-                            </View>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.empireWarsMode ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.empireWarsMode')}</Text>
-                            </View>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.suddenDeathMode ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.suddenDeathMode')}</Text>
-                            </View>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.regicideMode ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.regicideMode')}</Text>
-                            </View>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.antiquityMode ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.antiquityMode')}</Text>
-                            </View>
-                            <View className="flex-row items-center gap-1">
-                                <FontAwesome5 name={match.recordGame ? 'check-square' : 'square'} size={14} color={theme.textNoteColor} />
-                                <Text>{getTranslation('match.recordGame')}</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-
-                <Space />
+                <MatchOptions
+                    match={match}
+                />
 
             </View>
         </ScrollView>

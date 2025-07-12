@@ -1,6 +1,6 @@
 import { IMatchesMatch } from '@app/api/helper/api.types';
-import { useLiveTwitchAccounts } from '@app/api/live';
-import { useOngoing } from '@app/api/ongoing';
+import { useLiveTwitchAccounts } from '@app/api/twitch';
+import { useOngoing } from '@app/api/socket/ongoing';
 import { tournamentsEnabled, useFeaturedTournaments, useTournamentMatches } from '@app/api/tournaments';
 import { FlatList } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';

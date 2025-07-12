@@ -5,12 +5,12 @@ import { useQuery } from '@tanstack/react-query';
 import { flatten, orderBy } from 'lodash';
 import { useAuthProfileId } from '@app/queries/all';
 
-export const useCurrentMatches = (count: number) => {
+export const useAccountMostRecentMatches = (count: number) => {
     const authProfileId = useAuthProfileId();
     const profileIds: number[] = authProfileId ? [authProfileId] : [];
 
     const { data } = useQuery({
-        queryKey: ['current-matches', profileIds],
+        queryKey: ['account-most-recent-matches', profileIds],
         queryFn: () =>
             fetchMatches({
                 profileIds,

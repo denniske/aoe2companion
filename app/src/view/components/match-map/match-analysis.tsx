@@ -21,6 +21,7 @@ import Eapm from '@app/view/components/match-map/eapm';
 import { useMatchAnalysis, useMatchAnalysisSvg, useWithRefetching } from '@app/queries/all';
 import SkiaLoader from '@app/components/skia-loader';
 import { Button } from '@app/components/button';
+import { useTranslation } from '@app/helper/translate';
 
 interface Props {
     match?: IMatchNew;
@@ -79,7 +80,7 @@ export default function MatchAnalysis(props: Props) {
                     </View>
                 ))}
 
-            {!analysis && !analysisError && !analyzeNow && (
+            {!analysis && !analysisError && !analyzeNow && match?.finished && (
                 <View className="flex-row items-center justify-center h-20">
                     <View className="flex-row justify-center my-3 gap-2">
                         <Button onPress={() => setAnalyzeNow(true)}>Analyze match (Beta)</Button>

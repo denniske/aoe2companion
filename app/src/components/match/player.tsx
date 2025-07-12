@@ -1,5 +1,5 @@
 import { IMatchNew, IPlayerNew } from '@app/api/helper/api.types';
-import { useLiveTwitchAccounts } from '@app/api/live';
+import { useLiveTwitchAccounts } from '@app/api/twitch';
 import { getCivIcon } from '@app/helper/civs';
 import { openLink } from '@app/helper/url';
 import { BottomSheetProps } from '@app/view/bottom-sheet';

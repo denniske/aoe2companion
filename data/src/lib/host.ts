@@ -50,9 +50,9 @@ export function getHost(host: Host) {
             return `https://data.${appConfig.hostAoeCompanion}/`;
         }
         case "aoe2companion-socket": {
-            // if (dev) {
-            //     return `http://${platformHost}:3336/`;
-            // }
+            if (dev) {
+                return `http://${platformHost}:3336/`;
+            }
             return `wss://socket.${appConfig.hostAoeCompanion}/`;
         }
     }

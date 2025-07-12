@@ -134,12 +134,29 @@ interface IParams {
     [key: string]: any;
 }
 
+// export function makeQueryString(params: IParams) {
+//     return Object.keys(params)
+//             .filter(k => params[k] != null)
+//             .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+//             .join('&');
+// }
+
 export function makeQueryString(params: IParams) {
-    return Object.keys(params)
-            .filter(k => params[k] != null)
-            .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-            .join('&');
+
+    // remove all keys with null or undefined values
+    Object.keys(params).forEach(key => {
+        if (params[key] == null) {
+            delete params[key];
+        }
+    });
+
+    return new URLSearchParams(params).toString();
+
+    // return Object.keys(params)
+    //     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+    //     .join('&');
 }
+
 
 export function makeQueryStringRaw(params: IParams) {
     return Object.keys(params)
