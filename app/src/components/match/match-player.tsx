@@ -13,17 +13,8 @@ import { Icon } from '../icon';
 import { Text } from '../text';
 import TwitchBadge from '@app/view/components/badge/twitch-badge';
 import React from 'react';
+import { aoe2PlayerColors } from '@app/helper/colors';
 
-const playerColors: Record<string, string> = {
-    '#405BFF': '#4B4AC8',
-    '#FF0000': '#C72321',
-    '#00FF00': '#24C821',
-    '#FFFF00': '#C8C817',
-    '#00FFFF': '#22AFB0',
-    '#FF57B3': '#C723C8',
-    '#797979': '#797979',
-    '#FF9600': '#C78031',
-};
 
 interface MatchPlayerProps {
     match: IMatchNew;
@@ -39,7 +30,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
         const url = `https://aoe.ms/replay/?gameId=${match.matchId}&profileId=${player.profileId}`;
         await openLink(url);
     };
-    const playerColor = playerColors[player.colorHex] ?? player.colorHex;
+    const playerColor = aoe2PlayerColors[player.colorHex] ?? player.colorHex;
     const { liveTwitchAccounts } = useLiveTwitchAccounts();
     const twitch = player.socialTwitchChannel && liveTwitchAccounts?.find((twitch) => twitch.user_login === player.socialTwitchChannel);
 
@@ -78,8 +69,8 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 </TouchableOpacity>
             </Link>
 
-            <Text variant="body" color={player.ratingDiff > 0 ? 'text-green-500' : 'text-red-500'} className="text-center w-8">
-                {signed(player.ratingDiff)}
+            <Text variant="body" color={player.ratingDiff! > 0 ? 'text-green-500' : 'text-red-500'} className="text-center w-8">
+                {signed(player.ratingDiff!)}
             </Text>
 
             {Platform.OS === 'web' && appConfig.game === 'aoe2de' && canDownloadRec && (

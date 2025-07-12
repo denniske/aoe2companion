@@ -40,3 +40,14 @@ export function getLeaderboardTextColor(leaderboard_id: string, darkMode: boolea
     const colors = appConfig.game === 'aoe2de' ? leaderboardTextColorsAoe2 : leaderboardTextColorsAoe4;
     return colors[leaderboard_id] || '#8e8e8e';
 }
+
+export const aoe2PlayerColors: Record<string, string> = {
+    '#405BFF': '#4B4AC8',
+    '#FF0000': '#C72321',
+    '#00FF00': '#24C821',
+    '#FFFF00': '#C8C817',
+    '#00FFFF': '#22AFB0',
+    '#FF57B3': '#C723C8',
+    '#797979': '#797979',
+    '#FF9600': '#C78031',
+};

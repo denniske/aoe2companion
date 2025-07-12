@@ -5,7 +5,7 @@ import { tournamentsEnabled, useFeaturedTournaments, useTournamentMatches } from
 import { FlatList } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
 import { Link } from '@app/components/link';
-import { MatchPopup } from '@app/components/match/popup';
+import { MatchPopup } from '@app/components/match/match-popup';
 import { ScrollView } from '@app/components/scroll-view';
 import { SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';

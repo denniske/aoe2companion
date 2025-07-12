@@ -1,7 +1,7 @@
 import { Button } from '@app/components/button';
 import { FlatList } from '@app/components/flat-list';
 import { FollowedPlayers } from '@app/components/followed-players';
-import { Match } from '@app/components/match';
+import { Match } from '@app/components/match/match';
 import { Text } from '@app/components/text';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
 import { MyText } from '@app/view/components/my-text';

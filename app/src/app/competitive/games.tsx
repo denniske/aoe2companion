@@ -1,7 +1,7 @@
 import { useOngoing } from '@app/api/socket/ongoing';
 import { FlatList } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
-import { Match } from '@app/components/match';
+import { Match } from '@app/components/match/match';
 import { Text } from '@app/components/text';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { getVerifiedPlayer, getVerifiedPlayerIds } from '@nex/data';

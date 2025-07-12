@@ -1,7 +1,7 @@
 import { Dropdown } from '@app/components/dropdown';
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
-import { Match } from '@app/components/match';
+import { Match } from '@app/components/match/match';
 import { leaderboardIdsByType } from '@app/helper/leaderboard';
 import { useNavigationState, useRoute } from '@react-navigation/native';
 import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';

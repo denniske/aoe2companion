@@ -3,12 +3,14 @@ import {Image} from 'expo-image';
 import React from 'react';
 import {LivePlayer} from './live-player';
 import {differenceInSeconds} from "date-fns";
-import {TextLoader} from "../components/loader/text-loader";
-import MyListAccordion from "../components/accordion";
-import {ImageLoader} from "../components/loader/image-loader";
-import {MyText} from "../components/my-text";
+import {TextLoader} from "../../view/components/loader/text-loader";
+import MyListAccordion from "../../view/components/accordion";
+import {ImageLoader} from "../../view/components/loader/image-loader";
+import {MyText} from "../../view/components/my-text";
 import {createStylesheet} from '../../theming-new';
 import {ILobbiesMatch} from "../../api/helper/api.types";
+import { Card } from '@app/components/card';
+import { Text } from '../text';
 
 interface IGameProps {
     data: ILobbiesMatch;
@@ -23,11 +25,11 @@ const formatDuration = (start: Date, finish: Date) => {
     return `${hours.length < 2 ? 0 + hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} min`;
 };
 
-export function LiveGame({data, expanded = false}: IGameProps) {
+export function LiveMatch({data, expanded = false}: IGameProps) {
     const styles = useStyles();
     if (data == null) {
         return (
-            <View>
+            <Card>
                 <MyListAccordion
                     style={styles.accordion}
                     expanded={expanded}
@@ -42,49 +44,47 @@ export function LiveGame({data, expanded = false}: IGameProps) {
                         </View>
                     )}
                 ><View/></MyListAccordion>
-            </View>
+            </Card>
         );
     }
 
     const players = data.players || [];
 
     return (
-        <MyListAccordion
-            style={styles.accordion}
-            expanded={expanded}
-            expandable={true}
-            left={props => (
+        <View className="gap-4">
+            <Card direction="vertical">
                 <View style={styles.row}>
                     <Image style={styles.map} source={{uri: data.mapImageUrl}}/>
                     <View style={styles.header}>
-                        <MyText numberOfLines={1} style={styles.matchTitle}>
+                        <Text numberOfLines={1} variant="header-sm">
                             {data.mapName} - {data.name}
-                        </MyText>
-                        <MyText numberOfLines={1} style={styles.matchContent}>
+                        </Text>
+                        <Text numberOfLines={1}>
                             {data.gameModeName}
                             {
                                 data.server &&
                                 <MyText> - {data.server}</MyText>
                             }
-                        </MyText>
-                        <MyText numberOfLines={1} style={styles.matchContent}>
+                        </Text>
+                        <Text numberOfLines={1}>
                             {data.blockedSlotCount}/{data.totalSlotCount}
                             {
                                 data.averageRating &&
                                 <MyText> (~{data.averageRating})</MyText>
                             }
-                        </MyText>
+                        </Text>
                     </View>
                 </View>
-            )}
-        >
-            <View style={styles.playerList}>
-                <LivePlayer key={'header'} player={null}/>
-                {
-                    players.map((player, j) => <LivePlayer key={j} player={player}/>)
-                }
-            </View>
-        </MyListAccordion>
+            </Card>
+            <Card>
+                <View style={styles.playerList} className="gap-2">
+                    <LivePlayer key={'header'} player={null}/>
+                    {
+                        players.map((player, j) => <LivePlayer key={j} player={player}/>)
+                    }
+                </View>
+            </Card>
+        </View>
     );
 }
 
@@ -115,7 +115,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
     playerList: {
         flex: 1,
-        paddingTop: 20,
+        // paddingTop: 20,
         // backgroundColor: 'purple'
     },
 } as const));

@@ -2,7 +2,7 @@ import { useFeaturedTournament } from '@app/api/tournaments';
 import { FlatList } from '@app/components/flat-list';
 import { FollowedPlayers } from '@app/components/followed-players';
 import { Link } from '@app/components/link';
-import { Match } from '@app/components/match';
+import { Match } from '@app/components/match/match';
 import { NewsCard } from '@app/components/news-card';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';

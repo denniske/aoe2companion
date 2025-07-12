@@ -1,8 +1,8 @@
 import { IMatchNew } from '@app/api/helper/api.types';
 import { useEffect, useState } from 'react';
 
-import { MarchCardSkeleton, MatchCard } from './card';
-import { MatchPopup } from './popup';
+import { MarchCardSkeleton, MatchCard } from './match-card';
+import { MatchPopup } from './match-popup';
 import { useRouter } from 'expo-router';
 
 export interface MatchProps {

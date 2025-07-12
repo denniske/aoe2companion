@@ -7,7 +7,6 @@ import { flatten, startCase } from 'lodash';
 import React, { ReactNode } from 'react';
 import { View } from 'react-native';
 
-import { MatchProps } from '.';
 import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
 import { Card } from '../card';
 import { Icon } from '../icon';
@@ -16,6 +15,7 @@ import { Text } from '../text';
 import { IMatchNew } from '@app/api/helper/api.types';
 import { FormatAgoLive } from '@app/components/format-ago-live';
 import { useSecondRerender } from '@app/hooks/use-second-rerender';
+import { MatchProps } from '@app/components/match/match';
 
 export interface MatchCardProps extends MatchProps {
     onPress?: () => void;

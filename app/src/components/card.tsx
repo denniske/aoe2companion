@@ -14,7 +14,8 @@ export interface CardProps extends ViewProps {
 export const Card: React.FC<CardProps> = ({ flat, onPress, header, children, footer, direction = 'horizontal', href, ...props }) => {
     const Component = onPress || href ? Pressable : View;
     let colorStyles = `bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800`;
-    let paddingStyles = direction === 'horizontal' ? 'p-2 items-center' : 'py-3 px-2';
+    let alignmentStyles = direction === 'horizontal' ? 'items-center' : '';
+    let paddingStyles = 'p-4';
     const directionStyles = direction === 'horizontal' ? 'flex-row items-center' : 'flex-col';
 
     if (flat) {
@@ -31,7 +32,7 @@ export const Card: React.FC<CardProps> = ({ flat, onPress, header, children, foo
                 onPress?.(e);
             }}
             {...props}
-            className={`gap-2 ${colorStyles} ${paddingStyles} ${directionStyles}`}
+            className={`gap-2 ${alignmentStyles} ${colorStyles} ${paddingStyles} ${directionStyles}`}
         >
             {header}
             {children}

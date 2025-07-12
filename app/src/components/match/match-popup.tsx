@@ -9,8 +9,8 @@ import React, { useMemo } from 'react';
 import { Linking, Platform, Pressable, View } from 'react-native';
 
 import { MatchProps } from '.';
-import { MatchCard, matchIsFinishedOrTimedOut, matchTimedOut } from './card';
-import { MatchPlayer } from './player';
+import { MatchCard, matchIsFinishedOrTimedOut, matchTimedOut } from './match-card';
+import { MatchPlayer } from './match-player';
 import { useTournamentMatches } from '../../api/tournaments';
 import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
 import { Icon } from '../icon';

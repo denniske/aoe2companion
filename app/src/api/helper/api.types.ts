@@ -17,9 +17,9 @@ export interface ILobbiesMatch {
     averageRating: number;
 
     matchId: number
-    started: Date
+    started?: Date
     finished?: Date
-    leaderboardId?: number
+    leaderboardId?: string
     leaderboardName?: string
     name: string
     server?: string
@@ -30,11 +30,11 @@ export interface ILobbiesMatch {
     allowCheats: boolean
     empireWarsMode: boolean
     endingAge: number
-    gameMode: number
+    gameMode?: string
     lockSpeed: boolean
     lockTeams: boolean
     mapSize: number
-    map: number
+    map?: string
     mapName: string
     mapImageUrl: string
     population: number
@@ -52,6 +52,23 @@ export interface ILobbiesMatch {
     revealMap: number
     privacy: number
     players: IMatchesMatchPlayer2[];
+    mod: boolean
+    difficultyName?: string;
+    startingAgeName?: string;
+    endingAgeName?: string;
+    mapSizeName?: string;
+    resourcesName?: string;
+    civilizationSetName?: string;
+    victoryName?: string;
+    revealMapName?: string;
+    antiquityMode?: boolean;
+    password?: boolean;
+    hideCivs?: boolean;
+    civilizationSet?: number;
+    scenario?: string;
+    modDataset?: string;
+    speedName?: string;
+    gameVariant?: number;
 }
 
 
@@ -111,14 +128,19 @@ export interface IMatchesMatchPlayer2 {
     wins?: number
     losses?: number
     drops?: number
-    civ: number
-    civName: string
-    civImageUrl: string
-    color: number
+    civ?: number
+    civName?: string
+    civImageUrl?: string
+    color?: number
     colorHex: string
     slot: number
     team?: number
     won?: boolean
+    rank?: number
+    status?: string
+    country?: string
+    verified?: boolean
+    teamName?: string
 }
 
 
@@ -302,7 +324,7 @@ export interface IMatchNew {
     matchId: number
     started: Date
     finished?: Date
-    leaderboardId?: number
+    leaderboardId?: string
     leaderboardName?: string
     name: string
     server?: string
@@ -313,11 +335,11 @@ export interface IMatchNew {
     allowCheats: boolean
     empireWarsMode: boolean
     endingAge: number
-    gameMode: number
+    gameMode: string
     lockSpeed: boolean
     lockTeams: boolean
     mapSize: number
-    map: number
+    map: string
     mapName: string
     mapImageUrl: string
     population: number
@@ -351,6 +373,15 @@ export interface IMatchNew {
     mapStateName?: string;
     winConditionsName?: string;
     cheats?: boolean;
+    mod?: boolean;
+    password?: boolean;
+    hideCivs?: boolean;
+    civilizationSet?: number;
+    scenario?: string;
+    modDataset?: string;
+    totalSlotCount?: number;
+    blockedSlotCount?: number;
+    averageRating?: number;
 }
 
 export interface ITeamNew {
@@ -362,8 +393,8 @@ export interface IPlayerNew {
     profileId: number
     name: string
     rating?: number
-    ratingDiff: number
-    civFix: number
+    ratingDiff?: number
+    civFix?: number
     civ: string
     civName: string
     civImageUrl: string
@@ -383,6 +414,13 @@ export interface IPlayerNew {
     socialDouyuChannelUrl?: string;
     socialDiscordInvitationUrl?: string;
     socialDiscordInvitation?: string;
+    rank?: number
+    country?: string
+    teamName?: string
+    games?: number
+    wins?: number
+    losses?: number
+    drops?: number
 }
 
 

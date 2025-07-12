@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useAppTheme } from '../../theming';
-import { LiveGame } from '@app/view/live/live-game';
+import { LiveMatch } from '@app/components/live/live-match';
 import { MyText } from '@app/view/components/my-text';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createStylesheet } from '../../theming-new';
@@ -100,9 +100,10 @@ export default function LivePage() {
                                 case 'header':
                                     return <MyText style={styles.header}>{filteredData?.length} lobbies</MyText>;
                                 default:
-                                    return <LiveGame data={item as any} expanded={index === -1} />;
+                                    return <LiveMatch data={item as any} expanded={index === -1} />;
                             }
                         }}
+                        ItemSeparatorComponent={() => <View className="h-4" />}
                         keyExtractor={(item, index) => (typeof item === 'string' ? item : item.matchId?.toString())}
                     />
                 </View>
@@ -117,12 +118,9 @@ const useStyles = createStylesheet((theme) =>
             borderRadius: 0,
             paddingHorizontal: 10,
         },
-
         header: {
             textAlign: 'center',
-            marginBottom: 15,
         },
-
         usageRow: {
             backgroundColor: theme.backgroundColor,
             flexDirection: 'row',

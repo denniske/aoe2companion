@@ -169,9 +169,10 @@ interface IUseLobbiesParams {
     profileIds?: number[];
     verified?: boolean;
     matchIds?: number[];
+    enabled?: boolean;
 }
 
-export const useLobbies = ({profileIds, verified, matchIds}: IUseLobbiesParams) => {
+export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUseLobbiesParams) => {
     const [lobbies, setLobbies] = useState<ILobbiesMatch[]>([]);
     const [connected, setConnected] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -200,12 +201,13 @@ export const useLobbies = ({profileIds, verified, matchIds}: IUseLobbiesParams) 
 
     useFocusEffect(
         useCallback(() => {
+            if (!enabled) return;
             let socket: w3cwebsocket;
             connect(profileIds, verified).then((s) => (socket = s));
             return () => {
                 socket?.close();
             };
-        }, [matchIds])
+        }, [matchIds, enabled])
     );
 
     return { lobbies, connected, isLoading };

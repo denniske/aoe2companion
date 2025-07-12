@@ -104,9 +104,10 @@ export function initMatchSubscription(handler: IConnectionHandler, profileIds?: 
 interface IUseOngoingParams {
     profileIds?: number[];
     verified?: boolean;
+    enabled?: boolean;
 }
 
-export const useOngoing = ({profileIds, verified}: IUseOngoingParams) => {
+export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingParams) => {
     const [matches, setMatches] = useState<IMatchesMatch[]>([]);
     const [connected, setConnected] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -134,12 +135,13 @@ export const useOngoing = ({profileIds, verified}: IUseOngoingParams) => {
 
     useFocusEffect(
         useCallback(() => {
+            if (!enabled) return;
             let socket: w3cwebsocket;
             connect(profileIds, verified).then((s) => (socket = s));
             return () => {
                 socket?.close();
             };
-        }, [profileIds])
+        }, [profileIds, enabled])
     );
 
     return { matches, connected, isLoading };

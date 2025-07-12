@@ -36,7 +36,8 @@ export default function MatchOptions(props: Props) {
     const theme = useAppTheme();
 
     return (
-        <View className="flex-col gap-1 p-5 bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800">
+        // <View className="flex-col gap-1 bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800">
+        <View className="flex-col gap-1">
         {/*<Card><View className="flex-col gap-1">*/}
             {/*<Text className="mb-1">{getTranslation('match.gameSettings')}</Text>*/}
             <View className="flex-row items-center gap-1">
