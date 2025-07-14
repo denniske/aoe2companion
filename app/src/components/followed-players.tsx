@@ -15,8 +15,12 @@ export const FollowedPlayers = () => {
 
     // console.log('followed players account', account?.followedPlayers.length);
 
-    const { data: authProfile, isLoading: isLoadingAuthProfile } = useProfileFast(authProfileId);
-    const { data: followedProfiles, isLoading: isLoadingFollowedProfiles } = useProfiles(account?.followedPlayers.map((f) => f.profileId));
+    const { data: authProfile, isLoading: isLoadingAuthProfile } = useProfileFast(
+        authProfileId, 'profiles.avatar_medium_url'
+    );
+    const { data: followedProfiles, isLoading: isLoadingFollowedProfiles } = useProfiles(
+        account?.followedPlayers.map((f) => f.profileId), 'profiles.avatar_medium_url'
+    );
 
     // console.log('account.profileId', account?.profileId);
     // console.log('authProfileId', authProfileId);

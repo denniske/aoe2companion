@@ -71,17 +71,17 @@ export const useMatchAnalysisSvg = (matchId: number, enabled: boolean) =>
         enabled: !!matchId && enabled,
     });
 
-export const useProfileFast = (profileId?: number) =>
+export const useProfileFast = (profileId?: number, extend: string = '') =>
     useQuery({
         queryKey: ['profile-fast', profileId],
-        queryFn: async () => { return (await fetchProfiles({ profileId })).profiles[0]; },
+        queryFn: async () => { return (await fetchProfiles({ profileId, extend })).profiles[0]; },
         enabled: !!profileId,
     });
 
-export const useProfiles = (profileIds?: number[]) =>
+export const useProfiles = (profileIds?: number[], extend: string = '') =>
     useQuery({
         queryKey: ['profiles', profileIds?.join(',')],
-        queryFn: async () => { return (await fetchProfiles({ profileId: profileIds?.join(',') })).profiles; },
+        queryFn: async () => { return (await fetchProfiles({ profileId: profileIds?.join(','), extend })).profiles; },
         // enabled: !!profileId,
     });
 

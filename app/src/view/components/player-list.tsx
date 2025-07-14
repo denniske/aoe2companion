@@ -9,6 +9,7 @@ import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { router } from 'expo-router';
 import React from 'react';
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
+import { Image } from 'expo-image';
 
 import { CountryImage } from './country-image';
 import { useCavy } from '../testing/tester';
@@ -22,6 +23,7 @@ export interface IPlayerListPlayer {
     profileId: number;
     steamId?: string;
     verified?: string;
+    avatarMediumUrl?: string;
 }
 
 interface IPlayerProps<PlayerType extends IPlayerListPlayer> {
@@ -106,22 +108,18 @@ function Player<PlayerType extends IPlayerListPlayer>({
 
     if (variant === 'horizontal') {
         return (
-            <Card direction="vertical" className="items-center justify-center gap-0 pt-1 pb-2 px-2.5 w-[5.5rem]" style={playerStyle} onPress={onSelect}>
+            <Card direction="vertical" className="items-center justify-center gap-1 pt-1 pb-2 px-2.5 w-[5.5rem]" style={playerStyle} onPress={onSelect}>
                 {image ? (
                     image(player)
                 ) : (
-                    <CountryImage
-                        style={{ textAlign: 'center', fontSize: 24 }}
-                        country={player.country}
-                        allowFontScaling={false}
-                    />
+                    <Image source={{ uri: player.avatarMediumUrl }} className="w-7 h-7 rounded-full" />
                 )}
                 {player.name && (
                     <View className="flex-row gap-1 max-w-full items-center">
+                        {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
                         <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
                             {player.name}
                         </Text>
-                        {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
                         {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon="circle-check" size={12} />}
                     </View>
                 )}
