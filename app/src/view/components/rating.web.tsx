@@ -95,21 +95,21 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 
     const prefHiddenLeaderboardIds = usePrefData((state) => state?.ratingHistoryHiddenLeaderboardIds);
     const savePrefsMutation = useSavePrefsMutation();
-    const [hiddenLeaderboardIds, setHiddenLeaderboardIds] = useState<LeaderboardId[]>();
+    const [hiddenLeaderboardIds, setHiddenLeaderboardIds] = useState<LeaderboardId[]>([]);
+    const [appliedHiddenLeaderboardIds, setAppliedHiddenLeaderboardIds] = useState(false);
 
     useEffect(() => {
         if (!authProfileId) return;
         if (!profile) return;
+        if (appliedHiddenLeaderboardIds) return;
 
-        const isAuthProfile = authProfileId === profile?.profileId;
-        if (hiddenLeaderboardIds == null) {
-            if (isAuthProfile) {
-                setHiddenLeaderboardIds(prefHiddenLeaderboardIds || []);
-            } else {
-                setHiddenLeaderboardIds([]);
-            }
+        if (authProfileId === profile?.profileId) {
+            setHiddenLeaderboardIds(prefHiddenLeaderboardIds || []);
+        } else {
+            setHiddenLeaderboardIds([]);
         }
-    }, [authProfileId, profile, hiddenLeaderboardIds]);
+        setAppliedHiddenLeaderboardIds(true);
+    }, [authProfileId, profile, appliedHiddenLeaderboardIds]);
 
     // Changing the pref will trigger a rerender on every chart. Should we do this?
     // const ratingHistoryDuration = useSelector((state) => state.prefs.ratingHistoryDuration) || 'max';
@@ -124,10 +124,10 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 
     const toggleLeaderboard = (leaderboardId: LeaderboardId) => {
         let ids = [];
-        if (hiddenLeaderboardIds!.includes(leaderboardId)) {
-            ids = hiddenLeaderboardIds!.filter((id) => id != leaderboardId);
+        if (hiddenLeaderboardIds.includes(leaderboardId)) {
+            ids = hiddenLeaderboardIds.filter((id) => id != leaderboardId);
         } else {
-            ids = [...hiddenLeaderboardIds!, leaderboardId];
+            ids = [...hiddenLeaderboardIds, leaderboardId];
         }
         setHiddenLeaderboardIds(ids);
         if (authProfileId === profile?.profileId) {

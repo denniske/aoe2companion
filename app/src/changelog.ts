@@ -281,8 +281,22 @@ export const changelog: IChangelog = {
             content: 'You can now create an account to save your settings and followed players across devices. You can also link your game account to prove ownership of your profile. You can also link your Patreon account to access exclusive benefits.',
         },
         {
+            type: 'feature',
+            title: 'Match Analysis',
+            content: 'You can now analyze matches to show game progression on a map and see uptimes.',
+        },
+        {
+            type: 'feature',
+            title: 'Dashboards',
+            content: 'New dashboards that will auto refresh and show your current lobby/match or the lobbies/matches of the players that you are following.',
+        },
+        {
             type: 'bugfix',
             title: 'Update some unit armor class names',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix toggle of leaderboards in rating graph',
         },
     ],
     '135.0.0': [
