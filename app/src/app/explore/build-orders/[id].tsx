@@ -18,7 +18,7 @@ import { createStylesheet } from '../../../theming-new';
 import { BuildFocus } from '../../../view/build-order/build-focus';
 import { BuildRating } from '../../../view/components/build-order/build-rating';
 import { StepActions } from '../../../view/components/build-order/step-actions';
-import { Button } from '../../../view/components/button';
+import { BuildOrderButton } from '../../../view/components/build-order-button';
 import { MyText } from '../../../view/components/my-text';
 import { Tag } from '../../../view/components/tag';
 import { useTranslation } from '@app/helper/translate';
@@ -152,7 +152,7 @@ export default function BuildDetail() {
                 <BuildRating {...build} />
             </View>
 
-            <Button onPress={() => setFocused(true)}>{getTranslation('builds.detail.focus')}</Button>
+            <BuildOrderButton onPress={() => setFocused(true)}>{getTranslation('builds.detail.focus')}</BuildOrderButton>
 
             <View style={[styles.stepRow, styles.stepRowDivider]}>
                 <View style={styles.stepActions} />

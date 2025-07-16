@@ -2,7 +2,6 @@ import { IMatchNew } from '@app/api/helper/api.types';
 import { useEffect, useState } from 'react';
 
 import { MarchCardSkeleton, MatchCard } from './match-card';
-import { MatchPopup } from './match-popup';
 import { useRouter } from 'expo-router';
 
 export interface MatchProps {
@@ -40,7 +39,7 @@ export const Match: React.FC<Props> = ({ match, expanded, ...props }) => {
 
     return (
         <>
-            <MatchCard match={match} {...props} onPress={() => openMatch()} />
+            <MatchCard match={match} {...props} onPress={() => openMatch()} flat={true} />
             {/*<MatchCard match={match} {...props} onPress={() => setPopupVisible(true)} />*/}
             {/*<MatchPopup match={match} {...props} isActive={popupVisible} onClose={() => setPopupVisible(false)} />*/}
         </>

@@ -288,6 +288,7 @@ export interface IProfilesResultProfile {
     drops: number
     clan: string
     avatarhash: string
+    avatarFullUrl?: string
     verified: boolean
 
     socialLiquipedia?: string;

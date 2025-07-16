@@ -106,9 +106,11 @@ function Player<PlayerType extends IPlayerListPlayer>({
         selectedUser!(player);
     };
 
+    //  w-[5.5rem]
+
     if (variant === 'horizontal') {
         return (
-            <Card direction="vertical" className="items-center justify-center gap-1 pt-1 pb-2 px-2.5 w-[5.5rem]" style={playerStyle} onPress={onSelect}>
+            <Card direction="vertical" className="items-center justify-center gap-1 pt-1 pb-2 px-2.5" style={playerStyle} onPress={onSelect}>
                 {image ? (
                     image(player)
                 ) : (

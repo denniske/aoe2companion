@@ -61,8 +61,8 @@ export default function Uptimes({ time, teams }: Props) {
                 <View key={item.teamId} className="gap-0.5">
                     {item.players.map((player) => (
                         <View className="flex-row items-center gap-0" key={player.color}>
-                            <Image className={'w-4 h-3'} source={player.civImageUrl} contentFit="contain" />
-                            <Text className="w-[100px] px-1">
+                            <Image className={'w-4 h-4'} source={player.civImageUrl} contentFit="contain" />
+                            <Text variant="body-sm" className="w-[100px] px-1">
                                 {player.name}
                             </Text>
                             {padArr(player.uptimes, 3).map(uptime => (

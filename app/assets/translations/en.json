@@ -32,7 +32,17 @@
     "matches.liveandrecentmatches": "Live and Recent Matches",
     "matches.viewlobbies": "View Lobbies",
 
-    "matches.current.title": "Current Match",
+    "matches.current.title": "My Dashboard",
+    "matches.current.empty": "You are not in any lobby / match right now. This dashboard will be refreshed automatically when you are in a lobby or match. (Refresh interval 30s)",
+    "matches.current.loading": "Loading...",
+    "matches.current.connectionlost": "Connection lost.",
+    "matches.current.reconnect": "Reconnect",
+
+    "matches.currentfollowing.title": "Followed Players Dashboard",
+    "matches.currentfollowing.lobbies": "Lobbies",
+    "matches.currentfollowing.lobbies.empty": "Your followed players are not in any lobby right now.",
+    "matches.currentfollowing.matches": "Matches",
+    "matches.currentfollowing.matches.empty": "Your followed players are not in any match right now.",
 
     "main.title": "Me",
     "main.heading.profile": "Profile",

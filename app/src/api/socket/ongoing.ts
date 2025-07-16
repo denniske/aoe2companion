@@ -144,5 +144,5 @@ export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingPa
         }, [profileIds, enabled])
     );
 
-    return { matches, connected, isLoading };
+    return { matches, connected, isLoading, connect: () => connect(profileIds, verified) };
 };

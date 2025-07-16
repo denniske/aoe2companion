@@ -17,6 +17,7 @@ import Special, { getSpecialOrigin } from '@app/view/components/match-map/draw/s
 import Chat from '@app/view/components/match-map/chat';
 import Legend from './legend';
 import Uptimes from '@app/view/components/match-map/uptimes';
+import { Card } from '@app/components/card';
 
 interface Props {
     match?: IMatchNew;
@@ -322,148 +323,171 @@ export default function MatchMap(props: Props) {
     console.log('RERENDER MAP');
 
     return (
-        <View>
-            <View className="flex-row justify-center border0 border-gray-300">
-                <View className="relative w-60 h-60 border0 border-gray-700">
-                    <View className="scale-y-[0.5]">
-                        <View className="-rotate-45">
-                            <Image
-                                cachePolicy={'none'}
-                                contentFit={'fill'}
-                                style={{ width: size, height: size }}
-                                source={{ uri: analysisSvgUrl }}
-                            ></Image>
+        <View className="gap-2">
+            <Card direction="vertical" flat={true}>
+                {/*<Text className="" variant="header-sm">*/}
+                {/*    Map*/}
+                {/*</Text>*/}
+                <View className="flex-row justify-center border0 border-gray-300">
+                    <View className="relative w-60 h-60 border0 border-gray-700">
+                        <View className="scale-y-[0.5]">
+                            <View className="-rotate-45">
+                                <Image
+                                    cachePolicy={'none'}
+                                    contentFit={'fill'}
+                                    style={{ width: size, height: size }}
+                                    source={{ uri: analysisSvgUrl }}
+                                ></Image>
 
-                            <Canvas
-                                style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    width: size,
-                                    height: size,
-                                }}
-                            >
-                                {townCenters.map((unit, index) => {
-                                    const x = coord(unit.position.x);
-                                    const y = coord(unit.position.y);
+                                <Canvas
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        width: size,
+                                        height: size,
+                                    }}
+                                >
+                                    {townCenters.map((unit, index) => {
+                                        const x = coord(unit.position.x);
+                                        const y = coord(unit.position.y);
 
-                                    return (
-                                        <Rect key={index} width={coord(3)} height={coord(3)} x={x} y={y} color={unit.color} />
-                                    );
-                                })}
-                                {buildings.map((unit, index) => {
-                                    return (
-                                        <Faded key={index} time={time} color={unit.color} timeStart={unit.time} origin={getBuildingOrigin({unit, coord})} coord={coord}>
-                                            <Building unit={unit} coord={coord} />
-                                        </Faded>
-                                    );
-                                })}
-                                {/*{[...walls, ...wallBuildingsToWalls, ...playerObjectsGateToWalls, ...playerObjectsSingleToWalls].map((unit, index) => {*/}
-                                {[...walls].map((unit, index) => {
-                                    return (
-                                        <Faded key={index} time={time} color={unit.color} origin={getWallOrigin({unit, coord})} coord={coord} timeStart={unit.time} >
-                                            <Wall unit={unit} coord={coord} />
-                                        </Faded>
-                                    );
-
-                                    // return <FadedWall key={index} unit={unit} coord={coord} time={time} />
-
-                                    // const x = coord(unit.position.x-1/2+1/2);
-                                    // const y = coord(unit.position.y-1/2+1/2);
-                                    // const xEnd = coord(unit.positionEnd.x-1/2+1/2);
-                                    // const yEnd = coord(unit.positionEnd.y-1/2+1/2);
-                                    // const lx = coord(unit.position.x+1/2);
-                                    // const ly = coord(unit.position.y+1/2);
-                                    // const lxEnd = coord(unit.positionEnd.x+1/2);
-                                    // const lyEnd = coord(unit.positionEnd.y+1/2);
-                                    // const isDiagonal = unit.position.x !== unit.positionEnd.x && unit.position.y !== unit.positionEnd.y;
-                                    // const strokeWidth = coord(isDiagonal ? 1.33 : 1);
-                                    // const one = coord(1);
-                                    // const opacity = unit.time > time.value ? 0 : 1;
-                                    //
-                                    // if (x === xEnd && y === yEnd) {
-                                    //     return (
-                                    //         <Rect
-                                    //             key={index}
-                                    //             x={x}
-                                    //             y={y}
-                                    //             width={one}
-                                    //             height={one}
-                                    //             opacity={opacity}
-                                    //             color={unit.color}
-                                    //         />
-                                    //     );
-                                    // }
-                                    //
-                                    // return (
-                                    //     <Fragment key={index}>
-                                    //         <Group
-                                    //             opacity={opacity}
-                                    //         >
-                                    //         <Rect
-                                    //             x={x}
-                                    //             y={y}
-                                    //             width={one}
-                                    //             height={one}
-                                    //             color={unit.color}
-                                    //             // color={'yellow'}
-                                    //         />
-                                    //         <Rect
-                                    //             x={xEnd}
-                                    //             y={yEnd}
-                                    //             width={one}
-                                    //             height={one}
-                                    //             color={unit.color}
-                                    //             // color={'red'}
-                                    //         />
-                                    //         <Line
-                                    //             p1={vec(lx, ly)}
-                                    //             p2={vec(lxEnd, lyEnd)}
-                                    //             style="stroke"
-                                    //             strokeWidth={strokeWidth}
-                                    //             color={unit.color}
-                                    //             opacity={1}
-                                    //             // blendMode="dstATop"
-                                    //         />
-                                    //         </Group>
-                                    //     </Fragment>
-                                    // );
-                                })}
-                                {gaiaDraw.map((gaiaObj) =>
-                                    gaiaObj.map((unit, index) => {
-                                        const x = coord(unit.position.x-1/2);
-                                        const y = coord(unit.position.y-1/2);
-                                        const width = coord(1);
-                                        const height = coord(1);
                                         return (
-                                            <Rect
-                                                key={index}
-                                                width={width}
-                                                height={height}
-                                                x={x}
-                                                y={y}
-                                                color={unit.color}
-                                            />
+                                            <Rect key={index} width={coord(3)} height={coord(3)} x={x} y={y} color={unit.color} />
                                         );
-                                    })
-                                )}
-                                {specials.map((unit, index) => {
-                                    return (
-                                        <Faded key={index} time={time} color={unit.color} timeStart={unit.time} origin={getSpecialOrigin({unit, coord})} coord={coord}>
-                                            <Special time={time} timeStart={unit.time} unit={unit} coord={coord} />
-                                        </Faded>
-                                    );
-                                })}
-                            </Canvas>
+                                    })}
+                                    {buildings.map((unit, index) => {
+                                        return (
+                                            <Faded key={index} time={time} color={unit.color} timeStart={unit.time} origin={getBuildingOrigin({unit, coord})} coord={coord}>
+                                                <Building unit={unit} coord={coord} />
+                                            </Faded>
+                                        );
+                                    })}
+                                    {/*{[...walls, ...wallBuildingsToWalls, ...playerObjectsGateToWalls, ...playerObjectsSingleToWalls].map((unit, index) => {*/}
+                                    {[...walls].map((unit, index) => {
+                                        return (
+                                            <Faded key={index} time={time} color={unit.color} origin={getWallOrigin({unit, coord})} coord={coord} timeStart={unit.time} >
+                                                <Wall unit={unit} coord={coord} />
+                                            </Faded>
+                                        );
+
+                                        // return <FadedWall key={index} unit={unit} coord={coord} time={time} />
+
+                                        // const x = coord(unit.position.x-1/2+1/2);
+                                        // const y = coord(unit.position.y-1/2+1/2);
+                                        // const xEnd = coord(unit.positionEnd.x-1/2+1/2);
+                                        // const yEnd = coord(unit.positionEnd.y-1/2+1/2);
+                                        // const lx = coord(unit.position.x+1/2);
+                                        // const ly = coord(unit.position.y+1/2);
+                                        // const lxEnd = coord(unit.positionEnd.x+1/2);
+                                        // const lyEnd = coord(unit.positionEnd.y+1/2);
+                                        // const isDiagonal = unit.position.x !== unit.positionEnd.x && unit.position.y !== unit.positionEnd.y;
+                                        // const strokeWidth = coord(isDiagonal ? 1.33 : 1);
+                                        // const one = coord(1);
+                                        // const opacity = unit.time > time.value ? 0 : 1;
+                                        //
+                                        // if (x === xEnd && y === yEnd) {
+                                        //     return (
+                                        //         <Rect
+                                        //             key={index}
+                                        //             x={x}
+                                        //             y={y}
+                                        //             width={one}
+                                        //             height={one}
+                                        //             opacity={opacity}
+                                        //             color={unit.color}
+                                        //         />
+                                        //     );
+                                        // }
+                                        //
+                                        // return (
+                                        //     <Fragment key={index}>
+                                        //         <Group
+                                        //             opacity={opacity}
+                                        //         >
+                                        //         <Rect
+                                        //             x={x}
+                                        //             y={y}
+                                        //             width={one}
+                                        //             height={one}
+                                        //             color={unit.color}
+                                        //             // color={'yellow'}
+                                        //         />
+                                        //         <Rect
+                                        //             x={xEnd}
+                                        //             y={yEnd}
+                                        //             width={one}
+                                        //             height={one}
+                                        //             color={unit.color}
+                                        //             // color={'red'}
+                                        //         />
+                                        //         <Line
+                                        //             p1={vec(lx, ly)}
+                                        //             p2={vec(lxEnd, lyEnd)}
+                                        //             style="stroke"
+                                        //             strokeWidth={strokeWidth}
+                                        //             color={unit.color}
+                                        //             opacity={1}
+                                        //             // blendMode="dstATop"
+                                        //         />
+                                        //         </Group>
+                                        //     </Fragment>
+                                        // );
+                                    })}
+                                    {gaiaDraw.map((gaiaObj) =>
+                                        gaiaObj.map((unit, index) => {
+                                            const x = coord(unit.position.x-1/2);
+                                            const y = coord(unit.position.y-1/2);
+                                            const width = coord(1);
+                                            const height = coord(1);
+                                            return (
+                                                <Rect
+                                                    key={index}
+                                                    width={width}
+                                                    height={height}
+                                                    x={x}
+                                                    y={y}
+                                                    color={unit.color}
+                                                />
+                                            );
+                                        })
+                                    )}
+                                    {specials.map((unit, index) => {
+                                        return (
+                                            <Faded key={index} time={time} color={unit.color} timeStart={unit.time} origin={getSpecialOrigin({unit, coord})} coord={coord}>
+                                                <Special time={time} timeStart={unit.time} unit={unit} coord={coord} />
+                                            </Faded>
+                                        );
+                                    })}
+                                </Canvas>
+                            </View>
                         </View>
                     </View>
+                    <Chat time={time} chat={chat} />
+                    <Legend time={time} legendInfo={teams as any} />
                 </View>
-                <Chat time={time} chat={chat} />
-                <Legend time={time} legendInfo={teams as any} />
-            </View>
-            <TimeScrubber time={time} duration={duration}></TimeScrubber>
+                <TimeScrubber time={time} duration={duration}></TimeScrubber>
+            </Card>
             {/*<Eapm teams={teams} />*/}
-            <Uptimes time={time} teams={teams as any} />
+            <Card direction="vertical">
+                <Uptimes time={time} teams={teams as any} />
+            </Card>
+            <Card direction="vertical">
+                <Text>
+                    Match analysis works by parsing the replay file. This may not work for all matches (especially scenarios).
+                    This file contains a list of actions made by each player e.g. create unit/building, research technology, etc.
+                </Text>
+                <Text>
+                    As we cannot use the game engine to replay the match, there are some limitations:
+                </Text>
+                <Text>
+                    - There is no way to know when Buildings are destroyed so they will still be shown on the map.
+                </Text>
+                <Text>
+                    The analysis is not 100% accurate and may contain errors.
+                    New patches might break the match analysis feature.
+                </Text>
+            </Card>
         </View>
     );
 }

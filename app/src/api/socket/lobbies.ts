@@ -177,7 +177,7 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
     const [connected, setConnected] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
-    const connect = async (_profileIds?: number[], _verified?: boolean) => {
+    const connect = async (_profileIds?: number[], _verified?: boolean, _matchIds?: number[]) => {
         return await initLobbySubscription(
             {
                 onOpen: () => {
@@ -195,7 +195,7 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
             },
             _profileIds,
             _verified,
-            matchIds,
+            _matchIds,
         );
     };
 
@@ -203,12 +203,12 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
         useCallback(() => {
             if (!enabled) return;
             let socket: w3cwebsocket;
-            connect(profileIds, verified).then((s) => (socket = s));
+            connect(profileIds, verified, matchIds).then((s) => (socket = s));
             return () => {
                 socket?.close();
             };
-        }, [matchIds, enabled])
+        }, [profileIds, verified, matchIds, enabled])
     );
 
-    return { lobbies, connected, isLoading };
+    return { lobbies, connected, isLoading, connect: () => connect(profileIds, verified, matchIds) };
 };

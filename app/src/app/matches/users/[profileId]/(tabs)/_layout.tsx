@@ -285,15 +285,13 @@ type UserPageParams = {
 function UserTitle({ profile }: UserMenuProps) {
     const getTranslation = useTranslation();
 
-    const avatarUrl = `https://avatars.akamai.steamstatic.com/${profile?.avatarhash}_full.jpg`;
-
     if (!profile) {
         return <View />;
     }
 
     return (
         <HeaderTitle
-            iconComponent={<Image source={{ uri: avatarUrl }} style={{ width: 38, height: 38 }} className="rounded-full" />}
+            iconComponent={<Image source={{ uri: profile?.avatarFullUrl }} style={{ width: 38, height: 38 }} className="rounded-full" />}
             title={profile?.name || ''}
             subtitle={
                 <>

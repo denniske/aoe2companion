@@ -15,12 +15,11 @@ export const Card: React.FC<CardProps> = ({ flat, onPress, header, children, foo
     const Component = onPress || href ? Pressable : View;
     let colorStyles = `bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800`;
     let alignmentStyles = direction === 'horizontal' ? 'items-center' : '';
-    let paddingStyles = 'p-4';
+    let paddingStyles = 'px-4 py-4';
     const directionStyles = direction === 'horizontal' ? 'flex-row items-center' : 'flex-col';
 
     if (flat) {
-        colorStyles = '';
-        paddingStyles = '';
+        paddingStyles = 'px-2 py-2';
     }
 
     return (

@@ -11,7 +11,7 @@ export interface ButtonProps {
     size?: 'large' | 'small';
 }
 
-export const Button: React.FC<ButtonProps> = ({ disabled, children, onPress, fullWidth, hollow, size = 'large' }) => {
+export const BuildOrderButton: React.FC<ButtonProps> = ({ disabled, children, onPress, fullWidth, hollow, size = 'large' }) => {
     const styles = useStyles();
 
     return (

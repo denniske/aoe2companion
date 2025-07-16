@@ -6,7 +6,7 @@ import { IBuildOrder, IBuildOrderStandardResources, IBuildOrderStep } from 'data
 import { MyText } from '../components/my-text';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Button } from '../components/button';
+import { BuildOrderButton } from '../components/build-order-button';
 import { useTranslation } from '@app/helper/translate';
 
 export const BuildFocus: React.FC<{
@@ -76,12 +76,12 @@ export const BuildFocus: React.FC<{
                     />
 
                     <View style={styles.buttonsContainer}>
-                        <Button fullWidth disabled={currentStep === 0} onPress={() => goToStep(currentStep - 1)}>
+                        <BuildOrderButton fullWidth disabled={currentStep === 0} onPress={() => goToStep(currentStep - 1)}>
                             {getTranslation('builds.focus.previous')}
-                        </Button>
-                        <Button fullWidth disabled={currentStep === build.build.length - 1} onPress={() => goToStep(currentStep + 1)}>
+                        </BuildOrderButton>
+                        <BuildOrderButton fullWidth disabled={currentStep === build.build.length - 1} onPress={() => goToStep(currentStep + 1)}>
                             {getTranslation('builds.focus.next')}
-                        </Button>
+                        </BuildOrderButton>
                     </View>
                 </SafeAreaView>
             </SafeAreaProvider>

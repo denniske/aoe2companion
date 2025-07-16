@@ -15,6 +15,7 @@ import { Text } from '../text';
 interface IGameProps {
     data: ILobbiesMatch;
     expanded?: boolean;
+    onPress?: () => void;
 }
 
 const formatDuration = (start: Date, finish: Date) => {
@@ -25,7 +26,7 @@ const formatDuration = (start: Date, finish: Date) => {
     return `${hours.length < 2 ? 0 + hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} min`;
 };
 
-export function LiveMatch({data, expanded = false}: IGameProps) {
+export function LiveMatch({data, expanded = false, onPress}: IGameProps) {
     const styles = useStyles();
     if (data == null) {
         return (
@@ -52,7 +53,7 @@ export function LiveMatch({data, expanded = false}: IGameProps) {
 
     return (
         <View className="gap-4">
-            <Card direction="vertical">
+            <Card direction="vertical" onPress={onPress}>
                 <View style={styles.row}>
                     <Image style={styles.map} source={{uri: data.mapImageUrl}}/>
                     <View style={styles.header}>
@@ -76,14 +77,18 @@ export function LiveMatch({data, expanded = false}: IGameProps) {
                     </View>
                 </View>
             </Card>
-            <Card>
-                <View style={styles.playerList} className="gap-2">
-                    <LivePlayer key={'header'} player={null}/>
-                    {
-                        players.map((player, j) => <LivePlayer key={j} player={player}/>)
-                    }
-                </View>
-            </Card>
+            {
+                expanded && (
+                    <Card>
+                        <View style={styles.playerList} className="gap-2">
+                            <LivePlayer key={'header'} player={null}/>
+                            {
+                                players.map((player, j) => <LivePlayer key={j} player={player}/>)
+                            }
+                        </View>
+                    </Card>
+                )
+            }
         </View>
     );
 }

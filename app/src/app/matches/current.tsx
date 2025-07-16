@@ -3,45 +3,56 @@ import { Text } from '@app/components/text';
 import { isMatchFreeForAll } from '@nex/data';
 import { Stack } from 'expo-router';
 import React, { Fragment, useMemo } from 'react';
-import { Linking, Platform, Pressable, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { LiveMatch } from '@app/components/live/live-match';
-import MatchOptions from '@app/view/components/match-map/match-options';
-import { min, sortBy } from 'lodash';
-import { MatchPlayer } from '@app/components/match/match-player';
+import MatchOptions from '@app/components/match/match-options';
 import { getMatchFromOngoingMatch } from '@app/helper/match';
 import { ScrollView } from '@app/components/scroll-view';
 import { MatchCard } from '@app/components/match/match-card';
 import { useLobbies } from '@app/api/socket/lobbies';
-import { useAuthProfileId } from '@app/queries/all';
-import { Image } from 'expo-image';
-import { Icon } from '@app/components/icon';
-import { appConfig } from '@nex/dataset';
-import { testLobby, testMatch } from '@app/helper/fixtures';
 import { Card } from '@app/components/card';
-
+import MatchInfo from '@app/components/match/match-info';
+import MatchTeams from '@app/components/match/match-teams';
+import MatchAnalysis from '@app/view/components/match-map/match-analysis';
+import { Button } from '@app/components/button';
 
 export default function CurrentLobbyOrMatchPage() {
     const getTranslation = useTranslation();
     const authProfileId = 19912011;
     // const authProfileId = useAuthProfileId();
-    // const profileIds: number[] = authProfileId ? [authProfileId] : [];
 
-    const profileIds = useMemo(
-        () => authProfileId ? [authProfileId] : [],
-        [authProfileId]
-    );
+    const profileIds = useMemo(() => (authProfileId ? [authProfileId] : []), [authProfileId]);
 
-    const { matches, isLoading: isLoadingOngoing } = useOngoing({ profileIds, enabled: profileIds.length > 0 });
+    const {
+        matches,
+        isLoading: isLoadingOngoing,
+        connected: connectedOngoing,
+        connect: connectOngoing,
+    } = useOngoing({ profileIds, enabled: profileIds.length > 0 });
 
-    const { lobbies: lobbiesWithMatchIds, isLoading: isLoadingLobbiesWithMatchIds } = useLobbies({ profileIds, enabled: profileIds.length > 0 });
+    const {
+        lobbies: lobbiesWithMatchIds,
+        isLoading: isLoadingLobbiesWithMatchIds,
+        connected: connectedLobbiesWithMatchIds,
+        connect: connectLobbiesWithMatchIds,
+    } = useLobbies({ profileIds, enabled: profileIds.length > 0 });
 
-    const matchIds = useMemo(
-        () => lobbiesWithMatchIds.map(l => l.matchId),
-        [lobbiesWithMatchIds]
-    );
+    const matchIds = useMemo(() => lobbiesWithMatchIds.map((l) => l.matchId), [lobbiesWithMatchIds]);
 
-    const { lobbies, isLoading: isLoadingLobbies } = useLobbies({ matchIds, enabled: matchIds.length > 0 });
+    const {
+        lobbies,
+        isLoading: isLoadingLobbies,
+        connected: connectedLobbies,
+        connect: connectLobbies,
+    } = useLobbies({ matchIds, enabled: matchIds.length > 0 });
+
+    const isLoading = isLoadingOngoing || isLoadingLobbiesWithMatchIds || (matchIds.length > 0 && isLoadingLobbies);
+    const connected = connectedOngoing && connectedLobbiesWithMatchIds && (matchIds.length === 0 || connectedLobbies);
+    const connect = async () => {
+        await connectOngoing();
+        await connectLobbiesWithMatchIds();
+        await connectLobbies();
+    };
 
     console.log('Current matches', matches);
     console.log('Current lobbiesWithMatchIds', lobbiesWithMatchIds);
@@ -50,11 +61,10 @@ export default function CurrentLobbyOrMatchPage() {
     let lobby = lobbies.length > 0 ? lobbies[0] : null;
     let match = matches.length > 0 ? getMatchFromOngoingMatch(matches[0]) : null;
 
-    match = testMatch;
-    lobby = testLobby;
+    // match = testMatch;
+    // lobby = testLobby;
 
     const freeForAll = match ? isMatchFreeForAll(match) : false;
-
 
     console.log('Current match', match);
 
@@ -62,72 +72,36 @@ export default function CurrentLobbyOrMatchPage() {
         <ScrollView contentContainerStyle="p-4 gap-4">
             <Stack.Screen options={{ title: getTranslation('matches.current.title') }} />
 
-            {/*<LiveGame data={null} />*/}
+            {isLoading && (
+                <Card direction="vertical">
+                    <Text className="text-center">{getTranslation('matches.current.loading')}</Text>
+                </Card>
+            )}
+
+            {!isLoading && !connected && (
+                <Card direction="vertical">
+                    <Text className="text-center">{getTranslation('matches.current.connectionlost')}</Text>
+                    <Button onPress={connect} className="justify-center">
+                        {getTranslation('matches.current.reconnect')}
+                    </Button>
+                </Card>
+            )}
+
+            {!lobby && !match && !isLoading && connected && (
+                <Card direction="vertical">
+                    <Text className="text-center">{getTranslation('matches.current.empty')}</Text>
+                </Card>
+            )}
 
             {lobby && <LiveMatch data={lobby} expanded={true} />}
 
-            {match &&
-                <MatchCard match={match} />
-            }
-
             {match && (
                 <>
-                    <Card direction="vertical">
-                        <ScrollView horizontal contentContainerStyle="items-center gap-4">
-                            <View className="flex-row items-center gap-1">
-                                <Icon icon="clock" size={14} color="subtle" />
-                                <Text color="subtle">-</Text>
-                            </View>
-                            {appConfig.game === 'aoe2de' && (
-                                <View className="flex-row items-center gap-1">
-                                    <Icon icon="running" size={14} color="subtle" />
-                                    <Text color="subtle">{match.speedName}</Text>
-                                </View>
-                            )}
-
-                            <View className="flex-row items-center gap-1">
-                                <Icon icon="memo-circle-info" size={14} color="subtle" />
-                                <Text color="subtle" numberOfLines={1} selectable>
-                                    {match.matchId}
-                                </Text>
-                            </View>
-
-                            {match.name !== 'AUTOMATCH' && (
-                                <Text color="subtle" numberOfLines={1}>
-                                    {match.name}
-                                </Text>
-                            )}
-                        </ScrollView>
-                    </Card>
-
-                    <Card direction="vertical">
-                        {sortBy(match.teams, ({ teamId, players }, i) => min(players.map((p) => p.color))).map(({ teamId, players }, i) => (
-                            <View key={teamId} className="gap-2">
-                                {sortBy(players, (p) => p.color).map((player, j) => (
-                                    <MatchPlayer
-                                        key={j}
-                                        // highlight={highlightedUsers?.some((hu) => hu === player.profileId)}
-                                        match={match}
-                                        player={player}
-                                        freeForAll={freeForAll}
-                                        canDownloadRec={player.replay}
-                                        // onClose={onClose}
-                                    />
-                                ))}
-                                {i < match.teams.length - 1 && (
-                                    <View className="flex-row items-center gap-4">
-                                        <View className="bg-gray-200 dark:bg-gray-800 h-[1px] flex-1" />
-                                        <Text variant="header-sm">{getTranslation('match.versus')}</Text>
-                                        <View className="bg-gray-200 dark:bg-gray-800 h-[1px] flex-1" />
-                                    </View>
-                                )}
-                            </View>
-                        ))}
-                    </Card>
-
-                    <Card direction="vertical">
-                        <MatchOptions match={match} />
-                    </Card>
+                    <MatchCard match={match} />
+                    <MatchInfo match={match} />
+                    <MatchTeams match={match} />
+                    <MatchAnalysis match={match} matchError={null} matchLoading={match == null} />
+                    <MatchOptions match={match} />
                 </>
             )}
         </ScrollView>

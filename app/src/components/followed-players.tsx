@@ -5,6 +5,8 @@ import { Text } from './text';
 import { uniqBy } from 'lodash';
 import { useAccount, useAuthProfileId, useProfileFast, useProfiles } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
+import { Link } from '@app/components/link';
+import React from 'react';
 
 export const FollowedPlayers = () => {
     const getTranslation = useTranslation();
@@ -15,11 +17,9 @@ export const FollowedPlayers = () => {
 
     // console.log('followed players account', account?.followedPlayers.length);
 
-    const { data: authProfile, isLoading: isLoadingAuthProfile } = useProfileFast(
-        authProfileId, 'profiles.avatar_medium_url'
-    );
+    const { data: authProfile, isLoading: isLoadingAuthProfile } = useProfileFast(authProfileId);
     const { data: followedProfiles, isLoading: isLoadingFollowedProfiles } = useProfiles(
-        account?.followedPlayers.map((f) => f.profileId), 'profiles.avatar_medium_url'
+        account?.followedPlayers.map((f) => f.profileId)
     );
 
     // console.log('account.profileId', account?.profileId);
@@ -31,9 +31,12 @@ export const FollowedPlayers = () => {
 
     return (
         <View className="gap-2">
-            <Text variant="header-lg" className="px-4">
-                {getTranslation('home.followedplayers')}
-            </Text>
+            <View className="flex-row justify-between items-center px-4">
+                <Text variant="header-lg">
+                    {getTranslation('home.followedplayers')}
+                </Text>
+                <Link href="/matches/current-following">Open Following Dashboard</Link>
+            </View>
             <PlayerList
                 footer={(player) => {
                     return (

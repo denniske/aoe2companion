@@ -177,7 +177,7 @@ export default function IndexPage() {
                             )}{' '}
                             Match
                         </Text>
-                        <Link href="/matches/current">Open Live Dashboard</Link>
+                        <Link href="/matches/current">Open My Dashboard</Link>
                     </View>
                     <View className="gap-2">
                         <Match user={accountMostRecentMatch?.filteredPlayers[0]} highlightedUsers={accountMostRecentMatch?.filteredPlayers} match={accountMostRecentMatch} />

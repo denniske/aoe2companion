@@ -5,7 +5,6 @@ import { tournamentsEnabled, useFeaturedTournaments, useTournamentMatches } from
 import { FlatList } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
 import { Link } from '@app/components/link';
-import { MatchPopup } from '@app/components/match/match-popup';
 import { ScrollView } from '@app/components/scroll-view';
 import { SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
@@ -17,7 +16,7 @@ import { TournamentMatch } from '@app/view/tournaments/tournament-match';
 import { getTwitchChannel, getVerifiedPlayer, getVerifiedPlayerIds, matchAttributes } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image } from 'expo-image';
-import { Stack, useFocusEffect } from 'expo-router';
+import { Stack, useFocusEffect, useRouter } from 'expo-router';
 import { PlayoffMatch } from 'liquipedia';
 import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';
@@ -30,6 +29,7 @@ export default function Competitive() {
     const getTranslation = useTranslation();
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const { matches } = useOngoing({ verified: true });
+    console.log('Ongoing matches', matches);
     const { data: tournamentMatches, isLoading: isLoadingUpcomingMatches } = useTournamentMatches();
     const filteredMatches = tournamentMatches
         ?.filter((match) => match.startTime && match.tournament)
@@ -89,6 +89,12 @@ export default function Competitive() {
 
     const { data: featuredTournaments, isLoading } = useFeaturedTournaments();
 
+    const router = useRouter();
+
+    const openMatch = (matchId: number) => {
+        router.push(`/matches/single/${matchId}`);
+    };
+
     return (
         <ScrollView className="flex-1" contentContainerStyle="pb-4">
             <Stack.Screen
@@ -97,21 +103,21 @@ export default function Competitive() {
                     title: getTranslation('competitive.title'),
                 }}
             />
-            {selectedMatch && (
-                <MatchPopup
-                    isActive={showMatchPopup}
-                    onClose={() => setShowMatchPopup(false)}
-                    user={selectedMatch.profileId}
-                    highlightedUsers={[selectedMatch.profileId]}
-                    match={{
-                        ...selectedMatch.match,
-                        teams: Object.entries(groupBy(selectedMatch.match.players, 'team')).map(([teamId, players]) => ({
-                            teamId: Number(teamId),
-                            players,
-                        })),
-                    }}
-                />
-            )}
+            {/*{selectedMatch && (*/}
+            {/*    <MatchPopup*/}
+            {/*        isActive={showMatchPopup}*/}
+            {/*        onClose={() => setShowMatchPopup(false)}*/}
+            {/*        user={selectedMatch.profileId}*/}
+            {/*        highlightedUsers={[selectedMatch.profileId]}*/}
+            {/*        match={{*/}
+            {/*            ...selectedMatch.match,*/}
+            {/*            teams: Object.entries(groupBy(selectedMatch.match.players, 'team')).map(([teamId, players]) => ({*/}
+            {/*                teamId: Number(teamId),*/}
+            {/*                players,*/}
+            {/*            })),*/}
+            {/*        }}*/}
+            {/*    />*/}
+            {/*)}*/}
             {selectedSet && (
                 <PlayoffPopup
                     visible={showSetPopup}
@@ -130,7 +136,7 @@ export default function Competitive() {
 
                         <PlayerList
                             hideIcons
-                            selectedUser={(user) => setSelectedMatch({ profileId: user.profileId, match: user.match })}
+                            selectedUser={(user) => openMatch(user.match.matchId)}
                             list={activePlayers.length > 0 ? activePlayers : ['loading', 'loading', 'loading', 'loading', 'loading']}
                             variant="horizontal"
                             playerStyle={{ width: 100 }}

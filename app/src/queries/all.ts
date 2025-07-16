@@ -43,10 +43,10 @@ export const useAuthLinkSteam = (params: any) =>
         queryFn: async () => await authLinkSteam(params),
     });
 
-export const useProfile = (profileId: number) =>
+export const useProfile = (profileId: number, extend: string = 'avatar_medium_url,avatar_full_url') =>
     useQuery({
         queryKey: ['profile', profileId],
-        queryFn: () => fetchProfile({ profileId }),
+        queryFn: () => fetchProfile({ profileId, extend }),
         enabled: !!profileId,
     });
 
@@ -71,14 +71,14 @@ export const useMatchAnalysisSvg = (matchId: number, enabled: boolean) =>
         enabled: !!matchId && enabled,
     });
 
-export const useProfileFast = (profileId?: number, extend: string = '') =>
+export const useProfileFast = (profileId?: number, extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') =>
     useQuery({
         queryKey: ['profile-fast', profileId],
         queryFn: async () => { return (await fetchProfiles({ profileId, extend })).profiles[0]; },
         enabled: !!profileId,
     });
 
-export const useProfiles = (profileIds?: number[], extend: string = '') =>
+export const useProfiles = (profileIds?: number[], extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') =>
     useQuery({
         queryKey: ['profiles', profileIds?.join(',')],
         queryFn: async () => { return (await fetchProfiles({ profileId: profileIds?.join(','), extend })).profiles; },
@@ -88,7 +88,7 @@ export const useProfiles = (profileIds?: number[], extend: string = '') =>
 export const useProfileWithStats = (profileId: number, isFocused: boolean) =>
     useQuery({
         queryKey: ['profile-with-stats', profileId],
-        queryFn: () => fetchProfile({ profileId, extend: 'stats' }),
+        queryFn: () => fetchProfile({ profileId, extend: 'stats,profiles.avatar_medium_url,profiles.avatar_full_url' }),
         enabled: isFocused,
     });
 
