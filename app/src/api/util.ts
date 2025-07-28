@@ -1,6 +1,9 @@
 import store from '../redux/store';
 import { exec, setError } from '../redux/reducer';
 import { sleep } from './helper/util';
+import { supabaseClient } from '@nex/data';
+import Constants from 'expo-constants';
+import { Platform } from 'react-native';
 
 class FetchNotOkError extends Error {
     constructor(
@@ -11,6 +14,54 @@ class FetchNotOkError extends Error {
         super(message);
         this.name = 'FetchNotOkError';
     }
+}
+
+export async function fetchJson(input: RequestInfo, init?: RequestInit, reviver?: any) {
+
+    const { data: session } = await supabaseClient.auth.getSession();
+
+    const response = await fetch(
+        input,
+        {
+            ...init,
+            headers: {
+                'User-Agent': `AoEIICompanion/${getAppVersion()} (${getAppPlatform()})`,
+                'Authorization': `bearer ${session?.session?.access_token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                ...init?.headers,
+            },
+        }
+    );
+
+    const contentType = response.headers.get('content-type') ?? '';
+    const isJson = contentType.includes('application/json');
+
+    let body: any = null;
+    if (isJson) {
+        const text = await response.text();
+        body = JSON.parse(text, reviver);
+    }
+
+    if (!response.ok) {
+        // console.log('Fetch not ok', response.status, response.statusText, body);
+        throw new FetchNotOkError((body as any).error, response.status, (body as any).code);
+    }
+
+    return body;
+}
+
+export function getAppVersion(): string {
+    return Constants.expoConfig?.version || Constants.expoConfig?.extra?.expoClient?.version;
+}
+
+export function getAppPlatform(): string {
+    return Platform.select({
+        ios: 'iOS',
+        android: 'Android',
+        web: 'Web',
+        default: 'Unknown',
+    });
 }
 
 // async function fetchAndParseJson(input: RequestInfo, init?: RequestInit, reviver?: any): Promise<any> {
@@ -35,45 +86,40 @@ class FetchNotOkError extends Error {
 
 // Here we implement a retry mechanism for network requests.
 // So we set QueryClientProvider retry to 0 for react query in _layout.tsx.
-export async function fetchJson(title: string, input: RequestInfo, init?: RequestInit, reviver?: any) {
-    const response = await fetch(input, init);
-
-    const contentType = response.headers.get('content-type') ?? '';
-    const isJson = contentType.includes('application/json');
-
-    let body: any = null;
-    if (isJson) {
-        const text = await response.text();
-        body = JSON.parse(text, reviver);
-    }
-
-    if (!response.ok) {
-        // console.log('Fetch not ok', response.status, response.statusText, body);
-        throw new FetchNotOkError((body as any).error, response.status, (body as any).code);
-    }
-
-    return body;
-
-
-
-
-
-
-    // try {
-    //     return await fetchAndParseJson(input, init, reviver);
-    // } catch (e) {
-    //     // Don't retry on 400 errors
-    //     if (e instanceof FetchNotOkError && e.status === 400) {
-    //         throwAndShowError(e as Error, title, input);
-    //     }
-    //     // try {
-    //     //     await sleep(Math.random() * 100);
-    //     //     return await fetchAndParseJson(input, init, reviver);
-    //     // } catch (e) {
-    //     //     throwAndShowError(e as Error, title, input);
-    //     // }
-    // }
-}
+// export async function fetchJson(title: string, input: RequestInfo, init?: RequestInit, reviver?: any) {
+//     const response = await fetch(input, init);
+//
+//     const contentType = response.headers.get('content-type') ?? '';
+//     const isJson = contentType.includes('application/json');
+//
+//     let body: any = null;
+//     if (isJson) {
+//         const text = await response.text();
+//         body = JSON.parse(text, reviver);
+//     }
+//
+//     if (!response.ok) {
+//         // console.log('Fetch not ok', response.status, response.statusText, body);
+//         throw new FetchNotOkError((body as any).error, response.status, (body as any).code);
+//     }
+//
+//     return body;
+//
+//     // try {
+//     //     return await fetchAndParseJson(input, init, reviver);
+//     // } catch (e) {
+//     //     // Don't retry on 400 errors
+//     //     if (e instanceof FetchNotOkError && e.status === 400) {
+//     //         throwAndShowError(e as Error, title, input);
+//     //     }
+//     //     // try {
+//     //     //     await sleep(Math.random() * 100);
+//     //     //     return await fetchAndParseJson(input, init, reviver);
+//     //     // } catch (e) {
+//     //     //     throwAndShowError(e as Error, title, input);
+//     //     // }
+//     // }
+// }
 
 function throwAndShowError(e: Error, title: string, input: RequestInfo) {
 

@@ -123,12 +123,7 @@ export function Civ4Details({ civ }: { civ: aoeCivKey }) {
 
     const { data: civData } = useQuery({
         queryKey: ['civ-infos', civ],
-        queryFn: () =>
-            fetchJson(
-                'fetchCivInfos',
-                `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`,
-                undefined,
-            ),
+        queryFn: () => fetchJson(`https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`, undefined),
     });
 
     if (!civData) return null;

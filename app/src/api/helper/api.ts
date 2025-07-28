@@ -20,7 +20,7 @@ import { getInternalLanguage } from '@app/helper/translate';
 
 export async function fetchAssets() {
     const url = `${getHost('aoe2companion-data')}api/assets`;
-    return camelizeKeys(await fetchJson('fetchAssets', url, undefined, dateReviver)) as IAssetsResult;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IAssetsResult;
 }
 
 export async function fetchProfile(params: IFetchProfileParams) {
@@ -33,7 +33,7 @@ export async function fetchProfile(params: IFetchProfileParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/profiles/${profileId}?${queryString}`;
-    return camelizeKeys(await fetchJson('fetchProfile', url, undefined, dateReviver)) as IProfileResult;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IProfileResult;
 }
 
 export async function fetchProfiles(params: IFetchProfileParams) {
@@ -45,7 +45,7 @@ export async function fetchProfiles(params: IFetchProfileParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/profiles?${queryString}`;
-    return camelizeKeys(await fetchJson('fetchProfile', url, undefined, dateReviver)) as IProfilesResult;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IProfilesResult;
 }
 
 export async function fetchMatch(params: IFetchMatchParams) {
@@ -57,7 +57,7 @@ export async function fetchMatch(params: IFetchMatchParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/matches/${matchId}?${queryString}`;
-    return camelizeKeys(await fetchJson('fetchMatch', url, undefined, dateReviver)) as IMatchNew;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMatchNew;
 }
 
 export async function fetchMatchAnalysis(params: IFetchMatchParams) {
@@ -69,7 +69,7 @@ export async function fetchMatchAnalysis(params: IFetchMatchParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/matches/${matchId}/analysis?${queryString}`;
-    return camelizeKeys(await fetchJson('fetchMatchAnalysis', url, undefined, dateReviver)) as IAnalysis;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IAnalysis;
 }
 
 export async function fetchMatchAnalysisSvg(params: IFetchMatchParams) {
@@ -85,7 +85,7 @@ export async function fetchMatches(params: IFetchMatchesParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/matches?${queryString}`;
-    return camelizeKeys(await fetchJson('fetchMatches', url, undefined, dateReviver)) as IMatchesResult;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMatchesResult;
 }
 
 export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
@@ -98,7 +98,7 @@ export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/leaderboards/${leaderboardId}?${queryString}`;
-    return camelizeKeys(await fetchJson('fetchLeaderboard', url, undefined, dateReviver)) as ILeaderboard;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as ILeaderboard;
 }
 
 export async function fetchLeaderboards() {
@@ -108,5 +108,5 @@ export async function fetchLeaderboards() {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/leaderboards?${queryString}`;
-    return camelizeKeys(await fetchJson('fetchLeaderboards', url, undefined, dateReviver)) as ILeaderboardDef[];
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as ILeaderboardDef[];
 }

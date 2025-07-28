@@ -102,7 +102,7 @@ if (Platform.OS !== 'web') {
 
 class HttpService implements IHttpService {
     async fetchJson(title: string, input: RequestInfo, init?: RequestInit, reviver?: any) {
-        return fetchJson(title, input, init, reviver);
+        return fetchJson(input, init, reviver);
     }
 }
 

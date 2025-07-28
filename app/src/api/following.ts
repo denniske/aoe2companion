@@ -8,14 +8,14 @@ export async function sendTestPushNotificationWeb(push_token_web: string): Promi
         push_token_web,
     };
 
-    return await fetchJson('sendTestPushNotificationWeb', url, {
+    return await fetchJson(url, {
         method: 'POST',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-    })
+    });
 }
 
 export interface ITwitchChannel {
@@ -43,11 +43,11 @@ export async function twitchLive(channel?: string): Promise<ITwitchChannel> {
 
     const url = getHost('aoe2companion-api') + `twitch/live?channel=${channel}`;
     // console.log(url);
-    return await fetchJson('twitchLive', url, {
+    return await fetchJson(url, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
         },
     });
 }
@@ -98,11 +98,11 @@ export type IDiscordInfo = {
 
 export async function discordOnline(invitationId: string): Promise<IDiscordInfo> {
     const url = `https://discord.com/api/invites/${invitationId}?with_counts=true`;
-    return await fetchJson('discordOnline', url, {
+    return await fetchJson(url, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
         },
     });
 }

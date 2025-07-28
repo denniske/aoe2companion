@@ -6,7 +6,7 @@ import {IMatch} from "./helper/api.types";
 export async function fetchRecording(matchId: string) {
     const url = `https://s3.eu-central-1.amazonaws.com/match.aoe2companion.com/${matchId}.json`;
     console.log('fetchRecording', matchId, url);
-    return await fetchJson('fetchRecording', url) as IRecording;
+    return (await fetchJson(url)) as IRecording;
 }
 
 export async function hasRec(match_id: string, profile_id: number) {

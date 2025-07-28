@@ -133,13 +133,8 @@ export async function fetchAccount(): Promise<IAccount> {
         await followV2(following.map(f => f.profileId));
     }
 
-    return await fetchJson('account', url, {
+    return await fetchJson(url, {
         method: 'GET',
-        headers: {
-            'Authorization': `bearer ${session.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
     });
 }
 
@@ -177,13 +172,8 @@ export async function saveAccount(account: PartialAccountWithPartialPrefs): Prom
         return value === undefined ? null : value;
     };
 
-    return await fetchJson('saveAccount', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
         body: JSON.stringify(data, replaceUndefinedWithNull),
     });
 }
@@ -196,19 +186,12 @@ export async function saveAccount(account: PartialAccountWithPartialPrefs): Prom
 export async function followV2(profileIds: number[]): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/follow`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
     const data = {
         profileIds,
     };
 
-    return await fetchJson('followV2', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
         body: JSON.stringify(data),
     });
 }
@@ -216,19 +199,12 @@ export async function followV2(profileIds: number[]): Promise<IResult> {
 export async function unfollowV2(profileIds: number[]): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/unfollow`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
     const data = {
         profileIds,
     };
 
-    return await fetchJson('unfollowV2', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
         body: JSON.stringify(data),
     });
 }
@@ -236,139 +212,60 @@ export async function unfollowV2(profileIds: number[]): Promise<IResult> {
 export async function accountRelicVerify(): Promise<IRelicVerifyResult> {
     const url = getHost('aoe2companion-api') + `v2/account/relic/verify`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    const data = {
-
-    };
-
-    return await fetchJson('accountRelicVerify', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
 export async function accountUnlinkSteam(): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/unlink/steam`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    const data = {
-
-    };
-
-    return await fetchJson('accountUnlinkSteam', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
 export async function accountUnlinkPatreon(): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/unlink/patreon`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    const data = {
-
-    };
-
-    return await fetchJson('accountUnlinkPatreon', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
 export async function accountUnlinkYoutube(): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/unlink/youtube`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    const data = {
-
-    };
-
-    return await fetchJson('accountUnlinkYoutube', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
 export async function accountUnlinkDiscord(): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/unlink/discord`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    const data = {
-
-    };
-
-    return await fetchJson('accountUnlinkDiscord', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
 export async function accountUnlinkTwitch(): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/unlink/twitch`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    const data = {
-
-    };
-
-    return await fetchJson('accountUnlinkTwitch', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
 export async function accountDiscordInvitation(invitation: string): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/discord/invitation`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
     const data = {
         invitation,
     };
 
-    return await fetchJson('accountUnlinkTwitch', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
         body: JSON.stringify(data),
     });
 }
@@ -376,16 +273,8 @@ export async function accountDiscordInvitation(invitation: string): Promise<any>
 export async function authLinkSteam(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/steam?${makeQueryString(params)}`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    return await fetch(url, {
+    return await fetchJson(url, {
         method: 'GET',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
@@ -393,16 +282,8 @@ export async function authLinkSteam(params: any): Promise<any> {
 export async function authLinkPatreon(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/patreon?${makeQueryString(params)}`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    return await fetch(url, {
+    return await fetchJson(url, {
         method: 'GET',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
@@ -410,16 +291,8 @@ export async function authLinkPatreon(params: any): Promise<any> {
 export async function authLinkYoutube(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/youtube?${makeQueryString(params)}`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    return await fetch(url, {
+    return await fetchJson(url, {
         method: 'GET',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
@@ -427,16 +300,8 @@ export async function authLinkYoutube(params: any): Promise<any> {
 export async function authLinkDiscord(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/discord?${makeQueryString(params)}`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    return await fetch(url, {
+    return await fetchJson(url, {
         method: 'GET',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
@@ -444,51 +309,28 @@ export async function authLinkDiscord(params: any): Promise<any> {
 export async function authLinkTwitch(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/twitch?${makeQueryString(params)}`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    return await fetch(url, {
+    return await fetchJson(url, {
         method: 'GET',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
 export async function authConfirm(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/confirm?${makeQueryString(params)}`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
-
-    return await fetch(url, {
+    return await fetchJson(url, {
         method: 'GET',
-        headers: {
-            'Authorization': `bearer ${session?.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify(data),
     });
 }
 
 export async function setAccountLiveActivityToken(liveActivityToken: string): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/live_activity_token`;
 
-    let { data: session } = await supabaseClient.auth.getSession();
-
     const data = {
         liveActivityToken,
     };
 
-    return await fetchJson('setAccountLiveActivityToken', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
         body: JSON.stringify(data),
     });
 }
@@ -496,21 +338,14 @@ export async function setAccountLiveActivityToken(liveActivityToken: string): Pr
 export async function storeLiveActivityStarted(liveActivityId: string, activityType: string, objectId: string): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/live_activity_started`;
 
-    let { data: session } = await supabaseClient.auth.getSession();
-
     const data = {
         liveActivityId,
         activityType,
         objectId,
     };
 
-    return await fetchJson('storeLiveActivityStarted', url, {
+    return await fetchJson(url, {
         method: 'POST',
-        headers: {
-            'Authorization': `bearer ${session.session?.access_token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
         body: JSON.stringify(data),
     });
 }

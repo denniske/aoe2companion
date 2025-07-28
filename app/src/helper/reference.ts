@@ -74,7 +74,7 @@ export async function fetchAoeReferenceData() {
             url,
         });
         const requestUrl = `https://yaml-to-json.vercel.app/api/convert?${queryString}`;
-        const json = await fetchJson('fetchAoeReferenceData', requestUrl);
+        const json = await fetchJson(requestUrl);
         // setAoeReferenceData({ players: json });
         return json;
     } catch (err) {

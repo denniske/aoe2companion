@@ -17,6 +17,7 @@ import { nativeApplicationVersion, nativeBuildVersion } from 'expo-application';
 import { Stack } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import { useTranslation } from '@app/helper/translate';
+import { getAppVersion } from '@app/api/util';
 
 export default function AboutPage() {
     const getTranslation = useTranslation();
@@ -248,7 +249,7 @@ export default function AboutPage() {
             <MyText style={styles.heading}>{getTranslation('about.heading.version')}</MyText>
             <TouchableOpacity onPress={incrementVersionClickCount}>
                 <MyText style={styles.content}>
-                    {channel || 'dev'} {Constants.expoConfig?.version || Constants.expoConfig?.extra?.expoClient?.version} (
+                    {channel || 'dev'} {getAppVersion()} (
                     {runtimeVersion || 'dev'})
                 </MyText>
                 <MyText style={styles.content}>
