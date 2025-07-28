@@ -336,7 +336,7 @@ export interface IMatchNew {
     allowCheats: boolean
     empireWarsMode: boolean
     endingAge: number
-    gameMode: string
+    gameMode: string                 // used
     lockSpeed: boolean
     lockTeams: boolean
     mapSize: number
@@ -348,7 +348,7 @@ export interface IMatchNew {
     regicideMode: boolean
     resources: number
     sharedExploration: boolean
-    speed: number
+    speed: number                // used
     suddenDeathMode: boolean
     teamPositions: boolean
     teamTogether: boolean
