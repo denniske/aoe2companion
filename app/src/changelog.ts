@@ -291,12 +291,24 @@ export const changelog: IChangelog = {
             content: 'New dashboards that will auto refresh and show your current lobby/match or the lobbies/matches of the players that you are following.',
         },
         {
+            type: 'minor',
+            title: 'Speed up favorization of build orders',
+        },
+        {
             type: 'bugfix',
             title: 'Update some unit armor class names',
         },
         {
             type: 'bugfix',
             title: 'Fix toggle of leaderboards in rating graph',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix crash on startup when server has missing assets (iOS)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix missing civ background images on explore page',
         },
     ],
     '135.0.0': [

@@ -277,6 +277,26 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
+					<string>Jurchens</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>JEVSYw</string>
+					<key>INEnumValueIndex</key>
+					<integer>47</integer>
+					<key>INEnumValueName</key>
+					<string>Jurchens</string>
+				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>Khitans</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>sTQ7MQ</string>
+					<key>INEnumValueIndex</key>
+					<integer>48</integer>
+					<key>INEnumValueName</key>
+					<string>Khitans</string>
+				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
 					<string>Khmer</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>xF7bjR</string>
@@ -407,6 +427,16 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
+					<string>Shu</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>Pfh1yP</string>
+					<key>INEnumValueIndex</key>
+					<integer>49</integer>
+					<key>INEnumValueName</key>
+					<string>Shu</string>
+				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
 					<string>Sicilians</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>idpz1S</string>
@@ -485,6 +515,26 @@
 					<key>INEnumValueName</key>
 					<string>Vikings</string>
 				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>Wei</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>QvHAY8</string>
+					<key>INEnumValueIndex</key>
+					<integer>50</integer>
+					<key>INEnumValueName</key>
+					<string>Wei</string>
+				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>Wu</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>uPmp3b</string>
+					<key>INEnumValueIndex</key>
+					<integer>51</integer>
+					<key>INEnumValueName</key>
+					<string>Wu</string>
+				</dict>
 			</array>
 		</dict>
 	</array>
@@ -493,11 +543,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>FxhwOU</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>23C64</string>
+	<string>24F74</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>15C65</string>
+	<string>16E140</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>15.1</string>
+	<string>16.3</string>
 	<key>INIntents</key>
 	<array>
 		<dict>

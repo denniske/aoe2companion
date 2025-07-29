@@ -151,6 +151,8 @@ export default function IndexPage() {
                 <FollowedPlayers />
             </View>
 
+            {/*<Button onPress={crashSetImage}>Crash</Button>*/}
+
             {/*{authProfileId && (*/}
             {/*    <View className="gap-2">*/}
             {/*        <Text variant="header-lg">*/}

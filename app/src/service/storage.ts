@@ -129,6 +129,8 @@ export const useFavoritedBuilds = () => {
     };
 
     const writeItemToStorage = async (newValue: FavoriteId[]) => {
+        // let start = new Date();
+
         if (Platform.OS === 'ios' && appConfig.game === 'aoe2de') {
             const newWidgetData = JSON.stringify(
                 buildsData
@@ -137,16 +139,18 @@ export const useFavoritedBuilds = () => {
                         id: build.id.toString(),
                         title: build.title,
                         civilization: build.civilization,
-                        image: Widget.setImage(
-                            Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri,
-                            `${camelCase(build.civilization)}.png`
-                        ),
-                        icon: Widget.setImage(
-                            Image.resolveAssetSource({
-                                uri: build.imageURL,
-                            }).uri,
-                            `${camelCase(build.image.toString())}.png`
-                        ),
+                        image:
+                            Widget.getImagePathIfExists(`${camelCase(build.civilization)}.png`) ??
+                            Widget.setImage(
+                                Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri,
+                                `${camelCase(build.civilization)}.png`
+                            ),
+                        icon:
+                            Widget.getImagePathIfExists(`${camelCase(build.image.toString())}.png`) ??
+                            Widget.setImage(
+                                Image.resolveAssetSource({ uri: build.imageURL }).uri,
+                                `${camelCase(build.image.toString())}.png`
+                            ),
                     }))
             );
             Widget.setItem('savedData', newWidgetData);
@@ -154,6 +158,9 @@ export const useFavoritedBuilds = () => {
         }
         await setItem(JSON.stringify(newValue));
         setFavoriteIds(newValue);
+
+        // console.log('writeItemToStorage', (new Date().getTime() - start.getTime()), 'ms');
+        // start = new Date();
     };
 
     useEffect(() => {
@@ -184,15 +191,27 @@ export const cacheLiveActivityAssets = async () => {
     const assets = await fetchAssets();
     // console.log('cacheLiveActivityAssets', new Date());
     for (const asset of assets) {
+        // console.log('hasImage', asset.imageUrl, new Date());
         if (!Widget.hasImage(await md5(asset.imageUrl))) {
             const url = Widget.setImage(asset.imageUrl, await md5(asset.imageUrl));
-            // console.log('cacheLiveActivityAssets', url, new Date());
+            // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
         } else {
             // console.log('cacheLiveActivityAssets already cached', await md5(asset.imageUrl));
         }
     }
     // console.log('cacheLiveActivityAssets finish', new Date());
 };
+
+// export const crashSetImage = async () => {
+//     try {
+//         console.log('pre crashSetImage');
+//         const url = Widget.setImage(Image.resolveAssetSource(getCivIconLocal('Aztecs') ?? genericCivIcon).uri, '');
+//         console.log('post crashSetImage', url);
+//     }
+//     catch (error) {
+//         console.error('Error setting image:', error);
+//     }
+// }
 
 export const useFavoritedBuild = (id: FavoriteId) => {
     const { favoriteIds, toggleFavorite } = useFavoritedBuilds();

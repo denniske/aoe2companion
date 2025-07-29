@@ -25,6 +25,8 @@ enum CivilizationMap: Int {
     case Hindustanis
     case Italians
     case Japanese
+    case Jurchens
+    case Khitans
     case Khmer
     case Koreans
     case Lithuanians
@@ -38,6 +40,7 @@ enum CivilizationMap: Int {
     case Portuguese
     case Romans
     case Saracens
+    case Shu
     case Sicilians
     case Slavs
     case Spanish
@@ -46,6 +49,8 @@ enum CivilizationMap: Int {
     case Turks
     case Vietnamese
     case Vikings
+    case Wei
+    case Wu
 }
 
 extension CivilizationMap {
@@ -103,6 +108,10 @@ extension CivilizationMap {
             return "Italians"
         case .Japanese:
             return "Japanese"
+        case .Jurchens:
+            return "Jurchens"
+        case .Khitans:
+            return "Khitans"
         case .Khmer:
             return "Khmer"
         case .Koreans:
@@ -129,6 +138,8 @@ extension CivilizationMap {
             return "Romans"
         case .Saracens:
             return "Saracens"
+        case .Shu:
+            return "Shu"
         case .Sicilians:
             return "Sicilians"
         case .Slavs:
@@ -145,6 +156,10 @@ extension CivilizationMap {
             return "Vietnamese"
         case .Vikings:
             return "Vikings"
+        case .Wei:
+            return "Wei"
+        case .Wu:
+            return "Wu"
         }
     }
 }

@@ -21,6 +21,19 @@ internal class AppGroupNotSetException: Exception {
     }
 }
 
+internal class GenericWidgetException: Exception {
+    private let _reason: String
+
+    init(_reason: String) {
+        self._reason = _reason
+        super.init()
+    }
+
+    override var reason: String {
+        _reason
+    }
+}
+
 public class WidgetModule: Module {
 
     private var appGroup: String?
@@ -67,14 +80,41 @@ public class WidgetModule: Module {
             return FileManager.default.fileExists(atPath: fileUrl.path)
         }
 
-        Function("setImage") { (path: String, filename: String) -> String in
+        Function("getImagePathIfExists") { (filename: String) -> String? in
             guard let appGroup = self.appGroup else { throw AppGroupNotSetException() }
 
             let containerURL = FileManager.default.containerURL(
                 forSecurityApplicationGroupIdentifier: appGroup)!
             let fileUrl = containerURL.appendingPathComponent(filename)
-            let imageData = try? Data(contentsOf: URL(string: path)!)
-            try! imageData!.write(to: fileUrl)
+
+            if FileManager.default.fileExists(atPath: fileUrl.path) {
+                return fileUrl.absoluteString
+            } else {
+                return nil
+            }
+        }
+
+        Function("setImage") { (path: String, filename: String) -> String in
+            guard let appGroup = self.appGroup else {
+                throw AppGroupNotSetException()
+            }
+
+            guard let containerURL = FileManager.default.containerURL(
+                forSecurityApplicationGroupIdentifier: appGroup) else {
+                throw GenericWidgetException(_reason: "App group container URL not found")
+            }
+
+            guard let url = URL(string: path) else {
+                throw GenericWidgetException(_reason: "Invalid image URL")
+            }
+
+            guard let imageData = try? Data(contentsOf: url) else {
+                throw GenericWidgetException(_reason: "Failed to load image data")
+            }
+
+            let fileUrl = containerURL.appendingPathComponent(filename)
+            try imageData.write(to: fileUrl)
+
             return fileUrl.absoluteString
         }
     }

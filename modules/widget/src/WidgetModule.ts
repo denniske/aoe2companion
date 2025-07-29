@@ -5,6 +5,7 @@ declare class WidgetModule extends NativeModule<WidgetModuleEvents> {
     getItem: (...args: string[]) => '';
     setItem: (...args: string[]) => {};
     setImage: (...args: string[]) => '';
+    getImagePathIfExists: (...args: string[]) => '';
     hasImage: (...args: string[]) => boolean;
     reloadAll: () => {};
     setAppGroup: (appGroup: string) => void;
