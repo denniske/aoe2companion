@@ -39,52 +39,52 @@ export default function MatchOptions(props: Props) {
         <Card direction="vertical">
             <View className="flex-col gap-1">
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.gameMode')}:</Text>
-                    <Text>{match.gameModeName}</Text>
+                    <Text className="w-[50%]">{getTranslation('match.gameMode')}:</Text>
+                    <Text className="flex-1">{match.gameModeName}</Text>
                 </View>
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.map')}:</Text>
-                    <Text>{match.mapName}</Text>
+                    <Text className="w-[50%]">{getTranslation('match.map')}:</Text>
+                    <Text className="flex-1">{match.mapName}</Text>
                 </View>
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.mapsize')}:</Text>
-                    <Text>{match.mapSizeName}</Text>
+                    <Text className="w-[50%]">{getTranslation('match.mapsize')}:</Text>
+                    <Text className="flex-1">{match.mapSizeName}</Text>
                 </View>
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.aidifficulty')}:</Text>
-                    <Text>{match.difficultyName}</Text>
+                    <Text className="w-[50%]">{getTranslation('match.aidifficulty')}:</Text>
+                    <Text className="flex-1">{match.difficultyName}</Text>
                 </View>
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.resources')}:</Text>
-                    <Text>{match.resourcesName}</Text>
+                    <Text className="w-[50%]">{getTranslation('match.resources')}:</Text>
+                    <Text className="flex-1">{match.resourcesName}</Text>
                 </View>
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.population')}:</Text>
-                    <Text>{match.population}</Text>
+                    <Text className="w-[50%]">{getTranslation('match.population')}:</Text>
+                    <Text className="flex-1">{match.population}</Text>
                 </View>
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.gamespeed')}:</Text>
-                    <Text>{match.speedName}</Text>
+                    <Text className="w-[50%]">{getTranslation('match.gamespeed')}:</Text>
+                    <Text className="flex-1">{match.speedName}</Text>
                 </View>
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.revealmap')}:</Text>
-                    <Text>{match.revealMapName}</Text>
+                    <Text className="w-[50%]">{getTranslation('match.revealmap')}:</Text>
+                    <Text className="flex-1">{match.revealMapName}</Text>
                 </View>
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.startingage')}:</Text>
-                    <Text>{match.startingAgeName}</Text>
+                    <Text className="w-[50%]">{getTranslation('match.startingage')}:</Text>
+                    <Text className="flex-1">{match.startingAgeName}</Text>
                 </View>
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.endingage')}:</Text>
-                    <Text>{match.endingAgeName}</Text>
+                    <Text className="w-[50%]">{getTranslation('match.endingage')}:</Text>
+                    <Text className="flex-1">{match.endingAgeName}</Text>
                 </View>
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.treatylength')}:</Text>
-                    <Text>{match.treatyLength} minutes</Text>
+                    <Text className="w-[50%]">{getTranslation('match.treatylength')}:</Text>
+                    <Text className="flex-1">{match.treatyLength} minutes</Text>
                 </View>
                 <View className="flex-row items-center gap-1">
-                    <Text className="w-[180px]">{getTranslation('match.victory')}:</Text>
-                    <Text>{match.victoryName}</Text>
+                    <Text className="w-[50%]">{getTranslation('match.victory')}:</Text>
+                    <Text className="flex-1">{match.victoryName}</Text>
                 </View>
 
                 <View className="flex-row gap-1 mt-2">

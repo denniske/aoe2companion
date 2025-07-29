@@ -92,7 +92,7 @@ export default function Eapm({ teams }: Props) {
                     Effective Actions Per Minute
                 </Text>
 
-                <View style={{ width: windowWidth - 40, height: 160, marginVertical: 12 }}>
+                <View style={{ width: windowWidth - 75, height: 160, marginVertical: 12 }}>
                     {dataset.data?.length > 0 && (
                         <CartesianChart
                             style={{height: 160}}

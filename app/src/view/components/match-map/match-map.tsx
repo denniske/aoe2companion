@@ -18,6 +18,7 @@ import Chat from '@app/view/components/match-map/chat';
 import Legend from './legend';
 import Uptimes from '@app/view/components/match-map/uptimes';
 import { Card } from '@app/components/card';
+import Eapm from '@app/view/components/match-map/eapm';
 
 interface Props {
     match?: IMatchNew;
@@ -27,11 +28,12 @@ interface Props {
 
 export function getTimestampMs(timestamp: string) {
     // timestamp = "0:12:24.994000"
+    // timestamp = "0:12:24"         (microseconds is optional)
     const parts = timestamp.replace('.', ':').split(':');
     const hours = parseInt(parts[0]);
     const minutes = parseInt(parts[1]);
     const seconds = parseInt(parts[2]);
-    const microseconds = parseInt(parts[3]);
+    const microseconds = parseInt(parts[3] ?? 0);
     return (hours * 60 * 60 + minutes * 60 + seconds) * 1000 + microseconds/1000;
 }
 
@@ -277,6 +279,11 @@ export default function MatchMap(props: Props) {
 
         // console.log(`(${x}, ${y}):`, gaiaTile?.name);
 
+        if (gaiaTile && !gaiaTile.name) {
+            console.log(`(${x}, ${y}):`, gaiaTile);
+            return true;
+        }
+
         // return tile != null && !blockedTerrainIdsSet.has(tile.terrain);
         return tile != null && !blockedTerrainIdsSet.has(tile.terrain)
             && (gaiaTile == null || (!gaiaTile.name.startsWith('Tree') && !gaiaTile.name.startsWith('Gold') && !gaiaTile.name.startsWith('Stone')));
@@ -468,7 +475,9 @@ export default function MatchMap(props: Props) {
                 </View>
                 <TimeScrubber time={time} duration={duration}></TimeScrubber>
             </Card>
-            {/*<Eapm teams={teams} />*/}
+            <Card direction="vertical">
+                <Eapm teams={teams as any} />
+            </Card>
             <Card direction="vertical">
                 <Uptimes time={time} teams={teams as any} />
             </Card>
