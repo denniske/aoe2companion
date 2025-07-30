@@ -319,8 +319,8 @@ export interface IMatchesResult {
 export interface IMatchNew {
     gameModeName: string;
 
-    gameVariant: number; // TODO
-    speedName: string; // TODO
+    gameVariant: string;
+    speedName: string;
 
     matchId: number
     started: Date
@@ -336,7 +336,7 @@ export interface IMatchNew {
     allowCheats: boolean
     empireWarsMode: boolean
     endingAge: number
-    gameMode: string                 // used
+    gameMode: string
     lockSpeed: boolean
     lockTeams: boolean
     mapSize: number
@@ -348,7 +348,8 @@ export interface IMatchNew {
     regicideMode: boolean
     resources: number
     sharedExploration: boolean
-    speed: number                // used
+    speed: number
+    speedFactor: number
     suddenDeathMode: boolean
     teamPositions: boolean
     teamTogether: boolean

@@ -3,11 +3,10 @@ import { formatAgo, isMatchFreeForAll, teamRatio } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { differenceInMilliseconds, differenceInSeconds } from 'date-fns';
 import { Image } from 'expo-image';
-import { flatten, startCase } from 'lodash';
+import { flatten, startCase, uniq } from 'lodash';
 import React, { ReactNode } from 'react';
 import { View } from 'react-native';
 
-import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
 import { Card } from '../card';
 import { Icon } from '../icon';
 import { Skeleton, SkeletonText } from '../skeleton';
@@ -28,7 +27,7 @@ export function matchIsFinishedOrTimedOut(match: IMatchNew) {
     }
     if (match.started) {
         const finished = match.finished || new Date();
-        const duration = differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed);
+        const duration = differenceInSeconds(finished, match.started) * match.speedFactor;
         return duration > 60 * 60 * 24; // 24 hours
     }
     return false;
@@ -40,7 +39,7 @@ export function matchTimedOut(match: IMatchNew) {
     }
     if (match.started) {
         const finished = match.finished || new Date();
-        const duration = differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed);
+        const duration = differenceInSeconds(finished, match.started) * match.speedFactor;
         return duration > 60 * 60 * 24; // 24 hours
     }
     return false;
@@ -70,7 +69,7 @@ export function MatchCard(props: MatchCardProps) {
     const { flat, match, user, highlightedUsers, expanded = false, showLiveActivity = false, onPress } = props;
     const players = flatten(match?.teams.map((t) => t.players));
     const freeForAll = isMatchFreeForAll(match);
-    const attributes = [teamRatio(match)];
+    let attributes = [teamRatio(match)];
 
     if (match.leaderboardName?.includes('Unranked')) {
         attributes.push('Unranked');
@@ -80,21 +79,21 @@ export function MatchCard(props: MatchCardProps) {
         attributes.push('Ranked');
     }
 
-    if (match.gameMode) {
-        if (match.leaderboardName && !match.leaderboardName.includes(match.gameMode.toString())) {
+    if (match.gameModeName) {
+        if (match.leaderboardName && !match.leaderboardName.includes(match.gameModeName.toString())) {
             attributes.push(match.leaderboardName.replace('1v1', '').replace('Team', ''));
         } else {
-            attributes.push(startCase(match.gameMode.toString()));
+            attributes.push(startCase(match.gameModeName.toString()));
         }
     }
 
-    let duration: string = '';
-    if (match.started) {
-        const finished = match.finished || new Date();
-        duration = formatDuration(differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed));
-        // console.log('getSpeedFactor(match.speed as AoeSpeed)', getSpeedFactor(match.speed as AoeSpeed))
-    }
-    if (appConfig.game !== 'aoe2de') duration = '';
+    // console.log('match.gameModeName', match.gameModeName);
+    // console.log('match.leaderboardName', match.leaderboardName);
+    // console.log('match.1', match.leaderboardName?.replace('1v1', '').replace('Team', ''));
+    // console.log('match.2', startCase(match.gameModeName.toString()));
+    // console.log('attributes', attributes);
+
+    attributes = uniq(attributes);
 
     return (
         <Card
@@ -125,7 +124,7 @@ export function MatchCard(props: MatchCardProps) {
         >
             <View className="flex-1">
                 <Text numberOfLines={1} variant="header-sm">
-                    {match.gameVariant === 1 && 'RoR - '}
+                    {match.gameVariant === 'ror' && 'RoR - '}
                     {match.mapName}
                     {match.server && <Text> - {match.server}</Text>}
                 </Text>
@@ -156,7 +155,7 @@ const ElapsedTimeOrDuration: React.FC<ElapsedTimeOrDurationProps> = ({ match }) 
         const finished = match.finished || new Date();
         // It seems the game speed is not exactly 1.7 for normal speed in AoE2:DE, so we need to correct it
         const CORRECTION_FACTOR = appConfig.game === 'aoe2de' ? 1.05416666667 : 1;
-        duration = formatDuration(differenceInMilliseconds(finished, match.started) / 1000 * getSpeedFactor(match.speed as AoeSpeed) / CORRECTION_FACTOR);
+        duration = formatDuration(differenceInMilliseconds(finished, match.started) / 1000 * match.speedFactor / CORRECTION_FACTOR);
         // console.log('getSpeedFactor(match.speed as AoeSpeed)', getSpeedFactor(match.speed as AoeSpeed))
     }
     if (appConfig.game !== 'aoe2de') duration = '';

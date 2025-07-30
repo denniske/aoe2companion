@@ -22,21 +22,26 @@ export default function TwitchBadge(props: Props) {
         queryFn: () => twitchLive(channel),
     });
 
-    let content = undefined;
-    if (playerTwitchLive?.viewer_count) {
-        content = `${playerTwitchLive?.viewer_count}${condensed ? '' : ' watching'}`;
+    let label: string;
+    let content: string;
+    if (condensed) {
+        label = '';
+        content = playerTwitchLive?.viewer_count ? `` : '';
+    } else {
+        label = 'Twitch';
+        content = playerTwitchLive?.viewer_count ? `${playerTwitchLive.viewer_count} watching` : '';
     }
 
     return (
         <TouchableOpacity onPress={() => openLink(channelUrl)}>
             <Badge
-                label={!condensed ? 'Twitch' : ''}
+                label={label}
                 labelColor="#6441a5"
-                content={content ? content : condensed ? 'Offline' : undefined}
+                content={content}
                 contentColor="#333638"
                 logoIcon="twitch"
                 logoColor="white"
-                dot={!!content}
+                dot={!!playerTwitchLive?.viewer_count}
             />
         </TouchableOpacity>
     );

@@ -1,29 +1,10 @@
-import React, { Fragment, useMemo } from 'react';
-import { Canvas, Rect, vec, Line, Group, Circle, useSVG, ImageSVG } from '@shopify/react-native-skia';
-import { ActivityIndicator, Linking, Platform, Pressable, View } from 'react-native';
+import React, { useMemo } from 'react';
+import { Linking, Platform, Pressable, View } from 'react-native';
 import { Image } from 'expo-image';
-import { IAnalysis, IMatchNew } from '@app/api/helper/api.types';
+import { IMatchNew } from '@app/api/helper/api.types';
 import { Text } from '@app/components/text';
-import { compact, flatten, sortBy, uniq } from 'lodash';
-import { gaiaObjects, getBuildingSize } from '@app/view/components/match-map/map-utils';
-import { getPath, getTileMap, setTiles, splitPath } from '@app/view/components/match-map/match-map3';
-import groupBy from 'lodash/groupBy';
-import { runOnJS, useAnimatedReaction, useDerivedValue, useSharedValue } from 'react-native-reanimated';
-import TimeScrubber from '@app/view/components/match-map/time-scrubber';
-import Faded from '../../view/components/match-map/draw/faded';
-import Wall, { getWallOrigin } from '../../view/components/match-map/draw/wall';
-import Building, { getBuildingOrigin } from '@app/view/components/match-map/draw/building';
-import Special, { getSpecialOrigin } from '@app/view/components/match-map/draw/special';
-import Chat from '@app/view/components/match-map/chat';
-import Legend from '../../view/components/match-map/legend';
-import Uptimes from '@app/view/components/match-map/uptimes';
-import Eapm from '@app/view/components/match-map/eapm';
-import { useMatchAnalysis, useMatchAnalysisSvg, useWithRefetching } from '@app/queries/all';
-import SkiaLoader from '@app/components/skia-loader';
-import { Button } from '@app/components/button';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { flatten } from 'lodash';
 import { useTranslation } from '@app/helper/translate';
-import { useAppTheme } from '@app/theming';
 import { Card } from '@app/components/card';
 import { ScrollView } from '@app/components/scroll-view';
 import { Icon } from '@app/components/icon';
@@ -31,7 +12,6 @@ import { appConfig } from '@nex/dataset';
 import { useTournamentMatches } from '@app/api/tournaments';
 import { differenceInMinutes, differenceInSeconds } from 'date-fns';
 import { getVerifiedPlayer } from '@nex/data';
-import { AoeSpeed, getSpeedFactor } from '@app/helper/speed';
 import { useRouter } from 'expo-router';
 
 interface Props {
@@ -75,7 +55,7 @@ export default function MatchInfo(props: Props) {
     let duration: string = '';
     if (match.started) {
         const finished = match.finished || new Date();
-        duration = formatDuration(differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed));
+        duration = formatDuration(differenceInSeconds(finished, match.started) * match.speedFactor);
     }
 
     return (

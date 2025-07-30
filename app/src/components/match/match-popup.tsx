@@ -8,15 +8,14 @@ import { flatten, min, sortBy } from 'lodash';
 import React, { useMemo } from 'react';
 import { Linking, Platform, Pressable, View } from 'react-native';
 
-import { MatchProps } from '.';
-import { MatchCard, matchIsFinishedOrTimedOut, matchTimedOut } from './match-card';
+import { MatchCard, matchTimedOut } from './match-card';
 import { MatchPlayer } from './match-player';
 import { useTournamentMatches } from '../../api/tournaments';
-import { AoeSpeed, getSpeedFactor } from '../../helper/speed';
 import { Icon } from '../icon';
 import { ScrollView } from '../scroll-view';
 import { Text } from '../text';
 import { useTranslation } from '@app/helper/translate';
+import { MatchProps } from '@app/components/match/match';
 
 type MatchPopupProps = MatchProps & Pick<BottomSheetProps, 'isActive' | 'onClose'>;
 
@@ -74,7 +73,7 @@ export function MatchPopup(props: MatchPopupProps) {
     let duration: string = 'Unknown';
     if (match.started && !matchTimedOut(match)) {
         const finished = match.finished || new Date();
-        duration = formatDuration(differenceInSeconds(finished, match.started) * getSpeedFactor(match.speed as AoeSpeed));
+        duration = formatDuration(differenceInSeconds(finished, match.started) * match.speedFactor);
     }
 
     return (

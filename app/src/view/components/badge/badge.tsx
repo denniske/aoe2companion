@@ -53,14 +53,14 @@ export default function Badge(props: Props) {
                 {label && <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>}
             </LinearGradient>
             {
-                content &&
+                (content || dot) &&
                 <LinearGradient
                     style={styles.content}
                     colors={[contentColor, shadeColor(contentColor, -20)]}
                 >
                     {
                         dot &&
-                        <MyText style={{color: '#e91a16', fontSize: 10}}> ● </MyText>
+                        <MyText style={{color: '#e91a16', fontSize: 10, lineHeight: 14}}> ● </MyText>
                     }
                     <MyText style={[styles.contentText, { color: contentTextColor }]}>{content}</MyText>
                 </LinearGradient>

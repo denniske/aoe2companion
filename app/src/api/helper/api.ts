@@ -53,6 +53,7 @@ export async function fetchMatch(params: IFetchMatchParams) {
     const queryString = makeQueryString(
         decamelizeKeys({
             ...removeReactQueryParams(restParams),
+            useEnums: true,
             language: getInternalLanguage(),
         })
     );
@@ -80,6 +81,7 @@ export async function fetchMatches(params: IFetchMatchesParams) {
     const queryString = makeQueryString(
         decamelizeKeys({
             ...removeReactQueryParams(params),
+            useEnums: true,
             page: params.page || params.pageParam || 1,
             language: getInternalLanguage(),
         })
