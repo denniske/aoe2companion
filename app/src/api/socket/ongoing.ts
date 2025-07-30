@@ -6,6 +6,7 @@ import { ICloseEvent, w3cwebsocket } from 'websocket';
 import { IMatchesMatch } from '../helper/api.types';
 import { makeQueryString } from '@app/api/helper/util';
 import { decamelizeKeys } from 'humps';
+import { useIsFocused } from '@react-navigation/native';
 
 interface IConnectionHandler {
     onOpen?: () => void;
@@ -111,6 +112,7 @@ export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingPa
     const [matches, setMatches] = useState<IMatchesMatch[]>([]);
     const [connected, setConnected] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const focused = useIsFocused();
 
     const connect = async (_profileIds?: number[], _verified?: boolean) => {
         return await initMatchSubscription(
@@ -138,11 +140,12 @@ export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingPa
             if (!enabled) return;
             let socket: w3cwebsocket;
             connect(profileIds, verified).then((s) => (socket = s));
+            setIsLoading(true);
             return () => {
                 socket?.close();
             };
         }, [profileIds, enabled])
     );
 
-    return { matches, connected, isLoading, connect: () => connect(profileIds, verified) };
+    return { matches, connected: connected || !focused, isLoading, connect: () => connect(profileIds, verified) };
 };

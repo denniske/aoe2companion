@@ -52,9 +52,9 @@ export default function CurrentLobbyOrMatchPage() {
         await connectLobbies();
     };
 
-    console.log('Current matches', matches);
-    console.log('Current lobbiesWithMatchIds', lobbiesWithMatchIds);
-    console.log('Current lobbies', lobbies);
+    // console.log('Current matches', matches);
+    // console.log('Current lobbiesWithMatchIds', lobbiesWithMatchIds);
+    // console.log('Current lobbies', lobbies);
 
     let lobbyList = lobbies;
     let matchList = matches.map((m) => getMatchFromOngoingMatch(m));
@@ -71,6 +71,9 @@ export default function CurrentLobbyOrMatchPage() {
     const openLobby = (lobbyId: number) => {
         router.push(`/matches/lobby/${lobbyId}`);
     };
+
+    // console.log('isLoading', isLoading);
+    // console.log('connected', connected);
 
     return (
         <ScrollView contentContainerStyle="p-4 gap-4">

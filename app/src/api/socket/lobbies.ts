@@ -5,6 +5,7 @@ import { ICloseEvent, w3cwebsocket } from 'websocket';
 import { decamelizeKeys } from 'humps';
 import { getHost, makeQueryString } from '@nex/data';
 import produce from 'immer';
+import { useIsFocused } from '@react-navigation/native';
 
 export interface IMatchesMatchPlayer2 {
     matchId: number;
@@ -176,6 +177,7 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
     const [lobbies, setLobbies] = useState<ILobbiesMatch[]>([]);
     const [connected, setConnected] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const focused = useIsFocused();
 
     const connect = async (_profileIds?: number[], _verified?: boolean, _matchIds?: number[]) => {
         return await initLobbySubscription(
@@ -204,11 +206,12 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
             if (!enabled) return;
             let socket: w3cwebsocket;
             connect(profileIds, verified, matchIds).then((s) => (socket = s));
+            setIsLoading(true);
             return () => {
                 socket?.close();
             };
         }, [profileIds, verified, matchIds, enabled])
     );
 
-    return { lobbies, connected, isLoading, connect: () => connect(profileIds, verified, matchIds) };
+    return { lobbies, connected: connected || !focused, isLoading, connect: () => connect(profileIds, verified, matchIds) };
 };
