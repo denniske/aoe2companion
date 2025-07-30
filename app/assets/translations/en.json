@@ -295,7 +295,7 @@
     "account.discord.save": "Save",
 
     "account.patreon.title": "Patreon",
-    "account.patreon.description": "Link your Patreon account to access exclusive benefits",
+    "account.patreon.description": "Link your Patreon account",
     "account.patreon.membershipstatus": "Membership Status",
     "account.patreon.freestatus": "Free Membership",
     "account.patreon.unlink": "Unlink Patreon Account",

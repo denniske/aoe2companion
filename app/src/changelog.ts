@@ -278,7 +278,7 @@ export const changelog: IChangelog = {
         {
             type: 'feature',
             title: 'Account creation',
-            content: 'You can now create an account to save your settings and followed players across devices. You can also link your game account to prove ownership of your profile. You can also link your Patreon account to access exclusive benefits.',
+            content: 'You can now create an account to save your settings and followed players across devices. You can also link your game account to prove ownership of your profile. You can also link your Patreon account.',
         },
         {
             type: 'feature',
