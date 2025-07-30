@@ -310,6 +310,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix missing civ background images on explore page',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix featured tournament calculation and show year for start/end date if it is not the current year in tournament list',
+        },
     ],
     '135.0.0': [
         {

@@ -1,4 +1,4 @@
-import { useFeaturedTournament } from '@app/api/tournaments';
+import { tournamentsEnabled, useFeaturedTournament } from '@app/api/tournaments';
 import { FlatList } from '@app/components/flat-list';
 import { FollowedPlayers } from '@app/components/followed-players';
 import { Link } from '@app/components/link';
@@ -211,10 +211,10 @@ export default function IndexPage() {
                 </View>
             )}
 
-            {Platform.OS !== 'web' ? (
+            {tournamentsEnabled ? (
                 <View className="gap-2">
                     <View className="flex-row justify-between items-center">
-                        <Text variant="header-lg">{followedIds[0] ? 'Favorite' : 'Featured'} Tournament</Text>
+                        <Text variant="header-lg">{followedIds[0] ? getTranslation('home.favoriteTournament') : getTranslation('home.featuredTournament')}</Text>
                         <Link href="/competitive/tournaments">
                             {getTranslation('home.viewAll')}
                         </Link>

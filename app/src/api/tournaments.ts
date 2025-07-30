@@ -1,4 +1,4 @@
-import { sortByStatus, sortByTier, sortedTiers } from '@app/helper/tournaments';
+import { sortByStart, sortByStatus, sortByTier, sortedTiers } from '@app/helper/tournaments';
 import { appConfig } from '@nex/dataset';
 import { UseQueryResult, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as Application from 'expo-application';
@@ -36,7 +36,7 @@ export const useFeaturedTournament = () => {
 export const useFeaturedTournaments = () => {
     const { data: tournaments, ...query } = useUpcomingTournaments();
 
-    return { data: orderBy(tournaments, [sortByTier, sortByStatus], ['asc', 'asc']), ...query };
+    return { data: orderBy(tournaments, [sortByTier, sortByStatus, sortByStart], ['asc', 'asc', 'asc']), ...query };
 };
 
 export const useAllTournaments = () =>

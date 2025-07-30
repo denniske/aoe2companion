@@ -49,6 +49,10 @@ export const sortByStatus = (tournament: Tournament) => {
     return sortedStatuses.indexOf(status);
 };
 
+export const sortByStart = (tournament: Tournament) => {
+    return tournament.start;
+};
+
 export const transformSearch = (string: string) => string.toLowerCase().replace(/'/g, '').replace(/\W/g, ' ').replace(/ +/g, ' ');
 export const tournamentAbbreviation = (string: string) =>
     string

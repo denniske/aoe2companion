@@ -9,6 +9,8 @@ import { Platform, View } from 'react-native';
 import { formatPrizePool, formatTier, tournamentStatus } from '../../helper/tournaments';
 import { useTranslation } from '@app/helper/translate';
 
+const isCurrentYear = (date: Date | undefined) => date?.getFullYear() === new Date().getFullYear();
+
 export const TournamentCard: React.FC<Tournament & { subtitle?: string; direction?: 'vertical' | 'horizontal' }> = ({
     direction = 'horizontal',
     ...tournament
@@ -19,9 +21,11 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string; directio
 
     const getTranslation = useTranslation();
     const status = tournamentStatus(tournament);
-    const start = tournament.start && format(tournament.start, 'LLL d');
+    const startDateFormat = isCurrentYear(tournament.start) ? 'LLL d' : 'LLL d (yyyy)';
+    const start = tournament.start && format(tournament.start, startDateFormat);
     const endDate = tournament.end || tournament.start;
-    const end = endDate && format(endDate, 'LLL d');
+    const endDateFormat = isCurrentYear(endDate) ? 'LLL d' : 'LLL d (yyyy)';
+    const end = endDate && format(endDate, endDateFormat);
 
     return (
         <Card
