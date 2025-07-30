@@ -15,11 +15,11 @@ import MatchInfo from '@app/components/match/match-info';
 import MatchTeams from '@app/components/match/match-teams';
 import MatchAnalysis from '@app/view/components/match-map/match-analysis';
 import { Button } from '@app/components/button';
+import { useAuthProfileId } from '@app/queries/all';
 
 export default function CurrentLobbyOrMatchPage() {
     const getTranslation = useTranslation();
-    const authProfileId = 19912011;
-    // const authProfileId = useAuthProfileId();
+    const authProfileId = useAuthProfileId();
 
     const profileIds = useMemo(() => (authProfileId ? [authProfileId] : []), [authProfileId]);
 
