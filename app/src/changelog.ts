@@ -268,7 +268,7 @@ export const changelog: IChangelog = {
     //         title: 'UI translation',
     //     },
     // ],
-    '139.0.0': [
+    '140.0.0': [
         {
             type: 'minor',
             title: 'Removed youtube channel linking until it is fixed',
