@@ -16,8 +16,7 @@ export default function AuthLinkPatreon() {
 
     const init = async () => {
         console.log('authLinkPatreon', params);
-        const result = await authLinkPatreon(params);
-        const data = await result.json();
+        const data = await authLinkPatreon(params);
         console.log('authLinkPatreon', data);
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
         router.dismiss();

@@ -16,8 +16,7 @@ export default function AuthLinkDiscord() {
 
     const init = async () => {
         console.log('authLinkDiscord', params);
-        const result = await authLinkDiscord(params);
-        const data = await result.json();
+        const data = await authLinkDiscord(params);
         console.log('authLinkDiscord', data);
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
         router.dismiss();

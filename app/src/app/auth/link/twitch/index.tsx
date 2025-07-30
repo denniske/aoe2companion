@@ -16,8 +16,7 @@ export default function AuthLinkTwitch() {
 
     const init = async () => {
         console.log('authLinkTwitch', params);
-        const result = await authLinkTwitch(params);
-        const data = await result.json();
+        const data = await authLinkTwitch(params);
         console.log('authLinkTwitch', data);
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
         router.dismiss();

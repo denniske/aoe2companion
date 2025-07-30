@@ -15,8 +15,7 @@ export default function AuthLinkSteam() {
     const getTranslation = useTranslation();
 
     const init = async () => {
-        const result = await authLinkSteam(params);
-        const data = await result.json();
+        const data = await authLinkSteam(params);
         console.log('authLinkSteam', data);
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
         router.dismiss();

@@ -16,8 +16,7 @@ export default function AuthLinkYoutube() {
 
     const init = async () => {
         console.log('authLinkYoutube', params);
-        const result = await authLinkYoutube(params);
-        const data = await result.json();
+        const data = await authLinkYoutube(params);
         console.log('authLinkYoutube', data);
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
         router.dismiss();

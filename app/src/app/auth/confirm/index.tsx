@@ -16,10 +16,10 @@ export default function AuthConfirm() {
     const getTranslation = useTranslation();
 
     const init = async () => {
-        console.log('authConfirm', params);
-        const result = await authConfirm(params);
-        const data = await result.json();
-        console.log('authConfirm', data);
+        console.log('authConfirm');
+        console.log('params', params);
+        const data = await authConfirm(params);
+        console.log('data', data);
 
         if (data.error) {
             Alert.alert(data.error.code)
@@ -29,7 +29,7 @@ export default function AuthConfirm() {
             access_token: data.session.accessToken,
             refresh_token: data.session.refreshToken,
         });
-        console.log('authConfirm', authResponse);
+        console.log('authResponse', authResponse);
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
 
         if (params.type === 'recovery') {

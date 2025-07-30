@@ -184,10 +184,10 @@ export default function AccountPage() {
     }
 
     const updateDiscordInvitation = async (discordInvitation: string) => {
-        const result = await accountDiscordInvitation(discordInvitation);
-        console.log(result);
-        if (result.error) {
-            setDiscordInvitationError(result.error.message);
+        const data = await accountDiscordInvitation(discordInvitation);
+        console.log(data);
+        if (data.error) {
+            setDiscordInvitationError(data.error.message);
         } else {
             setDiscordInvitationError('');
             await account.refetch();
