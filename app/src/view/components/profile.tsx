@@ -21,7 +21,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from '@app/helper/translate';
 import { Button } from '@app/components/button';
 import useAuth from '../../../../data/src/hooks/use-auth';
-import { useAccount } from '@app/queries/all';
+import { useAccount, useAuthProfileId } from '@app/queries/all';
 
 interface ILeaderboardRowProps {
     data: IProfileLeaderboardResult;
@@ -174,6 +174,8 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     // console.log('verifiedPlayer===>', verifiedPlayer);
     // console.log('data?.linkedProfiles===>', data?.linkedProfiles);
 
+    const authProfileId = useAuthProfileId();
+
     const user = useAuth();
     const account = useAccount();
     const loggedIn = user && !user.is_anonymous && account.data;
@@ -226,7 +228,8 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 {/*    {' '}to manage your data and socials.*/}
                 {/*</MyText>*/}
 
-                {(false || !loggedIn) && (
+                {/*{(false || !loggedIn) && (*/}
+                {!loggedIn && authProfileId === profileId && (
                     <View className="space-x-2 flex-row items-center">
                         {/*<Pressable*/}
                         {/*    onPress={() => router.push('/more/account')}*/}
