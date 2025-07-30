@@ -268,7 +268,7 @@ export const changelog: IChangelog = {
     //         title: 'UI translation',
     //     },
     // ],
-    '137.0.0': [
+    '138.0.0': [
         {
             type: 'feature',
             title: 'Added Spanish translation for UI',
