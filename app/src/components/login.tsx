@@ -21,8 +21,8 @@ AppState.addEventListener('change', (state) => {
 })
 
 export default function Login() {
-    const [email, setEmail] = useState('dennis.keil10+12@gmail.com')
-    const [password, setPassword] = useState('test1234')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const getTranslation = useTranslation();
     const account = useAccount();
