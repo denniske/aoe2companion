@@ -156,7 +156,6 @@ const ElapsedTimeOrDuration: React.FC<ElapsedTimeOrDurationProps> = ({ match }) 
         // It seems the game speed is not exactly 1.7 for normal speed in AoE2:DE, so we need to correct it
         const CORRECTION_FACTOR = appConfig.game === 'aoe2de' ? 1.05416666667 : 1;
         duration = formatDuration(differenceInMilliseconds(finished, match.started) / 1000 * match.speedFactor / CORRECTION_FACTOR);
-        // console.log('getSpeedFactor(match.speed as AoeSpeed)', getSpeedFactor(match.speed as AoeSpeed))
     }
     if (appConfig.game !== 'aoe2de') duration = '';
 

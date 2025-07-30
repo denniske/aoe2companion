@@ -545,6 +545,7 @@
     "feed.following.yplayed": "played",
     "feed.following.yplayingnow": "playing now",
 
+    "match.unknown": "Unknown",
     "match.versus": "VS",
     "match.gameMode": "Game Mode",
     "match.gameSettings": "Game Settings",

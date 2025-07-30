@@ -13,6 +13,7 @@ import { useTournamentMatches } from '@app/api/tournaments';
 import { differenceInMinutes, differenceInSeconds } from 'date-fns';
 import { getVerifiedPlayer } from '@nex/data';
 import { useRouter } from 'expo-router';
+import { matchTimedOut } from '@app/components/match/match-card';
 
 interface Props {
     match: IMatchNew;
@@ -56,6 +57,9 @@ export default function MatchInfo(props: Props) {
     if (match.started) {
         const finished = match.finished || new Date();
         duration = formatDuration(differenceInSeconds(finished, match.started) * match.speedFactor);
+    }
+    if (matchTimedOut(match)) {
+        duration = getTranslation('match.unknown');
     }
 
     return (
