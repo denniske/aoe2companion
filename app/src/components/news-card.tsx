@@ -33,7 +33,7 @@ export const NewsCard: React.FC<Post> = (post) => {
 
     return (
         <Card onPress={() => setVisible(true)} direction="vertical" className="overflow-hidden w-56">
-            <View className="-mx-2 -mt-3 mb-1">
+            <View className="-mx-4 -mt-4 mb-1">
                 <Image source={{ uri: imageUrl }} className="w-full" style={{ aspectRatio: 1.75 }} />
             </View>
             <Text variant="label" numberOfLines={2}>
@@ -48,7 +48,7 @@ export const NewsCard: React.FC<Post> = (post) => {
 export const NewsCardSkeleton = () => {
     return (
         <Card direction="vertical" className="overflow-hidden w-56">
-            <View className="-mx-2 -mt-3 mb-1">
+            <View className="-mx-4 -mt-4 mb-1">
                 <Skeleton className="w-full" style={{ aspectRatio: 1.75 }} />
             </View>
             <SkeletonText variant="label" numberOfLines={2} />

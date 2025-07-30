@@ -54,7 +54,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
 
     if (player === 'loading') {
         return (
-            <Card direction="vertical" className="items-center justify-center gap-0 pt-1 pb-2 px-2.5 w-20" style={playerStyle}>
+            <Card direction="vertical" className="items-center justify-center gap-0 pt-2 pb-2 px-2.5 w-20" style={playerStyle}>
                 <View className="w-[29px] h-[28px] items-center justify-center">
                     <Skeleton className="w-6 h-6" />
                 </View>
@@ -110,7 +110,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
 
     if (variant === 'horizontal') {
         return (
-            <Card direction="vertical" className="items-center justify-center gap-1 pt-1 pb-2 px-2.5" style={playerStyle} onPress={onSelect}>
+            <Card direction="vertical" className="items-center justify-center gap-1 pt-2 pb-2 px-2.5" style={playerStyle} onPress={onSelect}>
                 {image ? (
                     image(player)
                 ) : (
