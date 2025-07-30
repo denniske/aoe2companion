@@ -89,8 +89,8 @@ export default function Login() {
             }
         );
 
-        console.log('data', data)
-        console.log('error', error)
+        console.log('signup data', data)
+        console.log('signup error', error)
 
         if (error) {
             Alert.alert(error.message)
@@ -117,6 +117,7 @@ export default function Login() {
 
         setLoading(false)
 
+        console.log('signup invalidating queries')
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
     }
 

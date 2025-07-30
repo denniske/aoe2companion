@@ -8,10 +8,13 @@ import Space from '@app/view/components/space';
 import { supabaseClient } from '@nex/data';
 import { authConfirm } from '@app/api/account';
 import { useTranslation } from '@app/helper/translate';
+import { usePrevious } from '@nex/data/hooks';
+import { isEqual } from 'lodash';
 
 export default function AuthConfirm() {
     const router = useRouter();
     const params = useGlobalSearchParams();
+    const prevParams = usePrevious(params);
     const queryClient = useQueryClient();
     const getTranslation = useTranslation();
 
@@ -29,7 +32,9 @@ export default function AuthConfirm() {
             access_token: data.session.accessToken,
             refresh_token: data.session.refreshToken,
         });
+
         console.log('authResponse', authResponse);
+
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
 
         if (params.type === 'recovery') {
@@ -39,9 +44,9 @@ export default function AuthConfirm() {
         }
     };
 
-    useEffect(() => {
+    if (!isEqual(params, prevParams)) {
         init();
-    }, [params]);
+    }
 
     return (
         <View>
