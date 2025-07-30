@@ -5,7 +5,7 @@ import { getLeaderboardColor, getLeaderboardTextColor } from '../../helper/color
 import { TextLoader } from './loader/text-loader';
 import { useAppTheme } from '../../theming';
 import ButtonPicker from './button-picker';
-import { isAfter, subDays, subMonths, subWeeks } from 'date-fns';
+import { isAfter, subDays, subMonths, subWeeks, subYears } from 'date-fns';
 import { IProfileRatingsLeaderboard, IProfileResult } from '../../api/helper/api.types';
 import { windowWidth } from '@app/app/statistics/leaderboard';
 import { orderBy } from 'lodash';
@@ -17,6 +17,7 @@ import { useAuthProfileId } from '@app/queries/all';
 import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useTranslation } from '@app/helper/translate';
+import { getRatingTimespan } from '@app/utils/rating';
 
 const fontFamily = Platform.select({ ios: 'Helvetica', default: 'serif' });
 const fontStyle = {
@@ -98,21 +99,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     };
 
     const filteredRatingHistories = useMemo(() => {
-        let since: any = null;
-        switch (ratingHistoryDuration) {
-            case '3m':
-                since = subMonths(new Date(), 3);
-                break;
-            case '1m':
-                since = subMonths(new Date(), 1);
-                break;
-            case '1w':
-                since = subWeeks(new Date(), 1);
-                break;
-            case '1d':
-                since = subDays(new Date(), 1);
-                break;
-        }
+        const since = getRatingTimespan(ratingHistoryDuration);
 
         return ratingHistories?.map((r) => ({
             ...r,
@@ -138,6 +125,10 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
             ['x'],
         );
 
+        if (data.length > 0) {
+            data.push({ x: new Date() });
+        }
+
         const end = new Date();
         console.log('MEMO CALC data', end.getTime() - start.getTime(), 'ms');
 
@@ -147,14 +138,14 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
         };
     }, [filteredRatingHistories]);
 
-    // console.log('ratingHistories', ratingHistories[0]);
-    // console.log('filteredRatingHistories', filteredRatingHistories?.[0].ratings.length);
+    // const since = getRatingTimespan(ratingHistoryDuration);
+    // let firstDate = since ?? filteredRatingHistories?.[0]?.ratings?.[0]?.date ?? subYears(new Date(), 1);
 
     // if (!filteredRatingHistories?.[0]) {
     //     return <View></View>;
     // }
 
-    // console.log('data', dataset);
+    // console.log('dataset', dataset);
 
     return (
         <View style={styles.container}>
