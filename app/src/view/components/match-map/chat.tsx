@@ -69,15 +69,15 @@ export default function Chat({ time, chat }: Props) {
             }}
             className="mx-3 bg-gray-800/60 gap-1 p-2"
         >
-            {currentMessages.map((item) => (
+            {currentMessages.map((message) => (
                 <Text
-                    key={item.time}
+                    key={message.time}
                     style={{
-                        color: item.color?.toLowerCase(),
+                        color: message.color?.toLowerCase(),
                         fontSize: 10,
                     }}
                 >
-                    {item.origination} - {item.playerName}: {item.message}
+                    {message.origination} - {message.playerName}: {message.message}
                 </Text>
             ))}
         </View>

@@ -52,6 +52,17 @@ export const aoe2PlayerColors: Record<string, string> = {
     '#FF9600': '#C78031',
 };
 
+export const aoe2PlayerColorsLightModeChatLegend: Record<string, string> = {
+    '#405BFF': '#405BFF',
+    '#FF0000': '#FF0000',
+    '#00FF00': '#00FF00',
+    '#FFFF00': '#FFFF00',
+    '#00FFFF': '#00FFFF',
+    '#FF57B3': '#FF57B3',
+    '#797979': '#333333', // Darker gray for better contrast on light mode chat+legend
+    '#FF9600': '#FF9600',
+};
+
 // export const aoe2PlayerColorsByName: Record<string, string> = {
 //     'Blue': '#4B4AC8',
 //     'Red': '#C72321',

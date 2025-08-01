@@ -19,6 +19,8 @@ import Legend from './legend';
 import Uptimes from '@app/view/components/match-map/uptimes';
 import { Card } from '@app/components/card';
 import Eapm from '@app/view/components/match-map/eapm';
+import { useDarkMode } from '@app/app/_layout';
+import { aoe2PlayerColorsLightModeChatLegend } from '@app/helper/colors';
 
 interface Props {
     match?: IMatchNew;
@@ -39,6 +41,7 @@ export function getTimestampMs(timestamp: string) {
 
 export default function MatchMap(props: Props) {
     const { match, analysis, analysisSvgUrl } = props;
+    const darkMode = useDarkMode();
 
     const time = useSharedValue<number>(0);
 
@@ -81,23 +84,29 @@ export default function MatchMap(props: Props) {
 
     const getAnalysisPlayer = (color: number) => analysis.players.find(p => (p.colorId ?? 0)+1 === color);
 
-    const teams = match.teams.map(team => ({
+    const teams = match.teams.map((team) => ({
         teamId: team.teamId,
-        players: team.players.map(player => ({
-            profileId: player.profileId,
-            name: player.name,
-            color: getAnalysisPlayer(player.color)?.colorHex,
-            civImageUrl: player.civImageUrl,
-            eapmPerMinute: getAnalysisPlayer(player.color)?.eapmPerMinute,
-            resignation: getAnalysisPlayer(player.color)?.resignation,
-            uptimes: getAnalysisPlayer(player.color)?.queuedTechs
-                ?.filter((o) => ['Feudal Age', 'Castle Age', 'Imperial Age'].includes(o.unit))
-                ?.map((o) => ({
-                    timestamp: o.timestamp,
-                    time: getTimestampMs(o.timestamp),
-                    unit: o.unit,
-                }))
-        })),
+        players: team.players.map((player) => {
+
+            const colorHex = getAnalysisPlayer(player.color)?.colorHex;
+            const color = darkMode == 'light' ? aoe2PlayerColorsLightModeChatLegend[colorHex as any] ?? colorHex : colorHex;
+
+            return {
+                profileId: player.profileId,
+                name: player.name,
+                color,
+                civImageUrl: player.civImageUrl,
+                eapmPerMinute: getAnalysisPlayer(player.color)?.eapmPerMinute,
+                resignation: getAnalysisPlayer(player.color)?.resignation,
+                uptimes: getAnalysisPlayer(player.color)
+                    ?.queuedTechs?.filter((o) => ['Feudal Age', 'Castle Age', 'Imperial Age'].includes(o.unit))
+                    ?.map((o) => ({
+                        timestamp: o.timestamp,
+                        time: getTimestampMs(o.timestamp),
+                        unit: o.unit,
+                    })),
+            };
+        }),
     }));
 
     // console.log('teams', teams);
@@ -319,7 +328,7 @@ export default function MatchMap(props: Props) {
                 ?.map((o) => ({
                     ...o,
                     time: getTimestampMs(o.timestamp),
-                    color: p.colorHex,
+                    color: darkMode == 'light' ? aoe2PlayerColorsLightModeChatLegend[p.colorHex as any] ?? p.colorHex : p.colorHex,
                     playerName: p.name,
                 }));
         })
