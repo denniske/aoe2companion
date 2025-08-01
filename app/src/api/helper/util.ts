@@ -29,3 +29,12 @@ export function makeQueryString(params: IParams) {
     //     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
     //     .join('&');
 }
+
+export function isValidUrl(url: string): boolean {
+    try {
+        const parsed = new URL(url);
+        return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    } catch (err) {
+        return false;
+    }
+}

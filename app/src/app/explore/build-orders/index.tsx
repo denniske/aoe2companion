@@ -24,7 +24,9 @@ export default function BuildListPage() {
     const { civilization, buildType, difficulty } = buildFilters.filters;
     const [search, setSearch] = useState('');
 
-    const formattedBuilds = (buildType === 'favorites' ? favorites : buildsData).map((build) => ({
+    const publishedBuilds = buildsData.filter((build) => build.status !== 'draft');
+
+    const formattedBuilds = (buildType === 'favorites' ? favorites : publishedBuilds).map((build) => ({
         ...build,
         avg_rating: build.avg_rating ?? 0,
         number_of_ratings: build.number_of_ratings ?? 0,

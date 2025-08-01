@@ -268,6 +268,16 @@ export const changelog: IChangelog = {
     //         title: 'UI translation',
     //     },
     // ],
+    '141.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Only show (source) link on build order page if it is a valid url',
+        },
+        {
+            type: 'bugfix',
+            title: 'Only show published build orders on explore page',
+        },
+    ],
     '140.0.0': [
         {
             type: 'minor',

@@ -22,6 +22,7 @@ import { BuildOrderButton } from '../../../view/components/build-order-button';
 import { MyText } from '../../../view/components/my-text';
 import { Tag } from '../../../view/components/tag';
 import { useTranslation } from '@app/helper/translate';
+import { isValidUrl } from '@app/api/helper/util';
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -116,7 +117,7 @@ export default function BuildDetail() {
                 {getTranslation('builds.detail.createdBy', {
                     author: build.author,
                 })}{' '}
-                {build.reference && (
+                {build.reference && isValidUrl(build.reference) && (
                     <MyText onPress={() => Linking.openURL(build.reference ?? '')} style={styles.link}>
                         {getTranslation('builds.detail.source')}
                     </MyText>
