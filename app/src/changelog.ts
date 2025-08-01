@@ -275,6 +275,10 @@ export const changelog: IChangelog = {
         },
         {
             type: 'bugfix',
+            title: 'Back button in nested view will navigate to parent view correctly (Android)',
+        },
+        {
+            type: 'bugfix',
             title: 'Use game colors in match analysis map',
         },
         {

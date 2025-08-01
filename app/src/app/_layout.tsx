@@ -18,7 +18,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { Environment, IHostService, IHttpService, ITranslationService, OS, registerService, SERVICE_NAME } from '@nex/data';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider, useNavigationState } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
 import { focusManager, QueryClientProvider } from '@tanstack/react-query';
 import * as Device from 'expo-device';
@@ -389,21 +389,30 @@ function StartupNavigationController() {
 }
 
 function HomeLayout() {
-    const navigation = useNavigation();
     const router = useRouter();
+    const routes = useNavigationState(state => state.routes);
 
     useEffect(() => {
         const backAction = () => {
-            if (navigation.canGoBack()) {
-                navigation.goBack();
-            } else {
+            const stackLength = routes[0]?.state?.routes.length;
+            // console.log('back stackLength', stackLength);
+
+            if (!stackLength || stackLength <= 1) {
+                // You're at the root — override default back to prevent exit
                 router.replace('/');
+            } else {
+                // You're at a nested route — override default back to prevent it to navigate through tabs
+                router.dismiss();
             }
+
+            // Prevent default back action
             return true;
         };
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
-        return () => backHandler.remove();
-    }, []);
+
+        const subscription = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+        return () => subscription.remove();
+    }, [routes]);
 
     return (
         <ReduxProvider store={store}>
