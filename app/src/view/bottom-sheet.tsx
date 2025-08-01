@@ -19,6 +19,7 @@ export type BottomSheetProps = {
     children: React.ReactNode;
     style?: ViewStyle;
     closeButton?: boolean;
+    containerClassName?: string;
 };
 
 function BottomSheetComponent({
@@ -32,6 +33,7 @@ function BottomSheetComponent({
     children,
     style,
     closeButton,
+    containerClassName,
 }: BottomSheetProps) {
     const modalAnimation = useRef(new Animated.Value(0)).current;
     const [isVisible, setIsVisible] = useState(isActive);
@@ -95,7 +97,7 @@ function BottomSheetComponent({
                                 }
                                 setHeight(newHeight);
                             }}
-                            className="bg-gold-50 dark:bg-blue-950 rounded-t-lg overflow-hidden max-h-full"
+                            className={`bg-gold-50 dark:bg-blue-950 rounded-t-lg overflow-hidden max-h-full ${containerClassName}`}
                             style={{
                                 flex: isFullHeight ? 1 : undefined,
                                 marginBottom: modalAnimation.interpolate({

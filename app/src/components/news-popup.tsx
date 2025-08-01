@@ -87,11 +87,13 @@ export const NewsPopup: React.FC<{ post: Post; visible: boolean; onClose: () => 
 
     return (
         <BottomSheet
+            showHandle={false}
             closeButton
             isActive={visible}
             onClose={onClose}
             isFullHeight={true}
             container="none"
+            containerClassName="bg-blue-950"
         >
             <View className="flex-1">
                 {
