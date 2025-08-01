@@ -79,7 +79,7 @@ export default function Eapm({ teams }: Props) {
     //     return <View></View>;
     // }
 
-    console.log('data', dataset);
+    // console.log('data', dataset);
 
     return (
         <View style={styles.container}>
