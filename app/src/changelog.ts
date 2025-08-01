@@ -275,6 +275,10 @@ export const changelog: IChangelog = {
         },
         {
             type: 'bugfix',
+            title: 'Use game colors in match analysis map',
+        },
+        {
+            type: 'bugfix',
             title: 'Only show (source) link on build order page if it is a valid url',
         },
         {

@@ -51,3 +51,25 @@ export const aoe2PlayerColors: Record<string, string> = {
     '#797979': '#797979',
     '#FF9600': '#C78031',
 };
+
+// export const aoe2PlayerColorsByName: Record<string, string> = {
+//     'Blue': '#4B4AC8',
+//     'Red': '#C72321',
+//     'Green': '#24C821',
+//     'Yellow': '#C8C817',
+//     'Teal': '#22AFB0',
+//     'Purple': '#C723C8',
+//     'Gray': '#797979',
+//     'Orange': '#C78031',
+// };
+//
+// export const aoe2PlayerColorsByNameOriginal: Record<string, string> = {
+//     'Blue': '#405BFF',
+//     'Red': '#FF0000',
+//     'Green': '#00FF00',
+//     'Yellow': '#FFFF00',
+//     'Teal': '#00FFFF',
+//     'Purple': '#FF57B3',
+//     'Gray': '#797979',
+//     'Orange': '#FF9600',
+// };

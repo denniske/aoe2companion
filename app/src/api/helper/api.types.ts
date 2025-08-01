@@ -722,6 +722,7 @@ export type IAnalysis = {
         civilization?: string
         civilizationId?: number
         color?: string
+        colorHex?: string
         colorId?: number
         eapm?: number
         name?: string

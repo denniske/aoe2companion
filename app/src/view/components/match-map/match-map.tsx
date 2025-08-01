@@ -42,7 +42,6 @@ export default function MatchMap(props: Props) {
 
     const time = useSharedValue<number>(0);
 
-
     if (!match || !analysis || !analysisSvgUrl) {
         return <Text>Loading...</Text>;
     }
@@ -58,7 +57,7 @@ export default function MatchMap(props: Props) {
                 ?.filter((o) => o.name === 'Town Center' && o.objectId === 620)
                 ?.map((o) => ({
                     position: o.position,
-                    color: p.color,
+                    color: p.colorHex,
                 }));
         })
     );
@@ -72,7 +71,7 @@ export default function MatchMap(props: Props) {
                 ?.map((o) => ({
                     time: getTimestampMs(o.timestamp),
                     position: o.position,
-                    color: p.color,
+                    color: p.colorHex,
                     unit: o.unit,
                     unitId: o.unitId,
                     ...getBuildingSize(o.unit),
@@ -87,7 +86,7 @@ export default function MatchMap(props: Props) {
         players: team.players.map(player => ({
             profileId: player.profileId,
             name: player.name,
-            color: getAnalysisPlayer(player.color)?.color,
+            color: getAnalysisPlayer(player.color)?.colorHex,
             civImageUrl: player.civImageUrl,
             eapmPerMinute: getAnalysisPlayer(player.color)?.eapmPerMinute,
             resignation: getAnalysisPlayer(player.color)?.resignation,
@@ -96,11 +95,12 @@ export default function MatchMap(props: Props) {
                 ?.map((o) => ({
                     timestamp: o.timestamp,
                     time: getTimestampMs(o.timestamp),
-                    // color: p.color,
                     unit: o.unit,
                 }))
         })),
     }));
+
+    // console.log('teams', teams);
 
     // const legend = compact(
     //     analysis.players.flatMap((p) => {
@@ -116,8 +116,6 @@ export default function MatchMap(props: Props) {
     //     })
     // );
 
-    console.log('teams', teams);
-
     const specials = compact(
         analysis.players.flatMap((p) => {
             return p.queuedBuildings
@@ -125,7 +123,7 @@ export default function MatchMap(props: Props) {
                 ?.map((o) => ({
                     time: getTimestampMs(o.timestamp),
                     position: o.position,
-                    color: p.color,
+                    color: p.colorHex,
                     unit: o.unit,
                     unitId: o.unitId,
                     ...getBuildingSize(o.unit),
@@ -205,7 +203,7 @@ export default function MatchMap(props: Props) {
                         positionEnd: { x: o.position.x + offset.end.x, y: o.position.y + offset.end.y },
                         // position: { x: o.position.x + offset.start.x+0.5, y: o.position.y + offset.start.y+0.5 },
                         // positionEnd: { x: o.position.x + offset.end.x+0.5, y: o.position.y + offset.end.y+0.5 },
-                        color: p.color,
+                        color: p.colorHex,
                         // unit: o.unit,
                     };
                 });
@@ -223,7 +221,7 @@ export default function MatchMap(props: Props) {
                     return {
                         position: { x: o.position.x, y: o.position.y },
                         positionEnd: { x: o.position.x, y: o.position.y },
-                        color: p.color,
+                        color: p.colorHex,
                         // unit: o.unit,
                     };
                 });
@@ -253,7 +251,7 @@ export default function MatchMap(props: Props) {
                     time: getTimestampMs(o.timestamp),
                     position: o.position,
                     positionEnd: o.positionEnd,
-                    color: p.color,
+                    color: p.colorHex,
                     // unit: o.unit,
                 }));
         })
@@ -321,7 +319,7 @@ export default function MatchMap(props: Props) {
                 ?.map((o) => ({
                     ...o,
                     time: getTimestampMs(o.timestamp),
-                    color: p.color,
+                    color: p.colorHex,
                     playerName: p.name,
                 }));
         })
