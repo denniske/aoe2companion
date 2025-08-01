@@ -6,7 +6,7 @@ trap 'echo "❌ Error occurred at line $LINENO. Exiting..."' ERR
 if [[ "$PLATFORM" == "ios" ]]; then
   EXT="ipa"
 elif [[ "$PLATFORM" == "android" ]]; then
-  EXT="aab"
+  EXT="apk"
 else
   echo "❌ Unsupported platform: $PLATFORM"
   exit 1
