@@ -2,13 +2,14 @@ import { Post, useMedia } from '@app/utils/news';
 import { Image } from 'expo-image';
 import { decode } from 'html-entities';
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 import { Card } from './card';
 import { NewsPopup } from './news-popup';
 import { Skeleton, SkeletonText } from './skeleton';
 import { Text } from './text';
 import { sortBy } from 'lodash';
+import { openLink } from '@app/helper/url';
 
 export const NewsCard: React.FC<Post> = (post) => {
     const { data } = useMedia(post.featured_media);
@@ -31,8 +32,16 @@ export const NewsCard: React.FC<Post> = (post) => {
         return <NewsCardSkeleton />;
     }
 
+    const handlePress = () => {
+        if (Platform.OS === 'web') {
+            openLink(post.link);
+        } else {
+            setVisible(true);
+        }
+    };
+
     return (
-        <Card onPress={() => setVisible(true)} direction="vertical" className="overflow-hidden w-56">
+        <Card onPress={handlePress} direction="vertical" className="overflow-hidden w-56">
             <View className="-mx-4 -mt-4 mb-1">
                 <Image source={{ uri: imageUrl }} className="w-full" style={{ aspectRatio: 1.75 }} />
             </View>

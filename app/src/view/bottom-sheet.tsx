@@ -13,6 +13,7 @@ export type BottomSheetProps = {
     isActive?: boolean;
     isFullHeight?: boolean;
     showHandle?: boolean;
+    container?: 'scroll' | 'none';
     onClose?: () => void;
     onCloseComplete?: () => void;
     children: React.ReactNode;
@@ -27,6 +28,7 @@ function BottomSheetComponent({
     showHandle,
     isActive = false,
     isFullHeight = false,
+    container = 'scroll',
     children,
     style,
     closeButton,
@@ -133,21 +135,46 @@ function BottomSheetComponent({
                                         </Animated.View>
                                     </PanGestureHandler>
                                 )}
-                                <ScrollView contentContainerStyle={[styles.contentContainer, style]}>
-                                    {title && (
-                                        <View className={closeButton ? 'relative px-6 flex-row' : 'flex-row'}>
-                                            <Text color="brand" variant="header-lg" className="text-center flex-1">
-                                                {title}
-                                            </Text>
-                                            {closeButton && (
-                                                <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
-                                                    <Icon size={24} prefix="fasr" icon="times" />
-                                                </TouchableOpacity>
+
+                                {
+                                    container === 'scroll' ? (
+                                        <ScrollView contentContainerStyle={[styles.contentContainer, style]}>
+                                            {title && (
+                                                <View className={closeButton ? 'relative px-6 flex-row' : 'flex-row'}>
+                                                    <Text color="brand" variant="header-lg" className="text-center flex-1">
+                                                        {title}
+                                                    </Text>
+                                                    {closeButton && (
+                                                        <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
+                                                            <Icon size={24} prefix="fasr" icon="times" />
+                                                        </TouchableOpacity>
+                                                    )}
+                                                </View>
                                             )}
-                                        </View>
-                                    )}
-                                    {children}
-                                </ScrollView>
+                                            {children}
+                                        </ScrollView>
+                                    ) : null
+                                }
+
+                                {
+                                    container === 'none' ? (
+                                        <>
+                                            {title && (
+                                                <View className={closeButton ? 'relative px-6 flex-row' : 'flex-row'}>
+                                                    <Text color="brand" variant="header-lg" className="text-center flex-1">
+                                                        {title}
+                                                    </Text>
+                                                    {closeButton && (
+                                                        <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
+                                                            <Icon size={24} prefix="fasr" icon="times" />
+                                                        </TouchableOpacity>
+                                                    )}
+                                                </View>
+                                            )}
+                                            {children}
+                                        </>
+                                    ) : null
+                                }
                             </SafeAreaView>
                         </Animated.View>
                     </View>

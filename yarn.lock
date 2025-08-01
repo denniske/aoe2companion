@@ -4855,6 +4855,7 @@ __metadata:
     expo-app-update: "npm:^51.0.8"
     expo-application: "npm:~6.1.4"
     expo-atlas: "npm:^0.4.0"
+    expo-blur: "npm:~14.1.5"
     expo-build-properties: "npm:~0.14.6"
     expo-constants: "npm:~17.1.6"
     expo-crypto: "npm:~14.1.5"
@@ -7987,6 +7988,17 @@ __metadata:
   bin:
     expo-atlas: build/src/cli/bin.js
   checksum: 10/fc7aba1ebc832000ada4f799bba5d8aa9a7ce6b44141f6f6532052acc9b2a1a17e76d94e230839c81df78bfec2373b04c03bf0b3a7343267987fde02516347be
+  languageName: node
+  linkType: hard
+
+"expo-blur@npm:~14.1.5":
+  version: 14.1.5
+  resolution: "expo-blur@npm:14.1.5"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10/2cfb444e7fa8425e4c12a10bee1c0ec58c9fd9137ad5638fb5f57f4308a3a6fb628f1fe5322864c1d32a2d7bfa04c65d08474f91a7ec162bc143ce60a5d4f17b
   languageName: node
   linkType: hard
 

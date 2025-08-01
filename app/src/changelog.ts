@@ -270,6 +270,10 @@ export const changelog: IChangelog = {
     // ],
     '141.0.0': [
         {
+            type: 'minor',
+            title: 'Use web view for rendering of news posts',
+        },
+        {
             type: 'bugfix',
             title: 'Only show (source) link on build order page if it is a valid url',
         },
