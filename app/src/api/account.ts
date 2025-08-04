@@ -217,6 +217,14 @@ export async function accountRelicVerify(): Promise<IRelicVerifyResult> {
     });
 }
 
+export async function accountDelete(): Promise<any> {
+    const url = getHost('aoe2companion-api') + `v2/account/delete`;
+
+    return await fetchJson(url, {
+        method: 'POST',
+    });
+}
+
 export async function accountUnlinkSteam(): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/unlink/steam`;
 

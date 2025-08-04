@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Constants from 'expo-constants';
 import { MyText } from '@app/view/components/my-text';
 import { createStylesheet } from '../../theming-new';
@@ -13,6 +13,7 @@ import { openLink } from '@app/helper/url';
 import { useAppTheme, useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
 import {
+    accountDelete,
     accountDiscordInvitation,
     accountRelicVerify, accountUnlinkDiscord,
     accountUnlinkPatreon,
@@ -31,6 +32,7 @@ import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useQuery } from '@tanstack/react-query';
 import { Field } from '@app/components/field';
+import { showAlert } from '@app/helper/alert';
 
 function getPatreonLoginUrl() {
     const queryString = new URLSearchParams({
@@ -208,6 +210,25 @@ export default function AccountPage() {
 
         await account.refetch();
     }
+
+    const deleteAccount = async () => {
+        console.log('deleteAccount');
+
+        await accountDelete();
+        await logout();
+    }
+
+    const showDeleteDialog = () => {
+        showAlert(
+            getTranslation('account.delete.title'),
+            getTranslation('account.delete.note'),
+            [
+                { text: getTranslation('account.delete.action.cancel'), style: 'cancel' },
+                { text: getTranslation('account.delete.action.delete'), onPress: deleteAccount },
+            ],
+            { cancelable: false }
+        );
+    };
 
     return (
         <ScrollView contentContainerStyle="min-h-full p-5">
@@ -473,6 +494,16 @@ export default function AccountPage() {
                                 className={'self-start'}
                         >
                             {getTranslation('account.action.logout')}
+                        </Button>
+                    </View>
+
+                    <View className="gap-2">
+                        <Text variant="header-sm"></Text>
+                        <Button onPress={() => showDeleteDialog()}
+                                className={'self-start'}
+
+                        >
+                            {getTranslation('account.action.delete')}
                         </Button>
                     </View>
                 </View>

@@ -78,37 +78,25 @@ export function UserMenu({ profile }: UserMenuProps) {
 
     const showResetOrUnlinkDialog = () => {
         if (account?.steamId) {
-            if (Platform.OS === 'web') {
-                if (confirm(getTranslation('main.profile.unlink.note'))) {
-                    unlinkSteam();
-                }
-            } else {
-                showAlert(
-                    getTranslation('main.profile.unlink.title'),
-                    getTranslation('main.profile.unlink.note'),
-                    [
-                        { text: getTranslation('main.profile.unlink.action.cancel'), style: 'cancel' },
-                        { text: getTranslation('main.profile.unlink.action.reset'), onPress: unlinkSteam },
-                    ],
-                    { cancelable: false }
-                );
-            }
+            showAlert(
+                getTranslation('main.profile.unlink.title'),
+                getTranslation('main.profile.unlink.note'),
+                [
+                    { text: getTranslation('main.profile.unlink.action.cancel'), style: 'cancel' },
+                    { text: getTranslation('main.profile.unlink.action.reset'), onPress: unlinkSteam },
+                ],
+                { cancelable: false }
+            );
         } else {
-            if (Platform.OS === 'web') {
-                if (confirm(getTranslation('main.profile.reset.note'))) {
-                    resetUser();
-                }
-            } else {
-                showAlert(
-                    getTranslation('main.profile.reset.title'),
-                    getTranslation('main.profile.reset.note'),
-                    [
-                        { text: getTranslation('main.profile.reset.action.cancel'), style: 'cancel' },
-                        { text: getTranslation('main.profile.reset.action.reset'), onPress: resetUser },
-                    ],
-                    { cancelable: false }
-                );
-            }
+            showAlert(
+                getTranslation('main.profile.reset.title'),
+                getTranslation('main.profile.reset.note'),
+                [
+                    { text: getTranslation('main.profile.reset.action.cancel'), style: 'cancel' },
+                    { text: getTranslation('main.profile.reset.action.reset'), onPress: resetUser },
+                ],
+                { cancelable: false }
+            );
         }
     };
 
