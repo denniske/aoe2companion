@@ -179,7 +179,7 @@ export async function saveAccount(account: PartialAccountWithPartialPrefs): Prom
 }
 
 // if (following.length >= maxFollowing) {
-//     alert(`You can follow a maximum of ${maxFollowing} users. Unfollow a user first to follow a new one.`);
+//     showAlert(`You can follow a maximum of ${maxFollowing} users. Unfollow a user first to follow a new one.`);
 //     return;
 // }
 

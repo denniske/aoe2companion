@@ -8,6 +8,7 @@ import { useAccount, useAuthProfileId } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
 import { useTranslation } from '@app/helper/translate';
+import { showAlert } from '@app/helper/alert';
 
 export default function Follow() {
     const getTranslation = useTranslation();
@@ -45,7 +46,7 @@ function FeedAction({ user }: { user: IPlayerListPlayer }) {
             }
         } catch (e) {
             console.error(e);
-            alert(getTranslation('feed.follow.error') + '\n\n' + e);
+            showAlert(getTranslation('feed.follow.error') + '\n\n' + e);
         }
     };
 

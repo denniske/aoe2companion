@@ -2,7 +2,7 @@ import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
 import { useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Alert, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
@@ -35,6 +35,7 @@ import { getCountryName } from '@app/helper/flags';
 import { useAppTheme } from '@app/theming';
 import { MenuNew } from '@app/components/menu';
 import { useTranslation } from '@app/helper/translate';
+import { showAlert } from '@app/helper/alert';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -82,7 +83,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                     unlinkSteam();
                 }
             } else {
-                Alert.alert(
+                showAlert(
                     getTranslation('main.profile.unlink.title'),
                     getTranslation('main.profile.unlink.note'),
                     [
@@ -98,7 +99,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                     resetUser();
                 }
             } else {
-                Alert.alert(
+                showAlert(
                     getTranslation('main.profile.reset.title'),
                     getTranslation('main.profile.reset.note'),
                     [

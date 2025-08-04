@@ -10,6 +10,7 @@ import { useAccount } from '@app/queries/all';
 import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
 import { useQueryClient } from '@tanstack/react-query';
+import { showAlert } from '@app/helper/alert';
 
 export default function ResetPasswordPage() {
     const styles = useStyles();
@@ -33,9 +34,9 @@ export default function ResetPasswordPage() {
         console.log('error', error);
 
         if (error) {
-            Alert.alert(error.message);
+            showAlert(error.message);
         } else {
-            Alert.alert(getTranslation('resetpassword.changed'));
+            showAlert(getTranslation('resetpassword.changed'));
             await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
             router.replace('/more/account');
         }

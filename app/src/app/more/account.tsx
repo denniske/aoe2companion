@@ -121,6 +121,9 @@ export default function AccountPage() {
     const user = useAuth();
     const account = useAccount();
     const loggedIn = user && !user.is_anonymous && account.data;
+    // console.log('user', user);
+    // console.log('user.is_anonymous', user?.is_anonymous);
+    // console.log('account', account.data);
 
     const saveAccountMutation = useSaveAccountMutation();
 

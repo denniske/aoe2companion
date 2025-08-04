@@ -19,6 +19,7 @@ import { useAppTheme } from '@app/theming';
 import { Icon } from '@app/components/icon';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { useTranslation } from '@app/helper/translate';
+import { showAlert } from '@app/helper/alert';
 
 export default function SettingsPage() {
     const getTranslation = useTranslation();
@@ -75,7 +76,7 @@ export default function SettingsPage() {
                 pushToken: token,
             });
         } catch (e) {
-            alert(getTranslation('settings.error.pushnotification', { error: e as string }));
+            showAlert(getTranslation('settings.error.pushnotification', { error: e as string }));
         }
         setLoadingPushNotificationEnabled(false);
     };
@@ -108,7 +109,7 @@ export default function SettingsPage() {
                 pushTokenWeb: token,
             });
         } catch (e) {
-            alert(getTranslation('settings.error.pushnotification', { error: e as string }));
+            showAlert(getTranslation('settings.error.pushnotification', { error: e as string }));
         }
         setLoadingPushNotificationEnabled(false);
     };

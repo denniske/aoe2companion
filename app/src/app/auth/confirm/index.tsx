@@ -10,6 +10,7 @@ import { authConfirm } from '@app/api/account';
 import { useTranslation } from '@app/helper/translate';
 import { usePrevious } from '@nex/data/hooks';
 import { isEqual } from 'lodash';
+import { showAlert } from '@app/helper/alert';
 
 export default function AuthConfirm() {
     const router = useRouter();
@@ -25,7 +26,7 @@ export default function AuthConfirm() {
         console.log('data', data);
 
         if (data.error) {
-            Alert.alert(data.error.code)
+            showAlert(data.error.code)
         }
 
         const authResponse = await supabaseClient.auth.setSession({

@@ -7,6 +7,7 @@ import { Field } from '@app/components/field';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAccount } from '@app/queries/all';
 import { Text } from '@app/components/text';
+import { showAlert } from '@app/helper/alert';
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -41,9 +42,9 @@ export default function Login() {
         );
 
         if (error) {
-            Alert.alert(error.message)
+            showAlert(error.message)
         } else {
-            Alert.alert(getTranslation('login.inboxreset'))
+            showAlert(getTranslation('login.inboxreset'))
         }
 
         setLoading(false)
@@ -52,7 +53,7 @@ export default function Login() {
     }
 
     async function forgotPassword() {
-        Alert.alert(
+        showAlert(
             getTranslation('login.dialog.title.resetpassword'),
             getTranslation('login.dialog.message.resetpassword', { email }),
             [
@@ -70,7 +71,7 @@ export default function Login() {
             password: password,
         })
 
-        if (error) Alert.alert(error.message)
+        if (error) showAlert(error.message)
         setLoading(false)
 
         await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
@@ -79,7 +80,7 @@ export default function Login() {
     async function signUpWithEmail() {
         setLoading(true)
 
-        const { data, error } = await supabaseClient.auth.updateUser(
+        let { data, error } = await supabaseClient.auth.updateUser(
             {
                 email,
                 password,
@@ -92,10 +93,33 @@ export default function Login() {
         console.log('signup data', data)
         console.log('signup error', error)
 
+        if (error?.message?.includes('New password should be different from the old password.')) {
+            const result = await supabaseClient.auth.updateUser(
+                {
+                    email,
+                },
+                {
+                    emailRedirectTo: 'https://www.aoe2companion.com',
+                }
+            );
+            data = result.data;
+            error = result.error;
+
+            // const result = await supabaseClient.auth.resend({
+            //     email,
+            //     type: 'email_change',
+            //     options: {
+            //         emailRedirectTo: 'https://www.aoe2companion.com',
+            //     },
+            // });
+            // data = result.data;
+            // error = result.error;
+        }
+
         if (error) {
-            Alert.alert(error.message)
+            showAlert(error.message)
         } else {
-            Alert.alert(getTranslation('login.inboxverification'))
+            showAlert(getTranslation('login.inboxverification'))
         }
 
         // const {
@@ -112,8 +136,8 @@ export default function Login() {
         //     }
         // })
         //
-        // if (error) Alert.alert(error.message)
-        // if (!session) Alert.alert('Please check your inbox for email verification!')
+        // if (error) showAlert(error.message)
+        // if (!session) showAlert('Please check your inbox for email verification!')
 
         setLoading(false)
 
