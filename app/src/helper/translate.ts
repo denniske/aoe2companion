@@ -6,6 +6,7 @@ import { queryClient } from '@app/service/query-client';
 import { QUERY_KEY_ACCOUNT, useAccountData, useLanguage } from '@app/queries/all';
 import { MMKV, useMMKV, useMMKVString } from 'react-native-mmkv';
 import { useEffect } from 'react';
+import { appConfig } from '@nex/dataset';
 
 export const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
@@ -128,11 +129,13 @@ export async function loadTranslatonStringsAsync(language: string): Promise<any>
         return require('../../assets/translations/en.json');
     } else {
         console.log('Loading translation strings for', language);
-        if (language === 'es') {
-            let response = await fetch(
-                `https://i18n.cdn.aoe2companion.com/translations/${language}.json`
-            );
-            return await response.json();
+        if (appConfig.game === 'aoe2de') {
+            if (language === 'es') {
+                let response = await fetch(
+                    `https://i18n.cdn.aoe2companion.com/translations/${language}.json`
+                );
+                return await response.json();
+            }
         }
     }
 }

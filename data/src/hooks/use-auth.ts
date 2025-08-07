@@ -8,6 +8,7 @@ export default function useAuth() {
 
     useEffect(() => {
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
+            // console.log('getSession', session?.user);
             setSession(session);
             setUser(session?.user);
         })
@@ -15,6 +16,7 @@ export default function useAuth() {
         const {
             data: { subscription },
         } = supabaseClient.auth.onAuthStateChange((_event, session) => {
+            // console.log('onAuthStateChange', session?.user);
             setSession(session);
             setUser(session?.user);
         })

@@ -8,6 +8,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useAccount } from '@app/queries/all';
 import { Text } from '@app/components/text';
 import { showAlert } from '@app/helper/alert';
+import { accountIsEmpty, accountMigrateFromAnonymous } from '@app/api/account';
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -29,7 +30,7 @@ export default function Login() {
     const account = useAccount();
     const queryClient = useQueryClient();
 
-    // console.log('LOGIN account', account.data);
+    // console.log('LOGIN user', user);
 
     async function resetPassword() {
         setLoading(true)
@@ -64,17 +65,88 @@ export default function Login() {
         );
     }
 
+    async function migrateFromAnonymous(existingSessionAccountId: string, existingSessionAccessToken: string) {
+        const { error, result } = await accountMigrateFromAnonymous(
+            existingSessionAccountId, existingSessionAccessToken
+        );
+        if (result === 'success') {
+            showAlert(
+                getTranslation('login.dialog.title.migrate.success'),
+                getTranslation('login.dialog.message.migrate.success')
+            );
+        }
+        if (error) {
+            showAlert(error)
+        }
+    }
+
     async function signInWithEmail() {
         setLoading(true)
+
+        const { data } = await supabaseClient.auth.getSession();
+
+        const existingSessionWasAnonymous = data.session?.user?.is_anonymous;
+        const existingSessionAccountId = data.session?.user.id;
+        const existingSessionAccessToken = data.session?.access_token;
+        const existingAccountProfileId = account.data?.profileId;
+        const existingAccountFollowedPlayerCount = account.data?.followedPlayers.length ?? 0;
+
         const { error } = await supabaseClient.auth.signInWithPassword({
             email: email,
             password: password,
         })
 
-        if (error) showAlert(error.message)
-        setLoading(false)
+        if (error) {
+            setLoading(false);
+            showAlert(error.message);
+        }
 
-        await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
+        if (!error) {
+            const { isEmpty: currentAccountIsEmpty } = await accountIsEmpty();
+
+            console.log('existingSessionWasAnonymous', existingSessionWasAnonymous, existingSessionAccountId);
+            console.log('currentAccountIsEmpty', currentAccountIsEmpty);
+
+            if (existingSessionWasAnonymous &&
+                existingSessionAccountId &&
+                existingSessionAccessToken &&
+                existingAccountProfileId &&
+                existingAccountFollowedPlayerCount > 0 &&
+                currentAccountIsEmpty
+            ) {
+                await supabaseClient.auth.updateUser({
+                    data: {
+                        existingSessionAccountId,
+                    }
+                });
+                showAlert(
+                    getTranslation('login.dialog.title.migrate'),
+                    getTranslation('login.dialog.message.migrate'),
+                    [
+                        {
+                            text: getTranslation('login.dialog.cancel'),
+                            style: 'cancel',
+                            onPress: async () => {
+                                setLoading(false);
+                                await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
+                            },
+                        },
+                        {
+                            text: getTranslation('login.dialog.confirm'),
+                            onPress: async () => {
+                                await migrateFromAnonymous(existingSessionAccountId, existingSessionAccessToken);
+                                setLoading(false);
+                                await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
+                            },
+                        },
+                    ],
+                    { cancelable: false }
+                );
+            } else {
+                setLoading(false);
+                await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
+            }
+        }
     }
 
     async function signUpWithEmail() {
@@ -104,16 +176,6 @@ export default function Login() {
             );
             data = result.data;
             error = result.error;
-
-            // const result = await supabaseClient.auth.resend({
-            //     email,
-            //     type: 'email_change',
-            //     options: {
-            //         emailRedirectTo: 'https://www.aoe2companion.com',
-            //     },
-            // });
-            // data = result.data;
-            // error = result.error;
         }
 
         if (error) {
@@ -121,23 +183,6 @@ export default function Login() {
         } else {
             showAlert(getTranslation('login.inboxverification'))
         }
-
-        // const {
-        //     data: { session },
-        //     error,
-        // } = await supabaseClient.auth.signUp({
-        //     email: email,
-        //     password: password,
-        //     options: {
-        //         data: {
-        //             ...account,
-        //         },
-        //         emailRedirectTo: 'https://www.aoe2companion.com',
-        //     }
-        // })
-        //
-        // if (error) showAlert(error.message)
-        // if (!session) showAlert('Please check your inbox for email verification!')
 
         setLoading(false)
 

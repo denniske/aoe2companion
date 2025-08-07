@@ -154,7 +154,7 @@ export default function AccountPage() {
     //     refetchOnMount: true,
     // });
 
-    // console.log('user', user);
+    console.log('user', user);
     console.log('accountId', account.data?.accountId);
 
     const toggleSharedHistory = async () => {

@@ -5,6 +5,7 @@ import { Text } from '@app/components/text';
 import { useMatchAnalysis, useMatchAnalysisSvg, useWithRefetching } from '@app/queries/all';
 import SkiaLoader from '@app/components/skia-loader';
 import { Button } from '@app/components/button';
+import { appConfig } from '@nex/dataset';
 
 interface Props {
     match?: IMatchNew;
@@ -69,7 +70,7 @@ export default function MatchAnalysis(props: Props) {
                     </View>
                 ))}
 
-            {!analysis && !analysisError && !analyzeNow && match?.finished && (
+            {!analysis && !analysisError && !analyzeNow && match?.finished && appConfig.game === 'aoe2de' && (
                 <View className="flex-row items-center justify-center h-20">
                     <View className="flex-row justify-center my-3 gap-2">
                         <Button onPress={() => setAnalyzeNow(true)}>Analyze match (Beta)</Button>

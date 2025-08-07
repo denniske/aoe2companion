@@ -70,10 +70,10 @@ export default function IndexPage() {
     // const matchId = 384963389; // me trying walls
     // const matchId = 382486559; // nomad with water 4 players
     // const matchId = 3824865590000; // non existing match to test error handling
-    const matchId = 396138956; // non existing match to test error handling
+    // const matchId = 396138956; // non existing match to test error handling
     // const matchId = 382919732;
 
-    const { data: match, error: matchError, isLoading: matchLoading } = useWithRefetching(useMatch(matchId));
+    // const { data: match, error: matchError, isLoading: matchLoading } = useWithRefetching(useMatch(matchId));
     // const { data: analysis, error: analysisError, isLoading: analysisLoading } = useWithRefetching(useMatchAnalysis(matchId, !!match));
     // const { data: analysisSvgUrl } = useWithRefetching(useMatchAnalysisSvg(matchId, !!analysis));
 

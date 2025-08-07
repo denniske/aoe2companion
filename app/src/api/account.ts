@@ -147,6 +147,15 @@ interface IRelicVerifyResult {
     verified: boolean;
 }
 
+interface IAccountIsEmptyResult {
+    isEmpty: boolean;
+}
+
+interface IAccountMigrateResult {
+    error?: string;
+    result: 'success' | 'error';
+}
+
 export const saveAccountThrottled = throttle(saveAccount, 1000);
 
 export type PartialAccountWithPartialPrefs = Omit<Partial<IAccount>, 'preferences'> & {
@@ -221,7 +230,27 @@ export async function accountDelete(): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/delete`;
 
     return await fetchJson(url, {
+        method: 'DELETE',
+    });
+}
+
+export async function accountIsEmpty(): Promise<IAccountIsEmptyResult> {
+    const url = getHost('aoe2companion-api') + `v2/account/is_empty`;
+
+    return await fetchJson(url, {
         method: 'POST',
+    });
+}
+
+export async function accountMigrateFromAnonymous(fromAccountId: string, fromAccountToken: string): Promise<IAccountMigrateResult> {
+    const url = getHost('aoe2companion-api') + `v2/account/migrate`;
+
+    return await fetchJson(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            fromAccountId,
+            fromAccountToken,
+        }),
     });
 }
 

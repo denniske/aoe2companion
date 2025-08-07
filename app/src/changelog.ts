@@ -1,7 +1,3 @@
-import { openLink } from './helper/url';
-import { MyText } from './view/components/my-text';
-import React from 'react';
-
 export interface IChange {
     type: 'feature' | 'bugfix' | 'minor';
     title: string;
@@ -13,12 +9,38 @@ export interface IChangelog {
     [version: string]: IChange[];
 }
 
-// https://www.aoe2insights.com/match/99919072/analysis/
-
-// https://www.ageofempires.com/news/age-of-empires-iv-season-one-update-release-notes/
-
 export const changelog4: IChangelog = {
     '23.0.0': [
+        {
+            type: 'feature',
+            title: 'Account creation',
+            content: 'You can now create an account to save your settings and followed players across devices. You can also link your game account to prove ownership of your profile. You can also link your Patreon account to access exclusive benefits.',
+        },
+        {
+            type: 'feature',
+            title: 'Dashboards',
+            content: 'New dashboards that will auto refresh and show your current lobby/match or the lobbies/matches of the players that you are following.',
+        },
+        {
+            type: 'minor',
+            title: 'Use web view for rendering of news posts',
+        },
+        {
+            type: 'bugfix',
+            title: 'Back button in nested view will navigate to parent view correctly (Android)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix toggle of leaderboards in rating graph',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix crash on startup when server has missing assets (iOS)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix featured tournament calculation and show year for start/end date if it is not the current year in tournament list',
+        },
         {
             type: 'bugfix',
             title: 'Fix navigation to home page using bottom navigation bar (Android)',
@@ -267,6 +289,12 @@ export const changelog: IChangelog = {
     //         type: 'feature',
     //         title: 'UI translation',
     //     },
+    //     {
+    //         type: 'feature',
+    //             title: 'Added Spanish translation for UI',
+    //         author: 'Sihing Mo',
+    //         // author: '[Sihing Mo](https://www.aoe2companion.com/profile/223576)',
+    //     },
     // ],
     '141.0.0': [
         {
@@ -305,7 +333,6 @@ export const changelog: IChangelog = {
             type: 'feature',
             title: 'Added Spanish translation for UI',
             author: 'Sihing Mo',
-            // author: '[Sihing Mo](https://www.aoe2companion.com/profile/223576)',
         },
         {
             type: 'feature',
