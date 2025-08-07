@@ -37,6 +37,7 @@ if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
         exit 1
     fi
 else
+    export SENTRY_DISABLE_AUTO_UPLOAD=true
     echo "Skipping sentry sourcemap upload."
 fi
 
