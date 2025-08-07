@@ -95,7 +95,7 @@ const runtimeVersionCode = runtimeVersionParts[0] + runtimeVersionParts[1].padSt
 
 const isProdBuild = process.env.EAS_BUILD_PROFILE?.includes('production');
 const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
-const sentryConfigPlugins = isProdBuild && isRunningInEasCI ? [sentryConfigPlugin] : [];
+const sentryConfigPlugins = isProdBuild ? [sentryConfigPlugin] : [];
 const appConfigPlugins = process.env.APP === 'aoe2' ? [appPlugin] : [];
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
