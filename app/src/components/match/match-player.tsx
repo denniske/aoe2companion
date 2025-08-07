@@ -3,7 +3,7 @@ import { useLiveTwitchAccounts } from '@app/api/twitch';
 import { getCivIcon } from '@app/helper/civs';
 import { openLink } from '@app/helper/url';
 import { BottomSheetProps } from '@app/view/bottom-sheet';
-import { getLocalCivEnum, getTwitchChannel, getVerifiedPlayer } from '@nex/data';
+import { getLocalCivEnum } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
@@ -14,7 +14,6 @@ import { Text } from '../text';
 import TwitchBadge from '@app/view/components/badge/twitch-badge';
 import React from 'react';
 import { aoe2PlayerColors } from '@app/helper/colors';
-
 
 interface MatchPlayerProps {
     match: IMatchNew;

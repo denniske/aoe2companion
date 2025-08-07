@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { getTwitchChannel, getVerifiedPlayer } from '@nex/data';
 import { Image, ImageStyle } from 'expo-image';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -108,18 +107,6 @@ function LeaderboardRow2({ data }: ILeaderboardRowProps) {
     );
 }
 
-// export interface IProfile {
-//     clan: string;
-//     country: Flag;
-//     icon: any;
-//     name: string;
-//     profileId: number;
-//     steamId: string;
-//     leaderboards: ILeaderboard[];
-//     games: number;
-//     drops: number;
-// }
-
 interface IProfileProps {
     data?: IProfileResult | null;
     ready: boolean;
@@ -159,21 +146,6 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     data = ready ? data : null;
 
     const styles = useStyles();
-
-    // const verifiedPlayer = getVerifiedPlayer(profileId!);
-
-    // Set country for use in leaderboard country dropdown
-    // useEffect(() => {
-    //     if ((data?.country && data.country != authCountry) || (data?.clan && data.clan != authClan)) {
-    //         mutate(setPrefValue('country', data?.country));
-    //         mutate(setPrefValue('clan', data?.clan));
-    //         savePrefsToStorage();
-    //     }
-    // }, [data]);
-
-    // console.log('verifiedPlayer===>', verifiedPlayer);
-    // console.log('data?.linkedProfiles===>', data?.linkedProfiles);
-
     const authProfileId = useAuthProfileId();
 
     const user = useAuth();

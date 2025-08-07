@@ -1,11 +1,9 @@
 import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
-import { FlatList, FlatListRef, FlatListProps } from '@app/components/flat-list';
+import { FlatList, FlatListProps, FlatListRef } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
-import { Skeleton, SkeletonText } from '@app/components/skeleton';
+import { Skeleton } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
-import { useSelector } from '@app/redux/reducer';
-import { getVerifiedPlayer, isVerifiedPlayer } from '@nex/data';
 import { router } from 'expo-router';
 import React from 'react';
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
@@ -111,11 +109,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
     if (variant === 'horizontal') {
         return (
             <Card direction="vertical" className="items-center justify-center gap-1 pt-2 pb-2 px-2.5" style={playerStyle} onPress={onSelect}>
-                {image ? (
-                    image(player)
-                ) : (
-                    <Image source={{ uri: player.avatarMediumUrl }} className="w-7 h-7 rounded-full" />
-                )}
+                {image ? image(player) : <Image source={{ uri: player.avatarMediumUrl }} className="w-7 h-7 rounded-full" />}
                 {player.name && (
                     <View className="flex-row gap-1 max-w-full items-center">
                         {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
@@ -144,11 +138,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
             onPress={onSelect}
             style={playerStyle}
         >
-            {image ? (
-                image(player)
-            ) : (
-                <CountryImage style={{ textAlign: 'center', fontSize: 30 }} country={player.country} />
-            )}
+            {image ? image(player) : <CountryImage style={{ textAlign: 'center', fontSize: 30 }} country={player.country} />}
             <View>
                 <View className="flex-row gap-1 items-center">
                     <Text numberOfLines={1} variant="label">

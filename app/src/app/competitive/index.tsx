@@ -13,7 +13,7 @@ import { Tag } from '@app/view/components/tag';
 import { PlayoffPopup } from '@app/view/tournaments/playoffs/popup';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { TournamentMatch } from '@app/view/tournaments/tournament-match';
-import { getTwitchChannel, getVerifiedPlayer, getVerifiedPlayerIds, matchAttributes } from '@nex/data';
+import { matchAttributes } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image } from 'expo-image';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
@@ -21,7 +21,7 @@ import { PlayoffMatch } from 'liquipedia';
 import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';
 import { useCallback, useEffect, useState } from 'react';
-import { Platform, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { useTranslation } from '@app/helper/translate';
 
@@ -35,9 +35,7 @@ export default function Competitive() {
         ?.filter((match) => match.startTime && match.tournament)
         .map((match) => ({ ...match, header: { name: match.tournament.name } }));
 
-    const activePlayerIds = matches
-        .flatMap((match) => match.players.map((p) => ({ player: p, match })))
-        .filter(({ player }) => player.verified);
+    const activePlayerIds = matches.flatMap((match) => match.players.map((p) => ({ player: p, match }))).filter(({ player }) => player.verified);
 
     const [selectedMatch, setSelectedMatch] = useState<{ match: IMatchesMatch; profileId: number }>();
     const [showMatchPopup, setShowMatchPopup] = useState(false);
@@ -171,12 +169,8 @@ export default function Competitive() {
                 {tournamentsEnabled && (
                     <View className="gap-2">
                         <View className="flex-row justify-between items-center px-4">
-                        <Text variant="header-lg">
-                            {getTranslation('home.featuredTournaments')}
-                        </Text>
-                            <Link href="/competitive/tournaments">
-                                {getTranslation('home.viewAll')}
-                            </Link>
+                            <Text variant="header-lg">{getTranslation('home.featuredTournaments')}</Text>
+                            <Link href="/competitive/tournaments">{getTranslation('home.viewAll')}</Link>
                         </View>
 
                         <FlatList
@@ -217,13 +211,7 @@ export default function Competitive() {
                             contentContainerStyle="gap-2.5 px-4"
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            ListEmptyComponent={
-                                <Text>
-                                    {getTranslation(
-                                        'competitive.upcomingMatches.empty'
-                                    )}
-                                </Text>
-                            }
+                            ListEmptyComponent={<Text>{getTranslation('competitive.upcomingMatches.empty')}</Text>}
                         />
                     </View>
                 )}
