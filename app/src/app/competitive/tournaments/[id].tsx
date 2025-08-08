@@ -7,7 +7,7 @@ import { Icon } from '@app/components/icon';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { flagEmojiDict } from '@app/helper/flags';
-import { findFullMatch, formatPrizePool, formatTier, getAllTournamentMatches, getMatches } from '@app/helper/tournaments';
+import { formatPrizePool, formatTier, getMatches } from '@app/helper/tournaments';
 import { useFollowedTournament } from '@app/service/followed-tournaments';
 import tw from '@app/tailwind';
 import { textColors } from '@app/utils/text.util';
@@ -24,11 +24,10 @@ import { TournamentMarkdown } from '@app/view/tournaments/tournament-markdown';
 import { TournamentMatch } from '@app/view/tournaments/tournament-match';
 import { TournamentPrizes } from '@app/view/tournaments/tournament-prizes';
 import { getVerifiedPlayerBy } from '@nex/data';
-import { format, isPast, isValid } from 'date-fns';
+import { format, isValid } from 'date-fns';
 import { Image } from 'expo-image';
-import { Stack, router, useLocalSearchParams } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { GameVersion, TournamentType } from 'liquipedia';
-import { orderBy, reverse } from 'lodash';
 import { useColorScheme } from 'nativewind';
 import { useState } from 'react';
 import { Linking, TouchableOpacity, View } from 'react-native';
@@ -38,7 +37,7 @@ import { useTranslation } from '@app/helper/translate';
 export default function TournamentDetail() {
     const getTranslation = useTranslation();
     const params = useLocalSearchParams<{ id: string[] }>();
-    const id = typeof params.id === 'string' ? params.id : params.id?.join('/') ?? '';
+    const id = typeof params.id === 'string' ? params.id : (params.id?.join('/') ?? '');
     const { data: tournament, ...query } = useTournament(id);
     const { data: mainTournament } = useTournament(tournament?.tabs[0]?.[0]?.path ?? id, false);
     const refreshControlProps = useRefreshControl(query);
@@ -48,7 +47,7 @@ export default function TournamentDetail() {
     const [showFormatNote, setShowFormatNote] = useState(false);
     const [visiblePopup, setVisiblePopup] = useState<string>();
     const [playoffRoundWidth, setPlayoffRoundWidth] = useState(0);
-    const { data: tournamentMatches } = useTournamentMatches();
+    const { data: tournamentMatches } = useTournamentMatches({ tournamentId: id });
     const tournamentTabs =
         tournament?.tabs.filter(
             (tabs) => !tabs.some((tab) => [GameVersion.Age1, GameVersion.Age2, GameVersion.Age3, GameVersion.Age4].includes(tab.name as GameVersion))
@@ -57,40 +56,16 @@ export default function TournamentDetail() {
     const playoffMatches = getMatches(tournament?.playoffs);
     const groupMatches = getMatches(tournament?.groups);
 
-    const matches = getAllTournamentMatches(tournament);
-
-    // console.log('schedule', tournament?.schedule);
-    // console.log('matches', matches);
-
     const hasResults = tournament?.groups.length || tournament?.playoffs.length || tournament?.results.length;
 
-    const past = isPast(matches[matches.length - 1]?.startTime ?? new Date());
-    const filteredMatches = past
-        ? matches
-        : orderBy(
-              matches.filter(
-                  (match) =>
-                      !isPast(match?.startTime ?? new Date()) ||
-                      findFullMatch(
-                          {
-                              ...match,
-                              tournament: { name: tournament?.name ?? '', path: tournament?.path ?? '' },
-                              participants: [match.participants[0], match.participants[1] || match.participants[0]],
-                          },
-                          tournamentMatches
-                      )
-              ),
-              'startTime',
-              'desc'
-          );
+    const past = tournamentMatches?.every((t) => t.finished);
+
+    const filteredMatches = past ? tournamentMatches : tournamentMatches.filter((t) => !t.finished);
+
     const start = tournament?.start ?? mainTournament?.start;
     const end = tournament?.end ?? mainTournament?.end;
     const countryCode = tournament?.location?.country?.code;
-    const tabs = [
-        getTranslation('tournaments.overview'),
-        getTranslation('tournaments.schedule'),
-        getTranslation('tournaments.moreinfo'),
-    ];
+    const tabs = [getTranslation('tournaments.overview'), getTranslation('tournaments.schedule'), getTranslation('tournaments.moreinfo')];
     useColorScheme();
 
     if (!tournament) {
@@ -166,14 +141,10 @@ export default function TournamentDetail() {
                         {filteredMatches.length ? (
                             <View className="gap-2">
                                 <Text variant="header" className="px-4">
-                                    {
-                                        past ?
-                                        getTranslation('tournaments.pastMatches') :
-                                        getTranslation('tournaments.nextScheduledMatches')
-                                    }
+                                    {past ? getTranslation('tournaments.pastMatches') : getTranslation('tournaments.nextScheduledMatches')}
                                 </Text>
                                 <FlatList
-                                    data={filteredMatches ? reverse(filteredMatches) : filteredMatches}
+                                    data={filteredMatches}
                                     renderItem={(match) => <TournamentMatch style={{ width: 250 }} key={match.index} match={match.item} />}
                                     contentContainerStyle="gap-2 px-4"
                                     horizontal
@@ -281,7 +252,11 @@ export default function TournamentDetail() {
 
                                 {tournament.groups.length > 0 && (
                                     <View>
-                                        <StageCard title={getTranslation('tournaments.groupstage')} matches={groupMatches} onPress={() => setVisiblePopup('group')} />
+                                        <StageCard
+                                            title={getTranslation('tournaments.groupstage')}
+                                            matches={groupMatches}
+                                            onPress={() => setVisiblePopup('group')}
+                                        />
 
                                         <BottomSheet
                                             isActive={visiblePopup === 'group'}
@@ -318,7 +293,11 @@ export default function TournamentDetail() {
 
                                 {tournament.playoffs.length > 0 && (
                                     <View>
-                                        <StageCard title={getTranslation('tournaments.playoffs')} matches={playoffMatches} onPress={() => setVisiblePopup('playoffs')} />
+                                        <StageCard
+                                            title={getTranslation('tournaments.playoffs')}
+                                            matches={playoffMatches}
+                                            onPress={() => setVisiblePopup('playoffs')}
+                                        />
 
                                         <BottomSheet
                                             isActive={visiblePopup === 'playoffs'}
@@ -415,12 +394,12 @@ export default function TournamentDetail() {
                                       header: event.round ? { name: event.round, format: event.format } : undefined,
                                       ...event,
                                   }))
-                                : matches
+                                : tournamentMatches
                             ).map((event, index) => (
                                 <TournamentMatch
                                     style={{ width: '100%' }}
                                     key={`${event.startTime?.toISOString()}-${index.toString()}`}
-                                    match={event}
+                                    match={event as any}
                                 />
                             ))}
                         </View>

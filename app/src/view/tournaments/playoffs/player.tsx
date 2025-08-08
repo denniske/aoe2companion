@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Image } from 'expo-image';
 import { EventPlayer } from 'liquipedia';
 import { MyText } from '../../components/my-text';
@@ -6,10 +6,11 @@ import { createStylesheet } from '../../../theming-new';
 import { CountryImage } from '../../components/country-image';
 import { getCivIconLocal } from '../../../helper/civs';
 import { civAbbrEnumListData } from '@nex/dataset';
+import { capitalize } from 'lodash';
 
 export const PlayoffPlayer: React.FC<{ player: EventPlayer; reverse?: boolean }> = ({ player, reverse = false }) => {
     const styles = useStyles();
-    const civ = player.civilization ? civAbbrEnumListData[player.civilization] : undefined;
+    const civ = player.civ ? capitalize(player.civ) : player.civilization ? civAbbrEnumListData[player.civilization] : undefined;
 
     return (
         <View style={[styles.player, reverse && { flexDirection: 'row-reverse' }]}>
@@ -19,7 +20,7 @@ export const PlayoffPlayer: React.FC<{ player: EventPlayer; reverse?: boolean }>
                     {player.name}
                 </MyText>
             )}
-            {player.civilization && (
+            {(civ ?? player.civilization) && (
                 <Image
                     source={getCivIconLocal(civ ?? player.civilization)}
                     style={[styles.civImage, !player.name && styles.civImageLarge]}

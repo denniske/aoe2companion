@@ -37,13 +37,10 @@ else
 fi
 
 echo ""
-
-
 echo "Uninstalling $PACKAGE_NAME from device..."
 adb -s $DEVICE uninstall $PACKAGE_NAME || echo "App not found on device, skipping uninstall."
 
 echo ""
-
 echo "📦 Installing ${PLATFORM} app for ${APP}..."
 
 adb -s $DEVICE install -r $NAME

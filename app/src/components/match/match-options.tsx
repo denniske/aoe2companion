@@ -52,7 +52,7 @@ export default function MatchOptions(props: Props) {
                 </View>
             )}
 
-            {appConfig.game === 'aoe2' && (
+            {appConfig.game === 'aoe2de' && (
                 <View className="flex-col gap-1">
                     <View className="flex-row items-center gap-1">
                         <Text className="w-[50%]">{getTranslation('match.gameMode')}:</Text>

@@ -6,12 +6,12 @@ import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { PlayoffMatch as IPlayoffMatch } from 'liquipedia';
 import { Fragment, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Linking, ActivityIndicator, Pressable, Platform } from 'react-native';
+import { ActivityIndicator, Linking, Platform, Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { PlayoffParticipant } from './participant';
 import { PlayoffPlayer } from './player';
 import { createStylesheet } from '../../../../src/theming-new';
-import { useTournamentDetail, useTournamentMatches } from '../../../api/tournaments';
+import { useTournamentDetail, useUpcomingTournamentMatches } from '../../../api/tournaments';
 import { findTournamentMatch, getLiveOrUpcomingMatch } from '../../../helper/tournaments';
 import BottomSheet from '../../bottom-sheet';
 import { MyText } from '../../components/my-text';
@@ -27,7 +27,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
 }) => {
     const getTranslation = useTranslation();
     const styles = useStyles();
-    const { data: tournamentMatches } = useTournamentMatches();
+    const { data: tournamentMatches } = useUpcomingTournamentMatches();
     const { data: tournament } = useTournamentDetail(tournamentPath ?? '', !!tournamentPath);
     const match = tournamentPath
         ? findTournamentMatch(
@@ -38,6 +38,15 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
 
     const liveOrUpcomingMatch = getLiveOrUpcomingMatch(match, tournamentMatches);
     const isLive = liveOrUpcomingMatch?.startTime && isPast(liveOrUpcomingMatch?.startTime);
+
+    if (visible) {
+        console.log('==============> PlayoffPopup');
+        console.log('visible', visible);
+        console.log('selectedMatch', selectedMatch);
+        console.log('match', match);
+        console.log('tournamentPath', tournamentPath);
+        console.log('tournament.path', tournament?.path);
+    }
 
     useEffect(() => {
         if (visible && tournamentPath && tournament && !match) {

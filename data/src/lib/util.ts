@@ -1,5 +1,5 @@
-import {format, formatDistanceToNowStrict, fromUnixTime, parseISO} from "date-fns";
-import {getLanguage} from './aoe-data';
+import { format, formatDistanceToNowStrict, fromUnixTime, parseISO } from 'date-fns';
+import { getLanguage } from './aoe-data';
 
 // Explicitly importing the languages here so that they are tree shaked.
 import ms from 'date-fns/locale/ms';
@@ -17,6 +17,10 @@ import ja from 'date-fns/locale/ja';
 import ko from 'date-fns/locale/ko';
 import zhCN from 'date-fns/locale/zh-CN';
 import zhTW from 'date-fns/locale/zh-TW';
+
+export function parseIntNullable(value: string) {
+    return value ? parseInt(value) : null;
+}
 
 // const moMonth = 1;
 // const moDate = 7;
@@ -49,20 +53,20 @@ export function dateReviver(key: string, value: any) {
 }
 
 const localeMapping = {
-    'ms': ms,
-    'fr': fr,
+    ms: ms,
+    fr: fr,
     'es-mx': es,
-    'it': it,
-    'pt': pt,
-    'ru': ru,
-    'vi': vi,
-    'tr': tr,
-    'de': de,
-    'en': enUS,
-    'es': es,
-    'hi': hi,
-    'ja': ja,
-    'ko': ko,
+    it: it,
+    pt: pt,
+    ru: ru,
+    vi: vi,
+    tr: tr,
+    de: de,
+    en: enUS,
+    es: es,
+    hi: hi,
+    ja: ja,
+    ko: ko,
     'zh-hans': zhCN,
     'zh-hant': zhTW,
 };
@@ -73,7 +77,6 @@ function getLocale() {
     // return localeMapping['en'];
     return localeMapping[getLanguage() as keyof typeof localeMapping];
 }
-
 
 export type ValueOf<T> = T[keyof T];
 
@@ -103,31 +106,31 @@ export function parseUnixTimestamp(timestamp: number) {
 }
 
 export function formatYear(date: Date) {
-    return format(date, 'yyyy', {locale: getLocale()});
+    return format(date, 'yyyy', { locale: getLocale() });
 }
 
 export function formatMonth(date: Date) {
-    return format(date, 'MMM', {locale: getLocale()});
+    return format(date, 'MMM', { locale: getLocale() });
 }
 
 export function formatDateShort(date: Date) {
-    return format(date, 'MMM d', {locale: getLocale()});
+    return format(date, 'MMM d', { locale: getLocale() });
 }
 
 export function formatDayAndTime(date: Date) {
-    return format(date, 'MMM d HH:mm', {locale: getLocale()});
+    return format(date, 'MMM d HH:mm', { locale: getLocale() });
 }
 
 export function formatTime(date: Date) {
-    return format(date, 'HH:mm', {locale: getLocale()});
+    return format(date, 'HH:mm', { locale: getLocale() });
 }
 
 export function formatDate(date: Date) {
-    return format(date, 'dd MM yyyy', {locale: getLocale()});
+    return format(date, 'dd MM yyyy', { locale: getLocale() });
 }
 
 export function formatAgo(date: Date) {
-    return formatDistanceToNowStrict(date, {locale: getLocale(), addSuffix: true});
+    return formatDistanceToNowStrict(date, { locale: getLocale(), addSuffix: true });
 }
 
 interface IParams {
@@ -142,9 +145,8 @@ interface IParams {
 // }
 
 export function makeQueryString(params: IParams) {
-
     // remove all keys with null or undefined values
-    Object.keys(params).forEach(key => {
+    Object.keys(params).forEach((key) => {
         if (params[key] == null) {
             delete params[key];
         }
@@ -157,11 +159,10 @@ export function makeQueryString(params: IParams) {
     //     .join('&');
 }
 
-
 export function makeQueryStringRaw(params: IParams) {
     return Object.keys(params)
-            .map(k => encodeURIComponent(k) + '=' + params[k])
-            .join('&');
+        .map((k) => encodeURIComponent(k) + '=' + params[k])
+        .join('&');
 }
 
 export function strRemoveTo(str: string, find: string) {
@@ -172,7 +173,7 @@ export function strRemoveFrom(str: string, find: string) {
     return str.substring(0, str.indexOf(find));
 }
 
-export function escapeRegExpFn (string: string): string {
+export function escapeRegExpFn(string: string): string {
     return string.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 }
 
@@ -185,30 +186,23 @@ export function unwrapWithMapper<X, Y>(arg: readonly X[], mapper: (x: X) => Y): 
 }
 
 export function sanitizeGameDescription(description: string) {
-    return description
-        .replace(/<b>/g, '')
-        .replace(/<\/b>/g, '')
-        .replace(/<i>/g, '')
-        .replace(/<\/i>/g, '')
-        .replace(/<br>/g, '');
+    return description.replace(/<b>/g, '').replace(/<\/b>/g, '').replace(/<i>/g, '').replace(/<\/i>/g, '').replace(/<br>/g, '');
 }
 
 export function removeAccentsAndCase(str: string) {
     return str
         .toLowerCase()
-        .replace(/[áàãâä]/gi,"a")
-        .replace(/[éè¨ê]/gi,"e")
-        .replace(/[íìïî]/gi,"i")
-        .replace(/[óòöôõ]/gi,"o")
-        .replace(/[úùüû]/gi, "u")
-        .replace(/[ç]/gi, "c")
-        .replace(/[ñ]/gi, "n")
-        .replace(/[^a-zA-Z0-9]/g," ");
+        .replace(/[áàãâä]/gi, 'a')
+        .replace(/[éè¨ê]/gi, 'e')
+        .replace(/[íìïî]/gi, 'i')
+        .replace(/[óòöôõ]/gi, 'o')
+        .replace(/[úùüû]/gi, 'u')
+        .replace(/[ç]/gi, 'c')
+        .replace(/[ñ]/gi, 'n')
+        .replace(/[^a-zA-Z0-9]/g, ' ');
 }
 
-export async function noop() {
-
-}
+export async function noop() {}
 
 export function getAllMatches(regex: RegExp, str: string) {
     let matches = [];
@@ -224,22 +218,21 @@ export function getAllMatches(regex: RegExp, str: string) {
 }
 
 export function shadeColor(color: string, percent: number) {
+    let R = parseInt(color.substring(1, 3), 16);
+    let G = parseInt(color.substring(3, 5), 16);
+    let B = parseInt(color.substring(5, 7), 16);
 
-    let R = parseInt(color.substring(1,3),16);
-    let G = parseInt(color.substring(3,5),16);
-    let B = parseInt(color.substring(5,7),16);
+    R = Math.round((R * (100 + percent)) / 100);
+    G = Math.round((G * (100 + percent)) / 100);
+    B = Math.round((B * (100 + percent)) / 100);
 
-    R = Math.round(R * (100 + percent) / 100);
-    G = Math.round(G * (100 + percent) / 100);
-    B = Math.round(B * (100 + percent) / 100);
+    R = R < 255 ? R : 255;
+    G = G < 255 ? G : 255;
+    B = B < 255 ? B : 255;
 
-    R = (R<255)?R:255;
-    G = (G<255)?G:255;
-    B = (B<255)?B:255;
+    var RR = R.toString(16).length == 1 ? '0' + R.toString(16) : R.toString(16);
+    var GG = G.toString(16).length == 1 ? '0' + G.toString(16) : G.toString(16);
+    var BB = B.toString(16).length == 1 ? '0' + B.toString(16) : B.toString(16);
 
-    var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
-    var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
-    var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
-
-    return "#"+RR+GG+BB;
+    return '#' + RR + GG + BB;
 }

@@ -1,7 +1,7 @@
 import { IMatchesMatch } from '@app/api/helper/api.types';
 import { useLiveTwitchAccounts } from '@app/api/twitch';
 import { useOngoing } from '@app/api/socket/ongoing';
-import { tournamentsEnabled, useFeaturedTournaments, useTournamentMatches } from '@app/api/tournaments';
+import { tournamentsEnabled, useFeaturedTournaments, useUpcomingTournamentMatches } from '@app/api/tournaments';
 import { FlatList } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
 import { Link } from '@app/components/link';
@@ -30,7 +30,7 @@ export default function Competitive() {
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const { matches } = useOngoing({ verified: true });
     console.log('Ongoing matches', matches);
-    const { data: tournamentMatches, isLoading: isLoadingUpcomingMatches } = useTournamentMatches();
+    const { data: tournamentMatches, isLoading: isLoadingUpcomingMatches } = useUpcomingTournamentMatches();
     const filteredMatches = tournamentMatches
         ?.filter((match) => match.startTime && match.tournament)
         .map((match) => ({ ...match, header: { name: match.tournament.name } }));
@@ -121,7 +121,7 @@ export default function Competitive() {
                     visible={showSetPopup}
                     setVisible={setShowSetPopup}
                     match={selectedSet.match}
-                    tournamentPath={selectedSet.tournamentPath}
+                    tournamentPath={selectedSet.tournamentPath} // TODO: If we have this just go to the tournament page directly?
                 />
             )}
             <View className="flex-1 pt-4 gap-5">

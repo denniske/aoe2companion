@@ -31,19 +31,17 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string; directio
         <Card
             href={`/competitive/tournaments/${encodeURIComponent(tournament.path)}`}
             direction={direction}
-            className={direction === 'horizontal' ? '' : 'items-center w-36'}
+            className={direction === 'horizontal' ? '' : 'items-center2 w-36'}
         >
-            {Platform.OS !== 'web' && (
-                <View className={`${direction === 'horizontal' ? 'w-12' : ''} aspect-square items-center justify-center`}>
-                    <Image
-                        source={{ uri: tournament.league?.image }}
-                        className={`${direction === 'horizontal' ? 'w-12' : 'w-16'} aspect-square`}
-                        contentFit="contain"
-                    />
-                </View>
-            )}
+            <View className={`${direction === 'horizontal' ? 'w-12' : ''} items-center justify-center`}>
+                <Image
+                    source={{ uri: tournament.league?.image }}
+                    className={`${direction === 'horizontal' ? 'w-12' : 'w-16'} aspect-square`}
+                    contentFit="contain"
+                />
+            </View>
             <View className={direction === 'horizontal' ? 'flex-1 gap-0.5' : 'items-center'}>
-                <Text variant={direction === 'horizontal' ? 'header-sm' : 'header-xs'} numberOfLines={1}>
+                <Text variant={direction === 'horizontal' ? 'header-sm' : 'header-xs'} className={'truncate mb-1'} numberOfLines={1}>
                     {tournament.name.replace(tournament.game, '').trim()}
                 </Text>
                 <Text variant={direction === 'horizontal' ? 'body-sm' : 'body-xs'} numberOfLines={1}>

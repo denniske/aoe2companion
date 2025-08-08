@@ -9,11 +9,11 @@ import { Card } from '@app/components/card';
 import { ScrollView } from '@app/components/scroll-view';
 import { Icon } from '@app/components/icon';
 import { appConfig } from '@nex/dataset';
-import { useTournamentMatches } from '@app/api/tournaments';
+import { tournamentsEnabled, useUpcomingTournamentMatches } from '@app/api/tournaments';
 import { differenceInMinutes, differenceInSeconds } from 'date-fns';
 import { getVerifiedPlayer } from '@nex/data';
 import { useRouter } from 'expo-router';
-import { matchTimedOut } from '@app/components/match/match-card';
+import { matchTimedOut } from '@app/components/elapsed-time-or-duration';
 
 interface Props {
     match: IMatchNew;
@@ -31,23 +31,35 @@ export default function MatchInfo(props: Props) {
     const getTranslation = useTranslation();
     const router = useRouter();
 
-    const { data: tournamentMatches } = useTournamentMatches();
+    const { data: tournamentMatches } = useUpcomingTournamentMatches();
+    console.log('tournamentMatches', tournamentMatches);
 
     const players = flatten(match?.teams.map((t) => t.players));
     const tournamentMatch = useMemo(
         () =>
             match &&
             players &&
-            tournamentMatches?.find(
-                (tournamentMatch) =>
-                    tournamentMatch.startTime &&
-                    Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 240 &&
-                    players.every((player) =>
-                        tournamentMatch.participants
-                            .map((tournamentParticipant) => tournamentParticipant.name?.toLowerCase())
-                            .includes(getVerifiedPlayer(player.profileId)?.liquipedia?.toLowerCase()?.replaceAll('_', '') ?? '')
-                    )
-            ),
+            tournamentMatches?.find((tournamentMatch) => {
+                // console.log(
+                //     'player names',
+                //     players.map((player) => player.socialLiquipedia?.toLowerCase()?.replaceAll('_', '') ?? '')
+                // );
+                // console.log(
+                //     'tournament names',
+                //     tournamentMatch.participants.map((player) => player.name)
+                // );
+                // console.log('match.started', match.started);
+                // console.log('tournamentMatch.startTime', tournamentMatch.startTime);
+                // console.log('diff minutes', differenceInMinutes(match.started, tournamentMatch.startTime));
+
+                return tournamentMatch.startTime &&
+                Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 300 &&
+                 players.every((player) =>
+                    player.socialLiquipedia && tournamentMatch.participants
+                        .map((tournamentParticipant) => tournamentParticipant.name?.toLowerCase())
+                        .includes(player.socialLiquipedia?.toLowerCase()?.replaceAll('_', '') ?? '')
+                );
+            }),
         [players, tournamentMatches]
     );
 
@@ -64,12 +76,12 @@ export default function MatchInfo(props: Props) {
 
     return (
         <Card direction="vertical">
-            <ScrollView horizontal contentContainerStyle="items-center gap-4">
+            <ScrollView horizontal contentContainerStyle="items-center gap-4 pb-2">
                 {tournament && (
                     <Pressable
                         className="flex-row items-center gap-1"
                         onPress={() =>
-                            Platform.OS === 'web'
+                            (Platform.OS === 'web' && !tournamentsEnabled)
                                 ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
                                 : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
                         }
