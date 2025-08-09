@@ -64,7 +64,6 @@ export default function TournamentDetail() {
         ...compact(tournamentPlacements?.map((placement) => placement.extradata.participantname)),
         ...compact(tournamentPlacements?.map((placement) => placement.opponentname)),
     ]);
-    console.log('participantLiquipediaNames', participantLiquipediaNames);
 
     const { data: participantProfiles } = useProfilesByLiquipediaNames(participantLiquipediaNames);
 
