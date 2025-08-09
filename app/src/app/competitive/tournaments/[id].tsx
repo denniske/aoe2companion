@@ -81,7 +81,7 @@ export default function TournamentDetail() {
     const tournamentParticipants = tournament?.participants.map((participant) => {
         return {
             ...participant,
-            profileId: nameToProfileIdDict[participant.name] ?? -1,
+            profileId: nameToProfileIdDict[participant.name],
         };
     });
 
@@ -90,7 +90,7 @@ export default function TournamentDetail() {
         participants: prize.participants.map((participant) => {
             return {
                 ...participant,
-                profileId: nameToProfileIdDict[participant.name] ?? -1,
+                profileId: nameToProfileIdDict[participant.name],
             };
         }),
     }));
@@ -214,13 +214,12 @@ export default function TournamentDetail() {
                                     variant="horizontal"
                                     list={tournamentParticipants?.map((participant) => ({
                                         ...participant,
-                                        profileId: participant.profileId,
                                         name: '',
                                         participant: participant.name,
                                     }))}
                                     footer={(player) => (
                                         <View className="flex-row gap-1 items-center">
-                                            <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
+                                            <Text numberOfLines={1} variant="body-sm" allowFontScaling={false} className={`${player?.profileId ? 'font-bold' : ''}`}>
                                                 {player?.participant}
                                             </Text>
                                             <Text variant="label-xs" className="-mt-1">
