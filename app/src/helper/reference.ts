@@ -1,4 +1,4 @@
-import {makeQueryString, setAoeReferenceData} from '@nex/data';
+import {makeQueryString} from '@nex/data';
 import {fetchJson} from '../api/util';
 // import * as FileSystem from 'expo-file-system';
 // import {cacheDirectory, getInfoAsync, writeAsStringAsync} from 'expo-file-system';

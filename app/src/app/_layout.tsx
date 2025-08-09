@@ -225,7 +225,7 @@ function useColorSchemes() {
 }
 
 function AppWrapper() {
-    console.log('AppWrapper...');
+    // console.log('AppWrapper...');
 
     // const [languageLoaded, setLanguageLoaded] = useState(false);
     // const [appIsReady, setAppIsReady] = useState(false);
@@ -276,11 +276,11 @@ function AppWrapper() {
         return null;
     }
 
-    console.log();
-    console.log();
-    console.log('ROOT RENDER', appConfig.game);
-    console.log();
-    console.log();
+    // console.log();
+    // console.log();
+    // console.log('ROOT RENDER', appConfig.game);
+    // console.log();
+    // console.log();
 
     return (
         <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black ${isMobile ? '' : 'py-5'}` : ``}`}>
@@ -336,7 +336,7 @@ function useIsNavigationReady() {
 }
 
 const mmkvConfigMainPage = mmkvDefaultInstance.getString('configMainPage');
-console.log('mmkvConfigMainPage', mmkvConfigMainPage);
+// console.log('mmkvConfigMainPage', mmkvConfigMainPage);
 
 export function useMMKWAccountCache() {
     const mmkv = useMMKV();
@@ -346,7 +346,7 @@ export function useMMKWAccountCache() {
 
     useEffect(() => {
         if (!configMainPage) {
-            console.log('No configMainPage available, skipping cache update');
+            // console.log('No configMainPage available, skipping cache update');
             return;
         }
         setConfigMainPage(configMainPage);

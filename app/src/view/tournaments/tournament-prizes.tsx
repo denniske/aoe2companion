@@ -21,7 +21,7 @@ const PlaceIcon: React.FC<{ place: string }> = ({ place }) => {
     return icon && <Image source={icon} style={styles.difficulty} />;
 };
 
-export const TournamentPrizes: React.FC<{ prizes: TournamentDetail['prizes'] }> = ({ prizes }) => {
+export const TournamentPrizes: React.FC<{ prizes: TournamentDetail['prizes'], onClose: () => void }> = ({ prizes, onClose }) => {
     const styles = useStyles();
 
     return (
@@ -40,7 +40,7 @@ export const TournamentPrizes: React.FC<{ prizes: TournamentDetail['prizes'] }> 
 
                     <View style={styles.participants}>
                         {prize.participants.map((participant, index) => (
-                            <TournamentParticipant key={`${participant.name}-${index}`} participant={participant} bold={false} />
+                            <TournamentParticipant key={`${participant.name}-${index}`} onNavigate={onClose} participant={participant} bold={false} />
                         ))}
                     </View>
                 </View>

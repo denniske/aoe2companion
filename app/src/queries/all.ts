@@ -74,15 +74,22 @@ export const useMatchAnalysisSvg = (matchId: number, enabled: boolean) =>
 export const useProfileFast = (profileId?: number, extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') =>
     useQuery({
         queryKey: ['profile-fast', profileId],
-        queryFn: async () => { return (await fetchProfiles({ profileId, extend })).profiles[0]; },
+        queryFn: async () => { return (await fetchProfiles({ profileIds: [profileId!], extend })).profiles[0]; },
         enabled: !!profileId,
     });
 
 export const useProfiles = (profileIds?: number[], extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') =>
     useQuery({
-        queryKey: ['profiles', profileIds?.join(',')],
-        queryFn: async () => { return (await fetchProfiles({ profileId: profileIds?.join(','), extend })).profiles; },
+        queryKey: ['profiles', profileIds],
+        queryFn: async () => { return (await fetchProfiles({ profileIds, extend })).profiles; },
         // enabled: !!profileId,
+    });
+
+export const useProfilesByLiquipediaNames = (liquipediaNames?: string[], extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') =>
+    useQuery({
+        queryKey: ['profiles', liquipediaNames],
+        queryFn: async () => { return (await fetchProfiles({ liquipediaNames, extend })).profiles; },
+        enabled: !!liquipediaNames,
     });
 
 export const useProfileWithStats = (profileId: number, isFocused: boolean) =>

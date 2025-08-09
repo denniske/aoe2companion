@@ -9,13 +9,14 @@ export interface HeaderTitleProps {
     iconComponent?: React.ReactNode;
     icon?: ImageSourcePropType;
     iconStyle?: ImageProps['style'];
+    iconContentFit?: ImageProps['contentFit'];
     align?: TextProps['align'];
 }
 
-export const HeaderTitle: React.FC<HeaderTitleProps> = ({ title, subtitle, icon, iconComponent, iconStyle, align = 'left' }) => {
+export const HeaderTitle: React.FC<HeaderTitleProps> = ({ title, subtitle, icon, iconComponent, iconStyle, iconContentFit, align = 'left' }) => {
     return (
         <View className="items-center flex-row gap-2 flex-1">
-            {iconComponent ? iconComponent : icon && <Image className="w-8 h-8" style={iconStyle} source={icon} />}
+            {iconComponent ? iconComponent : icon && <Image className="w-8 h-8" contentFit={iconContentFit} style={iconStyle} source={icon} />}
             <View className="flex-1">
                 <Text variant={subtitle ? 'header' : 'header-lg'} color="brand" numberOfLines={1} allowFontScaling={false} align={align}>
                     {title}

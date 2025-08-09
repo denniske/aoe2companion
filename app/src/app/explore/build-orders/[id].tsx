@@ -164,7 +164,7 @@ export default function BuildDetail() {
                     {step.type === 'newAge' ? (
                         <View style={[styles.stepRow, styles.ageRow]}>
                             <View style={[styles.stepActions, styles.ageActions]}>
-                                {step.age && <Image source={getOtherIcon(capitalize(step.age) as any)} style={styles.agePic} />}
+                                {step.age && <Image source={getOtherIcon(capitalize(step.age) as any)} contentFit="contain" style={styles.agePic} />}
                                 <MyText style={styles.ageName}>{startCase(step.age)}</MyText>
                             </View>
 
@@ -259,7 +259,6 @@ const useStyles = createStylesheet((theme, darkMode) =>
         agePic: {
             width: 24,
             aspectRatio: 1,
-            resizeMode: 'contain',
         },
         ageName: {
             fontSize: 20,

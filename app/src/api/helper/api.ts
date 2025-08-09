@@ -6,7 +6,7 @@ import {
     IFetchLeaderboardParams,
     IFetchMatchesParams,
     IFetchMatchParams,
-    IFetchProfileParams,
+    IFetchProfileParams, IFetchProfilesParams,
     ILeaderboard,
     ILeaderboardDef,
     IMatchesResult,
@@ -36,7 +36,7 @@ export async function fetchProfile(params: IFetchProfileParams) {
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IProfileResult;
 }
 
-export async function fetchProfiles(params: IFetchProfileParams) {
+export async function fetchProfiles(params: IFetchProfilesParams) {
     const queryString = makeQueryString(
         decamelizeKeys({
             ...removeReactQueryParams(params),

@@ -11,7 +11,7 @@ import compact from 'lodash/compact';
 import { getHost, parseIntNullable } from '@nex/data';
 import { makeQueryString } from '@app/api/helper/util';
 import { subDays } from 'date-fns';
-import { ConvertedLiquipediaMatch, INewLiquipediaMatch } from '@app/api/tournament.types';
+import { ConvertedLiquipediaMatch, ILiquipediaPlacement, INewLiquipediaMatch } from '@app/api/tournament.types';
 
 export const tournamentsEnabled = (true && __DEV__) || Platform.OS !== 'web';
 
@@ -97,7 +97,6 @@ async function getLiquipediaMatches(options: { tournamentId?: string; upcoming?:
     const yesterday = subDays(new Date(), 1);
     const yesterdayString = yesterday.toISOString().split('T')[0]; // Format: YYYY-MM-DD
     const game = 'Age of Empires II';
-
     const conditions = [`[[game::${game}]]`];
     if (options.tournamentId) {
         conditions.push(`[[pagename::${options.tournamentId}]]`);
@@ -115,6 +114,30 @@ async function getLiquipediaMatches(options: { tournamentId?: string; upcoming?:
     });
     return (
         await fetchJson(`${getHost('aoe2companion-tournament')}api/external/match?${queryString}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+    )?.result;
+}
+
+async function getLiquipediaPlacements(options: { tournamentId?: string; upcoming?: boolean }) {
+    // console.log('getLiquipediaPlacements', options);
+
+    const game = 'Age of Empires II';
+    const conditions = [`[[game::${game}]]`];
+    if (options.tournamentId) {
+        conditions.push(`[[pagename::${options.tournamentId}]]`);
+    }
+
+    const queryString = makeQueryString({
+        limit: 100,
+        wiki: 'ageofempires',
+        offset: 0,
+        conditions: conditions.join(' AND '),
+    });
+    return (
+        await fetchJson(`${getHost('aoe2companion-tournament')}api/external/placement?${queryString}`, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -231,6 +254,27 @@ export const useTournamentMatches = ({ tournamentId, upcoming, enabled = true }:
     return {
         data: liquipediaMatches,
         isLoading: isLoadingTournaments || isLoading,
+        ...query,
+    };
+};
+
+export const useTournamentPlacements = ({ tournamentId, enabled = true }: { tournamentId: string; enabled?: boolean }) => {
+    const {
+        data: placements,
+        isLoading,
+        ...query
+    } = useQuery<ILiquipediaPlacement[]>({
+        queryKey: ['tournament', 'placements', tournamentId],
+        queryFn: async () => await getLiquipediaPlacements({ tournamentId }),
+        enabled: tournamentsEnabled && enabled && tournamentId != null,
+        staleTime: 60000, // 0
+        refetchOnWindowFocus: true,
+    });
+
+    // const liquipediaMatches = useMemo(() => convertNewLiquipediaMatches(matches, compact([tournament])), [matches, tournament]);
+
+    return {
+        data: placements,
         ...query,
     };
 };

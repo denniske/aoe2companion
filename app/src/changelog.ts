@@ -296,6 +296,12 @@ export const changelog: IChangelog = {
     //         // author: '[Sihing Mo](https://www.aoe2companion.com/profile/223576)',
     //     },
     // ],
+    '142.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix some tournament matches not showing up and player not linked to profiles',
+        },
+    ],
     '141.0.0': [
         {
             type: 'minor',

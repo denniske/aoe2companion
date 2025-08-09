@@ -4,6 +4,72 @@ export type ConvertedLiquipediaMatch = Match & {
     finished: boolean;
 };
 
+export interface ILiquipediaPlacement {
+    pageid: number
+    pagename: string
+    namespace: number
+    objectname: string
+    tournament: string
+    series: string
+    parent: string
+    imageurl: string
+    imagedarkurl: string
+    startdate: string
+    date: string
+    placement: string
+    prizemoney: number
+    individualprizemoney: number
+    prizepoolindex: number
+    weight: number
+    mode: string
+    type: string
+    liquipediatier: string
+    liquipediatiertype: string
+    publishertier: string
+    icon: string
+    iconurl: string
+    icondark: string
+    icondarkurl: string
+    game: string
+    lastvsdata: {
+        opponenttype: string
+        opponentname: string
+        score: number
+        opponentplayers: {
+            p1team?: string
+            p1flag: string
+            p1dn: string
+            p1faction: string
+            p1template?: string
+            p1: string
+        }
+    }
+    opponentname: string
+    opponenttemplate: string
+    opponenttype: string
+    opponentplayers: {
+        p1team?: string
+        p1flag: string
+        p1dn: string
+        p1faction: string
+        p1template?: string
+        p1: string
+    }
+    qualifier: string
+    qualifierpage: string
+    qualifierurl: string
+    extradata: {
+        participantname: string
+        lastvsname: string
+        lastvsflag: string
+        notabilitymod?: string
+        prizepoints2: string
+        prizepoints: string
+        participantteam?: string
+    }
+    wiki: string
+}
+
 export interface INewLiquipediaMatch {
     pageid: number;
     pagename: string;

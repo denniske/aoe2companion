@@ -1,4 +1,4 @@
-import { useRefreshControl, useTournament, useTournamentMatches } from '@app/api/tournaments';
+import { useRefreshControl, useTournament, useTournamentMatches, useTournamentPlacements } from '@app/api/tournaments';
 import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
 import { FlatList } from '@app/components/flat-list';
@@ -23,7 +23,6 @@ import { TournamentMaps } from '@app/view/tournaments/tournament-maps';
 import { TournamentMarkdown } from '@app/view/tournaments/tournament-markdown';
 import { TournamentMatch } from '@app/view/tournaments/tournament-match';
 import { TournamentPrizes } from '@app/view/tournaments/tournament-prizes';
-import { getVerifiedPlayerBy } from '@nex/data';
 import { format, isValid } from 'date-fns';
 import { Image } from 'expo-image';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
@@ -33,6 +32,9 @@ import { useState } from 'react';
 import { Linking, TouchableOpacity, View } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
 import { useTranslation } from '@app/helper/translate';
+import { useProfilesByLiquipediaNames } from '@app/queries/all';
+import compact from 'lodash/compact';
+import { uniq } from 'lodash';
 
 export default function TournamentDetail() {
     const getTranslation = useTranslation();
@@ -48,10 +50,51 @@ export default function TournamentDetail() {
     const [visiblePopup, setVisiblePopup] = useState<string>();
     const [playoffRoundWidth, setPlayoffRoundWidth] = useState(0);
     const { data: tournamentMatches } = useTournamentMatches({ tournamentId: id });
+    const { data: tournamentPlacements } = useTournamentPlacements({ tournamentId: id });
     const tournamentTabs =
         tournament?.tabs.filter(
             (tabs) => !tabs.some((tab) => [GameVersion.Age1, GameVersion.Age2, GameVersion.Age3, GameVersion.Age4].includes(tab.name as GameVersion))
         ) ?? [];
+
+    // Not correctly parsed yet, so we use the placements to get the participant names
+    // const participantLiquipediaNames2 = tournament?.participants?.map((participant) => participant.name) ?? [];
+    // console.log('participantLiquipediaNames2', participantLiquipediaNames2);
+
+    const participantLiquipediaNames = uniq([
+        ...compact(tournamentPlacements?.map((placement) => placement.extradata.participantname)),
+        ...compact(tournamentPlacements?.map((placement) => placement.opponentname)),
+    ]);
+    console.log('participantLiquipediaNames', participantLiquipediaNames);
+
+    const { data: participantProfiles } = useProfilesByLiquipediaNames(participantLiquipediaNames);
+
+    const nameToProfileIdDict: Record<string, number> = {};
+    for (const tournamentPlacement of compact(tournamentPlacements)) {
+        const participantProfile = participantProfiles?.find(
+            (p) => p.socialLiquipedia === tournamentPlacement.extradata.participantname || p.socialLiquipedia === tournamentPlacement.opponentname
+        );
+        if (participantProfile?.profileId) {
+            nameToProfileIdDict[tournamentPlacement.extradata.participantname] = participantProfile?.profileId;
+            nameToProfileIdDict[tournamentPlacement.opponentname] = participantProfile?.profileId;
+        }
+    }
+
+    const tournamentParticipants = tournament?.participants.map((participant) => {
+        return {
+            ...participant,
+            profileId: nameToProfileIdDict[participant.name] ?? -1,
+        };
+    });
+
+    const tournamentPrizes = tournament?.prizes.map((prize) => ({
+        ...prize,
+        participants: prize.participants.map((participant) => {
+            return {
+                ...participant,
+                profileId: nameToProfileIdDict[participant.name] ?? -1,
+            };
+        }),
+    }));
 
     const playoffMatches = getMatches(tournament?.playoffs);
     const groupMatches = getMatches(tournament?.groups);
@@ -100,7 +143,7 @@ export default function TournamentDetail() {
                         <View className="flex-1">
                             <HeaderTitle
                                 icon={{ uri: tournamentImage }}
-                                iconStyle={{ resizeMode: 'contain' }}
+                                iconContentFit="contain"
                                 title={title}
                                 subtitle={
                                     <Text variant="label">
@@ -165,19 +208,14 @@ export default function TournamentDetail() {
 
                                 <PlayerList
                                     selectedUser={(participant) => {
-                                        const verifiedPlayer = getVerifiedPlayerBy(
-                                            (player) => player.liquipedia === participant.name || player.name === participant.name
-                                        );
-                                        const playerId = verifiedPlayer?.platforms.rl?.[0];
-
-                                        if (playerId) {
-                                            router.navigate(`/matches/users/${playerId}`);
+                                        if (participant.profileId) {
+                                            router.navigate(`/matches/users/${participant.profileId}`);
                                         }
                                     }}
                                     variant="horizontal"
-                                    list={tournament.participants.map((participant) => ({
-                                        profileId: -1,
+                                    list={tournamentParticipants?.map((participant) => ({
                                         ...participant,
+                                        profileId: participant.profileId,
                                         name: '',
                                         participant: participant.name,
                                     }))}
@@ -216,7 +254,7 @@ export default function TournamentDetail() {
                                     <Text className="my-4">
                                         {getTranslation('tournaments.prizemoney', { amount: formatCurrency({ ...tournament.prizePool })[0] })}
                                     </Text>
-                                    <TournamentPrizes prizes={tournament.prizes} />
+                                    <TournamentPrizes prizes={tournamentPrizes} onClose={() => setVisiblePopup(undefined)} />
                                 </BottomSheet>
                             </View>
                         )}

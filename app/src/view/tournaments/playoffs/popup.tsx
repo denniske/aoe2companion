@@ -150,7 +150,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                             .filter((link) => link.image && link.url)
                             .map((link) => (
                                 <TouchableOpacity key={link.text} onPress={() => Linking.openURL(link.url)}>
-                                    <Image source={{ uri: link.image }} alt={link.text} style={styles.linkImage} />
+                                    <Image source={{ uri: link.image }} alt={link.text} contentFit="contain" style={styles.linkImage} />
                                 </TouchableOpacity>
                             ))}
                     </View>
@@ -199,7 +199,6 @@ const useStyles = createStylesheet((theme) =>
         linkImage: {
             width: 25,
             height: 25,
-            resizeMode: 'contain',
         },
         playersContainer: {
             flexDirection: 'row',

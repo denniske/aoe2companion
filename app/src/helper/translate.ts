@@ -70,7 +70,7 @@ export function getTranslationInternal(key: keyof typeof local001, params?: Reco
 
 export const mmkvDefaultInstance = new MMKV();
 const mmkvLanguage = mmkvDefaultInstance.getString('language');
-console.log('mmkvLanguage', mmkvLanguage);
+// console.log('mmkvLanguage', mmkvLanguage);
 
 if (mmkvLanguage) {
     const translations = mmkvDefaultInstance.getString('translations');
@@ -151,7 +151,7 @@ export function useMMKWTranslationCache() {
 
     useEffect(() => {
         if (!language || !translations) {
-            console.log('No language or translations available, skipping cache update');
+            // console.log('No language or translations available, skipping cache update');
             return;
         }
         setCachedLanguage(language);

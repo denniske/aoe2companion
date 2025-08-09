@@ -462,6 +462,18 @@ export interface IFetchProfileParams {
     pageParam?: number;
 }
 
+export interface IFetchProfilesParams {
+    page?: number;
+    search?: string;
+    steamId?: string;
+    profileIds?: number[];
+    liquipediaNames?: string[];
+    country?: string;
+    extend?: string;
+
+    pageParam?: number;
+}
+
 export interface IFetchProfileRatingParams {
     page?: number;
     search?: string;

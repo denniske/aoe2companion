@@ -11,7 +11,6 @@ import { Icon } from '@app/components/icon';
 import { appConfig } from '@nex/dataset';
 import { tournamentsEnabled, useUpcomingTournamentMatches } from '@app/api/tournaments';
 import { differenceInMinutes, differenceInSeconds } from 'date-fns';
-import { getVerifiedPlayer } from '@nex/data';
 import { useRouter } from 'expo-router';
 import { matchTimedOut } from '@app/components/elapsed-time-or-duration';
 
