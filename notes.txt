@@ -1,4 +1,12 @@
 
+analysis
+https://github.com/SiegeEngineers/aoc-reference-data/blob/master/data/datasets/100.json
+terrain colors (level=ontop, up=lowerrightside, down=other3sides)
+tree objects
+not auto generated
+
+
+
 https://expo.dev/blog/best-practices-for-reducing-lag-in-expo-apps
 
 react compiler
