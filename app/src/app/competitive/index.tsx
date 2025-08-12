@@ -21,9 +21,10 @@ import { PlayoffMatch } from 'liquipedia';
 import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';
 import { useCallback, useEffect, useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Platform, TouchableOpacity, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { useTranslation } from '@app/helper/translate';
+import { openLink, openLinkWithCheck } from '@app/helper/url';
 
 export default function Competitive() {
     const getTranslation = useTranslation();
@@ -62,6 +63,7 @@ export default function Competitive() {
     );
 
     const liveTwitch = orderBy(liveTwitchAccounts, 'viewer_count', 'desc')[0];
+    const liveTwitchUrl = liveTwitch ? `https://player.twitch.tv/?channel=${liveTwitch.user_login}&parent=aoe2companion.com` : null;
 
     useEffect(() => {
         setIsVideoPlaying(false);
@@ -91,6 +93,14 @@ export default function Competitive() {
 
     const openMatch = (matchId: number) => {
         router.push(`/matches/single/${matchId}`);
+    };
+
+    const playTwitchStream = async () => {
+        if (Platform.OS === 'ios') {
+            await openLinkWithCheck(liveTwitchUrl!);
+        } else {
+            setIsVideoPlaying(true);
+        }
     };
 
     return (
@@ -230,11 +240,11 @@ export default function Competitive() {
                         {isVideoPlaying ? (
                             <WebView
                                 allowsFullscreenVideo
-                                source={{ uri: `https://player.twitch.tv/?channel=${liveTwitch.user_login}&parent=aoe2companion.com` }}
+                                source={{ uri: liveTwitchUrl! }}
                                 style={{ width: '100%', aspectRatio: 800 / 450 }}
                             />
                         ) : (
-                            <TouchableOpacity className="relative" onPress={() => setIsVideoPlaying(true)}>
+                            <TouchableOpacity className="relative" onPress={playTwitchStream}>
                                 <Image
                                     source={{ uri: liveTwitch.thumbnail_url.replace('{width}', '800').replace('{height}', '450') }}
                                     style={{ width: '100%', aspectRatio: 800 / 450 }}
