@@ -298,6 +298,10 @@ export const changelog: IChangelog = {
     // ],
     '142.0.0': [
         {
+            type: 'minor',
+            title: 'Add note to match analysis uptime accuracy',
+        },
+        {
             type: 'bugfix',
             title: 'Fix some tournament matches not showing up and player not linked to profiles',
         },
