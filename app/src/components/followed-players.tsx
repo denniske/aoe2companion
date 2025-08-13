@@ -17,8 +17,8 @@ export const FollowedPlayers = () => {
 
     // console.log('followed players account', account?.followedPlayers.length);
 
-    const { data: authProfile, isLoading: isLoadingAuthProfile } = useProfileFast(authProfileId);
-    const { data: followedProfiles, isLoading: isLoadingFollowedProfiles } = useProfiles(
+    const { data: authProfile, isLoading: isLoadingAuthProfile, error: errorAuthProfile } = useProfileFast(authProfileId);
+    const { data: followedProfiles, isLoading: isLoadingFollowedProfiles, error: errorFollowedProfiles } = useProfiles(
         account?.followedPlayers.map((f) => f.profileId)
     );
 
@@ -26,7 +26,8 @@ export const FollowedPlayers = () => {
     // console.log('authProfileId', authProfileId);
     // console.log('authProfile', authProfile);
 
-    const isLoading = isLoadingAccount || isLoadingAuthProfile || isLoadingFollowedProfiles;
+    const isLoading = isLoadingAccount || isLoadingAuthProfile || isLoadingFollowedProfiles ||
+                      !!error || !!errorAuthProfile || !!errorFollowedProfiles;
     const profileIdList = isLoading ? ['loading', 'loading'] : [authProfileId ? authProfile! : 'select', ...(followedProfiles || []), 'follow'];
 
     return (

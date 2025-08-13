@@ -1,6 +1,6 @@
 import { ExpoConfig, ConfigContext } from 'expo/config';
 
-const versionAoe2 = '143.0.0';
+const versionAoe2 = '144.0.0';
 const versionAoe4 = '23.0.0';
 
 const app = process.env.APP === 'aoe2' ? {
@@ -232,7 +232,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             usesNonExemptEncryption: false
         },
         infoPlist: {
-            LSApplicationQueriesSchemes: ["itms-apps"],
+            LSApplicationQueriesSchemes: ["itms-apps", "twitch"],
             NSSupportsLiveActivities: true,
             NSUserActivityTypes: ["BuildsConfigurationIntent"],
             UIBackgroundModes: ["remote-notification"]

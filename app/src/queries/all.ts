@@ -81,8 +81,10 @@ export const useProfileFast = (profileId?: number, extend: string = 'profiles.av
 export const useProfiles = (profileIds?: number[], extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') =>
     useQuery({
         queryKey: ['profiles', profileIds],
-        queryFn: async () => { return (await fetchProfiles({ profileIds, extend })).profiles; },
-        // enabled: !!profileId,
+        queryFn: async () => {
+            return (await fetchProfiles({ profileIds, extend })).profiles;
+        },
+        enabled: !!profileIds && profileIds.length > 0,
     });
 
 export const useProfilesByLiquipediaNames = (liquipediaNames?: string[], extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') =>

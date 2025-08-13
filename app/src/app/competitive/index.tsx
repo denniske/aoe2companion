@@ -21,10 +21,11 @@ import { PlayoffMatch } from 'liquipedia';
 import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';
 import { useCallback, useEffect, useState } from 'react';
-import { Platform, TouchableOpacity, View } from 'react-native';
+import { Linking, Platform, TouchableOpacity, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { useTranslation } from '@app/helper/translate';
 import { openLink, openLinkWithCheck } from '@app/helper/url';
+import { showAlert } from '@app/helper/alert';
 
 export default function Competitive() {
     const getTranslation = useTranslation();
@@ -63,6 +64,7 @@ export default function Competitive() {
     );
 
     const liveTwitch = orderBy(liveTwitchAccounts, 'viewer_count', 'desc')[0];
+    const liveTwitchAppUrl = liveTwitch ? `twitch://stream/${liveTwitch.user_login}` : null;
     const liveTwitchUrl = liveTwitch ? `https://player.twitch.tv/?channel=${liveTwitch.user_login}&parent=aoe2companion.com` : null;
 
     useEffect(() => {
@@ -97,7 +99,15 @@ export default function Competitive() {
 
     const playTwitchStream = async () => {
         if (Platform.OS === 'ios') {
-            await openLinkWithCheck(liveTwitchUrl!);
+            try {
+                if (await Linking.canOpenURL(liveTwitchAppUrl!)) {
+                    await Linking.openURL(liveTwitchAppUrl!);
+                } else {
+                    await openLinkWithCheck(liveTwitchUrl!);
+                }
+            } catch (e: Error) {
+                showAlert(e.message);
+            }
         } else {
             setIsVideoPlaying(true);
         }
