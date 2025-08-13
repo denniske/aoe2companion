@@ -151,7 +151,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 
     // The custom update server does not work with local builds because
     // npx expo run:<platform> has no --private-key-path
-    updates: process.env.APP === 'aoe2' && isProdBuild ? {
+    updates: process.env.APP === 'aoe2' && isProdBuild && false ? {
         fallbackToCacheTimeout: 0,
         url: "https://update.aoe2companion.com/api/manifest",
         codeSigningCertificate: "./update/certificate.pem",

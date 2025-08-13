@@ -44,7 +44,7 @@ fi
 echo "📦 Building ${PLATFORM} app for ${APP}..."
 eas build --profile "production-${APP}" --platform $PLATFORM --local --non-interactive --output "$NAME"
 
-#echo "🚀 Submitting ${PLATFORM} app for ${APP}..."
-#eas submit --profile "production-${APP}" -p $PLATFORM --no-wait --non-interactive --path "$NAME"
-#
-#echo "✅ ${PLATFORM} app for ${APP} submitted successfully!"
+echo "🚀 Submitting ${PLATFORM} app for ${APP}..."
+eas submit --profile "production-${APP}" -p $PLATFORM --no-wait --non-interactive --path "$NAME"
+
+echo "✅ ${PLATFORM} app for ${APP} submitted successfully!"
