@@ -198,7 +198,7 @@ export default function Login() {
                     placeholder={getTranslation('login.placeholder.email')}
                     type="email"
                     autoFocus={!__DEV__}
-                    onChangeText={setEmail}
+                    onChangeText={text => setEmail(text.trim())}
                     value={email}
                 />
             </View>
