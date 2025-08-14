@@ -26,6 +26,7 @@ import WebView from 'react-native-webview';
 import { useTranslation } from '@app/helper/translate';
 import { openLink, openLinkWithCheck } from '@app/helper/url';
 import { showAlert } from '@app/helper/alert';
+import { Button } from '@app/components/button';
 
 export default function Competitive() {
     const getTranslation = useTranslation();
@@ -254,15 +255,24 @@ export default function Competitive() {
                                 style={{ width: '100%', aspectRatio: 800 / 450 }}
                             />
                         ) : (
-                            <TouchableOpacity className="relative" onPress={playTwitchStream}>
-                                <Image
-                                    source={{ uri: liveTwitch.thumbnail_url.replace('{width}', '800').replace('{height}', '450') }}
-                                    style={{ width: '100%', aspectRatio: 800 / 450 }}
-                                />
-                                <View className="absolute top-0 left-0 right-0 bottom-0 items-center justify-center">
-                                    <Icon icon="play-circle" size={40} color="text-blue-800" />
-                                </View>
-                            </TouchableOpacity>
+                            <>
+                                {
+                                    Platform.OS === 'ios' &&
+                                    <Button className="self-start" onPress={playTwitchStream}>Open Stream</Button>
+                                }
+                                {
+                                    Platform.OS !== 'ios' &&
+                                    <TouchableOpacity className="relative" onPress={playTwitchStream}>
+                                        <Image
+                                            source={{ uri: liveTwitch.thumbnail_url.replace('{width}', '800').replace('{height}', '450') }}
+                                            style={{ width: '100%', aspectRatio: 800 / 450 }}
+                                        />
+                                        <View className="absolute top-0 left-0 right-0 bottom-0 items-center justify-center">
+                                            <Icon icon="play-circle" size={40} color="text-blue-800" />
+                                        </View>
+                                    </TouchableOpacity>
+                                }
+                            </>
                         )}
                     </View>
                 )}

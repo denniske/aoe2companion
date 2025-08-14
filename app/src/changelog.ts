@@ -296,7 +296,7 @@ export const changelog: IChangelog = {
     //         // author: '[Sihing Mo](https://www.aoe2companion.com/profile/223576)',
     //     },
     // ],
-    '144.0.0': [
+    '146.0.0': [
         {
             type: 'minor',
             title: 'Add note to match analysis uptime accuracy',
