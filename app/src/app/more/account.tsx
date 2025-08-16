@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Constants from 'expo-constants';
+import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { MyText } from '@app/view/components/my-text';
 import { createStylesheet } from '../../theming-new';
-import { router, Stack } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import useAuth from '../../../../data/src/hooks/use-auth';
 import Login from '@app/components/login';
-import { getHost, makeQueryString } from '@nex/data';
-import Space from '@app/view/components/space';
 import { openLink } from '@app/helper/url';
-import { useAppTheme, useTheme } from '@app/theming';
-import { appVariants } from '@app/styles';
+import { useAppTheme } from '@app/theming';
 import {
     accountDelete,
     accountDiscordInvitation,
-    accountRelicVerify, accountUnlinkDiscord,
+    accountRelicVerify,
+    accountUnlinkDiscord,
     accountUnlinkPatreon,
     accountUnlinkSteam,
     accountUnlinkTwitch,
@@ -33,99 +30,20 @@ import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useQuery } from '@tanstack/react-query';
 import { Field } from '@app/components/field';
 import { showAlert } from '@app/helper/alert';
-
-function getPatreonLoginUrl() {
-    const queryString = new URLSearchParams({
-        response_type: 'code',
-        client_id: 'jsn5ztplpiU4BZ1PxAzOnK5ZyXti69KhEFGQpZSNCt2ahACRi1LMo6kMKmxLFVmn',
-        // redirect_uri: `${getHost('aoe2companion')}auth/link/patreon`,
-        redirect_uri: `https://www.aoe2companion.com/auth/link/patreon`,
-        scope: 'identity identity.memberships',
-        allow_signup: 'false',
-    }).toString();
-
-    return `https://www.patreon.com/oauth2/authorize?${queryString}`;
-}
-
-function getTwitchLoginUrl() {
-    const queryString = new URLSearchParams({
-        response_type: 'code',
-        client_id: 'yxslhhtxc8um77cg9k05uriupg6as3',
-        // redirect_uri: `${getHost('aoe2companion')}auth/link/twitch`,
-        redirect_uri: `https://www.aoe2companion.com/auth/link/twitch`,
-        // redirect_uri: `http://localhost:8081/auth/link/twitch`,
-        scope: 'user:read:email',
-        allow_signup: 'false',
-    }).toString();
-
-    return `https://id.twitch.tv/oauth2/authorize?${queryString}`;
-}
-
-
-function getYoutubeLoginUrl() {
-    const queryString = new URLSearchParams({
-        response_type: 'code',
-        client_id: '488773703040-894cl8823vjasguo1i8cin0vv5tsqosv.apps.googleusercontent.com',
-        // redirect_uri: `${getHost('aoe2companion')}auth/link/youtube`,
-        redirect_uri: `https://www.aoe2companion.com/auth/link/youtube`,
-        // redirect_uri: `http://localhost:8081/auth/link/youtube`,
-        scope: 'openid email profile https://www.googleapis.com/auth/youtube.readonly',
-        allow_signup: 'false',
-    }).toString();
-
-    return `https://accounts.google.com/o/oauth2/v2/auth?${queryString}`;
-}
-
-function getDiscordLoginUrl() {
-    const queryString = new URLSearchParams({
-        response_type: 'code',
-        client_id: '1311364669465956442',
-        // redirect_uri: `${getHost('aoe2companion')}auth/link/discord`,
-        redirect_uri: `https://www.aoe2companion.com/auth/link/discord`,
-        // redirect_uri: `http://localhost:8081/auth/link/discord`,
-        scope: 'identify email guilds',
-        allow_signup: 'false',
-    }).toString();
-
-    return `https://discord.com/oauth2/authorize?${queryString}`;
-}
-
-function getSteamLoginUrl() {
-    // let realm = getHost('aoe2companion');
-    // let returnUrl = `${getHost('aoe2companion')}auth/link/steam`;
-    let realm = `https://www.aoe2companion.com`;
-    let returnUrl = `https://www.aoe2companion.com/auth/link/steam`;
-
-    let match = realm.match(/^(https?:\/\/[^:/]+)/);
-    if (!match) {
-        throw new Error(`"${realm}" does not appear to be a valid realm`);
-    }
-    realm = match[1].toLowerCase();
-
-    let queryString = makeQueryString({
-        'openid.claimed_id': 'http://specs.openid.net/auth/2.0/identifier_select',
-        'openid.identity': 'http://specs.openid.net/auth/2.0/identifier_select',
-        'openid.mode': 'checkid_setup',
-        'openid.ns': 'http://specs.openid.net/auth/2.0',
-        'openid.realm': realm,
-        'openid.return_to': returnUrl,
-    });
-
-    return 'https://steamcommunity.com/openid/login?' + queryString;
-}
+import { useTwitchAuth } from '@app/helper/oauth/twitch';
+import { useYoutubeAuth } from '@app/helper/oauth/youtube';
+import { useDiscordAuth } from '@app/helper/oauth/discord';
+import { getPatreonLoginUrl } from '@app/helper/oauth/patreon';
+import { getSteamLoginUrl } from '@app/helper/oauth/steam';
 
 export default function AccountPage() {
     const getTranslation = useTranslation();
     const styles = useStyles();
-    const appStyles = useTheme(appVariants);
     const theme = useAppTheme();
 
     const user = useAuth();
     const account = useAccount();
     const loggedIn = user && !user.is_anonymous && account.data;
-    // console.log('user', user);
-    // console.log('user.is_anonymous', user?.is_anonymous);
-    // console.log('account', account.data);
 
     const saveAccountMutation = useSaveAccountMutation();
 
@@ -133,60 +51,61 @@ export default function AccountPage() {
     const [discordInvitation, setDiscordInvitation] = useState('https://discord.gg/gCunWKx');
     const [discordInvitationError, setDiscordInvitationError] = useState('');
 
-    const { data: relicVerificationData, isLoading, error } = useQuery({
+    const {
+        data: relicVerificationData,
+        isLoading,
+        error,
+    } = useQuery({
         queryKey: ['accountRelicVerify'],
         queryFn: accountRelicVerify,
         enabled: relicVerification,
         refetchInterval: relicVerification ? 10000 : false, // poll every 10s
     });
 
+    const youtubePromptAsync = useYoutubeAuth();
+    const twitchPromptAsync = useTwitchAuth();
+    const discordPromptAsync = useDiscordAuth();
+
     useEffect(() => {
         if (relicVerificationData?.verified) {
             setRelicVerification(false);
             account.refetch();
         }
-    }, [relicVerificationData?.verified])
+    }, [relicVerificationData?.verified]);
 
-    // const account = useQuery({
-    //     queryKey: QUERY_KEY_ACCOUNT(),
-    //     staleTime: 0,
-    //     queryFn: async () => await fetchAccount(),
-    //     refetchOnMount: true,
-    // });
-
-    console.log('user', user);
-    console.log('accountId', account.data?.accountId);
+    // console.log('user', user);
+    // console.log('accountId', account.data?.accountId);
 
     const toggleSharedHistory = async () => {
         saveAccountMutation.mutate({
             sharedHistory: !account.data!.sharedHistory,
         });
-    }
+    };
 
     const unlinkSteam = async () => {
         await accountUnlinkSteam();
         await account.refetch();
-    }
+    };
 
     const unlinkPatreon = async () => {
         await accountUnlinkPatreon();
         await account.refetch();
-    }
+    };
 
     const unlinkYoutube = async () => {
         await accountUnlinkYoutube();
         await account.refetch();
-    }
+    };
 
     const unlinkDiscord = async () => {
         await accountUnlinkDiscord();
         await account.refetch();
-    }
+    };
 
     const unlinkTwitch = async () => {
         await accountUnlinkTwitch();
         await account.refetch();
-    }
+    };
 
     const updateDiscordInvitation = async (discordInvitation: string) => {
         const data = await accountDiscordInvitation(discordInvitation);
@@ -209,14 +128,14 @@ export default function AccountPage() {
         await AsyncStorage.removeItem('prefs');
 
         await account.refetch();
-    }
+    };
 
     const deleteAccount = async () => {
         console.log('deleteAccount');
 
         await accountDelete();
         await logout();
-    }
+    };
 
     const showDeleteDialog = () => {
         showAlert(
@@ -232,7 +151,7 @@ export default function AccountPage() {
 
     return (
         <ScrollView contentContainerStyle="min-h-full p-5">
-            <Stack.Screen options={{ title: !loggedIn ? getTranslation('login.signin') : getTranslation('account.title')}} />
+            <Stack.Screen options={{ title: !loggedIn ? getTranslation('login.signin') : getTranslation('account.title') }} />
 
             {!loggedIn && <Login />}
 
@@ -247,73 +166,67 @@ export default function AccountPage() {
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.patreon.title')}</Text>
                         <Text variant="body">{getTranslation('account.patreon.description')}</Text>
-                        {
-                            account.data?.patreonId &&
+                        {account.data?.patreonId && (
                             <>
                                 <Text variant="label">{getTranslation('account.patreon.membershipstatus')}</Text>
                                 <View className="flex-row gap-2 items-center">
                                     <FontAwesome5 name="heart" size={14} color={theme.textNoteColor} />
                                     <Text variant="body">{getTranslation('account.patreon.freestatus')}</Text>
                                 </View>
-                                <Button onPress={() => unlinkPatreon()}
-                                        className={'self-start mt-2'}
-                                >
+                                <Button onPress={() => unlinkPatreon()} className={'self-start mt-2'}>
                                     {getTranslation('account.patreon.unlink')}
                                 </Button>
                             </>
-                        }
-                        {
-                            !account.data?.patreonId &&
-                            <Button onPress={() => openLink(getPatreonLoginUrl())}
-                                    // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
-                                    className={'self-start'}
+                        )}
+                        {!account.data?.patreonId && (
+                            <Button
+                                onPress={() => openLink(getPatreonLoginUrl())}
+                                // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
+                                className={'self-start'}
                             >
                                 {getTranslation('account.patreon.link')}
                             </Button>
-                        }
+                        )}
                     </View>
 
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.steam.title')}</Text>
 
-
                         <Text variant="body">{getTranslation('account.steam.description')}</Text>
-                        {
-                            !(account.data?.steamId || account.data?.authRelicId) &&
-                            <Button onPress={() => openLink(getSteamLoginUrl())}
-                                    // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
-                                    className={'self-start'}
+                        {!(account.data?.steamId || account.data?.authRelicId) && (
+                            <Button
+                                onPress={() => openLink(getSteamLoginUrl())}
+                                // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
+                                className={'self-start'}
                             >
                                 {getTranslation('account.steam.link')}
                             </Button>
-                        }
+                        )}
 
-
-                        {
-                            relicVerification &&
+                        {relicVerification && (
                             <>
                                 <Text variant="body">{getTranslation('account.relic.link.description')}</Text>
                                 <View className="flex-row gap-2">
                                     <Text variant="body">{getTranslation('account.relic.link.token', { token: relicVerificationData?.token })}</Text>
-                                    <ActivityIndicator animating size="small" color="#999"/>
+                                    <ActivityIndicator animating size="small" color="#999" />
                                 </View>
-                                <Text variant="body" className="text-sm">{getTranslation('account.relic.link.note')}</Text>
+                                <Text variant="body" className="text-sm">
+                                    {getTranslation('account.relic.link.note')}
+                                </Text>
                             </>
-                        }
+                        )}
 
-                        {
-                            !(account.data?.steamId || account.data?.authRelicId) &&
-                            <Button onPress={() => setRelicVerification((prev) => !prev)}
-                                    // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
-                                    className={'self-start'}
+                        {!(account.data?.steamId || account.data?.authRelicId) && (
+                            <Button
+                                onPress={() => setRelicVerification((prev) => !prev)}
+                                // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
+                                className={'self-start'}
                             >
                                 {!relicVerification ? getTranslation('account.relic.link') : getTranslation('account.relic.cancel')}
                             </Button>
-                        }
+                        )}
 
-
-                        {
-                            account.data?.steamId &&
+                        {account.data?.steamId && (
                             <>
                                 <Text variant="label">{getTranslation('account.steam.id')}</Text>
                                 <View className="flex-row gap-2 items-center">
@@ -321,9 +234,8 @@ export default function AccountPage() {
                                     <Text variant="body">{account.data.steamId}</Text>
                                 </View>
                             </>
-                        }
-                        {
-                            account.data?.authRelicId &&
+                        )}
+                        {account.data?.authRelicId && (
                             <>
                                 <Text variant="label">{getTranslation('account.relic.id')}</Text>
                                 <View className="flex-row gap-2 items-center">
@@ -331,21 +243,15 @@ export default function AccountPage() {
                                     <Text variant="body">{account.data.authRelicId}</Text>
                                 </View>
                             </>
-                        }
-                        {
-                            (account.data?.steamId || account.data?.authRelicId) &&
+                        )}
+                        {(account.data?.steamId || account.data?.authRelicId) && (
                             <>
-                                <Button onPress={() => unlinkSteam()}
-                                        className={'self-start mt-2'}
-                                >
+                                <Button onPress={() => unlinkSteam()} className={'self-start mt-2'}>
                                     {getTranslation('account.steam.unlink')}
                                 </Button>
                             </>
-                        }
+                        )}
                     </View>
-
-
-
 
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.privacy.title')}</Text>
@@ -366,42 +272,36 @@ export default function AccountPage() {
                         </View>
                     </View>
 
-
-
                     {/*<View className="gap-2">*/}
                     {/*    <Text variant="header-sm">{getTranslation('account.youtube.title')}</Text>*/}
                     {/*    <Text variant="body">{getTranslation('account.youtube.description')}</Text>*/}
-                    {/*    {*/}
-                    {/*        account.data?.youtubeChannelName &&*/}
+                    {/*    {account.data?.youtubeChannelName && (*/}
                     {/*        <>*/}
                     {/*            <Text variant="label">{getTranslation('account.youtube.channel')}</Text>*/}
                     {/*            <View className="flex-row gap-2 items-center">*/}
                     {/*                <FontAwesome5 name="youtube" size={14} color={theme.textNoteColor} />*/}
                     {/*                <Text variant="body">{account.data.youtubeChannelName}</Text>*/}
                     {/*            </View>*/}
-                    {/*            <Button onPress={() => unlinkYoutube()}*/}
-                    {/*                    className={'self-start mt-2'}*/}
-                    {/*            >*/}
+                    {/*            <Button onPress={() => unlinkYoutube()} className={'self-start mt-2'}>*/}
                     {/*                {getTranslation('account.youtube.unlink')}*/}
                     {/*            </Button>*/}
                     {/*        </>*/}
-                    {/*    }*/}
-                    {/*    {*/}
-                    {/*        !account.data?.youtubeChannelName &&*/}
-                    {/*        <Button onPress={() => openLink(getYoutubeLoginUrl())}*/}
+                    {/*    )}*/}
+                    {/*    {!account.data?.youtubeChannelName && (*/}
+                    {/*        <Button*/}
+                    {/*            onPress={() => youtubePromptAsync()}*/}
                     {/*            // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}*/}
-                    {/*                className={'self-start'}*/}
+                    {/*            className={'self-start'}*/}
                     {/*        >*/}
                     {/*            {getTranslation('account.youtube.link')}*/}
                     {/*        </Button>*/}
-                    {/*    }*/}
+                    {/*    )}*/}
                     {/*</View>*/}
 
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.discord.title')}</Text>
                         <Text variant="body">{getTranslation('account.discord.description')}</Text>
-                        {
-                            account.data?.discordName &&
+                        {account.data?.discordName && (
                             <>
                                 <Text variant="label">{getTranslation('account.discord.channel')}</Text>
                                 <View className="flex-row gap-2 items-center">
@@ -409,18 +309,19 @@ export default function AccountPage() {
                                     <Text variant="body">{account.data.discordName}</Text>
                                 </View>
 
-                                {
-                                    account.data.discordInvitation &&
+                                {account.data.discordInvitation && (
                                     <>
-                                        <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => openLink(`https://discord.gg/${account.data.discordInvitation}`)}>
+                                        <TouchableOpacity
+                                            className="flex-row gap-2 items-center"
+                                            onPress={() => openLink(`https://discord.gg/${account.data.discordInvitation}`)}
+                                        >
                                             <FontAwesome5 name="link" size={14} color={theme.textNoteColor} />
                                             <Text variant="body">{`https://discord.gg/${account.data.discordInvitation}`}</Text>
                                         </TouchableOpacity>
                                     </>
-                                }
+                                )}
 
-                                {
-                                    !account.data.discordInvitation &&
+                                {!account.data.discordInvitation && (
                                     <>
                                         <View className="flex-row gap-2 items-center">
                                             <Field
@@ -429,80 +330,66 @@ export default function AccountPage() {
                                                 value={discordInvitation}
                                                 onChangeText={(text) => setDiscordInvitation(text)}
                                             />
-                                            <Button onPress={() => updateDiscordInvitation(discordInvitation)}
-                                                    className={'self-start mt-2'}
-                                            >
+                                            <Button onPress={() => updateDiscordInvitation(discordInvitation)} className={'self-start mt-2'}>
                                                 {getTranslation('account.discord.save')}
                                             </Button>
                                         </View>
                                         {discordInvitationError ? <Text className="text-red-700">{discordInvitationError}</Text> : null}
                                     </>
-                                }
+                                )}
 
-                                <Button onPress={() => unlinkDiscord()}
-                                        className={'self-start mt-2'}
-                                >
+                                <Button onPress={() => unlinkDiscord()} className={'self-start mt-2'}>
                                     {getTranslation('account.discord.unlink')}
                                 </Button>
                             </>
-                        }
-                        {
-                            !account.data?.discordName &&
-                            <Button onPress={() => openLink(getDiscordLoginUrl())}
+                        )}
+                        {!account.data?.discordName && (
+                            <Button
+                                onPress={() => discordPromptAsync()}
                                 // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
-                                    className={'self-start'}
+                                className={'self-start'}
                             >
                                 {getTranslation('account.discord.link')}
                             </Button>
-                        }
+                        )}
                     </View>
 
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.twitch.title')}</Text>
                         <Text variant="body">{getTranslation('account.twitch.description')}</Text>
-                        {
-                            account.data?.twitchChannel &&
+                        {account.data?.twitchChannel && (
                             <>
                                 <Text variant="label">{getTranslation('account.twitch.channel')}</Text>
                                 <View className="flex-row gap-2 items-center">
                                     <FontAwesome5 name="twitch" size={14} color={theme.textNoteColor} />
                                     <Text variant="body">{account.data.twitchChannel}</Text>
                                 </View>
-                                <Button onPress={() => unlinkTwitch()}
-                                        className={'self-start mt-2'}
-                                >
+                                <Button onPress={() => unlinkTwitch()} className={'self-start mt-2'}>
                                     {getTranslation('account.twitch.unlink')}
                                 </Button>
                             </>
-                        }
-                        {
-                            !account.data?.twitchChannel &&
-                            <Button onPress={() => openLink(getTwitchLoginUrl())}
+                        )}
+                        {!account.data?.twitchChannel && (
+                            <Button
+                                onPress={() => twitchPromptAsync()}
                                 // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
-                                    className={'self-start'}
+                                className={'self-start'}
                             >
                                 {getTranslation('account.twitch.link')}
                             </Button>
-                        }
+                        )}
                     </View>
-
-
 
                     <View className="gap-2">
                         <Text variant="header-sm"></Text>
-                        <Button onPress={() => logout()}
-                                className={'self-start'}
-                        >
+                        <Button onPress={() => logout()} className={'self-start'}>
                             {getTranslation('account.action.logout')}
                         </Button>
                     </View>
 
                     <View className="gap-2">
                         <Text variant="header-sm"></Text>
-                        <Button onPress={() => showDeleteDialog()}
-                                className={'self-start'}
-
-                        >
+                        <Button onPress={() => showDeleteDialog()} className={'self-start'}>
                             {getTranslation('account.action.delete')}
                         </Button>
                     </View>

@@ -7,6 +7,7 @@ import Constants from 'expo-constants';
 export type Host =
     | 'aoe4world'
     | 'aoe2companion'
+    | 'aoe2companion-app'
     | 'aoe2companion-api'
     | 'aoe2companion-graphql'
     | 'aoe2companion-data'
@@ -33,6 +34,16 @@ export function getHost(host: Host) {
     switch (host) {
         case 'aoe4world': {
             return `https://aoe4world.com/api/v0/`;
+        }
+        case 'aoe2companion-app': {
+            if (Platform.OS === 'web') {
+                if (dev) {
+                    return `http://localhost:8081/`;
+                }
+                return `https://app.${appConfig.hostAoeCompanion}/`;
+            }
+            // will link to the app by universal url
+            return `https://${appConfig.hostAoeCompanion}/`;
         }
         case 'aoe2companion': {
             if (dev) {

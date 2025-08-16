@@ -46,6 +46,7 @@ import { PostMessageTranslationsController } from '@app/components/translation/p
 import { setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
 import { useMMKV } from 'react-native-mmkv';
 import { clearLastNotificationResponseAsync, useLastNotificationResponse } from '@app/service/notifications';
+import * as WebBrowser from 'expo-web-browser';
 
 initSentry();
 
@@ -72,6 +73,8 @@ SplashScreen.preventAutoHideAsync();
 //     duration: 1000,
 //     fade: true,
 // });
+
+WebBrowser.maybeCompleteAuthSession();
 
 try {
     Notifications.setNotificationHandler({
