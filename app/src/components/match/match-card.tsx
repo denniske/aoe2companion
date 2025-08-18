@@ -23,12 +23,13 @@ export function MatchCard(props: MatchCardProps) {
     const freeForAll = isMatchFreeForAll(match);
     let attributes = [teamRatio(match)];
 
+    const consoleAffix = match.leaderboardId?.includes('console') ? '🎮 ' : '';
     if (match.leaderboardName?.includes('Unranked')) {
-        attributes.push('Unranked');
+        attributes.push(consoleAffix + 'Unranked');
     } else if (match.leaderboardName?.includes('Quick Play') || match.leaderboardName?.includes('Quick Match')) {
-        attributes.push('Quick Play');
+        attributes.push(consoleAffix + 'Quick Play');
     } else {
-        attributes.push('Ranked');
+        attributes.push(consoleAffix + 'Ranked');
     }
 
     if (match.gameModeName) {

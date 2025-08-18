@@ -298,6 +298,12 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                                 </View>
                             ))}
                 </View>
+
+                <TextLoader ready={data}>
+                    {getTranslation('main.profile.games', { games: data?.games })},{' '}
+                    {getTranslation('main.profile.drops', { drops: data?.drops })} (
+                    {(((data?.drops as any) / (data?.games as any)) * 100).toFixed(2)} %)
+                </TextLoader>
             </View>
         </View>
     );
@@ -383,7 +389,7 @@ const useStyles = createStylesheet((theme) =>
         },
         cellLeaderboard: {
             // backgroundColor: 'red',
-            width: 75,
+            width: 85,
             marginRight: 5,
         },
         cellRank: {

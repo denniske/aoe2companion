@@ -267,35 +267,24 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    // '123.0.0': [
-    //     {
-    //         type: 'feature',
-    //         title: 'Account creation',
-    //         content: 'You can now create an account to save your settings and followed players across devices',
-    //     },
-    //     {
-    //         type: 'feature',
-    //         title: 'Link steam account',
-    //         content: 'Link your Steam account to prove ownership of your profile'
-    //     },
-    //     {
-    //         type: 'feature',
-    //         title: 'Link patreon account',
-    //         content: 'Link your Patreon account to access exclusive benefits'
-    //     },
-    // ],
-    // '136.0.0': [
-    //     {
-    //         type: 'feature',
-    //         title: 'UI translation',
-    //     },
-    //     {
-    //         type: 'feature',
-    //             title: 'Added Spanish translation for UI',
-    //         author: 'Sihing Mo',
-    //         // author: '[Sihing Mo](https://www.aoe2companion.com/profile/223576)',
-    //     },
-    // ],
+    '147.0.0': [
+        {
+            type: 'minor',
+            title: 'Show xbox/psn profile images (server needs some time to import them all though)',
+        },
+        {
+            type: 'minor',
+            title: 'Add total number of matches and drop rate back to player profile',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix labelling of console matches',
+        },
+        {
+            type: 'bugfix',
+            title: 'Improve linking of socials',
+        },
+    ],
     '146.0.0': [
         {
             type: 'minor',
