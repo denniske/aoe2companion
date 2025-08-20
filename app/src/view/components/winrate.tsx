@@ -28,6 +28,7 @@ import { useAccountData } from '@app/queries/all';
 import { Area, Bar, CartesianChart, Line } from 'victory-native-current';
 import { DashPathEffect, matchFont } from '@shopify/react-native-skia';
 import tw from '@app/tailwind';
+import { useAppTheme } from '@app/theming';
 
 export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
@@ -125,6 +126,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
     breakdown,
     civ,
 }) => {
+    const theme = useAppTheme();
     const { colorScheme } = useColorScheme();
     const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
         { key: 'win_rate', label: 'Win Rate by Rating', domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
@@ -159,8 +161,8 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                                     }}
                                     xAxis={{
                                         font,
+                                        labelColor: theme.textColor,
                                         tickCount: data.length,
-                                        labelColor: '#000',
                                         lineWidth: 0,
                                         formatXLabel: (x) =>
                                             grouping.elo_groupings.find((eg) => eg.name === data[x].elo)?.label.replace(/ *\([^)]*\) */g, '') ?? '',
@@ -169,6 +171,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                                     yAxis={[
                                         {
                                             font,
+                                            labelColor: theme.textColor,
                                             yKeys: [key],
                                             linePathEffect: <DashPathEffect intervals={[4, 4]} />,
                                             formatYLabel: tickFormat,
