@@ -21,6 +21,7 @@ import { Card } from '@app/components/card';
 import Eapm from '@app/view/components/match-map/eapm';
 import { useDarkMode } from '@app/app/_layout';
 import { aoe2PlayerColorsLightModeChatLegend } from '@app/helper/colors';
+import Timeseries from '@app/view/components/match-map/timeseries';
 
 interface Props {
     match?: IMatchNew;
@@ -98,13 +99,8 @@ export default function MatchMap(props: Props) {
                 civImageUrl: player.civImageUrl,
                 eapmPerMinute: getAnalysisPlayer(player.color)?.eapmPerMinute,
                 resignation: getAnalysisPlayer(player.color)?.resignation,
-                uptimes: getAnalysisPlayer(player.color)
-                    ?.queuedTechs?.filter((o) => ['Feudal Age', 'Castle Age', 'Imperial Age'].includes(o.unit))
-                    ?.map((o) => ({
-                        timestamp: o.timestamp,
-                        time: getTimestampMs(o.timestamp),
-                        unit: o.unit,
-                    })),
+                uptimes: getAnalysisPlayer(player.color)?.uptimes,
+                timeseries: getAnalysisPlayer(player.color)?.timeseries,
             };
         }),
     }));
@@ -139,9 +135,6 @@ export default function MatchMap(props: Props) {
                 }));
         })
     );
-
-    // console.log('buildings', uniq(buildings.map(b => b.unit)));
-    // console.log('specials', specials.map(b => b.unit));
 
     const gates: Record<number, any> = {
         63: { objectId: 63, name: 'Fortified Gate (up.)', angle: 'up' },
@@ -270,15 +263,11 @@ export default function MatchMap(props: Props) {
     let walls = [...playerQueuedWalls];
 
     setTiles(analysis.map.tiles);
-    // console.log('analysis.map.tiles', analysis.map.tiles);
 
     const blockedTerrainIdsSet = new Set([47, 46, 35, 96, 40, 4, 59, 101, 111, 28, 15, 58, 96, 22, 57, 95, 23, 1]);
 
     const gaiaSet = getTileMap(analysis.gaia! as any, x => x+0.5, y => y+0.5);
     const tileSet = getTileMap(analysis.map.tiles);
-
-    // console.log('analysis.gaia!', analysis.gaia!);
-    // console.log('gaiaSet', gaiaSet);
 
     const pred = (x: number, y: number) => {
         const tile = tileSet.get(`${x},${y}`);
@@ -291,7 +280,6 @@ export default function MatchMap(props: Props) {
             return true;
         }
 
-        // return tile != null && !blockedTerrainIdsSet.has(tile.terrain);
         return tile != null && !blockedTerrainIdsSet.has(tile.terrain)
             && (gaiaTile == null || (!gaiaTile.name.startsWith('Tree') && !gaiaTile.name.startsWith('Gold') && !gaiaTile.name.startsWith('Stone')));
 
@@ -299,9 +287,6 @@ export default function MatchMap(props: Props) {
 
     console.log('walls', walls[0]);
     walls = walls.flatMap(w => getPath(w).flatMap(w => splitPath(w, pred)).map(x => ({...w, ...x})));
-
-    // console.log(uniq(walls.map((b => b.unit))));
-    // console.log('walls', walls);
 
     const gaiaDraw = Object.keys(gaiaObjects).map((key) => {
         const info = gaiaObjects[key as keyof typeof gaiaObjects];
@@ -315,11 +300,7 @@ export default function MatchMap(props: Props) {
 
     const duration = getTimestampMs(analysis.duration);
 
-    // console.log('duration', analysis.duration)
-    // console.log(groupBy(analysis.gaia!.map((b => b.name)), x => x));
-
     const coord = (x: number) => x / dimension * size;
-
 
     const chat = sortBy(compact(
         analysis.players.flatMap((p) => {
@@ -339,9 +320,6 @@ export default function MatchMap(props: Props) {
     return (
         <View className="gap-2">
             <Card direction="vertical" flat={true}>
-                {/*<Text className="" variant="header-sm">*/}
-                {/*    Map*/}
-                {/*</Text>*/}
                 <View className="flex-row justify-center border0 border-gray-300">
                     <View className="relative w-60 h-60 border0 border-gray-700">
                         <View className="scale-y-[0.5]">
@@ -486,6 +464,22 @@ export default function MatchMap(props: Props) {
                 <Eapm teams={teams as any} />
             </Card>
             <Card direction="vertical">
+                <Timeseries
+                    teams={teams as any}
+                    metric="totalResources"
+                    title="Resources"
+                    description="Total resources"
+                />
+            </Card>
+            <Card direction="vertical">
+                <Timeseries
+                    teams={teams as any}
+                    metric="totalObjects"
+                    title="Objects"
+                    description="Total objects"
+                />
+            </Card>
+            <Card direction="vertical">
                 <Uptimes time={time} teams={teams as any} />
             </Card>
             <Card direction="vertical">
@@ -536,8 +530,12 @@ export type ILegendInfo = Array<{
         }
         uptimes: Array<{
             timestamp: string
-            time: number
             unit: string
+        }>
+        timeseries: Array<{
+            timestamp: string
+            totalObjects: number
+            totalResources: number
         }>
     }>
 }>

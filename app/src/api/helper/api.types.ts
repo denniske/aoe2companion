@@ -843,6 +843,15 @@ export type IAnalysis = {
             message: string
             origination: string
         }>
+        uptimes: Array<{
+            timestamp: string
+            age: string
+        }>
+        timeseries: Array<{
+            timestamp: string
+            totalObjects: number
+            totalResources: number
+        }>
         viewLocks: Array<any>
     }>
     map: {

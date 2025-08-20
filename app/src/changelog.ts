@@ -277,6 +277,14 @@ export const changelog: IChangelog = {
             title: 'Add total number of matches and drop rate back to player profile',
         },
         {
+            type: 'minor',
+            title: 'Add match analysis total resources/objects charts',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix match analysis uptimes are now accurate',
+        },
+        {
             type: 'bugfix',
             title: 'Fix labelling of console matches',
         },

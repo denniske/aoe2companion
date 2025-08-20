@@ -25,6 +25,18 @@
 //     return () => clearInterval(interval);
 // }, []);
 
+
+import { Platform } from 'react-native';
+
+export const chartFontStyle = {
+    fontFamily: Platform.select({ ios: 'Helvetica', default: 'serif' }),
+    fontSize: 11,
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+} as const;
+
+
+
 export function getBuildingSize(name: string): { width: number, height: number } {
     const building = Object.values(buildingSizes).find((b) => b.names.includes(name));
     return building?.size ?? { width: 1, height: 1 };

@@ -5,18 +5,23 @@ import { orderBy } from 'lodash';
 import { CartesianChart, Line, Scatter } from 'victory-native-current';
 import { matchFont } from '@shopify/react-native-skia';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
-import { ILegendInfo } from '@app/view/components/match-map/match-map';
+import { getTimestampMs, ILegendInfo } from '@app/view/components/match-map/match-map';
 import { useAppTheme } from '@app/theming';
 import { Text } from '@app/components/text';
 import { chartFontStyle } from '@app/view/components/match-map/map-utils';
-
+import { description } from '@eva-design/eva/package';
 
 interface Props {
     teams: ILegendInfo;
+    title: string;
+    description?: string;
+    metric: 'totalResources' | 'totalObjects';
 }
 
-export default function Eapm({ teams }: Props) {
+export default function Timeseries({ teams, metric, title, description }: Props) {
     const theme = useAppTheme();
+
+    console.log('Timeseries', 'metric', metric, 'teams', teams?.length);
 
     const font = Platform.OS === 'web' ? undefined : matchFont(chartFontStyle);
 
@@ -31,12 +36,12 @@ export default function Eapm({ teams }: Props) {
             teams
                 .flatMap((team) => team.players)
                 .flatMap((player) =>
-                    Object.entries(player.eapmPerMinute).map(([min, eapm]) => ({
-                        x: min!,
-                        [player.color]: eapm,
+                    player.timeseries.map((entry) => ({
+                        x: getTimestampMs(entry.timestamp) / 1000 / 60,
+                        [player.color]: entry[metric],
                     }))
                 ),
-            [(x) => parseInt(x.x)]
+            [(x) => x]
         );
 
         const end = new Date();
@@ -52,15 +57,16 @@ export default function Eapm({ teams }: Props) {
         <View style={styles.container}>
             <ViewLoader ready={dataset.data?.length > 0}>
                 <Text className="" variant="header-sm">
-                    eAPMs
+                    {title}
                 </Text>
                 <Text className="" variant="body">
-                    Effective Actions Per Minute
+                    {description}
                 </Text>
 
                 <View style={{ width: windowWidth - 75, height: 160, marginVertical: 12 }}>
                     {dataset.data?.length > 0 && (
                         <CartesianChart
+                            // style={{ height: 160 }}
                             data={dataset.data}
                             xKey={'x' as never}
                             yKeys={dataset.yKeys as never}

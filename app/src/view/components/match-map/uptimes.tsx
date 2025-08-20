@@ -74,10 +74,6 @@ export default function Uptimes({ time, teams }: Props) {
                     ))}
                 </View>
             ))}
-
-            <Text className="" variant="body">
-                Note: Uptimes are currently not accurate because the queue time of the tech is used. In the future there will be a fix to use the actual time when the tech was researched.
-            </Text>
         </View>
     );
 }

@@ -31,7 +31,6 @@ export default function MatchInfo(props: Props) {
     const router = useRouter();
 
     const { data: tournamentMatches } = useUpcomingTournamentMatches();
-    console.log('tournamentMatches', tournamentMatches);
 
     const players = flatten(match?.teams.map((t) => t.players));
     const tournamentMatch = useMemo(
