@@ -8,7 +8,7 @@ import { showAlert } from '@app/helper/alert';
 export function useTwitchAuth() {
     const [request, response, promptAsync] = useAuthRequest(
         {
-            clientId: process.env.EXPO_PUBLIC_TWITCH_CLIENT_ID!,
+            clientId: 'yxslhhtxc8um77cg9k05uriupg6as3',
             responseType: 'code',
             usePKCE: false,
             redirectUri: oAuthRedirectUri,

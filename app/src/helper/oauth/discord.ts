@@ -8,7 +8,7 @@ import { showAlert } from '@app/helper/alert';
 export function useDiscordAuth() {
     const [request, response, promptAsync] = useAuthRequest(
         {
-            clientId: process.env.EXPO_PUBLIC_DISCORD_CLIENT_ID!,
+            clientId: '1311364669465956442',
             responseType: 'code',
             usePKCE: false,
             redirectUri: oAuthRedirectUri,

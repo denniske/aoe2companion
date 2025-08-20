@@ -1,4 +1,13 @@
 
+debug prod crash
+console.app on macos filter by process by clicking on app name right click
+
+
+
+
+
+
+
 analysis
 https://github.com/SiegeEngineers/aoc-reference-data/blob/master/data/datasets/100.json
 terrain colors (level=ontop, up=lowerrightside, down=other3sides)

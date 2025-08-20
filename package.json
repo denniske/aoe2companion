@@ -3,10 +3,10 @@
   "scripts": {
     "deps": "npm install --global eas-cli",
     "start": "APP=aoe2 expo start -c --scheme exp+aoe2companion --dev-client --private-key-path update/private-key.pem",
-    "start:prod": "cross-env APP=aoe2 expo start -c --no-dev --dev-client",
-    "prebuild": "cross-env APP=aoe2 expo prebuild",
+    "start:prod": "APP=aoe2 expo start -c --scheme exp+aoe2companion --dev-client --private-key-path update/private-key.pem --no-dev ",
+    "prebuild": "APP=aoe2 expo prebuild",
     "start4": "APP=aoe4 expo start -c --scheme exp+aoe4companion --dev-client",
-    "start4:go": "cross-env APP=aoe4 expo start -c",
+    "start4:go": "APP=aoe4 expo start -c",
     "eject": "expo eject",
     "build:web": "expo build:web",
     "strings": "npm run strings --prefix tools",
@@ -26,7 +26,8 @@
     "dev:ios": "PLATFORM=ios bash publish-dev.sh",
     "dev:android": "PLATFORM=android bash publish-dev.sh",
     "publish:ios": "PLATFORM=ios bash publish-no-sentry.sh",
-    "publish:android": "PLATFORM=android bash publish-no-sentry.sh"
+    "publish:android": "PLATFORM=android bash publish-no-sentry.sh",
+    "publish:all": "yarn publish:ios && yarn publish:android"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
@@ -52,7 +53,6 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-react-compiler": "19.1.0-rc.2",
     "babel-plugin-transform-typescript-metadata": "^0.3.0",
-    "cross-env": "^7.0.3",
     "date-fns": "^4.1.0",
     "dotenv": "10.0.0",
     "expo": "53.0.11",

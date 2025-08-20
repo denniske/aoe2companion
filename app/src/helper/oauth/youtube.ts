@@ -12,9 +12,9 @@ import { showAlert } from '@app/helper/alert';
 
 export function useYoutubeAuth() {
     const [request, response, promptAsync] = Google.useAuthRequest({
-        clientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID!,
-        iosClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID!,
-        androidClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID!,
+        clientId: '488773703040-894cl8823vjasguo1i8cin0vv5tsqosv.apps.googleusercontent.com',
+        iosClientId: '488773703040-894cl8823vjasguo1i8cin0vv5tsqosv.apps.googleusercontent.com',
+        androidClientId: '488773703040-894cl8823vjasguo1i8cin0vv5tsqosv.apps.googleusercontent.com',
         responseType: 'code',
         usePKCE: false,
         redirectUri: oAuthRedirectUri,

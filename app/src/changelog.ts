@@ -267,7 +267,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '147.0.0': [
+    '148.0.0': [
         {
             type: 'minor',
             title: 'Show xbox/psn profile images (server needs some time to import them all though)',

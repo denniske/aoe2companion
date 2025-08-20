@@ -1,6 +1,6 @@
 import { ExpoConfig, ConfigContext } from 'expo/config';
 
-const versionAoe2 = '147.0.0';
+const versionAoe2 = '148.0.0';
 const versionAoe4 = '23.0.0';
 
 const app = process.env.APP === 'aoe2' ? {
