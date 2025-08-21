@@ -234,6 +234,7 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                     }}
                                     xAxis={{
                                         font,
+                                        labelColor: theme.textColor,
                                         tickCount: data.length,
                                         labelColor: '#000',
                                         lineWidth: 0,

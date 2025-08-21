@@ -19,10 +19,10 @@ echo "App: ${APP}"
 echo "Platform: ${PLATFORM}"
 echo "Filename: ${NAME}"
 
-read -p "Upload Sentry sourcemaps for this version? (Y/n): " confirm
-confirm=${confirm:-y}  # Default to 'y'
+#read -p "Upload Sentry sourcemaps for this version? (Y/n): " confirm
+#confirm=${confirm:-y}  # Default to 'y'
 
-if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
+#if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
     if [ -f .env ]; then
         export $(grep -E '^SENTRY_AUTH_TOKEN=' .env | xargs)
 
@@ -36,10 +36,10 @@ if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
         echo ".env file not found."
         exit 1
     fi
-else
-    export SENTRY_DISABLE_AUTO_UPLOAD=true
-    echo "Skipping sentry sourcemap upload."
-fi
+#else
+#    export SENTRY_DISABLE_AUTO_UPLOAD=true
+#    echo "Skipping sentry sourcemap upload."
+#fi
 
 echo "📦 Building ${PLATFORM} app for ${APP}..."
 eas build --profile "production-${APP}" --platform $PLATFORM --local --non-interactive --output "$NAME"
