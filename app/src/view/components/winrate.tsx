@@ -199,6 +199,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
 };
 
 const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown; civ: string }> = ({ width, breakdown, civ }) => {
+    const theme = useAppTheme();
     const { colorScheme } = useColorScheme();
     const { patches } = useWinratesPatches();
     const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
@@ -236,7 +237,6 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                         font,
                                         labelColor: theme.textColor,
                                         tickCount: data.length,
-                                        labelColor: '#000',
                                         lineWidth: 0,
                                         formatXLabel: (x) => format(new Date(x), 'yy-MMM'),
                                         // formatXLabel: (x) => format(new Date(x), 'yyyy MMM d'),
@@ -246,6 +246,7 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                     yAxis={[
                                         {
                                             font,
+                                            labelColor: theme.textColor,
                                             yKeys: [key],
                                             linePathEffect: <DashPathEffect intervals={[4, 4]} />,
                                             formatYLabel: tickFormat,
