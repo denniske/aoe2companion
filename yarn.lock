@@ -5001,7 +5001,7 @@ __metadata:
     typescript: "npm:~5.8.3"
     uuid: "npm:^3.4.0"
     victory-native: "npm:^37.3.1"
-    victory-native-current: "npm:victory-native@^41.16.0"
+    victory-native-current: "npm:victory-native@^41.19.3"
     victory-native-date: "npm:^45.0.0"
     websocket: "npm:^1.0.34"
   languageName: unknown
@@ -15604,9 +15604,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"victory-native-current@npm:victory-native@^41.16.0":
-  version: 41.17.3
-  resolution: "victory-native@npm:41.17.3"
+"victory-native-current@npm:victory-native@^41.19.3":
+  version: 41.19.3
+  resolution: "victory-native@npm:41.19.3"
   dependencies:
     d3-scale: "npm:^4.0.2"
     d3-shape: "npm:^3.2.0"
@@ -15619,7 +15619,7 @@ __metadata:
     react-native: "*"
     react-native-gesture-handler: ">=2.0.0"
     react-native-reanimated: ">=3.0.0"
-  checksum: 10/149842f9caeb3dbef850952356c257288f4511be2e2b8423f5151a6567a26371a9834f9575c4ec55c89d1e744be0349f3a3309fc3d7a4f6c9c6ff55cea2ba345
+  checksum: 10/08a53d4864aa86bfa160ae05e816e0aad7c685c748cef7d48958242c0610c9080882a53594f7d609ee55913276d588ab0033ad32551885a9c6feac16475e90f9
   languageName: node
   linkType: hard
 
