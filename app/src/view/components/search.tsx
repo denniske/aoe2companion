@@ -9,7 +9,7 @@ import RefreshControlThemed from './refresh-control-themed';
 import { IProfilesResultProfile } from '../../api/helper/api.types';
 import useDebounce from '../../hooks/use-debounce';
 import { useLazyApi } from '../../hooks/use-lazy-api';
-import { loadUser, loadUserByProfileId, loadUserBySteamId } from '../../service/user';
+import { loadUser, loadUserBySteamId, loadUserByProfileId } from '../../service/user';
 import { useTranslation } from '@app/helper/translate';
 
 interface ISearchProps {
@@ -44,8 +44,8 @@ export default function Search({ title, selectedUser, actionText, action, initia
         1,
         text
     );
-    const userByProfileId = useLazyApi({}, loadUserByProfileId, text);
-    const userBySteamId = useLazyApi({}, loadUserBySteamId, text);
+    const userByProfileId = useLazyApi({}, loadUserBySteamId, text);
+    const userBySteamId = useLazyApi({}, loadUserByProfileId, text);
 
     const refresh = async () => {
         if (text.length < 2) {

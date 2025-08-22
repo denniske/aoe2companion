@@ -30,7 +30,7 @@ import { useSelector } from '../../redux/reducer';
 import { createStylesheet } from '../../theming-new';
 import { leaderboardsByType } from '@app/helper/leaderboard';
 import { useQuery } from '@tanstack/react-query';
-import { useAuthProfileId, useFollowedAndMeProfileIds } from '@app/queries/all';
+import { useAuthProfileId, useFollowedAndMeProfileIds, useLanguage, useLeaderboards } from '@app/queries/all';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 import { countryEarth, CountrySelect, isCountry } from '@app/components/select/country-select';
 import { useTranslation } from '@app/helper/translate';
@@ -45,10 +45,7 @@ const pageSize = 100;
 export default function LeaderboardPage() {
     const getTranslation = useTranslation();
 
-    const { data: leaderboards } = useQuery({
-        queryKey: ['leaderboards'],
-        queryFn: fetchLeaderboards,
-    });
+    const { data: leaderboards } = useLeaderboards();
 
     const [leaderboardId, setLeaderboardId] = useState<string | null>(null);
 
@@ -111,6 +108,8 @@ export default function LeaderboardPage() {
         }
     };
 
+    const language = useLanguage();
+
     const leaderboard = useLazyAppendApi(
         {
             append: (data, newData, args) => {
@@ -132,7 +131,7 @@ export default function LeaderboardPage() {
             },
         },
         fetchLeaderboard,
-        { leaderboardId: leaderboardId ?? '', ...getParams(1) }
+        { language: language!, leaderboardId: leaderboardId ?? '', ...getParams(1) }
     );
 
     const onRefresh = async () => {
@@ -262,7 +261,7 @@ export default function LeaderboardPage() {
         // console.log('FETCHPAGE', page, 'WILL FETCH');
 
         fetchingPages.current = [...fetchingPages.current, page];
-        await leaderboard.refetchAppend({ leaderboardId: leaderboardId ?? '', ...getParams(page) });
+        await leaderboard.refetchAppend({ language: language!, leaderboardId: leaderboardId ?? '', ...getParams(page) });
         fetchingPages.current = fetchingPages.current.filter((p) => p !== page);
 
         setTemp((t) => t + 1);

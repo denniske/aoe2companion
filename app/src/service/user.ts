@@ -21,14 +21,14 @@ export async function loadUser(page: number, search: string) {
     return fetchProfiles({page, search: search});
 }
 
-export async function loadUserByProfileId(search: string) {
+export async function loadUserBySteamId(search: string) {
     if (onlyDigits(search) && search.length > 12) {
         return (await fetchProfiles({steamId: search})).profiles[0];
     }
     return null;
 }
 
-export async function loadUserBySteamId(search: string) {
+export async function loadUserByProfileId(search: string) {
     if (onlyDigits(search) && search.length < 10) {
         return (await fetchProfiles({profileId: parseInt(search)})).profiles[0];
     }

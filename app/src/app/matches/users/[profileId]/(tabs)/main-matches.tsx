@@ -20,7 +20,7 @@ import FlatListLoadingIndicator from '../../../../../view/components/flat-list-l
 import { MyText } from '../../../../../view/components/my-text';
 import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
 import TemplatePicker from '../../../../../view/components/template-picker';
-import { useAuthProfileId, useProfile } from '@app/queries/all';
+import { useAuthProfileId, useLanguage, useLeaderboards, useProfile } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
@@ -43,6 +43,7 @@ export default function MainMatches() {
 
     const { data: profile } = useProfile(profileId);
 
+    const language = useLanguage();
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery({
         queryKey: ['matches', profileId, withMe, debouncedSearch, leaderboardIds],
         queryFn: (context) =>
@@ -52,7 +53,9 @@ export default function MainMatches() {
                 withProfileIds: withMe ? [authProfileId!] : [],
                 search: debouncedSearch,
                 leaderboardIds: leaderboardIds,
+                language: language!,
             }),
+        enabled: !!language && !!profileId,
         initialPageParam: 1,
         getNextPageParam: (lastPage, pages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
         placeholderData: keepPreviousData,
@@ -62,10 +65,7 @@ export default function MainMatches() {
 
     const toggleWithMe = () => setWithMe(!withMe);
 
-    const { data: leaderboards } = useQuery({
-        queryKey: ['leaderboards'],
-        queryFn: fetchLeaderboards,
-    });
+    const { data: leaderboards } = useLeaderboards();
 
     const renderLeaderboard = (value: string, selected: boolean) => {
         return (

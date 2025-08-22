@@ -17,7 +17,7 @@ import { IMatchNew, IPlayerNew } from '../../api/helper/api.types';
 import { openLink } from '../../helper/url';
 import { useWebRefresh } from '../../hooks/use-web-refresh';
 import { Link } from '@app/components/link';
-import { useAccountData, useFollowedAndMeProfileIds } from '@app/queries/all';
+import { useAccountData, useFollowedAndMeProfileIds, useLanguage } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
 
 export default function MatchesPage() {
@@ -32,14 +32,16 @@ export default function MatchesPage() {
     const followedPlayers = useAccountData((data) => data.followedPlayers);
     const profileIds = useFollowedAndMeProfileIds();
 
+    const language = useLanguage();
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, error } = useInfiniteQuery({
         queryKey: ['feed-matches', profileIds],
         queryFn: (context) =>
             fetchMatches({
                 ...context,
                 profileIds,
+                language: language!,
             }),
-        enabled: !!profileIds,
+        enabled: !!language && profileIds && profileIds?.length > 0,
         initialPageParam: 1,
         getNextPageParam: (lastPage, allPages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
         placeholderData: keepPreviousData,

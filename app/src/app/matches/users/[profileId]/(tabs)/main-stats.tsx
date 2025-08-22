@@ -12,7 +12,7 @@ import { MyText } from '../../../../../view/components/my-text';
 import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
 import { StatsHeader, StatsRow } from '../../../../../view/components/stats-rows';
 import { useQuery } from '@tanstack/react-query';
-import { useProfileWithStats, useWithRefetching } from '@app/queries/all';
+import { useLeaderboards, useProfileWithStats, useWithRefetching } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 import { useTranslation } from '@app/helper/translate';
@@ -24,10 +24,7 @@ export default function MainStats() {
     const styles = useStyles();
     const [leaderboardId, setLeaderboardId] = useState<string>();
 
-    const { data: leaderboards } = useQuery({
-        queryKey: ['leaderboards'],
-        queryFn: fetchLeaderboards,
-    });
+    const { data: leaderboards } = useLeaderboards();
 
     const leaderboardTitle = leaderboards?.find((l) => l.leaderboardId === leaderboardId)?.leaderboardName;
 

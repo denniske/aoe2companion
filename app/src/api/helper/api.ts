@@ -101,7 +101,7 @@ export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
 export async function fetchLeaderboards(params: IFetchLeaderboardsParams) {
     const queryString = makeQueryString(
         decamelizeKeys({
-            ...params,
+            ...removeReactQueryParams(params),
         })
     );
     const url = `${getHost('aoe2companion-data')}api/leaderboards?${queryString}`;

@@ -8,6 +8,7 @@ import { View } from 'react-native';
 import Picker from '@app/view/components/picker';
 import React from 'react';
 import { useAppTheme } from '@app/theming';
+import { useLeaderboards } from '@app/queries/all';
 
 interface Props {
     leaderboardId?: string | null;
@@ -18,10 +19,7 @@ export function LeaderboardSelect(props: Props) {
     const { leaderboardId, onLeaderboardIdChange } = props;
     const theme = useAppTheme();
 
-    const { data: leaderboards } = useQuery({
-        queryKey: ['leaderboards'],
-        queryFn: fetchLeaderboards,
-    });
+    const { data: leaderboards } = useLeaderboards();
 
     const selectedLeaderboard = leaderboards?.find(l => l.leaderboardId === leaderboardId);
 

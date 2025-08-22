@@ -3,18 +3,21 @@ import { IPlayerNew } from '@app/api/helper/api.types';
 import { useSelector } from '@app/redux/reducer';
 import { useQuery } from '@tanstack/react-query';
 import { flatten, orderBy } from 'lodash';
-import { useAuthProfileId } from '@app/queries/all';
+import { useAuthProfileId, useLanguage } from '@app/queries/all';
 
 export const useAccountMostRecentMatches = (count: number) => {
     const authProfileId = useAuthProfileId();
     const profileIds: number[] = authProfileId ? [authProfileId] : [];
 
+    const language = useLanguage();
     const { data } = useQuery({
         queryKey: ['account-most-recent-matches', profileIds],
         queryFn: () =>
             fetchMatches({
                 profileIds,
+                language: language!,
             }),
+        enabled: !!language && profileIds.length > 0,
         refetchOnWindowFocus: true,
     });
 

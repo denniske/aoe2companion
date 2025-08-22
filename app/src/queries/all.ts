@@ -1,11 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import {
-    fetchMatch,
-    fetchMatchAnalysis,
-    fetchMatchAnalysisSvg,
-    fetchProfile,
-    fetchProfiles,
-} from '@app/api/helper/api';
+import { fetchLeaderboards, fetchMatch, fetchMatchAnalysis, fetchMatchAnalysisSvg, fetchProfile, fetchProfiles } from '@app/api/helper/api';
 import { fetchAccount, IAccount } from '@app/api/account';
 import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query/src/types';
@@ -51,6 +45,15 @@ export const useMatch = (matchId: number) => {
         queryKey: ['match', matchId],
         queryFn: () => fetchMatch({ language: language!, matchId }),
         enabled: !!language && !!matchId,
+    });
+};
+
+export const useLeaderboards = () => {
+    const language = useLanguage();
+    return useQuery({
+        queryKey: ['leaderboards'],
+        queryFn: () => fetchLeaderboards({ language: language! }),
+        enabled: !!language,
     });
 };
 
