@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import { View } from 'react-native';
 import { Text } from './text';
 import { uniqBy } from 'lodash';
-import { useAccount, useAuthProfileId, useProfileFast, useProfiles } from '@app/queries/all';
+import { useAccount, useAuthProfileId, useProfileFast, useProfilesByProfileIds } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
 import { Link } from '@app/components/link';
 import React from 'react';
@@ -18,7 +18,7 @@ export const FollowedPlayers = () => {
     // console.log('followed players account', account?.followedPlayers.length);
 
     const { data: authProfile, isLoading: isLoadingAuthProfile, error: errorAuthProfile } = useProfileFast(authProfileId);
-    const { data: followedProfiles, isLoading: isLoadingFollowedProfiles, error: errorFollowedProfiles } = useProfiles(
+    const { data: followedProfiles, isLoading: isLoadingFollowedProfiles, error: errorFollowedProfiles } = useProfilesByProfileIds(
         account?.followedPlayers.map((f) => f.profileId)
     );
 

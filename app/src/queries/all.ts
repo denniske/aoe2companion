@@ -1,10 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { fetchLeaderboards, fetchMatch, fetchMatchAnalysis, fetchMatchAnalysisSvg, fetchProfile, fetchProfiles } from '@app/api/helper/api';
 import { fetchAccount, IAccount } from '@app/api/account';
 import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query/src/types';
 import { useState } from 'react';
-
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
 
@@ -26,9 +25,10 @@ export const useAccountData = <T>(select?: (data: IAccount) => T) =>
 export const useAuthProfileId = () => useAccountData((data) => data.profileId);
 export const useLanguage = () => useAccountData((data) => data.language);
 
-export const useFollowedAndMeProfileIds = () => useAccountData((data) => {
-    return compact(uniq([data.profileId, ...data.followedPlayers.map((f) => f.profileId)]))
-});
+export const useFollowedAndMeProfileIds = () =>
+    useAccountData((data) => {
+        return compact(uniq([data.profileId, ...data.followedPlayers.map((f) => f.profileId)]));
+    });
 
 export const useProfile = (profileId: number, extend: string = 'avatar_medium_url,avatar_full_url') => {
     const language = useLanguage();
@@ -75,21 +75,54 @@ export const useMatchAnalysisSvg = (matchId: number, enabled: boolean) => {
     });
 };
 
-export const useProfileFast = (profileId?: number, extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') => {
+export const useProfileFast = (profileId: number | null | undefined, enabled: boolean = true) => {
     const language = useLanguage();
+    const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
     return useQuery({
         queryKey: ['profile-fast', profileId],
         queryFn: async () => {
             return (await fetchProfiles({ language: language!, profileIds: [profileId!], extend })).profiles[0];
         },
-        enabled: !!language && !!profileId,
+        enabled: !!language && !!profileId && enabled,
     });
 };
 
-export const useProfiles = (profileIds?: number[], extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') => {
+export const useProfilesBySearchInfiniteQuery = (search?: string) => {
     const language = useLanguage();
+    const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
+    return useInfiniteQuery({
+        queryKey: ['profiles-by-search', search],
+        queryFn: (context) =>
+            fetchProfiles({
+                ...context,
+                search,
+                extend,
+                language: language!,
+            }),
+        enabled: !!language && !!search && search.length >= 2,
+        initialPageParam: 1,
+        getNextPageParam: (lastPage, pages) => (lastPage.profiles.length === lastPage.perPage ? lastPage.page + 1 : null),
+        placeholderData: keepPreviousData,
+    });
+};
+
+export const useProfilesBySteamId = (steamId?: string, enabled: boolean = true) => {
+    const language = useLanguage();
+    const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
     return useQuery({
-        queryKey: ['profiles', profileIds],
+        queryKey: ['profiles-by-steamid', steamId],
+        queryFn: async () => {
+            return (await fetchProfiles({ language: language!, steamId, extend })).profiles;
+        },
+        enabled: !!language && !!steamId && steamId.length > 10,
+    });
+};
+
+export const useProfilesByProfileIds = (profileIds?: number[], enabled: boolean = true) => {
+    const language = useLanguage();
+    const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
+    return useQuery({
+        queryKey: ['profiles-by-profileids', profileIds],
         queryFn: async () => {
             return (await fetchProfiles({ language: language!, profileIds, extend })).profiles;
         },
@@ -97,8 +130,9 @@ export const useProfiles = (profileIds?: number[], extend: string = 'profiles.av
     });
 };
 
-export const useProfilesByLiquipediaNames = (liquipediaNames?: string[], extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') => {
+export const useProfilesByLiquipediaNames = (liquipediaNames?: string[], enabled: boolean = true) => {
     const language = useLanguage();
+    const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
     return useQuery({
         queryKey: ['profiles', liquipediaNames],
         queryFn: async () => {
@@ -110,13 +144,13 @@ export const useProfilesByLiquipediaNames = (liquipediaNames?: string[], extend:
 
 export const useProfileWithStats = (profileId: number, isFocused: boolean) => {
     const language = useLanguage();
+    const extend = 'stats,profiles.avatar_medium_url,profiles.avatar_full_url';
     return useQuery({
         queryKey: ['profile-with-stats', profileId],
-        queryFn: () => fetchProfile({ language: language!, profileId, extend: 'stats,profiles.avatar_medium_url,profiles.avatar_full_url' }),
+        queryFn: () => fetchProfile({ language: language!, profileId, extend }),
         enabled: !!language && isFocused,
     });
 };
-
 
 export function useWithRefetching<TData, TError>(result: UseQueryResult<TData, TError>) {
     const [isRefetching, setIsRefetching] = useState(false);
@@ -124,7 +158,7 @@ export function useWithRefetching<TData, TError>(result: UseQueryResult<TData, T
         setIsRefetching(true);
         await result.refetch();
         setIsRefetching(false);
-    }
+    };
     return {
         ...result,
         refetch,

@@ -395,9 +395,9 @@
     "errors.title": "Errors",
 
     "search.title": "Search",
-    "search.nouserfound": "No user found.",
+    "search.nouserfound": "No user found",
     "search.condition.1": "A user must have played at least 10 games in a timespan of about 3 months to be found.",
-    "search.minlength": "Enter at least 2 chars.",
+    "search.minlength": "Enter at least 2 chars",
     "search.placeholder": "Search by username, steam id, profile id",
     "search.show": "Show",
     "search.heading.name": "Name",

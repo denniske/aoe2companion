@@ -1,16 +1,15 @@
 import { Field } from '@app/components/field';
 import { Text } from '@app/components/text';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FlatList, View } from 'react-native';
-
 import FlatListLoadingIndicator from './flat-list-loading-indicator';
 import PlayerList from './player-list';
 import RefreshControlThemed from './refresh-control-themed';
-import { IProfilesResultProfile } from '../../api/helper/api.types';
+import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import useDebounce from '../../hooks/use-debounce';
-import { useLazyApi } from '../../hooks/use-lazy-api';
-import { loadUser, loadUserBySteamId, loadUserByProfileId } from '../../service/user';
 import { useTranslation } from '@app/helper/translate';
+import { useProfilesByProfileIds, useProfilesBySearchInfiniteQuery, useProfilesBySteamId } from '@app/queries/all';
+import { compact } from 'lodash';
 
 interface ISearchProps {
     title?: string;
@@ -20,85 +19,49 @@ interface ISearchProps {
     initialText?: string;
 }
 
+function onlyDigits(str: string) {
+    return /^\d+$/.test(str);
+}
+
 export default function Search({ title, selectedUser, actionText, action, initialText }: ISearchProps) {
     const getTranslation = useTranslation();
     const [text, setText] = useState(initialText ?? '');
-    const [fetchingMore, setFetchingMore] = useState(false);
-    const [fetchedAll, setFetchedAll] = useState(false);
-    const [fetching, setFetching] = useState(false);
-    const [profiles, setProfiles] = useState<any[]>([]);
+    const [reloading, setReloading] = useState(false);
     const flatListRef = React.useRef<FlatList>(null);
     const debouncedText = useDebounce(text, 250);
 
-    const user = useLazyApi(
-        {
-            append: (data, newData, args) => {
-                data.profiles.push(...newData.profiles);
-                data.hasMore = newData.hasMore;
-                data.page = newData.page;
-                data.count = data.count + newData.count;
-                return data;
-            },
-        },
-        loadUser,
-        1,
-        text
+    const {
+        data: userPages,
+        fetchNextPage,
+        hasNextPage,
+        isFetching,
+        isFetchingNextPage,
+        refetch,
+    } = useProfilesBySearchInfiniteQuery(debouncedText);
+    const { data: usersBySteamId, isLoading: isLoadingUsersBySteamId } = useProfilesBySteamId(
+        debouncedText,
+        onlyDigits(debouncedText)
     );
-    const userByProfileId = useLazyApi({}, loadUserBySteamId, text);
-    const userBySteamId = useLazyApi({}, loadUserByProfileId, text);
+    const { data: usersByProfileId, isLoading: isLoadingUsersByProfileId } = useProfilesByProfileIds(
+        [parseInt(debouncedText)],
+        onlyDigits(debouncedText)
+    );
 
-    const refresh = async () => {
-        if (text.length < 2) {
-            user.reset();
-            return;
-        }
-        setFetching(true);
-        await Promise.all([userByProfileId.refetch(text.trim()), userBySteamId.refetch(text.trim()), user.refetch(1, text.trim())]);
-        setFetching(false);
+    const list = debouncedText.length < 2 ? [] : [...compact(usersByProfileId), ...compact(usersBySteamId), ...compact(userPages?.pages?.flatMap((p) => p.profiles))];
 
-        // If user switched to another page the flatlist has been destroyed already
-        flatListRef.current?.scrollToOffset({ animated: false, offset: 0 });
+    const onRefresh = async () => {
+        setReloading(true); // Needed for smooth animation when refreshing
+        await refetch();
+        setReloading(false);
     };
 
-    console.log('userByProfileId', userByProfileId);
-
-    useEffect(() => {
-        if (!fetching) {
-            setProfiles(
-                user.data
-                    ? [
-                          ...(userByProfileId.data ? [userByProfileId.data] : []),
-                          ...(userBySteamId.data ? [userBySteamId.data] : []),
-                          ...(user.data?.profiles ?? []),
-                      ]
-                    : []
-            );
-
-            setFetchedAll(!user.data?.hasMore);
-        }
-    }, [fetching, user.data, userByProfileId.data, userBySteamId.data]);
-
-    useEffect(() => {
-        refresh();
-    }, [debouncedText]);
-
-    const list = profiles;
-
     const onEndReached = async () => {
-        if (text.length < 2 || fetchingMore || fetchedAll || user.data == null) return;
-        setFetchingMore(true);
-        setFetching(true);
-        await Promise.all([
-            userByProfileId.refetch(text.trim()),
-            userBySteamId.refetch(text.trim()),
-            user.refetchAppend(user.data?.page + 1, text.trim()),
-        ]);
-        setFetching(false);
-        setFetchingMore(false);
+        if (!hasNextPage || isFetchingNextPage) return;
+        await fetchNextPage();
     };
 
     const _renderFooter = () => {
-        if (!fetchingMore) return null;
+        if (!isFetchingNextPage) return null;
         return <FlatListLoadingIndicator />;
     };
 
@@ -124,23 +87,25 @@ export default function Search({ title, selectedUser, actionText, action, initia
                 selectedUser={selectedUser}
                 ListFooterComponent={_renderFooter}
                 ListEmptyComponent={
-                    text.length < 2 ? (
+                    debouncedText.length < 2 ? (
                         <Text color="subtle" align="center">
                             {getTranslation('search.minlength')}
                         </Text>
-                    ) : user.touched && !fetching ? (
+                    ) : !isFetching ? (
                         <>
-                            <Text align="center" variant="header-sm">
+                            <Text align="center" variant="header-sm" className="my-3">
                                 {getTranslation('search.nouserfound')}
                             </Text>
-                            <Text align="center">{getTranslation('search.condition.1')}</Text>
+                            <Text align="center" className="px-10">
+                                {getTranslation('search.condition.1')}
+                            </Text>
                         </>
                     ) : null
                 }
-                onEndReached={fetchedAll ? null : onEndReached}
+                onEndReached={onEndReached}
                 onEndReachedThreshold={0.1}
                 keyExtractor={(item, index) => index.toString()}
-                refreshControl={<RefreshControlThemed refreshing={user.loading} onRefresh={refresh} />}
+                refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={reloading} />}
             />
         </View>
     );
