@@ -1,7 +1,7 @@
-import { Civ, LeaderboardId, Flag } from '@nex/data';
+import { Civ, Flag, LeaderboardId } from '@nex/data';
 import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
-import { camelCase, merge } from 'lodash';
+import { camelCase } from 'lodash';
 import { useEffect, useState } from 'react';
 import { Image, Platform } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,12 +10,34 @@ import { buildsData } from '../../../data/src/data/builds';
 import { Widget } from '../../../modules/widget';
 import { genericCivIcon, getCivIconLocal } from '../helper/civs';
 import { DarkMode } from '../redux/reducer';
-import store from '../redux/store';
 import { fetchAssets } from '@app/api/helper/api';
 import * as Crypto from 'expo-crypto';
 import { appConfig } from '@nex/dataset';
-import { getLanguageFromSystemLocale } from '@app/helper/translate';
 import * as Localization from 'expo-localization';
+
+const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
+
+function getLanguageFromSystemLocale(locale: string) {
+    locale = locale.toLowerCase();
+
+    if (locale.startsWith('es-mx')) {
+        return 'es-MX';
+    }
+    if (locale.startsWith('zh-hant') || locale.startsWith('zh-tw')) {
+        return 'zh-hant';
+    }
+    if (locale.startsWith('zh-hans')) {
+        return 'zh-hans';
+    }
+
+    for (const supportedMainLocale of supportedMainLocales) {
+        if (locale.startsWith(supportedMainLocale)) {
+            return supportedMainLocale;
+        }
+    }
+
+    return 'en';
+}
 
 export interface IConfig {
     darkMode: DarkMode;
@@ -50,6 +72,17 @@ export interface IFollowingEntry {
     country?: Flag;
 }
 
+export interface IPrefs {
+    guideFavorites: string[];
+    country?: string;
+    clan?: string;
+    leaderboardId?: LeaderboardId;
+    changelogLastVersionRead?: string;
+    birthdayRead?: boolean;
+    techTreeSize?: string;
+    ratingHistoryDuration?: string;
+    ratingHistoryHiddenLeaderboardIds?: string[];
+}
 
 export const loadAccountFromStorage = async () => {
     const entry = await AsyncStorage.getItem('account');
@@ -73,6 +106,14 @@ export const loadConfigFromStorage = async () => {
     return entry;
 };
 
+export const loadPrefsFromStorage = async () => {
+    const entry = await AsyncStorage.getItem('prefs');
+    if (entry == null) {
+        return {} as IPrefs;
+    }
+    return JSON.parse(entry) as IPrefs;
+};
+
 export const saveConfigToStorage = async (config: Partial<IConfig>) => {
     // await AsyncStorage.setItem('config', JSON.stringify(config));
     await AsyncStorage.mergeItem('config', JSON.stringify(config));
@@ -94,7 +135,7 @@ export const loadAuthFromStorage = async () => {
 export const loadFollowingFromStorage = async () => {
     const entry = await AsyncStorage.getItem('following');
     if (entry == null) {
-        return [];
+        return [] as IFollowingEntry[];
     }
     const entries = JSON.parse(entry) as IFollowingEntry[];
     return entries.filter((e) => e.profileId != null);
@@ -103,10 +144,6 @@ export const loadFollowingFromStorage = async () => {
 export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
     await AsyncStorage.setItem('following', JSON.stringify(following));
 };
-
-
-
-
 
 if (Platform.OS === 'ios' && appConfig.game === 'aoe2de') {
     Widget.setAppGroup(`group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
@@ -147,10 +184,7 @@ export const useFavoritedBuilds = () => {
                             ),
                         icon:
                             Widget.getImagePathIfExists(`${camelCase(build.image.toString())}.png`) ??
-                            Widget.setImage(
-                                Image.resolveAssetSource({ uri: build.imageURL }).uri,
-                                `${camelCase(build.image.toString())}.png`
-                            ),
+                            Widget.setImage(Image.resolveAssetSource({ uri: build.imageURL }).uri, `${camelCase(build.image.toString())}.png`),
                     }))
             );
             Widget.setItem('savedData', newWidgetData);

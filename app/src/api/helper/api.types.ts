@@ -449,6 +449,8 @@ export interface IFetchMatchesParams {
 export interface IFetchMatchParams {
     matchId?: number;
     extend?: string;
+
+    language: string;
 }
 
 export interface IFetchProfileParams {
@@ -460,6 +462,7 @@ export interface IFetchProfileParams {
     extend?: string;
 
     pageParam?: number;
+    language: string;
 }
 
 export interface IFetchProfilesParams {
@@ -472,6 +475,7 @@ export interface IFetchProfilesParams {
     extend?: string;
 
     pageParam?: number;
+    language: string;
 }
 
 export interface IFetchProfileRatingParams {
@@ -671,6 +675,11 @@ export interface IFetchLeaderboardParams {
     country?: string;
 
     pageParam?: string;
+    language: string;
+}
+
+export interface IFetchLeaderboardsParams {
+    language: string;
 }
 
 

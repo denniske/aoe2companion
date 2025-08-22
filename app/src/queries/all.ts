@@ -6,14 +6,13 @@ import {
     fetchProfile,
     fetchProfiles,
 } from '@app/api/helper/api';
-import { authLinkSteam, fetchAccount, IAccount } from '@app/api/account';
+import { fetchAccount, IAccount } from '@app/api/account';
 import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query/src/types';
 import { useState } from 'react';
 
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
-// export const QUERY_KEY_TODO = (todoId?: number) => ['todo', todoId];
 
 export const useAccount = () =>
     useQuery({
@@ -37,69 +36,83 @@ export const useFollowedAndMeProfileIds = () => useAccountData((data) => {
     return compact(uniq([data.profileId, ...data.followedPlayers.map((f) => f.profileId)]))
 });
 
-export const useAuthLinkSteam = (params: any) =>
-    useQuery({
-        queryKey: ['authLinkSteam'],
-        queryFn: async () => await authLinkSteam(params),
-    });
-
-export const useProfile = (profileId: number, extend: string = 'avatar_medium_url,avatar_full_url') =>
-    useQuery({
+export const useProfile = (profileId: number, extend: string = 'avatar_medium_url,avatar_full_url') => {
+    const language = useLanguage();
+    return useQuery({
         queryKey: ['profile', profileId],
-        queryFn: () => fetchProfile({ profileId, extend }),
-        enabled: !!profileId,
+        queryFn: () => fetchProfile({ language: language!, profileId, extend }),
+        enabled: !!language && !!profileId,
     });
+};
 
-export const useMatch = (matchId: number) =>
-    useQuery({
+export const useMatch = (matchId: number) => {
+    const language = useLanguage();
+    return useQuery({
         queryKey: ['match', matchId],
-        queryFn: () => fetchMatch({ matchId }),
-        enabled: !!matchId,
+        queryFn: () => fetchMatch({ language: language!, matchId }),
+        enabled: !!language && !!matchId,
     });
+};
 
-export const useMatchAnalysis = (matchId: number, enabled: boolean) =>
-    useQuery({
+export const useMatchAnalysis = (matchId: number, enabled: boolean) => {
+    const language = useLanguage();
+    return useQuery({
         queryKey: ['match', matchId, 'analysis'],
-        queryFn: () => fetchMatchAnalysis({ matchId }),
-        enabled: !!matchId && enabled,
+        queryFn: () => fetchMatchAnalysis({ language: language!, matchId }),
+        enabled: !!language && !!matchId && enabled,
     });
+};
 
-export const useMatchAnalysisSvg = (matchId: number, enabled: boolean) =>
-    useQuery({
+export const useMatchAnalysisSvg = (matchId: number, enabled: boolean) => {
+    const language = useLanguage();
+    return useQuery({
         queryKey: ['match', matchId, 'analysis', 'svg'],
-        queryFn: () => fetchMatchAnalysisSvg({ matchId }),
-        enabled: !!matchId && enabled,
+        queryFn: () => fetchMatchAnalysisSvg({ language: language!, matchId }),
+        enabled: !!language && !!matchId && enabled,
     });
+};
 
-export const useProfileFast = (profileId?: number, extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') =>
-    useQuery({
+export const useProfileFast = (profileId?: number, extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') => {
+    const language = useLanguage();
+    return useQuery({
         queryKey: ['profile-fast', profileId],
-        queryFn: async () => { return (await fetchProfiles({ profileIds: [profileId!], extend })).profiles[0]; },
-        enabled: !!profileId,
+        queryFn: async () => {
+            return (await fetchProfiles({ language: language!, profileIds: [profileId!], extend })).profiles[0];
+        },
+        enabled: !!language && !!profileId,
     });
+};
 
-export const useProfiles = (profileIds?: number[], extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') =>
-    useQuery({
+export const useProfiles = (profileIds?: number[], extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') => {
+    const language = useLanguage();
+    return useQuery({
         queryKey: ['profiles', profileIds],
         queryFn: async () => {
-            return (await fetchProfiles({ profileIds, extend })).profiles;
+            return (await fetchProfiles({ language: language!, profileIds, extend })).profiles;
         },
-        enabled: !!profileIds && profileIds.length > 0,
+        enabled: !!language && !!profileIds && profileIds.length > 0,
     });
+};
 
-export const useProfilesByLiquipediaNames = (liquipediaNames?: string[], extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') =>
-    useQuery({
+export const useProfilesByLiquipediaNames = (liquipediaNames?: string[], extend: string = 'profiles.avatar_medium_url,profiles.avatar_full_url') => {
+    const language = useLanguage();
+    return useQuery({
         queryKey: ['profiles', liquipediaNames],
-        queryFn: async () => { return (await fetchProfiles({ liquipediaNames, extend })).profiles; },
-        enabled: !!liquipediaNames,
+        queryFn: async () => {
+            return (await fetchProfiles({ language: language!, liquipediaNames, extend })).profiles;
+        },
+        enabled: !!language && !!liquipediaNames,
     });
+};
 
-export const useProfileWithStats = (profileId: number, isFocused: boolean) =>
-    useQuery({
+export const useProfileWithStats = (profileId: number, isFocused: boolean) => {
+    const language = useLanguage();
+    return useQuery({
         queryKey: ['profile-with-stats', profileId],
-        queryFn: () => fetchProfile({ profileId, extend: 'stats,profiles.avatar_medium_url,profiles.avatar_full_url' }),
-        enabled: isFocused,
+        queryFn: () => fetchProfile({ language: language!, profileId, extend: 'stats,profiles.avatar_medium_url,profiles.avatar_full_url' }),
+        enabled: !!language && isFocused,
     });
+};
 
 
 export function useWithRefetching<TData, TError>(result: UseQueryResult<TData, TError>) {

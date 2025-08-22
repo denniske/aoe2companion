@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { Linking, Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import Snackbar from '../snackbar';
 import {
     setUpdateAvailable,
@@ -9,17 +9,18 @@ import {
     setUpdateStoreManifest,
     useMutate,
     useSelector,
-} from '../../../redux/reducer';
+} from '@app/redux/reducer';
 import { reloadAsync } from 'expo-updates';
 import {
     doCheckForStoreUpdate,
     doCheckForUpdateAsync,
     doFetchUpdateAsync,
     doStoreUpdate,
-} from '../../../service/update';
+} from '@app/service/update';
 import Constants from 'expo-constants';
 import { openAppInStore } from 'expo-app-update';
 import { useTranslation } from '@app/helper/translate';
+import { ExpoUpdatesManifest } from 'expo-manifests';
 
 
 export default function UpdateSnackbar() {
@@ -37,7 +38,7 @@ export default function UpdateSnackbar() {
         try {
             const update = await doCheckForUpdateAsync();
             if (update.isAvailable) {
-                mutate(setUpdateManifest(update.manifest!));
+                mutate(setUpdateManifest(update.manifest! as ExpoUpdatesManifest));
                 return;
             }
         } catch (e) {

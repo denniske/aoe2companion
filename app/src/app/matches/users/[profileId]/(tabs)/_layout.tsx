@@ -77,7 +77,7 @@ export function UserMenu({ profile }: UserMenuProps) {
     const { data: profileFull } = useProfile(profileId!);
 
     const showResetOrUnlinkDialog = () => {
-        if (account?.steamId) {
+        if (account?.steamId || account?.authRelicId) {
             showAlert(
                 getTranslation('main.profile.unlink.title'),
                 getTranslation('main.profile.unlink.note'),
@@ -106,7 +106,7 @@ export function UserMenu({ profile }: UserMenuProps) {
     };
 
     const resetUser = async () => {
-        saveAccountMutation.mutate({ profileId: undefined });
+        saveAccountMutation.mutate({ profileId: null });
         router.replace('/matches/users/select');
     };
 

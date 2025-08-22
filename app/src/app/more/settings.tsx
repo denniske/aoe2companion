@@ -148,7 +148,6 @@ export default function SettingsPage() {
 
     const onLanguageSelected = async (language: string) => {
         saveAccountMutation.mutate({
-            ...account!,
             language,
         });
     };

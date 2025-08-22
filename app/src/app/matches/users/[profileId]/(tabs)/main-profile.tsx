@@ -1,25 +1,16 @@
 import { FlatList } from '@app/components/flat-list';
 import { useNavigation, useNavigationState, useRoute } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
-
-
-import { fetchProfile } from '../../../../../api/helper/api';
-import { openLink } from '../../../../../helper/url';
 import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
-import { useSelector } from '../../../../../redux/reducer';
-import { appVariants } from '../../../../../styles';
-import { useTheme } from '../../../../../theming';
 import { createStylesheet } from '../../../../../theming-new';
 import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
 import { MyText } from '../../../../../view/components/my-text';
 import Profile from '../../../../../view/components/profile';
 import Rating from '../../../../../view/components/rating';
 import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
-import { useQuery } from '@tanstack/react-query';
 import { useProfile, useWithRefetching } from '@app/queries/all';
-import type { UseQueryResult } from '@tanstack/react-query/src/types';
-import { useGlobalSearchParams, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useTranslation } from '@app/helper/translate';
 
 export default function MainProfile(props: any) {

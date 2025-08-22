@@ -1,5 +1,5 @@
 import {dark, FinalDarkMode, ITheme, light} from '@nex/data';
-import { useDarkMode } from '@app/app/_layout';
+import { useDarkMode } from '@app/hooks/use-dark-mode';
 
 export function makeVariants<S extends (theme: ITheme, mode: FinalDarkMode) => any>(factory: S): IVariantDict<ReturnType<S>> {
     return {

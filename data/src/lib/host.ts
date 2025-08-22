@@ -24,7 +24,7 @@ export interface IHostService {
 export function getHost(host: Host) {
     const hostService = getService(SERVICE_NAME.HOST_SERVICE) as IHostService;
     const platform = hostService.getPlatform();
-    const dev = false && hostService.getEnvironment() == 'development';
+    const dev = true && hostService.getEnvironment() == 'development';
     const hostIP = Constants.expoConfig?.hostUri?.split(':')[0];
     // console.log('Platform.OS:', Platform.OS);
     // console.log('Device.isDevice:', Device.isDevice);

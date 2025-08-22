@@ -17,6 +17,8 @@ export default function YoutubeBadge(props: Props) {
             <Badge
                 label="Youtube"
                 labelColor="#FF0000"
+                // content={'100k subscribers'}
+                // contentColor="#333638"
                 logoIcon="youtube"
                 logoColor="white" />
         </TouchableOpacity>

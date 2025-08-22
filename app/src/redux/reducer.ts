@@ -4,6 +4,7 @@ import { IAccount, IConfig, IFollowingEntry, IPrefs, IScroll } from '../service/
 import { Manifest } from 'expo-updates/build/Updates.types';
 import { set } from 'lodash';
 import { ILeaderboardDef } from '../api/helper/api.types';
+import { ExpoUpdatesManifest } from 'expo-manifests';
 
 export const EXEC = 'EXEC';
 
@@ -91,7 +92,7 @@ export function setLeaderboardId(id?: string | null) {
 //     };
 // }
 
-export function setUpdateManifest(updateManifest: Manifest | null) {
+export function setUpdateManifest(updateManifest: ExpoUpdatesManifest | null) {
     return (state: AppState) => {
         state.updateManifest = updateManifest;
         state.updateAvailable = true;
@@ -161,7 +162,7 @@ export interface AppState {
 
     updateState: string;
     updateAvailable: boolean;
-    updateManifest?: Manifest | null;
+    updateManifest?: ExpoUpdatesManifest | null;
     updateStoreManifest?: any | null;
     mainPage: string;
     mainPageShown?: boolean;

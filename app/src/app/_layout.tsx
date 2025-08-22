@@ -3,7 +3,6 @@ import { Header } from '@app/components/header';
 import { TabBar } from '@app/components/tab-bar';
 import initSentry from '@app/helper/sentry';
 import {
-    getInternalLanguage,
     getTranslationInternal,
     mmkvDefaultInstance,
     useMMKWTranslationCache,
@@ -47,6 +46,8 @@ import { setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
 import { useMMKV } from 'react-native-mmkv';
 import { clearLastNotificationResponseAsync, useLastNotificationResponse } from '@app/service/notifications';
 import * as WebBrowser from 'expo-web-browser';
+import { getInternalLanguage } from '@app/queries/direct';
+import { useDarkMode } from '@app/hooks/use-dark-mode';
 
 initSentry();
 
@@ -205,11 +206,6 @@ const customDarkTheme = {
         background: tw.color('blue-950') ?? 'black',
     },
 };
-
-export function useDarkMode() {
-    const deviceColorScheme = useColorScheme();
-    return deviceColorScheme || 'light';
-}
 
 function useColorSchemes() {
     const { setColorScheme: setTailwindColorScheme } = useTailwindColorScheme();

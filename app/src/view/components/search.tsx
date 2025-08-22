@@ -10,7 +10,6 @@ import { IProfilesResultProfile } from '../../api/helper/api.types';
 import useDebounce from '../../hooks/use-debounce';
 import { useLazyApi } from '../../hooks/use-lazy-api';
 import { loadUser, loadUserByProfileId, loadUserBySteamId } from '../../service/user';
-import { useCavy } from '@app/view/testing/tester';
 import { useTranslation } from '@app/helper/translate';
 
 interface ISearchProps {
@@ -45,9 +44,7 @@ export default function Search({ title, selectedUser, actionText, action, initia
         1,
         text
     );
-
     const userByProfileId = useLazyApi({}, loadUserByProfileId, text);
-
     const userBySteamId = useLazyApi({}, loadUserBySteamId, text);
 
     const refresh = async () => {
@@ -62,6 +59,8 @@ export default function Search({ title, selectedUser, actionText, action, initia
         // If user switched to another page the flatlist has been destroyed already
         flatListRef.current?.scrollToOffset({ animated: false, offset: 0 });
     };
+
+    console.log('userByProfileId', userByProfileId);
 
     useEffect(() => {
         if (!fetching) {

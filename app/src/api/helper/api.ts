@@ -4,9 +4,11 @@ import {
     IAnalysis,
     IAssetsResult,
     IFetchLeaderboardParams,
+    IFetchLeaderboardsParams,
     IFetchMatchesParams,
     IFetchMatchParams,
-    IFetchProfileParams, IFetchProfilesParams,
+    IFetchProfileParams,
+    IFetchProfilesParams,
     ILeaderboard,
     ILeaderboardDef,
     IMatchesResult,
@@ -16,7 +18,6 @@ import {
 } from './api.types';
 import { dateReviver, getHost } from '@nex/data';
 import { fetchJson } from '@app/api/util';
-import { getInternalLanguage } from '@app/helper/translate';
 
 export async function fetchAssets() {
     const url = `${getHost('aoe2companion-data')}api/assets`;
@@ -29,7 +30,6 @@ export async function fetchProfile(params: IFetchProfileParams) {
         decamelizeKeys({
             ...removeReactQueryParams(restParams),
             page: restParams.page || restParams.pageParam || 1,
-            language: getInternalLanguage(),
         })
     );
     const url = `${getHost('aoe2companion-data')}api/profiles/${profileId}?${queryString}`;
@@ -41,7 +41,6 @@ export async function fetchProfiles(params: IFetchProfilesParams) {
         decamelizeKeys({
             ...removeReactQueryParams(params),
             page: params.page || params.pageParam || 1,
-            language: getInternalLanguage(),
         })
     );
     const url = `${getHost('aoe2companion-data')}api/profiles?${queryString}`;
@@ -54,7 +53,6 @@ export async function fetchMatch(params: IFetchMatchParams) {
         decamelizeKeys({
             ...removeReactQueryParams(restParams),
             useEnums: true,
-            language: getInternalLanguage(),
         })
     );
     const url = `${getHost('aoe2companion-data')}api/matches/${matchId}?${queryString}`;
@@ -66,7 +64,6 @@ export async function fetchMatchAnalysis(params: IFetchMatchParams) {
     const queryString = makeQueryString(
         decamelizeKeys({
             ...removeReactQueryParams(restParams),
-            language: getInternalLanguage(),
         })
     );
     const url = `${getHost('aoe2companion-data')}api/matches/${matchId}/analysis?${queryString}`;
@@ -83,7 +80,6 @@ export async function fetchMatches(params: IFetchMatchesParams) {
             ...removeReactQueryParams(params),
             useEnums: true,
             page: params.page || params.pageParam || 1,
-            language: getInternalLanguage(),
         })
     );
     const url = `${getHost('aoe2companion-data')}api/matches?${queryString}`;
@@ -96,17 +92,16 @@ export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
         decamelizeKeys({
             ...removeReactQueryParams(restParams),
             page: restParams.page || restParams.pageParam || 1,
-            language: getInternalLanguage(),
         })
     );
     const url = `${getHost('aoe2companion-data')}api/leaderboards/${leaderboardId}?${queryString}`;
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as ILeaderboard;
 }
 
-export async function fetchLeaderboards() {
+export async function fetchLeaderboards(params: IFetchLeaderboardsParams) {
     const queryString = makeQueryString(
         decamelizeKeys({
-            language: getInternalLanguage(),
+            ...params,
         })
     );
     const url = `${getHost('aoe2companion-data')}api/leaderboards?${queryString}`;

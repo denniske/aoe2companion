@@ -11,7 +11,7 @@ export const useUnlinkSteamMutation = () => {
         mutationKey: ['unlinkSteam'],
         mutationFn: accountUnlinkSteam,
         onSettled: async (_profileId) => {
-            if ((queryClient.isMutating({ mutationKey: ['unlinkSteam'] }) + queryClient.isMutating({ mutationKey: ['unlinkSteam'] })) === 1) {
+            if (queryClient.isMutating({ mutationKey: ['unlinkSteam'] }) === 1) {
                 await queryClient.invalidateQueries({ queryKey: QUERY_KEY_ACCOUNT(), refetchType: 'all' });
             }
         },

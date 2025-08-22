@@ -8,40 +8,10 @@ import { MMKV, useMMKV, useMMKVString } from 'react-native-mmkv';
 import { useEffect } from 'react';
 import { appConfig } from '@nex/dataset';
 
-export const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
-
 export type IGetTranslation = (key: keyof typeof local001, params?: Record<string, string | number>) => string;
-
-export function getLanguageFromSystemLocale(locale: string) {
-    locale = locale.toLowerCase();
-
-    if (locale.startsWith('es-mx')) {
-        return 'es-MX';
-    }
-    if (locale.startsWith('zh-hant') || locale.startsWith('zh-tw')) {
-        return 'zh-hant';
-    }
-    if (locale.startsWith('zh-hans')) {
-        return 'zh-hans';
-    }
-
-    for (const supportedMainLocale of supportedMainLocales) {
-        if (locale.startsWith(supportedMainLocale)) {
-            return supportedMainLocale;
-        }
-    }
-
-    return 'en';
-}
 
 export function setTranslations(language: string, newTranslations: Record<string, string>) {
     queryClient.setQueryData(['translations', language], newTranslations);
-}
-
-export function getInternalLanguage() {
-    const account = queryClient.getQueryData<Record<string, string>>(QUERY_KEY_ACCOUNT());
-    // console.log('getlanguage', account?.language || 'en');
-    return account?.language || 'en';
 }
 
 export function getTranslationInternal(key: keyof typeof local001, params?: Record<string, any>) {

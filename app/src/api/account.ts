@@ -1,19 +1,16 @@
-import { fetchJson } from './util';
-import { getHost, makeQueryString, sleep } from '@nex/data';
-import { supabaseClient } from '../../../data/src/helper/supabase';
 import throttle from '@jcoreio/async-throttle';
+import { fetchJson } from './util';
+import { getHost, makeQueryString, supabaseClient } from '@nex/data';
 import {
+    IFollowingEntry,
+    IPrefs,
     loadAccountFromStorage,
     loadAuthFromStorage,
     loadConfigFromStorage,
     loadFollowingFromStorage,
-    saveAuthToStorage,
-    saveConfigToStorage,
-    saveFollowingToStorage,
+    loadPrefsFromStorage,
 } from '@app/service/storage';
 import { DarkMode } from '@app/redux/reducer';
-import { IPrefs, loadPrefsFromStorage } from '@app/queries/prefs';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface IAccountFollowedPlayer {
     profileId: number;
@@ -84,11 +81,9 @@ export async function fetchAccount(): Promise<IAccount> {
 
         const { error, data } = await supabaseClient.auth.signInAnonymously({
             options: {
-                data: {
-
-                }
-            }
-        })
+                data: {},
+            },
+        });
 
         session = data;
 
@@ -130,7 +125,7 @@ export async function fetchAccount(): Promise<IAccount> {
         // console.log('fetchAccount SAVING ACCOUNT');
 
         await saveAccount(accountData);
-        await followV2(following.map(f => f.profileId));
+        await followV2(following.map((f: IFollowingEntry) => f.profileId));
     }
 
     return await fetchJson(url, {
@@ -315,7 +310,6 @@ export async function authLinkSteam(params: any): Promise<any> {
     });
 }
 
-
 export async function authLinkPatreon(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/patreon?${makeQueryString(params)}`;
 
@@ -323,7 +317,6 @@ export async function authLinkPatreon(params: any): Promise<any> {
         method: 'GET',
     });
 }
-
 
 export async function authLinkYoutube(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/youtube?${makeQueryString(params)}`;
@@ -333,7 +326,6 @@ export async function authLinkYoutube(params: any): Promise<any> {
     });
 }
 
-
 export async function authLinkDiscord(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/discord?${makeQueryString(params)}`;
 
@@ -341,7 +333,6 @@ export async function authLinkDiscord(params: any): Promise<any> {
         method: 'GET',
     });
 }
-
 
 export async function authLinkTwitch(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/twitch?${makeQueryString(params)}`;
