@@ -269,6 +269,10 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '151.0.0': [
         {
+            type: 'minor',
+            title: 'Show player profile images instead of country flag in player search',
+        },
+        {
             type: 'bugfix',
             title: 'Fix reset of profile page',
         },

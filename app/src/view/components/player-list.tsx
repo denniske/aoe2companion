@@ -138,7 +138,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
             onPress={onSelect}
             style={playerStyle}
         >
-            {image ? image(player) : <CountryImage style={{ textAlign: 'center', fontSize: 30 }} country={player.country} />}
+            {image ? image(player) : <Image source={{ uri: player.avatarMediumUrl }} className="w-7 h-7 rounded-full" />}
             <View>
                 <View className="flex-row gap-1 items-center">
                     <Text numberOfLines={1} variant="label">
