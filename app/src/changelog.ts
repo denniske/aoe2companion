@@ -280,6 +280,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Improve linking of socials again',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix live notifications (iOS)',
+        },
     ],
     '150.0.0': [
         {

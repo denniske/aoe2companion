@@ -33,62 +33,83 @@ struct LiveGameAttributes: ActivityAttributes {
 }
 
 struct LiveGame: Codable {
-  let playerId: Int
-  let match: Match
+    let playerId: Int
+    let match: Match
 }
 
 struct Match: Codable {
-  let matchId: Int
-  let started: String
-  let finished, leaderboard, leaderboardName: String?
-  let name: String?
-  let server: String?
-  let internalLeaderboardId: Int?
-  let map, mapName: String
-  let mapImageUrl: String?
-  let privacy, difficulty, startingAge: Int
-  let fullTechTree, allowCheats, empireWarsMode: Bool
-  let endingAge: Int
-  let gameMode, gameModeName: String
-  let lockSpeed, lockTeams: Bool
-  let mapSize, population: Int
-  let hideCivs, recordGame, regicideMode: Bool
-  let gameVariant, resources: Int
-  let sharedExploration: Bool
-  let speed: Int
-  let speedName: String
-  let suddenDeathMode, teamPositions, teamTogether: Bool
-  let treatyLength: Int
-  let turboMode: Bool
-  let victory, revealMap: Int
-  let scenario: String?
-  let teams: [Team]
+    let matchId: Int
+    let started: String
+    let finished: String?
+    let leaderboard: String?
+    let leaderboardName: String?
+    let name: String?
+//    let server: String?
+//    let internalLeaderboardId: Int?
+    let map: String
+    let mapName: String
+    let mapImageUrl: String?
+//    let privacy: String?
+//    let difficulty: String?
+//    let startingAge: String?
+//    let fullTechTree: Bool?
+//    let allowCheats: Bool?
+//    let empireWarsMode: Bool?
+//    let endingAge: String?
+//    let gameMode: String?
+//    let gameModeName: String?
+//    let lockSpeed: Bool?
+//    let lockTeams: Bool?
+//    let mapSize: String?
+//    let population: Int?
+//    let hideCivs: Bool?
+//    let recordGame: Bool?
+//    let regicideMode: Bool?
+//    let gameVariant: String?
+//    let resources: String?
+//    let sharedExploration: Bool?
+//    let speed: String?
+//    let speedName: String?
+//    let suddenDeathMode: Bool?
+//    let teamPositions: Bool?
+//    let teamTogether: Bool?
+//    let treatyLength: Int?
+//    let turboMode: Bool?
+//    let victory: String?
+//    let revealMap: String?
+//    let scenario: String?
+    let teams: [Team]
 }
 
 struct Team: Codable {
-  let teamId: Int
-  let players: [Player]
+    let teamId: Int
+    let players: [Player]
 }
 
 struct Player: Codable {
-  let profileId: Int
-  let name: String
-  let rating, ratingDiff: Int?
-  let civ, civName: String
-  let civImageUrl: String
-  let color: Int
-  let colorHex: String
-  let slot, team: Int
-  let status: String
-  let replay: Bool
-  let won: Bool?
-  let country: String?
-  let verified: Bool
-  let avatarHash: String?
-  let avatarSmallUrl, avatarMediumUrl, avatarFullUrl: String?
+    let profileId: Int
+    let name: String
+    let rating: Int?
+//    let ratingDiff: Int?
+    let civ: String?
+    let civName: String?
+    let civImageUrl: String?
+//    let color: Int?
+//    let colorHex: String?
+//    let slot: Int?
+//    let team: Int?
+//    let status: String?
+//    let replay: Bool?
+    let won: Bool?
+//    let country: String?
+//    let verified: Bool?
+//    let avatarHash: String?
+//    let avatarSmallUrl: String?
+//    let avatarMediumUrl: String?
+//    let avatarFullUrl: String?
 }
 
-func toJson(dataString: String) -> LiveGame? {
+func fromJson(dataString: String) -> LiveGame? {
   let decoder = JSONDecoder()
   let stateData = Data(dataString.utf8)
   do {
@@ -97,10 +118,23 @@ func toJson(dataString: String) -> LiveGame? {
 
     return data
   } catch {
+    print("This wont show up anywhere even in xcode")
     print(error)
   }
 
   return nil
+}
+
+func fromJsonMaybe(dataString: String) -> Result<LiveGame, Error> {
+    let decoder = JSONDecoder()
+    let stateData = Data(dataString.utf8)
+
+    do {
+        let data = try decoder.decode(LiveGame.self, from: stateData)
+        return .success(data)
+    } catch {
+        return .failure(error)
+    }
 }
 
 struct PlayerRow: View {
@@ -149,123 +183,130 @@ struct LiveGameWidget: Widget {
 
   var body: some WidgetConfiguration {
     ActivityConfiguration(for: LiveGameAttributes.self) { context in
-      let data = toJson(dataString: context.state.data)
-      let match = data?.match
-      let currentPlayer = data?.playerId
 
-//       Text("State: \(String(describing: context.state))")
-//           .font(.system(size: 8))
-//           .foregroundColor(.red)
-//
-//       Text("Data2: \(String(describing: data))")
-//           .font(.system(size: 8))
-//           .foregroundColor(.red)
+      switch fromJsonMaybe(dataString: context.state.data) {
 
-      if match != nil {
-        let game = match!
+        case .failure(let error):
+            Text("Failed to load game: \(error.localizedDescription)")
+                .font(.system(size: 8))
+                .foregroundColor(.red)
+            Text("State: \(String(describing: context.state))")
+                      .font(.system(size: 8))
+                      .foregroundColor(.red)
+          //    Text("Data2: \(String(describing: data))")
+          //        .font(.system(size: 8))
+          //        .foregroundColor(.red)
 
-        let opponents = game.teams.map { "\($0.players.count)" }
-        let opponentsCount = opponents.joined(separator: "v")
-        let startTime = parseDate(dateString: game.started)
-        let lastId = game.teams.last?.teamId
-        let suffix = game.teams.count - 4
-        let teams =
-          suffix > 0 ? [game.teams.prefix(4), game.teams.suffix(suffix)] : [game.teams.prefix(4)]
-        let player =
-          game.teams.first(where: { $0.players[0].profileId == currentPlayer })?.players[0]
-          ?? game.teams[0].players[0]
+        case .success(let data):
+          let match = data.match
+          let currentPlayer = data.playerId
 
-        if opponentsCount == "1v1" {
-          let p =
-            game.teams.first(where: { $0.players[0].profileId != currentPlayer })?
-            .players[0] ?? game.teams[0].players[0]
-          HStack(spacing: 12) {
-              NetworkImage(url: imagePathInAppGroup(url: game.mapImageUrl)).frame(
-              width: 64, height: 64)
-            VStack(alignment: .leading, spacing: 12) {
-              HStack(alignment: .center) {
-                Text(game.mapName).font(.system(size: 18, weight: .semibold))
-                  .lineLimit(1)
-                Spacer()
-                Text("\(game.leaderboardName ?? "") \(opponentsCount)").font(
-                  .system(size: 16))
-              }
-              HStack(alignment: .center, spacing: 4) {
-                PlayerRow(player: p)
+            let game = match
 
-                Spacer()
+            let opponents = game.teams.map { "\($0.players.count)" }
+            let opponentsCount = opponents.joined(separator: "v")
+            let startTime = parseDate(dateString: game.started)
+            let lastId = game.teams.last?.teamId
+            let suffix = game.teams.count - 4
+            let teams =
+              suffix > 0 ? [game.teams.prefix(4), game.teams.suffix(suffix)] : [game.teams.prefix(4)]
+            let player =
+              game.teams.first(where: { $0.players[0].profileId == currentPlayer })?.players[0]
+              ?? game.teams[0].players[0]
 
-                if game.finished != nil {
-                  Text(player.won == true ? "Nice win!" : "Game over").font(
-                    .system(size: 16, weight: .semibold))
-                } else {
-                  Text(startTime, style: .timer).contentTransition(.identity).font(
-                    .system(size: 16)
-                  ).lineLimit(1).multilineTextAlignment(
-                    .trailing
-                  ).monospacedDigit().frame(width: 80)
-                }
-              }
-            }.frame(maxWidth: .infinity, alignment: .topLeading)
-          }.padding(15).padding(.trailing, 8).foregroundColor(Color(UIColor.label))
-            .activityBackgroundTint(nil).background(
-              Color(UIColor.dynamicColor(light: "#FFFCF5", dark: "#181C29")))
-        } else {
-          VStack(spacing: 8) {
-            HStack {
-              Text(game.mapName).font(.system(size: 16, weight: .bold)).lineLimit(1)
-              Text("\(game.leaderboardName!) \(opponentsCount)").font(
-                .system(size: 14))
-              Spacer()
-              if game.finished != nil {
-                Text(player.won == true ? "Nice win!" : "Game over").font(
-                  .system(size: 14, weight: .semibold))
-              } else {
-                Text(startTime, style: .timer).contentTransition(.identity).font(
-                  .system(size: 14)
-                ).lineLimit(1).multilineTextAlignment(
-                  .trailing
-                ).monospacedDigit().frame(width: 60)
-              }
-            }
+            if opponentsCount == "1v1" {
+              let p =
+                game.teams.first(where: { $0.players[0].profileId != currentPlayer })?
+                .players[0] ?? game.teams[0].players[0]
+              HStack(spacing: 12) {
+                  NetworkImage(url: imagePathInAppGroup(url: game.mapImageUrl)).frame(
+                  width: 64, height: 64)
+                VStack(alignment: .leading, spacing: 12) {
+                  HStack(alignment: .center) {
+                    Text(game.mapName).font(.system(size: 18, weight: .semibold))
+                      .lineLimit(1)
+                    Spacer()
+                    Text("\(game.leaderboardName ?? "") \(opponentsCount)").font(
+                      .system(size: 16))
+                  }
+                  HStack(alignment: .center, spacing: 4) {
+                    PlayerRow(player: p)
 
-            VStack(spacing: 16) {
-              ForEach(teams.indices, id: \.self) { teamGroup in
-                HStack(alignment: .center) {
-                  ForEach(teams[teamGroup], id: \.teamId) { team in
-                    VStack(alignment: .leading, spacing: 4) {
-                      ForEach(
-                        team.players.prefix(team.players.count > 4 ? 3 : 4),
-                        id: \.profileId
-                      ) { p in
-                        PlayerRow(
-                          player: p, showRating: game.teams.count < 3,
-                          bold: p.profileId == currentPlayer)
-                      }
-                      if team.players.count > 4 {
-                        HStack {
-                          Text("And \(team.players.count - 3) more...")
-                            .font(
-                              .system(
-                                size: 16))
+                    Spacer()
 
-                        }.padding([.leading], 24)
-                      }
+                    if game.finished != nil {
+                      Text(player.won == true ? "Nice win!" : "Game over").font(
+                        .system(size: 16, weight: .semibold))
+                    } else {
+                      Text(startTime, style: .timer).contentTransition(.identity).font(
+                        .system(size: 16)
+                      ).lineLimit(1).multilineTextAlignment(
+                        .trailing
+                      ).monospacedDigit().frame(width: 80)
                     }
-                    if team.teamId != lastId {
-                      Spacer()
+                  }
+                }.frame(maxWidth: .infinity, alignment: .topLeading)
+              }.padding(15).padding(.trailing, 8).foregroundColor(Color(UIColor.label))
+                .activityBackgroundTint(nil).background(
+                  Color(UIColor.dynamicColor(light: "#FFFCF5", dark: "#181C29")))
+            } else {
+              VStack(spacing: 8) {
+                HStack {
+                  Text(game.mapName).font(.system(size: 16, weight: .bold)).lineLimit(1)
+                  Text("\(game.leaderboardName!) \(opponentsCount)").font(
+                    .system(size: 14))
+                  Spacer()
+                  if game.finished != nil {
+                    Text(player.won == true ? "Nice win!" : "Game over").font(
+                      .system(size: 14, weight: .semibold))
+                  } else {
+                    Text(startTime, style: .timer).contentTransition(.identity).font(
+                      .system(size: 14)
+                    ).lineLimit(1).multilineTextAlignment(
+                      .trailing
+                    ).monospacedDigit().frame(width: 60)
+                  }
+                }
+
+                VStack(spacing: 16) {
+                  ForEach(teams.indices, id: \.self) { teamGroup in
+                    HStack(alignment: .center) {
+                      ForEach(teams[teamGroup], id: \.teamId) { team in
+                        VStack(alignment: .leading, spacing: 4) {
+                          ForEach(
+                            team.players.prefix(team.players.count > 4 ? 3 : 4),
+                            id: \.profileId
+                          ) { p in
+                            PlayerRow(
+                              player: p, showRating: game.teams.count < 3,
+                              bold: p.profileId == currentPlayer)
+                          }
+                          if team.players.count > 4 {
+                            HStack {
+                              Text("And \(team.players.count - 3) more...")
+                                .font(
+                                  .system(
+                                    size: 16))
+
+                            }.padding([.leading], 24)
+                          }
+                        }
+                        if team.teamId != lastId {
+                          Spacer()
+                        }
+                      }
                     }
                   }
                 }
-              }
+              }.padding(15).foregroundColor(Color(UIColor.label))
+                .activityBackgroundTint(nil).background(
+                  Color(UIColor.dynamicColor(light: "#FFFCF5", dark: "#181C29")))
             }
-          }.padding(15).foregroundColor(Color(UIColor.label))
-            .activityBackgroundTint(nil).background(
-              Color(UIColor.dynamicColor(light: "#FFFCF5", dark: "#181C29")))
-        }
       }
+
+
     } dynamicIsland: { context in
-      let data = toJson(dataString: context.state.data)
+      let data = fromJson(dataString: context.state.data)
       let match = data?.match
       let currentPlayer = data?.playerId
 

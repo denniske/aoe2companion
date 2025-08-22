@@ -18,7 +18,7 @@
     "bundle:app": "npm run bundle:export; npm run bundle:analyze",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "widget": "rm -rf widget && expo-module clean plugin && EXPO_NONINTERACTIVE=1 expo-module build plugin && ./plugin/src/scripts/copy.sh & expo prebuild",
+    "widget": "rm -rf widget && expo-module clean plugin && EXPO_NONINTERACTIVE=1 expo-module build plugin && ./plugin/src/scripts/copy.sh & APP=aoe2 expo prebuild",
     "lint": "eslint .",
     "postinstall": "patch-package && npx --yes copy-files-from-to",
     "dev:ios:install": "PLATFORM=ios bash publish-dev-install.sh",
