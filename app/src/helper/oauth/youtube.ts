@@ -27,10 +27,11 @@ export function useYoutubeAuth() {
     });
 
     console.log();
-    console.log('youtube request');
-    console.log(request);
+    // console.log('youtube request');
+    // console.log(request);
 
     const link = async () => {
+        if (!response) return;
         try {
             console.log();
             console.log('==> youtube response', response);

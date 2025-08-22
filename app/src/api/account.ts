@@ -24,7 +24,7 @@ export interface IAccountFollowedPlayer {
 
 export interface IAccount {
     accountId: string;
-    profileId?: number;
+    profileId: number | null;
     steamId?: string;
     pushToken?: string;
     pushTokenWeb?: string;

@@ -33,8 +33,8 @@ import { showAlert } from '@app/helper/alert';
 import { useTwitchAuth } from '@app/helper/oauth/twitch';
 import { useYoutubeAuth } from '@app/helper/oauth/youtube';
 import { useDiscordAuth } from '@app/helper/oauth/discord';
-import { getPatreonLoginUrl } from '@app/helper/oauth/patreon';
-import { getSteamLoginUrl } from '@app/helper/oauth/steam';
+import { usePatreonAuth } from '@app/helper/oauth/patreon';
+import { useSteamAuth } from '@app/helper/oauth/steam';
 
 export default function AccountPage() {
     const getTranslation = useTranslation();
@@ -62,9 +62,11 @@ export default function AccountPage() {
         refetchInterval: relicVerification ? 10000 : false, // poll every 10s
     });
 
+    const patreonPromptAsync = usePatreonAuth();
     const youtubePromptAsync = useYoutubeAuth();
     const twitchPromptAsync = useTwitchAuth();
     const discordPromptAsync = useDiscordAuth();
+    const steamPromptAsync = useSteamAuth();
 
     useEffect(() => {
         if (relicVerificationData?.verified) {
@@ -180,8 +182,7 @@ export default function AccountPage() {
                         )}
                         {!account.data?.patreonId && (
                             <Button
-                                onPress={() => openLink(getPatreonLoginUrl())}
-                                // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
+                                onPress={() => patreonPromptAsync()}
                                 className={'self-start'}
                             >
                                 {getTranslation('account.patreon.link')}
@@ -195,7 +196,7 @@ export default function AccountPage() {
                         <Text variant="body">{getTranslation('account.steam.description')}</Text>
                         {!(account.data?.steamId || account.data?.authRelicId) && (
                             <Button
-                                onPress={() => openLink(getSteamLoginUrl())}
+                                onPress={() => steamPromptAsync()}
                                 // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
                                 className={'self-start'}
                             >
@@ -372,7 +373,6 @@ export default function AccountPage() {
                         {!account.data?.twitchChannel && (
                             <Button
                                 onPress={() => twitchPromptAsync()}
-                                // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
                                 className={'self-start'}
                             >
                                 {getTranslation('account.twitch.link')}

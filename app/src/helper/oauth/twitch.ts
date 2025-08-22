@@ -26,10 +26,11 @@ export function useTwitchAuth() {
     );
 
     console.log();
-    console.log('twitch request');
-    console.log(request);
+    // console.log('twitch request');
+    // console.log(request);
 
     const link = async () => {
+        if (!response) return;
         try {
             console.log();
             console.log('==> twitch response', response);

@@ -26,10 +26,11 @@ export function useDiscordAuth() {
     );
 
     console.log();
-    console.log('discord request');
-    console.log(request);
+    // console.log('discord request');
+    // console.log(request);
 
     const link = async () => {
+        if (!response) return;
         try {
             console.log();
             console.log('==> discord response', response);
