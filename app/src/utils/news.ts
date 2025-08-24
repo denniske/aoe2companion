@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { appConfig } from '@nex/dataset';
+import { fetchNews } from '@app/api/helper/api';
 
 export interface Post {
     id: number;
@@ -31,15 +32,10 @@ export interface Rendered {
     rendered: string;
 }
 
-export const useNews = (count: number) => {
+export const useNews = () => {
     return useQuery({
         queryKey: ['news'],
-        queryFn: async () => {
-            const { data } = await axios.get(
-                `https://www.ageofempires.com/wp-json/wp/v2/posts?per_page=${count}&game=${appConfig.game === 'aoe2de' ? 218 : 164}`
-            );
-            return data as Post[];
-        },
+        queryFn: fetchNews,
         refetchOnWindowFocus: true,
     });
 };

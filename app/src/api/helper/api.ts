@@ -13,6 +13,7 @@ import {
     ILeaderboardDef,
     IMatchesResult,
     IMatchNew,
+    INewsResult,
     IProfileResult,
     IProfilesResult,
 } from './api.types';
@@ -106,4 +107,9 @@ export async function fetchLeaderboards(params: IFetchLeaderboardsParams) {
     );
     const url = `${getHost('aoe2companion-data')}api/leaderboards?${queryString}`;
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as ILeaderboardDef[];
+}
+
+export async function fetchNews() {
+    const url = `${getHost('aoe2companion-data')}api/news`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as INewsResult;
 }

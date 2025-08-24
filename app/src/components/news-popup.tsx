@@ -16,6 +16,7 @@ import WebView from 'react-native-webview';
 import { Icon } from '@app/components/icon';
 import { textVariantStyles } from '../utils/text.util';
 import { BlurView } from 'expo-blur';
+import { INews } from '@app/api/helper/api.types';
 
 const Article = ({ TDefaultRenderer, ...props }: { TDefaultRenderer: any; [name: string]: any }) => {
     const [visible, setVisible] = useState(false);
@@ -47,7 +48,7 @@ const customHTMLElementModels: HTMLElementModelRecord = {
     }),
 };
 
-export const NewsPopup: React.FC<{ post: Post; visible: boolean; onClose: () => void }> = ({ post, visible, onClose }) => {
+export const NewsPopup: React.FC<{ news: INews; visible: boolean; onClose: () => void }> = ({ news, visible, onClose }) => {
     const { width, height } = useWindowDimensions();
 
     const [scriptInjected, setScriptInjected] = useState(false);
@@ -104,7 +105,7 @@ export const NewsPopup: React.FC<{ post: Post; visible: boolean; onClose: () => 
                         scrollEnabled={true}
                         decelerationRate="normal"
                         ref={webviewRef}
-                        source={{ uri: post.link }}
+                        source={{ uri: news.link }}
                         style={{ width: '100%', backgroundColor: 'rgba(255, 255, 255, 0)' }} // or #181c29
                         className={'flex-1'}
                         onLoadProgress={({ nativeEvent }) => {
@@ -153,7 +154,7 @@ export const NewsPopup: React.FC<{ post: Post; visible: boolean; onClose: () => 
                 {/*        }}*/}
                 {/*        WebView={WebView}*/}
                 {/*        contentWidth={width - 32}*/}
-                {/*        source={{ html: post.content.rendered.replace(/<p>\s*(?:&nbsp;|\s)*<\/p>/gi, '') }}*/}
+                {/*        source={{ html: news.content.rendered.replace(/<p>\s*(?:&nbsp;|\s)*<\/p>/gi, '') }}*/}
                 {/*        baseStyle={{ ...tw`text-black dark:text-white`, ...textVariantStyles['body'] }}*/}
                 {/*        tagsStyles={{*/}
                 {/*            h1: { ...textVariantStyles.title, marginTop: 50, marginBottom: 0 },*/}

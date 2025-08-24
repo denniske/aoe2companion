@@ -273,6 +273,10 @@ export const changelog: IChangelog = {
             title: 'Show player profile images instead of country flag in player search',
         },
         {
+            type: 'minor',
+            title: 'Caching news server side for faster loading',
+        },
+        {
             type: 'bugfix',
             title: 'Fix reset of profile page',
         },

@@ -10,31 +10,18 @@ import { Skeleton, SkeletonText } from './skeleton';
 import { Text } from './text';
 import { sortBy } from 'lodash';
 import { openLink } from '@app/helper/url';
+import { INews } from '@app/api/helper/api.types';
 
-export const NewsCard: React.FC<Post> = (post) => {
-    const { data } = useMedia(post.featured_media);
+export const NewsCard: React.FC<INews> = (news) => {
     const [visible, setVisible] = useState(false);
-    const [imageUrl, setImageUrl] = useState<string>();
 
-    useEffect(() => {
-        if (data) {
-            const validSizes = Object.values(data.media_details?.sizes ?? {}).filter((size) => size.width > 500);
-            if (validSizes?.length > 0) {
-                const orderedSizes = sortBy(validSizes, s => s.filesize);
-                setImageUrl(orderedSizes[0]?.source_url);
-            } else {
-                setImageUrl(data.source_url);
-            }
-        }
-    }, [data]);
-
-    if (!post.id || !imageUrl) {
+    if (!news) {
         return <NewsCardSkeleton />;
     }
 
     const handlePress = () => {
         if (Platform.OS === 'web') {
-            openLink(post.link);
+            openLink(news.link);
         } else {
             setVisible(true);
         }
@@ -43,13 +30,13 @@ export const NewsCard: React.FC<Post> = (post) => {
     return (
         <Card onPress={handlePress} direction="vertical" className="overflow-hidden w-56">
             <View className="-mx-4 -mt-4 mb-1">
-                <Image source={{ uri: imageUrl }} className="w-full" style={{ aspectRatio: 1.75 }} />
+                <Image source={{ uri: news.featuredMediaUrl }} className="w-full" style={{ aspectRatio: 1.75 }} />
             </View>
             <Text variant="label" numberOfLines={2}>
-                {decode(post.title.rendered)}
+                {decode(news.title)}
             </Text>
 
-            <NewsPopup post={post} onClose={() => setVisible(false)} visible={visible} />
+            <NewsPopup news={news} onClose={() => setVisible(false)} visible={visible} />
         </Card>
     );
 };

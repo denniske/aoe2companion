@@ -309,6 +309,13 @@ export interface IProfilesResult {
     profiles: IProfilesResultProfile[];
 }
 
+export type INewsResult = INews[];
+
+export type INews = {
+    featuredMediaUrl: string;
+    title: string;
+    link: string;
+};
 
 export interface IMatchesResult {
     perPage: number;

@@ -44,7 +44,7 @@ export default function IndexPage() {
     const tournament = useFeaturedTournament();
     const accountMostRecentMatches = useAccountMostRecentMatches(1);
     const accountMostRecentMatch = accountMostRecentMatches?.length ? accountMostRecentMatches[0] : null;
-    const { data: news = Array(3).fill(null) } = useNews(3);
+    const { data: news = Array(3).fill(null) } = useNews();
     const router = useRouter();
     const { favorites, refetch } = useFavoritedBuilds();
     const { followedIds, refetch: refetchTournament } = useFollowedTournaments();
@@ -232,7 +232,7 @@ export default function IndexPage() {
                     className="-mx-4"
                     horizontal
                     data={news}
-                    renderItem={({ item: post }) => <NewsCard {...post} />}
+                    renderItem={({ item }) => <NewsCard {...item} />}
                 />
             </View>
         </ScrollView>
