@@ -3,6 +3,14 @@ debug prod crash
 console.app on macos filter by process by clicking on app name right click
 
 
+mitm proxy
+mac
+mitmweb --mode wireguard
+
+windows import wireguard config
+import mitm cert
+
+https://www.mitmproxy.org/posts/wireguard-mode/
 
 
 

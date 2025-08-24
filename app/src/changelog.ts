@@ -282,6 +282,10 @@ export const changelog: IChangelog = {
         },
         {
             type: 'bugfix',
+            title: 'Fix notification icon (Android)',
+        },
+        {
+            type: 'bugfix',
             title: 'Fix live notifications (iOS)',
         },
     ],
