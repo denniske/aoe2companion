@@ -15,7 +15,7 @@ import BuildCard from '@app/view/components/build-order/build-card';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
 import * as Notifications from '../service/notifications';
 import { router, Stack, useFocusEffect, useRootNavigationState, useRouter } from 'expo-router';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Platform, TouchableOpacity, View } from 'react-native';
 import { Button } from '@app/components/button';
 import {
@@ -28,6 +28,7 @@ import {
 } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
 import { Image } from 'expo-image';
+import ButtonPicker from '@app/view/components/button-picker';
 
 // export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 //     return (
@@ -49,6 +50,11 @@ export default function IndexPage() {
     const { favorites, refetch } = useFavoritedBuilds();
     const { followedIds, refetch: refetchTournament } = useFollowedTournaments();
     const { data: rankedMaps } = useMapsRanked();
+
+    const [rankedMapLeaderboard, setRankedMapLeaderboard] = useState<string>();
+    const values: string[] = rankedMaps?.leaderboards?.map((l => l.leaderboardId)) || [];
+    const firstValue = rankedMaps?.leaderboards?.map((l => l.leaderboardId))?.[0];
+    const formatLeaderboard = (leaderboardId: string) => rankedMaps?.leaderboards?.find(l => l.leaderboardId === leaderboardId)?.abbreviation ?? '';
 
     useFocusEffect(
         useCallback(() => {
@@ -237,18 +243,24 @@ export default function IndexPage() {
                 />
             </View>
 
-            <View className="gap-2">
-                <Text variant="header-lg" className="mb-2">Ranked Maps</Text>
-                <View className="flex-row flex-wrap gap-y-4">
-                    {rankedMaps?.leaderboards?.[0]?.maps?.map((map => (
-                        <TouchableOpacity key={map.mapId} className="flex-col justify-between items-center w-[25%]"  onPress={() => router.push(`/explore/maps/${map.mapId}`)}>
-                            <Image source={{ uri: map.imageUrl }} style={{ width: 80, height: 80 }} className="mb-2" />
-                            <Text variant={'body-sm'} className="text-center mb-1">{map.mapName}</Text>
-                            <Text variant={'body-sm'}>{map.percentage.toFixed(0)} %</Text>
-                        </TouchableOpacity>
-                    )))}
+            {
+                !!rankedMaps?.leaderboards && rankedMaps?.leaderboards?.length > 0 &&
+                <View className="gap-2">
+                    <Text variant="header-lg" className="mb-1">Ranked Maps</Text>
+                    <View className="mb-3">
+                        <ButtonPicker value={rankedMapLeaderboard ?? firstValue} values={values} formatter={formatLeaderboard} onSelect={setRankedMapLeaderboard} />
+                    </View>
+                    <View className="flex-row flex-wrap gap-y-4">
+                        {rankedMaps?.leaderboards?.find(l => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))?.maps?.map((map => (
+                            <TouchableOpacity key={map.mapId} className="flex-col justify-between items-center w-[25%]"  onPress={() => router.push(`/explore/maps/${map.mapId}`)}>
+                                <Image source={{ uri: map.imageUrl }} style={{ width: 80, height: 80 }} className="mb-2" />
+                                <Text variant={'body-sm'} className="text-center mb-1">{map.mapName}</Text>
+                                <Text variant={'body-sm'}>{map.percentage.toFixed(0)} %</Text>
+                            </TouchableOpacity>
+                        )))}
+                    </View>
                 </View>
-            </View>
+            }
         </ScrollView>
     );
 }
