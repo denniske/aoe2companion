@@ -18,6 +18,9 @@ interface Props {
     metric: 'totalResources' | 'totalObjects';
 }
 
+// total resources (wood + food + gold + stone)
+// total number of objects (include foundation), when a unit is lost, this counter updates after its displayable objects (body) dies
+
 export default function Timeseries({ teams, metric, title, description }: Props) {
     const theme = useAppTheme();
 
