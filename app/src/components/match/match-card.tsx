@@ -4,21 +4,23 @@ import { appConfig } from '@nex/dataset';
 import { Image } from 'expo-image';
 import { flatten, startCase, uniq } from 'lodash';
 import React from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Card } from '../card';
 import { Icon } from '../icon';
 import { Skeleton, SkeletonText } from '../skeleton';
 import { Text } from '../text';
 import { MatchProps } from '@app/components/match/match';
 import { ElapsedTimeOrDuration } from '@app/components/elapsed-time-or-duration';
+import { router } from 'expo-router';
 
 export interface MatchCardProps extends MatchProps {
     onPress?: () => void;
     flat?: boolean;
+    linkMap?: boolean;
 }
 
 export function MatchCard(props: MatchCardProps) {
-    const { flat, match, user, highlightedUsers, expanded = false, showLiveActivity = false, onPress } = props;
+    const { flat, match, user, highlightedUsers, expanded = false, showLiveActivity = false, linkMap = false, onPress } = props;
     const players = flatten(match?.teams.map((t) => t.players));
     const freeForAll = isMatchFreeForAll(match);
     let attributes = [teamRatio(match)];
@@ -54,11 +56,13 @@ export function MatchCard(props: MatchCardProps) {
             onPress={onPress}
             header={
                 <View className="relative">
-                    <Image
-                        source={getMapImage(match)}
-                        className={`w-14 h-14 ${appConfig.game === 'aoe2de' ? '' : 'border border-gold-500 rounded'}`}
-                        contentFit="cover"
-                    />
+                    <TouchableOpacity disabled={!linkMap} onPress={() => router.push(`/explore/maps/${match.map}`)}>
+                        <Image
+                            source={getMapImage(match)}
+                            className={`w-14 h-14 ${appConfig.game === 'aoe2de' ? '' : 'border border-gold-500 rounded'}`}
+                            contentFit="cover"
+                        />
+                    </TouchableOpacity>
                     <View className={`absolute ${appConfig.game === 'aoe2de' ? 'top-0 left-0' : 'top-1 left-1'}`}>
                         {players.some((p) => p.profileId === user && p.won === true && (freeForAll || p.team != -1)) && (
                             <Icon size={12} icon="crown" color={appConfig.game === 'aoe2de' ? 'brand' : 'text-gold-500'} />
@@ -76,11 +80,14 @@ export function MatchCard(props: MatchCardProps) {
             }
         >
             <View className="flex-1">
-                <Text numberOfLines={1} variant="header-sm">
-                    {match.gameVariant === 'ror' && 'RoR - '}
-                    {match.mapName}
-                    {match.server && <Text> - {match.server}</Text>}
-                </Text>
+                <TouchableOpacity disabled={!linkMap} onPress={() => router.push(`/explore/maps/${match.map}`)}>
+                    <Text numberOfLines={1} variant="header-sm">
+                        {match.gameVariant === 'ror' && 'RoR - '}
+                        {match.mapName}
+                        {match.server && <Text> - {match.server}</Text>}
+                    </Text>
+                </TouchableOpacity>
+
                 <Text numberOfLines={1}>{attributes.join(' - ')}</Text>
 
                 <ElapsedTimeOrDuration match={match} />

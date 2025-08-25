@@ -248,14 +248,14 @@ export default function IndexPage() {
                 <View className="gap-2">
                     <Text variant="header-lg" className="mb-1">Ranked Maps</Text>
                     <View className="mb-3">
-                        <ButtonPicker value={rankedMapLeaderboard ?? firstValue} values={values} formatter={formatLeaderboard} onSelect={setRankedMapLeaderboard} />
+                        <ButtonPicker flex={true} value={rankedMapLeaderboard ?? firstValue} values={values} formatter={formatLeaderboard} onSelect={setRankedMapLeaderboard} />
                     </View>
-                    <View className="flex-row flex-wrap gap-y-4">
+                    <View className="flex-row flex-wrap">
                         {rankedMaps?.leaderboards?.find(l => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))?.maps?.map((map => (
                             <TouchableOpacity key={map.mapId} className="flex-col justify-between items-center w-[25%]"  onPress={() => router.push(`/explore/maps/${map.mapId}`)}>
-                                <Image source={{ uri: map.imageUrl }} style={{ width: 80, height: 80 }} className="mb-2" />
+                                <Image source={{ uri: map.imageUrl }} style={{ width: 75, height: 75 }} className="mb-2" />
                                 <Text variant={'body-sm'} className="text-center mb-1">{map.mapName}</Text>
-                                <Text variant={'body-sm'}>{map.percentage.toFixed(0)} %</Text>
+                                <Text variant={'body-sm'} className="text-center mb-4">{map.percentage.toFixed(0)} %</Text>
                             </TouchableOpacity>
                         )))}
                     </View>
