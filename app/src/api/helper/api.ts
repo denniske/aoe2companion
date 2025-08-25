@@ -5,12 +5,16 @@ import {
     IAssetsResult,
     IFetchLeaderboardParams,
     IFetchLeaderboardsParams,
+    IFetchMapsParams,
+    IFetchMapsRankedParams,
     IFetchMatchesParams,
     IFetchMatchParams,
     IFetchProfileParams,
     IFetchProfilesParams,
     ILeaderboard,
     ILeaderboardDef,
+    IMapsRankedResult,
+    IMapsResult,
     IMatchesResult,
     IMatchNew,
     INewsResult,
@@ -112,4 +116,24 @@ export async function fetchLeaderboards(params: IFetchLeaderboardsParams) {
 export async function fetchNews() {
     const url = `${getHost('aoe2companion-data')}api/news`;
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as INewsResult;
+}
+
+export async function fetchMaps(params: IFetchMapsParams) {
+    const queryString = makeQueryString(
+        decamelizeKeys({
+            ...removeReactQueryParams(params),
+        })
+    );
+    const url = `${getHost('aoe2companion-data')}api/maps?${queryString}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMapsResult;
+}
+
+export async function fetchMapsRanked(params: IFetchMapsRankedParams) {
+    const queryString = makeQueryString(
+        decamelizeKeys({
+            ...removeReactQueryParams(params),
+        })
+    );
+    const url = `${getHost('aoe2companion-data')}api/maps/ranked?${queryString}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMapsRankedResult;
 }

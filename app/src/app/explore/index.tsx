@@ -8,7 +8,7 @@ import { Link } from '@app/components/link';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getBuildingIcon } from '@app/helper/buildings';
-import { getCivIconLocal } from '@app/helper/civs';
+import { getCivIcon, getCivIconLocal } from '@app/helper/civs';
 import { getTechIcon } from '@app/helper/techs';
 import { getUnitIcon } from '@app/helper/units';
 import BuildCard from '@app/view/components/build-order/build-card';
@@ -31,16 +31,18 @@ import { appConfig } from '@nex/dataset';
 import { buildsData } from 'data/src/data/builds';
 import { Image } from 'expo-image';
 import { Redirect, Stack, router } from 'expo-router';
-import { get, reverse, sortBy, uniq } from 'lodash';
+import { compact, get, orderBy, reverse, sortBy, uniq } from 'lodash';
 import { useState } from 'react';
 import { ImageSourcePropType, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
+import { useMaps } from '@app/queries/all';
 
 type Item =
-    | { name: Civ; title: string; type: 'civ' }
-    | { name: Unit; title: string; type: 'unit'; section: string }
-    | { name: Building; title: string; type: 'building'; section: string }
-    | { name: Tech; title: string; type: 'tech'; section?: string };
+    | { name: Civ; title: string; type: 'civ', image?: any }
+    | { name: Unit; title: string; type: 'unit'; section: string, image?: any }
+    | { name: Building; title: string; type: 'building'; section: string, image?: any }
+    | { name: Tech; title: string; type: 'tech'; section?: string, image?: any }
+    | { name: string; title: string; type: 'map'; section?: string, image?: any };
 
 const typeAttributes: Record<Item['type'], { path: string; labelKey: string; title: (name: any) => string; icon: (name: any) => ImageSourcePropType }> =
     {
@@ -48,6 +50,7 @@ const typeAttributes: Record<Item['type'], { path: string; labelKey: string; tit
         unit: { path: 'units', labelKey: 'explore.unit', title: getUnitName, icon: getUnitIcon },
         building: { path: 'buildings', labelKey: 'explore.building', title: getBuildingName, icon: getBuildingIcon },
         tech: { path: 'technologies', labelKey: 'explore.tech', title: getTechName, icon: getTechIcon },
+        map: { path: 'maps', labelKey: 'explore.map', title: getTechName, icon: getTechIcon },
     };
 
 const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
@@ -59,9 +62,9 @@ const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
             className={`flex-row items-center py-2.5 gap-2 -mx-4 px-4 -mb-px ${index === 0 ? 'bg-gold-100 dark:bg-blue-900 z-10' : ''}`}
             onPress={() => router.navigate(`/explore/${path}/${item.name}`)}
         >
-            <Image source={icon(item.name)} className="w-8 h-8" />
+            <Image source={item.image} className="w-8 h-8" />
             <View className="flex-1">
-                <Text variant="label">{title(item.name)}</Text>
+                <Text variant="label">{item.title}</Text>
             </View>
             <Text color="subtle" variant="body-sm">
                 {item.type !== 'civ' && item.section && item.section} {getTranslation(labelKey as any)}
@@ -77,17 +80,30 @@ export default function Explore() {
         avg_rating: build.avg_rating ?? 0,
         number_of_ratings: build.number_of_ratings ?? 0,
     }));
+    const { data: maps } = useMaps();
     const sortedBuilds = reverse(sortBy(formattedBuilds, ['avg_rating', 'number_of_ratings']));
     const [search, setSearch] = useState('');
     const allData: Item[] = [
-        ...civs.map<Item>((civ) => ({ name: civ, title: getCivNameById(civ), type: 'civ' })),
+        ...civs.map<Item>((civ) => ({
+            name: civ,
+            title: getCivNameById(civ),
+            image: getCivIconLocal(civ),
+            type: 'civ'
+        })),
         ...allUnitSections.flatMap((section) =>
-            section.data.map<Item>((unit) => ({ name: unit, title: getUnitName(unit), type: 'unit', section: getTranslation(section.title as any) }))
+            section.data.map<Item>((unit) => ({
+                name: unit,
+                title: getUnitName(unit),
+                image: getUnitIcon(unit),
+                type: 'unit',
+                section: getTranslation(section.title as any)
+            }))
         ),
         ...buildingSections.flatMap((section) =>
             section.data.map<Item>((building) => ({
                 name: building,
                 title: getBuildingName(building),
+                image: getBuildingIcon(building),
                 type: 'building',
                 section: getTranslation(section.title as any),
             }))
@@ -96,10 +112,17 @@ export default function Explore() {
             section.data.map<Item>((tech) => ({
                 name: tech,
                 title: getTechName(tech),
+                image: getTechIcon(tech),
                 type: 'tech',
                 section: section.building ? getBuildingName(section.building) : getCivNameById(section.civ!),
             }))
         ),
+        ...compact(maps).map((map) => ({
+            name: map.mapId,
+            title: map.mapName,
+            image: { uri: map.imageUrl },
+            type: 'map'
+        }) as Item),
     ];
     const filteredData = search
         ? uniq([
@@ -153,6 +176,7 @@ export default function Explore() {
                     />
                 ) : (
                     <ScrollView className="flex-1" contentContainerStyle="gap-5 pb-4" keyboardShouldPersistTaps="handled">
+
                         <View className="gap-2">
                             <View className="flex-row justify-between items-center px-4">
                                 <Text variant="header-lg">{getTranslation('explore.civilizations')}</Text>
@@ -291,6 +315,33 @@ export default function Explore() {
                                 keyExtractor={(item) => item.id.toString()}
                             />
                         </View>
+
+                        <View className="gap-2">
+                            <View className="flex-row justify-between items-center px-4">
+                                <Text variant="header-lg">{getTranslation('explore.maps')}</Text>
+                                <Link href="/explore/maps">{getTranslation('explore.viewall')}</Link>
+                            </View>
+
+                            <FlatList
+                                initialNumToRender={5}
+                                showsHorizontalScrollIndicator={false}
+                                className="flex-none"
+                                horizontal
+                                keyboardShouldPersistTaps="always"
+                                data={orderBy(compact(maps), map => map.mapName)}
+                                contentContainerStyle="gap-2.5 px-4"
+                                renderItem={({ item: map }) => (
+                                    <Card direction="vertical" className="w-20 items-center py-2.5 px-1 gap-1" href={`/explore/maps/${map.mapId}`}>
+                                        <Image className="w-8 h-8" source={{ uri: map.imageUrl }} contentFit="contain" />
+                                        <Text variant="label-sm" numberOfLines={1}>
+                                            {map.mapName}
+                                        </Text>
+                                    </Card>
+                                )}
+                                keyExtractor={(item) => item.mapId}
+                            />
+                        </View>
+
                     </ScrollView>
                 )}
             </View>

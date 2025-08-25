@@ -269,6 +269,16 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '151.0.0': [
         {
+            type: 'feature',
+            title: 'Map List',
+            content: '"Ever dreamed of an endlessly unpredictable map where anything is possible and nothing is guaranteed? Multiply it by ten and you have... MegaRandom."',
+        },
+        {
+            type: 'feature',
+            title: 'Map Pool',
+            content: 'See which maps are currently in the ranked map pool. As there is no official endpoint for map pool, this is calculated from the played maps in ranked leaderboards and might be inaccurate when a new patch is released.',
+        },
+        {
             type: 'minor',
             title: 'Show player profile images instead of country flag in player search',
         },

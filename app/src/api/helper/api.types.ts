@@ -317,6 +317,34 @@ export type INews = {
     link: string;
 };
 
+export type IMapsResult = IMap[];
+
+export type IMap = {
+    mapId: string;
+    mapName: string;
+    description: string;
+    imageUrl: string;
+};
+
+export type IMapsRankedResult = {
+    patch: number
+    patchVersion: number
+    leaderboards: Array<{
+        leaderboardId: string
+        leaderboardName: string
+        abbreviation: string
+        maps: Array<{
+            mapId: string
+            mapName: string
+            description: string
+            imageUrl: string
+            count: number
+            percentage: number
+        }>
+    }>
+}
+
+
 export interface IMatchesResult {
     perPage: number;
     page: number;
@@ -687,6 +715,14 @@ export interface IFetchLeaderboardParams {
 }
 
 export interface IFetchLeaderboardsParams {
+    language: string;
+}
+
+export interface IFetchMapsParams {
+    language: string;
+}
+
+export interface IFetchMapsRankedParams {
     language: string;
 }
 

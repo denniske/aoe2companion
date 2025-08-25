@@ -14,20 +14,20 @@ import { useNews } from '@app/utils/news';
 import BuildCard from '@app/view/components/build-order/build-card';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
 import * as Notifications from '../service/notifications';
-import { Stack, useFocusEffect, useRootNavigationState, useRouter } from 'expo-router';
+import { router, Stack, useFocusEffect, useRootNavigationState, useRouter } from 'expo-router';
 import React, { useCallback, useEffect } from 'react';
-import { ActivityIndicator, Platform, View } from 'react-native';
+import { ActivityIndicator, Platform, TouchableOpacity, View } from 'react-native';
 import { Button } from '@app/components/button';
 import {
     useAccountData,
-    useAuthProfileId,
+    useAuthProfileId, useMapsRanked,
     useMatch,
     useMatchAnalysis,
     useMatchAnalysisSvg,
     useWithRefetching,
 } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
-import SkiaLoader from '@app/components/skia-loader';
+import { Image } from 'expo-image';
 
 // export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 //     return (
@@ -48,6 +48,7 @@ export default function IndexPage() {
     const router = useRouter();
     const { favorites, refetch } = useFavoritedBuilds();
     const { followedIds, refetch: refetchTournament } = useFollowedTournaments();
+    const { data: rankedMaps } = useMapsRanked();
 
     useFocusEffect(
         useCallback(() => {
@@ -234,6 +235,19 @@ export default function IndexPage() {
                     data={news}
                     renderItem={({ item }) => <NewsCard {...item} />}
                 />
+            </View>
+
+            <View className="gap-2">
+                <Text variant="header-lg" className="mb-2">Ranked Maps</Text>
+                <View className="flex-row flex-wrap gap-y-4">
+                    {rankedMaps?.leaderboards?.[0]?.maps?.map((map => (
+                        <TouchableOpacity key={map.mapId} className="flex-col justify-between items-center w-[25%]"  onPress={() => router.push(`/explore/maps/${map.mapId}`)}>
+                            <Image source={{ uri: map.imageUrl }} style={{ width: 80, height: 80 }} className="mb-2" />
+                            <Text variant={'body-sm'} className="text-center mb-1">{map.mapName}</Text>
+                            <Text variant={'body-sm'}>{map.percentage.toFixed(0)} %</Text>
+                        </TouchableOpacity>
+                    )))}
+                </View>
             </View>
         </ScrollView>
     );

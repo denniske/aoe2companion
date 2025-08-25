@@ -1,5 +1,14 @@
 import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { fetchLeaderboards, fetchMatch, fetchMatchAnalysis, fetchMatchAnalysisSvg, fetchProfile, fetchProfiles } from '@app/api/helper/api';
+import {
+    fetchLeaderboards,
+    fetchMaps,
+    fetchMapsRanked,
+    fetchMatch,
+    fetchMatchAnalysis,
+    fetchMatchAnalysisSvg,
+    fetchProfile,
+    fetchProfiles,
+} from '@app/api/helper/api';
 import { fetchAccount, IAccount } from '@app/api/account';
 import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query/src/types';
@@ -165,3 +174,21 @@ export function useWithRefetching<TData, TError>(result: UseQueryResult<TData, T
         isRefetching,
     };
 }
+
+export const useMaps = () => {
+    const language = useLanguage();
+    return useQuery({
+        queryKey: ['maps'],
+        queryFn: () => fetchMaps({ language: language! }),
+        enabled: !!language,
+    });
+};
+
+export const useMapsRanked = () => {
+    const language = useLanguage();
+    return useQuery({
+        queryKey: ['maps-ranked'],
+        queryFn: () => fetchMapsRanked({ language: language! }),
+        enabled: !!language,
+    });
+};
