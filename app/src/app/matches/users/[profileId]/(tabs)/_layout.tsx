@@ -176,7 +176,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                                             <FontAwesome5 name="steam" size={30} color={theme.textNoteColor} />
                                         </View>
                                         <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(steamProfileUrl)}>
-                                            <Text variant="header-xs">Steam</Text>
+                                            <Text variant="header-xs">{profile?.platformName}</Text>
                                             <Text variant="body">{profile?.steamId}</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -189,7 +189,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                                             <FontAwesome5 className="w-8" name="xbox" size={28} color={theme.textNoteColor} />
                                         </View>
                                         <TouchableOpacity className="flex-col gap-0" disabled={true}>
-                                            <Text variant="header-xs">Xbox</Text>
+                                            <Text variant="header-xs">{profile?.platformName}</Text>
                                             <Text variant="body">{profile?.steamId}</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -202,7 +202,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                                             <FontAwesome5 name="playstation" size={26} color={theme.textNoteColor} />
                                         </View>
                                         <TouchableOpacity className="flex-col gap-0" disabled={true}>
-                                            <Text variant="header-xs">PSN</Text>
+                                            <Text variant="header-xs">{profile?.platformName}</Text>
                                             <Text variant="body">{profile?.steamId}</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -242,7 +242,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                                                 className="flex-row gap-1 items-center"
                                                 onPress={() => navigateToLinkedProfile(linkedProfile.profileId)}
                                             >
-                                                <CountryImage country={profileFull.verified ? profileFull?.country || linkedProfile.country : linkedProfile.country} />
+                                                <Image source={{ uri: linkedProfile.avatarMediumUrl }} className="w-5 h-5 mr-1 rounded-full" />
                                                 <Text variant="body">{linkedProfile.name}</Text>
                                                 {linkedProfile.verified && (
                                                     <Icon

@@ -213,6 +213,7 @@ interface ILinkedProfile {
     profileId: number
     steamId: any
     name: string
+    avatarMediumUrl: string
     country: any
     games: number
     drops: number
@@ -283,6 +284,7 @@ export interface IProfilesResultProfile {
     profileId: number
     steamId: string
     platform: string
+    platformName: string
     name: string
     country: string
     games: number
