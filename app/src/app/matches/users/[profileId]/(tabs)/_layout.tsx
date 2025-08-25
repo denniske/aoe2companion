@@ -172,7 +172,9 @@ export function UserMenu({ profile }: UserMenuProps) {
                             {profile?.steamId && (profile?.platform === 'steam') && (
                                 <>
                                     <View className="flex flex-row gap-2 items-center">
-                                        <FontAwesome5 name="steam" size={30} color={theme.textNoteColor} />
+                                        <View className="flex-col items-center w-8">
+                                            <FontAwesome5 name="steam" size={30} color={theme.textNoteColor} />
+                                        </View>
                                         <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(steamProfileUrl)}>
                                             <Text variant="header-xs">Steam</Text>
                                             <Text variant="body">{profile?.steamId}</Text>
@@ -183,7 +185,9 @@ export function UserMenu({ profile }: UserMenuProps) {
                             {profile?.steamId && profile?.platform === 'xbox' && (
                                 <>
                                     <View className="flex flex-row gap-2 items-center">
-                                        <FontAwesome5 name="xbox" size={28} color={theme.textNoteColor} />
+                                        <View className="flex-col items-center w-8">
+                                            <FontAwesome5 className="w-8" name="xbox" size={28} color={theme.textNoteColor} />
+                                        </View>
                                         <TouchableOpacity className="flex-col gap-0" disabled={true}>
                                             <Text variant="header-xs">Xbox</Text>
                                             <Text variant="body">{profile?.steamId}</Text>
@@ -194,7 +198,9 @@ export function UserMenu({ profile }: UserMenuProps) {
                             {profile?.steamId && profile?.platform === 'psn' && (
                                 <>
                                     <View className="flex flex-row gap-2 items-center">
-                                        <FontAwesome5 name="playstation" size={26} color={theme.textNoteColor} />
+                                        <View className="flex-col items-center w-8">
+                                            <FontAwesome5 name="playstation" size={26} color={theme.textNoteColor} />
+                                        </View>
                                         <TouchableOpacity className="flex-col gap-0" disabled={true}>
                                             <Text variant="header-xs">PSN</Text>
                                             <Text variant="body">{profile?.steamId}</Text>
