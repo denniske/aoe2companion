@@ -167,7 +167,7 @@ export default function CurrentLobbyOrMatchPage() {
             {/*                    <Icon icon="clock" size={14} color="subtle" />*/}
             {/*                    <Text color="subtle">-</Text>*/}
             {/*                </View>*/}
-            {/*                {appConfig.game === 'aoe2de' && (*/}
+            {/*                {appConfig.game === 'aoe2' && (*/}
             {/*                    <View className="flex-row items-center gap-1">*/}
             {/*                        <Icon icon="running" size={14} color="subtle" />*/}
             {/*                        <Text color="subtle">{match.speedName}</Text>*/}

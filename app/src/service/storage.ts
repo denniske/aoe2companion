@@ -145,7 +145,7 @@ export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
     await AsyncStorage.setItem('following', JSON.stringify(following));
 };
 
-if (Platform.OS === 'ios' && appConfig.game === 'aoe2de') {
+if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
     Widget.setAppGroup(`group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
     // console.log('setAppGroup', `group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
 }
@@ -168,7 +168,7 @@ export const useFavoritedBuilds = () => {
     const writeItemToStorage = async (newValue: FavoriteId[]) => {
         // let start = new Date();
 
-        if (Platform.OS === 'ios' && appConfig.game === 'aoe2de') {
+        if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
             const newWidgetData = JSON.stringify(
                 buildsData
                     .filter((build) => newValue.includes(build.id))

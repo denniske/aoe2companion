@@ -36,6 +36,7 @@ import { useAppTheme } from '@app/theming';
 import { MenuNew } from '@app/components/menu';
 import { useTranslation } from '@app/helper/translate';
 import { showAlert } from '@app/helper/alert';
+import { appConfig } from '@nex/dataset';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -116,8 +117,9 @@ export function UserMenu({ profile }: UserMenuProps) {
         return null;
     }
 
-    const steamProfileUrl = 'https://steamcommunity.com/profiles/' + profile?.steamId;
-    const xboxProfileUrl = 'https://www.ageofempires.com/stats/?game=age2&profileId=' + profile?.profileId;
+    const steamProfileUrl = `https://steamcommunity.com/profiles/${profile?.steamId}`;
+    const ageofempiresProfileUrl = `https://www.ageofempires.com/stats/?game=${appConfig.game}&profileId=${profile?.profileId}`;
+    const aoecompanionProfileUrl = `https://${appConfig.hostAoeCompanion}/profile/${profile?.profileId}`;
 
     const navigateToLinkedProfile = (profileId: number | undefined) => {
         setLinkedProfilesVisible(false);
@@ -167,23 +169,59 @@ export function UserMenu({ profile }: UserMenuProps) {
                 >
                     <View className="w-60">
                         <View className="gap-3">
-                            {profile?.steamId && (
+                            {profile?.steamId && (profile?.platform === 'steam') && (
                                 <>
-                                    <Text variant="header-sm">Steam</Text>
-                                    <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => openLink(steamProfileUrl)}>
-                                        <FontAwesome5 name="steam" size={14} color={theme.textNoteColor} />
-                                        <Text variant="body">{profile?.steamId}</Text>
-                                    </TouchableOpacity>
+                                    <View className="flex flex-row gap-2 items-center">
+                                        <FontAwesome5 name="steam" size={30} color={theme.textNoteColor} />
+                                        <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(steamProfileUrl)}>
+                                            <Text variant="header-xs">Steam</Text>
+                                            <Text variant="body">{profile?.steamId}</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </>
                             )}
-
+                            {profile?.steamId && profile?.platform === 'xbox' && (
+                                <>
+                                    <View className="flex flex-row gap-2 items-center">
+                                        <FontAwesome5 name="xbox" size={28} color={theme.textNoteColor} />
+                                        <TouchableOpacity className="flex-col gap-0" disabled={true}>
+                                            <Text variant="header-xs">Xbox</Text>
+                                            <Text variant="body">{profile?.steamId}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </>
+                            )}
+                            {profile?.steamId && profile?.platform === 'psn' && (
+                                <>
+                                    <View className="flex flex-row gap-2 items-center">
+                                        <FontAwesome5 name="playstation" size={26} color={theme.textNoteColor} />
+                                        <TouchableOpacity className="flex-col gap-0" disabled={true}>
+                                            <Text variant="header-xs">PSN</Text>
+                                            <Text variant="body">{profile?.steamId}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </>
+                            )}
                             {profileId && (
                                 <>
-                                    <Text variant="header-sm">ageofempires.com</Text>
-                                    <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => openLink(xboxProfileUrl)}>
-                                        <FontAwesome5 name="xbox" size={14} color={theme.textNoteColor} />
-                                        <Text variant="body">{profileId}</Text>
-                                    </TouchableOpacity>
+                                    <View className="flex flex-row gap-2 items-center">
+                                        <Image source={require('../../../../../../assets/icon/ageofempires.png')} className="w-8 h-8 rounded-md" />
+                                        <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(ageofempiresProfileUrl)}>
+                                            <Text variant="header-xs">Age of Empires</Text>
+                                            <Text variant="body">{profileId}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </>
+                            )}
+                            {profileId && (
+                                <>
+                                    <View className="flex flex-row gap-2 items-center">
+                                        <Image source={appConfig.game === 'aoe2' ? require('../../../../../../assets/icon/aoe2companion.png') :  require('../../../../../../assets/icon/aoe4companion.png')} className="w-8 h-8 rounded-md" />
+                                        <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(aoecompanionProfileUrl)}>
+                                            <Text variant="header-xs">{appConfig.app.name}</Text>
+                                            <Text variant="body">{profileId}</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </>
                             )}
 

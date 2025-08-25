@@ -22,7 +22,7 @@ export default function CivDetails() {
     const civ = name!;
     const { colorScheme } = useColorScheme();
 
-    if (appConfig.game !== 'aoe2de') {
+    if (appConfig.game !== 'aoe2') {
         return <Civ4Details civ={civ} />;
     }
 

@@ -41,7 +41,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                     {player.won === false && (freeForAll || player.team != -1) && <Icon icon="skull" color="text-gray-500" />}
                 </View>
             )}
-            {appConfig.game === 'aoe2de' && (
+            {appConfig.game === 'aoe2' && (
                 <View className="w-5 h-5 items-center justify-center" style={{ backgroundColor: playerColor }}>
                     <Text variant="title" className="text-sm" color="text-white">
                         {player.color}
@@ -72,7 +72,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 {signed(player.ratingDiff!)}
             </Text>
 
-            {Platform.OS === 'web' && appConfig.game === 'aoe2de' && canDownloadRec && (
+            {Platform.OS === 'web' && appConfig.game === 'aoe2' && canDownloadRec && (
                 <Pressable onPress={downloadRec}>
                     <Icon icon="cloud-download-alt" color="text-gray-500" />
                 </Pressable>
@@ -80,7 +80,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
 
             <Link href={player.civ ? `/explore/civilizations/${getLocalCivEnum(player.civ)}` : ''} disabled={!player.civ} asChild>
                 <TouchableOpacity className="flex-row flex-1 gap-1" onPress={onClose}>
-                    <Image className={appConfig.game === 'aoe2de' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="contain" />
+                    <Image className={appConfig.game === 'aoe2' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="contain" />
                     <Text numberOfLines={1} variant={highlight ? 'label' : 'body'} className="flex-1">
                         {player.civName}
                     </Text>

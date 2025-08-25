@@ -117,7 +117,7 @@ const unitSections: IUnitSection[] = [
                 'Missionary',
             ],
     },
-    ...(appConfig.game === 'aoe2de' ? [
+    ...(appConfig.game === 'aoe2' ? [
         {
             icon: 'star',
             title: 'unit.section.unique',

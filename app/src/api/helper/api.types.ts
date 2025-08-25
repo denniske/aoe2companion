@@ -282,6 +282,7 @@ export interface IProfilesResultProfile {
 
     profileId: number
     steamId: string
+    platform: string
     name: string
     country: string
     games: number

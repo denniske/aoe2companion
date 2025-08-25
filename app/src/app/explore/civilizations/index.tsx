@@ -76,11 +76,11 @@ export default function CivList() {
     const renderItem = (civ: Civ, index: number) => (
         <TouchableOpacity key={civ} onPress={() => router.push(`/explore/civilizations/${civ}`)}>
             <View className={`flex-row items-center py-1.5 -mx-4 px-4 ${text && index === 0 ? 'bg-gold-100 dark:bg-blue-900' : ''}`}>
-                <Image className={`${appConfig.game === 'aoe2de' ? 'w-8' : 'w-14'} h-8`} source={getCivIconLocal(civ)} />
+                <Image className={`${appConfig.game === 'aoe2' ? 'w-8' : 'w-14'} h-8`} source={getCivIconLocal(civ)} />
                 <View className="flex-1 ml-2.5">
                     <Text variant="label">{getCivNameById(civ)}</Text>
                     <Text variant="body-sm" color="subtle" numberOfLines={1}>
-                        {appConfig.game === 'aoe2de' ? getCivTeamBonus(civ) : getCivStrategies(aoe4CivInfo, civ)}
+                        {appConfig.game === 'aoe2' ? getCivTeamBonus(civ) : getCivStrategies(aoe4CivInfo, civ)}
                     </Text>
                 </View>
             </View>
@@ -92,7 +92,7 @@ export default function CivList() {
             <View className="flex-1">
                 <Stack.Screen options={{ title: getTranslation('civs.title') }} />
 
-                {appConfig.game === 'aoe2de' && (
+                {appConfig.game === 'aoe2' && (
                     <View className="pt-4 px-4">
                         <Field
                             type="search"

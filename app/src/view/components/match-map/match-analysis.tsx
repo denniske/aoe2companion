@@ -70,7 +70,7 @@ export default function MatchAnalysis(props: Props) {
                     </View>
                 ))}
 
-            {!analysis && !analysisError && !analyzeNow && match?.finished && appConfig.game === 'aoe2de' && (
+            {!analysis && !analysisError && !analyzeNow && match?.finished && appConfig.game === 'aoe2' && (
                 <View className="flex-row items-center justify-center h-20">
                     <View className="flex-row justify-center my-3 gap-2">
                         <Button onPress={() => setAnalyzeNow(true)}>Analyze match (Beta)</Button>

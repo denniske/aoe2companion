@@ -35,7 +35,7 @@ export default function(spec: any) {
             await AsyncStorage.removeItem('settings');
 
             let searchPlayerName = '', searchPlayerId = '', searchCiv = '';
-            if (appConfig.game === 'aoe2de') {
+            if (appConfig.game === 'aoe2') {
                 await AsyncStorage.setItem('following', '[{"id":"76561197984749679-196240","steam_id":"76561197984749679","profile_id":196240,"name":"GL.TheViper","games":2243,"country":"NO"},{"id":"76561198011417995-254415","steam_id":"76561198011417995","profile_id":254415,"name":"Modri","games":1168,"country":"SI"},{"id":"76561198083128303-2413974","steam_id":"76561198083128303","profile_id":2413974,"name":"Roggy","games":2298,"country":"TR"}]');
                 searchPlayerName = 'Hera';
                 searchPlayerId = '199325';
@@ -95,7 +95,7 @@ export default function(spec: any) {
             await capture('7-' + routeToScreenshotName(route));
             await sleep(1000);
 
-            if (appConfig.game === 'aoe2de') {
+            if (appConfig.game === 'aoe2') {
                 route = `/explore/build-orders/17?focusMode=true`;
                 router.navigate(route);
                 await sleep(waitTime * 2);

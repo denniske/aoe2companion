@@ -181,7 +181,7 @@ function LiveActivityController() {
     });
 
     useEffect(() => {
-        if (Platform.OS === 'ios' && appConfig.game === 'aoe2de' && accountId) {
+        if (Platform.OS === 'ios' && appConfig.game === 'aoe2' && accountId) {
             console.log('Registering LiveActivity for', accountId);
             LiveActivity.enable();
             cacheLiveActivityAssets();

@@ -45,7 +45,7 @@ export default function CivDetails() {
 
     const civ = name!;
 
-    if (appConfig.game !== 'aoe2de' || !stats || !breakdown || !grouping || !nameLower) {
+    if (appConfig.game !== 'aoe2' || !stats || !breakdown || !grouping || !nameLower) {
         return <View />;
     }
 

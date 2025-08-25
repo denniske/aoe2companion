@@ -47,7 +47,7 @@ export function LivePlayer({ player }: IPlayerProps) {
 
     return (
         <TouchableOpacity style={styles.player} onPress={gotoPlayer}>
-            {appConfig.game === 'aoe2de' && (
+            {appConfig.game === 'aoe2' && (
                 <View className="w-5 h-5 items-center justify-center" style={{ backgroundColor: playerColor }}>
                     <Text variant="title" className="text-sm" color="text-white">
                         {player.color}

@@ -131,7 +131,7 @@ export default function Explore() {
           ])
         : [];
 
-    if (appConfig.game !== 'aoe2de') {
+    if (appConfig.game !== 'aoe2') {
         return <Redirect href="/explore/civilizations" />;
     }
 

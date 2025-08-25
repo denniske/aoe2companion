@@ -88,7 +88,7 @@ export default function ChangelogPage() {
         </View>
     );
 
-    const changelogEntries = Object.entries(appConfig.game === 'aoe2de' ? changelog : changelog4).map(([version, changes]) => ({ version, changes }));
+    const changelogEntries = Object.entries(appConfig.game === 'aoe2' ? changelog : changelog4).map(([version, changes]) => ({ version, changes }));
     const filteredChangelogEntries = changelogEntries.filter((e) => !e.version.includes('+'));
 
     return (

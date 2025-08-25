@@ -780,7 +780,7 @@ https://aoe2.club/playerprofile/196240
 
 - Game Duration
 
-// const game = 'aoe2de';
+// const game = 'aoe2';
 // const steam_id = '76561197995781128';
 // const profile_id = 209525;
 

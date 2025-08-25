@@ -155,7 +155,7 @@ export const techSections: ITechSection[] = [
             "SpiesTreason",
         ],
     },
-    ...(appConfig.game === 'aoe2de' ? [
+    ...(appConfig.game === 'aoe2' ? [
         ...civs.filter(c => c != 'Indians').map(civ => ({
             civ: civ,
             data: civDict[civ].uniqueTechs,

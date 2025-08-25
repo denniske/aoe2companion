@@ -9,7 +9,7 @@ export const useLiveTwitchAccounts = () => {
     const { data: liveTwitchAccounts, ...rest } = useQuery({
         queryKey: ['twitch', 'all'],
         queryFn: async () => {
-            const url = getHost('aoe2companion-api') + `twitch/live?game=${appConfig.game === 'aoe2de' ? '13389' : '498482'}`;
+            const url = getHost('aoe2companion-api') + `twitch/live?game=${appConfig.game === 'aoe2' ? '13389' : '498482'}`;
 
             const { data } = await axios.get(url);
             return (Array.isArray(data) ? data : []) as ITwitchChannel[];

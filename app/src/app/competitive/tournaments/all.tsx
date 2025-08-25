@@ -37,7 +37,7 @@ export default function AllTournaments() {
                     ...tournamentsSection,
                     data: tournamentsSection.data.filter(
                         (tournament) =>
-                            tournament.game === (appConfig.game === 'aoe2de' ? GameVersion.Age2 : GameVersion.Age4) &&
+                            tournament.game === (appConfig.game === 'aoe2' ? GameVersion.Age2 : GameVersion.Age4) &&
                             (transformSearch(tournament.name).includes(transformSearch(search)) ||
                                 tournamentAbbreviation(tournament.name).includes(transformSearch(search)))
                     ),

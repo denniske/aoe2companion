@@ -13,7 +13,7 @@ export default function MapDetails() {
     const { data: maps } = useMaps();
     const map = compact(maps).find((m) => m.mapId === name);
 
-    // if (appConfig.game !== 'aoe2de') {
+    // if (appConfig.game !== 'aoe2') {
     //     return <Civ4Details civ={map} />;
     // }
 

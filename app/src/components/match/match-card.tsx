@@ -59,21 +59,21 @@ export function MatchCard(props: MatchCardProps) {
                     <TouchableOpacity disabled={!linkMap} onPress={() => router.push(`/explore/maps/${match.map}`)}>
                         <Image
                             source={getMapImage(match)}
-                            className={`w-14 h-14 ${appConfig.game === 'aoe2de' ? '' : 'border border-gold-500 rounded'}`}
+                            className={`w-14 h-14 ${appConfig.game === 'aoe2' ? '' : 'border border-gold-500 rounded'}`}
                             contentFit="cover"
                         />
                     </TouchableOpacity>
-                    <View className={`absolute ${appConfig.game === 'aoe2de' ? 'top-0 left-0' : 'top-1 left-1'}`}>
+                    <View className={`absolute ${appConfig.game === 'aoe2' ? 'top-0 left-0' : 'top-1 left-1'}`}>
                         {players.some((p) => p.profileId === user && p.won === true && (freeForAll || p.team != -1)) && (
-                            <Icon size={12} icon="crown" color={appConfig.game === 'aoe2de' ? 'brand' : 'text-gold-500'} />
+                            <Icon size={12} icon="crown" color={appConfig.game === 'aoe2' ? 'brand' : 'text-gold-500'} />
                         )}
 
-                        {user == null && players.some((p) => p.won != null) && appConfig.game !== 'aoe2de' && (
+                        {user == null && players.some((p) => p.won != null) && appConfig.game !== 'aoe2' && (
                             <Image className="w-3 h-3" source={require('../../../assets/other/SkullCrown.png')} />
                         )}
 
                         {players.some((p) => p.profileId === user && p.won === false && (freeForAll || p.team != -1)) && (
-                            <Icon size={12} icon="skull" color={appConfig.game === 'aoe2de' ? 'text-gray-500' : 'text-gray-300'} />
+                            <Icon size={12} icon="skull" color={appConfig.game === 'aoe2' ? 'text-gray-500' : 'text-gray-300'} />
                         )}
                     </View>
                 </View>

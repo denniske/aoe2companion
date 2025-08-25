@@ -1,7 +1,7 @@
 declare var require: any
 
 export const appConfig = {
-    game: 'aoe2de',
+    game: 'aoe2',
     gameTitle: 'Age of Empires II: Definitive Edition',
     hostAoeCompanion: 'aoe2companion.com',
     leaderboards: [

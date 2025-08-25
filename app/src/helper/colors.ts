@@ -37,7 +37,7 @@ export function getLeaderboardTextColor(leaderboard_id: string, darkMode: boolea
     if (darkMode && darkLeaderboardTextColors[leaderboard_id]) {
         return darkLeaderboardTextColors[leaderboard_id];
     }
-    const colors = appConfig.game === 'aoe2de' ? leaderboardTextColorsAoe2 : leaderboardTextColorsAoe4;
+    const colors = appConfig.game === 'aoe2' ? leaderboardTextColorsAoe2 : leaderboardTextColorsAoe4;
     return colors[leaderboard_id] || '#8e8e8e';
 }
 

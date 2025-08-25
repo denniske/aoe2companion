@@ -28,7 +28,7 @@ export default function MapsIndex() {
     const renderItem = (map: IMap, index: number) => (
         <TouchableOpacity key={map.mapId} onPress={() => router.push(`/explore/maps/${map.mapId}`)}>
             <View className={`flex-row items-center py-1.5 -mx-4 px-4 ${text && index === 0 ? 'bg-gold-100 dark:bg-blue-900' : ''}`}>
-                <Image className={`${appConfig.game === 'aoe2de' ? 'w-8' : 'w-14'} h-8`} source={{ uri: map.imageUrl }} />
+                <Image className={`${appConfig.game === 'aoe2' ? 'w-8' : 'w-14'} h-8`} source={{ uri: map.imageUrl }} />
                 <View className="flex-1 ml-2.5">
                     <Text variant="label">{map.mapName}</Text>
                     <Text variant="body-sm" color="subtle" numberOfLines={1}>
@@ -44,7 +44,7 @@ export default function MapsIndex() {
             <View className="flex-1">
                 <Stack.Screen options={{ title: getTranslation('civs.title') }} />
 
-                {appConfig.game === 'aoe2de' && (
+                {appConfig.game === 'aoe2' && (
                     <View className="pt-4 px-4">
                         <Field
                             type="search"

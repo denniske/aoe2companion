@@ -324,7 +324,7 @@ const aoe4CivNameDict = {
 }
 
 export function getCivNameById(civ: Civ) {
-    if (appConfig.game === 'aoe2de') {
+    if (appConfig.game === 'aoe2') {
         const civNameKey = aoeData.civ_names[civ as any as keyof typeof aoeData.civ_names];
         return getAoeString(civNameKey);
     }

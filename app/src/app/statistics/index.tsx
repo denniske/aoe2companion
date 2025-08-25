@@ -8,7 +8,7 @@ import { Platform, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 
 export default function StatisticsPage() {
-    if (appConfig.game !== 'aoe2de') {
+    if (appConfig.game !== 'aoe2') {
         return <Redirect href="/statistics/leaderboard" />;
     }
 

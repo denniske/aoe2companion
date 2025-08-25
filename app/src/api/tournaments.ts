@@ -30,7 +30,7 @@ export const useUpcomingTournaments = () =>
     useQuery<Tournament[]>({
         queryKey: ['tournaments'],
         staleTime: 120000, // 0
-        queryFn: async () => await liquipedia.aoe.getUpcomingTournaments(appConfig.game === 'aoe2de' ? GameVersion.Age2 : GameVersion.Age4),
+        queryFn: async () => await liquipedia.aoe.getUpcomingTournaments(appConfig.game === 'aoe2' ? GameVersion.Age2 : GameVersion.Age4),
         enabled: tournamentsEnabled,
     });
 

@@ -186,7 +186,7 @@ const useStyles = createStylesheet((theme) =>
             // backgroundColor: 'red',
         },
         civIcon:
-            appConfig.game === 'aoe2de'
+            appConfig.game === 'aoe2'
                 ? {
                       width: 20,
                       height: 20,
@@ -198,7 +198,7 @@ const useStyles = createStylesheet((theme) =>
                       marginRight: 5,
                   },
         icon:
-            appConfig.game === 'aoe2de'
+            appConfig.game === 'aoe2'
                 ? {
                       width: 20,
                       height: 20,

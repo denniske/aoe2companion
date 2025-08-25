@@ -317,7 +317,7 @@ export default function AboutPage() {
 
             <MyText style={styles.heading}>{getTranslation('about.heading.source')}</MyText>
 
-            {appConfig.game === 'aoe2de' && (
+            {appConfig.game === 'aoe2' && (
                 <>
                     <View style={styles.row}>
                         <MyText style={styles.content}>Game data from </MyText>
@@ -404,7 +404,7 @@ export default function AboutPage() {
             <Space />
             <Space />
 
-            {appConfig.game === 'aoe2de' && (
+            {appConfig.game === 'aoe2' && (
                 <MyText style={styles.textJustify}>
                     This app was created under Microsoft's "
                     <MyText

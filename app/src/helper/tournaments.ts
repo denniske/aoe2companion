@@ -14,7 +14,7 @@ import { orderBy, startCase } from 'lodash';
 import { formatCurrency } from 'react-native-format-currency';
 
 export const sortedTiers: TournamentCategory[] =
-    appConfig.game === 'aoe2de'
+    appConfig.game === 'aoe2'
         ? [
               Age2TournamentCategory.TierS,
               Age2TournamentCategory.TierA,

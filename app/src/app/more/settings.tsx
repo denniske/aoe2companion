@@ -281,7 +281,7 @@ export default function SettingsPage() {
                             divider={divider}
                             value={account?.mainPage || '/'}
                             values={
-                                appConfig.game === 'aoe2de'
+                                appConfig.game === 'aoe2'
                                     ? [
                                           '/',
                                           '/matches',
