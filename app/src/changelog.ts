@@ -267,6 +267,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '154.0.0': [
+        {
+            type: 'minor',
+            title: 'Show player profile images instead of country flag in leaderboard',
+        },
+    ],
     '153.0.0': [
         {
             type: 'feature',

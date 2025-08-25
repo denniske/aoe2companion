@@ -700,6 +700,7 @@ export interface ILeaderboardPlayer {
     updatedAt: string;
     games: number;
     country: string;
+    avatarSmallUrl?: string;
 }
 
 export interface IFetchLeaderboardParams {

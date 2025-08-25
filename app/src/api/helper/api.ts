@@ -96,6 +96,7 @@ export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
     const queryString = makeQueryString(
         decamelizeKeys({
             ...removeReactQueryParams(restParams),
+            extend: 'players.avatar_small_url',
             page: restParams.page || restParams.pageParam || 1,
         })
     );

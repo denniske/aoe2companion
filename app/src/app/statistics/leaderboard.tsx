@@ -34,6 +34,7 @@ import { useAuthProfileId, useFollowedAndMeProfileIds, useLanguage, useLeaderboa
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 import { countryEarth, CountrySelect, isCountry } from '@app/components/select/country-select';
 import { useTranslation } from '@app/helper/translate';
+import { ImageLoader } from '@app/view/components/loader/image-loader';
 
 const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
@@ -506,7 +507,7 @@ function RenderRow(props: RenderRowProps) {
 
                 <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
                 <View style={styles.cellName}>
-                    <CountryImageLoader country={player?.country} ready={player} />
+                    <ImageLoader source={{uri: player?.avatarSmallUrl}} ready={player} className="w-5 h-5 mr-2 rounded-full" />
                     <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>
                         {player?.name}
                     </TextLoader>
