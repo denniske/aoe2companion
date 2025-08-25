@@ -267,7 +267,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '152.0.0': [
+    '153.0.0': [
         {
             type: 'feature',
             title: 'Map List',

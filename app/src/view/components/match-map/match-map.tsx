@@ -19,9 +19,9 @@ import Legend from './legend';
 import Uptimes from '@app/view/components/match-map/uptimes';
 import { Card } from '@app/components/card';
 import Eapm from '@app/view/components/match-map/eapm';
-import { useDarkMode } from '@app/app/_layout';
 import { aoe2PlayerColorsLightModeChatLegend } from '@app/helper/colors';
 import Timeseries from '@app/view/components/match-map/timeseries';
+import { useDarkMode } from '@app/hooks/use-dark-mode';
 
 interface Props {
     match?: IMatchNew;
