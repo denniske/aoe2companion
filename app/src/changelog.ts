@@ -287,6 +287,10 @@ export const changelog: IChangelog = {
             title: 'Caching news server side for faster loading',
         },
         {
+            type: 'minor',
+            title: 'Updated build order data',
+        },
+        {
             type: 'bugfix',
             title: 'Fix reset of profile page',
         },
