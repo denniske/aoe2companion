@@ -267,6 +267,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '154.0.0': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 153015](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-153015/)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix maps page title',
+        },
+    ],
     '153.0.0': [
         {
             type: 'feature',

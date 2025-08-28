@@ -7,6 +7,7 @@ import { useTranslation } from '@app/helper/translate';
 import { useAppTheme } from '@app/theming';
 import { Card } from '@app/components/card';
 import { appConfig } from '@nex/dataset';
+import { Image } from 'expo-image';
 
 interface Props {
     match: IMatchNew;
@@ -55,52 +56,61 @@ export default function MatchOptions(props: Props) {
             {appConfig.game === 'aoe2de' && (
                 <View className="flex-col gap-1">
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[50%]">{getTranslation('match.gameMode')}:</Text>
-                        <Text className="flex-1">{match.gameModeName}</Text>
+                        <Text className="w-[50%] ml-5">{getTranslation('match.gameMode')}:</Text>
+                        <Text className="flex-1 -ml-5">{match.gameModeName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[50%]">{getTranslation('match.map')}:</Text>
-                        <Text className="flex-1">{match.mapName}</Text>
+                        <Text className="w-[50%] ml-5">{getTranslation('match.map')}:</Text>
+                        <Text className="flex-1 -ml-5">{match.mapName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[50%]">{getTranslation('match.mapsize')}:</Text>
-                        <Text className="flex-1">{match.mapSizeName}</Text>
+                        <Text className="w-[50%] ml-5">{getTranslation('match.mapsize')}:</Text>
+                        <Text className="flex-1 -ml-5">{match.mapSizeName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
+                        <Image source={require('../../../assets/explorer/match-icons/difficulty.png')} className="w-4 h-4"/>
                         <Text className="w-[50%]">{getTranslation('match.aidifficulty')}:</Text>
-                        <Text className="flex-1">{match.difficultyName}</Text>
+                        <Text className="flex-1 -ml-5">{match.difficultyName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
+                        <Image source={require('../../../assets/explorer/match-icons/resources.png')} className="w-4 h-4"/>
                         <Text className="w-[50%]">{getTranslation('match.resources')}:</Text>
-                        <Text className="flex-1">{match.resourcesName}</Text>
+                        <Text className="flex-1 -ml-5">{match.resourcesName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
+                        <Image source={require('../../../assets/explorer/match-icons/population.png')} className="w-4 h-4"/>
                         <Text className="w-[50%]">{getTranslation('match.population')}:</Text>
-                        <Text className="flex-1">{match.population}</Text>
+                        <Text className="flex-1 -ml-5">{match.population}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
+                        <Image source={require('../../../assets/explorer/match-icons/speed.png')} className="w-4 h-4"/>
                         <Text className="w-[50%]">{getTranslation('match.gamespeed')}:</Text>
-                        <Text className="flex-1">{match.speedName}</Text>
+                        <Text className="flex-1 -ml-5">{match.speedName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
+                        <Image source={require('../../../assets/explorer/match-icons/visibility.png')} className="w-4 h-4"/>
                         <Text className="w-[50%]">{getTranslation('match.revealmap')}:</Text>
-                        <Text className="flex-1">{match.revealMapName}</Text>
+                        <Text className="flex-1 -ml-5">{match.revealMapName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
+                        <Image source={require('../../../assets/explorer/match-icons/age.png')} className="w-4 h-4"/>
                         <Text className="w-[50%]">{getTranslation('match.startingage')}:</Text>
-                        <Text className="flex-1">{match.startingAgeName}</Text>
+                        <Text className="flex-1 -ml-5">{match.startingAgeName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
+                        <Image source={require('../../../assets/explorer/match-icons/age.png')} className="w-4 h-4"/>
                         <Text className="w-[50%]">{getTranslation('match.endingage')}:</Text>
-                        <Text className="flex-1">{match.endingAgeName}</Text>
+                        <Text className="flex-1 -ml-5">{match.endingAgeName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
+                        <Image source={require('../../../assets/explorer/match-icons/treaty.png')} className="w-4 h-4"/>
                         <Text className="w-[50%]">{getTranslation('match.treatylength')}:</Text>
-                        <Text className="flex-1">{match.treatyLength} minutes</Text>
+                        <Text className="flex-1 -ml-5">{match.treatyLength} minutes</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
+                        <Image source={require('../../../assets/explorer/match-icons/victory.png')} className="w-4 h-4"/>
                         <Text className="w-[50%]">{getTranslation('match.victory')}:</Text>
-                        <Text className="flex-1">{match.victoryName}</Text>
+                        <Text className="flex-1 -ml-5">{match.victoryName}</Text>
                     </View>
 
                     <View className="flex-row gap-1 mt-2">

@@ -188,6 +188,8 @@
 
     "civs.title": "Civs",
 
+    "maps.title": "Maps",
+
     "builds.title": "Build Orders",
     "builds.noResults": "No Results Found",
     "builds.search": "Search builds",
@@ -440,6 +442,7 @@
     "unit.stats.heading.pierce": "pierce",
     "unit.stats.heading.bonus": "bonus",
     "unit.stats.heading.rateoffire": "Rate of Fire",
+    "unit.stats.heading.reloadtime": "Reload Time",
     "unit.stats.heading.framedelay": "Frame Delay",
     "unit.stats.heading.range": "Range",
     "unit.stats.heading.minimumrange": "Minimum Range",
@@ -453,10 +456,11 @@
     "unit.stats.heading.rechargerate": "recharge rate",
     "unit.stats.heading.rechargeduration": "duration",
     "unit.stats.heading.charge": "Charge",
-    "unit.stats.heading.chargetype.attack": "attack",
-    "unit.stats.heading.chargetype.areaattack": "area attack",
-    "unit.stats.heading.chargetype.projectiledodging": "projectile dodging",
-    "unit.stats.heading.chargetype.ranged": "ranged",
+    "unit.stats.heading.chargetype.attack": "Attack",
+    "unit.stats.heading.chargetype.areaattack": "Area Attack",
+    "unit.stats.heading.chargetype.projectiledodging": "Projectile Dodging",
+    "unit.stats.heading.chargetype.meleeattackdodging": "Melee Attack Dodging",
+    "unit.stats.heading.chargetype.ranged": "Ranged",
 
     "tips.title": "Tips & Tricks",
     "tips.item.heading.gatheringefficiently": "Gathering efficiently",
