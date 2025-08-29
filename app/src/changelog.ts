@@ -276,6 +276,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix maps page title',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix verified/shared icon not shrinking anymore on match player list',
+        },
     ],
     '153.0.0': [
         {
