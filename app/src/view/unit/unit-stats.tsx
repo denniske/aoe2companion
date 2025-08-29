@@ -487,6 +487,14 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 </View>
             )}
 
+            {baseData.BlastWidth > 0 && (
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.blastradius')}</MyText>
+                    {units.map((u) => (
+                        <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="BlastWidth" formatter={(x) => x?.toFixed(2)} />
+                    ))}
+                </View>
+            )}
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.rateoffire')}</MyText>
                 {units.map((u) => (

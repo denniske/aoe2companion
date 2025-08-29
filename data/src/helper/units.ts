@@ -4210,6 +4210,7 @@ export interface IUnitInfo {
     Range: number;
     RechargeDuration: number;
     RechargeRate: number;
+    BlastWidth: number;
     ReloadTime: number;
     Speed: number;
     TrainTime: number;

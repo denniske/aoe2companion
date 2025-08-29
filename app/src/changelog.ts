@@ -267,6 +267,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '156.0.0': [
+        {
+            type: 'minor',
+            title: 'Add Blast Radius unit stat (e.g. for Grenadier)',
+        },
+    ],
     '155.0.0': [
         {
             type: 'minor',

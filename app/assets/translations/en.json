@@ -441,6 +441,7 @@
     "unit.stats.heading.melee": "melee",
     "unit.stats.heading.pierce": "pierce",
     "unit.stats.heading.bonus": "bonus",
+    "unit.stats.heading.blastradius": "Blast Radius",
     "unit.stats.heading.rateoffire": "Rate of Fire",
     "unit.stats.heading.reloadtime": "Reload Time",
     "unit.stats.heading.framedelay": "Frame Delay",
