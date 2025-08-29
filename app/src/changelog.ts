@@ -273,6 +273,11 @@ export const changelog: IChangelog = {
             title: 'Implemented [AoE II DE Update 153015](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-153015/)',
         },
         {
+            type: 'minor',
+            title: 'Various match analysis improvements',
+            content: 'Better handling of Empire Wars matches. Showing starting walls for e.g. Arena/Hideout maps. Better formatting of chat messages.',
+        },
+        {
             type: 'bugfix',
             title: 'Fix maps page title',
         },

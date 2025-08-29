@@ -55,11 +55,12 @@ const analysisAgeToAge: Record<string, string> = {
 }
 
 const startingAges: Record<string, string> = {
-    'default': 'dark_age',
+    'standard': 'dark_age',
     'dark_age': 'dark_age',
     'feudal_age': 'feudal_age',
     'castle_age': 'castle_age',
     'imperial_age': 'imperial_age',
+    'post_imperial_age': 'imperial_age',
 }
 
 export default function Legend({ time, legendInfo, match }: Props) {

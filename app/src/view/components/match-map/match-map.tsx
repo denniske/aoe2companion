@@ -81,8 +81,6 @@ export default function MatchMap(props: Props) {
         })
     );
 
-    // console.log('startBuildings', startBuildings);
-
     const buildings = compact(
         analysis.players.flatMap((p) => {
             return p.queuedBuildings
@@ -121,22 +119,6 @@ export default function MatchMap(props: Props) {
             };
         }),
     }));
-
-    // console.log('teams', teams);
-
-    // const legend = compact(
-    //     analysis.players.flatMap((p) => {
-    //
-    //         return p.queuedTechs
-    //             ?.filter((o) => ['Feudal Age', 'Castle Age', 'Imperial Age'].includes(o.unit))
-    //             ?.map((o) => ({
-    //                 timestamp: o.timestamp,
-    //                 time: getTimestampMs(o.timestamp),
-    //                 color: p.color,
-    //                 unit: o.unit,
-    //             }));
-    //     })
-    // );
 
     const specials = compact(
         analysis.players.flatMap((p) => {
@@ -232,7 +214,6 @@ export default function MatchMap(props: Props) {
 
     // palisade wall 72
     // stone wall 117
-
     const playerObjectsSingleToWalls = compact(
         analysis.players.flatMap((p) => {
             return p.objects
@@ -261,12 +242,9 @@ export default function MatchMap(props: Props) {
     //     })
     // );
 
-    // console.log(uniq(buildings.map((b => b.unit))));
-
     const playerQueuedWalls = compact(
         analysis.players.flatMap((p) => {
             return p.queuedWalls
-                // ?.filter((o) => o.name === 'Town Center' && o.objectId === 620)
                 ?.map((o) => ({
                     time: getTimestampMs(o.timestamp),
                     position: o.position,
@@ -278,11 +256,6 @@ export default function MatchMap(props: Props) {
     );
 
     const staticWalls = [...playerObjectsGateToWalls];
-
-    // let walls = [...playerObjectsSingleToWalls];
-
-    console.log('playerObjectsSingleToWalls', playerObjectsSingleToWalls);
-
 
     setTiles(analysis.map.tiles);
 
@@ -325,18 +298,19 @@ export default function MatchMap(props: Props) {
 
     const coord = (x: number) => x / dimension * size;
 
-    const chat = sortBy(compact(
-        analysis.players.flatMap((p) => {
-            return p.chat
-                ?.map((o, i) => ({
-                    ...o,
-                    time: getTimestampMs(o.timestamp),
-                    color: darkMode == 'light' ? aoe2PlayerColorsLightModeChatLegend[p.colorHex as any] ?? p.colorHex : p.colorHex,
+    const chat = sortBy(
+        compact(
+            analysis.players.flatMap((p) =>
+                p.chat?.map(ch => ({
+                    ...ch,
+                    time: getTimestampMs(ch.timestamp),
+                    color: darkMode == 'light' ? (aoe2PlayerColorsLightModeChatLegend[p.colorHex as any] ?? p.colorHex) : p.colorHex,
                     playerName: p.name,
-                    index: i,
-                }));
-        })
-    ), c => c.time);
+                }))
+            )
+        ),
+        (c) => c.time
+    ).map((chat, index) => ({ ...chat, index }));
 
     console.log('RERENDER MAP');
 
