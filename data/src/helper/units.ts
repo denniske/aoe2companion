@@ -4283,10 +4283,6 @@ export function getUnitClassName(unitClassNumber: UnitClassNumber) {
 }
 
 export const otherNames = [
-    'DarkAge',
-    'FeudalAge',
-    'CastleAge',
-    'ImperialAge',
     'Wood',
     'Food',
     'Gold',

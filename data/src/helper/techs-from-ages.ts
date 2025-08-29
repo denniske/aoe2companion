@@ -8,7 +8,7 @@ type PartialRecord<K extends keyof any, T> =  Partial<Record<K, T>>;
 // Defines increase of attribute per unit at a specific age
 export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Partial<IUnitInfo>>> = {
     'Serjeant': {
-        'Feudal': {
+        'FeudalAge': {
             "TrainTime": 4,
             "HP": 0,
             "Attacks": [
@@ -20,7 +20,7 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Castle': {
+        'CastleAge': {
             "TrainTime": -4,
             "HP": 20,
             "Attacks": [
@@ -34,10 +34,10 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'EagleScout': {
-        'Dark': {
+        'DarkAge': {
             "LineOfSight": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "TrainTime": 0,
             "Attacks": [
                 {
@@ -47,7 +47,7 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
             ],
             "LineOfSight": 3, // Implicit Tracking
         },
-        'Castle': {
+        'CastleAge': {
             "TrainTime": -25,
             "Attacks": [
                 {
@@ -74,23 +74,23 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'Militia': {
-        'Dark': {
+        'DarkAge': {
             "LineOfSight": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "LineOfSight": 2, // Implicit Tracking
         },
     },
     'Spearman': {
-        'Dark': {
+        'DarkAge': {
             "LineOfSight": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "LineOfSight": 2, // Implicit Tracking
         },
     },
     'ScoutCavalry': {
-        'Dark': {
+        'DarkAge': {
             "LineOfSight": 0,
             "Attacks": [
                 {
@@ -100,7 +100,7 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
             ],
             "Speed": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "LineOfSight": 2,
             "Attacks": [
                 {
@@ -110,308 +110,308 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
             ],
             "Speed": 0.35,
         },
-        'Castle': {
+        'CastleAge': {
             "LineOfSight": 2,
         },
-        'Imperial': {
+        'ImperialAge': {
             "LineOfSight": 2,
         },
     },
     'LightCavalry': {
-        'Castle': {
+        'CastleAge': {
             "LineOfSight": 0,
         },
-        'Imperial': {
+        'ImperialAge': {
             "LineOfSight": 2,
         },
     },
     'Outpost': {
-        'Dark': {
+        'DarkAge': {
             "LineOfSight": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "LineOfSight": 2,
         },
-        'Castle': {
+        'CastleAge': {
             "LineOfSight": 2,
         },
-        'Imperial': {
+        'ImperialAge': {
             "LineOfSight": 2,
         },
     },
     'House': {
-        'Dark': {
+        'DarkAge': {
             "HP": 0,
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "HP": 200,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 150,
             "MeleeArmor": 2,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 2,
             "PierceArmor": 1,
         },
     },
     'Blacksmith': {
-        'Feudal': {
+        'FeudalAge': {
             "HP": 0,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 300,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'Mill': {
-        'Dark': {
+        'DarkAge': {
             "HP": 0,
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "HP": 200,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 200,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'Folwark': {
-        'Dark': {
+        'DarkAge': {
             "HP": 0,
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "HP": 200,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 200,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'LumberCamp': {
-        'Dark': {
+        'DarkAge': {
             "HP": 0,
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "HP": 200,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 200,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'MiningCamp': {
-        'Dark': {
+        'DarkAge': {
             "HP": 0,
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "HP": 200,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 200,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'Barracks': {
-        'Dark': {
+        'DarkAge': {
             "HP": 0,
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "HP": 300,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 300,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "HP": 300,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'ArcheryRange': {
-        'Feudal': {
+        'FeudalAge': {
             "HP": 0,
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 300,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "HP": 300,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'Stable': {
-        'Feudal': {
+        'FeudalAge': {
             "HP": 0,
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 300,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "HP": 300,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'Market': {
-        'Feudal': {
+        'FeudalAge': {
             "HP": 0,
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 300,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'Monastery': {
-        'Castle': {
+        'CastleAge': {
             "MeleeArmor": 2,
             "PierceArmor": 2,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'FortifiedChurch': {
-        'Castle': {
+        'CastleAge': {
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'Dock': {
-        'Dark': {
+        'DarkAge': {
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Castle': {
+        'CastleAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'PalisadeWall': {
-        'Dark': {
+        'DarkAge': {
             "HP": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "HP": 100,
         },
     },
     'PalisadeGate': {
-        'Dark': {
+        'DarkAge': {
             "HP": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "HP": 160,
         },
     },
     'WatchTower': {
-        'Feudal': {
+        'FeudalAge': {
             "HP": 0,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 170,
         },
     },
     'Gate': {
-        'Feudal': {
+        'FeudalAge': {
             "HP": 0,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 1100,
         },
     },
     'StoneWall': {
-        'Feudal': {
+        'FeudalAge': {
             "HP": 0,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 720,
         },
     },
     'Donjon': {
-        'Feudal': {
+        'FeudalAge': {
             "HP": 0,
             "MeleeArmor": 0,
             "PierceArmor": 0,
@@ -422,7 +422,7 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
             //     },
             // ],
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 250,
             "MeleeArmor": 1,
             "PierceArmor": 1,
@@ -433,7 +433,7 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
             //     },
             // ],
         },
-        'Imperial': {
+        'ImperialAge': {
             "HP": 750,
             "MeleeArmor": 1,
             "PierceArmor": 1,
@@ -446,46 +446,46 @@ export const ageUpgrades: PartialRecord<Unit | Building, PartialRecord<Age, Part
         },
     },
     'SiegeWorkshop': {
-        'Feudal': {
+        'FeudalAge': {
             "HP": 0,
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Castle': {
+        'CastleAge': {
             "HP": 300,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "HP": 300,
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'University': {
-        'Castle': {
+        'CastleAge': {
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
     },
     'TownCenter': {
-        'Dark': {
+        'DarkAge': {
             "MeleeArmor": 0,
             "PierceArmor": 0,
         },
-        'Feudal': {
+        'FeudalAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Castle': {
+        'CastleAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },
-        'Imperial': {
+        'ImperialAge': {
             "MeleeArmor": 1,
             "PierceArmor": 1,
         },

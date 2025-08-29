@@ -10,6 +10,7 @@ interface IChatMessage {
     message: string;
     origination: string;
     playerName?: string;
+    index: number;
 }
 
 interface Props {
@@ -37,13 +38,13 @@ const shallowArrayEqual = (a: any[], b: any[]): boolean => {
 export default function Chat({ time, chat }: Props) {
     const [currentMessages, setCurrentMessages] = useState<IChatMessage[]>([]);
 
-    console.log('RERENDER CHAT');
+    // console.log('RERENDER CHAT');
 
     const updateMessages = (time: number) => {
         // console.log('updateMessages', time)
         const messages = chat.filter((c) => c.time > time && c.time < time + 70 * 1000);
         if (!shallowArrayEqual(messages, currentMessages)) {
-            // console.log('update');
+            // console.log('update', messages);
             setCurrentMessages(messages);
         }
     };
@@ -71,7 +72,7 @@ export default function Chat({ time, chat }: Props) {
         >
             {currentMessages.map((message) => (
                 <Text
-                    key={message.time}
+                    key={message.index}
                     style={{
                         color: message.color?.toLowerCase(),
                         fontSize: 10,

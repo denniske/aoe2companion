@@ -366,11 +366,11 @@ export interface IMatchNew {
     server?: string
     internalLeaderboardId?: number
     difficulty: number
-    startingAge: number
+    startingAge: string
     fullTechTree: boolean
     allowCheats: boolean
     empireWarsMode: boolean
-    endingAge: number
+    endingAge: string
     gameMode: string
     lockSpeed: boolean
     lockTeams: boolean

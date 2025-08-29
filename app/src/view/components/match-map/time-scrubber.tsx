@@ -51,27 +51,27 @@ export default function TimeScrubber({time, duration} : Props) {
     };
 
     const panGesture = Gesture.Pan()
-        .onStart(() => {
+        .onStart((e) => {
             cancelAnimation(time);
         })
         .onUpdate((e) => {
-            time.value = Math.max(0, Math.min(duration, e.x / barWidth.value * duration));
+            time.value = Math.max(0, Math.min(duration, (e.x - 12) / barWidth.value * duration));
         })
         .onEnd(() => {
-            progress.value = (time.value / duration) * barWidth.value;
+            // progress.value = (time.value / duration) * barWidth.value;
         });
 
     const progressStyle = useAnimatedStyle(() => {
         const width = (time.value / duration) * barWidth.value;
         progress.value = width;
         return {
-            width,
+            width: progress.value,
         };
     });
 
     const handleStyle = useAnimatedStyle(() => {
         return {
-            left: progress.value - 10,
+            left: progress.value - 10 + 12, // 10 is half the handle width, 12 is padding of the bar container
         };
     });
 
@@ -84,9 +84,9 @@ export default function TimeScrubber({time, duration} : Props) {
     return (
         <View style={styles.container}>
             <GestureDetector gesture={panGesture}>
-                <View style={styles.barContainer} className="mx-3"
+                <View style={styles.barContainer} className="px-3"
                       onLayout={(event) => {
-                          barWidth.value = event.nativeEvent.layout.width;
+                          barWidth.value = event.nativeEvent.layout.width - 12*2; // 12 is padding of the bar container
                       }}
                 >
                     <View style={styles.track} />
@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
         // backgroundColor: 'yellow',
     },
     barContainer: {
-        flex: 1,
         height: 30,
         justifyContent: 'center',
         // backgroundColor: 'red',

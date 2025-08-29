@@ -5,7 +5,7 @@ import { Image } from 'expo-image';
 import { IAnalysis, IMatchNew } from '@app/api/helper/api.types';
 import { Text } from '@app/components/text';
 import { compact, sortBy, uniq } from 'lodash';
-import { gaiaObjects, getBuildingSize } from '@app/view/components/match-map/map-utils';
+import { gaiaObjects, getBuildingSize, isBuilding } from '@app/view/components/match-map/map-utils';
 import { getPath, getTileMap, setTiles, splitPath } from '@app/view/components/match-map/match-map3';
 import groupBy from 'lodash/groupBy';
 import { runOnJS, useAnimatedReaction, useDerivedValue, useSharedValue } from 'react-native-reanimated';
@@ -62,9 +62,26 @@ export default function MatchMap(props: Props) {
                 ?.map((o) => ({
                     position: o.position,
                     color: p.colorHex,
+                    unit: 'Town Center',
                 }));
         })
     );
+
+    const startBuildings = compact(
+        analysis.players.flatMap((p) => {
+            return p.objects
+                ?.filter((o) => o.name !== 'Town Center' && isBuilding(o.name))
+                ?.map((o) => ({
+                    position: o.position,
+                    color: p.colorHex,
+                    unit: o.name,
+                    unitId: o.objectId,
+                    ...getBuildingSize(o.name),
+                }));
+        })
+    );
+
+    // console.log('startBuildings', startBuildings);
 
     const buildings = compact(
         analysis.players.flatMap((p) => {
@@ -181,9 +198,10 @@ export default function MatchMap(props: Props) {
                     const gate = gates[unitIdToObjectId(o.unitId)];
                     const offset = gateAngleOffsets[gate.angle];
                     return {
+                        time: getTimestampMs(o.timestamp),
                         position: { x: o.position.x + offset.start.x, y: o.position.y + offset.start.y },
                         positionEnd: { x: o.position.x + offset.end.x, y: o.position.y + offset.end.y },
-                        color: 'black',
+                        color:  p.colorHex,
                         unit: o.unit,
                     };
                 });
@@ -259,8 +277,12 @@ export default function MatchMap(props: Props) {
         })
     );
 
-    // let walls = [...playerQueuedWalls, ...wallBuildingsToWalls, ...playerObjectsGateToWalls, ...playerObjectsSingleToWalls];
-    let walls = [...playerQueuedWalls];
+    const staticWalls = [...playerObjectsGateToWalls];
+
+    // let walls = [...playerObjectsSingleToWalls];
+
+    console.log('playerObjectsSingleToWalls', playerObjectsSingleToWalls);
+
 
     setTiles(analysis.map.tiles);
 
@@ -285,8 +307,9 @@ export default function MatchMap(props: Props) {
 
     }
 
-    console.log('walls', walls[0]);
-    walls = walls.flatMap(w => getPath(w).flatMap(w => splitPath(w, pred)).map(x => ({...w, ...x})));
+    const playerQueuedWallsFinal = playerQueuedWalls.flatMap(w => getPath(w).flatMap(w => splitPath(w, pred)).map(x => ({...w, ...x})));
+
+    const walls = [...wallBuildingsToWalls, ...playerQueuedWallsFinal];
 
     const gaiaDraw = Object.keys(gaiaObjects).map((key) => {
         const info = gaiaObjects[key as keyof typeof gaiaObjects];
@@ -305,12 +328,12 @@ export default function MatchMap(props: Props) {
     const chat = sortBy(compact(
         analysis.players.flatMap((p) => {
             return p.chat
-                // ?.filter((o) => o.name === 'Town Center' && o.objectId === 620)
-                ?.map((o) => ({
+                ?.map((o, i) => ({
                     ...o,
                     time: getTimestampMs(o.timestamp),
                     color: darkMode == 'light' ? aoe2PlayerColorsLightModeChatLegend[p.colorHex as any] ?? p.colorHex : p.colorHex,
                     playerName: p.name,
+                    index: i,
                 }));
         })
     ), c => c.time);
@@ -340,123 +363,79 @@ export default function MatchMap(props: Props) {
                                         height: size,
                                     }}
                                 >
-                                    {townCenters.map((unit, index) => {
-                                        const x = coord(unit.position.x);
-                                        const y = coord(unit.position.y);
-
-                                        return (
-                                            <Rect key={index} width={coord(3)} height={coord(3)} x={x} y={y} color={unit.color} />
-                                        );
-                                    })}
-                                    {buildings.map((unit, index) => {
-                                        return (
-                                            <Faded key={index} time={time} color={unit.color} timeStart={unit.time} origin={getBuildingOrigin({unit, coord})} coord={coord}>
-                                                <Building unit={unit} coord={coord} />
-                                            </Faded>
-                                        );
-                                    })}
+                                    {startBuildings.map((unit, index) => (
+                                        <Building key={index} unit={unit} coord={coord} />
+                                    ))}
+                                    {buildings.map((unit, index) => (
+                                        <Faded
+                                            key={index}
+                                            time={time}
+                                            color={unit.color}
+                                            timeStart={unit.time}
+                                            origin={getBuildingOrigin({ unit, coord })}
+                                            coord={coord}
+                                        >
+                                            <Building unit={unit} coord={coord} />
+                                        </Faded>
+                                    ))}
                                     {/*{[...walls, ...wallBuildingsToWalls, ...playerObjectsGateToWalls, ...playerObjectsSingleToWalls].map((unit, index) => {*/}
+
+                                    {gaiaDraw.map((gaiaObj) =>
+                                        gaiaObj.map((unit, index) => {
+                                            const x = coord(unit.position.x - 1 / 2);
+                                            const y = coord(unit.position.y - 1 / 2);
+                                            const width = coord(1);
+                                            const height = coord(1);
+                                            return <Rect key={index} width={width} height={height} x={x} y={y} color={unit.color} />;
+                                        })
+                                    )}
+
+
+
+
+                                    {[...playerObjectsSingleToWalls].map((unit, index) => (
+                                        <Wall unit={unit} coord={coord} />
+                                    ))}
+                                    {[...staticWalls].map((unit, index) => (
+                                        <Wall unit={unit} coord={coord} />
+                                    ))}
+
                                     {[...walls].map((unit, index) => {
                                         return (
-                                            <Faded key={index} time={time} color={unit.color} origin={getWallOrigin({unit, coord})} coord={coord} timeStart={unit.time} >
+                                            <Faded
+                                                key={index}
+                                                time={time}
+                                                color={unit.color}
+                                                origin={getWallOrigin({ unit, coord })}
+                                                coord={coord}
+                                                timeStart={unit.time}
+                                            >
                                                 <Wall unit={unit} coord={coord} />
                                             </Faded>
                                         );
-
-                                        // return <FadedWall key={index} unit={unit} coord={coord} time={time} />
-
-                                        // const x = coord(unit.position.x-1/2+1/2);
-                                        // const y = coord(unit.position.y-1/2+1/2);
-                                        // const xEnd = coord(unit.positionEnd.x-1/2+1/2);
-                                        // const yEnd = coord(unit.positionEnd.y-1/2+1/2);
-                                        // const lx = coord(unit.position.x+1/2);
-                                        // const ly = coord(unit.position.y+1/2);
-                                        // const lxEnd = coord(unit.positionEnd.x+1/2);
-                                        // const lyEnd = coord(unit.positionEnd.y+1/2);
-                                        // const isDiagonal = unit.position.x !== unit.positionEnd.x && unit.position.y !== unit.positionEnd.y;
-                                        // const strokeWidth = coord(isDiagonal ? 1.33 : 1);
-                                        // const one = coord(1);
-                                        // const opacity = unit.time > time.value ? 0 : 1;
-                                        //
-                                        // if (x === xEnd && y === yEnd) {
-                                        //     return (
-                                        //         <Rect
-                                        //             key={index}
-                                        //             x={x}
-                                        //             y={y}
-                                        //             width={one}
-                                        //             height={one}
-                                        //             opacity={opacity}
-                                        //             color={unit.color}
-                                        //         />
-                                        //     );
-                                        // }
-                                        //
-                                        // return (
-                                        //     <Fragment key={index}>
-                                        //         <Group
-                                        //             opacity={opacity}
-                                        //         >
-                                        //         <Rect
-                                        //             x={x}
-                                        //             y={y}
-                                        //             width={one}
-                                        //             height={one}
-                                        //             color={unit.color}
-                                        //             // color={'yellow'}
-                                        //         />
-                                        //         <Rect
-                                        //             x={xEnd}
-                                        //             y={yEnd}
-                                        //             width={one}
-                                        //             height={one}
-                                        //             color={unit.color}
-                                        //             // color={'red'}
-                                        //         />
-                                        //         <Line
-                                        //             p1={vec(lx, ly)}
-                                        //             p2={vec(lxEnd, lyEnd)}
-                                        //             style="stroke"
-                                        //             strokeWidth={strokeWidth}
-                                        //             color={unit.color}
-                                        //             opacity={1}
-                                        //             // blendMode="dstATop"
-                                        //         />
-                                        //         </Group>
-                                        //     </Fragment>
-                                        // );
                                     })}
-                                    {gaiaDraw.map((gaiaObj) =>
-                                        gaiaObj.map((unit, index) => {
-                                            const x = coord(unit.position.x-1/2);
-                                            const y = coord(unit.position.y-1/2);
-                                            const width = coord(1);
-                                            const height = coord(1);
-                                            return (
-                                                <Rect
-                                                    key={index}
-                                                    width={width}
-                                                    height={height}
-                                                    x={x}
-                                                    y={y}
-                                                    color={unit.color}
-                                                />
-                                            );
-                                        })
-                                    )}
-                                    {specials.map((unit, index) => {
-                                        return (
-                                            <Faded key={index} time={time} color={unit.color} timeStart={unit.time} origin={getSpecialOrigin({unit, coord})} coord={coord}>
-                                                <Special time={time} timeStart={unit.time} unit={unit} coord={coord} />
-                                            </Faded>
-                                        );
-                                    })}
+
+                                    {townCenters.map((unit, index) => (
+                                        <Special key={index} unit={unit} coord={coord} />
+                                    ))}
+                                    {specials.map((unit, index) => (
+                                        <Faded
+                                            key={index}
+                                            time={time}
+                                            color={unit.color}
+                                            timeStart={unit.time}
+                                            origin={getSpecialOrigin({ unit, coord })}
+                                            coord={coord}
+                                        >
+                                            <Special unit={unit} coord={coord} />
+                                        </Faded>
+                                    ))}
                                 </Canvas>
                             </View>
                         </View>
                     </View>
                     <Chat time={time} chat={chat} />
-                    <Legend time={time} legendInfo={teams as any} />
+                    <Legend time={time} legendInfo={teams as any} match={match} />
                 </View>
                 <TimeScrubber time={time} duration={duration}></TimeScrubber>
             </Card>
@@ -464,39 +443,22 @@ export default function MatchMap(props: Props) {
                 <Eapm teams={teams as any} />
             </Card>
             <Card direction="vertical">
-                <Timeseries
-                    teams={teams as any}
-                    metric="totalResources"
-                    title="Resources"
-                    description="Total resources"
-                />
+                <Timeseries teams={teams as any} metric="totalResources" title="Resources" description="Total resources" />
             </Card>
             <Card direction="vertical">
-                <Timeseries
-                    teams={teams as any}
-                    metric="totalObjects"
-                    title="Objects"
-                    description="Total objects"
-                />
+                <Timeseries teams={teams as any} metric="totalObjects" title="Objects" description="Total objects" />
             </Card>
             <Card direction="vertical">
                 <Uptimes time={time} teams={teams as any} />
             </Card>
             <Card direction="vertical">
                 <Text>
-                    Match analysis works by parsing the replay file. This may not work for all matches (especially scenarios).
-                    This file contains a list of actions made by each player e.g. create unit/building, research technology, etc.
+                    Match analysis works by parsing the replay file. This may not work for all matches (especially scenarios). This file contains a
+                    list of actions made by each player e.g. create unit/building, research technology, etc.
                 </Text>
-                <Text>
-                    As we cannot use the game engine to replay the match, there are some limitations:
-                </Text>
-                <Text>
-                    - There is no way to know when Buildings are destroyed so they will still be shown on the map.
-                </Text>
-                <Text>
-                    The analysis is not 100% accurate and may contain errors.
-                    New patches might break the match analysis feature.
-                </Text>
+                <Text>As we cannot use the game engine to replay the match, there are some limitations:</Text>
+                <Text>- There is no way to know when Buildings are destroyed so they will still be shown on the map.</Text>
+                <Text>The analysis is not 100% accurate and may contain errors. New patches might break the match analysis feature.</Text>
             </Card>
         </View>
     );
@@ -530,7 +492,7 @@ export type ILegendInfo = Array<{
         }
         uptimes: Array<{
             timestamp: string
-            unit: string
+            age: string
         }>
         timeseries: Array<{
             timestamp: string
