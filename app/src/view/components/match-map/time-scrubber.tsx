@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
         height: 4,
         backgroundColor: 'dodgerblue',
         borderRadius: 2,
+        left: 12, // padding of the bar container need to be applied here too
     },
     handle: {
         position: 'absolute',

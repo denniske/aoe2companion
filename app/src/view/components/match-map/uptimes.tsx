@@ -66,7 +66,7 @@ export default function Uptimes({ time, teams }: Props) {
                                 {player.name}
                             </Text>
                             {['feudal_age', 'castle_age', 'imperial_age'].map(age => player.uptimes.find(u => u.age == age)).map(uptime => (
-                                <Text key={uptime?.timestamp} className="text-xs flex-1 px-1 text-center">
+                                <Text key={uptime?.age} className="text-xs flex-1 px-1 text-center">
                                     {uptime ? formatTimeFromMs(getTimestampMs(uptime.timestamp)) : ''}
                                 </Text>
                             ))}
