@@ -2,6 +2,7 @@ import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-qu
 import {
     fetchLeaderboards,
     fetchMaps,
+    fetchMapsPoll,
     fetchMapsRanked,
     fetchMatch,
     fetchMatchAnalysis,
@@ -189,6 +190,15 @@ export const useMapsRanked = () => {
     return useQuery({
         queryKey: ['maps-ranked'],
         queryFn: () => fetchMapsRanked({ language: language! }),
+        enabled: !!language,
+    });
+};
+
+export const useMapsPoll = () => {
+    const language = useLanguage();
+    return useQuery({
+        queryKey: ['maps-poll'],
+        queryFn: () => fetchMapsPoll({ language: language! }),
         enabled: !!language,
     });
 };

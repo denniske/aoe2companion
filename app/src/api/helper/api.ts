@@ -6,6 +6,7 @@ import {
     IFetchLeaderboardParams,
     IFetchLeaderboardsParams,
     IFetchMapsParams,
+    IFetchMapsPollParams,
     IFetchMapsRankedParams,
     IFetchMatchesParams,
     IFetchMatchParams,
@@ -13,6 +14,7 @@ import {
     IFetchProfilesParams,
     ILeaderboard,
     ILeaderboardDef,
+    IMapsPollResult,
     IMapsRankedResult,
     IMapsResult,
     IMatchesResult,
@@ -136,4 +138,14 @@ export async function fetchMapsRanked(params: IFetchMapsRankedParams) {
     );
     const url = `${getHost('aoe2companion-data')}api/maps/ranked?${queryString}`;
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMapsRankedResult;
+}
+
+export async function fetchMapsPoll(params: IFetchMapsPollParams) {
+    const queryString = makeQueryString(
+        decamelizeKeys({
+            ...removeReactQueryParams(params),
+        })
+    );
+    const url = `${getHost('aoe2companion-data')}api/maps/poll?${queryString}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMapsPollResult;
 }

@@ -344,6 +344,40 @@ export type IMapsRankedResult = {
     }>
 }
 
+export type IMapsPollResult = {
+    pollId: string
+    started: Date
+    finished: Date
+    expired: Date
+    metadata: string
+    questions: Array<{
+        leaderboardId: string
+        leaderboardName: string
+        abbreviation: string
+        questionId: number
+        totalVotes: number
+        options: Array<{
+            optionId: number
+            mapId: string
+            mapName: string
+            description: string
+            imageUrl: string
+            voteCount: number
+            percentage: number
+        }>
+        devOptions: Array<{
+            optionId: number
+            mapId: string
+            mapName: string
+            description: string
+            imageUrl: string
+            voteCount: number
+            percentage: number
+        }>
+    }>
+}
+
+
 
 export interface IMatchesResult {
     perPage: number;
@@ -723,6 +757,10 @@ export interface IFetchMapsParams {
 }
 
 export interface IFetchMapsRankedParams {
+    language: string;
+}
+
+export interface IFetchMapsPollParams {
     language: string;
 }
 
