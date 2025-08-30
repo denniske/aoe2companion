@@ -267,10 +267,40 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '154.0.0': [
+    '157.0.0': [
+        {
+            type: 'feature',
+            title: 'Map Polls',
+            content: 'Show ongoing polls for ranked map pool (You cannot vote from the app though)',
+        },
         {
             type: 'minor',
             title: 'Show player profile images instead of country flag in leaderboard',
+        },
+    ],
+    '156.0.0': [
+        {
+            type: 'minor',
+            title: 'Add Blast Radius unit stat (e.g. for Grenadier)',
+        },
+    ],
+    '155.0.0': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 153015](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-153015/)',
+        },
+        {
+            type: 'minor',
+            title: 'Various match analysis improvements',
+            content: 'Better handling of Empire Wars matches. Showing starting walls for e.g. Arena/Hideout maps. Better formatting of chat messages.',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix maps page title',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix verified/shared icon not shrinking anymore on match player list',
         },
     ],
     '153.0.0': [

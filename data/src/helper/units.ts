@@ -4210,6 +4210,7 @@ export interface IUnitInfo {
     Range: number;
     RechargeDuration: number;
     RechargeRate: number;
+    BlastWidth: number;
     ReloadTime: number;
     Speed: number;
     TrainTime: number;
@@ -4283,10 +4284,6 @@ export function getUnitClassName(unitClassNumber: UnitClassNumber) {
 }
 
 export const otherNames = [
-    'DarkAge',
-    'FeudalAge',
-    'CastleAge',
-    'ImperialAge',
     'Wood',
     'Food',
     'Gold',

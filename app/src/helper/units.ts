@@ -3,10 +3,6 @@ import {ImageSourcePropType} from "react-native";
 
 
 const otherIcons = {
-    'DarkAge': require('../../../app/assets/other/DarkAge.png'),
-    'FeudalAge': require('../../../app/assets/other/FeudalAgeFull.png'),
-    'CastleAge': require('../../../app/assets/other/CastleAge.png'),
-    'ImperialAge': require('../../../app/assets/other/ImperialAge.png'),
     'Wood': require('../../../app/assets/other/Wood.png'),
     'Food': require('../../../app/assets/other/Food.png'),
     'Gold': require('../../../app/assets/other/Gold.png'),
@@ -22,10 +18,10 @@ export function getOtherIcon(other: Other) {
 }
 
 const ageIcons = {
-    'Dark': require('../../../app/assets/other/DarkAge.png'),
-    'Feudal': require('../../../app/assets/other/FeudalAgeFull.png'),
-    'Castle': require('../../../app/assets/other/CastleAge.png'),
-    'Imperial': require('../../../app/assets/other/ImperialAge.png'),
+    'DarkAge': require('../../../app/assets/other/DarkAge.png'),
+    'FeudalAge': require('../../../app/assets/other/FeudalAgeFull.png'),
+    'CastleAge': require('../../../app/assets/other/CastleAge.png'),
+    'ImperialAge': require('../../../app/assets/other/ImperialAge.png'),
 };
 
 

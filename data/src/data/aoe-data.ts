@@ -2084,6 +2084,269 @@ export const aoeDataInternal = {
                 "internal_name": "PASTURE_BUILD"
             }
         },
+        "node_types": {
+            "buildings": {
+                "12": "BuildingTech",
+                "45": "BuildingTech",
+                "49": "BuildingTech",
+                "50": "BuildingNonTech",
+                "68": "BuildingTech",
+                "70": "BuildingNonTech",
+                "72": "BuildingNonTech",
+                "79": "BuildingNonTech",
+                "82": "BuildingTech",
+                "84": "BuildingNonTech",
+                "87": "BuildingTech",
+                "101": "BuildingTech",
+                "103": "BuildingTech",
+                "104": "BuildingTech",
+                "109": "BuildingTech",
+                "117": "BuildingNonTech",
+                "155": "BuildingNonTech",
+                "199": "BuildingNonTech",
+                "209": "BuildingTech",
+                "234": "BuildingNonTech",
+                "235": "BuildingNonTech",
+                "236": "BuildingNonTech",
+                "276": "BuildingNonTech",
+                "487": "BuildingNonTech",
+                "562": "BuildingTech",
+                "584": "BuildingTech",
+                "598": "BuildingNonTech",
+                "621": "BuildingNonTech",
+                "792": "BuildingNonTech",
+                "1021": "UniqueBuilding",
+                "1189": "UniqueBuilding",
+                "1251": "UniqueBuilding",
+                "1665": "UniqueBuilding",
+                "1734": "UniqueBuilding",
+                "1754": "RegionalBuilding",
+                "1806": "RegionalBuilding",
+                "1808": "RegionalBuilding",
+                "1889": "UniqueBuilding"
+            },
+            "units": {
+                "4": "Unit",
+                "5": "Unit",
+                "6": "UnitUpgrade",
+                "7": "Unit",
+                "8": "UniqueUnit",
+                "11": "UniqueUnit",
+                "13": "Unit",
+                "17": "Unit",
+                "21": "UnitUpgrade",
+                "24": "UnitUpgrade",
+                "25": "UniqueUnit",
+                "36": "Unit",
+                "38": "Unit",
+                "39": "Unit",
+                "40": "UniqueUnit",
+                "41": "UniqueUnit",
+                "46": "UniqueUnit",
+                "73": "UniqueUnit",
+                "74": "Unit",
+                "75": "UnitUpgrade",
+                "77": "UnitUpgrade",
+                "83": "Unit",
+                "93": "Unit",
+                "125": "Unit",
+                "128": "Unit",
+                "185": "UniqueUnit",
+                "207": "UniqueUnit",
+                "232": "UniqueUnit",
+                "239": "UniqueUnit",
+                "250": "UniqueUnit",
+                "279": "Unit",
+                "280": "Unit",
+                "281": "UniqueUnit",
+                "282": "UniqueUnit",
+                "283": "UnitUpgrade",
+                "291": "UniqueUnit",
+                "329": "RegionalUnit",
+                "330": "RegionalUnit",
+                "331": "Unit",
+                "358": "UnitUpgrade",
+                "359": "UnitUpgrade",
+                "420": "Unit",
+                "422": "UnitUpgrade",
+                "440": "Unit",
+                "441": "UnitUpgrade",
+                "442": "UnitUpgrade",
+                "448": "Unit",
+                "473": "UnitUpgrade",
+                "474": "UnitUpgrade",
+                "492": "UnitUpgrade",
+                "527": "UnitUpgrade",
+                "528": "UnitUpgrade",
+                "529": "UnitUpgrade",
+                "530": "UniqueUnit",
+                "531": "UniqueUnit",
+                "532": "UnitUpgrade",
+                "533": "UniqueUnit",
+                "534": "UniqueUnit",
+                "539": "Unit",
+                "542": "UnitUpgrade",
+                "545": "Unit",
+                "546": "UnitUpgrade",
+                "548": "UnitUpgrade",
+                "550": "UnitUpgrade",
+                "553": "UniqueUnit",
+                "554": "UniqueUnit",
+                "555": "UniqueUnit",
+                "556": "UniqueUnit",
+                "557": "UniqueUnit",
+                "558": "UniqueUnit",
+                "559": "UniqueUnit",
+                "560": "UniqueUnit",
+                "561": "UniqueUnit",
+                "567": "UnitUpgrade",
+                "569": "UnitUpgrade",
+                "588": "UnitUpgrade",
+                "691": "UnitUpgrade",
+                "692": "UniqueUnit",
+                "694": "UniqueUnit",
+                "725": "UniqueUnit",
+                "726": "UniqueUnit",
+                "751": "RegionalUnit",
+                "752": "RegionalUnit",
+                "753": "RegionalUnit",
+                "755": "UniqueUnit",
+                "757": "UniqueUnit",
+                "759": "UniqueUnit",
+                "761": "UniqueUnit",
+                "763": "UniqueUnit",
+                "765": "UniqueUnit",
+                "771": "UniqueUnit",
+                "773": "UniqueUnit",
+                "775": "UniqueUnit",
+                "827": "UniqueUnit",
+                "829": "UniqueUnit",
+                "831": "UniqueUnit",
+                "832": "UniqueUnit",
+                "866": "UniqueUnit",
+                "868": "UniqueUnit",
+                "869": "UniqueUnit",
+                "871": "UniqueUnit",
+                "873": "RegionalUnit",
+                "875": "RegionalUnit",
+                "876": "UniqueUnit",
+                "878": "UniqueUnit",
+                "879": "UniqueUnit",
+                "881": "UniqueUnit",
+                "882": "UniqueUnit",
+                "886": "UniqueUnit",
+                "887": "UniqueUnit",
+                "1001": "UniqueUnit",
+                "1003": "UniqueUnit",
+                "1004": "UniqueUnit",
+                "1006": "UniqueUnit",
+                "1007": "UniqueUnit",
+                "1009": "UniqueUnit",
+                "1010": "UniqueUnit",
+                "1012": "UniqueUnit",
+                "1013": "UniqueUnit",
+                "1015": "UniqueUnit",
+                "1016": "UniqueUnit",
+                "1018": "UniqueUnit",
+                "1103": "Unit",
+                "1104": "Unit",
+                "1105": "Unit",
+                "1120": "UniqueUnit",
+                "1122": "UniqueUnit",
+                "1123": "UniqueUnit",
+                "1125": "UniqueUnit",
+                "1126": "UniqueUnit",
+                "1128": "UniqueUnit",
+                "1129": "UniqueUnit",
+                "1131": "UniqueUnit",
+                "1132": "RegionalUnit",
+                "1134": "RegionalUnit",
+                "1155": "UniqueUnit",
+                "1225": "UniqueUnit",
+                "1227": "UniqueUnit",
+                "1228": "UniqueUnit",
+                "1230": "UniqueUnit",
+                "1231": "UniqueUnit",
+                "1233": "UniqueUnit",
+                "1234": "UniqueUnit",
+                "1236": "UniqueUnit",
+                "1254": "UniqueUnit",
+                "1255": "UniqueUnit",
+                "1258": "Unit",
+                "1260": "UniqueUnit",
+                "1263": "UniqueUnit",
+                "1302": "UniqueUnit",
+                "1370": "RegionalUnit",
+                "1372": "RegionalUnit",
+                "1570": "RegionalUnit",
+                "1655": "UniqueUnit",
+                "1657": "UniqueUnit",
+                "1658": "UniqueUnit",
+                "1659": "UniqueUnit",
+                "1660": "UniqueUnit",
+                "1661": "UniqueUnit",
+                "1699": "UniqueUnit",
+                "1701": "UniqueUnit",
+                "1703": "UniqueUnit",
+                "1704": "UniqueUnit",
+                "1706": "UniqueUnit",
+                "1707": "UniqueUnit",
+                "1709": "UniqueUnit",
+                "1735": "UniqueUnit",
+                "1737": "UniqueUnit",
+                "1741": "UniqueUnit",
+                "1743": "UniqueUnit",
+                "1744": "RegionalUnit",
+                "1746": "RegionalUnit",
+                "1747": "UniqueUnit",
+                "1749": "UniqueUnit",
+                "1750": "UniqueUnit",
+                "1751": "UniqueUnit",
+                "1753": "UniqueUnit",
+                "1755": "UniqueUnit",
+                "1759": "UniqueUnit",
+                "1761": "UniqueUnit",
+                "1786": "Unit",
+                "1787": "UnitUpgrade",
+                "1788": "UnitUpgrade",
+                "1790": "UniqueUnit",
+                "1792": "UniqueUnit",
+                "1793": "UniqueUnit",
+                "1795": "RegionalUnit",
+                "1800": "UniqueUnit",
+                "1802": "UniqueUnit",
+                "1803": "UniqueUnit",
+                "1805": "UniqueUnit",
+                "1811": "UniqueUnit",
+                "1813": "UniqueUnit",
+                "1901": "RegionalUnit",
+                "1903": "RegionalUnit",
+                "1904": "RegionalUnit",
+                "1907": "RegionalUnit",
+                "1908": "UniqueUnit",
+                "1910": "UniqueUnit",
+                "1911": "UniqueUnit",
+                "1920": "UniqueUnit",
+                "1922": "UniqueUnit",
+                "1923": "UniqueUnit",
+                "1942": "RegionalUnit",
+                "1944": "RegionalUnit",
+                "1946": "RegionalUnit",
+                "1948": "RegionalUnit",
+                "1949": "UniqueUnit",
+                "1951": "UniqueUnit",
+                "1952": "UniqueUnit",
+                "1954": "UniqueUnit",
+                "1959": "UniqueUnit",
+                "1961": "UniqueUnit",
+                "1962": "UniqueUnit",
+                "1966": "UniqueUnit",
+                "1968": "UniqueUnit",
+                "1970": "UniqueUnit",
+                "1974": "UniqueUnit",
+                "1978": "UniqueUnit"
+            }
+        },
         "techs": {
             "3": {
                 "Cost": {
@@ -2432,14 +2695,14 @@ export const aoeDataInternal = {
             },
             "54": {
                 "Cost": {
-                    "Food": 300,
+                    "Stone": 50,
                     "Wood": 200
                 },
                 "ID": 54,
                 "LanguageHelpId": 28054,
                 "LanguageNameId": 7054,
                 "Repeatable": true,
-                "ResearchTime": 50,
+                "ResearchTime": 20,
                 "internal_name": "Stone cutting"
             },
             "55": {
@@ -3443,7 +3706,7 @@ export const aoeDataInternal = {
             "507": {
                 "Cost": {
                     "Food": 500,
-                    "Gold": 300
+                    "Gold": 650
                 },
                 "ID": 507,
                 "LanguageHelpId": 28271,
@@ -4175,7 +4438,7 @@ export const aoeDataInternal = {
             "1061": {
                 "Cost": {
                     "Food": 250,
-                    "Gold": 300
+                    "Wood": 300
                 },
                 "ID": 1061,
                 "LanguageHelpId": 28473,
@@ -4427,8 +4690,8 @@ export const aoeDataInternal = {
             },
             "531": {
                 "Cost": {
-                    "Food": 1000,
-                    "Gold": 750
+                    "Food": 850,
+                    "Gold": 550
                 },
                 "ID": 363,
                 "ResearchTime": 45,
@@ -5106,7 +5369,7 @@ export const aoeDataInternal = {
             },
             "1813": {
                 "Cost": {
-                    "Food": 1000,
+                    "Food": 1200,
                     "Gold": 600
                 },
                 "ID": 526,
@@ -5124,7 +5387,7 @@ export const aoeDataInternal = {
             },
             "1907": {
                 "Cost": {
-                    "Gold": 750,
+                    "Gold": 600,
                     "Wood": 800
                 },
                 "ID": 980,
@@ -5134,7 +5397,7 @@ export const aoeDataInternal = {
             "1910": {
                 "Cost": {
                     "Food": 950,
-                    "Gold": 750
+                    "Gold": 550
                 },
                 "ID": 991,
                 "ResearchTime": 45,
@@ -5237,6 +5500,7 @@ export const aoeDataInternal = {
                         "Class": 13
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -5309,8 +5573,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 2,
                         "Class": 17
+                    },
+                    {
+                        "Amount": -10,
+                        "Class": 32
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -5362,7 +5631,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 3,
-                "AttackDelaySeconds": 0.5066666666666667,
+                "AttackDelaySeconds": 0.506667,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -5389,6 +5658,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -5440,7 +5710,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 2,
-                "AttackDelaySeconds": 0.5066666666666667,
+                "AttackDelaySeconds": 0.506667,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -5467,6 +5737,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -5488,7 +5759,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 3,
                 "Speed": 0.96,
-                "TrainTime": 22,
+                "TrainTime": 26,
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "XBOWM"
@@ -5537,6 +5808,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -5596,7 +5868,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
-                "AttackDelaySeconds": 0.49833333333333335,
+                "AttackDelaySeconds": 0.498333,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -5631,6 +5903,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -5680,6 +5953,7 @@ export const aoeDataInternal = {
                 "Attack": 0,
                 "AttackDelaySeconds": 0,
                 "Attacks": [],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -5728,6 +6002,7 @@ export const aoeDataInternal = {
                 "Attack": 0,
                 "AttackDelaySeconds": 0,
                 "Attacks": [],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -5798,6 +6073,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -5868,6 +6144,7 @@ export const aoeDataInternal = {
                         "Class": 13
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -5946,6 +6223,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6028,6 +6306,7 @@ export const aoeDataInternal = {
                         "Class": 37
                     }
                 ],
+                "BlastWidth": 0.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6075,7 +6354,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
-                "AttackDelaySeconds": 0.6716666666666667,
+                "AttackDelaySeconds": 0.671667,
                 "Attacks": [
                     {
                         "Amount": 10,
@@ -6104,8 +6383,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6161,7 +6445,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
-                "AttackDelaySeconds": 0.9099999999999999,
+                "AttackDelaySeconds": 0.91,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -6192,6 +6476,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6266,10 +6551,6 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 9,
-                        "Class": 32
-                    },
-                    {
                         "Amount": 0,
                         "Class": 38
                     },
@@ -6280,8 +6561,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6364,6 +6650,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6415,7 +6702,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 200,
-                "AttackDelaySeconds": 0.8800000000000001,
+                "AttackDelaySeconds": 0.88,
                 "Attacks": [
                     {
                         "Amount": 250,
@@ -6426,6 +6713,7 @@ export const aoeDataInternal = {
                         "Class": 3
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6496,6 +6784,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6547,7 +6836,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
-                "AttackDelaySeconds": 0.22166666666666665,
+                "AttackDelaySeconds": 0.221667,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -6574,6 +6863,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6648,6 +6938,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6722,6 +7013,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6796,6 +7088,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6866,6 +7159,7 @@ export const aoeDataInternal = {
                         "Class": 37
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -6947,7 +7241,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     },
                     {
-                        "Amount": 4,
+                        "Amount": 0,
                         "Class": 35
                     },
                     {
@@ -6959,6 +7253,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7008,6 +7303,7 @@ export const aoeDataInternal = {
                 "Attack": 0,
                 "AttackDelaySeconds": 0,
                 "Attacks": [],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7053,6 +7349,7 @@ export const aoeDataInternal = {
                 "Attack": 0,
                 "AttackDelaySeconds": 0,
                 "Attacks": [],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7125,12 +7422,9 @@ export const aoeDataInternal = {
                     {
                         "Amount": 10,
                         "Class": 1
-                    },
-                    {
-                        "Amount": 10,
-                        "Class": 32
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7227,8 +7521,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7307,6 +7606,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7395,8 +7695,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7471,6 +7776,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7518,7 +7824,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 11,
-                "AttackDelaySeconds": 0.16000000000000003,
+                "AttackDelaySeconds": 0.16,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -7545,6 +7851,7 @@ export const aoeDataInternal = {
                         "Class": 1
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7615,6 +7922,7 @@ export const aoeDataInternal = {
                         "Class": 25
                     }
                 ],
+                "BlastWidth": 1,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7666,7 +7974,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
-                "AttackDelaySeconds": 0.9955555555555556,
+                "AttackDelaySeconds": 0.995556,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -7693,6 +8001,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7714,7 +8023,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1,
-                "TrainTime": 17,
+                "TrainTime": 13,
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "TAXEM"
@@ -7781,8 +8090,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7830,7 +8144,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 12,
-                "AttackDelaySeconds": 0.6716666666666667,
+                "AttackDelaySeconds": 0.671667,
                 "Attacks": [
                     {
                         "Amount": 12,
@@ -7859,8 +8173,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -7943,6 +8262,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 1,
                 "Cost": {
@@ -7961,8 +8281,8 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 0,
-                "RechargeDuration": 30.000030000029998,
-                "RechargeRate": 0.0333333,
+                "RechargeDuration": 30.000028610256777,
+                "RechargeRate": 0.033333,
                 "ReloadTime": 1.9,
                 "Speed": 1,
                 "TrainTime": 9,
@@ -8036,8 +8356,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8134,8 +8459,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8194,6 +8524,7 @@ export const aoeDataInternal = {
                         "Class": 3
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8276,7 +8607,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     },
                     {
-                        "Amount": 11,
+                        "Amount": 7,
                         "Class": 35
                     },
                     {
@@ -8288,6 +8619,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8370,7 +8702,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     },
                     {
-                        "Amount": 11,
+                        "Amount": 7,
                         "Class": 35
                     },
                     {
@@ -8382,6 +8714,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8448,6 +8781,7 @@ export const aoeDataInternal = {
                         "Class": 20
                     }
                 ],
+                "BlastWidth": 0.25,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8478,7 +8812,7 @@ export const aoeDataInternal = {
                 "AccuracyPercent": 100,
                 "Armours": [
                     {
-                        "Amount": -3,
+                        "Amount": -2,
                         "Class": 4
                     },
                     {
@@ -8514,6 +8848,7 @@ export const aoeDataInternal = {
                         "Class": 20
                     }
                 ],
+                "BlastWidth": 1.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8528,7 +8863,7 @@ export const aoeDataInternal = {
                 "LanguageNameId": 5289,
                 "LineOfSight": 3,
                 "MaxCharge": 0,
-                "MeleeArmor": -3,
+                "MeleeArmor": -2,
                 "MinRange": 0,
                 "PierceArmor": 190,
                 "Range": 0,
@@ -8580,6 +8915,7 @@ export const aoeDataInternal = {
                         "Class": 22
                     }
                 ],
+                "BlastWidth": 0.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8660,8 +8996,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8731,6 +9072,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8813,6 +9155,7 @@ export const aoeDataInternal = {
                         "Class": 20
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8886,6 +9229,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -8941,7 +9285,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
-                "AttackDelaySeconds": 0.8969999999999999,
+                "AttackDelaySeconds": 0.897,
                 "Attacks": [
                     {
                         "Amount": 4,
@@ -8972,6 +9316,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9019,7 +9364,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
-                "AttackDelaySeconds": 0.3422222222222222,
+                "AttackDelaySeconds": 0.342222,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -9042,6 +9387,7 @@ export const aoeDataInternal = {
                         "Class": 13
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9100,6 +9446,7 @@ export const aoeDataInternal = {
                         "Class": 4
                     }
                 ],
+                "BlastWidth": 3,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9158,6 +9505,7 @@ export const aoeDataInternal = {
                         "Class": 4
                     }
                 ],
+                "BlastWidth": 3.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9232,6 +9580,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9302,6 +9651,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9353,7 +9703,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
-                "AttackDelaySeconds": 0.8177777777777778,
+                "AttackDelaySeconds": 0.815111,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -9380,13 +9730,14 @@ export const aoeDataInternal = {
                         "Class": 30
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
                     "Food": 55,
                     "Gold": 25
                 },
-                "FrameDelay": 23,
+                "FrameDelay": 28,
                 "GarrisonCapacity": 0,
                 "HP": 70,
                 "ID": 531,
@@ -9401,7 +9752,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1,
-                "TrainTime": 17,
+                "TrainTime": 13,
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "UTAXE"
@@ -9454,6 +9805,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9528,6 +9880,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9606,6 +9959,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9676,6 +10030,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9723,7 +10078,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
-                "AttackDelaySeconds": 0.16000000000000003,
+                "AttackDelaySeconds": 0.16,
                 "Attacks": [
                     {
                         "Amount": 6,
@@ -9750,6 +10105,7 @@ export const aoeDataInternal = {
                         "Class": 1
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9799,6 +10155,7 @@ export const aoeDataInternal = {
                 "Attack": 0,
                 "AttackDelaySeconds": 0,
                 "Attacks": [],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9878,8 +10235,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9909,7 +10271,7 @@ export const aoeDataInternal = {
                 "AccuracyPercent": 100,
                 "Armours": [
                     {
-                        "Amount": -3,
+                        "Amount": -1,
                         "Class": 4
                     },
                     {
@@ -9945,6 +10307,7 @@ export const aoeDataInternal = {
                         "Class": 20
                     }
                 ],
+                "BlastWidth": 2,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -9959,7 +10322,7 @@ export const aoeDataInternal = {
                 "LanguageNameId": 5446,
                 "LineOfSight": 3,
                 "MaxCharge": 0,
-                "MeleeArmor": -3,
+                "MeleeArmor": -1,
                 "MinRange": 0,
                 "PierceArmor": 195,
                 "Range": 0,
@@ -10011,6 +10374,7 @@ export const aoeDataInternal = {
                         "Class": 37
                     }
                 ],
+                "BlastWidth": 1.25,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -10085,10 +10449,6 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 10,
-                        "Class": 32
-                    },
-                    {
                         "Amount": 0,
                         "Class": 38
                     },
@@ -10099,8 +10459,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -10179,6 +10544,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -10257,6 +10623,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -10335,10 +10702,6 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 1,
-                        "Class": 35
-                    },
-                    {
                         "Amount": 0,
                         "Class": 38
                     },
@@ -10349,8 +10712,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -10359,7 +10727,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 12,
                 "GarrisonCapacity": 0,
-                "HP": 90,
+                "HP": 80,
                 "ID": 556,
                 "LanguageHelpId": 26453,
                 "LanguageNameId": 5453,
@@ -10421,6 +10789,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -10509,8 +10878,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -10562,7 +10936,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
-                "AttackDelaySeconds": 0.22166666666666665,
+                "AttackDelaySeconds": 0.221667,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -10589,6 +10963,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -10671,6 +11046,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 1,
                 "Cost": {
@@ -10689,8 +11065,8 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 0,
-                "RechargeDuration": 30.000030000029998,
-                "RechargeRate": 0.0333333,
+                "RechargeDuration": 30.000028610256777,
+                "RechargeRate": 0.033333,
                 "ReloadTime": 1.9,
                 "Speed": 1,
                 "TrainTime": 9,
@@ -10731,7 +11107,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 8,
-                "AttackDelaySeconds": 0.49833333333333335,
+                "AttackDelaySeconds": 0.498333,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -10766,6 +11142,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -10840,6 +11217,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -10887,7 +11265,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
-                "AttackDelaySeconds": 0.6716666666666667,
+                "AttackDelaySeconds": 0.671667,
                 "Attacks": [
                     {
                         "Amount": 14,
@@ -10916,8 +11294,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -10984,6 +11367,7 @@ export const aoeDataInternal = {
                         "Class": 37
                     }
                 ],
+                "BlastWidth": 1.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11050,6 +11434,7 @@ export const aoeDataInternal = {
                         "Class": 20
                     }
                 ],
+                "BlastWidth": 0.3,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11128,6 +11513,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11206,6 +11592,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11280,10 +11667,6 @@ export const aoeDataInternal = {
                         "Class": 8
                     },
                     {
-                        "Amount": 5,
-                        "Class": 32
-                    },
-                    {
                         "Amount": 0,
                         "Class": 30
                     },
@@ -11292,6 +11675,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11366,10 +11750,6 @@ export const aoeDataInternal = {
                         "Class": 8
                     },
                     {
-                        "Amount": 6,
-                        "Class": 32
-                    },
-                    {
                         "Amount": 0,
                         "Class": 30
                     },
@@ -11378,6 +11758,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11468,6 +11849,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11558,6 +11940,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11648,6 +12031,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11740,8 +12124,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11834,8 +12223,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11908,12 +12302,9 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 17
-                    },
-                    {
-                        "Amount": 1,
-                        "Class": 32
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -11986,12 +12377,9 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 17
-                    },
-                    {
-                        "Amount": 2,
-                        "Class": 32
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -12055,7 +12443,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 16,
-                "AttackDelaySeconds": 0.40444444444444444,
+                "AttackDelaySeconds": 0.404444,
                 "Attacks": [
                     {
                         "Amount": 0,
@@ -12074,11 +12462,12 @@ export const aoeDataInternal = {
                         "Class": 39
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
-                    "Gold": 70
+                    "Food": 70,
+                    "Gold": 60
                 },
                 "FrameDelay": 13,
                 "GarrisonCapacity": 0,
@@ -12137,7 +12526,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 18,
-                "AttackDelaySeconds": 0.40444444444444444,
+                "AttackDelaySeconds": 0.404444,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -12156,11 +12545,12 @@ export const aoeDataInternal = {
                         "Class": 39
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
-                    "Gold": 70
+                    "Food": 70,
+                    "Gold": 60
                 },
                 "FrameDelay": 13,
                 "GarrisonCapacity": 0,
@@ -12213,6 +12603,7 @@ export const aoeDataInternal = {
                 "Attack": 0,
                 "AttackDelaySeconds": 0,
                 "Attacks": [],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -12271,7 +12662,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
-                "AttackDelaySeconds": 0.9955555555555555,
+                "AttackDelaySeconds": 0.995556,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -12298,6 +12689,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -12357,7 +12749,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 9,
-                "AttackDelaySeconds": 0.9955555555555555,
+                "AttackDelaySeconds": 0.995556,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -12384,6 +12776,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -12442,7 +12835,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 6,
+                "Attack": 4,
                 "AttackDelaySeconds": 0.15,
                 "Attacks": [
                     {
@@ -12450,15 +12843,15 @@ export const aoeDataInternal = {
                         "Class": 11
                     },
                     {
-                        "Amount": 6,
-                        "Class": 3
+                        "Amount": 4,
+                        "Class": 4
                     },
                     {
-                        "Amount": 2,
+                        "Amount": 0,
                         "Class": 20
                     },
                     {
-                        "Amount": 2,
+                        "Amount": 0,
                         "Class": 37
                     },
                     {
@@ -12470,14 +12863,15 @@ export const aoeDataInternal = {
                         "Class": 22
                     },
                     {
-                        "Amount": 5,
+                        "Amount": 0,
                         "Class": 16
                     },
                     {
-                        "Amount": 5,
+                        "Amount": 0,
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0.3,
                 "ChargeEvent": 0,
                 "ChargeType": 7,
                 "Cost": {
@@ -12496,7 +12890,7 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 7,
                 "Range": 6,
-                "RechargeDuration": 6.000024000096,
+                "RechargeDuration": 6.0000239611628885,
                 "RechargeRate": 0.166666,
                 "ReloadTime": 2,
                 "Speed": 1.05,
@@ -12537,7 +12931,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 8,
+                "Attack": 4,
                 "AttackDelaySeconds": 0.15,
                 "Attacks": [
                     {
@@ -12545,15 +12939,15 @@ export const aoeDataInternal = {
                         "Class": 11
                     },
                     {
-                        "Amount": 8,
-                        "Class": 3
+                        "Amount": 4,
+                        "Class": 4
                     },
                     {
-                        "Amount": 3,
+                        "Amount": 0,
                         "Class": 20
                     },
                     {
-                        "Amount": 3,
+                        "Amount": 0,
                         "Class": 37
                     },
                     {
@@ -12565,14 +12959,15 @@ export const aoeDataInternal = {
                         "Class": 22
                     },
                     {
-                        "Amount": 6,
+                        "Amount": 1,
                         "Class": 16
                     },
                     {
-                        "Amount": 6,
+                        "Amount": 1,
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0.3,
                 "ChargeEvent": 0,
                 "ChargeType": 7,
                 "Cost": {
@@ -12591,7 +12986,7 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 8,
                 "Range": 7,
-                "RechargeDuration": 6.000024000096,
+                "RechargeDuration": 6.0000239611628885,
                 "RechargeRate": 0.166666,
                 "ReloadTime": 2,
                 "Speed": 1.05,
@@ -12656,6 +13051,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -12738,6 +13134,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -12788,11 +13185,11 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 9,
+                "Attack": 10,
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
-                        "Amount": 9,
+                        "Amount": 10,
                         "Class": 4
                     },
                     {
@@ -12822,8 +13219,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -12832,7 +13234,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 75,
+                "HP": 80,
                 "ID": 869,
                 "LanguageHelpId": 26728,
                 "LanguageNameId": 5728,
@@ -12845,7 +13247,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 1.8,
                 "Speed": 1.5,
-                "TrainTime": 14,
+                "TrainTime": 12,
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "UMAGYX"
@@ -12874,11 +13276,11 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 10,
+                "Attack": 11,
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
-                        "Amount": 10,
+                        "Amount": 11,
                         "Class": 4
                     },
                     {
@@ -12908,8 +13310,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -12918,7 +13325,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
-                "HP": 85,
+                "HP": 90,
                 "ID": 871,
                 "LanguageHelpId": 26730,
                 "LanguageNameId": 5730,
@@ -12931,7 +13338,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 1.8,
                 "Speed": 1.5,
-                "TrainTime": 14,
+                "TrainTime": 12,
                 "Trait": 0,
                 "TraitPiece": 0,
                 "internal_name": "UMAGYX"
@@ -12996,6 +13403,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -13082,6 +13490,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -13162,8 +13571,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -13244,8 +13658,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -13324,6 +13743,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -13398,14 +13818,11 @@ export const aoeDataInternal = {
                         "Class": 5
                     },
                     {
-                        "Amount": 1,
-                        "Class": 35
-                    },
-                    {
                         "Amount": 0,
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -13436,7 +13853,7 @@ export const aoeDataInternal = {
                 "AccuracyPercent": 100,
                 "Armours": [
                     {
-                        "Amount": 10,
+                        "Amount": 0,
                         "Class": 1
                     },
                     {
@@ -13488,6 +13905,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -13564,8 +13982,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 2,
                         "Class": 38
+                    },
+                    {
+                        "Amount": -2,
+                        "Class": 32
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -13578,7 +14001,7 @@ export const aoeDataInternal = {
                 "ID": 1001,
                 "LanguageHelpId": 26129,
                 "LanguageNameId": 5129,
-                "LineOfSight": 9,
+                "LineOfSight": 8,
                 "MaxCharge": 0,
                 "MeleeArmor": 2,
                 "MinRange": 1,
@@ -13642,8 +14065,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 2,
                         "Class": 38
+                    },
+                    {
+                        "Amount": -2,
+                        "Class": 32
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -13718,6 +14146,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -13792,6 +14221,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -13898,6 +14328,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14004,6 +14435,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14102,6 +14534,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14200,6 +14633,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14278,6 +14712,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14356,6 +14791,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14438,6 +14874,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14520,6 +14957,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14594,6 +15032,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14652,6 +15091,7 @@ export const aoeDataInternal = {
                         "Class": 4
                     }
                 ],
+                "BlastWidth": 2.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14705,11 +15145,12 @@ export const aoeDataInternal = {
                 "Attack": 0,
                 "AttackDelaySeconds": 0,
                 "Attacks": [],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Gold": 160,
-                    "Wood": 200
+                    "Gold": 120,
+                    "Wood": 100
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 10,
@@ -14763,7 +15204,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     },
                     {
-                        "Amount": 20,
+                        "Amount": 10,
                         "Class": 37
                     }
                 ],
@@ -14809,8 +15250,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14869,7 +15315,7 @@ export const aoeDataInternal = {
                         "Class": 31
                     },
                     {
-                        "Amount": 20,
+                        "Amount": 10,
                         "Class": 37
                     }
                 ],
@@ -14915,8 +15361,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -14925,7 +15376,7 @@ export const aoeDataInternal = {
                 },
                 "FrameDelay": 12,
                 "GarrisonCapacity": 0,
-                "HP": 290,
+                "HP": 280,
                 "ID": 1122,
                 "LanguageHelpId": 26147,
                 "LanguageNameId": 5147,
@@ -14995,6 +15446,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15073,6 +15525,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15163,6 +15616,7 @@ export const aoeDataInternal = {
                         "Class": 39
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15253,6 +15707,7 @@ export const aoeDataInternal = {
                         "Class": 39
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15304,7 +15759,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
-                "AttackDelaySeconds": 0.6900000000000001,
+                "AttackDelaySeconds": 0.69,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -15327,6 +15782,7 @@ export const aoeDataInternal = {
                         "Class": 1
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15378,7 +15834,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 7,
-                "AttackDelaySeconds": 0.6900000000000001,
+                "AttackDelaySeconds": 0.69,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -15401,6 +15857,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15485,8 +15942,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0.4,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15571,8 +16033,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0.4,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15624,7 +16091,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 4,
-                "AttackDelaySeconds": 0.5066666666666667,
+                "AttackDelaySeconds": 0.506667,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -15651,6 +16118,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15731,8 +16199,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15813,8 +16286,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15895,8 +16373,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -15977,8 +16460,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16065,6 +16553,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16151,6 +16640,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16231,8 +16721,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16313,8 +16808,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16393,6 +16893,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16471,6 +16972,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16551,8 +17053,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16633,8 +17140,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16701,6 +17213,7 @@ export const aoeDataInternal = {
                         "Class": 20
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16787,6 +17300,7 @@ export const aoeDataInternal = {
                         "Class": 21
                     }
                 ],
+                "BlastWidth": 2,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16861,6 +17375,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -16937,8 +17452,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -17015,8 +17535,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -17093,8 +17618,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -17175,8 +17705,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 1,
                 "ChargeType": 1,
                 "Cost": {
@@ -17258,8 +17793,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 1,
                 "ChargeType": 1,
                 "Cost": {
@@ -17339,10 +17879,11 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 55,
                     "Gold": 25
                 },
                 "FrameDelay": 0,
@@ -17417,10 +17958,11 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 55,
                     "Gold": 25
                 },
                 "FrameDelay": 0,
@@ -17495,10 +18037,11 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 55,
                     "Gold": 25
                 },
                 "FrameDelay": 0,
@@ -17573,10 +18116,11 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 55,
                     "Gold": 25
                 },
                 "FrameDelay": 0,
@@ -17621,10 +18165,6 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 31
-                    },
-                    {
-                        "Amount": 1,
-                        "Class": 27
                     }
                 ],
                 "Attack": 5,
@@ -17667,11 +18207,12 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
                     "Food": 30,
-                    "Gold": 30
+                    "Gold": 25
                 },
                 "FrameDelay": 0,
                 "GarrisonCapacity": 0,
@@ -17745,6 +18286,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -17823,6 +18365,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -17882,7 +18425,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
-                "AttackDelaySeconds": 0.6222222222222222,
+                "AttackDelaySeconds": 0.622222,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -17897,6 +18440,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -17956,7 +18500,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 13,
-                "AttackDelaySeconds": 0.6222222222222222,
+                "AttackDelaySeconds": 0.622222,
                 "Attacks": [
                     {
                         "Amount": 2,
@@ -17971,6 +18515,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -18055,8 +18600,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -18138,6 +18688,7 @@ export const aoeDataInternal = {
                         "Class": 37
                     }
                 ],
+                "BlastWidth": 0.7,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -18216,6 +18767,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0.75,
                 "ChargeEvent": 1,
                 "ChargeType": 3,
                 "Cost": {
@@ -18295,6 +18847,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0.75,
                 "ChargeEvent": 1,
                 "ChargeType": 3,
                 "Cost": {
@@ -18388,8 +18941,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -18482,8 +19040,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -18555,10 +19118,6 @@ export const aoeDataInternal = {
                     },
                     {
                         "Amount": 0,
-                        "Class": 32
-                    },
-                    {
-                        "Amount": 0,
                         "Class": 8
                     },
                     {
@@ -18570,6 +19129,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -18640,10 +19200,6 @@ export const aoeDataInternal = {
                         "Class": 1
                     },
                     {
-                        "Amount": 1,
-                        "Class": 32
-                    },
-                    {
                         "Amount": 0,
                         "Class": 8
                     },
@@ -18656,6 +19212,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -18746,6 +19303,7 @@ export const aoeDataInternal = {
                         "Class": 20
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -18836,6 +19394,7 @@ export const aoeDataInternal = {
                         "Class": 20
                     }
                 ],
+                "BlastWidth": 1.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -18914,6 +19473,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     }
                 ],
+                "BlastWidth": 1,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -18992,6 +19552,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     }
                 ],
+                "BlastWidth": 1,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -19070,6 +19631,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -19150,8 +19712,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 4,
                 "Cost": {
@@ -19233,8 +19800,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 4,
                 "Cost": {
@@ -19253,7 +19825,7 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 0,
-                "RechargeDuration": 20,
+                "RechargeDuration": 20.000000340597975,
                 "RechargeRate": 0.35,
                 "ReloadTime": 1.9,
                 "Speed": 1.6,
@@ -19328,8 +19900,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -19351,8 +19928,8 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1.2,
-                "TrainTime": 48,
-                "Trait": 0,
+                "TrainTime": 22,
+                "Trait": 16,
                 "TraitPiece": 0,
                 "internal_name": "CAMELSC"
             },
@@ -19389,7 +19966,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 5,
-                "AttackDelaySeconds": 0.6206666666666667,
+                "AttackDelaySeconds": 0.620667,
                 "Attacks": [
                     {
                         "Amount": 5,
@@ -19420,6 +19997,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -19479,7 +20057,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 6,
-                "AttackDelaySeconds": 0.6206666666666667,
+                "AttackDelaySeconds": 0.620667,
                 "Attacks": [
                     {
                         "Amount": 6,
@@ -19510,6 +20088,7 @@ export const aoeDataInternal = {
                         "Class": 38
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -19592,7 +20171,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     },
                     {
-                        "Amount": 4,
+                        "Amount": 0,
                         "Class": 35
                     },
                     {
@@ -19604,6 +20183,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -19686,7 +20266,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     },
                     {
-                        "Amount": 11,
+                        "Amount": 7,
                         "Class": 35
                     },
                     {
@@ -19698,6 +20278,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -19780,7 +20361,7 @@ export const aoeDataInternal = {
                         "Class": 30
                     },
                     {
-                        "Amount": 11,
+                        "Amount": 7,
                         "Class": 35
                     },
                     {
@@ -19792,6 +20373,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -19868,8 +20450,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -19946,8 +20533,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -20022,14 +20614,11 @@ export const aoeDataInternal = {
                         "Class": 30
                     },
                     {
-                        "Amount": 4,
-                        "Class": 32
-                    },
-                    {
                         "Amount": 0,
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -20100,6 +20689,7 @@ export const aoeDataInternal = {
                         "Class": 26
                     }
                 ],
+                "BlastWidth": 0.8,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -20170,6 +20760,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -20240,6 +20831,7 @@ export const aoeDataInternal = {
                         "Class": 17
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -20320,8 +20912,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -20402,8 +20999,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -20486,6 +21088,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -20533,7 +21136,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 14,
-                "AttackDelaySeconds": 0.6716666666666667,
+                "AttackDelaySeconds": 0.671667,
                 "Attacks": [
                     {
                         "Amount": 14,
@@ -20562,8 +21165,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -20618,15 +21226,15 @@ export const aoeDataInternal = {
                         "Class": 23
                     }
                 ],
-                "Attack": 8,
-                "AttackDelaySeconds": 0.4166666666666667,
+                "Attack": 9,
+                "AttackDelaySeconds": 0.416667,
                 "Attacks": [
                     {
                         "Amount": 1,
                         "Class": 21
                     },
                     {
-                        "Amount": 8,
+                        "Amount": 9,
                         "Class": 4
                     },
                     {
@@ -20658,10 +21266,11 @@ export const aoeDataInternal = {
                         "Class": 5
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 4,
                 "ChargeType": 6,
                 "Cost": {
-                    "Gold": 50,
+                    "Gold": 45,
                     "Wood": 40
                 },
                 "FrameDelay": 10,
@@ -20676,8 +21285,8 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 0,
                 "Range": 0,
-                "RechargeDuration": 30.000030000029998,
-                "RechargeRate": 0.0333333,
+                "RechargeDuration": 29.999998435378156,
+                "RechargeRate": 0.033333,
                 "ReloadTime": 2,
                 "Speed": 0.96,
                 "TrainTime": 32,
@@ -20714,7 +21323,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 10,
-                "AttackDelaySeconds": 0.4166666666666667,
+                "AttackDelaySeconds": 0.416667,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -20753,10 +21362,11 @@ export const aoeDataInternal = {
                         "Class": 5
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 5,
                 "ChargeType": 6,
                 "Cost": {
-                    "Gold": 50,
+                    "Gold": 45,
                     "Wood": 40
                 },
                 "FrameDelay": 10,
@@ -20771,8 +21381,8 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 0,
-                "RechargeDuration": 30.000030000029998,
-                "RechargeRate": 0.0333333,
+                "RechargeDuration": 29.999998435378156,
+                "RechargeRate": 0.033333,
                 "ReloadTime": 2,
                 "Speed": 0.96,
                 "TrainTime": 25,
@@ -20805,7 +21415,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 5,
-                "AttackDelaySeconds": 0.03333333333333333,
+                "AttackDelaySeconds": 0.033333,
                 "Attacks": [
                     {
                         "Amount": 7,
@@ -20832,6 +21442,7 @@ export const aoeDataInternal = {
                         "Class": 22
                     }
                 ],
+                "BlastWidth": 1,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -20883,7 +21494,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 5,
-                "AttackDelaySeconds": 0.03333333333333333,
+                "AttackDelaySeconds": 0.033333,
                 "Attacks": [
                     {
                         "Amount": 12,
@@ -20910,6 +21521,7 @@ export const aoeDataInternal = {
                         "Class": 22
                     }
                 ],
+                "BlastWidth": 1.25,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -20990,8 +21602,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 5,
                 "Cost": {
@@ -21010,8 +21627,8 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 3,
                 "Range": 0,
-                "RechargeDuration": 59.999880000240005,
-                "RechargeRate": 0.0166667,
+                "RechargeDuration": 39.99999940395356,
+                "RechargeRate": 0.025,
                 "ReloadTime": 2.28,
                 "Speed": 1.4,
                 "TrainTime": 14,
@@ -21073,8 +21690,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 5,
                 "Cost": {
@@ -21093,8 +21715,8 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 3,
                 "Range": 0,
-                "RechargeDuration": 50,
-                "RechargeRate": 0.02,
+                "RechargeDuration": 29.999998435378156,
+                "RechargeRate": 0.033333,
                 "ReloadTime": 2.28,
                 "Speed": 1.4,
                 "TrainTime": 14,
@@ -21130,8 +21752,8 @@ export const aoeDataInternal = {
                         "Class": 23
                     }
                 ],
-                "Attack": 11,
-                "AttackDelaySeconds": 0.4666666666666667,
+                "Attack": 12,
+                "AttackDelaySeconds": 0.466667,
                 "Attacks": [
                     {
                         "Amount": 1,
@@ -21142,7 +21764,7 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 11,
+                        "Amount": 12,
                         "Class": 3
                     },
                     {
@@ -21154,19 +21776,20 @@ export const aoeDataInternal = {
                         "Class": 1
                     },
                     {
-                        "Amount": 0,
+                        "Amount": -9,
                         "Class": 32
                     }
                 ],
+                "BlastWidth": 0.65,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
                     "Food": 35,
-                    "Gold": 70
+                    "Gold": 65
                 },
                 "FrameDelay": 14,
                 "GarrisonCapacity": 0,
-                "HP": 35,
+                "HP": 40,
                 "ID": 1911,
                 "LanguageHelpId": 26596,
                 "LanguageNameId": 5596,
@@ -21236,6 +21859,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -21314,6 +21938,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -21370,6 +21995,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 30
+                    },
+                    {
+                        "Amount": -3,
+                        "Class": 39
                     }
                 ],
                 "Attack": 30,
@@ -21394,8 +22023,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0.5,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -21447,7 +22081,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "Attack": 50,
-                "AttackDelaySeconds": 0.6666666666666666,
+                "AttackDelaySeconds": 0.666667,
                 "Attacks": [
                     {
                         "Amount": 175,
@@ -21466,6 +22100,7 @@ export const aoeDataInternal = {
                         "Class": 37
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -21550,8 +22185,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -21632,8 +22272,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 1,
                         "Class": 1
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -21696,6 +22341,7 @@ export const aoeDataInternal = {
                         "Class": 20
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": -3,
                 "ChargeType": 6,
                 "Cost": {
@@ -21777,8 +22423,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -21859,8 +22510,13 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 20
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -21912,11 +22568,15 @@ export const aoeDataInternal = {
                     },
                     {
                         "Amount": 0,
+                        "Class": 19
+                    },
+                    {
+                        "Amount": 0,
                         "Class": 31
                     }
                 ],
-                "Attack": 4,
-                "AttackDelaySeconds": 0.9099999999999999,
+                "Attack": 5,
+                "AttackDelaySeconds": 0.91,
                 "Attacks": [
                     {
                         "Amount": 3,
@@ -21927,7 +22587,7 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 4,
+                        "Amount": 5,
                         "Class": 3
                     },
                     {
@@ -21947,8 +22607,9 @@ export const aoeDataInternal = {
                         "Class": 1
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
-                "ChargeType": 6,
+                "ChargeType": 7,
                 "Cost": {
                     "Gold": 25,
                     "Wood": 60
@@ -21965,8 +22626,8 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 0,
                 "Range": 4,
-                "RechargeDuration": 30.000030000029998,
-                "RechargeRate": 0.0333333,
+                "RechargeDuration": 30.000028610256777,
+                "RechargeRate": 0.033333,
                 "ReloadTime": 1.8,
                 "Speed": 1.4,
                 "TrainTime": 26,
@@ -21996,6 +22657,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 36
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
                     }
                 ],
                 "Attack": 14,
@@ -22026,6 +22691,7 @@ export const aoeDataInternal = {
                         "Class": 20
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -22108,6 +22774,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -22190,6 +22857,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -22270,12 +22938,17 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 50,
+                    "Food": 65,
                     "Gold": 90
                 },
                 "FrameDelay": 3,
@@ -22291,8 +22964,8 @@ export const aoeDataInternal = {
                 "PierceArmor": 5,
                 "Range": 6,
                 "RechargeRate": 0,
-                "ReloadTime": 8,
-                "Speed": 0.8,
+                "ReloadTime": 6.5,
+                "Speed": 0.9,
                 "TrainTime": 28,
                 "Trait": 8,
                 "TraitPiece": 1980,
@@ -22320,6 +22993,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 36
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
                     }
                 ],
                 "Attack": 15,
@@ -22350,6 +23027,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -22432,6 +23110,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0.25,
                 "ChargeEvent": -4,
                 "ChargeType": 6,
                 "Cost": {
@@ -22450,8 +23129,8 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 0,
                 "Range": 5,
-                "RechargeDuration": 6.25e-18,
-                "RechargeRate": 3200000000000000000,
+                "RechargeDuration": 6.250000098082818e-18,
+                "RechargeRate": 3199999949781598000,
                 "ReloadTime": 3.5,
                 "Speed": 0.96,
                 "TrainTime": 17,
@@ -22515,6 +23194,7 @@ export const aoeDataInternal = {
                         "Class": 34
                     }
                 ],
+                "BlastWidth": 0.25,
                 "ChargeEvent": -4,
                 "ChargeType": 6,
                 "Cost": {
@@ -22533,8 +23213,8 @@ export const aoeDataInternal = {
                 "MinRange": 0,
                 "PierceArmor": 0,
                 "Range": 6,
-                "RechargeDuration": 6.25e-18,
-                "RechargeRate": 3200000000000000000,
+                "RechargeDuration": 6.250000098082818e-18,
+                "RechargeRate": 3199999949781598000,
                 "ReloadTime": 3.5,
                 "Speed": 0.96,
                 "TrainTime": 17,
@@ -22550,7 +23230,7 @@ export const aoeDataInternal = {
                         "Class": 1
                     },
                     {
-                        "Amount": 3,
+                        "Amount": 2,
                         "Class": 4
                     },
                     {
@@ -22562,8 +23242,12 @@ export const aoeDataInternal = {
                         "Class": 31
                     },
                     {
-                        "Amount": 1,
+                        "Amount": 0,
                         "Class": 29
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
                     }
                 ],
                 "Attack": 8,
@@ -22590,6 +23274,7 @@ export const aoeDataInternal = {
                         "Class": 15
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -22604,7 +23289,7 @@ export const aoeDataInternal = {
                 "LanguageNameId": 5368,
                 "LineOfSight": 4,
                 "MaxCharge": 0,
-                "MeleeArmor": 3,
+                "MeleeArmor": 2,
                 "MinRange": 0,
                 "PierceArmor": 5,
                 "Range": 0,
@@ -22638,6 +23323,10 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 36
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 19
                     }
                 ],
                 "Attack": 15,
@@ -22668,6 +23357,7 @@ export const aoeDataInternal = {
                         "Class": 20
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
@@ -22748,12 +23438,17 @@ export const aoeDataInternal = {
                     {
                         "Amount": -3,
                         "Class": 39
+                    },
+                    {
+                        "Amount": 0,
+                        "Class": 31
                     }
                 ],
+                "BlastWidth": 0,
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 50,
+                    "Food": 65,
                     "Gold": 90
                 },
                 "FrameDelay": 3,
@@ -22769,8 +23464,8 @@ export const aoeDataInternal = {
                 "PierceArmor": 5,
                 "Range": 6,
                 "RechargeRate": 0,
-                "ReloadTime": 8,
-                "Speed": 0.8,
+                "ReloadTime": 6.5,
+                "Speed": 0.9,
                 "TrainTime": 28,
                 "Trait": 8,
                 "TraitPiece": 1962,
@@ -22782,9 +23477,12 @@ export const aoeDataInternal = {
         "Age of Empires II": "1001",
         "Building": "300084",
         "Civilization": "9681",
+        "Common": "20132",
         "Key": "300081",
+        "Regional": "20133",
         "Technology": "300085",
         "Technology Tree": "9799",
+        "Unique": "20134",
         "Unique Unit": "300082",
         "Unit": "300083",
         "mode": "1"
@@ -23066,10 +23764,6 @@ export const aoeDataInternal = {
                 {
                     "age": 4,
                     "id": 219
-                },
-                {
-                    "age": 4,
-                    "id": 221
                 },
                 {
                     "age": 4,
@@ -27638,10 +28332,6 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 322
-                },
-                {
-                    "age": 4,
-                    "id": 373
                 },
                 {
                     "age": 3,
@@ -33571,10 +34261,6 @@ export const aoeDataInternal = {
                 },
                 {
                     "age": 4,
-                    "id": 235
-                },
-                {
-                    "age": 4,
                     "id": 276
                 },
                 {
@@ -34326,10 +35012,6 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 322
-                },
-                {
-                    "age": 4,
-                    "id": 373
                 },
                 {
                     "age": 3,
@@ -36225,10 +36907,6 @@ export const aoeDataInternal = {
                     "id": 545
                 },
                 {
-                    "age": 1,
-                    "id": 545
-                },
-                {
                     "age": 3,
                     "id": 546
                 },
@@ -36377,7 +37055,7 @@ export const aoeDataInternal = {
                     "id": 792
                 }
             ],
-            "monkSuffix": "_293",
+            "monkSuffix": "_218",
             "techs": [
                 {
                     "age": 2,
@@ -36414,10 +37092,6 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 39
-                },
-                {
-                    "age": 4,
-                    "id": 45
                 },
                 {
                     "age": 3,
@@ -36598,6 +37272,10 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 319
+                },
+                {
+                    "age": 4,
+                    "id": 321
                 },
                 {
                     "age": 3,
@@ -36917,10 +37595,6 @@ export const aoeDataInternal = {
                 },
                 {
                     "age": 4,
-                    "id": 235
-                },
-                {
-                    "age": 4,
                     "id": 276
                 },
                 {
@@ -36997,6 +37671,10 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 50
+                },
+                {
+                    "age": 3,
+                    "id": 54
                 },
                 {
                     "age": 2,
@@ -37143,10 +37821,6 @@ export const aoeDataInternal = {
                     "id": 319
                 },
                 {
-                    "age": 4,
-                    "id": 321
-                },
-                {
                     "age": 3,
                     "id": 322
                 },
@@ -37157,10 +37831,6 @@ export const aoeDataInternal = {
                 {
                     "age": 4,
                     "id": 377
-                },
-                {
-                    "age": 4,
-                    "id": 379
                 },
                 {
                     "age": 3,
@@ -38341,6 +39011,10 @@ export const aoeDataInternal = {
                     "id": 441
                 },
                 {
+                    "age": 2,
+                    "id": 602
+                },
+                {
                     "age": 4,
                     "id": 608
                 },
@@ -38507,6 +39181,10 @@ export const aoeDataInternal = {
                 {
                     "age": 4,
                     "id": 567
+                },
+                {
+                    "age": 4,
+                    "id": 691
                 },
                 {
                     "age": 3,
@@ -45029,6 +45707,10 @@ export const aoeDataInternal = {
                     "id": 221
                 },
                 {
+                    "age": 4,
+                    "id": 233
+                },
+                {
                     "age": 3,
                     "id": 249
                 },
@@ -45051,6 +45733,10 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 319
+                },
+                {
+                    "age": 4,
+                    "id": 321
                 },
                 {
                     "age": 3,
@@ -45095,10 +45781,6 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 439
-                },
-                {
-                    "age": 3,
-                    "id": 441
                 },
                 {
                     "age": 2,
@@ -49857,6 +50539,10 @@ export const aoeDataInternal = {
                     "id": 567
                 },
                 {
+                    "age": 4,
+                    "id": 691
+                },
+                {
                     "age": 2,
                     "id": 1104
                 },
@@ -50102,6 +50788,10 @@ export const aoeDataInternal = {
                 {
                     "age": 3,
                     "id": 140
+                },
+                {
+                    "age": 3,
+                    "id": 182
                 },
                 {
                     "age": 3,
@@ -50689,10 +51379,6 @@ export const aoeDataInternal = {
                 {
                     "age": 4,
                     "id": 221
-                },
-                {
-                    "age": 4,
-                    "id": 230
                 },
                 {
                     "age": 3,

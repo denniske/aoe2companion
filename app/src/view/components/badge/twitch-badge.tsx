@@ -41,7 +41,7 @@ export default function TwitchBadge(props: Props) {
                 contentColor="#333638"
                 logoIcon="twitch"
                 logoColor="white"
-                dot={!!playerTwitchLive?.viewer_count}
+                dot={!!playerTwitchLive?.viewer_count && !condensed}
             />
         </TouchableOpacity>
     );

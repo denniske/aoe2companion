@@ -58,13 +58,13 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                     <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1}>
                         {player.name}
                     </Text>
-                    {player.status === 'player' && player.verified && <Icon icon="check-circle" color="brand" size={12} />}
+                    {player.status === 'player' && player.verified && <Icon icon="check-circle" color="brand" size={12} style={{width:23}} />}
                     {twitch && (
                         <View className="ml-2">
                             <TwitchBadge channelUrl={player?.socialTwitchChannelUrl} channel={player?.socialTwitchChannel} condensed />
                         </View>
                     )}
-                    {player.status === 'player' && !player.verified && player.shared && <Icon icon="family" color="brand" size={12} />}
+                    {player.status === 'player' && !player.verified && player.shared && <Icon icon="family" color="brand" size={12} style={{width:23}} />}
                 </TouchableOpacity>
             </Link>
 

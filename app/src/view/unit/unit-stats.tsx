@@ -291,6 +291,7 @@ function formatChargeType(getTranslation: IGetTranslation, chargeType: number) {
         1: 'attack',
         3: 'areaattack',
         4: 'projectiledodging',
+        5: 'meleeattackdodging',
         6: 'ranged',
     };
     return getTranslation(`unit.stats.heading.chargetype.${chargeTypeMap[chargeType]}` as any);
@@ -380,7 +381,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.trainedin')}</MyText>
                 {units.map((u) => (
                     <MyText key={u} style={styles.cellValue}>
-                        <GetUnitValue style={styles.cellValue} unitId={u} prop="TrainTime" formatter={(x) => x + 's'} />
+                        <GetUnitValue style={styles.cellValue} unitId={u} prop="TrainTime" formatter={(x) => x + ' s'} />
                         {getUnitLineIdForUnit(u) == 'Tarkan' && (
                             <MyText>
                                 <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 21s{' '}
@@ -486,10 +487,18 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 </View>
             )}
 
+            {baseData.BlastWidth > 0 && (
+                <View style={styles.statsRow}>
+                    <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.blastradius')}</MyText>
+                    {units.map((u) => (
+                        <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="BlastWidth" formatter={(x) => x?.toFixed(2)} />
+                    ))}
+                </View>
+            )}
             <View style={styles.statsRow}>
                 <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.rateoffire')}</MyText>
                 {units.map((u) => (
-                    <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="ReloadTime" />
+                    <GetUnitValue key={u} style={styles.cellValue} unitId={u} prop="ReloadTime" formatter={(x) => x.toFixed(2) + ' s'} />
                 ))}
             </View>
             <View style={styles.statsRow}>

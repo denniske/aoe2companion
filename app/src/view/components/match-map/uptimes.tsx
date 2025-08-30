@@ -47,13 +47,13 @@ export default function Uptimes({ time, teams }: Props) {
                 <Text className="w-[118px] px-1">
                 </Text>
                 <View className="text-xs flex-1 px-1 flex-row justify-center border0 border-green-200">
-                    <Image className={'w-5 h-5'} source={getAgeIcon('Feudal')} contentFit="contain" />
+                    <Image className={'w-5 h-5'} source={getAgeIcon('FeudalAge')} contentFit="contain" />
                 </View>
                 <View className="text-xs flex-1 px-1 flex-row justify-center border0 border-green-200">
-                    <Image className={'w-5 h-5'} source={getAgeIcon('Castle')} contentFit="contain" />
+                    <Image className={'w-5 h-5'} source={getAgeIcon('CastleAge')} contentFit="contain" />
                 </View>
                 <View className="text-xs flex-1 px-1 flex-row justify-center border0 border-green-200">
-                    <Image className={'w-5 h-5'} source={getAgeIcon('Imperial')} contentFit="contain" />
+                    <Image className={'w-5 h-5'} source={getAgeIcon('ImperialAge')} contentFit="contain" />
                 </View>
             </View>
 
@@ -65,8 +65,8 @@ export default function Uptimes({ time, teams }: Props) {
                             <Text variant="body-sm" className="w-[100px] px-1">
                                 {player.name}
                             </Text>
-                            {padArr(player.uptimes, 3).map(uptime => (
-                                <Text key={uptime?.timestamp} className="text-xs flex-1 px-1 text-center">
+                            {['feudal_age', 'castle_age', 'imperial_age'].map(age => player.uptimes.find(u => u.age == age)).map(uptime => (
+                                <Text key={uptime?.age} className="text-xs flex-1 px-1 text-center">
                                     {uptime ? formatTimeFromMs(getTimestampMs(uptime.timestamp)) : ''}
                                 </Text>
                             ))}

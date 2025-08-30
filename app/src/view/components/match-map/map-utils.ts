@@ -37,6 +37,11 @@ export const chartFontStyle = {
 
 
 
+export function isBuilding(name: string) {
+    const building = Object.values(buildingSizes).find((b) => b.names.includes(name));
+    return !!building;
+}
+
 export function getBuildingSize(name: string): { width: number, height: number } {
     const building = Object.values(buildingSizes).find((b) => b.names.includes(name));
     return building?.size ?? { width: 1, height: 1 };

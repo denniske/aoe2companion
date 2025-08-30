@@ -9,6 +9,7 @@ import { Image } from 'expo-image';
 import { getAgeIcon } from '@app/helper/units';
 import startCase from 'lodash/startCase';
 import { Age } from '@nex/data';
+import { IMatchNew } from '@app/api/helper/api.types';
 
 
 type ILegendTeams = Array<{
@@ -26,6 +27,7 @@ type ILegendTeams = Array<{
 interface Props {
     time: SharedValue<number>;
     legendInfo: ILegendInfo;
+    match: IMatchNew;
 }
 
 const shallowArrayEqual = (a: any[], b: any[]): boolean => {
@@ -45,27 +47,49 @@ const shallowArrayEqual = (a: any[], b: any[]): boolean => {
     return true;
 };
 
-export default function Legend({ time, legendInfo }: Props) {
+const analysisAgeToAge: Record<string, string> = {
+    'dark_age': 'DarkAge',
+    'feudal_age': 'FeudalAge',
+    'castle_age': 'CastleAge',
+    'imperial_age': 'ImperialAge',
+}
+
+const startingAges: Record<string, string> = {
+    'standard': 'dark_age',
+    'dark_age': 'dark_age',
+    'feudal_age': 'feudal_age',
+    'castle_age': 'castle_age',
+    'imperial_age': 'imperial_age',
+    'post_imperial_age': 'imperial_age',
+}
+
+export default function Legend({ time, legendInfo, match }: Props) {
     const [currentLegendTeams, setCurrentLegendTeams] = useState<ILegendTeams>([]);
 
-    console.log('RERENDER LEGEND');
+    // console.log('RERENDER LEGEND');
 
     const updateMessages = (time: number) => {
         // console.log('updateMessages', time)
 
-        const newLegendInfo = legendInfo.map(team => ({
-            ...team,
-            players: team.players.map(player => ({
-                name: player.name,
-                color: player.color,
-                civImageUrl: player.civImageUrl,
-                resigned: player.resignation ? getTimestampMs(player.resignation?.timestamp) < time : false,
-                age: last(player.uptimes.filter(uptime => uptime.time < time))?.unit ?? 'Dark Age',
-            })),
-        }));
+        const newLegendInfo = legendInfo.map(team =>{
+            return {
+                ...team,
+                players: team.players.map((player) => {
+                    let age = last(player.uptimes.filter(uptime => getTimestampMs(uptime.timestamp) < time))?.age ?? startingAges[match.startingAge] ?? 'dark';
+                    // console.log('age', player.name, age, match.startingAge, analysisAgeToAge[age]);
+                    return {
+                        name: player.name,
+                        color: player.color,
+                        civImageUrl: player.civImageUrl,
+                        resigned: player.resignation ? getTimestampMs(player.resignation?.timestamp) < time : false,
+                        age: analysisAgeToAge[age],
+                    };
+                }),
+            };
+        });
 
         if (!isEqual(newLegendInfo, currentLegendTeams)) {
-            console.log('update');
+            // console.log('update');
             setCurrentLegendTeams(newLegendInfo);
         }
     };
@@ -79,6 +103,10 @@ export default function Legend({ time, legendInfo }: Props) {
         },
         [currentLegendTeams]
     );
+
+    // console.log('match.startingAge', match.startingAge);
+    // console.log('uptimes', legendInfo[0].players[0].uptimes);
+    // console.log('LEGEND', currentLegendTeams);
 
     return (
         <View
@@ -97,12 +125,13 @@ export default function Legend({ time, legendInfo }: Props) {
                                 style={{
                                     color: player.color?.toLowerCase(),
                                     fontSize: 10,
+                                    textDecorationLine: player.resigned ? 'line-through' : 'none',
                                 }}
                             >
-                                {player.name} ({player.age}) {player.resigned ? 'resigned' : ''}
+                                {player.name}
                             </Text>
                             <Image className={'w-4 h-3'} source={player.civImageUrl} contentFit="contain" />
-                            <Image className={'w-4 h-3'} source={getAgeIcon(startCase(player.age.replace('Age', '')) as Age)} contentFit="contain" />
+                            <Image className={'w-4 h-3'} source={getAgeIcon(player.age as Age)} contentFit="contain" />
                         </View>
                     ))}
                 </View>

@@ -83,6 +83,8 @@ export default function Faded(props: Props) {
     // console.log('unit.time', unit)
 
     const opacity = useDerivedValue(() => {
+        // return 1;
+        // if (!timeStart) return 1;
         return (time.value - timeStart) / (1 * 60 * 1000);
     });
 
@@ -91,19 +93,19 @@ export default function Faded(props: Props) {
         // return (time.value - timeStart) / (1 * 60 * 1000) * 4;
     });
 
-    const makeOpacityMatrix = (opacity: number): number[] => {
-        'worklet';
-        return [
-            1, 0, 0, 0, 0,
-            0, 1, 0, 0, 0,
-            0, 0, 1, 0, 0,
-            0, 0, 0, opacity, 0,
-        ];
-    };
+    // const makeOpacityMatrix = (opacity: number): number[] => {
+    //     'worklet';
+    //     return [
+    //         1, 0, 0, 0, 0,
+    //         0, 1, 0, 0, 0,
+    //         0, 0, 1, 0, 0,
+    //         0, 0, 0, opacity, 0,
+    //     ];
+    // };
 
-    const opacityMatrix = useDerivedValue(() => {
-        return makeOpacityMatrix(opacity.value);
-    });
+    // const opacityMatrix = useDerivedValue(() => {
+    //     return makeOpacityMatrix(opacity.value);
+    // });
 
     // const redPaintMatrix = [
     //     0, 0, 0, 0, 1, // Red stays the same
@@ -117,7 +119,6 @@ export default function Faded(props: Props) {
 
     return (
             <Group
-
                 // layer={<Paint><ColorMatrix matrix={opacityMatrix} /><ColorMatrix matrix={redMatrix} /></Paint>}
                 opacity={opacity}
                 // opacity={1}

@@ -42,7 +42,7 @@ export default function MapsIndex() {
     return (
         <KeyboardAvoidingView>
             <View className="flex-1">
-                <Stack.Screen options={{ title: getTranslation('civs.title') }} />
+                <Stack.Screen options={{ title: getTranslation('maps.title') }} />
 
                 {appConfig.game === 'aoe2' && (
                     <View className="pt-4 px-4">
