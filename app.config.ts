@@ -245,4 +245,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         associatedDomains: app.associatedDomains,
         appleTeamId: "HAFGZBHF9M",
     },
+    web: {
+        favicon: `./${app.folder}/assets/favicon-96x96.png`
+    }
 });

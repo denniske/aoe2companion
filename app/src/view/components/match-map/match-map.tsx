@@ -6,7 +6,7 @@ import { IAnalysis, IMatchNew } from '@app/api/helper/api.types';
 import { Text } from '@app/components/text';
 import { compact, sortBy, uniq } from 'lodash';
 import { gaiaObjects, getBuildingSize, isBuilding } from '@app/view/components/match-map/map-utils';
-import { getPath, getTileMap, setTiles, splitPath } from '@app/view/components/match-map/match-map3';
+import { getPath, getTileMap, setTiles, splitPath } from '@app/view/components/match-map/map-path';
 import groupBy from 'lodash/groupBy';
 import { runOnJS, useAnimatedReaction, useDerivedValue, useSharedValue } from 'react-native-reanimated';
 import TimeScrubber from '@app/view/components/match-map/time-scrubber';

@@ -39,13 +39,6 @@ export const FollowedPlayers = () => {
                 <Link href="/matches/current-following">Open Following Dashboard</Link>
             </View>
             <PlayerList
-                footer={(player) => {
-                    return (
-                        <Text color="subtle" variant="body-xs" numberOfLines={1} allowFontScaling={false}>
-                            {player?.games} Games
-                        </Text>
-                    );
-                }}
                 variant="horizontal"
                 showsHorizontalScrollIndicator={false}
                 list={profileIdList as any}

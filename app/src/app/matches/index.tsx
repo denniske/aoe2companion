@@ -5,7 +5,6 @@ import { Match } from '@app/components/match/match';
 import { Text } from '@app/components/text';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
 import { MyText } from '@app/view/components/my-text';
-import { ProfileLive } from '@app/view/components/profile';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
@@ -19,6 +18,7 @@ import { useWebRefresh } from '../../hooks/use-web-refresh';
 import { Link } from '@app/components/link';
 import { useAccountData, useFollowedAndMeProfileIds, useLanguage } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
+import { ProfileLive } from '@app/view/components/badge/twitch-badge';
 
 export default function MatchesPage() {
     const getTranslation = useTranslation();

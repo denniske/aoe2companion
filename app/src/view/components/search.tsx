@@ -53,6 +53,9 @@ export default function Search({ title, selectedUser, actionText, action, initia
         setReloading(true); // Needed for smooth animation when refreshing
         await refetch();
         setReloading(false);
+
+        // If user switched to another page the flatlist has been destroyed already
+        flatListRef.current?.scrollToOffset({ animated: false, offset: 0 });
     };
 
     const onEndReached = async () => {

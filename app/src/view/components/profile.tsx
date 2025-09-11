@@ -1,4 +1,4 @@
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
 import { Image, ImageStyle } from 'expo-image';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -21,6 +21,9 @@ import { useTranslation } from '@app/helper/translate';
 import { Button } from '@app/components/button';
 import useAuth from '../../../../data/src/hooks/use-auth';
 import { useAccount, useAuthProfileId } from '@app/queries/all';
+import { Text } from '@app/components/text';
+import { Icon } from '@app/components/icon';
+import { reverse, sumBy } from 'lodash';
 
 interface ILeaderboardRowProps {
     data: IProfileLeaderboardResult;
@@ -33,6 +36,22 @@ const formatStreak = (streak: number) => {
     return streak;
 };
 
+const mappingBadgeStr = {
+    'rm_1v1': '1v1',
+    'rm_team': 'Team',
+    'ew_1v1': '1v1',
+    'ew_team': 'Team',
+    'unranked': 'UNR',
+}
+
+const mappingIconName = {
+    'rm_1v1': 'swords',
+    'rm_team': 'swords',
+    'ew_1v1': 'chess-rook',
+    'ew_team': 'chess-rook',
+    'unranked': 'swords',
+}
+
 function LeaderboardRow1({ data }: ILeaderboardRowProps) {
     const theme = useAppTheme();
     const styles = useStyles();
@@ -40,69 +59,59 @@ function LeaderboardRow1({ data }: ILeaderboardRowProps) {
     const leaderboardInfo = data;
     const color = { color: getLeaderboardTextColor(data.leaderboardId, theme.dark) };
 
-    return (
-        <View style={styles.leaderboardRow}>
-            {/*<MyText tw="flex font-bold text-2xl" style={StyleSheet.flatten([styles.cellLeaderboard, color])}>*/}
-            {/*    {data.abbreviation}*/}
-            {/*</MyText>*/}
-            <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>{data.abbreviation}</MyText>
-            <MyText style={StyleSheet.flatten([styles.cellRank, color])}>#{leaderboardInfo.rank}</MyText>
-            <MyText style={StyleSheet.flatten([styles.cellRating, color])}>{leaderboardInfo.rating}</MyText>
-            <MyText style={StyleSheet.flatten([styles.cellRating2, color])}>
-                {leaderboardInfo.maxRating == leaderboardInfo.rating ? '←' : leaderboardInfo.maxRating || '-'}
-            </MyText>
-            {/*<MyText style={StyleSheet.flatten([styles.cellRatingChange, color])}>*/}
-            {/*    {leaderboardInfo.previousRating ? formatStreak(leaderboardInfo.rating-leaderboardInfo.previousRating) : '-'}*/}
-            {/*</MyText>*/}
-        </View>
-    );
-}
+    const last5MatchesWon = reverse(leaderboardInfo.last10MatchesWon?.filter((_, i) => i < 5));
 
-function LeaderboardRowSeason({ data }: ILeaderboardRowProps) {
-    const styles = useStyles();
-
-    // style={{ backgroundColor: data.rankLevelBackgroundColor }}
+    const leaderboardId = data.leaderboardId?.replace('_console', '');
 
     return (
-        <View className="flex-1 flex-col rounded p-2">
-            <MyText className="text-white font-bold mb-2">{data.leaderboardName}</MyText>
-            <View className="flex-1 flex-row w-20 h-20">
-                <View className="flex w-20 h-20">
-                    <Image style={styles.image as ImageStyle} source={data.rankLevelImageUrl} contentFit="contain" />
+        <View style={styles.leaderboardRow} className="mb-2 space-x-4">
+
+            <View className="flex-col items-center w-8">
+                <Icon icon={mappingIconName[leaderboardId]} size={24} color={theme.textNoteColor} />
+                <Text color="subtle" variant="body-tn"
+                      className="absolute -bottom-2 -right-2 p-0.5 px-1 rounded-md border-2 border-gold-50 bg-[#2E6CDD] text-white"
+                      numberOfLines={1}>
+                    {mappingBadgeStr[leaderboardId]}
+                </Text>
+            </View>
+
+            <View className="flex-col w-16">
+                <Text variant="body-md" className="truncate flex-1">🌐 {leaderboardInfo.rank}</Text>
+                {/*<Text variant="body-md">🌎 {leaderboardInfo.rank}</Text>*/}
+                <Text variant="body-xs" className="ml-[18]">Top {Math.max(1, leaderboardInfo.rank/leaderboardInfo.total*100).toFixed()}%</Text>
+            </View>
+
+            <View className="flex-col w-12">
+                <Text variant="body-md">{leaderboardInfo.rating}</Text>
+                <Text variant="body-xs">max {leaderboardInfo.maxRating}</Text>
+            </View>
+
+            <View className="flex-col w-12">
+                <Text variant="body-md">{leaderboardInfo.games}</Text>
+                <Text variant="body-xs">games</Text>
+            </View>
+
+            <View className="flex-col w-9">
+                <Text variant="body-md">{((leaderboardInfo?.wins / leaderboardInfo?.games) * 100).toFixed(0)} %</Text>
+                <Text variant="body-xs">wins</Text>
+            </View>
+
+            <View className="flex-row w-16">
+                <View className="flex-col">
+                    <Text variant="body-md" className="text-right">{formatStreak(leaderboardInfo?.streak)}</Text>
+                    <Text variant="body-xs" className="text-right space-x-1">
+                        {
+                            last5MatchesWon?.map(({ won }) =>(
+                                <View className={`${won ? 'bg-blue-500' : 'bg-gray-200'} rounded-full w-1.5 h-1.5`}></View>
+                                ))
+                        }
+                    </Text>
                 </View>
-                <View tw="flex">
-                    <MyText tw="flex font-bold text-2xl" style={{ color: data.rankLevelColor }}>
-                        {data.rankLevelName}
-                    </MyText>
+                <View className="flex-col">
+                    <Text variant="body-md" className="text-right"> {last5MatchesWon?.every(x => x.won) ? '🔥' : last5MatchesWon?.every(x => !x.won) ? '❄️' : ''}</Text>
+                    <Text variant="body-xs" className="text-right"></Text>
                 </View>
             </View>
-        </View>
-    );
-}
-
-function LeaderboardRow2({ data }: ILeaderboardRowProps) {
-    const theme = useAppTheme();
-    const styles = useStyles();
-
-    const leaderboardInfo = data;
-    const color = { color: getLeaderboardTextColor(data.leaderboardId, theme.dark) };
-
-    return (
-        <View style={styles.leaderboardRow}>
-            <MyText style={StyleSheet.flatten([styles.cellLeaderboard, color])}>{data.abbreviation}</MyText>
-            <MyText style={StyleSheet.flatten([styles.cellGames, color])}>{leaderboardInfo.games}</MyText>
-            <MyText style={StyleSheet.flatten([styles.cellWon, color])} numberOfLines={1}>
-                {((leaderboardInfo?.wins / leaderboardInfo?.games) * 100).toFixed(2)} %
-            </MyText>
-            <MyText style={StyleSheet.flatten([styles.cellStreak, color])} numberOfLines={1}>
-                {formatStreak(leaderboardInfo?.streak)}
-            </MyText>
-            {/*<MyText style={StyleSheet.flatten([styles.cellStreak, color])} numberOfLines={1}>*/}
-            {/*    {leaderboardInfo.highestStreak == leaderboardInfo.streak ? '←' : formatStreak(leaderboardInfo.highestStreak)}*/}
-            {/*</MyText>*/}
-            {/*<MyText style={StyleSheet.flatten([styles.cellLastMatch, color])} numberOfLines={1}>*/}
-            {/*    {formatAgo(leaderboardInfo.lastMatch)}*/}
-            {/*</MyText>*/}
         </View>
     );
 }
@@ -111,34 +120,6 @@ interface IProfileProps {
     data?: IProfileResult | null;
     ready: boolean;
     profileId?: number;
-}
-
-export function ProfileLive({ data }: { data: IPlayerNew }) {
-    const styles = useStyles();
-    const { socialTwitchChannel, socialTwitchChannelUrl } = data;
-
-    const { data: playerTwitchLive } = useQuery({
-        queryKey: ['twitch-live', socialTwitchChannel],
-        queryFn: () => twitchLive(socialTwitchChannel),
-        enabled: !!socialTwitchChannel,
-    });
-
-    if (!playerTwitchLive || !socialTwitchChannel || !socialTwitchChannelUrl) {
-        return <MyText />;
-    }
-
-    return (
-        <MyText style={styles.row} onPress={() => openLink(socialTwitchChannelUrl)}>
-            {playerTwitchLive?.type === 'live' && (
-                <>
-                    <MyText style={{ color: '#e91a16' }}> ● </MyText>
-                    <MyText>{playerTwitchLive.viewer_count} </MyText>
-                    <FontAwesome5 solid name="twitch" size={14} style={styles.twitchIcon} />
-                    <MyText> </MyText>
-                </>
-            )}
-        </MyText>
-    );
 }
 
 export default function Profile({ data, ready, profileId }: IProfileProps) {
@@ -151,6 +132,15 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     const user = useAuth();
     const account = useAccount();
     const loggedIn = user && !user.is_anonymous && account.data;
+
+    const leaderboardsPC = data?.leaderboards?.filter((l) => !l.leaderboardId?.includes('_console'));
+    const leaderboardsConsole = data?.leaderboards?.filter((l) => l.leaderboardId?.includes('_console'));
+
+    const pcGames = sumBy(leaderboardsPC, x => x.games);
+    const consoleGames = sumBy(leaderboardsConsole, x => x.games);
+
+    const pcDrops = sumBy(leaderboardsPC, x => x.drops);
+    const consoleDrops = sumBy(leaderboardsConsole, x => x.drops);
 
     return (
         <View style={styles.container}>
@@ -183,127 +173,56 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                     </View>
                 )}
 
-                {/*<TouchableOpacity className="flex-row gap-3 py-4 items-center" onPress={() => router.push(path)}>*/}
-
-                {/*<View className="space-y-3">*/}
-
-                {/*    <Link href="/profile">*/}
-                {/*        Sign up*/}
-                {/*    </Link> to manage your profile.*/}
-
-                {/*</View>*/}
-
-                {/*<MyText>*/}
-                {/*    <Link href="/more/account" asChild>*/}
-                {/*        <MyText className="text-blue-600 underline">Sign up</MyText>*/}
-                {/*    </Link>*/}
-                {/*    {' '}to manage your data and socials.*/}
-                {/*</MyText>*/}
-
-                {/*{(false || !loggedIn) && (*/}
                 {!loggedIn && authProfileId === profileId && (
                     <View className="space-x-2 flex-row items-center">
-                        {/*<Pressable*/}
-                        {/*    onPress={() => router.push('/more/account')}*/}
-                        {/*    className="bg-blue-600 px-4 py-2 rounded"*/}
-                        {/*>*/}
-                        {/*    <MyText className="text-white text-center">Sign up</MyText>*/}
-                        {/*</Pressable>*/}
-
                         <Button onPress={() => router.push('/more/account')}>Sign up</Button>
-
                         <MyText>to manage your profile.</MyText>
                     </View>
                 )}
 
-                {/*{liquipediaProfileOverview && (*/}
-                {/*    <View className="justify-center">*/}
-                {/*        <TournamentMarkdown>{liquipediaProfileOverview}</TournamentMarkdown>*/}
-
-                {/*        <Button onPress={() => setShowTournamentPlayer(true)} align="center" size="small">*/}
-                {/*            Competitive Overview*/}
-                {/*        </Button>*/}
-
-                {/*        {liquipediaProfile && (*/}
-                {/*            <TournamentPlayerPopup*/}
-                {/*                id={liquipediaProfile.name}*/}
-                {/*                title={liquipediaProfile.name}*/}
-                {/*                isActive={showTournamentPlayer}*/}
-                {/*                onClose={() => setShowTournamentPlayer(false)}*/}
-                {/*            />*/}
-                {/*        )}*/}
-                {/*    </View>*/}
-                {/*)}*/}
-
-                <View>
-                    <View style={styles.leaderboardRow}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>
-                            {getTranslation('main.profile.heading.board')}
-                        </MyText>
-                        <MyText numberOfLines={1} style={styles.cellRank}>
-                            {getTranslation('main.profile.heading.rank')}
-                        </MyText>
-                        <MyText numberOfLines={1} style={styles.cellRating}>
-                            {getTranslation('main.profile.heading.rating')}
-                        </MyText>
-                        <MyText numberOfLines={1} style={styles.cellRating2}>
-                            {getTranslation('main.profile.heading.max')}
-                        </MyText>
-                        <MyText numberOfLines={1} style={styles.cellRatingChange}>
-                            {getTranslation('main.profile.heading.change')}
-                        </MyText>
+                 <View style={styles.leaderboardRow} className="mt-2 space-x-4">
+                    <View className="flex-col w-8 items-center">
+                        <FontAwesome6
+                            className="px-1 rounded-md border-2 border-gold-50 bg-[#2E6CDD] text-white"
+                            name="computer-mouse" size={16} style={{color: 'black'}} />
                     </View>
-                    {data?.leaderboards.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />)}
-
-                    {!data &&
-                        Array(2)
-                            .fill(0)
-                            .map((a, i) => (
-                                <View key={i} style={styles.row}>
-                                    <TextLoader style={styles.cellLeaderboard} />
-                                    <TextLoader style={styles.cellRank} />
-                                    <TextLoader style={styles.cellRating} />
-                                    <TextLoader style={styles.cellRating2} />
-                                    <TextLoader style={styles.cellRatingChange} />
-                                </View>
-                            ))}
+                    <View className="flex-col w-10">
+                        <Text variant="body-md">{pcGames}</Text>
+                        <Text variant="body-xs">games</Text>
+                    </View>
+                    <View className="flex-col w-12">
+                        <Text variant="body-md">{((pcDrops as any) / (pcGames as any) * 100).toFixed(2)} %</Text>
+                        <Text variant="body-xs">drops</Text>
+                    </View>
                 </View>
 
-                <View>
-                    <View style={styles.leaderboardRow}>
-                        <MyText numberOfLines={1} style={styles.cellLeaderboard}>
-                            {getTranslation('main.profile.heading.board')}
-                        </MyText>
-                        <MyText numberOfLines={1} style={styles.cellGames}>
-                            {getTranslation('main.profile.heading.games')}
-                        </MyText>
-                        <MyText numberOfLines={1} style={styles.cellWon}>
-                            {getTranslation('main.profile.heading.won')}
-                        </MyText>
-                        <MyText numberOfLines={1} style={styles.cellStreak}>
-                            {getTranslation('main.profile.heading.streak')}
-                        </MyText>
-                    </View>
-                    {data?.leaderboards.map((leaderboard) => <LeaderboardRow2 key={leaderboard.leaderboardId} data={leaderboard} />)}
-
-                    {!data &&
-                        Array(2)
-                            .fill(0)
-                            .map((a, i) => (
-                                <View key={i} style={styles.row}>
-                                    <TextLoader style={styles.cellLeaderboard} />
-                                    <TextLoader style={styles.cellGames} />
-                                    <TextLoader style={styles.cellWon} />
-                                    <TextLoader style={styles.cellStreak} />
-                                </View>
-                            ))}
+                <View className="py-1 space-y-2">
+                    {leaderboardsPC?.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />)}
                 </View>
 
-                <TextLoader ready={data}>
-                    {getTranslation('main.profile.games', { games: data?.games })},{' '}
-                    {getTranslation('main.profile.drops', { drops: data?.drops })} (
-                    {(((data?.drops as any) / (data?.games as any)) * 100).toFixed(2)} %)
-                </TextLoader>
+                {
+                    leaderboardsConsole && leaderboardsConsole.length > 0 && (
+                        <View style={styles.leaderboardRow} className="mt-2 space-x-4">
+                            <View className="flex-col w-8 items-center">
+                                <FontAwesome6
+                                    className="px-1 rounded-md border-2 border-gold-50 bg-[#2E6CDD] text-white"
+                                    name="gamepad" size={16} style={{color: 'black'}} />
+                            </View>
+                            <View className="flex-col w-10">
+                                <Text variant="body-md">{consoleGames}</Text>
+                                <Text variant="body-xs">games</Text>
+                            </View>
+                            <View className="flex-col w-12">
+                                <Text variant="body-md">{((consoleDrops as any) / (consoleGames as any) * 100).toFixed(2)} %</Text>
+                                <Text variant="body-xs">drops</Text>
+                            </View>
+                        </View>
+                    )
+                }
+
+                <View className="py-1 space-y-2">
+                    {leaderboardsConsole?.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />)}
+                </View>
             </View>
         </View>
     );
@@ -326,16 +245,12 @@ const useStyles = createStylesheet((theme) =>
         image: {
             flex: 1,
             width: '100%',
-            // width: 100,
-            // height: 100,
-            // width: '100%',
             // backgroundColor: '#0553',
         },
         sectionHeader: {
             marginVertical: 25,
             fontSize: 15,
             fontWeight: '500',
-            // textAlign: 'center',
         },
         followButton: {
             // backgroundColor: 'blue',

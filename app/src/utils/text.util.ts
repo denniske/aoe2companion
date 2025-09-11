@@ -1,5 +1,6 @@
 export type TextColor = 'default' | 'brand' | 'subtle' | string;
 export type TextVariant =
+    | 'body-tn'
     | 'body-xs'
     | 'body-sm'
     | 'body'
@@ -15,6 +16,7 @@ export type TextVariant =
     | 'title';
 
 export const textVariantStyles: Record<TextVariant, { fontSize: number; lineHeight: number; fontFamily: string }> = {
+    'body-tn': { fontSize: 8, lineHeight: 12, fontFamily: 'Roboto_400Regular' },
     'body-xs': { fontSize: 10, lineHeight: 14, fontFamily: 'Roboto_400Regular' },
     'body-sm': { fontSize: 12, lineHeight: 16, fontFamily: 'Roboto_400Regular' },
     body: { fontSize: 14, lineHeight: 20, fontFamily: 'Roboto_400Regular' },

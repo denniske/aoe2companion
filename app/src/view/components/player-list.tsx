@@ -124,7 +124,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                     footer(player)
                 ) : (
                     <Text color="subtle" variant="body-xs" numberOfLines={1} allowFontScaling={false}>
-                        {player.games} Games
+                        {player.games || '<10'} Games
                     </Text>
                 )}
             </Card>
@@ -151,7 +151,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                     footer(player)
                 ) : (
                     <Text variant="body-sm" color="subtle">
-                        {player.games} Games
+                        {player.games || '<10'} Games
                     </Text>
                 )}
             </View>

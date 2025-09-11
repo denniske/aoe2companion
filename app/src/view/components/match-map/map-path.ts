@@ -205,31 +205,31 @@ export function splitPath(path: IPath, isPassableTile: IPred) {
     return paths;
 }
 
-export default function MatchMap3() {
-
-    // console.log('RERENDER');
-
-    const path = {
-        position: { x: 0, y: 0 },
-        positionEnd: { x: 2, y: 5 },
-    };
-    const paths = [path];
-    // console.log(paths.flatMap(getPath).flatMap(splitPath));
-
-    // console.log(splitPath({x: 0, y: 0}, {x: 5, y: 0}));
-    // console.log(splitPath({x: 5, y: 5}, {x: 0, y: 0}));
-
-    // console.log(getPath({x: 0, y: 0}, {x: 0, y: 4}));
-    // console.log(getPath({x: 0, y: 0}, {x: 2, y: 4}));
-    // console.log(getPath({x: 0, y: 0}, {x: 4, y: 4}));
-    // console.log(getPath({x: 0, y: 0}, {x: 4, y: 2}));
-    // console.log(getPath({x: 0, y: 0}, {x: 4, y: 0}));
-    // console.log(getPath({x: 0, y: 0}, {x: 4, y: -1}));
-    // console.log(getPath({x: 0, y: 0}, {x: 4, y: -2}));
-
-    return (
-        <View>
-            <Text>Test</Text>
-        </View>
-    );
-}
+// export default function MatchMap3() {
+//
+//     // console.log('RERENDER');
+//
+//     const path = {
+//         position: { x: 0, y: 0 },
+//         positionEnd: { x: 2, y: 5 },
+//     };
+//     const paths = [path];
+//     // console.log(paths.flatMap(getPath).flatMap(splitPath));
+//
+//     // console.log(splitPath({x: 0, y: 0}, {x: 5, y: 0}));
+//     // console.log(splitPath({x: 5, y: 5}, {x: 0, y: 0}));
+//
+//     // console.log(getPath({x: 0, y: 0}, {x: 0, y: 4}));
+//     // console.log(getPath({x: 0, y: 0}, {x: 2, y: 4}));
+//     // console.log(getPath({x: 0, y: 0}, {x: 4, y: 4}));
+//     // console.log(getPath({x: 0, y: 0}, {x: 4, y: 2}));
+//     // console.log(getPath({x: 0, y: 0}, {x: 4, y: 0}));
+//     // console.log(getPath({x: 0, y: 0}, {x: 4, y: -1}));
+//     // console.log(getPath({x: 0, y: 0}, {x: 4, y: -2}));
+//
+//     return (
+//         <View>
+//             <Text>Test</Text>
+//         </View>
+//     );
+// }

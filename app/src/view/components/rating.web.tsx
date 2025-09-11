@@ -21,6 +21,8 @@ import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useTranslation } from '@app/helper/translate';
 import { getRatingTimespan } from '@app/utils/rating';
+import { TimespanSelect } from '@app/components/select/timespan-select';
+import { FontAwesome6 } from '@expo/vector-icons';
 
 function replaceRobotoWithSystemFont(obj: any) {
     const keys = Object.keys(obj);
@@ -112,6 +114,25 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
         setAppliedHiddenLeaderboardIds(true);
     }, [authProfileId, profile, appliedHiddenLeaderboardIds]);
 
+
+    const [platform, setPlatform] = useState<string>('pc');
+    const platformValues: string[] = ['pc', 'console'];
+    const formatPlatform = (platform: string) => {
+        if (platform === 'pc') return (
+            <FontAwesome6
+                className="px-1 rounded-md border-2 border-gold-50 bg-[#2E6CDD] text-white"
+                name="computer-mouse" size={16} />
+        );
+        if (platform === 'console') return (
+            <FontAwesome6
+                className="px-1 rounded-md border-2 border-gold-50 bg-[#2E6CDD] text-white"
+                name="gamepad" size={16} />
+        );
+        return <></>;
+    };
+
+
+
     // Changing the pref will trigger a rerender on every chart. Should we do this?
     // const ratingHistoryDuration = useSelector((state) => state.prefs.ratingHistoryDuration) || 'max';
     const [ratingHistoryDuration, setRatingHistoryDuration] = useState<string>('max');
@@ -154,13 +175,13 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     const filteredRatingHistories = useMemo(() => {
         const since = getRatingTimespan(ratingHistoryDuration);
 
-        return ratingHistories?.map((r) => ({
+        return ratingHistories?.filter(r => (!r.leaderboardId.includes('_console') && platform != 'console') || (r.leaderboardId.includes('_console') && platform == 'console'))?.map((r) => ({
             ...r,
             leaderboardId: r.leaderboardId,
             ratings: r.ratings.filter((d) => since == null || isAfter(d.date!, since)),
         }))
             ;
-    }, [ratingHistories, ratingHistoryDuration]);
+    }, [ratingHistories, ratingHistoryDuration, platform]);
 
     // console.log('ratingHistories', ratingHistories[0]);
     // console.log('filteredRatingHistories', filteredRatingHistories?.[0].ratings.length);
@@ -183,7 +204,9 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     return (
         <View style={styles.container}>
             <View style={styles.durationRow}>
-                <ButtonPicker value={ratingHistoryDuration} values={values} formatter={formatDuration} onSelect={nav} />
+                {/*<ButtonPicker value={ratingHistoryDuration} values={values} formatter={formatDuration} onSelect={nav} />*/}
+                <ButtonPicker value={platform} values={platformValues} formatter={formatPlatform} onSelect={setPlatform} />
+                <TimespanSelect ratingHistoryDuration={ratingHistoryDuration} setRatingHistoryDuration={setRatingHistoryDuration}/>
             </View>
 
             <ViewLoader ready={hasData}>
@@ -251,7 +274,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                                 color: getLeaderboardTextColor(ratingHistory.leaderboardId, theme.dark),
                             }}
                         >
-                            {ratingHistory.abbreviation}
+                            {ratingHistory.abbreviation?.replace('🎮', '')}
                         </TextLoader>
                     </TouchableOpacity>
                 ))}
@@ -268,7 +291,7 @@ const styles = StyleSheet.create({
     durationRow: {
         // backgroundColor: 'green',
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         marginBottom: 10,
     },
     container: {

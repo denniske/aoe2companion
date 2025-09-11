@@ -43,7 +43,7 @@ export const useFollowedAndMeProfileIds = () =>
 export const useProfile = (profileId: number, extend: string = 'avatar_medium_url,avatar_full_url') => {
     const language = useLanguage();
     return useQuery({
-        queryKey: ['profile', profileId],
+        queryKey: ['profile', profileId, extend],
         queryFn: () => fetchProfile({ language: language!, profileId, extend }),
         enabled: !!language && !!profileId,
     });

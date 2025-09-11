@@ -18,6 +18,7 @@ import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useTranslation } from '@app/helper/translate';
 import { getRatingTimespan } from '@app/utils/rating';
+import { TimespanSelect } from '@app/components/select/timespan-select';
 
 const fontFamily = Platform.select({ ios: 'Helvetica', default: 'serif' });
 const fontStyle = {
@@ -150,7 +151,8 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     return (
         <View style={styles.container}>
             <View style={styles.durationRow}>
-                <ButtonPicker value={ratingHistoryDuration} values={values} formatter={formatDuration} onSelect={nav} />
+                {/*<ButtonPicker value={ratingHistoryDuration} values={values} formatter={formatDuration} onSelect={nav} />*/}
+                <TimespanSelect ratingHistoryDuration={ratingHistoryDuration} setRatingHistoryDuration={setRatingHistoryDuration}/>
             </View>
 
             <ViewLoader ready={dataset.data?.length > 0}>

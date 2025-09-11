@@ -171,6 +171,10 @@ export interface IProfileLeaderboardResult {
     wins: number
     updatedAt: string
     rankCountry: number
+    total: number
+    last10MatchesWon: {
+        won: boolean
+    }[]
 }
 
 export type IAssetsResult = IAsset[]

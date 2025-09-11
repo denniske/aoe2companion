@@ -21,7 +21,7 @@ export default function MainProfile(props: any) {
     const styles = useStyles();
     const navigation = useNavigation<any>();
 
-    const { data: profile, refetch, isRefetching } = useWithRefetching(useProfile(profileId));
+    const { data: profile, refetch, isRefetching } = useWithRefetching(useProfile(profileId, 'avatar_medium_url,avatar_full_url,last_10_matches_won'));
 
     // const myParams = useGlobalSearchParams();
     // const myParams2 = useLocalSearchParams();
@@ -137,7 +137,7 @@ const useStyles = createStylesheet((theme) =>
             marginVertical: 25,
             fontSize: 15,
             fontWeight: '500',
-            textAlign: 'center',
+            textAlign: 'left',
         },
         list: {
             padding: 20,

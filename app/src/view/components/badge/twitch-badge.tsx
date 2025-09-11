@@ -5,6 +5,9 @@ import Badge from './badge';
 import { twitchLive } from '../../../api/following';
 import { openLink } from '../../../helper/url';
 import { useQuery } from '@tanstack/react-query';
+import { IPlayerNew } from '@app/api/helper/api.types';
+import { MyText } from '@app/view/components/my-text';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 interface Props {
     channel?: string;
@@ -48,3 +51,32 @@ export default function TwitchBadge(props: Props) {
 }
 
 const useStyles = createStylesheet((theme) => StyleSheet.create({}));
+
+
+export function ProfileLive({ data }: { data: IPlayerNew }) {
+    const styles = useStyles();
+    const { socialTwitchChannel, socialTwitchChannelUrl } = data;
+
+    const { data: playerTwitchLive } = useQuery({
+        queryKey: ['twitch-live', socialTwitchChannel],
+        queryFn: () => twitchLive(socialTwitchChannel),
+        enabled: !!socialTwitchChannel,
+    });
+
+    if (!playerTwitchLive || !socialTwitchChannel || !socialTwitchChannelUrl) {
+        return <MyText />;
+    }
+
+    return (
+        <MyText style={styles.row} onPress={() => openLink(socialTwitchChannelUrl)}>
+            {playerTwitchLive?.type === 'live' && (
+                <>
+                    <MyText style={{ color: '#e91a16' }}> ● </MyText>
+                    <MyText>{playerTwitchLive.viewer_count} </MyText>
+                    <FontAwesome5 solid name="twitch" size={14} style={styles.twitchIcon} />
+                    <MyText> </MyText>
+                </>
+            )}
+        </MyText>
+    );
+}
