@@ -70,7 +70,7 @@ function LeaderboardRow1({ data }: ILeaderboardRowProps) {
                 <Icon icon={mappingIconName[leaderboardId]} size={24} color={theme.textNoteColor} />
                 <Text color="subtle"
                       variant="body-tn"
-                      className="absolute -bottom-2 -right-2 p-0.5 px-1 rounded-md border-2 border-gold-50 bg-[#2E6CDD] text-white"
+                      className="absolute -bottom-2 -right-2 p-0.5 px-1 rounded-md border-2 border-gold-50 dark:border-blue-950 bg-[#2E6CDD] text-white"
                       numberOfLines={1}>
                     {mappingBadgeStr[leaderboardId]}
                 </Text>
@@ -128,6 +128,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     data = ready ? data : null;
 
     const styles = useStyles();
+    const theme = useAppTheme();
     const authProfileId = useAuthProfileId();
 
     const user = useAuth();
@@ -196,7 +197,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 <View style={styles.leaderboardRow} className="mt-2 gap-x-4">
                     <View className="flex-col w-8 items-center">
                         <FontAwesome6
-                            name="computer-mouse" size={16} style={{color: 'black'}} />
+                            name="computer-mouse" size={16} style={{color: theme.textNoteColor}} />
                     </View>
                     <View className="flex-col w-10">
                         <Text variant="body-md">{pcGames}</Text>

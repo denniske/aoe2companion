@@ -17,6 +17,8 @@ export const Text: React.FC<TextProps> = ({ variant = 'body', color = 'default',
 
     //  ${textColor}
 
+    // console.log('text', props.children, `${className ?? ''} ${textColor} `);
+
     const style2 = {
         textAlign: align,
         ...textVariantStyles[variant],

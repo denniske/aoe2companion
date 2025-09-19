@@ -16,9 +16,12 @@ export interface IconProps {
 
 export const Icon: React.FC<IconProps> = ({ icon, color = 'default', prefix = 'fass', ...rest }) => {
     const tw = useTw();
-    const textColor = textColors[color] ?? color;
-    const iconStyle = tw.style(textColor);
-    // const iconStyle = tw.style('bg-yellow-500 gap-2');
-    // console.log('iconStyle', iconStyle);
-    return <FontAwesomeIcon {...rest} color={iconStyle.color as string} icon={[prefix, icon]}/>;
+    let finalColor = color;
+    if (textColors[color]) {
+        const textColor = textColors[color] ?? color;
+        const iconStyle = tw.style(textColor);
+        finalColor = iconStyle.color as string;
+    }
+    // console.log('iconStyle', color, finalColor);
+    return <FontAwesomeIcon {...rest} color={finalColor} icon={[prefix, icon]}/>;
 };
