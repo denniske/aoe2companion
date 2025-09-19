@@ -1,29 +1,26 @@
-import { FontAwesome, FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
-import { Image, ImageStyle } from 'expo-image';
+import { FontAwesome6 } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
 import DiscordBadge from './badge/discord-badge';
 import DouyuBadge from './badge/doyou-badge';
 import TwitchBadge from './badge/twitch-badge';
 import YoutubeBadge from './badge/youtube-badge';
-import { TextLoader } from './loader/text-loader';
 import { MyText } from './my-text';
-import { twitchLive } from '../../api/following';
-import { IPlayerNew, IProfileLeaderboardResult, IProfileResult } from '../../api/helper/api.types';
+import { IProfileLeaderboardResult, IProfileResult } from '../../api/helper/api.types';
 import { getLeaderboardTextColor } from '../../helper/colors';
-import { openLink } from '../../helper/url';
 import { useAppTheme } from '../../theming';
 import { createStylesheet } from '../../theming-new';
 import { router } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from '@app/helper/translate';
 import { Button } from '@app/components/button';
 import { useAccount, useAuthProfileId } from '@app/queries/all';
 import { Text } from '@app/components/text';
 import { Icon } from '@app/components/icon';
 import { reverse, sumBy } from 'lodash';
-import useAuth from "@/data/src/hooks/use-auth";
+import useAuth from '@/data/src/hooks/use-auth';
+import { TextLoader } from '@app/view/components/loader/text-loader';
+import { ViewLoader } from '@app/view/components/loader/view-loader';
+import { Skeleton } from '@app/view/components/loader/skeleton';
 
 interface ILeaderboardRowProps {
     data: IProfileLeaderboardResult;
@@ -182,32 +179,30 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                     </View>
                 )}
 
-                {/*<View className="flex-col items-center w-[393px] -mx-4 bg-red-400">*/}
-                {/*    <Text>asdsad</Text>*/}
-                {/*</View>*/}
+                {!data &&
+                    <>
+                        <Skeleton className="h-8 w-20" />
+                        <Skeleton className="h-8" />
+                        <Skeleton className="h-8" />
+                    </>
+                }
 
-                {/*<View className="flex-col items-center w-10 -mx-4 bg-red-400">*/}
-                {/*    <Text>asdsad</Text>*/}
-                {/*</View>*/}
-
-                {/*<View className="flex-col items-center w-[40px] -mx-4 bg-red-400">*/}
-                {/*    <Text>asdsad</Text>*/}
-                {/*</View>*/}
-
-                <View style={styles.leaderboardRow} className="mt-2 gap-x-4">
-                    <View className="flex-col w-8 items-center">
-                        <FontAwesome6
-                            name="computer-mouse" size={16} style={{color: theme.textNoteColor}} />
+                {data &&
+                    <View style={styles.leaderboardRow} className="mt-2 gap-x-4">
+                        <View className="flex-col w-8 items-center">
+                            <FontAwesome6
+                                name="computer-mouse" size={16} style={{color: theme.textNoteColor}} />
+                        </View>
+                        <View className="flex-col w-10">
+                            <Text variant="body-md">{pcGames}</Text>
+                            <Text variant="body-xs">games</Text>
+                        </View>
+                        <View className="flex-col w-12">
+                            <Text variant="body-md">{((pcDrops as any) / (pcGames as any) * 100).toFixed(2)} %</Text>
+                            <Text variant="body-xs">drops</Text>
+                        </View>
                     </View>
-                    <View className="flex-col w-10">
-                        <Text variant="body-md">{pcGames}</Text>
-                        <Text variant="body-xs">games</Text>
-                    </View>
-                    <View className="flex-col w-12">
-                        <Text variant="body-md">{((pcDrops as any) / (pcGames as any) * 100).toFixed(2)} %</Text>
-                        <Text variant="body-xs">drops</Text>
-                    </View>
-                </View>
+                }
 
                 <View className="py-1 gap-y-2">
                     {leaderboardsPC?.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />)}
