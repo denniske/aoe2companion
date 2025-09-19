@@ -97,8 +97,8 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     // console.log('Rendering Rating chart, hasData', hasData, filteredRatingHistories);
 
     return (
-        <View style={styles.container}>
-            <View style={styles.durationRow}>
+        <View>
+            <View className="flex-row justify-between mb-4">
                 <PlatformSelect platform={platform} setPlatform={setPlatform}/>
                 <TimespanSelect ratingHistoryDuration={ratingHistoryDuration} setRatingHistoryDuration={setRatingHistoryDuration}/>
             </View>
@@ -117,16 +117,17 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                 </View>
             </ViewLoader>
 
-            <View style={styles.legend}>
+            <View className="flex-row justify-evenly flex-wrap -mx-2 mt-3">
                 {(filteredRatingHistories || Array(2).fill(0)).map((ratingHistory, i) => (
                     <TouchableOpacity key={'legend-' + i} onPress={() => toggleLeaderboard(ratingHistory.leaderboardId)}>
                         <TextLoader
                             width={100}
                             key={'legend-' + i}
                             style={{
+                                textAlign: 'center',
                                 opacity: hiddenLeaderboardIds?.includes(ratingHistory.leaderboardId) ? 0.5 : 1,
                                 paddingHorizontal: 10,
-                                paddingVertical: 5,
+                                paddingVertical: 8,
                                 fontSize: 12,
                                 color: getLeaderboardTextColor(ratingHistory.leaderboardId, theme.dark),
                             }}
@@ -141,29 +142,11 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 }
 
 const styles = StyleSheet.create({
-    chart: {
-        backgroundColor: 'yellow',
-        width: '100%',
-    },
-    durationRow: {
-        // backgroundColor: 'green',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 10,
-    },
-    container: {
-        // backgroundColor: 'green',
-    },
     legend: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         flexWrap: 'wrap',
         marginHorizontal: -8,
         marginTop: 10,
-        // backgroundColor: 'red',
-    },
-    legendDesc: {
-        textAlign: 'center',
-        fontSize: 12,
     },
 });
