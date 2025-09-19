@@ -1,17 +1,12 @@
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { Fragment, useEffect, useMemo, useState } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
 import { formatDateShort, formatMonth, formatTime, formatYear, LeaderboardId } from '@nex/data';
-import { getLeaderboardColor, getLeaderboardTextColor } from '../../helper/colors';
+import { getLeaderboardTextColor } from '../../helper/colors';
 import { TextLoader } from './loader/text-loader';
 import { useAppTheme } from '../../theming';
-import ButtonPicker from './button-picker';
-import { isAfter, subDays, subMonths, subWeeks, subYears } from 'date-fns';
+import { isAfter } from 'date-fns';
 import { IProfileRatingsLeaderboard, IProfileResult } from '../../api/helper/api.types';
 import { windowWidth } from '@app/app/statistics/leaderboard';
-import { orderBy } from 'lodash';
-
-import { CartesianChart, Line, Scatter } from 'victory-native-date';
-import { matchFont } from '@shopify/react-native-skia';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
 import { useAuthProfileId } from '@app/queries/all';
 import { usePrefData } from '@app/queries/prefs';
@@ -19,16 +14,8 @@ import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useTranslation } from '@app/helper/translate';
 import { getRatingTimespan } from '@app/utils/rating';
 import { TimespanSelect } from '@app/components/select/timespan-select';
-import {PlatformSelect} from "@app/components/select/platform-select";
-
-const fontFamily = Platform.select({ ios: 'Helvetica', default: 'serif' });
-const fontStyle = {
-    fontFamily,
-    fontSize: 11,
-    fontStyle: "normal",
-    fontWeight: "normal",
-};
-const font = matchFont(fontStyle as any);
+import { PlatformSelect } from '@app/components/select/platform-select';
+import RatingChart from '@app/view/components/rating-chart';
 
 interface IRatingProps {
     ratingHistories?: IProfileRatingsLeaderboard[] | null;
@@ -66,7 +53,6 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     const [platform, setPlatform] = useState<string>('pc');
     const [ratingHistoryDuration, setRatingHistoryDuration] = useState<string>('max');
 
-
     const toggleLeaderboard = (leaderboardId: LeaderboardId) => {
         let ids = [];
         if (hiddenLeaderboardIds.includes(leaderboardId)) {
@@ -98,51 +84,17 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     const filteredRatingHistories = useMemo(() => {
         const since = getRatingTimespan(ratingHistoryDuration);
 
-        return ratingHistories?.map((r) => ({
+        return ratingHistories?.filter(r => (!r.leaderboardId.includes('_console') && platform != 'console') || (r.leaderboardId.includes('_console') && platform == 'console'))?.map((r) => ({
             ...r,
             leaderboardId: r.leaderboardId,
             ratings: r.ratings.filter((d) => since == null || isAfter(d.date!, since)),
         }))
             ;
-    }, [ratingHistories, ratingHistoryDuration]);
+    }, [ratingHistories, ratingHistoryDuration, platform]);
 
-    const dataset = useMemo(() => {
-        const start = new Date();
+    const hasData = filteredRatingHistories?.some((rh) => rh.ratings.length > 0);
 
-        if (!filteredRatingHistories) {
-            return { yKeys: [], data: [] };
-        }
-
-        const data = orderBy(
-            filteredRatingHistories
-                .flatMap((o) => o.ratings.map((r) => ({
-                    x: r.date!,
-                    [o.leaderboardId]: r.rating,
-                }))),
-            ['x'],
-        );
-
-        if (data.length > 0) {
-            data.push({ x: new Date() });
-        }
-
-        const end = new Date();
-        console.log('MEMO CALC data', end.getTime() - start.getTime(), 'ms');
-
-        return {
-            yKeys: filteredRatingHistories.filter(h => h.ratings.length > 0).map((o) => o.leaderboardId),
-            data,
-        };
-    }, [filteredRatingHistories]);
-
-    // const since = getRatingTimespan(ratingHistoryDuration);
-    // let firstDate = since ?? filteredRatingHistories?.[0]?.ratings?.[0]?.date ?? subYears(new Date(), 1);
-
-    // if (!filteredRatingHistories?.[0]) {
-    //     return <View></View>;
-    // }
-
-    // console.log('dataset', dataset);
+    // console.log('Rendering Rating chart, hasData', hasData, filteredRatingHistories);
 
     return (
         <View style={styles.container}>
@@ -151,46 +103,20 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                 <TimespanSelect ratingHistoryDuration={ratingHistoryDuration} setRatingHistoryDuration={setRatingHistoryDuration}/>
             </View>
 
-            <ViewLoader ready={dataset.data?.length > 0}>
+            <ViewLoader ready={hasData}>
                 <View style={{ width: windowWidth - 40, height: 300 }}>
                     {
-                        dataset.data?.length > 0 &&
-                        <CartesianChart
-                            data={dataset.data}
-                            xKey={"x" as never}
-                            yKeys={dataset.yKeys as never}
-                            axisOptions={{
-                                // the chart needs this empty config for some reason
-                            }}
-                            xAxis={{
-                                font,
-                                labelColor: theme.textColor,
-                                formatXLabel: formatTick,
-                                lineColor: theme.dark? '#454545' : '#BBB',
-                            }}
-                            yAxis={[{
-                                font,
-                                labelColor: theme.textColor,
-                                lineColor: theme.dark? '#454545' : '#BBB',
-                            }]}
-                        >
-                            {({ points }) => (
-                                <>
-                                    {
-                                        dataset.yKeys.filter(key => !hiddenLeaderboardIds?.includes(key)).map((key) => (
-                                            <Fragment key={key}>
-                                                <Line points={(points as any)[key].filter((p: any) => p.yValue != null)} color={getLeaderboardColor(key, theme.dark)} strokeWidth={1.25} />
-                                                <Scatter points={(points as any)[key]} shape="circle" radius={1} style="fill" color={getLeaderboardColor(key, theme.dark)} />
-                                            </Fragment>
-                                        ))
-                                    }
-                                </>
-                            )}
-                        </CartesianChart>
+                        hasData &&
+                        <RatingChart
+                            formatTick={formatTick}
+                            ratingHistoryDuration={ratingHistoryDuration}
+                            filteredRatingHistories={filteredRatingHistories}
+                            hiddenLeaderboardIds={hiddenLeaderboardIds}
+                        />
                     }
-
                 </View>
             </ViewLoader>
+
             <View style={styles.legend}>
                 {(filteredRatingHistories || Array(2).fill(0)).map((ratingHistory, i) => (
                     <TouchableOpacity key={'legend-' + i} onPress={() => toggleLeaderboard(ratingHistory.leaderboardId)}>
@@ -205,7 +131,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                                 color: getLeaderboardTextColor(ratingHistory.leaderboardId, theme.dark),
                             }}
                         >
-                            {ratingHistory.abbreviation}
+                            {ratingHistory.abbreviation?.replace('🎮', '')}
                         </TextLoader>
                     </TouchableOpacity>
                 ))}
