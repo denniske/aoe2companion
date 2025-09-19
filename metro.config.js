@@ -1,14 +1,6 @@
-const {getSentryExpoConfig} = require("@sentry/react-native/metro");
+const { getDefaultConfig } = require("expo/metro-config");
+const { withNativeWind } = require('nativewind/metro');
 
-const exclusionList = require('metro-config/src/defaults/exclusionList');
+const config = getDefaultConfig(__dirname)
 
-console.log("Applying metro.config.js");
-
-const defaultConfig = getSentryExpoConfig(__dirname, {
-    // For TailWindCSS
-    isCSSEnabled: true,
-});
-
-defaultConfig.resolver.blacklistRE = exclusionList([/^tools\/.*/]);
-
-module.exports = defaultConfig;
+module.exports = withNativeWind(config, { input: './global.css', inlineRem: 16 })

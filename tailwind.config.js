@@ -5,9 +5,10 @@ const colors = require('tailwindcss/colors');
 module.exports = {
     content: [
         './App.{js,jsx,ts,tsx}',
-        './app/**/*.{js,jsx,ts,tsx}',
+        './src/**/*.{js,jsx,ts,tsx}',
         // "./app4/**/*.{js,jsx,ts,tsx}",
     ],
+    presets: [require("nativewind/preset")],
     theme: {
         colors: {
             transparent: 'transparent',
@@ -17,6 +18,7 @@ module.exports = {
             gray: colors.neutral,
             green: colors.green,
             red: colors.red,
+            yellow: colors.yellow,
             blue: {
                 50: '#C1C7DB',
                 100: '#B4BBD3',
@@ -45,4 +47,31 @@ module.exports = {
             },
         },
     },
+    plugins: [
+        function ({ addBase }) {
+            addBase({
+                /* Firefox */
+                "*": {
+                    scrollbarWidth: "thin",
+                    scrollbarColor: "#9ca3af transparent",
+                },
+                "html.dark *": {
+                    scrollbarColor: "#d1d5db transparent",
+                },
+
+                /* WebKit (Chrome/Safari/Edge) */
+                "*::-webkit-scrollbar": {
+                    width: "8px",
+                    height: "8px",
+                },
+                "*::-webkit-scrollbar-thumb": {
+                    backgroundColor: "#9ca3af",
+                    borderRadius: "9999px",
+                },
+                "html.dark *::-webkit-scrollbar-thumb": {
+                    backgroundColor: "#d1d5db",
+                },
+            });
+        },
+    ]
 };

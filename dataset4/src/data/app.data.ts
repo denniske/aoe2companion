@@ -39,4 +39,4 @@ export const appConfig = {
     },
 };
 
-export const appIconData = require('../../../app4/assets/icon.png');
+export const appIconData = require('../../../app4/assets4/icon.png');

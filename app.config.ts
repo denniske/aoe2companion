@@ -1,10 +1,12 @@
 import { ExpoConfig, ConfigContext } from 'expo/config';
 
-const versionAoe2 = '156.0.0';
+const versionAoe2 = '158.0.0';
 const versionAoe4 = '23.0.0';
 
+console.log('Building for', process.env.APP, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);
+
 const app = process.env.APP === 'aoe2' ? {
-    folder: 'app',
+    assetsFolder: 'assets',
     version: versionAoe2,
     name: "AoE II Companion",
     description: "Track your AoE II Definitive Edition matches. This app fetches information about your matches so you are always up-to-date.",
@@ -20,23 +22,23 @@ const app = process.env.APP === 'aoe2' ? {
     updateUrl: "https://u.expo.dev/668efd6d-8482-4ad8-8235-e1e94b7d508e",
     assetBundlePatterns: [
         "node_modules/**",
-        "app/assets/civilizations/**",
-        "app/assets/data/**",
-        "app/assets/font/**",
-        "app/assets/legal/**",
-        "app/assets/buildings/**",
-        "app/assets/techs/**",
-        "app/assets/units/**",
-        "app/assets/tips/icon/**",
-        "app/assets/tips/poster/**",
-        "app/assets/translations/**",
-        "app/assets/*"
+        "assets/civilizations/**",
+        "assets/data/**",
+        "assets/font/**",
+        "assets/legal/**",
+        "assets/buildings/**",
+        "assets/techs/**",
+        "assets/units/**",
+        "assets/tips/icon/**",
+        "assets/tips/poster/**",
+        "assets/translations/**",
+        "assets/*"
     ],
     splashBackgroundColor: "#ffebc7",
     splashBackgroundColorDark: "#181C29",
     adaptiveIconBackgroundColor: "#fbebd3",
 } : {
-    folder: 'app4',
+    assetsFolder: 'assets4',
     version: versionAoe4,
     name: "AoE IV Companion",
     description: "Track your AoE IV matches. This app fetches information about your matches so you are always up-to-date.",
@@ -52,9 +54,9 @@ const app = process.env.APP === 'aoe2' ? {
     updateUrl: "https://u.expo.dev/d8d79ec3-2477-4026-8c8a-456f79fc2f20",
     assetBundlePatterns: [
         "node_modules/**",
-        "app/assets/font/**",
-        "app/assets/legal/**",
-        "app/assets/translations/**",
+        "assets/font/**",
+        "assets/legal/**",
+        "assets/translations/**",
         "app4/assets/civilizations/**",
         "app4/assets/*"
     ],
@@ -102,8 +104,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
     // new arch scroll up on leaderboard page
     // https://github.com/facebook/react-native/issues/49077
-    newArchEnabled: false, // react-native-nitro-image, and also see gradle.properties
+    // newArchEnabled: false, // react-native-nitro-image, and also see gradle.properties
+    newArchEnabled: true,
     experiments: {
+        typedRoutes: true,
         // react-compiler-runtime needs to be installed for android
         // but then android fails with wierd async storage error
         reactCompiler: false,
@@ -147,7 +151,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     version: version,
     orientation: "portrait",
     githubUrl: "https://github.com/denniske/aoe2companion",
-    icon: `./${app.folder}/assets/icon.png`,
+    icon: `./${app.assetsFolder}/icon.png`,
 
     // The custom update server does not work with local builds because
     // npx expo run:<platform> has no --private-key-path
@@ -165,39 +169,30 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     assetBundlePatterns: app.assetBundlePatterns,
     plugins: [
-        [
-            "react-native-edge-to-edge"
-        ],
-        [
-            "expo-router",
-            {
-                "root": "./app/src/app",
-                "sitemap": false,
-            }
-        ],
+        "expo-router",
         [
             "expo-notifications",
             {
-                "icon": `./${app.folder}/assets/notification.png`
+                "icon": `./${app.assetsFolder}/notification.png`
             }
         ],
         ...sentryConfigPlugins,
         ...appConfigPlugins,
-        [
-            "expo-build-properties",
-            {
-                "ios": {
-                    "deploymentTarget": "15.1"
-                }
-            }
-        ],
+        // [
+        //     "expo-build-properties",
+        //     {
+        //         "ios": {
+        //             "deploymentTarget": "15.1"
+        //         }
+        //     }
+        // ],
         [
             "expo-splash-screen",
             {
-                "image": `./${app.folder}/assets/icon-adaptive.png`,
+                "image": `./${app.assetsFolder}/icon-adaptive.png`,
                 "backgroundColor": app.splashBackgroundColor,
                 "dark": {
-                    "image": `./${app.folder}/assets/icon-adaptive.png`,
+                    "image": `./${app.assetsFolder}/icon-adaptive.png`,
                     "backgroundColor": app.splashBackgroundColorDark,
                 },
                 "imageWidth": 200
@@ -209,8 +204,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ],
     android: {
         userInterfaceStyle: "automatic",
+        // "adaptiveIcon": {
+        //     "foregroundImage": "./assets/icon-adaptive.png",
+        //     "backgroundColor": "#FFFFFF"
+        // },
         adaptiveIcon: {
-            foregroundImage: `./${app.folder}/assets/icon-adaptive.png`,
+            foregroundImage: `${app.assetsFolder}/icon-adaptive.png`,
             backgroundColor: app.adaptiveIconBackgroundColor
         },
         package: app.package,
@@ -221,9 +220,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ios: {
         userInterfaceStyle: "automatic",
         icon: {
-            light: `./${app.folder}/assets/icon-adaptive-no-alpha.png`,
-            dark: `./${app.folder}/assets/icon-adaptive.png`,
-            tinted: `./${app.folder}/assets/icon-tinted.png`
+            light: `./${app.assetsFolder}/icon-adaptive-no-alpha.png`,
+            dark: `./${app.assetsFolder}/icon-adaptive.png`,
+            tinted: `./${app.assetsFolder}/icon-tinted.png`
         },
         bundleIdentifier: app.bundleIdentifier,
         buildNumber: runtimeVersion,
@@ -246,6 +245,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         appleTeamId: "HAFGZBHF9M",
     },
     web: {
-        favicon: `./${app.folder}/assets/favicon-96x96.png`
-    }
+        "output": "single",
+        favicon: `./${app.assetsFolder}/favicon-96x96.png`
+    },
 });
