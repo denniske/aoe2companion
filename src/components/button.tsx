@@ -40,19 +40,19 @@ export const Button: React.FC<ButtonProps> = ({ className, children, icon, onPre
                 onPress?.(e);
             }}
         >
-                {icon && <Icon color="text-white" icon={icon} size={14} />}
-                {children && (
-                    <Text
-                        variant={textSizes[size]}
-                        color={color}
-                        className={`uppercase ${align ? 'flex-1' : ''}`}
-                        align={align}
-                        style={textStyle}
-                        allowFontScaling={false}
-                    >
-                        {children}
-                    </Text>
-                )}
+            {icon && <Icon color="white" icon={icon} size={14} />}
+            {children && (
+                <Text
+                    variant={textSizes[size]}
+                    color={color}
+                    className={`uppercase ${align ? 'flex-1' : ''}`}
+                    align={align}
+                    style={textStyle}
+                    allowFontScaling={false}
+                >
+                    {children}
+                </Text>
+            )}
         </Pressable>
     );
 };
