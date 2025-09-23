@@ -140,13 +140,3 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    legend: {
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        flexWrap: 'wrap',
-        marginHorizontal: -8,
-        marginTop: 10,
-    },
-});
