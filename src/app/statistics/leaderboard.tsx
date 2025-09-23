@@ -145,7 +145,7 @@ export default function LeaderboardPage() {
         {
             append: (data, newData, args) => {
                 const [params] = args;
-                console.log('APPEND', data, newData, args);
+                // console.log('APPEND', data, newData, args);
 
                 total.current = newData.total;
                 total2.current = newData.total;
