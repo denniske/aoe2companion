@@ -151,23 +151,19 @@ export const TabBar: React.FC = () => {
                         };
 
                         return (
-                            <React.Fragment key={route.label}>
-                                <Pressable onPress={() => onPress()} style={{ flex: 1 }}>
-                                    <View
-                                        className={`justify-center items-center py-2 flex-1 ${isFocused && 'bg-blue-800 dark:bg-gold-700'} rounded-lg`}
-                                    >
-                                        {route.icon && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon as IconName} />}
-                                        <Text
-                                            allowFontScaling={false}
-                                            variant="header-sm"
-                                            color={isFocused ? 'white' : 'brand'}
-                                            className={`!text-[9px] !leading-[12px] uppercase mt-2`}
-                                        >
-                                            {label}
-                                        </Text>
-                                    </View>
-                                </Pressable>
-                            </React.Fragment>
+                            <Pressable onPress={() => onPress()} key={route.label}
+                                       className={`justify-center items-center py-2 flex-1 ${isFocused && 'bg-blue-800 dark:bg-gold-700'} rounded-lg`}
+                            >
+                                {route.icon && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon as IconName} />}
+                                <Text
+                                    allowFontScaling={false}
+                                    variant="header-sm"
+                                    color={isFocused ? 'white' : 'brand'}
+                                    className={`!text-[9px] !leading-[12px] uppercase mt-2`}
+                                >
+                                    {label}
+                                </Text>
+                            </Pressable>
                         );
                     })}
                 </View>
