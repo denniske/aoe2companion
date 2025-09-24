@@ -154,8 +154,7 @@ export const TabBar: React.FC = () => {
                             <React.Fragment key={route.label}>
                                 <Pressable onPress={() => onPress()} style={{ flex: 1 }}>
                                     <View
-                                        className="justify-center items-center py-2 rounded-lg flex-1"
-                                        style={tw.style(isFocused && 'bg-blue-800 dark:bg-gold-700')}
+                                        className={`justify-center items-center py-2 flex-1 ${isFocused && 'bg-blue-800 dark:bg-gold-700'} rounded-lg`}
                                     >
                                         {route.icon && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon as IconName} />}
                                         <Text
