@@ -22,7 +22,7 @@ export function TextLoader(props: TextLoaderProps) {
 
     if (props.children == null || ('ready' in props && !props.ready)) {
         return (
-            <MyText numberOfLines={1} style={[rest.style, hostStyle, styles.container]}>......................................</MyText>
+            <MyText numberOfLines={1} style={[rest.style, hostStyle, styles.container]} ellipsizeMode="clip">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</MyText>
         );
     }
     // if (props.children == null || ('ready' in props && !props.isReady)) {
