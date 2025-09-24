@@ -25,16 +25,7 @@ export function TextLoader(props: TextLoaderProps) {
             <MyText numberOfLines={1} style={[rest.style, hostStyle, styles.container]} ellipsizeMode="clip">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</MyText>
         );
     }
-    // if (props.children == null || ('ready' in props && !props.isReady)) {
-    //     return (
-    //         <View {...rest} style={[rest.style, hostStyle]}>
-    //             <View style={styles.container}>
-    //                 <MyText numberOfLines={1} style={styles.text}>sdffffffffffffffffffffffffffffffffffffffffffffffffffff</MyText>
-    //             </View>
-    //         </View>
-    //     );
-    // }
-
+    
     const { ready, style, textStyle, ...restProps } = props;
 
     if (textStyle) {
