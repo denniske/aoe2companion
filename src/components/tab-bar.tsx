@@ -134,13 +134,10 @@ export const TabBar: React.FC = () => {
                 </View>
             </Animated.View>
 
-            {/*<TestScreen />*/}
-
             <Animated.View className={`absolute px-4 pb-2 w-full ${showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`} style={animatedStyle}>
                 <LinearGradient className="absolute left-0 right-0" style={{ bottom: -bottom, top: -16 }} locations={[0, 0.25]} colors={gradient} />
                 <View className="flex-row p-2 rounded-lg shadow-xl bg-white dark:bg-blue-900" style={shadow}>
                     {routes.map((route) => {
-                        // console.log('ROUTE', route);
                         // console.log('ROUTE', route.key, route.path);
 
                         const label = route.label;
@@ -161,18 +158,6 @@ export const TabBar: React.FC = () => {
                                         style={tw.style(isFocused && 'bg-blue-800 dark:bg-gold-700')}
                                     >
                                         {route.icon && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon as IconName} />}
-                                        {/*<Text*/}
-                                        {/*    allowFontScaling={false}*/}
-                                        {/*    variant="header-sm"*/}
-                                        {/*    color={isFocused ? 'white' : 'brand'}*/}
-                                        {/*    className={`!text-[9px] !leading-[12px] uppercase mt-2`}*/}
-                                        {/*>*/}
-                                        {/*    {label}*/}
-                                        {/*</Text> */}
-                                        {/*<Text*/}
-                                        {/*    color={isFocused ? 'white' : 'brand'}>*/}
-                                        {/*    {label}*/}
-                                        {/*</Text>*/}
                                         <Text
                                             allowFontScaling={false}
                                             variant="header-sm"
@@ -181,12 +166,6 @@ export const TabBar: React.FC = () => {
                                         >
                                             {label}
                                         </Text>
-                                        {/*<RNText*/}
-                                        {/*    className={`${isFocused ? 'text-red-500' : 'text-yellow-500'}`}*/}
-                                        {/*    style={[{ textAlign: 'center' }]}*/}
-                                        {/*>*/}
-                                        {/*    {label}*/}
-                                        {/*</RNText>*/}
                                     </View>
                                 </Pressable>
                             </React.Fragment>
@@ -197,27 +176,3 @@ export const TabBar: React.FC = () => {
         </>
     );
 };
-
-// export function TestScreen() {
-//     const tabs = ['Home', 'Search', 'Notifications', 'Messages', 'Profile', 'Settings', 'Help', 'About', 'Contact', 'Feedback'];
-//     const [ activeTab, setActiveTab] = useState(0);
-//     return (
-//         <View
-//             style={{flex: 1, flexDirection: 'column', paddingTop:60}}
-//         >
-//             {
-//                 tabs.map((tab, index) => (
-//                     <Pressable key={index} onPress={() => setActiveTab(index)} >
-//                         <RNText
-//                             className={`${activeTab === index ? 'text-red-500' : 'text-yellow-500'}`}
-//                             style={[{textAlign: 'center', marginBottom: 20}]}
-//                         >
-//                             {tab}
-//                         </RNText>
-//                     </Pressable>
-//                 ))
-//             }
-//             <RNText>{activeTab}</RNText>
-//         </View>
-//     );
-// }
