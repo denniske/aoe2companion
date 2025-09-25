@@ -276,6 +276,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix display of stone wall in build orders',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix linking of social accounts (Android)',
+        },
     ],
     '157.0.0': [
         {

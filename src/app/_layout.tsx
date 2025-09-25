@@ -25,7 +25,17 @@ import * as Notifications from '../service/notifications';
 import { SplashScreen, Stack, useNavigation, usePathname, useRootNavigationState, useRouter } from 'expo-router';
 import {cssInterop, useColorScheme as useTailwindColorScheme} from 'nativewind';
 import { useCallback, useEffect } from 'react';
-import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, useColorScheme, View } from 'react-native';
+import {
+    AppState,
+    AppStateStatus,
+    BackHandler,
+    Linking,
+    LogBox,
+    Platform,
+    StatusBar,
+    useColorScheme,
+    View,
+} from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {SafeAreaProvider, useSafeAreaInsets} from 'react-native-safe-area-context';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -50,6 +60,7 @@ import { useDarkMode } from '@app/hooks/use-dark-mode';
 import {LiveActivity} from "@/modules/widget";
 import {Image} from "expo-image";
 import {AvailableMainPage} from "@app/helper/routing";
+import { clearLastNotificationResponse } from 'expo-notifications';
 
 initSentry();
 
@@ -398,20 +409,26 @@ function StartupNavigationController() {
         if (!isNavigationReady) return;
 
         // Prioritize notification handling over main page config
+        // Android: There are notifications e.g. when opening the app by deeplink from a redirect that we want to ignore
+        //          "notification.request".content.data['com.android.browser.application_id']: "com.android.chrome"
+        //          So we only handle notifications where the match_id is set
         if (
             notificationResponse &&
-            notificationResponse.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER
+            notificationResponse.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER &&
+            notificationResponse.notification.request.content?.data?.match_id
         ) {
             if (router.canDismiss()) router.dismissAll();
 
+            console.log('Navigating to matches page because of notification');
             router.replace(`/matches?match_id=${notificationResponse.notification.request.content?.data?.match_id}`);
-            clearLastNotificationResponseAsync();
+            clearLastNotificationResponse();
             return;
         }
 
         if (Platform.OS !== 'web' && configMainPage && mainPageShown !== true) {
             if (router.canDismiss()) router.dismissAll();
 
+            console.log('Navigating to main page:', configMainPage);
             router.replace(configMainPage);
             mutate(setMainPageShown(true));
         }

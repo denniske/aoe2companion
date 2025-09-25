@@ -4,6 +4,9 @@ import { authLinkDiscord } from '@app/api/account';
 import { queryClient } from '@app/service/query-client';
 import { useEffect } from 'react';
 import { showAlert } from '@app/helper/alert';
+import { Linking, Platform } from 'react-native';
+import { appConfig } from '@nex/dataset';
+
 
 export function useDiscordAuth() {
     const [request, response, promptAsync] = useAuthRequest(
@@ -25,33 +28,46 @@ export function useDiscordAuth() {
         }
     );
 
-    console.log();
+    // console.log();
     // console.log('discord request');
     // console.log(request);
+    // console.log('discord response');
+    // console.log(response);
 
-    const link = async () => {
-        if (!response) return;
+    const link = async (params: any) => {
         try {
-            console.log();
-            console.log('==> discord response', response);
-
-            if (response?.type === 'success') {
-                console.log('response.params', response.params);
-                const data = await authLinkDiscord({
-                    ...response.params,
-                    redirect_uri: oAuthRedirectUri,
-                });
-                console.log('authLinkDiscord', data);
-                await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
-            }
+            console.log('params', params);
+            const data = await authLinkDiscord({
+                ...params,
+                redirect_uri: oAuthRedirectUri,
+            });
+            console.log('authLinkDiscord', data);
+            await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
         } catch (error: any) {
             showAlert('Error linking discord', error.message);
         }
     };
 
     useEffect(() => {
-        link();
+        if (Platform.OS !== 'ios') return;
+        if (response?.type === 'success') {
+            link(response.params)
+        }
     }, [response]);
+
+    useEffect(() => {
+        if (Platform.OS !== 'android') return;
+
+        const sub = Linking.addEventListener('url', ({ url }) => {
+            if (url.startsWith(`${appConfig.app.slug}://more/account`)) {
+                const params = Object.fromEntries(new URL(url).searchParams.entries());
+                if (params?.code && params?.state === request?.state) {
+                    link(params);
+                }
+            }
+        });
+        return () => sub.remove();
+    }, [request]);
 
     return promptAsync;
 }
