@@ -64,7 +64,7 @@ function LeaderboardRow1({ data }: ILeaderboardRowProps) {
         <View style={styles.leaderboardRow} className="mb-2 gap-x-4">
 
             <View className="w-8">
-                <Icon icon={mappingIconName[leaderboardId]} size={24} color={theme.textNoteColor} />
+                <Icon icon={mappingIconName[leaderboardId]} size={24} color="subtle" />
                 <Text color="subtle"
                       variant="body-tn"
                       className="absolute -bottom-2 -right-2 p-0.5 px-1 rounded-md border-2 border-gold-50 dark:border-blue-950 bg-[#2E6CDD] text-white"

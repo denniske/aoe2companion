@@ -38,7 +38,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
             {match.finished && (
                 <View className="w-5">
                     {player.won === true && (freeForAll || player.team != -1) && <Icon icon="crown" color="brand" />}
-                    {player.won === false && (freeForAll || player.team != -1) && <Icon icon="skull" color="text-gray-500" />}
+                    {player.won === false && (freeForAll || player.team != -1) && <Icon icon="skull" color="subtle" />}
                 </View>
             )}
             {appConfig.game === 'aoe2' && (

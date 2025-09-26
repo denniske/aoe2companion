@@ -65,7 +65,7 @@ export function MatchCard(props: MatchCardProps) {
                     </TouchableOpacity>
                     <View className={`absolute ${appConfig.game === 'aoe2' ? 'top-0 left-0' : 'top-1 left-1'}`}>
                         {players.some((p) => p.profileId === user && p.won === true && (freeForAll || p.team != -1)) && (
-                            <Icon size={12} icon="crown" color={appConfig.game === 'aoe2' ? 'brand' : 'text-gold-500'} />
+                            <Icon size={12} icon="crown" color={appConfig.game === 'aoe2' ? 'brand' : 'brand'} />
                         )}
 
                         {user == null && players.some((p) => p.won != null) && appConfig.game !== 'aoe2' && (
@@ -73,7 +73,7 @@ export function MatchCard(props: MatchCardProps) {
                         )}
 
                         {players.some((p) => p.profileId === user && p.won === false && (freeForAll || p.team != -1)) && (
-                            <Icon size={12} icon="skull" color={appConfig.game === 'aoe2' ? 'text-gray-500' : 'text-gray-300'} />
+                            <Icon size={12} icon="skull" color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
                         )}
                     </View>
                 </View>

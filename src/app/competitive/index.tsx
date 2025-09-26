@@ -270,7 +270,7 @@ export default function Competitive() {
                                             style={{ width: '100%', aspectRatio: 800 / 450 }}
                                         />
                                         <View className="absolute top-0 left-0 right-0 bottom-0 items-center justify-center">
-                                            <Icon icon="play-circle" size={40} color="text-blue-800" />
+                                            <Icon icon="play-circle" size={40} color="subtle" />
                                         </View>
                                     </TouchableOpacity>
                                 }

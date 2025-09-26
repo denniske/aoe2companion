@@ -16,10 +16,13 @@ export interface IconProps {
 
 export const Icon: React.FC<IconProps> = ({ icon, color = 'default', prefix = 'fass', ...rest }) => {
     const tw = useTw();
-    let finalColor = color;
+    let finalColor = 'black';
     if (textColors[color]) {
         const textColor = textColors[color] ?? color;
         const iconStyle = tw.style(textColor);
+        finalColor = iconStyle.color as string;
+    } else {
+        const iconStyle = tw.style(color);
         finalColor = iconStyle.color as string;
     }
     // console.log('iconStyle', color, finalColor);
