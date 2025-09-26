@@ -27,6 +27,7 @@ export default function AuthConfirm() {
 
         if (data.error) {
             showAlert(data.error.code)
+            return;
         }
 
         const authResponse = await supabaseClient.auth.setSession({
