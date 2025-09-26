@@ -267,7 +267,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '158.0.0': [
+    '159.0.0': [
         {
             type: 'minor',
             title: 'Internal Framework Update (SDK 54)',
