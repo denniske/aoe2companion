@@ -8,6 +8,7 @@ import { useMapsPoll } from '@app/queries/all';
 import { isAfter, isWithinInterval } from 'date-fns';
 import ButtonPicker from '@app/view/components/button-picker';
 import { formatAgo, formatDayAndTime } from '@nex/data';
+import { ScrollView } from '@app/components/scroll-view';
 
 export default function MapsPoll() {
     const getTranslation = useTranslation();
@@ -27,7 +28,7 @@ export default function MapsPoll() {
     const pollEnded = isAfter(new Date(), mapsPoll.finished);
 
     return (
-        <View className="flex-1 p-5">
+        <ScrollView className="flex-1" contentContainerStyle="p-5">
             <Stack.Screen options={{ title: getTranslation('maps.poll.title') }} />
 
             {!!mapsPoll?.questions && mapsPoll?.questions?.length > 0 && (
@@ -60,7 +61,7 @@ export default function MapsPoll() {
                                     className="flex-col justify-between items-center w-[25%] mb-4"
                                     onPress={() => router.push(`/explore/maps/${map.mapId}`)}
                                 >
-                                    <Image source={{ uri: map.imageUrl }} style={{ width: 75, height: 75 }} className="mb-2" />
+                                    <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
                                     <Text variant={'body-sm'} className="text-center mb-1">
                                         {map.mapName}
                                     </Text>
@@ -84,7 +85,7 @@ export default function MapsPoll() {
                                     className="flex-col justify-between items-center w-[25%]"
                                     onPress={() => router.push(`/explore/maps/${map.mapId}`)}
                                 >
-                                    <Image source={{ uri: map.imageUrl }} style={{ width: 75, height: 75 }} className="mb-2" />
+                                    <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
                                     <Text variant={'body-sm'} className="text-center mb-1">
                                         {map.mapName}
                                     </Text>
@@ -93,6 +94,6 @@ export default function MapsPoll() {
                     </View>
                 </>
             )}
-        </View>
+        </ScrollView>
     );
 }
