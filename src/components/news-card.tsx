@@ -30,7 +30,7 @@ export const NewsCard: React.FC<INews> = (news) => {
     return (
         <Card onPress={handlePress} direction="vertical" className="overflow-hidden w-56">
             <View className="-mx-4 -mt-4 mb-1">
-                <Image source={{ uri: news.featuredMediaUrl }} className="w-full" style={{ aspectRatio: 1.75 }} />
+                <Image source={{ uri: news.featuredMediaUrl }} className="w-full aspect-video" />
             </View>
             <Text variant="label" numberOfLines={2}>
                 {decode(news.title)}
