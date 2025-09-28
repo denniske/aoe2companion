@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { Fragment, useMemo } from 'react';
 import { windowWidth } from '@app/app/statistics/leaderboard';
 import { orderBy } from 'lodash';
@@ -10,18 +10,18 @@ import { useAppTheme } from '@app/theming';
 import { Text } from '@app/components/text';
 import { chartFontStyle } from '@app/view/components/match-map/map-utils';
 import { description } from '@eva-design/eva/package';
+import { Icon } from '@app/components/icon';
+import { showAlert } from '@app/helper/alert';
 
 interface Props {
     teams: ILegendInfo;
     title: string;
     description?: string;
+    explanation?: string;
     metric: 'totalResources' | 'totalObjects';
 }
 
-// total resources (wood + food + gold + stone)
-// total number of objects (include foundation), when a unit is lost, this counter updates after its displayable objects (body) dies
-
-export default function Timeseries({ teams, metric, title, description }: Props) {
+export default function Timeseries({ teams, metric, title, description, explanation }: Props) {
     const theme = useAppTheme();
 
     console.log('Timeseries', 'metric', metric, 'teams', teams?.length);
@@ -56,16 +56,31 @@ export default function Timeseries({ teams, metric, title, description }: Props)
         };
     }, [teams]);
 
+    const showExplanation = () => {
+        showAlert(
+            title,
+            explanation || 'No additional explanation available.'
+        );
+    }
+
     return (
         <View style={styles.container}>
             <ViewLoader ready={dataset.data?.length > 0}>
                 <Text className="" variant="header-sm">
                     {title}
                 </Text>
-                <Text className="" variant="body">
-                    {description}
-                </Text>
-
+                <View className="flex-row justify-between">
+                    <Text className="" variant="body">
+                        {description}
+                    </Text>
+                    {
+                        explanation && (
+                            <TouchableOpacity onPress={showExplanation}>
+                                <Icon icon="info-circle" color="subtle"></Icon>
+                            </TouchableOpacity>
+                        )
+                    }
+                </View>
                 <View style={{ width: windowWidth - 75, height: 160, marginVertical: 12 }}>
                     {dataset.data?.length > 0 && (
                         <CartesianChart

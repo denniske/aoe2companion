@@ -416,10 +416,22 @@ export default function MatchMap(props: Props) {
                 <Eapm teams={teams as any} />
             </Card>
             <Card direction="vertical">
-                <Timeseries teams={teams as any} metric="totalResources" title="Resources" description="Total resources" />
+                <Timeseries
+                    teams={teams as any}
+                    metric="totalResources"
+                    title="Resources"
+                    description="Total resources"
+                    explanation="Total resources (wood + food + gold + stone)"
+                />
             </Card>
             <Card direction="vertical">
-                <Timeseries teams={teams as any} metric="totalObjects" title="Objects" description="Total objects" />
+                <Timeseries
+                    teams={teams as any}
+                    metric="totalObjects"
+                    title="Objects"
+                    description="Total objects"
+                    explanation="Total number of objects (include foundation), when a unit is lost, this counter updates after its displayable objects (body) dies"
+                />
             </Card>
             <Card direction="vertical">
                 <Uptimes time={time} teams={teams as any} />

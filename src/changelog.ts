@@ -267,6 +267,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '160.0.0': [
+        {
+            type: 'minor',
+            title: 'Show explanation for timeseries charts in match analysis',
+        },
+    ],
     '159.0.0': [
         {
             type: 'minor',
