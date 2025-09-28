@@ -16,14 +16,14 @@ export default function MapsPoll() {
     const { data: mapsPoll } = useMapsPoll();
     // console.log('mapsPoll', mapsPoll);
 
-    if (!mapsPoll) {
-        return <Text>No map poll found.</Text>;
-    }
-
     const [rankedMapLeaderboard, setRankedMapLeaderboard] = useState<string>();
     const values: string[] = mapsPoll?.questions?.map((l) => l.leaderboardId) || [];
     const firstValue = mapsPoll?.questions?.map((l) => l.leaderboardId)?.[0];
     const formatLeaderboard = (leaderboardId: string) => mapsPoll?.questions?.find((l) => l.leaderboardId === leaderboardId)?.abbreviation ?? '';
+
+    if (!mapsPoll) {
+        return <Text>No map poll found.</Text>;
+    }
 
     const pollEnded = isAfter(new Date(), mapsPoll.finished);
 
