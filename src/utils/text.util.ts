@@ -1,3 +1,5 @@
+import { ITheme } from '@/data';
+
 export type TextColor = 'default' | 'brand' | 'subtle' | string;
 export type TextVariant =
     | 'body-tn'
@@ -35,6 +37,8 @@ export const textVariantStyles: Record<TextVariant, { fontSize: number; lineHeig
 export const textColors: Record<TextColor, string | undefined> = {
     // white: 'text-white',
     // brand: 'text-blue-600',
+
+    link: 'text-[#397AF9] dark:text-[#0A84FF]',
 
     white: 'text-white dark:text-white',
     brand: 'text-blue-600 dark:text-gold-200',

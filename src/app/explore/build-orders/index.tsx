@@ -4,7 +4,7 @@ import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { useFocusEffect } from '@react-navigation/native';
 import { Stack, router } from 'expo-router';
 import { reverse, sortBy, startCase } from 'lodash';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View } from 'react-native';
 
 import { buildsData } from '../../../../data/src/data/builds';
@@ -14,6 +14,9 @@ import { BuildFilters } from '../../../view/components/build-order/build-filters
 import { DismissKeyboard } from '../../../view/components/dismiss-keyboard';
 import { MyText } from '../../../view/components/my-text';
 import { useTranslation } from '@app/helper/translate';
+import { HeaderTitle } from '@app/components/header-title';
+import { getUnitIcon } from '@app/helper/units';
+import { getUnitName } from '@/data';
 
 const transformSearch = (string: string) => string.toLowerCase().replace(/\W/g, ' ').replace(/ +/g, ' ');
 
@@ -57,7 +60,18 @@ export default function BuildListPage() {
 
     return (
         <KeyboardAvoidingView>
-            <Stack.Screen options={{ title: getTranslation('builds.title') }} />
+            <Stack.Screen
+                options={{
+                    headerTitle: () => (
+                        <HeaderTitle
+                            align="center"
+                            title={getTranslation('builds.title')}
+                            subtitle={'https://buildorderguide.com/'}
+                            subtitleLink={'https://buildorderguide.com/'}
+                        />
+                    ),
+                }}
+            />
             <DismissKeyboard>
                 <View className="flex-1">
                     <BuildFilters builds={buildsData} {...buildFilters} />
