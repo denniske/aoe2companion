@@ -172,7 +172,7 @@ export default function IndexPage() {
                                         className="flex-col justify-between items-center w-[25%] mb-4"
                                         onPress={() => router.push(`/explore/maps/${map.mapId}` as any)}
                                     >
-                                        <Image source={{ uri: map.imageUrl }} style={{ width: 75, height: 75 }} className="mb-2" />
+                                        <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
                                         <Text variant={'body-sm'} className="text-center mb-1">
                                             {map.mapName}
                                         </Text>
