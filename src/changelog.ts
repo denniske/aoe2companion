@@ -270,6 +270,10 @@ export const changelog: IChangelog = {
     '160.0.0': [
         {
             type: 'minor',
+            title: 'Fetch build orders from server instead of bundling them with the app. New build orders should be available after max 1 hour after they have been published or changed.',
+        },
+        {
+            type: 'minor',
             title: 'Show explanation for timeseries charts in match analysis',
         },
     ],
