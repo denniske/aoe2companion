@@ -166,7 +166,6 @@ export const useFavoritedBuilds = () => {
             const favorites = JSON.parse(item);
 
             if (!isLoadingAccount && !account?.favoriteBuildIds || account?.favoriteBuildIds?.length == 0) {
-                // First time, migrate local storage to server
                 console.log('Migrating local favorited builds to server', favorites);
                 await saveAccountMutation.mutate({
                     favoriteBuildIds: favorites,

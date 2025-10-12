@@ -63,7 +63,7 @@ export default function IndexPage() {
     const { data: news = Array(3).fill(null) } = useNews();
     const { favoriteIds } = useFavoritedBuilds();
     const router = useRouter();
-    const { followedIds, refetch: refetchTournament } = useFollowedTournaments();
+    const { followedIds } = useFollowedTournaments();
     const { data: mapsRanked } = useMapsRanked();
     const { data: mapsPoll } = useMapsPoll();
 
@@ -71,13 +71,6 @@ export default function IndexPage() {
     const values: string[] = mapsRanked?.leaderboards?.map((l) => l.leaderboardId) || [];
     const firstValue = mapsRanked?.leaderboards?.map((l) => l.leaderboardId)?.[0];
     const formatLeaderboard = (leaderboardId: string) => mapsRanked?.leaderboards?.find((l) => l.leaderboardId === leaderboardId)?.abbreviation ?? '';
-
-    // useFocusEffect(
-    //     useCallback(() => {
-    //         refetch();
-    //         refetchTournament();
-    //     }, [])
-    // );
 
     return (
         // <ScrollView contentContainerStyle="p-4 gap-5" className="scrollbar dark:scrollbar-dark">

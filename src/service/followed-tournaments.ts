@@ -1,46 +1,56 @@
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { compact } from 'lodash';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useAccount } from '@app/queries/all';
+import { useSaveAccountMutation } from '@app/mutations/save-account';
 
-type FolllowedId = string;
 export const useFollowedTournaments = () => {
-    const { getItem, setItem } = useAsyncStorage('followedTournaments');
-    const [followedIds, setFollowedIds] = useState<FolllowedId[]>([]);
+    const { getItem, removeItem } = useAsyncStorage('followedTournaments');
+
+    const { data: account, isLoading: isLoadingAccount } = useAccount();
+    const favoriteIds = compact(account?.favoriteTournamentIds);
+
+    const saveAccountMutation = useSaveAccountMutation();
 
     const readItemFromStorage = async () => {
         const item = await getItem();
         if (item) {
-            setFollowedIds(JSON.parse(item));
-        } else {
-            setFollowedIds([]);
-        }
-    };
+            const favorites = JSON.parse(item);
 
-    const writeItemToStorage = async (newValue: FolllowedId[]) => {
-        await setItem(JSON.stringify(newValue));
-        setFollowedIds(newValue);
+            if (!isLoadingAccount && !account?.favoriteTournamentIds || account?.favoriteTournamentIds?.length == 0) {
+                console.log('Migrating local favorited tournaments to server', favorites);
+                await saveAccountMutation.mutate({
+                    favoriteTournamentIds: favorites,
+                });
+                await removeItem();
+            }
+        }
     };
 
     useEffect(() => {
         readItemFromStorage();
     }, []);
 
-    const toggleFollow = (id: FolllowedId) => {
-        if (followedIds.includes(id)) {
-            writeItemToStorage(followedIds.filter((followedId) => followedId !== id));
+    const toggleFollow = async (id: string) => {
+        let favoriteTournamentIds;
+        if (favoriteIds.includes(id)) {
+            favoriteTournamentIds = favoriteIds.filter((favoriteId) => favoriteId !== id);
         } else {
-            writeItemToStorage([...followedIds, id]);
+            favoriteTournamentIds = [...favoriteIds, id];
         }
+
+        await saveAccountMutation.mutate({
+            favoriteTournamentIds,
+        });
     };
 
     return {
         toggleFollow,
-        followedIds: compact(followedIds),
-        refetch: readItemFromStorage,
+        followedIds: compact(favoriteIds),
     };
 };
 
-export const useFollowedTournament = (id: FolllowedId) => {
+export const useFollowedTournament = (id: string) => {
     const { followedIds, toggleFollow } = useFollowedTournaments();
 
     return {
