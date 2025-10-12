@@ -10,21 +10,48 @@ import { useFollowedTournaments } from '@app/service/followed-tournaments';
 import { useFavoritedBuilds } from '@app/service/storage';
 import { useAccountMostRecentMatches } from '@app/utils/match';
 import { useNews } from '@app/utils/news';
-import BuildCard from '@app/view/components/build-order/build-card';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
-import { Stack, useFocusEffect, useRouter } from 'expo-router';
-import React, { useCallback, useState } from 'react';
+import { Stack, useRouter } from 'expo-router';
+import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Button } from '@app/components/button';
-import { useAuthProfileId, useMapsPoll, useMapsRanked } from '@app/queries/all';
+import { useAuthProfileId, useInfiniteBuilds, useMapsPoll, useMapsRanked } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
 import { Image } from 'expo-image';
 import ButtonPicker from '@app/view/components/button-picker';
 import { isWithinInterval } from 'date-fns';
 import { formatDayAndTime } from '@nex/data';
-import { MyText } from '@app/view/components/my-text';
 import { useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
+import { BuildCard } from '@app/view/components/build-order/build-card';
+import { compact } from 'lodash';
+
+export function FavoritedBuilds() {
+    const getTranslation = useTranslation();
+    const { favoriteIds } = useFavoritedBuilds();
+    const { data } = useInfiniteBuilds({ build_ids: favoriteIds });
+    const favorites = compact(data?.pages?.flatMap((p) => p.builds));
+
+    return (
+        <View className="gap-2">
+            <View className="flex-row justify-between items-center">
+                <Text variant="header-lg">{getTranslation('home.favoriteBuildOrders')}</Text>
+                <Link href="/explore/build-orders">{getTranslation('home.viewAll')}</Link>
+            </View>
+
+            <FlatList
+                showsHorizontalScrollIndicator={false}
+                className="flex-none"
+                horizontal
+                keyboardShouldPersistTaps="always"
+                data={favorites}
+                contentContainerStyle="gap-2.5"
+                renderItem={({ item }) => <BuildCard size="small" {...item} />}
+                keyExtractor={(item) => item.id.toString()}
+            />
+        </View>
+    )
+}
 
 export default function IndexPage() {
     const appStyles = useTheme(appVariants);
@@ -34,8 +61,8 @@ export default function IndexPage() {
     const accountMostRecentMatches = useAccountMostRecentMatches(1);
     const accountMostRecentMatch = accountMostRecentMatches?.length ? accountMostRecentMatches[0] : null;
     const { data: news = Array(3).fill(null) } = useNews();
+    const { favoriteIds } = useFavoritedBuilds();
     const router = useRouter();
-    const { favorites, refetch } = useFavoritedBuilds();
     const { followedIds, refetch: refetchTournament } = useFollowedTournaments();
     const { data: mapsRanked } = useMapsRanked();
     const { data: mapsPoll } = useMapsPoll();
@@ -45,12 +72,12 @@ export default function IndexPage() {
     const firstValue = mapsRanked?.leaderboards?.map((l) => l.leaderboardId)?.[0];
     const formatLeaderboard = (leaderboardId: string) => mapsRanked?.leaderboards?.find((l) => l.leaderboardId === leaderboardId)?.abbreviation ?? '';
 
-    useFocusEffect(
-        useCallback(() => {
-            refetch();
-            refetchTournament();
-        }, [])
-    );
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         refetch();
+    //         refetchTournament();
+    //     }, [])
+    // );
 
     return (
         // <ScrollView contentContainerStyle="p-4 gap-5" className="scrollbar dark:scrollbar-dark">
@@ -89,24 +116,8 @@ export default function IndexPage() {
                 </View>
             )}
 
-            {favorites.length > 0 && (
-                <View className="gap-2">
-                    <View className="flex-row justify-between items-center">
-                        <Text variant="header-lg">{getTranslation('home.favoriteBuildOrders')}</Text>
-                        <Link href="/explore/build-orders">{getTranslation('home.viewAll')}</Link>
-                    </View>
-
-                    <FlatList
-                        showsHorizontalScrollIndicator={false}
-                        className="flex-none"
-                        horizontal
-                        keyboardShouldPersistTaps="always"
-                        data={favorites}
-                        contentContainerStyle="gap-2.5"
-                        renderItem={({ item }) => <BuildCard size="small" {...item} />}
-                        keyExtractor={(item) => item.id.toString()}
-                    />
-                </View>
+            {favoriteIds.length > 0 && (
+                <FavoritedBuilds />
             )}
 
             {tournamentsEnabled ? (

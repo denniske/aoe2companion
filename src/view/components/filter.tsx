@@ -1,4 +1,11 @@
-import { StyleSheet, TouchableOpacity, View, GestureResponderEvent, TextInput, ImageSourcePropType } from 'react-native';
+import {
+    GestureResponderEvent,
+    ImageSourcePropType,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { createStylesheet } from '../../theming-new';
 import { useRef, useState } from 'react';
@@ -16,15 +23,15 @@ interface FilterProps<Value> {
 export const Filter = <Value,>({ options, label, value, onChange, icon }: FilterProps<Value>) => {
     const styles = useStyles();
     const initialValue = options.find((o) => o.value === value)?.label ?? '';
-    const [search, setSearch] = useState<string>(initialValue);
+    const [search, setSearch] = useState<string>();
     const filterField = useRef<TextInput>(null);
     const [isFocused, setIsFocused] = useState(false);
-    const filteredOptions = options.filter(
+    const filteredOptions = search ? options.filter(
         (option) =>
             option.label.toLowerCase().startsWith(search.toLowerCase()) ||
             search === 'All' ||
             (isFocused && search === initialValue && options.map((o) => o.label).includes(search))
-    );
+    ) : options;
     const topOption = filteredOptions[0];
 
     return (
@@ -46,7 +53,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
                         returnKeyType="search"
                         accessibilityRole="search"
                         onChangeText={setSearch}
-                        value={search}
+                        value={search ?? options.find(o => o.value === value)?.label}
                         style={[styles.filterInput, isFocused && styles.filterInputFocused]}
                         contextMenuHidden={true}
                         onSubmitEditing={() => {

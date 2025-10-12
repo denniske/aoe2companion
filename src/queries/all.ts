@@ -1,5 +1,6 @@
 import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import {
+    fetchBuilds,
     fetchLeaderboards,
     fetchMaps,
     fetchMapsPoll,
@@ -12,7 +13,7 @@ import {
 } from '@app/api/helper/api';
 import { fetchAccount, IAccount } from '@app/api/account';
 import { compact, uniq } from 'lodash';
-import type { UseQueryResult } from '@tanstack/react-query/src/types';
+import type { UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
@@ -200,5 +201,41 @@ export const useMapsPoll = () => {
         queryKey: ['maps-poll'],
         queryFn: () => fetchMapsPoll({ language: language! }),
         enabled: !!language,
+    });
+};
+
+interface IFetchBuildsParams {
+    build_ids?: string[];
+    civilization?: string;
+    attribute?: string;
+    difficulty?: string;
+    search?: string;
+}
+
+export function removeUndefinedOrNullOrEmptyString<T extends object>(params: T): T {
+    return Object.fromEntries(
+        Object.entries(params).filter(([_, v]) => v !== undefined && v !== null && v !== '')
+    ) as T;
+}
+
+export const useInfiniteBuilds = (params: IFetchBuildsParams) => {
+    return useInfiniteQuery({
+        queryKey: ['builds', removeUndefinedOrNullOrEmptyString(params)],
+        queryFn: (context) => fetchBuilds({
+            ...context,
+            ...removeUndefinedOrNullOrEmptyString(params),
+        }),
+        initialPageParam: 1,
+        getNextPageParam: (lastPage, allPages) => (lastPage.builds.length === lastPage.perPage ? lastPage.page + 1 : null),
+        placeholderData: keepPreviousData,
+    });
+};
+
+export const useBuild = (buildId: string) => {
+    const language = useLanguage();
+    return useQuery({
+        queryKey: ['build', buildId],
+        queryFn: async () => (await fetchBuilds({ build_ids: [buildId] })).builds[0],
+        enabled: !!language && !!buildId,
     });
 };

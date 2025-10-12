@@ -19,6 +19,7 @@ echo "App: ${APP}"
 echo "Platform: ${PLATFORM}"
 echo "Filename: ${NAME}"
 
+export EAS_SKIP_AUTO_FINGERPRINT=1
 
 echo "📦 Building ${PLATFORM} app for ${APP}..."
 eas build --profile "development-${APP}" --platform $PLATFORM --local --non-interactive --output "$NAME"

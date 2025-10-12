@@ -1,19 +1,20 @@
 import { Civ, Flag, LeaderboardId } from '@nex/data';
 import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
-import { camelCase } from 'lodash';
+import { camelCase, compact } from 'lodash';
 import { useEffect, useState } from 'react';
 import { Image, Platform } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
-
-import { buildsData } from '../../data/src/data/builds';
 import { Widget } from '../../modules/widget';
 import { genericCivIcon, getCivIconLocal } from '../helper/civs';
 import { DarkMode } from '../redux/reducer';
-import { fetchAssets } from '@app/api/helper/api';
+import { fetchAssets, fetchBuilds } from '@app/api/helper/api';
 import * as Crypto from 'expo-crypto';
 import { appConfig } from '@nex/dataset';
 import * as Localization from 'expo-localization';
+import { AvailableMainPage } from '@app/helper/routing';
+import { useAccount } from '@app/queries/all';
+import { useSaveAccountMutation } from '@app/mutations/save-account';
 
 const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
@@ -44,7 +45,7 @@ export interface IConfig {
     pushNotificationsEnabled: boolean;
     // preventScreenLockOnGuidePage: boolean;
     language: string;
-    mainPage: string;
+    mainPage: AvailableMainPage;
 }
 
 export interface IScroll {
@@ -82,6 +83,7 @@ export interface IPrefs {
     techTreeSize?: string;
     ratingHistoryDuration?: string;
     ratingHistoryHiddenLeaderboardIds?: string[];
+    buildFilter?: BuildFilters;
 }
 
 export const loadAccountFromStorage = async () => {
@@ -150,28 +152,53 @@ if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
     // console.log('setAppGroup', `group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
 }
 
-type FavoriteId = number | string;
 export const useFavoritedBuilds = () => {
-    const { getItem, setItem } = useAsyncStorage('favoritedBuilds');
-    const [favoriteIds, setFavoriteIds] = useState<FavoriteId[]>([]);
-    const favorites = buildsData.filter((build) => favoriteIds.includes(build.id));
+    const { getItem, removeItem } = useAsyncStorage('favoritedBuilds');
+
+    const { data: account, isLoading: isLoadingAccount } = useAccount();
+    const favoriteIds = compact(account?.favoriteBuildIds);
+
+    const saveAccountMutation = useSaveAccountMutation();
 
     const readItemFromStorage = async () => {
         const item = await getItem();
         if (item) {
-            setFavoriteIds(JSON.parse(item));
-        } else {
-            setFavoriteIds([]);
+            const favorites = JSON.parse(item);
+
+            if (!isLoadingAccount && !account?.favoriteBuildIds || account?.favoriteBuildIds?.length == 0) {
+                // First time, migrate local storage to server
+                console.log('Migrating local favorited builds to server', favorites);
+                await saveAccountMutation.mutate({
+                    favoriteBuildIds: favorites,
+                });
+                await removeItem();
+            }
         }
     };
 
-    const writeItemToStorage = async (newValue: FavoriteId[]) => {
-        // let start = new Date();
+    useEffect(() => {
+        readItemFromStorage();
+    }, []);
+
+    const toggleFavorite = async (id: string) => {
+        let favoriteBuildIds;
+        if (favoriteIds.includes(id)) {
+            favoriteBuildIds = favoriteIds.filter((favoriteId) => favoriteId !== id);
+        } else {
+            favoriteBuildIds = [...favoriteIds, id];
+        }
+
+        await saveAccountMutation.mutate({
+            favoriteBuildIds,
+        });
+
+        // Store favorite builds for widget (just first page should be enough)
+        const favoriteBuildsResult = await fetchBuilds({ build_ids: favoriteBuildIds });
+        const favoriteBuilds = favoriteBuildsResult.builds;
 
         if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
             const newWidgetData = JSON.stringify(
-                buildsData
-                    .filter((build) => newValue.includes(build.id))
+                favoriteBuilds
                     .map((build) => ({
                         id: build.id.toString(),
                         title: build.title,
@@ -190,30 +217,11 @@ export const useFavoritedBuilds = () => {
             Widget.setItem('savedData', newWidgetData);
             Widget.reloadAll();
         }
-        await setItem(JSON.stringify(newValue));
-        setFavoriteIds(newValue);
-
-        // console.log('writeItemToStorage', (new Date().getTime() - start.getTime()), 'ms');
-        // start = new Date();
-    };
-
-    useEffect(() => {
-        readItemFromStorage();
-    }, []);
-
-    const toggleFavorite = (id: FavoriteId) => {
-        if (favoriteIds.includes(id)) {
-            writeItemToStorage(favoriteIds.filter((favoriteId) => favoriteId !== id));
-        } else {
-            writeItemToStorage([...favoriteIds, id]);
-        }
     };
 
     return {
         toggleFavorite,
         favoriteIds,
-        favorites,
-        refetch: readItemFromStorage,
     };
 };
 
@@ -255,7 +263,7 @@ export const cacheLiveActivityAssets = async () => {
 //     }
 // }
 
-export const useFavoritedBuild = (id: FavoriteId) => {
+export const useFavoritedBuild = (id: string) => {
     const { favoriteIds, toggleFavorite } = useFavoritedBuilds();
 
     return {
@@ -264,47 +272,8 @@ export const useFavoritedBuild = (id: FavoriteId) => {
     };
 };
 
-type BuildFilters = {
-    civilization: Civ | 'all';
-    buildType: string | 'favorites' | 'all';
-    difficulty: 1 | 2 | 3 | 'all';
-};
-
-const defaultFilters: BuildFilters = {
-    civilization: 'all',
-    buildType: 'all',
-    difficulty: 'all',
-};
-
-export const useBuildFilters = () => {
-    const { getItem, setItem } = useAsyncStorage('buildFilters');
-    const [filters, setFilters] = useState<BuildFilters>();
-
-    const readItemFromStorage = async () => {
-        const item = await getItem();
-        if (item) {
-            setFilters({ ...defaultFilters, ...JSON.parse(item) });
-        } else {
-            setFilters(defaultFilters);
-        }
-    };
-
-    const writeItemToStorage = async (newValue: BuildFilters) => {
-        await setItem(JSON.stringify(newValue));
-        setFilters(newValue);
-    };
-
-    useEffect(() => {
-        readItemFromStorage();
-    }, []);
-
-    const setFilter = (key: keyof BuildFilters, value: BuildFilters[typeof key]) => {
-        writeItemToStorage({ ...defaultFilters, ...filters, [key]: value });
-    };
-
-    return {
-        setFilter,
-        filters: filters ?? defaultFilters,
-        loading: !filters,
-    };
+export type BuildFilters = {
+    civilization?: Civ;
+    buildType?: string | 'favorites';
+    difficulty?: 1 | 2 | 3;
 };

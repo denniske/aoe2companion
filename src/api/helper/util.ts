@@ -10,7 +10,7 @@ interface IParams {
 }
 
 export function removeReactQueryParams(params: any) {
-    const {queryKey, pageParam, meta, signal, client, ...rest} = params;
+    const {queryKey, pageParam, meta, signal, client, direction, ...rest} = params;
     return rest;
 }
 

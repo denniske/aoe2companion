@@ -1,86 +1,73 @@
-import { StyleSheet, View } from 'react-native';
-import { createStylesheet } from '../../../theming-new';
-import { flatten, startCase, uniq } from 'lodash';
-import { IBuildOrder } from '@/data/src/helper/builds';
-import { useBuildFilters } from '../../../service/storage';
+import { View } from 'react-native';
+import { startCase } from 'lodash';
 import { genericCivIcon, getCivIconLocal } from '../../../helper/civs';
 import { Civ, civs, getCivNameById, orderCivs } from '@nex/data';
 import { Filter } from '../filter';
 import { getDifficultyName } from '../../../helper/difficulties';
 import { useTranslation } from '@app/helper/translate';
+import { usePrefData } from '@app/queries/prefs';
+import { useSavePrefsMutation } from '@app/mutations/save-account';
 
-type FiltersStore = ReturnType<typeof useBuildFilters>;
 
-interface BuildFiltersProps extends FiltersStore {
-    builds: IBuildOrder[];
-}
-
-export const BuildFilters: React.FC<BuildFiltersProps> = ({ builds, filters: { civilization, difficulty, buildType }, setFilter }) => {
+export const BuildFilters = () => {
     const getTranslation = useTranslation();
-    const styles = useStyles();
-    const buildTypeOptions = ['all', 'favorites', ...uniq(flatten(builds.map((build) => build.attributes)))] as const;
+    const buildTypeOptions = [undefined, 'favorites', 'fastCastle', 'fastFeudal', 'fastImperial', 'arena', 'drush', 'water', 'meme'] as const;
 
-    const civIcon = getCivIconLocal(civilization) ?? genericCivIcon;
-    const civOptions: Array<Civ | 'all'> = ['all', ...orderCivs(civs.filter((civ) => civ !== 'Indians'))];
+    const buildFilter = usePrefData((state) => state?.buildFilter);
+    const civilization = buildFilter?.civilization;
+    const difficulty = buildFilter?.difficulty;
+    const buildType = buildFilter?.buildType;
+
+    const savePrefsMutation = useSavePrefsMutation();
+
+    const setFilter = (key: 'civilization' | 'difficulty' | 'buildType', value: Civ | string | number | null | undefined) => {
+        savePrefsMutation.mutate({
+            buildFilter: {
+                ...buildFilter,
+                [key]: value,
+            }
+        });
+    };
+
+    const civIcon = civilization ? getCivIconLocal(civilization) : genericCivIcon;
+    const civOptions: Array<Civ | undefined> = [undefined, ...orderCivs(civs.filter((civ) => civ !== 'Indians'))];
 
     return (
-        <View style={styles.filtersContainer}>
-            {civilization && (
-                <Filter
-                    icon={civIcon}
-                    onChange={(civ) => setFilter('civilization', civ)}
-                    label={getTranslation('builds.filters.civ')}
-                    value={civilization}
-                    options={civOptions.map((value) => ({
-                        value,
-                        label: value === 'all' ? getTranslation('builds.filters.all') : getCivNameById(value),
-                        icon: getCivIconLocal(value) ?? genericCivIcon,
-                    }))}
-                />
-            )}
-
-            {difficulty && (
-                <Filter
-                    onChange={(diff) => setFilter('difficulty', diff)}
-                    label={getTranslation('builds.filters.difficulty')}
-                    value={difficulty}
-                    options={(['all', 1, 2, 3] as const).map((d) => ({
-                        label: getDifficultyName(getTranslation, d) ?? getTranslation('builds.filters.all'),
-                        value: d,
-                    }))}
-                />
-            )}
-
-            {buildType && (
-                <Filter
-                    onChange={(type) => setFilter('buildType', type)}
-                    label={getTranslation('builds.filters.type')}
-                    value={buildType}
-                    options={buildTypeOptions.map((value) => ({
-                        value,
-                        label:
-                            value === 'all'
-                                ? getTranslation('builds.filters.all')
-                                : value === 'favorites'
-                                  ? getTranslation('builds.favorites')
-                                  : startCase(value),
-                    }))}
-                />
-            )}
+        <View className="relative z-[1] flex flex-row items-center justify-center gap-[15px] p-4">
+            <Filter
+                icon={civIcon}
+                onChange={(civ) => setFilter('civilization', civ)}
+                label={getTranslation('builds.filters.civ')}
+                value={civilization}
+                options={civOptions.map((value) => ({
+                    value,
+                    label: !value ? getTranslation('builds.filters.all') : getCivNameById(value),
+                    icon: !value ? genericCivIcon : getCivIconLocal(value),
+                }))}
+            />
+            <Filter
+                onChange={(diff) => setFilter('difficulty', diff)}
+                label={getTranslation('builds.filters.difficulty')}
+                value={difficulty}
+                options={([undefined, 1, 2, 3] as const).map((value) => ({
+                    value,
+                    label: !value ? getTranslation('builds.filters.all') : getDifficultyName(getTranslation, value),
+                }))}
+            />
+            <Filter
+                onChange={(type) => setFilter('buildType', type)}
+                label={getTranslation('builds.filters.type')}
+                value={buildType}
+                options={buildTypeOptions.map((value) => ({
+                    value,
+                    label:
+                        !value
+                            ? getTranslation('builds.filters.all')
+                            : value === 'favorites'
+                              ? getTranslation('builds.favorites')
+                              : startCase(value),
+                }))}
+            />
         </View>
     );
 };
-
-const useStyles = createStylesheet((theme, darkMode) =>
-    StyleSheet.create({
-        filtersContainer: {
-            zIndex: 1,
-            gap: 15,
-            padding: 16,
-            position: 'relative',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-    })
-);

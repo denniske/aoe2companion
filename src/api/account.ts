@@ -42,6 +42,8 @@ export interface IAccount {
     discordName?: string;
     discordInvitation?: string;
     sharedHistory?: boolean;
+    favoriteBuildIds: string[];
+    favoriteTournamentIds: string[];
 
     email: string;
     emailVerified: boolean;

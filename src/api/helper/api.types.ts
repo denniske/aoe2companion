@@ -1,8 +1,4 @@
-
-
-
-
-
+import { IBuildOrder } from '@/data/src/helper/builds';
 
 
 export const GAME_VARIANT_AOE2DE = 2;
@@ -386,6 +382,12 @@ export type IMapsPollResult = {
 
 
 
+export interface IBuildsResult {
+    perPage: number;
+    page: number;
+    builds: IBuildOrder[];
+}
+
 export interface IMatchesResult {
     perPage: number;
     page: number;
@@ -510,13 +512,13 @@ export interface IPlayerNew {
 export interface IFetchMatchesParams {
     leaderboardIds?: string[];
     platform?: string;
-    page?: number;
     search?: string;
     steamId?: string;
     profileIds?: number[];
     withProfileIds?: number[];
     country?: string;
 
+    page?: number;
     pageParam?: number;
     language: string;
 }
@@ -770,6 +772,17 @@ export interface IFetchMapsRankedParams {
 
 export interface IFetchMapsPollParams {
     language: string;
+}
+
+export interface IFetchBuildsParams {
+    build_ids?: string[];
+    civilization?: string;
+    attribute?: string;
+    difficulty?: string;
+    search?: string;
+
+    page?: number;
+    pageParam?: number;
 }
 
 

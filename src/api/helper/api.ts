@@ -2,7 +2,7 @@ import { makeQueryString, removeReactQueryParams } from './util';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import {
     IAnalysis,
-    IAssetsResult,
+    IAssetsResult, IBuildsResult, IFetchBuildsParams,
     IFetchLeaderboardParams,
     IFetchLeaderboardsParams,
     IFetchMapsParams,
@@ -149,4 +149,24 @@ export async function fetchMapsPoll(params: IFetchMapsPollParams) {
     );
     const url = `${getHost('aoe2companion-data')}api/maps/poll?${queryString}`;
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMapsPollResult;
+}
+
+export async function fetchBuilds(params: IFetchBuildsParams) {
+    // Fast return if user has no favorites
+    if (params.build_ids && params.build_ids.length === 0) {
+        return {
+            builds: [],
+            page: 1,
+            perPage: 50,
+        }
+    }
+
+    const queryString = makeQueryString(
+        decamelizeKeys({
+            ...removeReactQueryParams(params),
+            page: params.page || params.pageParam || 1,
+        })
+    );
+    const url = `${getHost('aoe2companion-data')}api/builds?${queryString}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IBuildsResult;
 }

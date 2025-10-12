@@ -6,9 +6,7 @@ import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { startCase } from 'lodash';
 import { useColorScheme } from 'nativewind';
-import { memo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-
 import { BuildRating } from './build-rating';
 import { getAgeIcon } from '../../../helper/units';
 import { IBuildOrder, sortBuildAges } from '@/data/src/helper/builds';
@@ -16,7 +14,7 @@ import { genericCivIcon, getCivIconLocal } from '../../../helper/civs';
 import { getDifficultyIcon } from '../../../helper/difficulties';
 import { Tag } from '../tag';
 
-const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: () => void; size?: 'small' | 'large' }> = ({
+export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: () => void; size?: 'small' | 'large' }> = ({
     favorited,
     toggleFavorite,
     size = 'large',
@@ -96,5 +94,3 @@ const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: 
         </Card>
     );
 };
-
-export default memo(BuildCard);

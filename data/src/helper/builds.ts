@@ -1,11 +1,3 @@
-import { buildsData } from '../data/builds';
-
-export function getBuildById(buildId?: string | number) {
-    if (!buildId) {
-        return;
-    }
-    return buildsData.find((build) => build.id == buildId);
-}
 
 export const sortBuildAges = (ages: [string, any][]) => {
     const sortedAges = ['feudalAge', 'castleAge', 'imperialAge'];
@@ -91,16 +83,16 @@ export interface IBuildOrder {
     build: IBuildOrderStep[];
     description: string;
     imageURL: string;
-    avg_rating?: number;
+    avgRating?: number;
     status: string;
     publisher: string;
     image: string;
     pop: AgeData;
     difficulty: number | string;
-    id: string | number;
+    id: string;
     uptime: AgeData;
     reference?: string;
-    number_of_ratings?: number;
+    numberOfRatings?: number;
     author: string;
     attributes: string[];
     civilization: string;

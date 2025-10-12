@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { IBuildOrder } from '@/data/src/helper/builds';
 
 export const BuildRating: React.FC<IBuildOrder & { showCount?: boolean }> = ({ showCount = true, ...build }) => {
-    const filledStars = Math.round(build.avg_rating ?? 0);
+    const filledStars = Math.round(build.avgRating ?? 0);
     const unfilledStars = Math.round(5 - filledStars);
 
     return (
@@ -24,7 +24,7 @@ export const BuildRating: React.FC<IBuildOrder & { showCount?: boolean }> = ({ s
             </View>
             {showCount && (
                 <Text variant="header-xs" color="subtle">
-                    {build.number_of_ratings}
+                    {build.numberOfRatings}
                 </Text>
             )}
         </View>

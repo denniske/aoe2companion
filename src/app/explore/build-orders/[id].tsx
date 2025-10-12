@@ -10,8 +10,7 @@ import { Stack, router, useLocalSearchParams } from 'expo-router';
 import startCase from 'lodash/startCase';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View, Linking, TouchableOpacity, Platform } from 'react-native';
-
-import { IBuildOrderStandardResources, sortBuildAges, getBuildById } from '@/data/src/helper/builds';
+import { IBuildOrderStandardResources, sortBuildAges } from '@/data/src/helper/builds';
 import { getDifficultyIcon, getDifficultyName } from '../../../helper/difficulties';
 import { getAgeIcon, getOtherIcon } from '../../../helper/units';
 import { createStylesheet } from '../../../theming-new';
@@ -23,6 +22,7 @@ import { MyText } from '../../../view/components/my-text';
 import { Tag } from '../../../view/components/tag';
 import { useTranslation } from '@app/helper/translate';
 import { isValidUrl } from '@app/api/helper/util';
+import { useBuild } from '@app/queries/all';
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -61,12 +61,9 @@ export default function BuildDetail() {
     const getTranslation = useTranslation();
     const styles = useStyles();
     const { id = '', focusMode } = useLocalSearchParams<{ id: string; focusMode: string }>();
-    const build = getBuildById(id)!;
-
+    const { data: build } = useBuild(id);
     const [focused, setFocused] = useState(!!focusMode);
-    const difficultyIcon = getDifficultyIcon(build.difficulty);
-    const ages = sortBuildAges(Object.entries(build.pop));
-    const uptimes: Record<string, any> = build.uptime;
+
 
     useEffect(() => {
         if (Platform.OS === 'web') return;
@@ -80,6 +77,7 @@ export default function BuildDetail() {
     });
 
     const shownResources = useMemo(() => {
+        if (!build) return [];
         const initialAllocations: IBuildOrderStandardResources = { food: 0, wood: 0, gold: 0, stone: 0, build: 0 };
         const allocations = build.build
             .map((step) => step.resources)
@@ -96,6 +94,14 @@ export default function BuildDetail() {
             .filter(([_, totalOnResource]) => totalOnResource > 0)
             .map(([resourceName]) => resourceName) as (keyof IBuildOrderStandardResources)[];
     }, [build]);
+
+    if (!build) {
+        return <View />;
+    }
+
+    const difficultyIcon = getDifficultyIcon(build.difficulty);
+    const ages = sortBuildAges(Object.entries(build.pop));
+    const uptimes: Record<string, any> = build.uptime;
 
     return (
         <ScrollView style={styles.container} contentContainerStyle="p-4 gap-4">

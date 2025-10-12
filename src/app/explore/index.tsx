@@ -8,34 +8,34 @@ import { Link } from '@app/components/link';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getBuildingIcon } from '@app/helper/buildings';
-import { getCivIcon, getCivIconLocal } from '@app/helper/civs';
+import { getCivIconLocal } from '@app/helper/civs';
 import { getTechIcon } from '@app/helper/techs';
 import { getUnitIcon } from '@app/helper/units';
-import BuildCard from '@app/view/components/build-order/build-card';
 import {
-    orderCivs,
-    civs,
-    getCivNameById,
-    techSections,
-    getBuildingName,
     allUnitSections,
+    Building,
     buildingSections,
     Civ,
-    Unit,
-    Building,
-    Tech,
-    getUnitName,
+    civs,
+    getBuildingName,
+    getCivNameById,
     getTechName,
+    getUnitName,
+    orderCivs,
+    Tech,
+    techSections,
+    Unit,
 } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image } from 'expo-image';
-import { Redirect, Stack, router } from 'expo-router';
-import { compact, get, orderBy, reverse, sortBy, uniq } from 'lodash';
-import { useState } from 'react';
+import { Redirect, router, Stack } from 'expo-router';
+import { compact, orderBy, uniq } from 'lodash';
+import React, { useState } from 'react';
 import { ImageSourcePropType, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
-import { useMaps } from '@app/queries/all';
-import {buildsData} from "@/data/src/data/builds";
+import { useInfiniteBuilds, useMaps } from '@app/queries/all';
+import { BuildCard } from '@app/view/components/build-order/build-card';
+import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
 
 type Item =
     | { name: Civ; title: string; type: 'civ', image?: any }
@@ -60,7 +60,7 @@ const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
     return (
         <TouchableOpacity
             className={`flex-row items-center py-2.5 gap-2 -mx-4 px-4 -mb-px ${index === 0 ? 'bg-gold-100 dark:bg-blue-900 z-10' : ''}`}
-            onPress={() => router.navigate(`/explore/${path}/${item.name}`)}
+            onPress={() => router.navigate(`/explore/${path}/${item.name}` as any)}
         >
             <Image source={item.image} className="w-8 h-8" />
             <View className="flex-1">
@@ -75,13 +75,21 @@ const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
 
 export default function Explore() {
     const getTranslation = useTranslation();
-    const formattedBuilds = buildsData.map((build) => ({
-        ...build,
-        avg_rating: build.avg_rating ?? 0,
-        number_of_ratings: build.number_of_ratings ?? 0,
-    }));
     const { data: maps } = useMaps();
-    const sortedBuilds = reverse(sortBy(formattedBuilds, ['avg_rating', 'number_of_ratings']));
+
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBuilds({})
+    const builds = data?.pages?.flatMap((p) => p.builds);
+
+    const onEndReached = async () => {
+        if (!hasNextPage || isFetchingNextPage) return;
+        fetchNextPage();
+    };
+
+    const _renderFooter = () => {
+        if (!isFetchingNextPage) return null;
+        return <FlatListLoadingIndicator />;
+    };
+
     const [search, setSearch] = useState('');
     const allData: Item[] = [
         ...civs.map<Item>((civ) => ({
@@ -158,7 +166,7 @@ export default function Explore() {
                             const topResult = filteredData[0];
                             if (topResult) {
                                 const { path } = typeAttributes[topResult.type];
-                                router.navigate(`/explore/${path}/${topResult.name}`);
+                                router.navigate(`/explore/${path}/${topResult.name}` as any);
                             }
                         }}
                         onChangeText={setSearch}
@@ -309,10 +317,13 @@ export default function Explore() {
                                 className="flex-none"
                                 horizontal
                                 keyboardShouldPersistTaps="always"
-                                data={sortedBuilds}
+                                data={builds}
                                 contentContainerStyle="gap-2.5 px-4"
                                 renderItem={({ item }) => <BuildCard size="small" {...item} />}
                                 keyExtractor={(item) => item.id.toString()}
+                                ListFooterComponent={_renderFooter}
+                                onEndReached={onEndReached}
+                                onEndReachedThreshold={0.1}
                             />
                         </View>
 

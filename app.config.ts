@@ -110,7 +110,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         typedRoutes: true,
         // react-compiler-runtime needs to be installed for android
         // but then android fails with wierd async storage error
-        reactCompiler: false,
+        reactCompiler: false, // 2025-Oct-11 tried v1 of compiler but that breaks main nav bar highlighting after some time
     },
     name: app.name,
     description: app.description,
@@ -199,6 +199,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             }
         ],
         "expo-video",
+        "expo-font",
         "expo-localization",
         "expo-web-browser",
     ],
