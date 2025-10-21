@@ -41,6 +41,12 @@ echo "Filename: ${NAME}"
 #    echo "Skipping sentry sourcemap upload."
 #fi
 
+# https://github.com/expo/expo/issues/39782
+export EAS_SKIP_AUTO_FINGERPRINT=1
+
+# so that eas submit also knows which app to submit to
+export APP="aoe2"
+
 echo "📦 Building ${PLATFORM} app for ${APP}..."
 eas build --profile "production-${APP}" --platform $PLATFORM --local --non-interactive --output "$NAME"
 

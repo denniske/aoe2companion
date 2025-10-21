@@ -19,6 +19,7 @@ echo "App: ${APP}"
 echo "Platform: ${PLATFORM}"
 echo "Filename: ${NAME}"
 
+# https://github.com/expo/expo/issues/39782
 export EAS_SKIP_AUTO_FINGERPRINT=1
 
 echo "📦 Building ${PLATFORM} app for ${APP}..."
