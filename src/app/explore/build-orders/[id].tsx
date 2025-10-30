@@ -3,7 +3,6 @@ import { Icon } from '@app/components/icon';
 import { ScrollView } from '@app/components/scroll-view';
 import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
 import { useSelector } from '@app/redux/reducer';
-import { useFavoritedBuild } from '@app/service/storage';
 import { Image } from 'expo-image';
 import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
@@ -23,6 +22,7 @@ import { Tag } from '../../../view/components/tag';
 import { useTranslation } from '@app/helper/translate';
 import { isValidUrl } from '@app/api/helper/util';
 import { useBuild } from '@app/queries/all';
+import { useFavoritedBuild } from '@app/service/favorite-builds';
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 

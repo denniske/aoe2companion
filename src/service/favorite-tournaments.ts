@@ -13,11 +13,11 @@ export const useFollowedTournaments = () => {
     const saveAccountMutation = useSaveAccountMutation();
 
     const readItemFromStorage = async () => {
-        const item = await getItem();
-        if (item) {
-            const favorites = JSON.parse(item);
+        if (!isLoadingAccount && !account?.favoriteTournamentIds || account?.favoriteTournamentIds?.length == 0) {
+            const item = await getItem();
+            if (item) {
+                const favorites = JSON.parse(item);
 
-            if (!isLoadingAccount && !account?.favoriteTournamentIds || account?.favoriteTournamentIds?.length == 0) {
                 console.log('Migrating local favorited tournaments to server', favorites);
                 await saveAccountMutation.mutate({
                     favoriteTournamentIds: favorites,
@@ -29,7 +29,7 @@ export const useFollowedTournaments = () => {
 
     useEffect(() => {
         readItemFromStorage();
-    }, []);
+    }, [isLoadingAccount, account]);
 
     const toggleFollow = async (id: string) => {
         let favoriteTournamentIds;

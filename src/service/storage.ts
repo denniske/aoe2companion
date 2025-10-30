@@ -1,20 +1,16 @@
 import { Civ, Flag, LeaderboardId } from '@nex/data';
-import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
-import { camelCase, compact } from 'lodash';
-import { useEffect, useState } from 'react';
-import { Image, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
 import { Widget } from '../../modules/widget';
-import { genericCivIcon, getCivIconLocal } from '../helper/civs';
 import { DarkMode } from '../redux/reducer';
-import { fetchAssets, fetchBuilds } from '@app/api/helper/api';
+import { fetchAssets } from '@app/api/helper/api';
 import * as Crypto from 'expo-crypto';
 import { appConfig } from '@nex/dataset';
 import * as Localization from 'expo-localization';
 import { AvailableMainPage } from '@app/helper/routing';
-import { useAccount } from '@app/queries/all';
-import { useSaveAccountMutation } from '@app/mutations/save-account';
+import { useFavoritedBuilds } from '@app/service/favorite-builds';
 
 const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
@@ -102,6 +98,9 @@ export const loadConfigFromStorage = async () => {
     const entryJson = await AsyncStorage.getItem('config');
     const entry = (entryJson ? JSON.parse(entryJson) : {}) as IConfig;
     entry.language = entry.language ?? getLanguageFromSystemLocale(Localization.getLocales()[0].languageTag);
+
+    console.log('==> lang', getLanguageFromSystemLocale(Localization.getLocales()[0].languageTag))
+
     entry.darkMode = entry.darkMode ?? 'system';
     // entry.preventScreenLockOnGuidePage = entry.preventScreenLockOnGuidePage ?? true;
     entry.pushNotificationsEnabled = entry.pushNotificationsEnabled ?? false;
@@ -152,78 +151,6 @@ if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
     // console.log('setAppGroup', `group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
 }
 
-export const useFavoritedBuilds = () => {
-    const { getItem, removeItem } = useAsyncStorage('favoritedBuilds');
-
-    const { data: account, isLoading: isLoadingAccount } = useAccount();
-    const favoriteIds = compact(account?.favoriteBuildIds);
-
-    const saveAccountMutation = useSaveAccountMutation();
-
-    const readItemFromStorage = async () => {
-        const item = await getItem();
-        if (item) {
-            const favorites = JSON.parse(item);
-
-            if (!isLoadingAccount && !account?.favoriteBuildIds || account?.favoriteBuildIds?.length == 0) {
-                console.log('Migrating local favorited builds to server', favorites);
-                await saveAccountMutation.mutate({
-                    favoriteBuildIds: favorites,
-                });
-                await removeItem();
-            }
-        }
-    };
-
-    useEffect(() => {
-        readItemFromStorage();
-    }, []);
-
-    const toggleFavorite = async (id: string) => {
-        let favoriteBuildIds;
-        if (favoriteIds.includes(id)) {
-            favoriteBuildIds = favoriteIds.filter((favoriteId) => favoriteId !== id);
-        } else {
-            favoriteBuildIds = [...favoriteIds, id];
-        }
-
-        await saveAccountMutation.mutate({
-            favoriteBuildIds,
-        });
-
-        // Store favorite builds for widget (just first page should be enough)
-        const favoriteBuildsResult = await fetchBuilds({ build_ids: favoriteBuildIds });
-        const favoriteBuilds = favoriteBuildsResult.builds;
-
-        if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
-            const newWidgetData = JSON.stringify(
-                favoriteBuilds
-                    .map((build) => ({
-                        id: build.id.toString(),
-                        title: build.title,
-                        civilization: build.civilization,
-                        image:
-                            Widget.getImagePathIfExists(`${camelCase(build.civilization)}.png`) ??
-                            Widget.setImage(
-                                Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri,
-                                `${camelCase(build.civilization)}.png`
-                            ),
-                        icon:
-                            Widget.getImagePathIfExists(`${camelCase(build.image.toString())}.png`) ??
-                            Widget.setImage(Image.resolveAssetSource({ uri: build.imageURL }).uri, `${camelCase(build.image.toString())}.png`),
-                    }))
-            );
-            Widget.setItem('savedData', newWidgetData);
-            Widget.reloadAll();
-        }
-    };
-
-    return {
-        toggleFavorite,
-        favoriteIds,
-    };
-};
-
 async function md5(contents: string) {
     return await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.MD5, contents);
 }
@@ -261,15 +188,6 @@ export const cacheLiveActivityAssets = async () => {
 //         console.error('Error setting image:', error);
 //     }
 // }
-
-export const useFavoritedBuild = (id: string) => {
-    const { favoriteIds, toggleFavorite } = useFavoritedBuilds();
-
-    return {
-        toggleFavorite: () => toggleFavorite(id),
-        isFavorited: favoriteIds.includes(id),
-    };
-};
 
 export type BuildFilters = {
     civilization?: Civ;

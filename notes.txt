@@ -13,6 +13,30 @@ import mitm cert
 https://www.mitmproxy.org/posts/wireguard-mode/
 
 
+"scripts": {
+    "deps": "npm install --global eas-cli",
+    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider APP=aoe2 expo start -c --dev-client --private-key-path update/private-key.pem",
+    "start:prod": "cross-env APP=aoe2 expo start -c --no-dev --dev-client",
+    "prebuild": "cross-env APP=aoe2 expo prebuild",
+    "start4": "cross-env NODE_OPTIONS=--openssl-legacy-provider APP=aoe4 expo start -c --dev-client",
+    "start4:go": "cross-env APP=aoe4 expo start -c",
+    "eject": "expo eject",
+    "build:web": "expo build:web",
+    "build:web:electron": "expo build:web && cp web-build electron/dist",
+    "strings": "npm run strings --prefix tools",
+    "generate": "npm -s run generate:prisma",
+    "generate:prisma": "prisma generate --schema graph/prisma/schema.prisma",
+    "bundle:app:p": "npx expo publish -c --release-channel assets --config app.json -q",
+    "bundle:export": "rm -rf dist/exported && npx expo export --output-dir dist/exported -p https://www.example.com/ -s",
+    "bundle:analyze": "source-map-explorer dist/exported/bundles/ios-*.js dist/exported/bundles/ios-*.map",
+    "bundle:app": "npm run bundle:export; npm run bundle:analyze",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "build:plugin": "yarn clean:plugin && EXPO_NONINTERACTIVE=1 expo-module build plugin && ./plugin/src/scripts/copy.sh",
+    "clean:plugin": "expo-module clean plugin",
+    "lint": "eslint .",
+    "postinstall": "patch-package && npx --yes copy-files-from-to"
+},
 
 
 

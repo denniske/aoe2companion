@@ -6,8 +6,7 @@ import { Match } from '@app/components/match/match';
 import { NewsCard } from '@app/components/news-card';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
-import { useFollowedTournaments } from '@app/service/followed-tournaments';
-import { useFavoritedBuilds } from '@app/service/storage';
+import { useFollowedTournaments } from '@app/service/favorite-tournaments';
 import { useAccountMostRecentMatches } from '@app/utils/match';
 import { useNews } from '@app/utils/news';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
@@ -25,6 +24,7 @@ import { useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
 import { BuildCard } from '@app/view/components/build-order/build-card';
 import { compact } from 'lodash';
+import { useFavoritedBuilds } from '@app/service/favorite-builds';
 
 export function FavoritedBuilds() {
     const getTranslation = useTranslation();

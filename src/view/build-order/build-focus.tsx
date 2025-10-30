@@ -36,8 +36,6 @@ export const BuildFocus: React.FC<{
         }
     });
 
-    console.log('build.build', build.build)
-
     const goToStep = (step: number) => {
         const newStep = Math.max(step, 0);
 

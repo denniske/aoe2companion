@@ -8,7 +8,7 @@ import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { flagEmojiDict } from '@app/helper/flags';
 import { formatPrizePool, formatTier, getMatches } from '@app/helper/tournaments';
-import { useFollowedTournament } from '@app/service/followed-tournaments';
+import { useFollowedTournament } from '@app/service/favorite-tournaments';
 import { textColors } from '@app/utils/text.util';
 import PlayerList from '@app/view/components/player-list';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';

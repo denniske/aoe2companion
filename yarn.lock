@@ -2632,6 +2632,56 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-buoy/core@npm:^0.1.16":
+  version: 0.1.16
+  resolution: "@react-buoy/core@npm:0.1.16"
+  dependencies:
+    "@react-buoy/shared-ui": "npm:0.1.16"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/9978aa446930f67a8d1dfc33e2677aa9241c743edb5048496e68d6f2db4d22066fe1900972b24c58f66a58714d5590494ab28193921e0877dd314e1f8fae6e37
+  languageName: node
+  linkType: hard
+
+"@react-buoy/network@npm:^0.1.16":
+  version: 0.1.16
+  resolution: "@react-buoy/network@npm:0.1.16"
+  dependencies:
+    "@react-buoy/react-query": "npm:0.1.16"
+    "@react-buoy/shared-ui": "npm:0.1.16"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/eb6928481f2fb8f7660942c110f8ca4471db0c7a12e456208c9888a60e818b16655f38eb802977326a94906a4d624b5a760d46f8c1aa6194228262cdda7d4f09
+  languageName: node
+  linkType: hard
+
+"@react-buoy/react-query@npm:0.1.16":
+  version: 0.1.16
+  resolution: "@react-buoy/react-query@npm:0.1.16"
+  dependencies:
+    "@react-buoy/shared-ui": "npm:0.1.16"
+  peerDependencies:
+    "@tanstack/react-query": ">=5.0.0"
+    react: "*"
+    react-native: "*"
+  checksum: 10/cb7a3e549bb56650ace5cf2217b1fa279d02d0457f205cb0471ad0d5e1928b649f821016a9a3891589a85d47c87eadde08cd314e28c9c95ab96be5405a589857
+  languageName: node
+  linkType: hard
+
+"@react-buoy/shared-ui@npm:0.1.16":
+  version: 0.1.16
+  resolution: "@react-buoy/shared-ui@npm:0.1.16"
+  dependencies:
+    superjson: "npm:^2.2.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/cff33462c9f7631ac782ef6f2e70e7378962fe6d82e428e7ca9dc8ae087f7a115b2112a6efd3bfb4dcc8ef2f2da2b9581688144f6f178f2e66afa2db530865ff
+  languageName: node
+  linkType: hard
+
 "@react-native-async-storage/async-storage@npm:2.2.0":
   version: 2.2.0
   resolution: "@react-native-async-storage/async-storage@npm:2.2.0"
@@ -4175,6 +4225,8 @@ __metadata:
     "@legendapp/list": "npm:^2.0.5"
     "@native-html/iframe-plugin": "npm:^2.6.1"
     "@pusher/push-notifications-web": "npm:^1.1.0"
+    "@react-buoy/core": "npm:^0.1.16"
+    "@react-buoy/network": "npm:^0.1.16"
     "@react-native-async-storage/async-storage": "npm:2.2.0"
     "@react-native-community/masked-view": "npm:0.1.10"
     "@react-navigation/material-top-tabs": "npm:^7.0.1"
@@ -5350,6 +5402,15 @@ __metadata:
   version: 2.0.0
   resolution: "convert-source-map@npm:2.0.0"
   checksum: 10/c987be3ec061348cdb3c2bfb924bec86dea1eacad10550a85ca23edb0fe3556c3a61c7399114f3331ccb3499d7fd0285ab24566e5745929412983494c3926e15
+  languageName: node
+  linkType: hard
+
+"copy-anything@npm:^4":
+  version: 4.0.5
+  resolution: "copy-anything@npm:4.0.5"
+  dependencies:
+    is-what: "npm:^5.2.0"
+  checksum: 10/1ee7e6f55c1016a47871ecd09aa765ca825c1ec89c46e6f58686016c80c6fe3d36452a6010d8498c766ea5d60bc5d892d9511b41310a7355b48ac10b39c90c9a
   languageName: node
   linkType: hard
 
@@ -8497,6 +8558,13 @@ __metadata:
     call-bound: "npm:^1.0.3"
     get-intrinsic: "npm:^1.2.6"
   checksum: 10/1d5e1d0179beeed3661125a6faa2e59bfb48afda06fc70db807f178aa0ebebc3758fb6358d76b3d528090d5ef85148c345dcfbf90839592fe293e3e5e82f2134
+  languageName: node
+  linkType: hard
+
+"is-what@npm:^5.2.0":
+  version: 5.5.0
+  resolution: "is-what@npm:5.5.0"
+  checksum: 10/d53a6ea1aebf953f3bcf711a28e8463bfe79fc0e4e87575d77c692a30fd3d98f87b88d4c006c06753bf85f771c9d2c1d05b2c6b03c246883261fe190526195d9
   languageName: node
   linkType: hard
 
@@ -12592,6 +12660,15 @@ __metadata:
     sucrase: bin/sucrase
     sucrase-node: bin/sucrase-node
   checksum: 10/bc601558a62826f1c32287d4fdfa4f2c09fe0fec4c4d39d0e257fd9116d7d6227a18309721d4185ec84c9dc1af0d5ec0e05a42a337fbb74fc293e068549aacbe
+  languageName: node
+  linkType: hard
+
+"superjson@npm:^2.2.2":
+  version: 2.2.5
+  resolution: "superjson@npm:2.2.5"
+  dependencies:
+    copy-anything: "npm:^4"
+  checksum: 10/0016a841ab51c02abada4a321561dbfdbd9cf2d739fff44e036e2247b909f438d3c0b4897fedab5581251dae293af2ac96e276376e8508d603505d5d9248d3a4
   languageName: node
   linkType: hard
 

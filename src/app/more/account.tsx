@@ -75,7 +75,7 @@ export default function AccountPage() {
         }
     }, [relicVerificationData?.verified]);
 
-    // console.log('user', user);
+    // console.log('account', account?.data);
     // console.log('accountId', account.data?.accountId);
 
     const toggleSharedHistory = async () => {

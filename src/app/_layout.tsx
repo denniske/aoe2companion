@@ -61,6 +61,9 @@ import {LiveActivity} from "@/modules/widget";
 import {Image} from "expo-image";
 import {AvailableMainPage} from "@app/helper/routing";
 import { clearLastNotificationResponse } from 'expo-notifications';
+import { FloatingDevTools } from '@react-buoy/core';
+import { NetworkModal } from '@react-buoy/network';
+import { Globe } from '@react-buoy/shared-ui';
 
 initSentry();
 
@@ -335,6 +338,23 @@ function AppWrapper() {
                         onLayout={onLayoutRootView}
                     >
                         <StatusBar barStyle={contentTheme} backgroundColor="transparent" translucent />
+
+                        {/*<FloatingDevTools*/}
+                        {/*    apps={[*/}
+                        {/*        {*/}
+                        {/*            id: "network",*/}
+                        {/*            name: "NETWORK",*/}
+                        {/*            description: "Network request logger",*/}
+                        {/*            slot: "both",*/}
+                        {/*            icon: ({ size }) => <Globe size={size} color="#38bdf8" />,*/}
+                        {/*            component: NetworkModal,*/}
+                        {/*            props: {},*/}
+                        {/*        },*/}
+                        {/*    ]}*/}
+                        {/*    actions={{}}*/}
+                        {/*    environment="local"*/}
+                        {/*    userRole="admin"*/}
+                        {/*/>*/}
 
                         <StartupNavigationController />
                         <AccountController />

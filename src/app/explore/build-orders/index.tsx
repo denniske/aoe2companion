@@ -5,7 +5,6 @@ import { useFocusEffect } from '@react-navigation/native';
 import { router, Stack } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import { View } from 'react-native';
-import { useFavoritedBuilds } from '../../../service/storage';
 import { BuildFilters } from '../../../view/components/build-order/build-filters';
 import { DismissKeyboard } from '../../../view/components/dismiss-keyboard';
 import { MyText } from '../../../view/components/my-text';
@@ -17,6 +16,7 @@ import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-ind
 import { BuildCard } from '@app/view/components/build-order/build-card';
 import { usePrefData } from '@app/queries/prefs';
 import useDebounce from '@app/hooks/use-debounce';
+import { useFavoritedBuilds } from '@app/service/favorite-builds';
 
 export default function BuildListPage() {
     const getTranslation = useTranslation();

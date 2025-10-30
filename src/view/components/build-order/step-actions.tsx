@@ -75,9 +75,6 @@ export const StepActions: React.FC<IBuildOrderStep & { pop?: string | number; si
     const sizeNumber = size === 'small' ? 20 : 30;
     const textStyle = size === 'small' ? styles.smallText : styles.text;
 
-
-    console.log('tech', tech)
-
     return (
         <View
             style={[
