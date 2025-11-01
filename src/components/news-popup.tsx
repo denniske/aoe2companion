@@ -1,57 +1,12 @@
-import tw from '@app/tailwind';
-import { Post } from '@app/utils/news';
-import {BottomSheet} from '@app/view/bottom-sheet';
-import IframeRenderer, { iframeModel } from '@native-html/iframe-plugin';
-import { decode } from 'html-entities';
-import { useRef, useState } from 'react';
-import { View, useWindowDimensions, Platform, TouchableOpacity } from 'react-native';
-import RenderHtml, {
-    CustomTagRendererRecord,
-    HTMLContentModel,
-    HTMLElementModel,
-    HTMLElementModelRecord,
-    TChildrenRenderer,
-} from 'react-native-render-html';
+import { BottomSheet } from '@app/view/bottom-sheet';
+import { useRef } from 'react';
+import { Platform, TouchableOpacity, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { Icon } from '@app/components/icon';
-import { textVariantStyles } from '../utils/text.util';
 import { BlurView } from 'expo-blur';
 import { INews } from '@app/api/helper/api.types';
 
-const Article = ({ TDefaultRenderer, ...props }: { TDefaultRenderer: any; [name: string]: any }) => {
-    const [visible, setVisible] = useState(false);
-    if (props.tnode.classes.includes('accordion')) {
-        const onPress = () => setVisible(!visible);
-        const first = props.tnode.children.slice(0, 1);
-        const second = props.tnode.children.slice(1, 2);
-        return (
-            <TDefaultRenderer {...props} onPress={onPress}>
-                <TChildrenRenderer tchildren={first} />
-
-                {visible && <TChildrenRenderer tchildren={second} />}
-            </TDefaultRenderer>
-        );
-    }
-    return <TDefaultRenderer {...props} />;
-};
-
-const renderers: CustomTagRendererRecord = {
-    iframe: IframeRenderer,
-    article: Article,
-};
-
-const customHTMLElementModels: HTMLElementModelRecord = {
-    iframe: iframeModel,
-    button: HTMLElementModel.fromCustomModel({
-        tagName: 'button',
-        contentModel: HTMLContentModel.block,
-    }),
-};
-
 export const NewsPopup: React.FC<{ news: INews; visible: boolean; onClose: () => void }> = ({ news, visible, onClose }) => {
-    const { width, height } = useWindowDimensions();
-
-    const [scriptInjected, setScriptInjected] = useState(false);
     const webviewRef = useRef<WebView>(null);
 
     const hideCookieBannerScript = `
@@ -88,7 +43,7 @@ export const NewsPopup: React.FC<{ news: INews; visible: boolean; onClose: () =>
 
     return (
         <BottomSheet
-            showHandle={false}
+            // showHandle={false}
             closeButton
             isActive={visible}
             onClose={onClose}
@@ -104,7 +59,7 @@ export const NewsPopup: React.FC<{ news: INews; visible: boolean; onClose: () =>
                         overScrollMode="never"
                         bounces={false}
                         scrollEnabled={true}
-                        decelerationRate="normal"
+                        {...(Platform.OS === 'ios' ? { decelerationRate: 'normal' } : {})}
                         ref={webviewRef}
                         source={{ uri: news.link }}
                         style={{ width: '100%', backgroundColor: 'rgba(255, 255, 255, 0)' }} // or #181c29
@@ -188,3 +143,33 @@ export const NewsPopup: React.FC<{ news: INews; visible: boolean; onClose: () =>
         </BottomSheet>
     );
 };
+
+// const Article = ({ TDefaultRenderer, ...props }: { TDefaultRenderer: any; [name: string]: any }) => {
+//     const [visible, setVisible] = useState(false);
+//     if (props.tnode.classes.includes('accordion')) {
+//         const onPress = () => setVisible(!visible);
+//         const first = props.tnode.children.slice(0, 1);
+//         const second = props.tnode.children.slice(1, 2);
+//         return (
+//             <TDefaultRenderer {...props} onPress={onPress}>
+//                 <TChildrenRenderer tchildren={first} />
+//
+//                 {visible && <TChildrenRenderer tchildren={second} />}
+//             </TDefaultRenderer>
+//         );
+//     }
+//     return <TDefaultRenderer {...props} />;
+// };
+//
+// const renderers: CustomTagRendererRecord = {
+//     iframe: IframeRenderer,
+//     article: Article,
+// };
+//
+// const customHTMLElementModels: HTMLElementModelRecord = {
+//     iframe: iframeModel,
+//     button: HTMLElementModel.fromCustomModel({
+//         tagName: 'button',
+//         contentModel: HTMLContentModel.block,
+//     }),
+// };
