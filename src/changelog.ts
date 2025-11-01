@@ -272,6 +272,10 @@ export const changelog: IChangelog = {
             type: 'minor',
             title: 'Implemented [AoE II DE Update 158041](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-158041/)',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix news popup (Android)',
+        },
     ],
     '163.0.0': [
         {
