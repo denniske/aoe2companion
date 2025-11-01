@@ -86,6 +86,15 @@ export function setLeaderboardId(id?: string | null) {
     };
 }
 
+export function addLog(log: string) {
+    return (state: AppState) => {
+        if (!state.logs) {
+            state.logs = [];
+        }
+        state.logs.push(log);
+    };
+}
+
 // export function setPurchaserInfo(purchaserInfo: any | null) {
 //     return (state: AppState) => {
 //         state.donation.purchaserInfo = purchaserInfo;
@@ -148,6 +157,7 @@ export interface AppState {
 
     error?: IError | null;
     errors?: IError[] | null;
+    logs?: string[] | null;
 
     config: IConfig;
     prefs: IPrefs;

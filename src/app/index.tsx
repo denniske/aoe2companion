@@ -25,6 +25,7 @@ import { appVariants } from '@app/styles';
 import { BuildCard } from '@app/view/components/build-order/build-card';
 import { compact } from 'lodash';
 import { useFavoritedBuilds } from '@app/service/favorite-builds';
+import ConsoleModal from '@app/components/buoy/console-modal';
 
 export function FavoritedBuilds() {
     const getTranslation = useTranslation();
@@ -90,6 +91,8 @@ export default function IndexPage() {
             <View className="-mx-4">
                 <FollowedPlayers />
             </View>
+
+            <ConsoleModal />
 
             {authProfileId && (
                 <View className="gap-2">

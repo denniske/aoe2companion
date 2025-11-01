@@ -51,7 +51,7 @@ import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/
 import { queryClient } from '@app/service/query-client';
 import { TranslationModeOverlay } from '@app/components/translation/translation-mode-overlay';
 import { PostMessageTranslationsController } from '@app/components/translation/post-message-translation';
-import { setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
+import { addLog, setLeaderboardCountry, setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
 import { useMMKV } from 'react-native-mmkv';
 import { clearLastNotificationResponseAsync, useLastNotificationResponse } from '@app/service/notifications';
 import * as WebBrowser from 'expo-web-browser';
@@ -63,7 +63,9 @@ import {AvailableMainPage} from "@app/helper/routing";
 import { clearLastNotificationResponse } from 'expo-notifications';
 import { FloatingDevTools } from '@react-buoy/core';
 import { NetworkModal } from '@react-buoy/network';
-import { Globe } from '@react-buoy/shared-ui';
+import { Activity, Globe, StorageStackIcon } from '@react-buoy/shared-ui';
+import ConsoleModal from '@app/components/buoy/console-modal';
+import { StorageModalWithTabs } from '@react-buoy/storage';
 
 initSentry();
 
@@ -270,6 +272,8 @@ function useColorSchemes() {
     } as const;
 }
 
+let consoleIntercepted = false;
+
 function AppWrapper() {
     // console.log('AppWrapper...');
 
@@ -291,6 +295,39 @@ function AppWrapper() {
     // }, [cachedLanguage]);
     //
     // useTranslations();
+
+    const mutate = useMutate();
+
+    if (!consoleIntercepted) {
+        consoleIntercepted = true;
+
+        // Preserve original console methods
+        const originalLog = console.log;
+        const originalWarn = console.warn;
+        const originalError = console.error;
+
+        // Helper to push and print
+        function intercept(
+            type: 'log' | 'warn' | 'error',
+            originalFn: (...args: any[]) => void,
+        ) {
+            return (...args: any[]) => {
+                const message = args
+                    .map((a) => (typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)))
+                    .join(' ');
+                mutate(addLog(message));
+                // logs.push(`[${type.toUpperCase()}] ${message}`);
+
+                // Keep native behavior
+                originalFn(...args);
+            };
+        }
+
+        console.log = intercept('log', originalLog);
+        console.warn = intercept('warn', originalWarn);
+        console.error = intercept('error', originalError);
+    }
+
 
     const [fontsLoaded] = useFonts({
         Roboto_400Regular,
@@ -339,22 +376,49 @@ function AppWrapper() {
                     >
                         <StatusBar barStyle={contentTheme} backgroundColor="transparent" translucent />
 
-                        {/*<FloatingDevTools*/}
-                        {/*    apps={[*/}
-                        {/*        {*/}
-                        {/*            id: "network",*/}
-                        {/*            name: "NETWORK",*/}
-                        {/*            description: "Network request logger",*/}
-                        {/*            slot: "both",*/}
-                        {/*            icon: ({ size }) => <Globe size={size} color="#38bdf8" />,*/}
-                        {/*            component: NetworkModal,*/}
-                        {/*            props: {},*/}
-                        {/*        },*/}
-                        {/*    ]}*/}
-                        {/*    actions={{}}*/}
-                        {/*    environment="local"*/}
-                        {/*    userRole="admin"*/}
-                        {/*/>*/}
+                        <FloatingDevTools
+                            apps={[
+                                // {
+                                //     id: "console",
+                                //     name: "CONSOLE",
+                                //     description: "Console logger",
+                                //     slot: "both",
+                                //     icon: ({ size }) => <Activity size={size} />,
+                                //     component: ConsoleModal,
+                                //     props: {},
+                                // },
+                                {
+                                    id: "network",
+                                    name: "NETWORK",
+                                    description: "Network request logger",
+                                    slot: "both",
+                                    icon: ({ size }) => <Globe size={size} color="#38bdf8" />,
+                                    component: NetworkModal,
+                                    props: {},
+                                },
+                                // {
+                                //     id: "storage",
+                                //     name: "STORAGE",
+                                //     description: "AsyncStorage browser",
+                                //     slot: "both",
+                                //     icon: ({ size }) => <StorageStackIcon size={size} color="#38f8a7" />,
+                                //     component: StorageModalWithTabs,
+                                //     props: {
+                                //         requiredStorageKeys: [
+                                //             {
+                                //                 key: "favoritedBuilds",
+                                //                 description: "Favorited Builds",
+                                //                 expectedType: "array",
+                                //                 storageType: "async",
+                                //             },
+                                //         ],
+                                //     },
+                                // },
+                            ]}
+                            actions={{}}
+                            environment="local"
+                            userRole="admin"
+                        />
 
                         <StartupNavigationController />
                         <AccountController />

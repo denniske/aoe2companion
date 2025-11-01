@@ -2682,6 +2682,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-buoy/storage@npm:^0.1.16":
+  version: 0.1.16
+  resolution: "@react-buoy/storage@npm:0.1.16"
+  dependencies:
+    "@react-buoy/shared-ui": "npm:0.1.16"
+    "@tanstack/react-query": "npm:^5.89.0"
+  peerDependencies:
+    "@react-native-async-storage/async-storage": ">=1.0.0"
+    react: "*"
+    react-native: "*"
+  checksum: 10/906a74138b51d31e985e637a884f949b0a8db4df3eb51e8e87d87acce92130b526b62ad8a5e5d2de8bfd84c527935092b06fc54d07114dfb788cf97a4de76a3c
+  languageName: node
+  linkType: hard
+
 "@react-native-async-storage/async-storage@npm:2.2.0":
   version: 2.2.0
   resolution: "@react-native-async-storage/async-storage@npm:2.2.0"
@@ -3374,6 +3388,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.90.5":
+  version: 5.90.5
+  resolution: "@tanstack/query-core@npm:5.90.5"
+  checksum: 10/987794b548010173f0514ad206515e744e928a9cea563ec79cf08dd4bcf496bc984fea00a28918ad079417fc3820779cb13a19303c15406ef53128dae115f03a
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-query@npm:^5.62.0":
   version: 5.87.4
   resolution: "@tanstack/react-query@npm:5.87.4"
@@ -3382,6 +3403,17 @@ __metadata:
   peerDependencies:
     react: ^18 || ^19
   checksum: 10/e8fdd39298a89f11744195503f9de147241813edcf198e2a63fa2b1dfbee96d847672c46fa5537ac886745add29968ed4f074f3bf17b0d8bf362a2575cfc6061
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.89.0":
+  version: 5.90.5
+  resolution: "@tanstack/react-query@npm:5.90.5"
+  dependencies:
+    "@tanstack/query-core": "npm:5.90.5"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10/9ea521318570452352b5c0e3d5e23fca806c3b00a53bd36f35b932f48a7073aebe089bcb7dad35200059ae52ff9e1958020b70d2f4f688f6a2ca815b1dde860c
   languageName: node
   linkType: hard
 
@@ -4227,6 +4259,7 @@ __metadata:
     "@pusher/push-notifications-web": "npm:^1.1.0"
     "@react-buoy/core": "npm:^0.1.16"
     "@react-buoy/network": "npm:^0.1.16"
+    "@react-buoy/storage": "npm:^0.1.16"
     "@react-native-async-storage/async-storage": "npm:2.2.0"
     "@react-native-community/masked-view": "npm:0.1.10"
     "@react-navigation/material-top-tabs": "npm:^7.0.1"
