@@ -53,8 +53,8 @@ const aoe2techtreeLanguageMap = {
 };
 
 async function loadStringsAoE2TechTreeForLanguage(language: keyof typeof aoe2techtreeLanguageMap) {
-    const dirPath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'data', aoe2techtreeLanguageMap[language]);
-    const filePath = path.resolve(__dirname, '..', '..', 'app', 'assets', 'data', aoe2techtreeLanguageMap[language], 'strings.json');
+    const dirPath = path.resolve(__dirname, '..', '..', 'assets', 'data', aoe2techtreeLanguageMap[language]);
+    const filePath = path.resolve(__dirname, '..', '..', 'assets', 'data', aoe2techtreeLanguageMap[language], 'strings.json');
     const response = await axios({
         method: 'GET',
         url: `https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/locales/${language}/strings.json`,
@@ -145,4 +145,4 @@ async function loadStringAoe4Explorer(civ: string, explorerAbbreviation: string)
 // loadStrings();
 
 loadStringsAoE2TechTree();
-loadDataAoE2TechTree();
+// loadDataAoE2TechTree();
