@@ -15,17 +15,19 @@ export const useFavoritedBuilds = () => {
     const { data: account, isLoading: isLoadingAccount } = useAccount();
     const favoriteIds = compact(account?.favoriteBuildIds);
 
+    // console.log('====> favoriteIds', favoriteIds);
+
     const saveAccountMutation = useSaveAccountMutation();
 
     const readItemFromStorage = async () => {
-        console.log('=> cond', `${!isLoadingAccount} && ${!account?.favoriteBuildIds} || ${account?.favoriteBuildIds?.length == 0}`)
+        // console.log('=> cond', `${!isLoadingAccount} && ${!account?.favoriteBuildIds} || ${account?.favoriteBuildIds?.length == 0}`)
         if (!isLoadingAccount && !account?.favoriteBuildIds || account?.favoriteBuildIds?.length == 0) {
             const item = await getItem();
-            console.log('=> item', item)
+            // console.log('=> item', item)
             if (item) {
                 const favorites = JSON.parse(item);
 
-                console.log('Migrating local favorited builds to server', favorites, account?.accountId);
+                // console.log('Migrating local favorited builds to server', favorites, account?.accountId);
                 await saveAccountMutation.mutate({
                     favoriteBuildIds: favorites,
                 });

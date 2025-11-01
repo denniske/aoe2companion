@@ -267,7 +267,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '161.0.0': [
+    '163.0.0': [
         {
             type: 'feature',
             title: 'Fetch build orders from server instead of bundling them with the app. New build orders should be available after max 1 hour after they have been published or changed.',

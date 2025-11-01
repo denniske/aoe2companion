@@ -92,7 +92,7 @@ export default function IndexPage() {
                 <FollowedPlayers />
             </View>
 
-            <ConsoleModal />
+            {/*<ConsoleModal />*/}
 
             {authProfileId && (
                 <View className="gap-2">

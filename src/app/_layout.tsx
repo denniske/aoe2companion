@@ -296,38 +296,36 @@ function AppWrapper() {
     //
     // useTranslations();
 
-    const mutate = useMutate();
-
-    if (!consoleIntercepted) {
-        consoleIntercepted = true;
-
-        // Preserve original console methods
-        const originalLog = console.log;
-        const originalWarn = console.warn;
-        const originalError = console.error;
-
-        // Helper to push and print
-        function intercept(
-            type: 'log' | 'warn' | 'error',
-            originalFn: (...args: any[]) => void,
-        ) {
-            return (...args: any[]) => {
-                const message = args
-                    .map((a) => (typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)))
-                    .join(' ');
-                mutate(addLog(message));
-                // logs.push(`[${type.toUpperCase()}] ${message}`);
-
-                // Keep native behavior
-                originalFn(...args);
-            };
-        }
-
-        console.log = intercept('log', originalLog);
-        console.warn = intercept('warn', originalWarn);
-        console.error = intercept('error', originalError);
-    }
-
+    // const mutate = useMutate();
+    // if (!consoleIntercepted) {
+    //     consoleIntercepted = true;
+    //
+    //     // Preserve original console methods
+    //     const originalLog = console.log;
+    //     const originalWarn = console.warn;
+    //     const originalError = console.error;
+    //
+    //     // Helper to push and print
+    //     function intercept(
+    //         type: 'log' | 'warn' | 'error',
+    //         originalFn: (...args: any[]) => void,
+    //     ) {
+    //         return (...args: any[]) => {
+    //             const message = args
+    //                 .map((a) => (typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)))
+    //                 .join(' ');
+    //             mutate(addLog(message));
+    //             // logs.push(`[${type.toUpperCase()}] ${message}`);
+    //
+    //             // Keep native behavior
+    //             originalFn(...args);
+    //         };
+    //     }
+    //
+    //     console.log = intercept('log', originalLog);
+    //     console.warn = intercept('warn', originalWarn);
+    //     console.error = intercept('error', originalError);
+    // }
 
     const [fontsLoaded] = useFonts({
         Roboto_400Regular,
@@ -376,49 +374,49 @@ function AppWrapper() {
                     >
                         <StatusBar barStyle={contentTheme} backgroundColor="transparent" translucent />
 
-                        <FloatingDevTools
-                            apps={[
-                                // {
-                                //     id: "console",
-                                //     name: "CONSOLE",
-                                //     description: "Console logger",
-                                //     slot: "both",
-                                //     icon: ({ size }) => <Activity size={size} />,
-                                //     component: ConsoleModal,
-                                //     props: {},
-                                // },
-                                {
-                                    id: "network",
-                                    name: "NETWORK",
-                                    description: "Network request logger",
-                                    slot: "both",
-                                    icon: ({ size }) => <Globe size={size} color="#38bdf8" />,
-                                    component: NetworkModal,
-                                    props: {},
-                                },
-                                // {
-                                //     id: "storage",
-                                //     name: "STORAGE",
-                                //     description: "AsyncStorage browser",
-                                //     slot: "both",
-                                //     icon: ({ size }) => <StorageStackIcon size={size} color="#38f8a7" />,
-                                //     component: StorageModalWithTabs,
-                                //     props: {
-                                //         requiredStorageKeys: [
-                                //             {
-                                //                 key: "favoritedBuilds",
-                                //                 description: "Favorited Builds",
-                                //                 expectedType: "array",
-                                //                 storageType: "async",
-                                //             },
-                                //         ],
-                                //     },
-                                // },
-                            ]}
-                            actions={{}}
-                            environment="local"
-                            userRole="admin"
-                        />
+                        {/*<FloatingDevTools*/}
+                        {/*    apps={[*/}
+                        {/*        {*/}
+                        {/*            id: "network",*/}
+                        {/*            name: "NETWORK",*/}
+                        {/*            description: "Network request logger",*/}
+                        {/*            slot: "both",*/}
+                        {/*            icon: ({ size }) => <Globe size={size} color="#38bdf8" />,*/}
+                        {/*            component: NetworkModal,*/}
+                        {/*            props: {},*/}
+                        {/*        },*/}
+                        {/*        // {*/}
+                        {/*        //     id: "console",*/}
+                        {/*        //     name: "CONSOLE",*/}
+                        {/*        //     description: "Console logger",*/}
+                        {/*        //     slot: "both",*/}
+                        {/*        //     icon: ({ size }) => <Activity size={size} />,*/}
+                        {/*        //     component: ConsoleModal,*/}
+                        {/*        //     props: {},*/}
+                        {/*        // },*/}
+                        {/*        // {*/}
+                        {/*        //     id: "storage",*/}
+                        {/*        //     name: "STORAGE",*/}
+                        {/*        //     description: "AsyncStorage browser",*/}
+                        {/*        //     slot: "both",*/}
+                        {/*        //     icon: ({ size }) => <StorageStackIcon size={size} color="#38f8a7" />,*/}
+                        {/*        //     component: StorageModalWithTabs,*/}
+                        {/*        //     props: {*/}
+                        {/*        //         requiredStorageKeys: [*/}
+                        {/*        //             {*/}
+                        {/*        //                 key: "favoritedBuilds",*/}
+                        {/*        //                 description: "Favorited Builds",*/}
+                        {/*        //                 expectedType: "array",*/}
+                        {/*        //                 storageType: "async",*/}
+                        {/*        //             },*/}
+                        {/*        //         ],*/}
+                        {/*        //     },*/}
+                        {/*        // },*/}
+                        {/*    ]}*/}
+                        {/*    actions={{}}*/}
+                        {/*    environment="local"*/}
+                        {/*    userRole="admin"*/}
+                        {/*/>*/}
 
                         <StartupNavigationController />
                         <AccountController />
