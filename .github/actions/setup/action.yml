@@ -15,8 +15,7 @@ runs:
         cd ..
 
         # echo "CHANNEL=master" >> $GITHUB_ENV
-        echo "AOE=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
-        echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+        echo "GAME=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
         echo "CHANNEL=$(node deploy/script/channel-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
         echo "RUNTIME_VERSION=$(node deploy/script/runtime-version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
 
@@ -26,7 +25,7 @@ runs:
     - run:  echo TRAVIS_BRANCH $TRAVIS_BRANCH
       shell: bash
 
-    - run:  echo AOE $AOE
+    - run:  echo GAME $GAME
       shell: bash
 
     - run:  echo CHANNEL $CHANNEL

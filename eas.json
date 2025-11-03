@@ -17,13 +17,13 @@
         "base-aoe2": {
             "extends": "base",
             "env": {
-                "APP": "aoe2"
+                "GAME": "aoe2"
             }
         },
         "base-aoe4": {
             "extends": "base",
             "env": {
-                "APP": "aoe4"
+                "GAME": "aoe4"
             }
         },
         "development-aoe2": {

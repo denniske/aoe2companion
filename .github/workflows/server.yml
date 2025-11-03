@@ -111,7 +111,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku checks:disable $SERVICE_NAME SERVICE_NAME=$SERVICE_NAME
           ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku config:set --no-restart $SERVICE_NAME SERVICE_NAME=$SERVICE_NAME
           ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku config:set --no-restart $SERVICE_NAME DATABASE_URL=$DATABASE_URL
-          ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku domains:set $SERVICE_NAME $SUBDOMAIN.${AOE}companion.com
+          ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku domains:set $SERVICE_NAME $SUBDOMAIN.${GAME}companion.com
           ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku resource:limit --cpu 1 --memory 500 $SERVICE_NAME
           ssh -o StrictHostKeyChecking=no root@128.140.125.122 dokku git:from-image $SERVICE_NAME denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1
 

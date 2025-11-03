@@ -3,9 +3,9 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
 const versionAoe2 = '166.0.0';
 const versionAoe4 = '24.0.0';
 
-console.log('Building for', process.env.APP, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);
+console.log('Building for', process.env.GAME, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);
 
-const app = process.env.APP === 'aoe2' ? {
+const app = process.env.GAME === 'aoe2' ? {
     assetsFolder: 'assets',
     version: versionAoe2,
     name: "AoE II Companion",
@@ -98,7 +98,7 @@ const runtimeVersionCode = runtimeVersionParts[0] + runtimeVersionParts[1].padSt
 const isProdBuild = process.env.EAS_BUILD_PROFILE?.includes('production');
 const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
 const sentryConfigPlugins = isProdBuild ? [sentryConfigPlugin] : [];
-const appConfigPlugins = process.env.APP === 'aoe2' ? [appPlugin] : [];
+const appConfigPlugins = process.env.GAME === 'aoe2' ? [appPlugin] : [];
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
@@ -127,7 +127,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         experienceId: app.experienceId,
         eas: {
             projectId: app.projectId,
-            build: process.env.APP === 'aoe2' ? {
+            build: process.env.GAME === 'aoe2' ? {
                 experimental: {
                     ios: {
                         appExtensions: [
@@ -155,7 +155,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 
     // The custom update server does not work with local builds because
     // npx expo run:<platform> has no --private-key-path
-    updates: process.env.APP === 'aoe2' && isProdBuild && false ? {
+    updates: process.env.GAME === 'aoe2' && isProdBuild && false ? {
         fallbackToCacheTimeout: 0,
         url: "https://update.aoe2companion.com/api/manifest",
         codeSigningCertificate: "./update/certificate.pem",
@@ -237,7 +237,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             NSUserActivityTypes: ["BuildsConfigurationIntent"],
             UIBackgroundModes: ["remote-notification"]
         },
-        entitlements: process.env.APP === 'aoe2' ? {
+        entitlements: process.env.GAME === 'aoe2' ? {
             "com.apple.security.application-groups": [
                 "group.com.aoe2companion.widget"
             ]

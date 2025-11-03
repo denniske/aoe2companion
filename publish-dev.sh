@@ -12,17 +12,23 @@ else
   exit 1
 fi
 
-APP="aoe2"
-NAME="build-$(date "+%Y-%m-%d-%H-%M")-${APP}-dev.${EXT}"
+# we need to set that on the cli with export GAME=aoe2, so that eas submit also knows which app to submit to
+if [ -z $GAME ]
+then
+  echo 'GAME is not set.'
+  exit 1
+fi
 
-echo "App: ${APP}"
+NAME="build-$(date "+%Y-%m-%d-%H-%M")-${GAME}-dev.${EXT}"
+
+echo "Game: ${GAME}"
 echo "Platform: ${PLATFORM}"
 echo "Filename: ${NAME}"
 
 # https://github.com/expo/expo/issues/39782
 export EAS_SKIP_AUTO_FINGERPRINT=1
 
-echo "📦 Building ${PLATFORM} app for ${APP}..."
-eas build --profile "development-${APP}" --platform $PLATFORM --local --non-interactive --output "$NAME"
+echo "📦 Building ${PLATFORM} app for ${GAME}..."
+eas build --profile "development-${GAME}" --platform $PLATFORM --local --non-interactive --output "$NAME"
 
-echo "✅ ${PLATFORM} app for ${APP} built successfully!"
+echo "✅ ${PLATFORM} app for ${GAME} built successfully!"

@@ -118,7 +118,7 @@ jobs:
 #          echo "EXPO_TOKEN=$(op read op://aoe2companion/expo_token/password)" >> $GITHUB_ENV
 #
 #      - run: yarn
-#      - run: echo "APP=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
+#      - run: echo "GAME=$(node deploy/script/aoe-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
 #      - run: echo "VERSION=$(node deploy/script/version-from-tag.js $TRAVIS_BRANCH)" >> $GITHUB_ENV
 #      - run: echo $VERSION
 ##      - run: cp ./node_modules/hermes-engine/linux64-bin/hermesc ./node_modules/react-native/sdks/hermesc/linux64-bin/hermesc

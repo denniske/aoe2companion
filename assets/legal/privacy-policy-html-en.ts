@@ -16,11 +16,11 @@ export const privacyHtmlEn = `
 
 <!--<h1>Privacy Policy</h1>-->
 <p>Effective date: October 03, 2019</p>
-<p>{APP} ("us", "we", or "our") operates the {APP} mobile application (hereinafter referred to as the
+<p>{GAME} ("us", "we", or "our") operates the {GAME} mobile application (hereinafter referred to as the
     "Service").</p>
 
 <p>This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our
-    Service and the choices you have associated with that data. The Privacy Policy for {APP} has been created with
+    Service and the choices you have associated with that data. The Privacy Policy for {GAME} has been created with
     the help of <a href="https://www.termsfeed.com/">TermsFeed</a>.</p>
 
 <p>We use your data to provide and improve the Service. By using the Service, you agree to the collection and use of
@@ -31,7 +31,7 @@ export const privacyHtmlEn = `
 <ul>
     <li>
         <p><strong>Service</strong></p>
-        <p>Service is the {APP} mobile application operated by {APP}</p>
+        <p>Service is the {GAME} mobile application operated by {GAME}</p>
     </li>
     <li>
         <p><strong>Personal Data</strong></p>
@@ -94,7 +94,7 @@ export const privacyHtmlEn = `
 
 <h2>Use of Data</h2>
 
-<p>{APP} uses the collected data for various purposes:</p>
+<p>{GAME} uses the collected data for various purposes:</p>
 <ul>
     <li>To provide and maintain the Service</li>
     <li>To notify you about changes to our Service</li>
@@ -113,17 +113,17 @@ export const privacyHtmlEn = `
     including Personal Data, to Germany and process it there.</p>
 <p>Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that
     transfer.</p>
-<p>{APP} will take all steps reasonably necessary to ensure that your data is treated securely and in accordance
+<p>{GAME} will take all steps reasonably necessary to ensure that your data is treated securely and in accordance
     with this Privacy Policy and no transfer of your Personal Data will take place to an organization or a country
     unless there are adequate controls in place including the security of your data and other personal information.</p>
 
 <h2>Disclosure Of Data</h2>
 
 <h3>Legal Requirements</h3>
-<p>{APP} may disclose your Personal Data in the good faith belief that such action is necessary to:</p>
+<p>{GAME} may disclose your Personal Data in the good faith belief that such action is necessary to:</p>
 <ul>
     <li>To comply with a legal obligation</li>
-    <li>To protect and defend the rights or property of {APP}</li>
+    <li>To protect and defend the rights or property of {GAME}</li>
     <li>To prevent or investigate possible wrongdoing in connection with the Service</li>
     <li>To protect the personal safety of users of the Service or the public</li>
     <li>To protect against legal liability</li>
@@ -192,7 +192,7 @@ export const privacyHtmlEn = `
 <h2>Contact Us</h2>
 <p>If you have any questions about this Privacy Policy, please contact us:</p>
 <ul>
-    <li>By email: hello@{APP}.com</li>
+    <li>By email: hello@{GAME}.com</li>
 
 </ul>
 

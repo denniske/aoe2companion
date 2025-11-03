@@ -12,18 +12,24 @@ else
   exit 1
 fi
 
-APP="aoe2"
-NAME="build-$(date "+%Y-%m-%d-%H-%M")-${APP}-dev.${EXT}"
+# we need to set that on the cli with export GAME=aoe2, so that eas submit also knows which app to submit to
+if [ -z $GAME ]
+then
+  echo 'GAME is not set.'
+  exit 1
+fi
 
-echo "App: ${APP}"
+NAME="build-$(date "+%Y-%m-%d-%H-%M")-${GAME}-dev.${EXT}"
+
+echo "Game: ${GAME}"
 echo "Platform: ${PLATFORM}"
 echo "Filename: ${NAME}"
 
 
-echo "📦 Building ${PLATFORM} app for ${APP}..."
-#eas build --profile "development-simulator-${APP}" --platform $PLATFORM --local --output "$NAME"
-#eas build --profile "development-simulator-${APP}" --platform $PLATFORM --local --non-interactive --output "$NAME"
-eas build --profile "development-simulator-${APP}" --platform $PLATFORM --local --non-interactive
+echo "📦 Building ${PLATFORM} app for ${GAME}..."
+#eas build --profile "development-simulator-${GAME}" --platform $PLATFORM --local --output "$NAME"
+#eas build --profile "development-simulator-${GAME}" --platform $PLATFORM --local --non-interactive --output "$NAME"
+eas build --profile "development-simulator-${GAME}" --platform $PLATFORM --local --non-interactive
 
 # unpack .tar.gz with the unarchiver if ios
 if [[ "$PLATFORM" == "ios" ]]; then
@@ -36,4 +42,4 @@ if [[ "$PLATFORM" == "ios" ]]; then
 fi
 
 
-echo "✅ ${PLATFORM} app for ${APP} built successfully!"
+echo "✅ ${PLATFORM} app for ${GAME} built successfully!"
