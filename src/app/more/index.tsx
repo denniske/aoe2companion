@@ -6,6 +6,7 @@ import { Platform, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Constants from 'expo-constants';
 import { useTranslation } from '@app/helper/translate';
+import { appConfig } from '@nex/dataset';
 
 interface Link {
     icon: IconName;
@@ -24,8 +25,9 @@ export default function More() {
         { icon: 'exchange-alt', title: getTranslation('changelog.title'), path: '/more/changelog' },
         { icon: 'hands-helping', title: getTranslation('footer.help'), path: 'https://discord.com/invite/gCunWKx' },
 
+        // iOS does not allow donations and android did check for aoe2 also
         ...(
-            !(Platform.OS === 'ios' && isMajorRelease) ?
+            !((Platform.OS === 'ios' || appConfig.game === 'aoe2') && isMajorRelease) ?
             [{ icon: 'coffee', title: getTranslation('footer.buymeacoffee'), path: 'https://www.buymeacoffee.com/denniskeil' } as Link] : []
         ),
     ];
@@ -41,7 +43,7 @@ export default function More() {
                 data={links}
                 ItemSeparatorComponent={() => <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full" />}
                 renderItem={({ item: { icon, title, path } }) => (
-                    <TouchableOpacity className="flex-row gap-3 py-4 items-center" onPress={() => router.push(path)}>
+                    <TouchableOpacity className="flex-row gap-3 py-4 items-center" onPress={() => router.push(path as any)}>
                         <Icon icon={icon} color="brand" size={24} />
                         <View>
                             <Text variant="header-sm">{title}</Text>

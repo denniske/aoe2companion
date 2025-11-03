@@ -39,6 +39,10 @@ const mappingBadgeStr = {
     'ew_1v1': '1v1',
     'ew_team': 'Team',
     'unranked': 'UNR',
+    'qm_1v1': '1v1',
+    'qm_2v2': '2v2',
+    'qm_3v3': '3v3',
+    'qm_4v4': '4v4',
 }
 
 const mappingIconName = {
@@ -60,16 +64,22 @@ function LeaderboardRow1({ data }: ILeaderboardRowProps) {
 
     const leaderboardId = data.leaderboardId?.replace('_console', '');
 
+    // console.log('leaderboardId', leaderboardId);
+    // console.log('mappingIconName[leaderboardId]', mappingIconName[leaderboardId]);
+
+    const mappedIconName = mappingIconName[leaderboardId] ?? 'swords';
+    const mappedBadgeStr = mappingBadgeStr[leaderboardId] ?? '?';
+
     return (
         <View style={styles.leaderboardRow} className="mb-2 gap-x-4">
 
             <View className="w-8">
-                <Icon icon={mappingIconName[leaderboardId]} size={24} color="subtle" />
+                <Icon icon={mappedIconName} size={24} color="subtle" />
                 <Text color="subtle"
                       variant="body-tn"
                       className="absolute -bottom-2 -right-2 p-0.5 px-1 rounded-md border-2 border-gold-50 dark:border-blue-950 bg-[#2E6CDD] text-white"
                       numberOfLines={1}>
-                    {mappingBadgeStr[leaderboardId]}
+                    {mappedBadgeStr}
                 </Text>
             </View>
 

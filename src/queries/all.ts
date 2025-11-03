@@ -15,6 +15,7 @@ import { fetchAccount, IAccount } from '@app/api/account';
 import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
+import { appConfig } from '@nex/dataset';
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
 
@@ -191,7 +192,7 @@ export const useMapsRanked = () => {
     return useQuery({
         queryKey: ['maps-ranked'],
         queryFn: () => fetchMapsRanked({ language: language! }),
-        enabled: !!language,
+        enabled: !!language && appConfig.game === 'aoe2',
     });
 };
 
@@ -200,7 +201,7 @@ export const useMapsPoll = () => {
     return useQuery({
         queryKey: ['maps-poll'],
         queryFn: () => fetchMapsPoll({ language: language! }),
-        enabled: !!language,
+        enabled: !!language && appConfig.game === 'aoe2',
     });
 };
 
@@ -239,3 +240,50 @@ export const useBuild = (buildId: string) => {
         enabled: !!language && !!buildId,
     });
 };
+
+const civDataFileMapping = {
+    AbbasidDynasty: 'abbasid',
+    Chinese: 'chinese',
+    DelhiSultanate: 'delhi',
+    English: 'english',
+    French: 'french',
+    HolyRomanEmpire: 'hre',
+    Mongols: 'mongols',
+    Rus: 'rus',
+    Malians: 'malians',
+    Ottomans: 'ottomans',
+    Byzantines: 'byzantines',
+    Japanese: 'japanese',
+    JeanneDArc: 'jeannedarc',
+    Ayyubids: 'ayyubids',
+    ZhuXiSLegacy: 'zhuxi',
+    OrderOfTheDragon: 'orderofthedragon',
+    HouseOfLancaster: 'lancaster',
+    KnightsTemplar: 'templar',
+} as const;
+
+export const useAoe4CivData = () =>
+    useQuery({
+        queryKey: ['aoe4-civ-data'],
+        queryFn: async () => {
+            const entries = Object.entries(civDataFileMapping);
+
+            const results = await Promise.all(
+                entries.map(async ([key, slug]) => {
+                    const res = await fetch(
+                        `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${slug}.json`
+                    );
+                    if (!res.ok) throw new Error(`Failed to fetch ${slug}`);
+                    const data = await res.json();
+                    return [key, data] as const;
+                })
+            );
+
+            return Object.fromEntries(results) as Record<
+                string,
+                { classes: string }
+            >;
+        },
+        staleTime: 3600 * 1000, // 1 hour
+        enabled: appConfig.game === 'aoe4',
+    }).data;

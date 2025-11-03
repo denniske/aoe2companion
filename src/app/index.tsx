@@ -26,6 +26,7 @@ import { BuildCard } from '@app/view/components/build-order/build-card';
 import { compact } from 'lodash';
 import { useFavoritedBuilds } from '@app/service/favorite-builds';
 import ConsoleModal from '@app/components/buoy/console-modal';
+import { appConfig } from '@nex/dataset';
 
 export function FavoritedBuilds() {
     const getTranslation = useTranslation();
@@ -141,57 +142,60 @@ export default function IndexPage() {
                 />
             </View>
 
-            <View className="gap-2">
-                <Text variant="header-lg" className="mb-1">
-                    Ranked Maps
-                </Text>
-                {!!mapsPoll && (
-                    <View className="flex-row justify-between items-center mb-3">
-                        {
-                            isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired }) ?
-                                <Text variant="body">New Map Rotation on {formatDayAndTime(mapsPoll.expired)}</Text> :
-                                <Text variant="body">Maps active since {formatDayAndTime(mapsPoll.expired)}</Text>
-                        }
-                        {
-                            isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ?
-                                <Link href="/explore/maps/poll">View Active Poll</Link> :
-                                <Link href="/explore/maps/poll">View Poll Results</Link>
-                        }
-                    </View>
-                )}
-                {!!mapsRanked?.leaderboards && mapsRanked?.leaderboards?.length > 0 && (
-                    <>
-                        <View className="mb-3">
-                            <ButtonPicker
-                                flex={true}
-                                value={rankedMapLeaderboard ?? firstValue}
-                                values={values}
-                                formatter={formatLeaderboard}
-                                onSelect={setRankedMapLeaderboard}
-                            />
+            {
+                appConfig.game === 'aoe2' &&
+                <View className="gap-2">
+                    <Text variant="header-lg" className="mb-1">
+                        Ranked Maps
+                    </Text>
+                    {!!mapsPoll && (
+                        <View className="flex-row justify-between items-center mb-3">
+                            {
+                                isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired }) ?
+                                    <Text variant="body">New Map Rotation on {formatDayAndTime(mapsPoll.expired)}</Text> :
+                                    <Text variant="body">Maps active since {formatDayAndTime(mapsPoll.expired)}</Text>
+                            }
+                            {
+                                isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ?
+                                    <Link href="/explore/maps/poll">View Active Poll</Link> :
+                                    <Link href="/explore/maps/poll">View Poll Results</Link>
+                            }
                         </View>
-                        <View className="flex-row flex-wrap">
-                            {mapsRanked?.leaderboards
-                                ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
-                                ?.maps?.map((map) => (
-                                    <TouchableOpacity
-                                        key={map.mapId}
-                                        className="flex-col justify-between items-center w-[25%] mb-4"
-                                        onPress={() => router.push(`/explore/maps/${map.mapId}` as any)}
-                                    >
-                                        <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
-                                        <Text variant={'body-sm'} className="text-center mb-1">
-                                            {map.mapName}
-                                        </Text>
-                                        <Text variant={'body-sm'} className="text-center">
-                                            {map.percentage.toFixed(0)} %
-                                        </Text>
-                                    </TouchableOpacity>
-                                ))}
-                        </View>
-                    </>
-                )}
-            </View>
+                    )}
+                    {!!mapsRanked?.leaderboards && mapsRanked?.leaderboards?.length > 0 && (
+                        <>
+                            <View className="mb-3">
+                                <ButtonPicker
+                                    flex={true}
+                                    value={rankedMapLeaderboard ?? firstValue}
+                                    values={values}
+                                    formatter={formatLeaderboard}
+                                    onSelect={setRankedMapLeaderboard}
+                                />
+                            </View>
+                            <View className="flex-row flex-wrap">
+                                {mapsRanked?.leaderboards
+                                    ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
+                                    ?.maps?.map((map) => (
+                                        <TouchableOpacity
+                                            key={map.mapId}
+                                            className="flex-col justify-between items-center w-[25%] mb-4"
+                                            onPress={() => router.push(`/explore/maps/${map.mapId}` as any)}
+                                        >
+                                            <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
+                                            <Text variant={'body-sm'} className="text-center mb-1">
+                                                {map.mapName}
+                                            </Text>
+                                            <Text variant={'body-sm'} className="text-center">
+                                                {map.percentage.toFixed(0)} %
+                                            </Text>
+                                        </TouchableOpacity>
+                                    ))}
+                            </View>
+                        </>
+                    )}
+                </View>
+            }
         </ScrollView>
     );
 }

@@ -10,7 +10,11 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
-    '23.0.0': [
+    '24.0.0': [
+        {
+            type: 'feature',
+            title: 'Started implementation of [Dynasties of the East](https://www.ageofempires.com/games/age-of-empires-iv/dynasties-of-the-east/)',
+        },
         {
             type: 'feature',
             title: 'Account creation',
@@ -24,6 +28,10 @@ export const changelog4: IChangelog = {
         {
             type: 'minor',
             title: 'Use web view for rendering of news posts',
+        },
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 54)',
         },
         {
             type: 'bugfix',
