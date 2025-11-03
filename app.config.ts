@@ -37,6 +37,7 @@ const app = process.env.GAME === 'aoe2' ? {
     splashBackgroundColor: "#ffebc7",
     splashBackgroundColorDark: "#181C29",
     adaptiveIconBackgroundColor: "#fbebd3",
+    googleServicesFile: "./google-services2.json",
 } : {
     assetsFolder: 'assets4',
     version: versionAoe4,
@@ -63,6 +64,7 @@ const app = process.env.GAME === 'aoe2' ? {
     splashBackgroundColor: "#000000",
     splashBackgroundColorDark: "#121212",
     adaptiveIconBackgroundColor: "#000000",
+    googleServicesFile: "./google-services4.json",
 };
 
 const sentryConfigPlugin = [
@@ -216,7 +218,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         package: app.package,
         versionCode: runtimeVersionCode as any as number,
         permissions: [],
-        googleServicesFile: "./google-services2.json",
+        googleServicesFile: app.googleServicesFile,
     },
     ios: {
         userInterfaceStyle: "automatic",
