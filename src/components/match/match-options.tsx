@@ -7,7 +7,7 @@ import { useTranslation } from '@app/helper/translate';
 import { useAppTheme } from '@app/theming';
 import { Card } from '@app/components/card';
 import { appConfig } from '@nex/dataset';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 
 interface Props {
     match: IMatchNew;

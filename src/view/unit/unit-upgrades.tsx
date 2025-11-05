@@ -27,7 +27,7 @@ import { Costs } from './unit-costs';
 import { getTechIcon } from '../../helper/techs';
 import { getEliteUniqueResearchIcon, getUnitIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { router } from 'expo-router';
 import { useTranslation } from '@app/helper/translate';
 

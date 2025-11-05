@@ -1,7 +1,6 @@
 import { getMapImage } from '@app/helper/maps';
 import { isMatchFreeForAll, teamRatio } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { Image } from 'expo-image';
 import { flatten, startCase, uniq } from 'lodash';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
@@ -12,6 +11,7 @@ import { Text } from '../text';
 import { MatchProps } from '@app/components/match/match';
 import { ElapsedTimeOrDuration } from '@app/components/elapsed-time-or-duration';
 import { router } from 'expo-router';
+import { Image } from '@/src/components/uniwind/image';
 
 export interface MatchCardProps extends MatchProps {
     onPress?: () => void;

@@ -1,7 +1,7 @@
 import { FlatList } from '@app/components/flat-list';
 import { Icon, IconName } from '@app/components/icon';
 import { Text } from '@app/components/text';
-import { Stack, router } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { Platform, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Constants from 'expo-constants';
@@ -39,7 +39,7 @@ export default function More() {
                 title: getTranslation('more.title'),
             }} />
             <FlatList
-                contentContainerStyle="p-4"
+                contentContainerClassName="p-4"
                 data={links}
                 ItemSeparatorComponent={() => <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full" />}
                 renderItem={({ item: { icon, title, path } }) => (

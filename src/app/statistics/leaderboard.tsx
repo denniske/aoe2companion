@@ -7,7 +7,6 @@ import { AnimatedValueText } from '@app/view/components/animated-value-text';
 import { ImageLoader } from '@app/view/components/loader/image-loader';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import { MyText } from '@app/view/components/my-text';
-import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/core';
 import { router, Stack } from 'expo-router';
@@ -16,24 +15,22 @@ import {
     Dimensions,
     NativeScrollEvent,
     NativeSyntheticEvent,
-    Platform, Pressable,
+    Platform,
     StyleSheet,
     TextStyle,
-    Text,
     TouchableOpacity,
     View,
 } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, {useAnimatedStyle, useDerivedValue, useSharedValue} from 'react-native-reanimated';
-import {runOnJS, scheduleOnRN} from 'react-native-worklets';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Animated, { useAnimatedStyle, useDerivedValue, useSharedValue } from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
+import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';;
 import { fetchLeaderboard } from '../../api/helper/api';
 import { ILeaderboardPlayer } from '../../api/helper/api.types';
 import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
 import { useSelector } from '../../redux/reducer';
 import { createStylesheet } from '../../theming-new';
-import {Button} from "@app/components/button";
-import {FlatList} from "@app/components/flat-list";
+import { FlatList } from '@app/components/flat-list';
 
 const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
@@ -474,7 +471,7 @@ export default function LeaderboardPage() {
                         scrollRange.value = layout.height - HANDLE_RADIUS * 2 - bottom;
                     }}
                     scrollEventThrottle={500}
-                    // contentContainerStyle="pt-2 pb-4"
+                    // contentContainerClassName="pt-2 pb-4"
                     data={list.current}
                     getItemLayout={(_data: any, index: number) => ({ length: ROW_HEIGHT, offset: ROW_HEIGHT * index, index })}
                     renderItem={({ item, index }: any) => _renderRow(item, index)}

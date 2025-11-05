@@ -1,7 +1,7 @@
 import React from 'react';
 import {Canvas, Rect} from '@shopify/react-native-skia';
 import {View} from 'react-native';
-import {Image} from 'expo-image';
+import {Image} from '@/src/components/uniwind/image';
 import {IAnalysis, IMatchNew} from '@app/api/helper/api.types';
 import {Text} from '@app/components/text';
 import {compact, sortBy} from 'lodash';

@@ -1,18 +1,17 @@
-import {useTw} from '@app/tailwind';
-import {IconName} from '@fortawesome/fontawesome-svg-core';
-import {LinearGradient} from 'expo-linear-gradient';
-import {useColorScheme} from 'nativewind';
-import React, {useEffect, useState} from 'react';
-import {Text as RNText, Platform, Pressable, View} from 'react-native';
-import {Icon} from './icon';
-import {Text} from './text';
-import {usePathname, useRootNavigationState, useRouter} from 'expo-router';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useMutateScroll, useScrollPosition} from '@app/redux/reducer';
-import {useTranslation} from '@app/helper/translate';
-import Animated, {interpolate, useAnimatedStyle, useSharedValue, withTiming} from "react-native-reanimated";
-import {Button} from "@app/components/button";
-import {v4 as uuidv4} from 'uuid';
+import { IconName } from '@fortawesome/fontawesome-svg-core';
+import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect } from 'react';
+import { Platform, Pressable, View } from 'react-native';
+import { Icon } from './icon';
+import { Text } from './text';
+import { usePathname, useRootNavigationState, useRouter } from 'expo-router';
+import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';;
+import { useMutateScroll, useScrollPosition } from '@app/redux/reducer';
+import { useTranslation } from '@app/helper/translate';
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { Button } from '@app/components/button';
+import { v4 as uuidv4 } from 'uuid';
+import { useResolveClassNames, useUniwind } from 'uniwind';
 
 function useCurrentTabName() {
     // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
@@ -39,18 +38,24 @@ function useCurrentTabName() {
 }
 
 export const TabBar: React.FC = () => {
-    const tw = useTw();
     const getTranslation = useTranslation();
     const insets = useSafeAreaInsets();
     const { bottom } = insets;
     const router = useRouter();
     const routeName = useCurrentTabName();
-    const shadow = tw.style('shadow-blue-50 dark:shadow-black', Platform.OS === 'web' && 'shadow-2xl');
-    const { colorScheme } = useColorScheme();
+    const shadowLg = useResolveClassNames(`shadow-lg shadow-blue-50 dark:shadow-black`);
+    const shadowXl = useResolveClassNames(`shadow-xl shadow-blue-50 dark:shadow-black`);
+    const { theme } = useUniwind();
+
+    const colorBlue950_0 = useResolveClassNames('text-blue-950/0').color;
+    const colorGold50_0 = useResolveClassNames('text-gold-50/0').color;
+    const colorBlue950_90 = useResolveClassNames('text-blue-950/90').color;
+    const colorGold50_90 = useResolveClassNames('text-gold-50/90').color;
+
     const gradient =
-        colorScheme === 'dark'
-            ? ([tw.color('blue-950/0') ?? 'black', tw.color('blue-950/90') ?? 'black'] as const)
-            : ([tw.color('gold-50/0') ?? 'white', tw.color('gold-50/90') ?? 'white'] as const);
+        theme === 'dark'
+            ? ([colorBlue950_0 ?? 'black', colorBlue950_90 ?? 'black'] as const)
+            : ([colorGold50_0 ?? 'white', colorGold50_90 ?? 'white'] as const);
 
     const scrollPosition = useScrollPosition();
     const { setScrollPosition, setScrollToTop } = useMutateScroll();
@@ -121,9 +126,9 @@ export const TabBar: React.FC = () => {
                 <View style={{ height: 74, pointerEvents: 'box-none' }} className="items-center justify-center">
                     <View className={`${!showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`}>
                         <Button
-                            className="h-10 w-10 items-center justify-center rounded-full shadow-lg"
+                            className="h-10 w-10 items-center justify-center rounded-full"
                             icon="arrow-up"
-                            style={shadow}
+                            style={shadowLg}
                             hitSlop={10}
                             onPress={() => {
                                 setScrollPosition(0);
@@ -136,7 +141,7 @@ export const TabBar: React.FC = () => {
 
             <Animated.View className={`absolute px-4 pb-2 w-full ${showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`} style={animatedStyle}>
                 <LinearGradient className="absolute left-0 right-0" style={{ bottom: -bottom, top: -16 }} locations={[0, 0.25]} colors={gradient} />
-                <View className="flex-row p-2 rounded-lg shadow-xl bg-white dark:bg-blue-900" style={shadow}>
+                <View className="flex-row p-2 rounded-lg bg-white dark:bg-blue-900" style={shadowXl}>
                     {routes.map((route) => {
                         // console.log('ROUTE', route.key, route.path);
 
@@ -157,9 +162,9 @@ export const TabBar: React.FC = () => {
                                 {route.icon && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon as IconName} />}
                                 <Text
                                     allowFontScaling={false}
-                                    variant="header-sm"
+                                    variant="nav"
                                     color={isFocused ? 'white' : 'brand'}
-                                    className={`!text-[9px] !leading-[12px] uppercase mt-2`}
+                                    className={`uppercase mt-2`}
                                 >
                                     {label}
                                 </Text>

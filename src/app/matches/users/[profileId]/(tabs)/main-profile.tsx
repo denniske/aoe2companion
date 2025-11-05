@@ -58,7 +58,7 @@ export default function MainProfile(props: any) {
                 {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
                 <FlatList
                     // scrollEnabled={false}
-                    contentContainerStyle="p-4"
+                    contentContainerClassName="p-4"
                     data={list}
                     renderItem={({ item, index }) => {
                         switch (item) {

@@ -2,7 +2,7 @@ import { Card } from '@app/components/card';
 import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import { format } from 'date-fns';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { Tournament } from 'liquipedia';
 import { Platform, View } from 'react-native';
 

@@ -2,7 +2,7 @@ import { useTournamentPlayer } from '@app/api/tournaments';
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
 import { format } from 'date-fns';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { ActivityIndicator, View } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
 

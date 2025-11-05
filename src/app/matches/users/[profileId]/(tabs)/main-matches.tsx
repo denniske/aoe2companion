@@ -1,25 +1,20 @@
-import { Dropdown } from '@app/components/dropdown';
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { Match } from '@app/components/match/match';
-import { leaderboardIdsByType } from '@app/helper/leaderboard';
 import { useNavigationState, useRoute } from '@react-navigation/native';
-import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { flatten } from 'lodash';
-import React, { useEffect, useState } from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { fetchLeaderboards, fetchMatches } from '../../../../../api/helper/api';
-import { openLink } from '../../../../../helper/url';
+import React, { useState } from 'react';
+import { Platform, StyleSheet, View } from 'react-native';
+import { fetchMatches } from '../../../../../api/helper/api';
 import useDebounce from '../../../../../hooks/use-debounce';
 import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
-import { useSelector } from '../../../../../redux/reducer';
 import { appVariants } from '../../../../../styles';
 import { useTheme } from '../../../../../theming';
 import { createStylesheet } from '../../../../../theming-new';
 import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
 import { MyText } from '../../../../../view/components/my-text';
 import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
-import TemplatePicker from '../../../../../view/components/template-picker';
 import { useAuthProfileId, useLanguage, useLeaderboards, useProfile } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
@@ -142,7 +137,7 @@ export default function MainMatches() {
         <View style={styles.container}>
             <View style={styles.content}>
                 {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
-                <View style={styles.pickerRow}>
+                <View style={styles.pickerRow} className="px-4">
                     <LeaderboardsSelect
                         leaderboardIdList={leaderboardIds}
                         onLeaderboardIdChange={setLeaderboardIds}
@@ -166,7 +161,7 @@ export default function MainMatches() {
                 <View style={{ flex: 1, opacity: isRefetching ? 0.7 : 1 }}>
                     {list.length === 0 && <MyText style={styles.header}>{getTranslation('main.matches.nomatches')}</MyText>}
                     <FlatList
-                        contentContainerStyle="p-4 gap-2"
+                        contentContainerClassName="p-4 gap-2"
                         initialNumToRender={10}
                         windowSize={2}
                         data={list}
@@ -230,8 +225,6 @@ const useStyles = createStylesheet((theme, mode) =>
             // backgroundColor: 'yellow',
             flexDirection: 'row',
             alignItems: 'center',
-            paddingLeft: 16,
-            paddingRight: 16,
             marginBottom: 20,
             marginTop: 20,
             flexWrap: 'wrap',

@@ -1,9 +1,8 @@
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
-import { useFocusEffect } from '@react-navigation/native';
 import { router, Stack } from 'expo-router';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { BuildFilters } from '../../../view/components/build-order/build-filters';
 import { DismissKeyboard } from '../../../view/components/dismiss-keyboard';
@@ -99,7 +98,7 @@ export default function BuildListPage() {
                         onEndReachedThreshold={0.1}
                         keyExtractor={(item) => item.id}
                         refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}
-                        contentContainerStyle="gap-4 px-4 pt-1.5"
+                        contentContainerClassName="gap-4 px-4 pt-1.5"
                         ListEmptyComponent={<MyText>{getTranslation('builds.noResults')}</MyText>}
                     />
                 </View>

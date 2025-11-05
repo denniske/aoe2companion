@@ -16,7 +16,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { Button } from '@app/components/button';
 import { useAuthProfileId, useInfiniteBuilds, useMapsPoll, useMapsRanked } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import ButtonPicker from '@app/view/components/button-picker';
 import { isWithinInterval } from 'date-fns';
 import { formatDayAndTime } from '@nex/data';
@@ -25,7 +25,6 @@ import { appVariants } from '@app/styles';
 import { BuildCard } from '@app/view/components/build-order/build-card';
 import { compact } from 'lodash';
 import { useFavoritedBuilds } from '@app/service/favorite-builds';
-import ConsoleModal from '@app/components/buoy/console-modal';
 import { appConfig } from '@nex/dataset';
 
 export function FavoritedBuilds() {
@@ -47,7 +46,7 @@ export function FavoritedBuilds() {
                 horizontal
                 keyboardShouldPersistTaps="always"
                 data={favorites}
-                contentContainerStyle="gap-2.5"
+                contentContainerClassName="gap-2.5"
                 renderItem={({ item }) => <BuildCard size="small" {...item} />}
                 keyExtractor={(item) => item.id.toString()}
             />
@@ -75,8 +74,8 @@ export default function IndexPage() {
     const formatLeaderboard = (leaderboardId: string) => mapsRanked?.leaderboards?.find((l) => l.leaderboardId === leaderboardId)?.abbreviation ?? '';
 
     return (
-        // <ScrollView contentContainerStyle="p-4 gap-5" className="scrollbar dark:scrollbar-dark">
-        <ScrollView contentContainerStyle="p-4 gap-5">
+        // <ScrollView contentContainerClassName="p-4 gap-5" className="scrollbar dark:scrollbar-dark">
+        <ScrollView contentContainerClassName="p-4 gap-5">
             <Stack.Screen
                 options={{
                     animation: 'none',
@@ -134,7 +133,7 @@ export default function IndexPage() {
 
                 <FlatList
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle="gap-4 px-4"
+                    contentContainerClassName="gap-4 px-4"
                     className="-mx-4"
                     horizontal
                     data={news}

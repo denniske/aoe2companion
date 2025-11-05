@@ -94,7 +94,7 @@ export default function RatingChart(props: IRatingChartProps) {
                 <>
                     {
                         dataset.yKeys.filter(key => !hiddenLeaderboardIds?.includes(key)).map((key) => {
-                            console.log('Rendering line for', key, !!(points as any)[key]);
+                            // console.log('Rendering line for', key, !!(points as any)[key]);
                             return (
                                 <Fragment key={key}>
                                     <Line points={(points as any)[key].filter((p: any) => p.yValue != null)}

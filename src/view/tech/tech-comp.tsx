@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Image} from 'expo-image';
+import {Image} from '@/src/components/uniwind/image';
 import {getTechDescription, getTechName, iconHeight, iconWidth, Tech, techs} from "@nex/data";
 import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";

@@ -307,7 +307,7 @@ export default function TipsPage() {
                     ))}
                 </View>
             </View>
-            <ScrollView style={styles.container} contentContainerStyle="pb-4">
+            <ScrollView style={styles.container} contentContainerClassName="pb-4">
                 {tips.map((tip) => (
                     <View key={tip.title} style={styles.row}>
                         <TouchableOpacity style={styles.tip} onPress={() => setCurrentTip(tip)}>

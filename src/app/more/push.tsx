@@ -167,7 +167,7 @@ export default function PushPage() {
     }, [lastNotificationResponse]);
 
     return (
-        <ScrollView className="flex-1 p-5" contentContainerStyle="items-center">
+        <ScrollView className="flex-1 p-5" contentContainerClassName="items-center">
             <Stack.Screen options={{ title: getTranslation('push.title') }} />
 
             <MyText>{accountId ? getTranslation('push.heading.account') : ''}</MyText>

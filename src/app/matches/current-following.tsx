@@ -76,7 +76,7 @@ export default function CurrentLobbyOrMatchPage() {
     // console.log('connected', connected);
 
     return (
-        <ScrollView contentContainerStyle="p-4 gap-4">
+        <ScrollView contentContainerClassName="p-4 gap-4">
             <Stack.Screen options={{ title: getTranslation('matches.currentfollowing.title') }} />
 
             <Text variant="header-lg">{getTranslation('matches.currentfollowing.lobbies')}</Text>
@@ -162,7 +162,7 @@ export default function CurrentLobbyOrMatchPage() {
             {/*{match && (*/}
             {/*    <>*/}
             {/*        <Card direction="vertical">*/}
-            {/*            <ScrollView horizontal contentContainerStyle="items-center gap-4">*/}
+            {/*            <ScrollView horizontal contentContainerClassName="items-center gap-4">*/}
             {/*                <View className="flex-row items-center gap-1">*/}
             {/*                    <Icon icon="clock" size={14} color="subtle" />*/}
             {/*                    <Text color="subtle">-</Text>*/}

@@ -10,7 +10,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { createStylesheet } from '../../theming-new';
 import { useRef, useState } from 'react';
 import { MyText } from './my-text';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 
 interface FilterProps<Value> {
     options: Array<{ value: Value; label: string; icon?: ImageSourcePropType }>;

@@ -1,7 +1,7 @@
 import { useMap } from '@app/api/tournaments';
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { Map } from 'liquipedia';
 import { useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';

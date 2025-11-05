@@ -69,7 +69,7 @@ export default function CurrentLobbyOrMatchPage() {
     console.log('Current match', match);
 
     return (
-        <ScrollView contentContainerStyle="p-4 gap-4">
+        <ScrollView contentContainerClassName="p-4 gap-4">
             <Stack.Screen options={{ title: getTranslation('matches.current.title') }} />
 
             {isLoading && (

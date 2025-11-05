@@ -2,9 +2,8 @@ import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { Text } from '@app/components/text';
-import { civs } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { router, Stack } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
@@ -62,7 +61,7 @@ export default function MapsIndex() {
                 )}
 
                 <FlatList
-                    contentContainerStyle="p-4"
+                    contentContainerClassName="p-4"
                     keyboardShouldPersistTaps="always"
                     data={list}
                     renderItem={({ item, index }) => renderItem(item, index)}

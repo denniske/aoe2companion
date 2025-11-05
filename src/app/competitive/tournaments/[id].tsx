@@ -9,7 +9,6 @@ import { Text } from '@app/components/text';
 import { flagEmojiDict } from '@app/helper/flags';
 import { formatPrizePool, formatTier, getMatches } from '@app/helper/tournaments';
 import { useFollowedTournament } from '@app/service/favorite-tournaments';
-import { textColors } from '@app/utils/text.util';
 import PlayerList from '@app/view/components/player-list';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { Slider } from '@app/view/components/slider';
@@ -22,10 +21,9 @@ import { TournamentMarkdown } from '@app/view/tournaments/tournament-markdown';
 import { TournamentMatch } from '@app/view/tournaments/tournament-match';
 import { TournamentPrizes } from '@app/view/tournaments/tournament-prizes';
 import { format, isValid } from 'date-fns';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { GameVersion, TournamentType } from 'liquipedia';
-import { useColorScheme } from 'nativewind';
 import { useState } from 'react';
 import { Linking, TouchableOpacity, View } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
@@ -33,12 +31,10 @@ import { useTranslation } from '@app/helper/translate';
 import { useProfilesByLiquipediaNames } from '@app/queries/all';
 import compact from 'lodash/compact';
 import { uniq } from 'lodash';
-import {BottomSheet} from "@app/view/bottom-sheet";
-import {useTw} from "@app/tailwind";
+import { BottomSheet } from '@app/view/bottom-sheet';
 
 
 export default function TournamentDetail() {
-    const tw = useTw();
     const getTranslation = useTranslation();
     const params = useLocalSearchParams<{ id: string[] }>();
     const id = typeof params.id === 'string' ? params.id : (params.id?.join('/') ?? '');
@@ -115,7 +111,7 @@ export default function TournamentDetail() {
         return (
             <ScrollView
                 className="flex-1"
-                contentContainerStyle={tournament && 'p-4'}
+                contentContainerClassName={tournament && 'p-4'}
                 refreshControl={<RefreshControlThemed {...refreshControlProps} />}
             >
                 <Stack.Screen
@@ -133,7 +129,7 @@ export default function TournamentDetail() {
     return (
         <ScrollView
             className="flex-1"
-            contentContainerStyle={tournament && 'gap-5 py-4'}
+            contentContainerClassName={tournament && 'gap-5 py-4'}
             refreshControl={<RefreshControlThemed {...refreshControlProps} />}
         >
             <Stack.Screen
@@ -173,7 +169,7 @@ export default function TournamentDetail() {
                                 <FlatList
                                     data={filteredMatches}
                                     renderItem={(match) => <TournamentMatch style={{ width: 250 }} key={match.index} match={match.item} />}
-                                    contentContainerStyle="gap-2 px-4"
+                                    contentContainerClassName="gap-2 px-4"
                                     horizontal
                                     showsHorizontalScrollIndicator={false}
                                 />
@@ -347,7 +343,7 @@ export default function TournamentDetail() {
                                                             className="-mx-3"
                                                             horizontal
                                                             showsHorizontalScrollIndicator={false}
-                                                            contentContainerStyle="gap-5"
+                                                            contentContainerClassName="gap-5"
                                                         >
                                                             {playoffRow.rounds.map((playoffRound) => (
                                                                 <PlayoffRound round={playoffRound} width={playoffRoundWidth} key={playoffRound.id} />
@@ -380,7 +376,7 @@ export default function TournamentDetail() {
                                                     renderItem={(match) => (
                                                         <TournamentMatch style={{ width: 250 }} key={match.index} match={match.item} />
                                                     )}
-                                                    contentContainerStyle="gap-2"
+                                                    contentContainerClassName="gap-2"
                                                     horizontal
                                                     showsHorizontalScrollIndicator={false}
                                                 />
@@ -519,25 +515,7 @@ export default function TournamentDetail() {
                                         >
                                             <Slider
                                                 className="mt-4"
-                                                pagination={(scrollTo, current) => (
-                                                    <View className="rounded-lg overflow-hidden flex-row bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 mb-4">
-                                                        {tournament.broadcastTalent?.map((broadcast, index) => (
-                                                            <Button
-                                                                size="small"
-                                                                align="center"
-                                                                key={broadcast.name}
-                                                                className={`flex-1 p-2 justify-center ${current === index ? '' : 'bg-transparent'}`}
-                                                                onPress={() => scrollTo(index)}
-                                                                textStyle={tw.style(
-                                                                    current === index ? 'text-white' : textColors.subtle,
-                                                                    'normal-case'
-                                                                )}
-                                                            >
-                                                                {broadcast.name}
-                                                            </Button>
-                                                        ))}
-                                                    </View>
-                                                )}
+                                                tabs={tournament.broadcastTalent.map((broadcast) => broadcast.name)}
                                                 slides={tournament.broadcastTalent.map((broadcast) => (
                                                     <TournamentMarkdown>{broadcast.content}</TournamentMarkdown>
                                                 ))}

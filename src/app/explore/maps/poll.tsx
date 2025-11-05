@@ -1,5 +1,5 @@
 import { Text } from '@app/components/text';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { router, Stack } from 'expo-router';
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
@@ -28,7 +28,7 @@ export default function MapsPoll() {
     const pollEnded = isAfter(new Date(), mapsPoll.finished);
 
     return (
-        <ScrollView className="flex-1" contentContainerStyle="p-5">
+        <ScrollView className="flex-1" contentContainerClassName="p-5">
             <Stack.Screen options={{ title: getTranslation('maps.poll.title') }} />
 
             {!!mapsPoll?.questions && mapsPoll?.questions?.length > 0 && (

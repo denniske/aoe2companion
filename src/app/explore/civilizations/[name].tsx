@@ -1,14 +1,11 @@
-import { fetchJson } from '@app/api/util';
 import { HeaderTitle } from '@app/components/header-title';
 import { ScrollView } from '@app/components/scroll-view';
 import { aoeCivKey, civDict, getCivNameById, parseCivDescription } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { ImageBackground } from 'expo-image';
+import { ImageBackground } from '@/src/components/uniwind/image';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { useColorScheme } from 'nativewind';
 import React, { Fragment } from 'react';
 import { StyleSheet, View } from 'react-native';
-
 import { getCivHistoryImage, getCivIconLocal } from '../../../helper/civs';
 import { HighlightUnitAndTechs } from '../../../helper/highlight';
 import { MyText } from '../../../view/components/my-text';
@@ -16,11 +13,12 @@ import { TechTree } from '../../../view/components/tech-tree';
 import { TechCompBig } from '../../../view/tech/tech-comp';
 import { UnitCompBig } from '../../../view/unit/unit-comp';
 import { useQuery } from '@tanstack/react-query';
+import { useUniwind } from 'uniwind';
 
 export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
     const civ = name!;
-    const { colorScheme } = useColorScheme();
+    const { theme } = useUniwind();
 
     if (appConfig.game !== 'aoe2') {
         return <Civ4Details civ={civ} />;
@@ -36,7 +34,7 @@ export default function CivDetails() {
 
     return (
         <ImageBackground
-            tintColor={colorScheme === 'dark' ? 'white' : 'black'}
+            tintColor={theme === 'dark' ? 'white' : 'black'}
             imageStyle={styles.imageInner}
             contentFit="cover"
             source={getCivHistoryImage(civ)}

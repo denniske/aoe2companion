@@ -2,7 +2,7 @@ import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 import { createStylesheet } from '../../theming-new';
 import { MyText } from '../components/my-text';
 import { EventParticipant } from 'liquipedia';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { getDifficultyIcon } from '../../helper/difficulties';
 import { router } from 'expo-router';
 

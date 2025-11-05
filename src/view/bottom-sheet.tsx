@@ -1,7 +1,7 @@
 import { Text } from '@app/components/text';
 import { useEffect, useState } from 'react';
 import { Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle, Platform, TouchableOpacity } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from '@/src/components/uniwind/safe-area-context';;
 import { createStylesheet } from '../theming-new';
 import { Icon } from '@app/components/icon';import Animated, {
     useSharedValue,

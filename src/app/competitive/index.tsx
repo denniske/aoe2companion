@@ -15,7 +15,7 @@ import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { TournamentMatch } from '@app/view/tournaments/tournament-match';
 import { matchAttributes } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
 import { PlayoffMatch } from 'liquipedia';
 import { groupBy, orderBy } from 'lodash';
@@ -24,7 +24,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Linking, Platform, TouchableOpacity, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { useTranslation } from '@app/helper/translate';
-import { openLink, openLinkWithCheck } from '@app/helper/url';
+import { openLinkWithCheck } from '@app/helper/url';
 import { showAlert } from '@app/helper/alert';
 import { Button } from '@app/components/button';
 
@@ -117,7 +117,7 @@ export default function Competitive() {
     };
 
     return (
-        <ScrollView className="flex-1" contentContainerStyle="pb-4">
+        <ScrollView className="flex-1" contentContainerClassName="pb-4">
             <Stack.Screen
                 options={{
                     animation: 'none',
@@ -203,7 +203,7 @@ export default function Competitive() {
                             horizontal
                             keyboardShouldPersistTaps="always"
                             data={isLoading ? Array(10).fill(null) : featuredTournaments.slice(0, 10)}
-                            contentContainerStyle="gap-2.5 px-4"
+                            contentContainerClassName="gap-2.5 px-4"
                             renderItem={({ item }) => <TournamentCard direction="vertical" {...item} />}
                             keyExtractor={(item, index) => item?.path || index}
                         />
@@ -231,7 +231,7 @@ export default function Competitive() {
                                     match={match.item}
                                 />
                             )}
-                            contentContainerStyle="gap-2.5 px-4"
+                            contentContainerClassName="gap-2.5 px-4"
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             ListEmptyComponent={<Text>{getTranslation('competitive.upcomingMatches.empty')}</Text>}

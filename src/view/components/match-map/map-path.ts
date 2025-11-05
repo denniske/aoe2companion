@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Canvas, Circle, Rect, useCanvasRef } from '@shopify/react-native-skia';
 import { TextInput, View } from 'react-native';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { IAnalysis } from '@app/api/helper/api.types';
 import { Text } from '@app/components/text';
 

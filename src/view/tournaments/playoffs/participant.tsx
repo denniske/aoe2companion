@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { EventParticipant } from 'liquipedia';
 import { MyText } from '../../components/my-text';
 import { createStylesheet } from '../../../theming-new';

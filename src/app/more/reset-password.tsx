@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { createStylesheet } from '../../theming-new';
 import { Stack, useRouter } from 'expo-router';
@@ -45,7 +45,7 @@ export default function ResetPasswordPage() {
     }
 
     return (
-        <ScrollView contentContainerStyle="min-h-full p-5">
+        <ScrollView contentContainerClassName="min-h-full p-5">
             <Stack.Screen options={{ title: getTranslation('resetpassword.title') }} />
 
             <View style={styles.container}>

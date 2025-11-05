@@ -93,7 +93,7 @@ export default function LivePage() {
                         />
                     </View>
                     <FlatList
-                        contentContainerStyle="p-4"
+                        contentContainerClassName="p-4"
                         data={list}
                         renderItem={({ item, index }) => {
                             switch (item) {

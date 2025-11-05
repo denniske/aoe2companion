@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStylesheet} from '../../theming-new';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Image} from 'expo-image';
+import {Image} from '@/src/components/uniwind/image';
 import {getBuildingIcon} from '../../helper/buildings';
 import {MyText} from '../components/my-text';
 import {Building, getBuildingDescription, getBuildingName, iconHeight, iconWidth} from '@nex/data';

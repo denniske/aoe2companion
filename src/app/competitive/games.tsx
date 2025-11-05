@@ -24,7 +24,7 @@ export default function OngoingMatchesPage() {
                 refreshControl={<RefreshControlThemed refreshing={isLoading} />}
                 refreshing={isLoading}
                 className="flex-1"
-                contentContainerStyle="p-4 gap-2"
+                contentContainerClassName="p-4 gap-2"
                 ListEmptyComponent={
                     isLoading ? null : (
                         <Text>{getTranslation('competitive.activeGames.empty')}</Text>

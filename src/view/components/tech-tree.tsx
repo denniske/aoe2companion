@@ -14,7 +14,7 @@ import {
     Unit,
 } from '@nex/data';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Image, ImageBackground } from 'expo-image';
+import { Image, ImageBackground } from '@/src/components/uniwind/image';
 import React, { Fragment } from 'react';
 import { MyText } from './my-text';
 import ButtonPicker from './button-picker';

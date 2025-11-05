@@ -5,7 +5,7 @@ import { scrollToSection, sectionItemLayout } from '@app/utils/list';
 import { buildingSections, getBuildingName } from '@nex/data';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
-import { View, SectionList as SectionListRef } from 'react-native';
+import { SectionList as SectionListRef, View } from 'react-native';
 
 import { BuildingCompBig } from '../../../view/building/building-comp';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
@@ -68,7 +68,7 @@ export default function BuildingList() {
                     ref={sectionList}
                     getItemLayout={sectionItemLayout({ getItemHeight: () => 40, getSectionHeaderHeight: () => 40, listHeaderHeight: 16 })}
                     keyboardShouldPersistTaps="always"
-                    contentContainerStyle="p-4"
+                    contentContainerClassName="p-4"
                     sections={list}
                     stickySectionHeadersEnabled={false}
                     renderItem={({ item }) => {

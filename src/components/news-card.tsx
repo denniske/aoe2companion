@@ -1,5 +1,5 @@
 import { Post, useMedia } from '@app/utils/news';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { decode } from 'html-entities';
 import { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';

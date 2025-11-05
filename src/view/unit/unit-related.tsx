@@ -1,5 +1,5 @@
 import { getUnitLineIdForUnit, getUnitLineName, iconSmallHeight, iconSmallWidth, sortUnitCounter, Unit, UnitLine, unitLines } from '@nex/data';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { router } from 'expo-router';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';

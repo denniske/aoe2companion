@@ -2,7 +2,7 @@ import { Text } from '@app/components/text';
 import TwitchBadge from '@app/view/components/badge/twitch-badge';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { format, isPast } from 'date-fns';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { router } from 'expo-router';
 import { PlayoffMatch as IPlayoffMatch } from 'liquipedia';
 import { Fragment, useEffect } from 'react';

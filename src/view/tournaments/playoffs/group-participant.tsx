@@ -1,12 +1,11 @@
 import { Text } from '@app/components/text';
 import { TextVariant } from '@app/utils/text.util';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { GroupParticipant as IGroupParticipant } from 'liquipedia';
-import { View, StyleSheet, TextStyle } from 'react-native';
-
+import { StyleSheet, TextStyle, View } from 'react-native';
 import { createStylesheet } from '../../../theming-new';
 import { useTranslation } from '@app/helper/translate';
-import {useTw} from "@app/tailwind";
+import { useResolveClassNames } from 'uniwind';
 
 export const Score: React.FC<{ score: IGroupParticipant['gameScore']; style?: TextStyle; variant?: TextVariant }> = ({
     score = { win: 0, loss: 0, draw: 0 },
@@ -34,11 +33,11 @@ const statusColors: Record<IGroupParticipant['status'], string> = {
 };
 
 export const GroupParticipant: React.FC<{ participant: IGroupParticipant }> = ({ participant }) => {
-    const tw = useTw();
     const getTranslation = useTranslation();
     const styles = useStyles();
     const backgroundColor = statusColors[participant.status];
-    const textColor = backgroundColor ? 'black' : (tw.style('text-black dark:text-white').color as string);
+    const finalColor = useResolveClassNames('text-black dark:text-white').color as string;
+    const textColor = backgroundColor ? 'black' : finalColor;
 
     return (
         <View style={[styles.participant, { backgroundColor: statusColors[participant.status] }]} className="border-gray-200 dark:border-gray-800">

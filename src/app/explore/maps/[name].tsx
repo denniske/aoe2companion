@@ -1,6 +1,6 @@
 import { HeaderTitle } from '@app/components/header-title';
 import { ScrollView } from '@app/components/scroll-view';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';

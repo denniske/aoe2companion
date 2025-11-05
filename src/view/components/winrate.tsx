@@ -1,12 +1,12 @@
 import {
+    PriorCivStat,
+    useWinrateGroupings,
     useWinrates,
     useWinratesBreakdown,
-    useWinrateGroupings,
+    useWinratesPatches,
+    WinrateBreakdown,
     WinrateGrouping,
     WinrateGroupingResponse,
-    WinrateBreakdown,
-    PriorCivStat,
-    useWinratesPatches,
 } from '@app/api/winrates';
 import { Card } from '@app/components/card';
 import { HeaderTitle } from '@app/components/header-title';
@@ -19,21 +19,20 @@ import { Slider2 } from '@app/view/components/slider2';
 import { aoeCivKey, getCivNameById } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { format } from 'date-fns';
-import { ImageBackground } from 'expo-image';
+import { ImageBackground } from '@/src/components/uniwind/image';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { useColorScheme } from 'nativewind';
 import React, { useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { useAccountData } from '@app/queries/all';
 import { Area, Bar, CartesianChart, Line } from 'victory-native-current';
 import { DashPathEffect, matchFont } from '@shopify/react-native-skia';
-import tw from '@app/tailwind';
 import { useAppTheme } from '@app/theming';
+import { useCSSVariable, useUniwind } from 'uniwind';
 
 export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
     const nameLower = name?.toLowerCase() ?? '';
-    const { colorScheme } = useColorScheme();
+    const { theme } = useUniwind();
     const { winrates } = useWinrates();
     const { breakdown } = useWinratesBreakdown();
     const { groupings } = useWinrateGroupings();
@@ -53,7 +52,7 @@ export default function CivDetails() {
 
     return (
         <ImageBackground
-            tintColor={colorScheme === 'dark' ? 'white' : 'black'}
+            tintColor={theme === 'dark' ? 'white' : 'black'}
             imageStyle={styles.imageInner}
             contentFit="cover"
             source={getCivHistoryImage(civ)}
@@ -64,7 +63,7 @@ export default function CivDetails() {
                     headerTitle: () => <HeaderTitle icon={getCivIconLocal(civ)} title={getCivNameById(civ)} subtitle="Statistics" />,
                 }}
             />
-            <ScrollView className="flex-1" contentContainerStyle="p-4 gap-5">
+            <ScrollView className="flex-1" contentContainerClassName="p-4 gap-5">
                 <View className="flex-row gap-4" onLayout={(e) => setWidth(e.nativeEvent.layout.width)}>
                     <Card direction="vertical" className="px-4 py-3 flex-1">
                         <View className="flex-row justify-center items-center gap-2">
@@ -126,12 +125,15 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
     breakdown,
     civ,
 }) => {
-    const theme = useAppTheme();
-    const { colorScheme } = useColorScheme();
+    const appTheme = useAppTheme();
+    const { theme } = useUniwind();
     const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
         { key: 'win_rate', label: 'Win Rate by Rating', domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
         { key: 'play_rate', label: 'Play Rate by Rating', domain: [0, 0.08], tickFormat: (y) => `${Math.round(y * 100)}%` },
     ];
+
+    const colorGold200 = useCSSVariable('--color-gold-200') as string;
+    const colorBlue500 = useCSSVariable('--color-blue-500') as string;
 
     return (
         <Slider2
@@ -161,7 +163,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                                     }}
                                     xAxis={{
                                         font,
-                                        labelColor: theme.textColor,
+                                        labelColor: appTheme.textColor,
                                         tickCount: data.length,
                                         lineWidth: 0,
                                         formatXLabel: (x) =>
@@ -171,7 +173,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                                     yAxis={[
                                         {
                                             font,
-                                            labelColor: theme.textColor,
+                                            labelColor: appTheme.textColor,
                                             yKeys: [key],
                                             linePathEffect: <DashPathEffect intervals={[4, 4]} />,
                                             formatYLabel: tickFormat,
@@ -185,7 +187,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                                             points={points[key]}
                                             chartBounds={chartBounds}
                                             barWidth={width / (data.length + 3)}
-                                            color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
+                                            color={theme === 'dark' ? colorGold200 : colorBlue500}
                                         />
                                     )}
                                 </CartesianChart>
@@ -199,14 +201,17 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
 };
 
 const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown; civ: string }> = ({ width, breakdown, civ }) => {
-    const theme = useAppTheme();
-    const { colorScheme } = useColorScheme();
+    const appTheme = useAppTheme();
+    const { theme } = useUniwind();
     const { patches } = useWinratesPatches();
     const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
         { key: 'win_rate', label: 'Win Rate by Patch', domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
         { key: 'play_rate', label: 'Play Rate by Patch', domain: [0, 0.08], tickFormat: (y) => `${Math.round(y * 100)}%` },
         { key: 'rank', label: 'Rank by Patch', domain: [50, 0] },
     ];
+
+    const colorGold200 = useCSSVariable('--color-gold-200') as string;
+    const colorBlue500 = useCSSVariable('--color-blue-500') as string;
 
     return (
         <Slider2
@@ -235,7 +240,7 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                     }}
                                     xAxis={{
                                         font,
-                                        labelColor: theme.textColor,
+                                        labelColor: appTheme.textColor,
                                         tickCount: data.length,
                                         lineWidth: 0,
                                         formatXLabel: (x) => format(new Date(x), 'yy-MMM'),
@@ -246,7 +251,7 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                     yAxis={[
                                         {
                                             font,
-                                            labelColor: theme.textColor,
+                                            labelColor: appTheme.textColor,
                                             yKeys: [key],
                                             linePathEffect: <DashPathEffect intervals={[4, 4]} />,
                                             formatYLabel: tickFormat,
@@ -261,12 +266,12 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                                 points={points[key]}
                                                 y0={chartBounds.bottom}
                                                 animate={{ type: 'timing', duration: 300 }}
-                                                color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
+                                                color={theme === 'dark' ? colorGold200 : colorBlue500}
                                             />
                                         ) : (
                                             <Line
                                                 points={points[key]}
-                                                color={colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500')}
+                                                color={theme === 'dark' ? colorGold200 : colorBlue500}
                                                 strokeWidth={3}
                                                 animate={{ type: 'timing', duration: 300 }}
                                             />

@@ -13,7 +13,7 @@ import { createStylesheet } from '../../theming-new';
 import { Step } from '../components/build-order/step';
 import { IBuildOrder, IBuildOrderStandardResources, IBuildOrderStep } from 'data/src/helper/builds';
 import { MyText } from '../components/my-text';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from '@/src/components/uniwind/safe-area-context';;
 import { FontAwesome5 } from '@expo/vector-icons';
 import { BuildOrderButton } from '../components/build-order-button';
 import { useTranslation } from '@app/helper/translate';

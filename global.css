@@ -1,3 +1,68 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import 'uniwind';
+
+
+@theme {
+    --color-transparent: transparent;
+    --color-current: currentColor;
+
+    /* Base Tailwind colors */
+    --color-black: #000;
+    --color-white: #fff;
+    /*--color-gray: var(--color-neutral);*/
+    /*--color-green: var(--color-green);*/
+    /*--color-red: var(--color-red);*/
+    /*--color-yellow: var(--color-yellow);*/
+
+    /* Custom blue palette */
+    --color-blue-50: #C1C7DB;
+    --color-blue-100: #B4BBD3;
+    --color-blue-200: #9AA4C4;
+    --color-blue-300: #818DB5;
+    --color-blue-400: #6776A6;
+    --color-blue-500: #546290;
+    --color-blue-600: #455176;
+    --color-blue-700: #363F5C;
+    --color-blue-800: #272E43;
+    --color-blue-900: #181C29;
+    --color-blue-950: #0E1017;
+
+    /* Custom gold palette */
+    --color-gold-50: #FFFCF5;
+    --color-gold-100: #ffebc7;
+    --color-gold-200: #ffdf8f;
+    --color-gold-300: #ffd24d;
+    --color-gold-400: #ffcb1f;
+    --color-gold-500: #f9b806;
+    --color-gold-600: #dea002;
+    --color-gold-700: #b77f06;
+    --color-gold-800: #92680c;
+    --color-gold-900: #785b0d;
+    --color-gold-950: #453802;
+}
+
+/* Scrollbar styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #9ca3af transparent;
+}
+
+html.dark * {
+    scrollbar-color: #d1d5db transparent;
+}
+
+/* WebKit (Chrome/Safari/Edge) */
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #9ca3af;
+    border-radius: 9999px;
+}
+
+html.dark *::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+}
+

@@ -8,7 +8,7 @@ import { getBuildingIcon } from '../../../helper/buildings';
 import { MyText } from '../my-text';
 import { startCase } from 'lodash';
 import { Fragment } from 'react';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { useTranslation } from '@app/helper/translate';
 
 type Size = 'small' | 'large';

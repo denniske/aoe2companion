@@ -80,7 +80,6 @@
     "immer": "^7.0.0",
     "liquipedia": "^1.2.0",
     "lodash": "^4.17.19",
-    "nativewind": "^4.2.1",
     "patch-package": "^8.0.0",
     "postcss-loader": "^4.3.0",
     "react": "19.1.0",
@@ -106,6 +105,7 @@
     "source-map-support": "^0.5.10",
     "tslib": "^2.0.0",
     "twrnc": "4.9.1",
+    "uniwind": "^1.0.0",
     "uuid": "^3.4.0",
     "victory-native": "^37.3.1",
     "victory-native-current": "npm:victory-native@^41.19.3",
@@ -121,7 +121,7 @@
     "cavy": "^4.0.2",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
-    "tailwindcss": "3.3.2",
+    "tailwindcss": "^4.1.16",
     "typescript": "~5.9.2"
   },
   "private": true

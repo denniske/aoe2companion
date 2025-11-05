@@ -1,12 +1,12 @@
 import {
+    PriorCivStat,
+    useWinrateGroupings,
     useWinrates,
     useWinratesBreakdown,
-    useWinrateGroupings,
+    useWinratesPatches,
+    WinrateBreakdown,
     WinrateGrouping,
     WinrateGroupingResponse,
-    WinrateBreakdown,
-    PriorCivStat,
-    useWinratesPatches,
 } from '@app/api/winrates';
 import { Card } from '@app/components/card';
 import { HeaderTitle } from '@app/components/header-title';
@@ -15,85 +15,38 @@ import { ProgressBar } from '@app/components/progress-bar';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getCivHistoryImage, getCivIconLocal } from '@app/helper/civs';
-import { VictoryChart, VictoryTheme, VictoryBar, VictoryAxis, VictoryArea, VictoryLine, LineSegment } from 'victory-native';
-import tw from '@app/tailwind';
+import {
+    LineSegment,
+    VictoryArea,
+    VictoryAxis,
+    VictoryBar,
+    VictoryChart,
+    VictoryLine,
+    VictoryTheme,
+} from 'victory-native';
 import { Slider } from '@app/view/components/slider';
 import { aoeCivKey, getCivNameById } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { format } from 'date-fns';
-import { ImageBackground } from 'expo-image';
+import { ImageBackground } from '@/src/components/uniwind/image';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { useColorScheme } from 'nativewind';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useAccountData } from '@app/queries/all';
 import { cloneDeep, merge } from 'lodash';
-
-
-function replaceRobotoWithSystemFont(obj: any) {
-    const keys = Object.keys(obj);
-    keys.forEach(function (key) {
-        const value = obj[key];
-        if (key === 'fontFamily') {
-            obj[key] = obj[key].replace("'Roboto',", "'System',");
-        }
-        if (typeof value === 'object') {
-            replaceRobotoWithSystemFont(obj[key]);
-        }
-    });
-    return obj;
-}
-
-let themeWithSystemFont = replaceRobotoWithSystemFont(cloneDeep(VictoryTheme.material));
-
-themeWithSystemFont = merge(themeWithSystemFont, {
-    axis: {
-        style: {
-            tickLabels: {
-                fill: tw.color('text-black'),
-            },
-        },
-    },
-    line: {
-        style: {
-            labels: {
-                fill: tw.color('text-black'),
-            },
-        },
-    },
-});
-
-let themeWithSystemFontDark = replaceRobotoWithSystemFont(cloneDeep(VictoryTheme.material));
-
-themeWithSystemFontDark = merge(themeWithSystemFontDark, {
-    axis: {
-        style: {
-            tickLabels: {
-                fill: tw.color('text-white'),
-            },
-        },
-    },
-    line: {
-        style: {
-            labels: {
-                fill: tw.color('text-white'),
-            },
-        },
-    },
-});
-
-const NewVictoryTheme = { ...VictoryTheme, custom: themeWithSystemFont, customDark: themeWithSystemFontDark };
+import { useCSSVariable, useResolveClassNames, useUniwind } from 'uniwind';
 
 
 export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
     const nameLower = name?.toLowerCase() ?? '';
-    const { colorScheme } = useColorScheme();
+    const { theme } = useUniwind()
     const { winrates } = useWinrates();
     const { breakdown } = useWinratesBreakdown();
     const { groupings } = useWinrateGroupings();
     const [width, setWidth] = useState(0);
     const grouping = groupings?.find((g) => g.name === WinrateGrouping['1v1Random']);
+
 
     const language = useAccountData((data) => data.language);
     const stats = winrates?.civs.find((civ) => civ.civ_name === nameLower);
@@ -108,7 +61,7 @@ export default function CivDetails() {
 
     return (
         <ImageBackground
-            tintColor={colorScheme === 'dark' ? 'white' : 'black'}
+            tintColor={theme === 'dark' ? 'white' : 'black'}
             imageStyle={styles.imageInner}
             contentFit="cover"
             source={getCivHistoryImage(civ)}
@@ -119,7 +72,7 @@ export default function CivDetails() {
                     headerTitle: () => <HeaderTitle icon={getCivIconLocal(civ)} title={getCivNameById(civ)} subtitle="Statistics" />,
                 }}
             />
-            <ScrollView className="flex-1" contentContainerStyle="p-4 gap-5">
+            <ScrollView className="flex-1" contentContainerClassName="p-4 gap-5">
                 <View className="flex-row gap-4" onLayout={(e) => setWidth(e.nativeEvent.layout.width)}>
                     <Card direction="vertical" className="px-4 py-3 flex-1">
                         <View className="flex-row justify-center items-center gap-2">
@@ -164,16 +117,21 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
     breakdown,
     civ,
 }) => {
-    const { colorScheme } = useColorScheme();
+    const { theme } = useUniwind()
     const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
         { key: 'win_rate', label: 'Win Rate by Rating', domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
         { key: 'play_rate', label: 'Play Rate by Rating', domain: [0, 0.08], tickFormat: (y) => `${Math.round(y * 100)}%` },
     ];
 
+    const newVictoryTheme = useNewVictoryTheme();
+
+    const colorGold200 = useCSSVariable('--color-gold-200') as string;
+    const colorBlue500 = useCSSVariable('--color-blue-500') as string;
+
     return (
         <Slider
-            paginationStyle={{ bottom: 0 }}
             className="-mx-4 pb-6"
+            tabs={graphs.map(({label}) => label)}
             slides={graphs.map(({ label, key, domain, tickFormat }) => {
                 const data = Object.values(breakdown.byRating).map((byRating) => ({
                     elo: byRating.elo_range,
@@ -192,7 +150,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                                 width={width}
                                 domainPadding={{ x: 10 }}
                                 domain={{ y: domain }}
-                                theme={colorScheme === 'dark' ? NewVictoryTheme.customDark : NewVictoryTheme.custom}
+                                theme={theme === 'dark' ? newVictoryTheme.customDark : newVictoryTheme.custom}
                             >
                                 <VictoryAxis dependentAxis crossAxis tickFormat={tickFormat} />
                                 <VictoryAxis
@@ -205,7 +163,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                                     data={data}
                                     x="elo"
                                     y={key}
-                                    style={{ data: { fill: colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500') } }}
+                                    style={{ data: { fill: theme === 'dark' ? colorGold200 : colorBlue500 } }}
                                 />
                             </VictoryChart>
                             </>
@@ -220,7 +178,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
 
 
 const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown; civ: string }> = ({ width, breakdown, civ }) => {
-    const { colorScheme } = useColorScheme();
+    const { theme } = useUniwind()
     const { patches } = useWinratesPatches();
     const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
         { key: 'win_rate', label: 'Win Rate by Patch', domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
@@ -228,10 +186,17 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
         { key: 'rank', label: 'Rank by Patch', domain: [50, 0] },
     ];
 
+    const newVictoryTheme = useNewVictoryTheme();
+
+    const colorGold200 = useCSSVariable('--color-gold-200') as string;
+    const colorBlue500 = useCSSVariable('--color-blue-500') as string;
+    const colorGold200_80 = useResolveClassNames('text-gold-200/80').color as string;
+    const colorBlue500_80 = useResolveClassNames('text-blue-500/80').color as string;
+
     return (
         <Slider
-            paginationStyle={{ bottom: 0 }}
             className="-mx-4 pb-6"
+            tabs={graphs.map(({label}) => label)}
             slides={graphs.map(({ label, key, domain, tickFormat }) => {
                 const data = breakdown.priorStats.map((prior) => ({
                     patch: prior.patch,
@@ -249,7 +214,7 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                 height={300}
                                 width={width}
                                 domain={{ y: domain }}
-                                theme={colorScheme === 'dark' ? NewVictoryTheme.customDark : NewVictoryTheme.custom}
+                                theme={theme === 'dark' ? newVictoryTheme.customDark : newVictoryTheme.custom}
                             >
                                 <VictoryAxis dependentAxis crossAxis tickFormat={tickFormat} />
                                 <VictoryAxis crossAxis tickFormat={(x) => format(new Date(x), 'M/d')} />
@@ -259,7 +224,7 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                         data={data}
                                         x="date"
                                         y={key}
-                                        style={{ data: { stroke: colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-500') } }}
+                                        style={{ data: { stroke: theme === 'dark' ? colorGold200 : colorBlue500 } }}
                                     />
                                 ) : (
                                     <VictoryArea
@@ -268,8 +233,8 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                         y={key}
                                         style={{
                                             data: {
-                                                stroke: colorScheme === 'dark' ? tw.color('gold-200') : tw.color('blue-400'),
-                                                fill: colorScheme === 'dark' ? tw.color('gold-200/80') : tw.color('blue-400/80'),
+                                                stroke: theme === 'dark' ? colorGold200 : colorBlue500,
+                                                fill: theme === 'dark' ? colorGold200_80 : colorBlue500_80,
                                             },
                                         }}
                                     />
@@ -295,3 +260,61 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
+
+function replaceRobotoWithSystemFont(obj: any) {
+    const keys = Object.keys(obj);
+    keys.forEach(function (key) {
+        const value = obj[key];
+        if (key === 'fontFamily') {
+            obj[key] = obj[key].replace("'Roboto',", "'System',");
+        }
+        if (typeof value === 'object') {
+            replaceRobotoWithSystemFont(obj[key]);
+        }
+    });
+    return obj;
+}
+
+let _themeWithSystemFont = replaceRobotoWithSystemFont(cloneDeep(VictoryTheme.material));
+let _themeWithSystemFontDark = replaceRobotoWithSystemFont(cloneDeep(VictoryTheme.material));
+
+function useNewVictoryTheme() {
+    const colorBlack = useCSSVariable('--color-black') as string;
+    const colorWhite = useCSSVariable('--color-white') as string;
+
+    const themeWithSystemFont = merge(_themeWithSystemFont, {
+        axis: {
+            style: {
+                tickLabels: {
+                    fill: colorBlack,
+                },
+            },
+        },
+        line: {
+            style: {
+                labels: {
+                    fill: colorBlack,
+                },
+            },
+        },
+    });
+
+    const themeWithSystemFontDark = merge(_themeWithSystemFontDark, {
+        axis: {
+            style: {
+                tickLabels: {
+                    fill: colorWhite,
+                },
+            },
+        },
+        line: {
+            style: {
+                labels: {
+                    fill: colorWhite,
+                },
+            },
+        },
+    });
+
+    return { ...VictoryTheme, custom: themeWithSystemFont, customDark: themeWithSystemFontDark };
+}

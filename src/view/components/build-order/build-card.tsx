@@ -1,11 +1,9 @@
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
-import tw from '@app/tailwind';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { startCase } from 'lodash';
-import { useColorScheme } from 'nativewind';
 import { TouchableOpacity, View } from 'react-native';
 import { BuildRating } from './build-rating';
 import { getAgeIcon } from '../../../helper/units';
@@ -13,6 +11,7 @@ import { IBuildOrder, sortBuildAges } from '@/data/src/helper/builds';
 import { genericCivIcon, getCivIconLocal } from '../../../helper/civs';
 import { getDifficultyIcon } from '../../../helper/difficulties';
 import { Tag } from '../tag';
+import { useResolveClassNames, useUniwind } from 'uniwind';
 
 export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: () => void; size?: 'small' | 'large' }> = ({
     favorited,
@@ -24,7 +23,7 @@ export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavo
     const civIcon = getCivIconLocal(build.civilization) ?? genericCivIcon;
     const difficultyIcon = getDifficultyIcon(build.difficulty);
     const ages = sortBuildAges(Object.entries(build.pop));
-    const { colorScheme } = useColorScheme();
+    const { theme } = useUniwind();
 
     if (size === 'small') {
         return (
@@ -43,10 +42,15 @@ export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavo
         );
     }
 
+    const colorBlue900_0 = useResolveClassNames('text-blue-900/0').color;
+    const colorWhite_0 = useResolveClassNames('text-white/0').color;
+    const colorBlue900_100 = useResolveClassNames('text-blue-900/100').color;
+    const colorWhite_100 = useResolveClassNames('text-white/100').color;
+
     const gradient =
-        colorScheme === 'dark'
-            ? [tw.color('blue-900/0') ?? 'black', tw.color('blue-900/100') ?? 'black']
-            : [tw.color('white/0') ?? 'white', tw.color('white/100') ?? 'white'];
+        theme === 'dark'
+            ? [colorBlue900_0 ?? 'black', colorBlue900_100 ?? 'black']
+            : [colorWhite_0 ?? 'white', colorWhite_100 ?? 'white'];
 
     return (
         <Card href={`/explore/build-orders/${build.id}`}>

@@ -2,13 +2,12 @@ import { HeaderTitle } from '@app/components/header-title';
 import { Icon } from '@app/components/icon';
 import { ScrollView } from '@app/components/scroll-view';
 import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
-import { useSelector } from '@app/redux/reducer';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
-import { Stack, router, useLocalSearchParams } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import startCase from 'lodash/startCase';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
-import { StyleSheet, View, Linking, TouchableOpacity, Platform } from 'react-native';
+import { Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { IBuildOrderStandardResources, sortBuildAges } from '@/data/src/helper/builds';
 import { getDifficultyIcon, getDifficultyName } from '../../../helper/difficulties';
 import { getAgeIcon, getOtherIcon } from '../../../helper/units';
@@ -104,7 +103,7 @@ export default function BuildDetail() {
     const uptimes: Record<string, any> = build.uptime;
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle="p-4 gap-4">
+        <ScrollView style={styles.container} contentContainerClassName="p-4 gap-4">
             <Stack.Screen
                 options={{
                     headerTitle: () => (

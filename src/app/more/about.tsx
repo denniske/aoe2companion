@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Constants from 'expo-constants';
-import { useLinkTo, useNavigation } from '@react-navigation/native';
+import { useLinkTo } from '@react-navigation/native';
 import { Button } from '@app/components/button';
 import { MyText } from '@app/view/components/my-text';
 import { setUpdateManifest, setUpdateStoreManifest, useMutate } from '../../redux/reducer';
@@ -12,7 +12,7 @@ import Space from '@app/view/components/space';
 import { createStylesheet } from '../../theming-new';
 import { openLink } from '../../helper/url';
 import { appConfig } from '@nex/dataset';
-import { channel, manifest, updateId, runtimeVersion } from 'expo-updates';
+import { channel, runtimeVersion, updateId } from 'expo-updates';
 import { nativeApplicationVersion, nativeBuildVersion } from 'expo-application';
 import { Stack } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
@@ -150,7 +150,7 @@ export default function AboutPage() {
     // console.log('Constants.expoConfig2', JSON.stringify(Constants.expoConfig2, null, 2));
 
     return (
-        <ScrollView contentContainerStyle="min-h-full items-center p-5">
+        <ScrollView contentContainerClassName="min-h-full items-center p-5">
             <Stack.Screen options={{ title: getTranslation('about.title') }} />
 
             <MyText style={styles.title}>{Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name}</MyText>

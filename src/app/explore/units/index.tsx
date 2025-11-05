@@ -70,7 +70,7 @@ export default function UnitList() {
                     ref={sectionList}
                     getItemLayout={sectionItemLayout({ getItemHeight: () => 40, getSectionHeaderHeight: () => 40, listHeaderHeight: 16 })}
                     keyboardShouldPersistTaps="always"
-                    contentContainerStyle="p-4"
+                    contentContainerClassName="p-4"
                     stickySectionHeadersEnabled={false}
                     renderItem={({ item }) => {
                         return <UnitCompBig key={item} unit={item} />;

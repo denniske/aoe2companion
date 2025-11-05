@@ -1,6 +1,6 @@
 import { useHeaderHeight } from '@react-navigation/elements';
 import { KeyboardAvoidingView as KeyboardAvoidingViewRN, Platform, KeyboardAvoidingViewProps } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';;
 
 export const KeyboardAvoidingView: React.FC<KeyboardAvoidingViewProps> = (props) => {
     const headerHeight = useHeaderHeight();

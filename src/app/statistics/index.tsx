@@ -1,7 +1,7 @@
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
 import { appConfig } from '@nex/dataset';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { Redirect, Stack } from 'expo-router';
 import React from 'react';
 import { Platform, View } from 'react-native';

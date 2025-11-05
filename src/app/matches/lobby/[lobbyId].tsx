@@ -41,7 +41,7 @@ export default function LobbyPage() {
     }
 
     return (
-        <ScrollView contentContainerStyle="p-4 gap-4">
+        <ScrollView contentContainerClassName="p-4 gap-4">
             <LiveMatch data={lobby} expanded={true} />
         </ScrollView>
     );

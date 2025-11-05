@@ -1,8 +1,7 @@
-import {useTw} from '@app/tailwind';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Platform, ScrollView, ScrollViewProps } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';;
 import { useMutateScroll, useScrollToTop } from '@app/redux/reducer';
 
 export interface UseScrollViewProps extends Pick<ScrollViewProps, 'horizontal' | 'onScroll' | 'onLayout'> {
@@ -18,10 +17,10 @@ export const useScrollView = ({
 }: UseScrollViewProps): Omit<ScrollViewProps, 'hitSlop'> & { ref: React.RefObject<any> } => {
     const scrollViewRef = useRef<ScrollView>(null);
     const { bottom } = useSafeAreaInsets();
-    const tw = useTw();
-    const style = tw.style(contentContainerStyle);
+    // const tw = useTw();
+    // const style = tw.style(contentContainerStyle);
     const bottomOffset = horizontal ? 0 : bottom + 82;
-    const paddingBottom = ((style.paddingBottom || 0) as number) + (Platform.OS === 'ios' ? 0 : bottomOffset);
+    const paddingBottom = (horizontal ? 0 : 20) + (Platform.OS === 'ios' ? 0 : bottomOffset);
     const scrollToTop = useScrollToTop();
     const { setScrollPosition } = useMutateScroll();
     const [localScrollPosition, setLocalScrollPosition] = useState<number>();
@@ -74,7 +73,7 @@ export const useScrollView = ({
             }
         },
         contentInset: { bottom: bottomOffset },
-        contentContainerStyle: { ...style, paddingBottom },
+        contentContainerStyle: { paddingBottom },
         ref: (ref || scrollViewRef) as React.RefObject<any>,
     };
 };

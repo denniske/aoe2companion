@@ -2,45 +2,42 @@ import { fetchJson } from '@app/api/util';
 import { Header } from '@app/components/header';
 import { TabBar } from '@app/components/tab-bar';
 import initSentry from '@app/helper/sentry';
-import {
-    getTranslationInternal,
-    mmkvDefaultInstance,
-    useMMKWTranslationCache,
-} from '@app/helper/translate';
+import { getTranslationInternal, mmkvDefaultInstance, useMMKWTranslationCache } from '@app/helper/translate';
 import { getInternalAoeString } from '@app/helper/translate-data';
 import store from '@app/redux/store';
 import { cacheLiveActivityAssets } from '@app/service/storage';
-import tw from '@app/tailwind';
 import { ConditionalTester } from '@app/view/testing/tester';
-import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold, Roboto_900Black, useFonts } from '@expo-google-fonts/roboto';
+import {
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold,
+    Roboto_900Black,
+    useFonts,
+} from '@expo-google-fonts/roboto';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
-import { Environment, IHostService, IHttpService, ITranslationService, OS, registerService, SERVICE_NAME } from '@nex/data';
+import {
+    Environment,
+    IHostService,
+    IHttpService,
+    ITranslationService,
+    OS,
+    registerService,
+    SERVICE_NAME,
+} from '@nex/data';
 import { DarkTheme, DefaultTheme, ThemeProvider, useNavigationState } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
 import { focusManager, QueryClientProvider } from '@tanstack/react-query';
 import * as Device from 'expo-device';
 import * as Notifications from '../service/notifications';
-import { SplashScreen, Stack, useNavigation, usePathname, useRootNavigationState, useRouter } from 'expo-router';
-import {cssInterop, useColorScheme as useTailwindColorScheme} from 'nativewind';
+import { SplashScreen, Stack, usePathname, useRootNavigationState, useRouter } from 'expo-router';
 import { useCallback, useEffect } from 'react';
-import {
-    AppState,
-    AppStateStatus,
-    BackHandler,
-    Linking,
-    LogBox,
-    Platform,
-    StatusBar,
-    useColorScheme,
-    View,
-} from 'react-native';
+import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import {SafeAreaProvider, useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';;
 import { Provider as ReduxProvider } from 'react-redux';
 import '../../global.css';
-import { useAppColorScheme } from 'twrnc';
 import { appConfig } from '@nex/dataset';
 import UpdateSnackbar from '@app/view/components/snackbar/update-snackbar';
 import ChangelogSnackbar from '@app/view/components/snackbar/changelog-snackbar';
@@ -51,52 +48,18 @@ import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/
 import { queryClient } from '@app/service/query-client';
 import { TranslationModeOverlay } from '@app/components/translation/translation-mode-overlay';
 import { PostMessageTranslationsController } from '@app/components/translation/post-message-translation';
-import { addLog, setLeaderboardCountry, setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
+import { setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
 import { useMMKV } from 'react-native-mmkv';
-import { clearLastNotificationResponseAsync, useLastNotificationResponse } from '@app/service/notifications';
+import { useLastNotificationResponse } from '@app/service/notifications';
 import * as WebBrowser from 'expo-web-browser';
 import { getInternalLanguage } from '@app/queries/direct';
 import { useDarkMode } from '@app/hooks/use-dark-mode';
-import {LiveActivity} from "@/modules/widget";
-import {Image} from "expo-image";
-import {AvailableMainPage} from "@app/helper/routing";
+import { LiveActivity } from '@/modules/widget';
+import { AvailableMainPage } from '@app/helper/routing';
 import { clearLastNotificationResponse } from 'expo-notifications';
-import { FloatingDevTools } from '@react-buoy/core';
-import { NetworkModal } from '@react-buoy/network';
-import { Activity, Globe, StorageStackIcon } from '@react-buoy/shared-ui';
-import ConsoleModal from '@app/components/buoy/console-modal';
-import { StorageModalWithTabs } from '@react-buoy/storage';
+import { useCSSVariable } from 'uniwind';
 
 initSentry();
-
-// need for nitro-image?
-cssInterop(Image, { className: { target: "style" }});
-cssInterop(SafeAreaProvider, { className: { target: "style" }});
-cssInterop(GestureHandlerRootView, { className: { target: "style" }});
-
-// import {FontAwesome} from "@expo/vector-icons";
-// import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-// import Svg from 'react-native-svg';
-//
-// cssInterop(Svg, {
-//     className: {
-//         target: 'style',
-//         nativeStyleToProp: { height: true, width: true, size: true },
-//     },
-// });
-// cssInterop(FontAwesome, {
-//     className: {
-//         target: "style",
-//         nativeStyleToProp: { height: true, width: true, size: true },
-//     },
-// });
-// cssInterop(FontAwesomeIcon, {
-//     className: {
-//         target: "style",
-//         nativeStyleToProp: { height: true, width: true, size: true },
-//     },
-// });
-
 
 console.error = (function (error) {
     return function (message) {
@@ -238,22 +201,6 @@ function LiveActivityController() {
     return <View />;
 }
 
-const customLightTheme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        background: tw.color('gold-50') ?? 'white',
-    },
-};
-
-const customDarkTheme = {
-    ...DarkTheme,
-    colors: {
-        ...DarkTheme.colors,
-        background: tw.color('blue-950') ?? 'black',
-    },
-};
-
 function useColorSchemes() {
     // const { setColorScheme: setTailwindColorScheme } = useTailwindColorScheme();
     // const [, , setTailwindReactNativeColorScheme] = useAppColorScheme(tw);
@@ -265,6 +212,25 @@ function useColorSchemes() {
         // This does not seem to work anymore
         // setTailwindReactNativeColorScheme(darkMode);
     }, [darkMode]);
+
+    const colorGold50 = useCSSVariable('--color-gold-50') as string;
+    const colorBlue950 = useCSSVariable('--color-blue-950') as string;
+
+    const customLightTheme = {
+        ...DefaultTheme,
+        colors: {
+            ...DefaultTheme.colors,
+            background: colorGold50 ?? 'white',
+        },
+    };
+
+    const customDarkTheme = {
+        ...DarkTheme,
+        colors: {
+            ...DarkTheme.colors,
+            background: colorBlue950 ?? 'black',
+        },
+    };
 
     return {
         customTheme: darkMode === 'light' ? customLightTheme : customDarkTheme,

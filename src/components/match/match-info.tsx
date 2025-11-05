@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Linking, Platform, Pressable, View } from 'react-native';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { IMatchNew } from '@app/api/helper/api.types';
 import { Text } from '@app/components/text';
 import { flatten } from 'lodash';
@@ -74,7 +74,7 @@ export default function MatchInfo(props: Props) {
 
     return (
         <Card direction="vertical">
-            <ScrollView horizontal contentContainerStyle="items-center gap-4 pb-2">
+            <ScrollView horizontal contentContainerClassName="items-center gap-4 pb-2">
                 {tournament && (
                     <Pressable
                         className="flex-row items-center gap-1"

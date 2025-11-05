@@ -1,4 +1,7 @@
 
+uniwind
+- it seems we dont need to wrap GestureHandlerRootView with withUniwind
+
 debug prod crash
 console.app on macos filter by process by clicking on app name right click
 

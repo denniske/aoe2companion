@@ -1,7 +1,7 @@
-import { ITheme } from '@/data';
 
 export type TextColor = 'default' | 'brand' | 'subtle' | string;
 export type TextVariant =
+    | 'nav'
     | 'body-tn'
     | 'body-xs'
     | 'body-sm'
@@ -18,6 +18,7 @@ export type TextVariant =
     | 'title';
 
 export const textVariantStyles: Record<TextVariant, { fontSize: number; lineHeight: number; fontFamily: string }> = {
+    'nav': { fontSize: 9, lineHeight: 12, fontFamily: 'Roboto_700Bold' },
     'body-tn': { fontSize: 8, lineHeight: 12, fontFamily: 'Roboto_400Regular' },
     'body-xs': { fontSize: 10, lineHeight: 14, fontFamily: 'Roboto_400Regular' },
     'body-sm': { fontSize: 12, lineHeight: 16, fontFamily: 'Roboto_400Regular' },
@@ -35,9 +36,6 @@ export const textVariantStyles: Record<TextVariant, { fontSize: number; lineHeig
 };
 
 export const textColors: Record<TextColor, string | undefined> = {
-    // white: 'text-white',
-    // brand: 'text-blue-600',
-
     link: 'text-[#397AF9] dark:text-[#0A84FF]',
 
     white: 'text-white dark:text-white',

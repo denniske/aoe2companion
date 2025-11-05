@@ -2,7 +2,7 @@ import { WinrateCiv } from '@app/api/winrates';
 import { getCivIconLocal } from '@app/helper/civs';
 import { useSelector } from '@app/redux/reducer';
 import { Civ, getCivNameById } from '@nex/data';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { capitalize } from 'lodash';
 import { View } from 'react-native';
 

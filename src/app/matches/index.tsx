@@ -145,7 +145,7 @@ export default function MatchesPage() {
                     {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
                     {Platform.OS === 'web' && refetching && <FlatListLoadingIndicator />}
                     <FlatList
-                        contentContainerStyle="gap-2 px-4 pt-2"
+                        contentContainerClassName="gap-2 px-4 pt-2"
                         data={list}
                         renderItem={({ item, index }) => {
                             const match = item as IMatchNew;
@@ -245,7 +245,6 @@ export default function MatchesPage() {
                                         </Text>
                                     )}
                                     <Match
-                                        expanded={Number(item.matchId) === Number(matchId)}
                                         match={item as IMatchNew}
                                         highlightedUsers={highlightedUsers}
                                         user={relevantUser?.profileId ?? filteredPlayers[0]?.profileId}

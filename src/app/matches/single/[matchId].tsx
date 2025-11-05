@@ -42,7 +42,7 @@ export default function MatchPage() {
     }
 
     return (
-        <ScrollView contentContainerStyle="p-4 gap-4">
+        <ScrollView contentContainerClassName="p-4 gap-4">
             <View className="gap-2">
                 <MatchCard match={match} linkMap={true} />
                 <MatchInfo match={match} />

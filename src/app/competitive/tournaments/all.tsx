@@ -5,7 +5,13 @@ import { Field } from '@app/components/field';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { SectionList } from '@app/components/section-list';
 import { Text } from '@app/components/text';
-import { formatTier, formatTierShort, sortedTiers, tournamentAbbreviation, transformSearch } from '@app/helper/tournaments';
+import {
+    formatTier,
+    formatTierShort,
+    sortedTiers,
+    tournamentAbbreviation,
+    transformSearch,
+} from '@app/helper/tournaments';
 import { useAppTheme } from '@app/theming';
 import { DismissKeyboard } from '@app/view/components/dismiss-keyboard';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
@@ -97,7 +103,7 @@ export default function AllTournaments() {
                     className="flex-1"
                     refreshControl={<RefreshControlThemed {...refreshControlProps} />}
                     ListHeaderComponent={listHeader}
-                    contentContainerStyle="p-4 gap-2.5 flex-grow"
+                    contentContainerClassName="p-4 gap-2.5 flex-grow"
                     sections={filteredTournaments}
                     renderSectionHeader={({ section: { title } }) => (
                         <View className="bg-gold-50 dark:bg-blue-950 pt-2.5 pb-1 flex-row items-center justify-between">

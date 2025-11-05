@@ -25,7 +25,7 @@ import Space from '../components/space';
 import { getTechIcon } from '../../helper/techs';
 import { getEliteUniqueResearchIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { getBuildingIcon } from '../../helper/buildings';
 import { router } from 'expo-router';
 import { useTranslation } from '@app/helper/translate';

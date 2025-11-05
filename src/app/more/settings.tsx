@@ -5,22 +5,19 @@ import * as Notifications from '../../service/notifications';
 import { router, Stack } from 'expo-router';
 import { capitalize } from 'lodash';
 import React, { useState } from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { Button } from '@app/components/button';
 import { deactivatePusher, initPusher } from '@app/helper/pusher';
 import { setMainPageShown, useMutate } from '@app/redux/reducer';
 import { getToken } from '@app/service/push';
 import { createStylesheet } from '@app/theming-new';
-import { appConfig } from '@nex/dataset';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useAccount } from '@app/queries/all';
-import { FontAwesome, FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
 import { useAppTheme } from '@app/theming';
-import { Icon } from '@app/components/icon';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { useTranslation } from '@app/helper/translate';
 import { showAlert } from '@app/helper/alert';
-import {AvailableMainPage, availableMainPages} from "@app/helper/routing";
+import { AvailableMainPage, availableMainPages } from '@app/helper/routing';
 
 export default function SettingsPage() {
     const getTranslation = useTranslation();
@@ -163,7 +160,7 @@ export default function SettingsPage() {
     // const [booly, setBooly] = useState(false);
 
     return (
-        <ScrollView contentContainerStyle="min-h-full p-5">
+        <ScrollView contentContainerClassName="min-h-full p-5">
             <Stack.Screen options={{ title: getTranslation('settings.title') }} />
 
             {Platform.OS !== 'web' && (

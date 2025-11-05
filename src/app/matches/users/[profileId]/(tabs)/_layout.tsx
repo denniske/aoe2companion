@@ -2,7 +2,7 @@ import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
 import { useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
@@ -11,11 +11,9 @@ import { useAccount, useAuthProfileId, useProfile, useProfileFast } from '@app/q
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
 import Constants from 'expo-constants';
-import { useColorScheme } from 'nativewind';
 import { TabBarLabel } from '@app/view/components/tab-bar-label';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useUnlinkSteamMutation } from '@app/mutations/unlink-steam';
-
 import {
     createMaterialTopTabNavigator,
     MaterialTopTabBar,
@@ -30,13 +28,14 @@ import { useTournamentPlayer } from '@app/api/tournaments';
 import { TournamentPlayerPopup } from '@app/view/tournaments/player-popup';
 import { FontAwesomeIconStyle } from '@fortawesome/react-native-fontawesome';
 import { MyText } from '@app/view/components/my-text';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { getCountryName } from '@app/helper/flags';
 import { useAppTheme } from '@app/theming';
 import { MenuNew } from '@app/components/menu';
 import { useTranslation } from '@app/helper/translate';
 import { showAlert } from '@app/helper/alert';
 import { appConfig } from '@nex/dataset';
+import { useUniwind } from 'uniwind';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -123,7 +122,7 @@ export function UserMenu({ profile }: UserMenuProps) {
 
     const navigateToLinkedProfile = (profileId: number | undefined) => {
         setLinkedProfilesVisible(false);
-        router.navigate(`/matches/users/${profileId}`);
+        router.navigate(`/matches/users/${profileId}` as any);
     };
 
     if (profileId === authProfileId) {
@@ -352,7 +351,7 @@ export default function UserPage() {
     const params = useLocalSearchParams<UserPageParams>();
     const profileId = parseInt(params.profileId);
     const appName = Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name;
-    const { colorScheme } = useColorScheme();
+    const { theme } = useUniwind();
     const navigation = useNavigation();
 
     const { data: profile } = useProfileFast(profileId);
@@ -376,8 +375,8 @@ export default function UserPage() {
             screenOptions={{
                 lazy: false,
                 swipeEnabled: true,
-                tabBarInactiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
-                tabBarActiveTintColor: colorScheme === 'dark' ? 'white' : 'black',
+                tabBarInactiveTintColor: theme === 'dark' ? 'white' : 'black',
+                tabBarActiveTintColor: theme === 'dark' ? 'white' : 'black',
             }}
         >
             <MaterialTopTabs.Screen

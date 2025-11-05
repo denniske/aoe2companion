@@ -27,7 +27,7 @@ import {
     Unit,
 } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { Redirect, router, Stack } from 'expo-router';
 import { compact, orderBy, uniq } from 'lodash';
 import React, { useState } from 'react';
@@ -177,13 +177,13 @@ export default function Explore() {
                 {search ? (
                     <FlatList
                         keyboardShouldPersistTaps="handled"
-                        contentContainerStyle="px-4 pb-4"
+                        contentContainerClassName="px-4 pb-4"
                         data={filteredData}
                         ItemSeparatorComponent={() => <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full" />}
                         renderItem={(props) => <Result {...props} />}
                     />
                 ) : (
-                    <ScrollView className="flex-1" contentContainerStyle="gap-5 pb-4" keyboardShouldPersistTaps="handled">
+                    <ScrollView className="flex-1" contentContainerClassName="gap-5 pb-4" keyboardShouldPersistTaps="handled">
 
                         <View className="gap-2">
                             <View className="flex-row justify-between items-center px-4">
@@ -198,7 +198,7 @@ export default function Explore() {
                                 horizontal
                                 keyboardShouldPersistTaps="always"
                                 data={orderCivs(civs.filter((c) => c !== 'Indians'))}
-                                contentContainerStyle="gap-2.5 px-4"
+                                contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: civ }) => (
                                     <Card direction="vertical" className="w-20 items-center py-2.5 px-1 gap-1" href={`/explore/civilizations/${civ}`}>
                                         <Image className="w-8 h-8" source={getCivIconLocal(civ)} contentFit="contain" />
@@ -224,7 +224,7 @@ export default function Explore() {
                                 horizontal
                                 keyboardShouldPersistTaps="always"
                                 data={allUnitSections}
-                                contentContainerStyle="gap-2.5 px-4"
+                                contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: { title, icon } }) => (
                                     <Card
                                         direction="vertical"
@@ -254,7 +254,7 @@ export default function Explore() {
                                 horizontal
                                 keyboardShouldPersistTaps="always"
                                 data={buildingSections}
-                                contentContainerStyle="gap-2.5 px-4"
+                                contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: { title, icon } }) => (
                                     <Card
                                         direction="vertical"
@@ -284,7 +284,7 @@ export default function Explore() {
                                 horizontal
                                 keyboardShouldPersistTaps="always"
                                 data={techSections}
-                                contentContainerStyle="gap-2.5 px-4"
+                                contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: { building, civ } }) => (
                                     <Card
                                         direction="vertical"
@@ -318,7 +318,7 @@ export default function Explore() {
                                 horizontal
                                 keyboardShouldPersistTaps="always"
                                 data={builds}
-                                contentContainerStyle="gap-2.5 px-4"
+                                contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item }) => <BuildCard size="small" {...item} />}
                                 keyExtractor={(item) => item.id.toString()}
                                 ListFooterComponent={_renderFooter}
@@ -340,7 +340,7 @@ export default function Explore() {
                                 horizontal
                                 keyboardShouldPersistTaps="always"
                                 data={orderBy(compact(maps), map => map.mapName)}
-                                contentContainerStyle="gap-2.5 px-4"
+                                contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: map }) => (
                                     <Card direction="vertical" className="w-20 items-center py-2.5 px-1 gap-1" href={`/explore/maps/${map.mapId}`}>
                                         <Image className="w-8 h-8" source={{ uri: map.imageUrl }} contentFit="contain" />

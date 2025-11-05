@@ -10,7 +10,7 @@ import { appConfig } from '@nex/dataset';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { FlatList } from '@app/components/flat-list';
 import { useTranslation } from '@app/helper/translate';
-import {changelog, changelog4, IChange} from "@app/changelog";
+import { changelog, changelog4, IChange } from '@app/changelog';
 
 interface IChangelogEntry {
     version: string;
@@ -95,7 +95,7 @@ export default function ChangelogPage() {
         <>
             <Stack.Screen options={{ title: getTranslation('changelog.title') }} />
             <FlatList
-                contentContainerStyle="min-h-full p-5 pt-2.5"
+                contentContainerClassName="min-h-full p-5 pt-2.5"
                 keyboardShouldPersistTaps={'always'}
                 data={filteredChangelogEntries}
                 renderItem={({ item, index }) => renderItem(item)}

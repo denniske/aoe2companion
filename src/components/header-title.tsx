@@ -1,4 +1,4 @@
-import { Image, ImageProps } from 'expo-image';
+import { Image, ImageProps } from '@/src/components/uniwind/image';
 import { ImageSourcePropType, TouchableOpacity, View } from 'react-native';
 
 import { Text, TextProps } from './text';

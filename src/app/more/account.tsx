@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { MyText } from '@app/view/components/my-text';
 import { createStylesheet } from '../../theming-new';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import useAuth from '@/data/src/hooks/use-auth';
 import Login from '@app/components/login';
@@ -152,7 +152,7 @@ export default function AccountPage() {
     };
 
     return (
-        <ScrollView contentContainerStyle="min-h-full p-5">
+        <ScrollView contentContainerClassName="min-h-full p-5">
             <Stack.Screen options={{ title: !loggedIn ? getTranslation('login.signin') : getTranslation('account.title') }} />
 
             {!loggedIn && <Login />}

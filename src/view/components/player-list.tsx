@@ -7,9 +7,7 @@ import { Text } from '@app/components/text';
 import { router } from 'expo-router';
 import React from 'react';
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
-import { Image } from 'expo-image';
-
-import { CountryImage } from './country-image';
+import { Image } from '@/src/components/uniwind/image';
 import { useCavy } from '../testing/tester';
 import { useAuthProfileId } from '@app/queries/all';
 import { TextLoader } from '@app/view/components/loader/text-loader';
@@ -206,7 +204,7 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
             ItemSeparatorComponent={() =>
                 variant === 'vertical' ? <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full my-2.5" /> : <View className="w-2" />
             }
-            contentContainerStyle="px-4"
+            contentContainerClassName="px-4"
             renderItem={({ item }) => {
                 return (
                     <Player

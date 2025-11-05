@@ -5,7 +5,7 @@ import { openLink } from '@app/helper/url';
 import { BottomSheetProps } from '@app/view/bottom-sheet';
 import { getLocalCivEnum } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { Image } from 'expo-image';
+import { Image } from '@/src/components/uniwind/image';
 import { Link } from 'expo-router';
 import { Platform, Pressable, TouchableOpacity, View } from 'react-native';
 

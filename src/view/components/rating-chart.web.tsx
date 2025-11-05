@@ -6,10 +6,9 @@ import { subYears } from 'date-fns';
 import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme } from 'victory-native';
 import { IProfileRatingsLeaderboard } from '../../api/helper/api.types';
 import { windowWidth } from '@app/app/statistics/leaderboard';
-import { useColorScheme } from 'nativewind';
 import { cloneDeep, merge } from 'lodash';
-import tw from '@app/tailwind';
 import { getRatingTimespan } from '@app/utils/rating';
+import { useCSSVariable, useUniwind } from 'uniwind';
 
 interface IRatingChartProps {
     formatTick: (date: Date) => string;
@@ -26,17 +25,19 @@ export default function RatingChart(props: IRatingChartProps) {
         hiddenLeaderboardIds,
     } = props;
 
-    const theme = useAppTheme();
-    const { colorScheme } = useColorScheme();
+    const appTheme = useAppTheme();
+    const { theme } = useUniwind();
 
     const since = getRatingTimespan(ratingHistoryDuration);
     let firstDate = since ?? filteredRatingHistories?.[0]?.ratings?.[0]?.date ?? subYears(new Date(), 1);
+
+    const newVictoryTheme = useNewVictoryTheme();
 
     return (
         <VictoryChart
             width={windowWidth - 40}
             height={300}
-            theme={colorScheme === 'dark' ? NewVictoryTheme.customDark : NewVictoryTheme.custom}
+            theme={theme === 'dark' ? newVictoryTheme.customDark : newVictoryTheme.custom}
             padding={{ left: 50, bottom: 30, top: 20, right: 20 }}
             scale={{ x: 'time' }}
             // containerComponent={
@@ -55,7 +56,7 @@ export default function RatingChart(props: IRatingChartProps) {
                         x="date"
                         y="rating"
                         style={{
-                            data: { stroke: getLeaderboardColor(ratingHistory.leaderboardId, theme.dark) },
+                            data: { stroke: getLeaderboardColor(ratingHistory.leaderboardId, appTheme.dark) },
                         }}
                     />
                 ))}
@@ -70,7 +71,7 @@ export default function RatingChart(props: IRatingChartProps) {
                         y="rating"
                         size={1.5}
                         style={{
-                            data: { fill: getLeaderboardColor(ratingHistory.leaderboardId, theme.dark) },
+                            data: { fill: getLeaderboardColor(ratingHistory.leaderboardId, appTheme.dark) },
                         }}
                     />
                 ))}
@@ -93,42 +94,46 @@ function replaceRobotoWithSystemFont(obj: any) {
     return obj;
 }
 
-let themeWithSystemFont = replaceRobotoWithSystemFont(cloneDeep(VictoryTheme.material));
+let _themeWithSystemFont = replaceRobotoWithSystemFont(cloneDeep(VictoryTheme.material));
+let _themeWithSystemFontDark = replaceRobotoWithSystemFont(cloneDeep(VictoryTheme.material));
 
-themeWithSystemFont = merge(themeWithSystemFont, {
-    axis: {
-        style: {
-            tickLabels: {
-                fill: tw.color('text-black'),
+function useNewVictoryTheme() {
+    const colorBlack = useCSSVariable('--color-black') as string;
+    const colorWhite = useCSSVariable('--color-white') as string;
+
+    const themeWithSystemFont = merge(_themeWithSystemFont, {
+        axis: {
+            style: {
+                tickLabels: {
+                    fill: colorBlack,
+                },
             },
         },
-    },
-    line: {
-        style: {
-            labels: {
-                fill: tw.color('text-black'),
+        line: {
+            style: {
+                labels: {
+                    fill: colorBlack,
+                },
             },
         },
-    },
-});
+    });
 
-let themeWithSystemFontDark = replaceRobotoWithSystemFont(cloneDeep(VictoryTheme.material));
-
-themeWithSystemFontDark = merge(themeWithSystemFontDark, {
-    axis: {
-        style: {
-            tickLabels: {
-                fill: tw.color('text-white'),
+    const themeWithSystemFontDark = merge(_themeWithSystemFontDark, {
+        axis: {
+            style: {
+                tickLabels: {
+                    fill: colorWhite,
+                },
             },
         },
-    },
-    line: {
-        style: {
-            labels: {
-                fill: tw.color('text-white'),
+        line: {
+            style: {
+                labels: {
+                    fill: colorWhite,
+                },
             },
         },
-    },
-});
+    });
 
-const NewVictoryTheme = { ...VictoryTheme, custom: themeWithSystemFont, customDark: themeWithSystemFontDark };
+    return { ...VictoryTheme, custom: themeWithSystemFont, customDark: themeWithSystemFontDark };
+}
