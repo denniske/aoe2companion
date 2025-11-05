@@ -274,7 +274,7 @@ export default function TipsPage() {
     const theme = useAppTheme();
     const getTranslation = useTranslation();
     const tips = getTips(getTranslation);
-    const [currentTip, setCurrentTip] = useState(tips[0]);
+    const [currentTipIndex, setCurrentTipIndex] = useState(0);
 
     const onOpen = async (tip: any) => {
         await openLink(tip.url);
@@ -300,17 +300,17 @@ export default function TipsPage() {
                     />
                     {tips.map((tip, i) => (
                         <Delayed key={i} delay={i * 100}>
-                            {tip.video && <VideoTip tip={tip} active={tip === currentTip} />}
-                            {tip.image && <ImageTip tip={tip} active={tip === currentTip} />}
-                            {!tip.video && !tip.image && <NoPreviewTip tip={tip} active={tip === currentTip} />}
+                            {tip.video && <VideoTip tip={tip} active={i === currentTipIndex} />}
+                            {tip.image && <ImageTip tip={tip} active={i === currentTipIndex} />}
+                            {!tip.video && !tip.image && <NoPreviewTip tip={tip} active={i === currentTipIndex} />}
                         </Delayed>
                     ))}
                 </View>
             </View>
             <ScrollView style={styles.container} contentContainerClassName="pb-4">
-                {tips.map((tip) => (
+                {tips.map((tip, i) => (
                     <View key={tip.title} style={styles.row}>
-                        <TouchableOpacity style={styles.tip} onPress={() => setCurrentTip(tip)}>
+                        <TouchableOpacity style={styles.tip} onPress={() => setCurrentTipIndex(i)}>
                             <View style={styles.rowInner}>
                                 {tip.icon && (
                                     <View style={styles.unitIconBig}>
@@ -319,7 +319,7 @@ export default function TipsPage() {
                                 )}
                                 {!tip.icon && <Image style={styles.unitIconBig} source={tip.imageIcon ? tip.imageIcon : getAbilityIcon(tip)} />}
                                 <View style={styles.textContainer}>
-                                    <MyText style={[styles.title, { fontWeight: currentTip.title === tip.title ? 'bold' : 'normal' }]}>
+                                    <MyText style={[styles.title, { fontWeight: currentTipIndex === i ? 'bold' : 'normal' }]}>
                                         {tip.title}
                                     </MyText>
                                     <MyText style={styles.description}>{tip.description}</MyText>

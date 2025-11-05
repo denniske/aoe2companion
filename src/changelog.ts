@@ -275,6 +275,13 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '167.0.0': [
+        // Note: Also switched react compiler on
+        {
+            type: 'bugfix',
+            title: 'Fix Explore > Tips page',
+        },
+    ],
     '166.0.0': [
         {
             type: 'minor',

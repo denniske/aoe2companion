@@ -1,6 +1,6 @@
 import { ExpoConfig, ConfigContext } from 'expo/config';
 
-const versionAoe2 = '166.0.0';
+const versionAoe2 = '167.0.0';
 const versionAoe4 = '24.0.0';
 
 console.log('Building for', process.env.GAME, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);
@@ -104,15 +104,10 @@ const appConfigPlugins = process.env.GAME === 'aoe2' ? [appPlugin] : [];
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
-    // new arch scroll up on leaderboard page
-    // https://github.com/facebook/react-native/issues/49077
-    // newArchEnabled: false, // react-native-nitro-image, and also see gradle.properties
     newArchEnabled: true,
     experiments: {
         typedRoutes: true,
-        // react-compiler-runtime needs to be installed for android
-        // but then android fails with wierd async storage error
-        reactCompiler: false, // 2025-Oct-11 tried v1 of compiler but that breaks main nav bar highlighting after some time
+        reactCompiler: true,
     },
     name: app.name,
     description: app.description,
