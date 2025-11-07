@@ -19,6 +19,10 @@ export const civsData = [
     'OrderOfTheDragon',
     'HouseOfLancaster',
     'KnightsTemplar',
+    'SengokuDaimyo',
+    'TughlaqDynasty',
+    'GoldenHorde',
+    'MacedonianDynasty',
 ] as const;
 
 export const civsAoeNetData = civsData;
@@ -42,6 +46,10 @@ export const civIconListData = {
     'OrderOfTheDragon': require('../../../assets4/civilizations/order_of_the_dragon.png'),
     'HouseOfLancaster': require('../../../assets4/civilizations/house_of_lancaster.png'),
     'KnightsTemplar': require('../../../assets4/civilizations/knights_templar.png'),
+    'SengokuDaimyo': require('../../../assets4/civilizations/sengoku_daimyo.png'),
+    'TughlaqDynasty': require('../../../assets4/civilizations/tughlaq_dynasty.png'),
+    'GoldenHorde': require('../../../assets4/civilizations/golden_horde.png'),
+    'MacedonianDynasty': require('../../../assets4/civilizations/macedonian_dynasty.png'),
 };
 
 export const civEnumListData: Record<string, any> = {
@@ -63,4 +71,8 @@ export const civEnumListData: Record<string, any> = {
     'order_of_the_dragon': 'OrderOfTheDragon',
     'house_of_lancaster': 'HouseOfLancaster',
     'knights_templar': 'KnightsTemplar',
+    'sengoku_daimyo': 'SengokuDaimyo',
+    'tughlaq_dynasty': 'TughlaqDynasty',
+    'golden_horde': 'GoldenHorde',
+    'macedonian_dynasty': 'MacedonianDynasty',
 };

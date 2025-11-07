@@ -260,6 +260,10 @@ const civDataFileMapping = {
     OrderOfTheDragon: 'orderofthedragon',
     HouseOfLancaster: 'lancaster',
     KnightsTemplar: 'templar',
+    SengokuDaimyo: 'sengoku_daimyo',
+    TughlaqDynasty: 'tughlaq_dynasty',
+    GoldenHorde: 'golden_horde',
+    MacedonianDynasty: 'macedonian_dynasty',
 } as const;
 
 export const useAoe4CivData = () =>
