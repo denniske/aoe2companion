@@ -10,6 +10,17 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
+    '25.0.0': [
+        // Note: Also switched react compiler on
+        {
+            type: 'minor',
+            title: 'Added new civs of [Dynasties of the East](https://www.ageofempires.com/games/age-of-empires-iv/dynasties-of-the-east/)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix fetching of tournament data',
+        },
+    ],
     '24.0.0': [
         {
             type: 'feature',

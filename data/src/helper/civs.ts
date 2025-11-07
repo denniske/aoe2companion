@@ -321,6 +321,10 @@ const aoe4CivNameDict = {
     15: 'Order of the Dragon',
     16: 'House of Lancaster',
     17: 'Knights Templar',
+    18: 'Sengoku Daimyo',
+    19: 'Tughlaq Dynasty',
+    20: 'Golden Horde',
+    21: 'Macedonian Dynasty',
 }
 
 export function getCivNameById(civ: Civ) {

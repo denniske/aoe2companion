@@ -96,8 +96,7 @@ async function getLiquipediaMatches(options: { tournamentId?: string; upcoming?:
 
     const yesterday = subDays(new Date(), 1);
     const yesterdayString = yesterday.toISOString().split('T')[0]; // Format: YYYY-MM-DD
-    const game = 'Age of Empires II';
-    const conditions = [`[[game::${game}]]`];
+    const conditions = [`[[game::${appConfig.liquipediaName}]]`];
     if (options.tournamentId) {
         conditions.push(`[[pagename::${options.tournamentId}]]`);
     }
@@ -124,8 +123,7 @@ async function getLiquipediaMatches(options: { tournamentId?: string; upcoming?:
 async function getLiquipediaPlacements(options: { tournamentId?: string; upcoming?: boolean }) {
     // console.log('getLiquipediaPlacements', options);
 
-    const game = 'Age of Empires II';
-    const conditions = [`[[game::${game}]]`];
+    const conditions = [`[[game::${appConfig.liquipediaName}]]`];
     if (options.tournamentId) {
         conditions.push(`[[pagename::${options.tournamentId}]]`);
     }

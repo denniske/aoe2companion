@@ -3,6 +3,7 @@ declare var require: any
 export const appConfig = {
     game: 'aoe2',
     gameTitle: 'Age of Empires II: Definitive Edition',
+    liquipediaName: 'Age of Empires II',
     hostAoeCompanion: 'aoe2companion.com',
     leaderboards: [
         {
