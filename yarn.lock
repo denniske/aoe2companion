@@ -1783,6 +1783,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@expo/vector-icons@npm:^15.0.3":
+  version: 15.0.3
+  resolution: "@expo/vector-icons@npm:15.0.3"
+  peerDependencies:
+    expo-font: ">=14.0.4"
+    react: "*"
+    react-native: "*"
+  checksum: 10/8845ed6aeade73d7c684776a134153658549e1ee473e99ac56c355af53d848a4c91f9d218da798f481b117a08b86ab523c9c3f3de0c50b1f111ded644825803c
+  languageName: node
+  linkType: hard
+
 "@expo/ws-tunnel@npm:^1.0.1":
   version: 1.0.6
   resolution: "@expo/ws-tunnel@npm:1.0.6"
@@ -4430,6 +4441,7 @@ __metadata:
     "@eva-design/eva": "npm:^2.2.0"
     "@expo-google-fonts/roboto": "npm:^0.1.0"
     "@expo/metro-runtime": "npm:~6.1.2"
+    "@expo/vector-icons": "npm:^15.0.3"
     "@fortawesome/fontawesome-svg-core": "npm:^6.5.2"
     "@fortawesome/react-native-fontawesome": "npm:^0.3.1"
     "@fortawesome/sharp-regular-svg-icons": "npm:^6.5.2"

@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle, Platform, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from '@/src/components/uniwind/safe-area-context';;
 import { createStylesheet } from '../theming-new';
-import { Icon } from '@app/components/icon';import Animated, {
+import { Icon } from '@app/components/icon';
+import Animated, {
     useSharedValue,
     useAnimatedStyle,
     withTiming,
