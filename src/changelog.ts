@@ -10,7 +10,7 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
-    '25.0.0': [
+    '26.0.0': [
         // Note: Also switched react compiler on
         {
             type: 'minor',
