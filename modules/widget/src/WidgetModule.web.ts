@@ -1,8 +1,8 @@
-import { registerWebModule, NativeModule } from 'expo';
+import { NativeModule, registerWebModule } from 'expo';
 import { WidgetModuleEvents } from './Widget.types';
 
 class WidgetModule extends NativeModule<WidgetModuleEvents> {
 
 }
 
-export default registerWebModule(WidgetModule);
+export default registerWebModule(WidgetModule, 'WidgetModule');

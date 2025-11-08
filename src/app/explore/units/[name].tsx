@@ -14,14 +14,9 @@ import {
 } from '@nex/data';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-
-import { appVariants } from '../../../styles';
-import { useTheme } from '../../../theming';
-import { createStylesheet } from '../../../theming-new';
+import { View } from 'react-native';
 import CivAvailability from '../../../view/components/civ-availability';
 import Fandom from '../../../view/components/fandom';
-import { MyText } from '../../../view/components/my-text';
 import Space from '../../../view/components/space';
 import { Costs } from '../../../view/unit/unit-costs';
 import UnitCounters from '../../../view/unit/unit-counters';
@@ -30,13 +25,12 @@ import { UnitStats } from '../../../view/unit/unit-stats';
 import { UnitUpgrades } from '../../../view/unit/unit-upgrades';
 import { ScrollView } from '@app/components/scroll-view';
 import { useTranslation } from '@app/helper/translate';
+import { Text } from '@app/components/text';
 
 export default function UnitDetails() {
     const getTranslation = useTranslation();
     const { name } = useLocalSearchParams<{ name: Unit }>();
     const unitName = name!;
-    const appStyles = useTheme(appVariants);
-    const styles = useStyles();
     const unitLineId = getUnitLineIdForUnit(unitName);
     const unitLineName = getUnitLineNameForUnit(unitName);
     const unitLine = unitLines[unitLineId];
@@ -47,7 +41,7 @@ export default function UnitDetails() {
 
     return (
         <ScrollView>
-            <View style={styles.container}>
+            <View className="flex-1 min-h-full p-5">
                 <Stack.Screen
                     options={{
                         headerTitle: () => (
@@ -60,16 +54,16 @@ export default function UnitDetails() {
                     }}
                 />
                 {getUnitUpgradeCost(unitName) && (
-                    <View style={styles.costsRow}>
-                        <MyText style={styles.description}>Upgrade cost </MyText>
+                    <View className="flex-row mb-2 items-center">
+                        <Text>Upgrade cost </Text>
                         <Costs costDict={getUnitUpgradeCost(unitName)!} />
-                        <MyText style={styles.description}>
+                        <Text>
                             {getTranslation('unit.stats.heading.researchedin')} {getUnitUpgradeTime(unitName)}s
-                        </MyText>
+                        </Text>
                     </View>
                 )}
 
-                <MyText style={styles.description}>{getUnitDescription(unitName)}</MyText>
+                <Text>{getUnitDescription(unitName)}</Text>
 
                 <Space />
 
@@ -83,36 +77,9 @@ export default function UnitDetails() {
 
                 {!getAbilityEnabledForAllCivs({ unit: unitName }) && <CivAvailability unit={unitName} />}
 
-                <View style={appStyles.expanded} />
+                <View className="flex-1" />
                 <Fandom articleName={getUnitName(unitName)} articleLink={getWikiLinkForUnit(unitName)} />
             </View>
         </ScrollView>
     );
 }
-
-const useStyles = createStylesheet((theme) =>
-    StyleSheet.create({
-        row: {
-            flexDirection: 'row',
-            marginBottom: 5,
-            alignItems: 'center',
-            // backgroundColor: 'blue',
-        },
-        costsRow: {
-            flexDirection: 'row',
-            marginBottom: 10,
-            alignItems: 'center',
-            // backgroundColor: 'blue',
-        },
-
-        description: {
-            lineHeight: 20,
-        },
-        container: {
-            // backgroundColor: 'yellow',
-            flex: 1,
-            minHeight: '100%',
-            padding: 20,
-        },
-    })
-);

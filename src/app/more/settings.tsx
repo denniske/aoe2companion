@@ -278,7 +278,7 @@ export default function SettingsPage() {
                             textMinWidth={150}
                             divider={divider}
                             value={account?.mainPage || '/'}
-                            values={availableMainPages}
+                            values={availableMainPages as any}
                             formatter={(value) =>
                                 value === '/'
                                     ? 'Home'

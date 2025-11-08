@@ -1,5 +1,5 @@
 import { flatten, groupBy } from 'lodash';
-import { IMatchNew } from '../../../app/src/api/helper/api.types';
+import { IMatchNew } from '@app/api/helper/api.types';
 
 // This variant will put all players in same team when FFA.
 // That looks better in the player list in the app version.

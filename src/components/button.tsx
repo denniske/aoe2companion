@@ -1,14 +1,14 @@
-import {TextVariant} from '@app/utils/text.util';
-import {router} from 'expo-router';
-import {Pressable, TouchableOpacityProps} from 'react-native';
+import { TextVariant } from '@app/utils/text.util';
+import { Href, router } from 'expo-router';
+import { Pressable, TouchableOpacityProps } from 'react-native';
 
-import {Icon, IconProps} from './icon';
-import {Text, TextProps} from './text';
+import { Icon, IconProps } from './icon';
+import { Text, TextProps } from './text';
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
     children?: string;
     icon?: IconProps['icon'];
-    href?: string;
+    href?: Href;
     size?: 'small' | 'medium' | 'large';
     align?: TextProps['align'];
     textStyle?: TextProps['style'];

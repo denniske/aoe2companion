@@ -1,4 +1,4 @@
-import { ExpoConfig, ConfigContext } from 'expo/config';
+import { ConfigContext, ExpoConfig } from 'expo/config';
 
 const versionAoe2 = '167.0.0';
 const versionAoe4 = '26.0.0';
@@ -107,7 +107,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     newArchEnabled: true,
     experiments: {
         typedRoutes: true,
-        reactCompiler: true,
+        reactCompiler: true,  // 2025-Nov-8 maybe v1 of compiler breaks main nav bar highlighting on HMR
     },
     name: app.name,
     description: app.description,

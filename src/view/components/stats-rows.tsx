@@ -2,7 +2,7 @@ import { getCivIdByEnum } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { router } from 'expo-router';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Image, ViewStyle } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { CountryImage } from './country-image';
 import { TextLoader } from './loader/text-loader';
 import { MyText } from './my-text';
@@ -11,7 +11,6 @@ import { getCivIcon } from '../../helper/civs';
 import { getMapImage } from '../../helper/maps';
 import { createStylesheet } from '../../theming-new';
 import { useTranslation } from '@app/helper/translate';
-import { Text } from '@app/components/text';
 
 interface IRowPropsCiv {
     data: IStatCiv;
@@ -58,7 +57,7 @@ export function StatsRow({ type, data }: IRowPropsCiv | IRowPropsMap | IRowProps
 
     if (!data) {
         return (
-            <View className="flex-row items-center">
+            <View className="flex-row items-center gap-1 my-1">
                 <TextLoader className="flex-row flex-4 items-center" />
                 <TextLoader className="flex-row flex-1 items-center text-right" />
                 <TextLoader className="flex-row flex-1 items-center text-right font-tabular" />
@@ -99,7 +98,7 @@ export function StatsRow({ type, data }: IRowPropsCiv | IRowPropsMap | IRowProps
     const won = (data.wins / data.games) * 100;
 
     return (
-        <View className="flex-row items-center my-1">
+        <View className="flex-row items-center gap-1 my-1">
             <TouchableOpacity className="flex-row flex-4 items-center" onPress={gotoEntity}>
                 <View className="flex-row items-center">
                     {(type === 'ally' || type === 'opponent') && <CountryImage country={data.country} />}

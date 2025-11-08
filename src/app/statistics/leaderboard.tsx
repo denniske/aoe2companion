@@ -13,6 +13,7 @@ import { router, Stack } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     Dimensions,
+    FlatList as FlatListRN,
     NativeScrollEvent,
     NativeSyntheticEvent,
     Platform,
@@ -24,7 +25,7 @@ import {
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useDerivedValue, useSharedValue } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
-import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';;
+import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { fetchLeaderboard } from '../../api/helper/api';
 import { ILeaderboardPlayer } from '../../api/helper/api.types';
 import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
@@ -87,7 +88,7 @@ export default function LeaderboardPage() {
     const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
     const [loadedLeaderboardCountry, setLoadedLeaderboardCountry] = useState(leaderboardCountry);
     const insets = useSafeAreaInsets();
-    const flatListRef = React.useRef<FlatList>(null);
+    const flatListRef = React.useRef<FlatListRN>(null);
     const [contentOffsetY, setContentOffsetY] = useState<number>();
     const [rankWidth, setRankWidth] = useState<number>(43);
     const [myRankWidth, setMyRankWidth] = useState<number>(0);
@@ -118,6 +119,7 @@ export default function LeaderboardPage() {
 
     const calcRankWidth = (contentOffsetY: number | undefined) => {
         if (contentOffsetY === undefined) return;
+        if (total.current === undefined) return;
 
         contentOffsetY -= headerHeightAndPadding;
 
@@ -223,14 +225,14 @@ export default function LeaderboardPage() {
         total2.current = 1000;
     }, [isFocused, leaderboardCountry, leaderboardId]);
 
-    const total = useRef<any>();
+    const total = useRef<number | undefined>(undefined);
 
     // When switching from on leaderboard to another we need to set this to something
     // greater 0 so that a fetch is not prevented
-    const total2 = useRef<any>(1000);
+    const total2 = useRef<number>(1000);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
-        router.push(`/matches/users/${player.profileId}?name=${player.name}&country=${player.country}`);
+        router.push(`/matches/users/${player.profileId}/main-profile`);
     };
 
     const _renderRow = useCallback(
@@ -299,6 +301,7 @@ export default function LeaderboardPage() {
 
     const fetchByContentOffset = (contentOffsetY: number) => {
         if (!leaderboard.touched) return;
+        if (!total.current) return;
 
         contentOffsetY -= headerHeightAndPadding;
 
@@ -352,7 +355,7 @@ export default function LeaderboardPage() {
         updateScrollHandlePosition(event.nativeEvent.contentOffset.y);
     };
 
-    const inactivityTimeout = useRef<any>();
+    const inactivityTimeout = useRef<number | undefined>(undefined);
     const handleOffsetY = useSharedValue<number>(0);
 
     // const movingScrollHandle = useRef<boolean>();
@@ -363,7 +366,7 @@ export default function LeaderboardPage() {
 
     const listLength = useSharedValue(0);
 
-    const scollingFlatlist = useRef<boolean>();
+    const scollingFlatlist = useRef<boolean>(false);
     const [handleVisible, setHandleVisible] = useState(true);
     const [baseMoving, setBaseMoving] = useState(false);
 

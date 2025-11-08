@@ -108,7 +108,7 @@ export default function Competitive() {
                 } else {
                     await openLinkWithCheck(liveTwitchUrl!);
                 }
-            } catch (e: Error) {
+            } catch (e: any) {
                 showAlert(e.message);
             }
         } else {

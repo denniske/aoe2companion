@@ -18,7 +18,7 @@ export interface IPlayerListPlayer {
     name?: string;
     profileId: number;
     steamId?: string;
-    verified?: string;
+    verified?: boolean;
     avatarMediumUrl?: string;
 }
 
@@ -132,7 +132,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
     return (
         <TouchableOpacity
             className="flex-row items-center w-full gap-2"
-            ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: onSelect } })}
+            ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: onSelect } }) as any}
             onPress={onSelect}
             style={playerStyle}
         >
@@ -168,7 +168,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
 
 interface ISearchProps<PlayerType extends IPlayerListPlayer>
     extends Omit<FlatListProps<PlayerType | 'select' | 'follow' | 'loading'>, 'data' | 'renderItem'> {
-    list: (PlayerType | 'select' | 'follow' | 'loading')[];
+    list?: (PlayerType | 'select' | 'follow' | 'loading')[];
     selectedUser?: (user: any) => void;
     actionText?: string;
     action?: (player: PlayerType) => React.ReactNode;
@@ -181,7 +181,7 @@ interface ISearchProps<PlayerType extends IPlayerListPlayer>
 }
 
 export default function PlayerList<PlayerType extends IPlayerListPlayer>({
-    list,
+    list = [],
     selectedUser,
     actionText,
     action,

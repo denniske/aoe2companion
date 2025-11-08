@@ -142,7 +142,7 @@ export default function MainMatches() {
                         leaderboardIdList={leaderboardIds}
                         onLeaderboardIdChange={setLeaderboardIds}
                     />
-                    <View style={appStyles.expanded} />
+                    <View className="flex-1" />
                     {authProfileId && profileId !== authProfileId && (
                         <View style={styles.row2}>
                             <CheckboxNew checked={withMe} onPress={toggleWithMe} text={getTranslation('main.matches.withme')} />

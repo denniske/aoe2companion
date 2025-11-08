@@ -3,7 +3,7 @@ import { Button } from '@app/components/button';
 import { IPlayerListPlayer } from '@app/view/components/player-list';
 import Search from '@app/view/components/search';
 import { router, useNavigation } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAccount, useAuthProfileId } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
@@ -20,7 +20,7 @@ export default function Follow() {
 
     return (
         <Search
-            selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}?name=${user.name}&country=${user.country}`)}
+            selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}/main-profile`)}
             action={(user: IProfilesResultProfile) => <FeedAction user={user} />}
         />
     );

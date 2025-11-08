@@ -1,16 +1,17 @@
-import {StyleSheet, View} from 'react-native';
-import {Image} from '@/src/components/uniwind/image';
+import { StyleSheet, View } from 'react-native';
+import { Image } from '@/src/components/uniwind/image';
 import React from 'react';
-import {LivePlayer} from './live-player';
-import {differenceInSeconds} from "date-fns";
-import {TextLoader} from "../../view/components/loader/text-loader";
-import MyListAccordion from "../../view/components/accordion";
-import {ImageLoader} from "../../view/components/loader/image-loader";
-import {MyText} from "../../view/components/my-text";
-import {createStylesheet} from '../../theming-new';
-import {ILobbiesMatch} from "../../api/helper/api.types";
+import { LivePlayer } from './live-player';
+import { differenceInSeconds } from 'date-fns';
+import { TextLoader } from '../../view/components/loader/text-loader';
+import MyListAccordion from '../../view/components/accordion';
+import { ImageLoader } from '../../view/components/loader/image-loader';
+import { MyText } from '../../view/components/my-text';
+import { createStylesheet } from '../../theming-new';
+import { ILobbiesMatch } from '../../api/helper/api.types';
 import { Card } from '@app/components/card';
 import { Text } from '../text';
+import { useRouter } from 'expo-router';
 
 interface IGameProps {
     data: ILobbiesMatch;
@@ -28,6 +29,13 @@ const formatDuration = (start: Date, finish: Date) => {
 
 export function LiveMatch({data, expanded = false, onPress}: IGameProps) {
     const styles = useStyles();
+
+    const router = useRouter();
+
+    const openLobby = (lobbyId: number) => {
+        router.push(`/matches/lobby/${lobbyId}`);
+    };
+
     if (data == null) {
         return (
             <Card>

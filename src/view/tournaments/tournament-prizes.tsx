@@ -1,7 +1,7 @@
 import { Card } from '@app/components/card';
 import { Image } from '@/src/components/uniwind/image';
 import { TournamentDetail } from 'liquipedia';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
 
 import { TournamentParticipant } from './tournament-participant';
@@ -21,12 +21,12 @@ const PlaceIcon: React.FC<{ place: string }> = ({ place }) => {
     return icon && <Image source={icon} style={styles.difficulty} />;
 };
 
-export const TournamentPrizes: React.FC<{ prizes: TournamentDetail['prizes'], onClose: () => void }> = ({ prizes, onClose }) => {
+export const TournamentPrizes: React.FC<{ prizes?: TournamentDetail['prizes'], onClose: () => void }> = ({ prizes, onClose }) => {
     const styles = useStyles();
 
     return (
         <Card direction="vertical" className="py-2 px-0 gap-0">
-            {prizes.map((prize, index) => (
+            {prizes?.map((prize, index) => (
                 <View
                     key={prize.place}
                     className="border-gray-200 dark:border-gray-800"

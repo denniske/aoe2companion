@@ -189,7 +189,7 @@ export default function TournamentDetail() {
                                 <PlayerList
                                     selectedUser={(participant) => {
                                         if (participant.profileId) {
-                                            router.navigate(`/matches/users/${participant.profileId}`);
+                                            router.navigate(`/matches/users/${participant.profileId}/main-profile`);
                                         }
                                     }}
                                     variant="horizontal"

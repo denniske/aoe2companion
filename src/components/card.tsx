@@ -1,12 +1,12 @@
-import { router } from 'expo-router';
-import { View, Pressable, ViewProps, PressableProps } from 'react-native';
+import { Href, router } from 'expo-router';
+import { Pressable, PressableProps, View, ViewProps } from 'react-native';
 
 export interface CardProps extends ViewProps {
     onPress?: PressableProps['onPress'];
     header?: React.ReactNode;
     footer?: React.ReactNode;
     direction?: 'horizontal' | 'vertical';
-    href?: string;
+    href?: Href;
     disabled?: boolean;
     flat?: boolean;
 }
