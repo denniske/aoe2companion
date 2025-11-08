@@ -43,8 +43,6 @@ export const TabBar: React.FC = () => {
     const { bottom } = insets;
     const router = useRouter();
     const routeName = useCurrentTabName();
-    const shadowLg = useResolveClassNames(`shadow-lg shadow-blue-50 dark:shadow-black`);
-    const shadowXl = useResolveClassNames(`shadow-xl shadow-blue-50 dark:shadow-black`);
     const { theme } = useUniwind();
 
     const colorBlue950_0 = useResolveClassNames('text-blue-950/0').color;
@@ -126,9 +124,8 @@ export const TabBar: React.FC = () => {
                 <View style={{ height: 74, pointerEvents: 'box-none' }} className="items-center justify-center">
                     <View className={`${!showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`}>
                         <Button
-                            className="h-10 w-10 items-center justify-center rounded-full"
+                            className="h-10 w-10 items-center justify-center rounded-full shadow-lg shadow-blue-50 dark:shadow-black"
                             icon="arrow-up"
-                            style={shadowLg}
                             hitSlop={10}
                             onPress={() => {
                                 setScrollPosition(0);
@@ -141,7 +138,7 @@ export const TabBar: React.FC = () => {
 
             <Animated.View className={`absolute px-4 pb-2 w-full ${showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`} style={animatedStyle}>
                 <LinearGradient className="absolute left-0 right-0" style={{ bottom: -bottom, top: -16 }} locations={[0, 0.25]} colors={gradient} />
-                <View className="flex-row p-2 rounded-lg bg-white dark:bg-blue-900" style={shadowXl}>
+                <View className="flex-row p-2 rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black">
                     {routes.map((route) => {
                         // console.log('ROUTE', route.key, route.path);
 
