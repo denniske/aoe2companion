@@ -22,23 +22,26 @@ export function LivePlayer({ player }: IPlayerProps) {
 
     const gotoPlayer = () => {
         if (player == null) return;
-        router.push(`/matches/users/${player.profileId}?name=${player.name}`);
+        router.push(`/matches/users/${player.profileId}/main-profile`);
     };
 
     if (player == null) {
         return (
-            <View style={styles.player}>
-                <MyText style={styles.playerRatingCol} />
-                <MyText style={styles.playerNameCol} numberOfLines={1} />
-                <MyText style={styles.playerGamesCol}>
-                    <FontAwesome5 name="fist-raised" size={14} style={{}} color={theme.textNoteColor} />
-                </MyText>
-                <MyText style={styles.playerWonCol}>
-                    <FontAwesome5 name="crown" size={14} style={{}} color={theme.textNoteColor} />
-                </MyText>
-                <MyText style={styles.playerWonCol}>
-                    <FontAwesome5 name="plug" size={14} style={{}} color={theme.textNoteColor} />
-                </MyText>
+            <View className="flex-row items-center gap-2">
+                {appConfig.game === 'aoe2' && (
+                    <View className="w-5 h-5"></View>
+                )}
+                <View className="flex-1"/>
+                <View className="flex-3"/>
+                <View className="flex-1 items-end">
+                    <FontAwesome5 name="fist-raised" size={14} color={theme.textNoteColor} />
+                </View>
+                <View className="flex-1 items-end">
+                    <FontAwesome5 name="crown" size={14} color={theme.textNoteColor} />
+                </View>
+                <View className="flex-1 items-end">
+                    <FontAwesome5 name="plug" size={14} color={theme.textNoteColor} />
+                </View>
             </View>
         );
     }
@@ -46,21 +49,21 @@ export function LivePlayer({ player }: IPlayerProps) {
     const playerColor = aoe2PlayerColors[player.colorHex] ?? player.colorHex;
 
     return (
-        <TouchableOpacity style={styles.player} onPress={gotoPlayer}>
+        <TouchableOpacity className="flex-row items-center gap-2" onPress={gotoPlayer}>
             {appConfig.game === 'aoe2' && (
                 <View className="w-5 h-5 items-center justify-center" style={{ backgroundColor: playerColor }}>
-                    <Text variant="title" className="text-sm" color="text-white">
+                    <Text variant="header-xs" className="text-sm" color="text-white">
                         {player.color}
                     </Text>
                 </View>
             )}
-            <MyText style={styles.playerRatingCol}>{player.rating}</MyText>
-            <MyText style={styles.playerNameCol} numberOfLines={1}>
+            <MyText className="flex-1">{player.rating}</MyText>
+            <MyText className="flex-3" numberOfLines={1}>
                 {player.name}
             </MyText>
-            <MyText style={styles.playerGamesCol}>{!!player.games && player.games + ''}</MyText>
-            <MyText style={styles.playerWonCol}>{!!player.games && !!player.wins && ((player.wins / player.games) * 100).toFixed(0) + ' %'}</MyText>
-            <MyText style={styles.playerWonCol}>{!!player.games && !!player.drops && ((player.drops / player.games) * 100).toFixed(0) + ' %'}</MyText>
+            <MyText className="flex-1 text-right">{!!player.games && player.games + ''}</MyText>
+            <MyText className="flex-1 text-right">{!!player.games && !!player.wins && ((player.wins / player.games) * 100).toFixed(0) + ' %'}</MyText>
+            <MyText className="flex-1 text-right">{!!player.games && !!player.drops && ((player.drops / player.games) * 100).toFixed(0) + ' %'}</MyText>
         </TouchableOpacity>
     );
 }

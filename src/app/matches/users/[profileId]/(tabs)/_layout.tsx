@@ -2,7 +2,7 @@ import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
 import { useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
@@ -373,7 +373,7 @@ export default function UserPage() {
                 </View>
             )}
             screenOptions={{
-                lazy: false,
+                lazy: Platform.OS === 'web', // on web we need lazy so it will not break flatlist and infinitely loops
                 swipeEnabled: true,
                 tabBarInactiveTintColor: theme === 'dark' ? 'white' : 'black',
                 tabBarActiveTintColor: theme === 'dark' ? 'white' : 'black',

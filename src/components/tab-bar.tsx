@@ -5,7 +5,7 @@ import { Platform, Pressable, View } from 'react-native';
 import { Icon } from './icon';
 import { Text } from './text';
 import { usePathname, useRootNavigationState, useRouter } from 'expo-router';
-import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';;
+import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { useMutateScroll, useScrollPosition } from '@app/redux/reducer';
 import { useTranslation } from '@app/helper/translate';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';

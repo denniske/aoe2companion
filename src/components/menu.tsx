@@ -102,11 +102,11 @@ export const MenuNew: FC<MenuProps> = ({
         keyboardHeightRef.current = 0;
     }, []);
 
-    const keyboardDidShowListenerRef: MutableRefObject<EmitterSubscription | undefined> = useRef();
-    const keyboardDidHideListenerRef: MutableRefObject<EmitterSubscription | undefined> = useRef();
+    const keyboardDidShowListenerRef: MutableRefObject<EmitterSubscription | undefined> = useRef(undefined);
+    const keyboardDidHideListenerRef: MutableRefObject<EmitterSubscription | undefined> = useRef(undefined);
 
-    const backHandlerSubscriptionRef: MutableRefObject<NativeEventSubscription | undefined> = useRef();
-    const dimensionsSubscriptionRef: MutableRefObject<NativeEventSubscription | undefined> = useRef();
+    const backHandlerSubscriptionRef: MutableRefObject<NativeEventSubscription | undefined> = useRef(undefined);
+    const dimensionsSubscriptionRef: MutableRefObject<NativeEventSubscription | undefined> = useRef(undefined);
 
     const handleDismiss = useCallback(() => {
         if (visible) {
@@ -365,7 +365,7 @@ export const MenuNew: FC<MenuProps> = ({
 
     return (
         <View>
-            <View ref={(ref) => (anchorRef.current = ref)} collapsable={false}>
+            <View ref={(ref) => (anchorRef.current = ref) as any} collapsable={false}>
                 {anchor == null ? null : anchor}
             </View>
             {visible && (
@@ -381,7 +381,7 @@ export const MenuNew: FC<MenuProps> = ({
                             >
                                 <GestureDetector gesture={noopGesture}>
                                     <View
-                                        ref={(ref) => (menuRef.current = ref)}
+                                        ref={(ref) => (menuRef.current = ref) as any}
                                         style={
                                             [
                                                 {

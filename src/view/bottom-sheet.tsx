@@ -1,7 +1,7 @@
 import { Text } from '@app/components/text';
 import { useEffect, useState } from 'react';
 import { Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle, Platform, TouchableOpacity } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from '@/src/components/uniwind/safe-area-context';;
+import { SafeAreaProvider, SafeAreaView } from '@/src/components/uniwind/safe-area-context';
 import { createStylesheet } from '../theming-new';
 import { Icon } from '@app/components/icon';
 import Animated, {
@@ -94,7 +94,7 @@ export function BottomSheet({
                 <Pressable disabled={!onClose} onPress={onClose} style={[styles.overlay, StyleSheet.absoluteFill]} />
 
                 <SafeAreaView edges={['top']} style={{ flex: 1, pointerEvents: 'box-none' }}>
-                    <View style={styles.container}>
+                    <View className="flex-1 justify-end" style={{pointerEvents: 'box-none'}}>
                         <Animated.View
                             onLayout={(e) => {
                                 const newHeight = Math.round(e.nativeEvent.layout.height);
@@ -192,11 +192,6 @@ const useStyles = createStylesheet((theme) =>
             width: 120,
             borderRadius: 2,
             backgroundColor: theme.hoverBackgroundColor,
-        },
-        container: {
-            flex: 1,
-            justifyContent: 'flex-end',
-            pointerEvents: 'box-none',
         },
         contentContainer: {
             padding: 12,

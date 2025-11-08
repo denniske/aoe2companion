@@ -16,5 +16,10 @@ export interface IconProps {
 export const Icon: React.FC<IconProps> = ({ icon, color = 'default', prefix = 'fass', ...rest }) => {
     let colorClassName = textColors[color] ? textColors[color] : color;
     const finalColor = useResolveClassNames(colorClassName).color as string;
+    // console.log('RESOLVE ICON', icon);
+
+
+    // TODO: wrap FontAwesomeIcon with uniwind to resolve color properly
+
     return <FontAwesomeIcon {...rest} color={finalColor} icon={[prefix, icon]}/>;
 };

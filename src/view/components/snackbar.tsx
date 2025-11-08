@@ -7,7 +7,7 @@ import {usePrevious} from "@nex/data/hooks";
 import { useAppTheme } from '@app/theming';
 import { Button } from '@app/components/button';
 import { v3Shadow } from '@app/components/shadow';
-import { SafeAreaView } from '@/src/components/uniwind/safe-area-context';;
+import { SafeAreaView } from '@/src/components/uniwind/safe-area-context';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,

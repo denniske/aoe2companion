@@ -53,7 +53,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 {player.rating}
             </Text>
 
-            <Link href={`/matches/users/${player.profileId}?name=${player.name}`} asChild disabled={player.profileId === -1}>
+            <Link href={`/matches/users/${player.profileId}/main-profile`} asChild disabled={player.profileId === -1}>
                 <TouchableOpacity className="flex-1 flex-row gap-1 items-center" onPress={onClose}>
                     <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1}>
                         {player.name}
@@ -78,7 +78,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 </Pressable>
             )}
 
-            <Link href={player.civ ? `/explore/civilizations/${getLocalCivEnum(player.civ)}` : ''} disabled={!player.civ} asChild>
+            <Link href={player.civ ? `/explore/civilizations/${getLocalCivEnum(player.civ)}` : "/"} disabled={!player.civ} asChild>
                 <TouchableOpacity className="flex-row flex-1 gap-1" onPress={onClose}>
                     <Image className={appConfig.game === 'aoe2' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="contain" />
                     <Text numberOfLines={1} variant={highlight ? 'label' : 'body'} className="flex-1">

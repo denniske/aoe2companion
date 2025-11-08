@@ -9,8 +9,6 @@ import { Platform, StyleSheet, View } from 'react-native';
 import { fetchMatches } from '../../../../../api/helper/api';
 import useDebounce from '../../../../../hooks/use-debounce';
 import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
-import { appVariants } from '../../../../../styles';
-import { useTheme } from '../../../../../theming';
 import { createStylesheet } from '../../../../../theming-new';
 import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
 import { MyText } from '../../../../../view/components/my-text';
@@ -26,7 +24,6 @@ export default function MainMatches() {
     const params = useLocalSearchParams<{ profileId: string }>();
     const profileId = parseInt(params.profileId);
     const styles = useStyles();
-    const appStyles = useTheme(appVariants);
     const [text, setText] = useState('');
     const [leaderboardIds, setLeaderboardIds] = useState<string[]>([]);
     const [withMe, setWithMe] = useState(false);
@@ -134,54 +131,45 @@ export default function MainMatches() {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.content}>
-                {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
-                <View style={styles.pickerRow} className="px-4">
-                    <LeaderboardsSelect
-                        leaderboardIdList={leaderboardIds}
-                        onLeaderboardIdChange={setLeaderboardIds}
-                    />
-                    <View className="flex-1" />
-                    {authProfileId && profileId !== authProfileId && (
-                        <View style={styles.row2}>
-                            <CheckboxNew checked={withMe} onPress={toggleWithMe} text={getTranslation('main.matches.withme')} />
-                        </View>
+        <View className="flex-1">
+            {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
+            <View style={styles.pickerRow} className="px-4">
+                <LeaderboardsSelect
+                    leaderboardIdList={leaderboardIds}
+                    onLeaderboardIdChange={setLeaderboardIds}
+                />
+                <View className="flex-1" />
+                {authProfileId && profileId !== authProfileId && (
+                    <View style={styles.row2}>
+                        <CheckboxNew checked={withMe} onPress={toggleWithMe} text={getTranslation('main.matches.withme')} />
+                    </View>
+                )}
+            </View>
+            <View className="px-4">
+                <Field
+                    type="search"
+                    placeholder={getTranslation('main.matches.search.placeholder')}
+                    onChangeText={(text) => setText(text)}
+                    value={text}
+                />
+            </View>
+            {Platform.OS === 'web' && reloading && <FlatListLoadingIndicator />}
+            <View style={{ flex: 1, opacity: isRefetching ? 0.7 : 1 }}>
+                {list.length === 0 && <MyText style={styles.header}>{getTranslation('main.matches.nomatches')}</MyText>}
+                <FlatList
+                    contentContainerClassName="p-4 gap-2"
+                    initialNumToRender={10}
+                    windowSize={2}
+                    data={list}
+                    renderItem={({ item }) => (
+                        <Match match={item as any} expanded={false} highlightedUsers={[Number(profileId)]} user={Number(profileId)} />
                     )}
-                </View>
-                <View className="px-4">
-                    <Field
-                        type="search"
-                        placeholder={getTranslation('main.matches.search.placeholder')}
-                        onChangeText={(text) => setText(text)}
-                        value={text}
-                    />
-                </View>
-                {Platform.OS === 'web' && reloading && <FlatListLoadingIndicator />}
-                <View style={{ flex: 1, opacity: isRefetching ? 0.7 : 1 }}>
-                    {list.length === 0 && <MyText style={styles.header}>{getTranslation('main.matches.nomatches')}</MyText>}
-                    <FlatList
-                        contentContainerClassName="p-4 gap-2"
-                        initialNumToRender={10}
-                        windowSize={2}
-                        data={list}
-                        renderItem={({ item, index }) => {
-                            switch (item) {
-                                // case 'header':
-                                //     return <MyText style={styles.header}>{getTranslation('main.matches.matches', { matches: filteredMatches?.length })}</MyText>
-                                default:
-                                    return (
-                                        <Match match={item as any} expanded={false} highlightedUsers={[Number(profileId)]} user={Number(profileId)} />
-                                    );
-                            }
-                        }}
-                        ListFooterComponent={_renderFooter}
-                        onEndReached={onEndReached}
-                        onEndReachedThreshold={0.1}
-                        keyExtractor={(item, index) => index.toString()}
-                        refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={reloading} />}
-                    />
-                </View>
+                    ListFooterComponent={_renderFooter}
+                    onEndReached={onEndReached}
+                    onEndReachedThreshold={0.1}
+                    keyExtractor={(item, index) => index.toString()}
+                    refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={reloading} />}
+                />
             </View>
         </View>
     );

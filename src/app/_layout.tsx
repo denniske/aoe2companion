@@ -35,7 +35,7 @@ import { SplashScreen, Stack, usePathname, useRootNavigationState, useRouter } f
 import { useCallback, useEffect } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';;
+import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { Provider as ReduxProvider } from 'react-redux';
 import '../../global.css';
 import { appConfig } from '@nex/dataset';

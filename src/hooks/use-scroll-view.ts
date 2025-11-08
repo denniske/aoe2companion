@@ -1,7 +1,7 @@
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Platform, ScrollView, ScrollViewProps } from 'react-native';
-import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';;
+import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { useMutateScroll, useScrollToTop } from '@app/redux/reducer';
 
 export interface UseScrollViewProps extends Pick<ScrollViewProps, 'horizontal' | 'onScroll' | 'onLayout'> {
