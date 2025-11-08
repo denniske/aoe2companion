@@ -41,6 +41,23 @@
     --color-gold-950: #453802;
 }
 
+@layer theme {
+    :root {
+        @variant light {
+            --color-background: #ffffff;
+            --color-foreground: #000000;
+            --color-muted: #f3f4f6;
+            --color-brand: var(--color-blue-600);
+        }
+        @variant dark {
+            --color-background: #000000;
+            --color-foreground: #ffffff;
+            --color-muted: #374151;
+            --color-brand: var(--color-gold-200);
+        }
+    }
+}
+
 @utility font-tabular {
     font-variant: tabular-nums;
 }

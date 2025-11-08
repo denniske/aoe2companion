@@ -38,8 +38,20 @@ export const textVariantStyles: Record<TextVariant, { fontSize: number; lineHeig
 export const textColors: Record<TextColor, string | undefined> = {
     link: 'text-[#397AF9] dark:text-[#0A84FF]',
 
-    white: 'text-white dark:text-white',
-    brand: 'text-blue-600 dark:text-gold-200',
+    foreground: 'text-foreground',
+    white: 'text-white',
+    brand: 'text-brand',
+
+    subtle: 'text-gray-800 dark:text-gray-200',
+    default: 'text-black dark:text-white',
+};
+
+export const accentColors: Record<TextColor, string | undefined> = {
+    link: 'text-[#397AF9] dark:text-[#0A84FF]',
+
+    foreground: 'accent-foreground',
+    white: 'accent-white',
+    brand: 'accent-brand',
 
     subtle: 'text-gray-800 dark:text-gray-200',
     default: 'text-black dark:text-white',

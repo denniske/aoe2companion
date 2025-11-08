@@ -1,7 +1,7 @@
-import { TextColor, textColors } from '@app/utils/text.util';
+import { accentColors, TextColor } from '@app/utils/text.util';
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon, Props } from '@fortawesome/react-native-fontawesome';
-import { useResolveClassNames } from 'uniwind';
+import { withUniwind } from 'uniwind';
 
 export { IconName, IconPrefix };
 
@@ -13,13 +13,10 @@ export interface IconProps {
     prefix?: IconPrefix;
 }
 
+export const StyledFontAwesomeIcon = withUniwind(FontAwesomeIcon);
+
 export const Icon: React.FC<IconProps> = ({ icon, color = 'default', prefix = 'fass', ...rest }) => {
-    let colorClassName = textColors[color] ? textColors[color] : color;
-    const finalColor = useResolveClassNames(colorClassName).color as string;
-    // console.log('RESOLVE ICON', icon);
-
-
-    // TODO: wrap FontAwesomeIcon with uniwind to resolve color properly
-
-    return <FontAwesomeIcon {...rest} color={finalColor} icon={[prefix, icon]}/>;
+    let colorClassName = accentColors[color] ?? color;
+    console.log('ICON COLOR CLASS NAME', colorClassName);
+    return <StyledFontAwesomeIcon {...rest} colorClassName={colorClassName} icon={[prefix, icon]}/>;
 };

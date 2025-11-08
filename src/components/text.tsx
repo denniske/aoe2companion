@@ -18,5 +18,7 @@ export const Text: React.FC<TextProps> = ({ variant = 'body', color = 'default',
 
     // console.log('text', props.children, style2);
 
+    // console.log('TEXT COLOR CLASS NAME', textColor);
+
     return <RNText className={`${className} ${textColor}`} style={style2} {...props} />;
 };
