@@ -42,7 +42,7 @@ export const textColors: Record<TextColor, string | undefined> = {
     white: 'text-white',
     brand: 'text-brand',
 
-    subtle: 'text-gray-800 dark:text-gray-200',
+    subtle: 'text-subtle',
     default: 'text-black dark:text-white',
 };
 
@@ -53,6 +53,6 @@ export const accentColors: Record<TextColor, string | undefined> = {
     white: 'accent-white',
     brand: 'accent-brand',
 
-    subtle: 'text-gray-800 dark:text-gray-200',
+    subtle: 'accent-subtle',
     default: 'text-black dark:text-white',
 };

@@ -1,4 +1,4 @@
-import { TextVariant } from '@app/utils/text.util';
+import { TextColor, TextVariant } from '@app/utils/text.util';
 import { Href, router } from 'expo-router';
 import { Pressable, TouchableOpacityProps } from 'react-native';
 
@@ -11,10 +11,10 @@ export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
     href?: Href;
     size?: 'small' | 'medium' | 'large';
     align?: TextProps['align'];
-    textStyle?: TextProps['style'];
+    color?: TextColor;
 }
 
-export const Button: React.FC<ButtonProps> = ({ className, children, icon, onPress, href, size = 'medium', disabled, align, textStyle, ...props }) => {
+export const Button: React.FC<ButtonProps> = ({ className, children, icon, onPress, href, size = 'medium', disabled, align, color, ...props }) => {
     const textSizes: Record<NonNullable<ButtonProps['size']>, TextVariant> = {
         small: 'label-sm',
         medium: 'header-xs',
@@ -28,7 +28,7 @@ export const Button: React.FC<ButtonProps> = ({ className, children, icon, onPre
     };
 
     const backgroundColor = disabled ? 'bg-gray-500' : 'bg-blue-800 dark:bg-gold-700';
-    const color = disabled ? 'text-gray-600' : 'text-white';
+    const finalColor = disabled ? 'text-gray-600' : color ?? 'text-white';
 
     return (
         <Pressable
@@ -44,10 +44,10 @@ export const Button: React.FC<ButtonProps> = ({ className, children, icon, onPre
             {children && (
                 <Text
                     variant={textSizes[size]}
-                    color={color}
+                    color={finalColor}
                     className={`uppercase ${align ? 'flex-1' : ''}`}
                     align={align}
-                    style={textStyle}
+                    // style={textStyle}
                     allowFontScaling={false}
                 >
                     {children}

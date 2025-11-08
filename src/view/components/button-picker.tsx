@@ -1,7 +1,7 @@
 import { StyleProp, View, ViewStyle } from 'react-native';
 import React from 'react';
 import { Button } from '@app/components/button';
-import { textColors } from '@app/utils/text.util';
+import { TextColor, textColors } from '@app/utils/text.util';
 import { useResolveClassNames } from 'uniwind';
 
 
@@ -19,9 +19,6 @@ interface IPickerProps<T> {
 export default function ButtonPicker<T>(props: IPickerProps<T>) {
     const { value, values, onSelect, style, flex = false, disabled, formatter = (x) => `${x}`} = props;
 
-    const textStyleSelected = useResolveClassNames('text-white');
-    const textStyleUnselected = useResolveClassNames(textColors.subtle as string);
-
     return (
         <View className="rounded-lg overflow-hidden flex-row bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
             {
@@ -32,7 +29,8 @@ export default function ButtonPicker<T>(props: IPickerProps<T>) {
                             key={i}
                             className={`py-2 ${flex ? `flex-1` : `px-6`} justify-center ${selected ? '' : 'bg-transparent dark:bg-transparent'}`}
                             onPress={() => onSelect(val)}
-                            textStyle={selected ? textStyleSelected : textStyleUnselected}
+                            color={selected ? 'white' : 'subtle'}
+                            disabled={disabled}
                         >
                             {formatter(val)}
                         </Button>
