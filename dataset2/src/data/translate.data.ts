@@ -1,6 +1,6 @@
 declare var require: any
 
-export const translateStringsSourceData: Record<string, string> = {
+export const translateStringsSourceData: Record<string, Record<string, string>> = {
     'ms': require('../../../assets/data/ms/strings.json'),
     'fr': require('../../../assets/data/fr/strings.json'),
     'es-mx': require('../../../assets/data/es-mx/strings.json'),

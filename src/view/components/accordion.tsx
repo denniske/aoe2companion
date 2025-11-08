@@ -43,11 +43,6 @@ export default function MyListAccordion(props: Props) {
             {expanded ? (
                 <View style={styles.row2}>
                     {React.Children.map(children, (child) => {
-                        if (React.isValidElement(child)) {
-                            return React.cloneElement(child, {
-                                style: [styles.child, child.props.style],
-                            } as any);
-                        }
                         return child;
                     })}
                 </View>
@@ -83,9 +78,6 @@ const styles = StyleSheet.create({
     item: {
         // backgroundColor: 'purple',
         margin: 0,
-    },
-    child: {
-        // paddingBottom: 20,
     },
     content: {
         flex: 1,

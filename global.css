@@ -41,6 +41,10 @@
     --color-gold-950: #453802;
 }
 
+@utility font-tabular {
+    font-variant: tabular-nums;
+}
+
 /* Scrollbar styling */
 * {
     scrollbar-width: thin;

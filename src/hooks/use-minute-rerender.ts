@@ -7,7 +7,7 @@ export function useMinuteRerender(started: Date): Date {
     const [now, setNow] = useState(() => new Date());
 
     useEffect(() => {
-        let timeout: NodeJS.Timeout;
+        let timeout: number;
 
         const scheduleNextTick = () => {
             const current = new Date();

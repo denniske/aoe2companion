@@ -2,21 +2,21 @@ import { format, formatDistanceToNowStrict, fromUnixTime, parseISO } from 'date-
 import { getLanguage } from './aoe-data';
 
 // Explicitly importing the languages here so that they are tree shaked.
-import ms from 'date-fns/locale/ms';
-import fr from 'date-fns/locale/fr';
-import it from 'date-fns/locale/it';
-import pt from 'date-fns/locale/pt';
-import ru from 'date-fns/locale/ru';
-import vi from 'date-fns/locale/vi';
-import tr from 'date-fns/locale/tr';
-import de from 'date-fns/locale/de';
-import enUS from 'date-fns/locale/en-US';
-import es from 'date-fns/locale/es';
-import hi from 'date-fns/locale/hi';
-import ja from 'date-fns/locale/ja';
-import ko from 'date-fns/locale/ko';
-import zhCN from 'date-fns/locale/zh-CN';
-import zhTW from 'date-fns/locale/zh-TW';
+import { ms } from 'date-fns/locale/ms';
+import { fr } from 'date-fns/locale/fr';
+import { it } from 'date-fns/locale/it';
+import { pt } from 'date-fns/locale/pt';
+import { ru } from 'date-fns/locale/ru';
+import { vi } from 'date-fns/locale/vi';
+import { tr } from 'date-fns/locale/tr';
+import { de } from 'date-fns/locale/de';
+import { enUS } from 'date-fns/locale/en-US';
+import { es } from 'date-fns/locale/es';
+import { hi } from 'date-fns/locale/hi';
+import { ja } from 'date-fns/locale/ja';
+import { ko } from 'date-fns/locale/ko';
+import { zhCN } from 'date-fns/locale/zh-CN';
+import { zhTW } from 'date-fns/locale/zh-TW';
 
 export function parseIntNullable(value: string) {
     return value ? parseInt(value) : null;

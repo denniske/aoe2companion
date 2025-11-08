@@ -117,11 +117,13 @@
     "websocket": "^1.0.34"
   },
   "devDependencies": {
+    "@types/cavy": "^3.2.9",
     "@types/humps": "^2.0.6",
     "@types/lodash": "^4.17.20",
     "@types/react": "~19.1.0",
     "@types/semver": "^7.7.1",
     "@types/uuid": "^3.4.9",
+    "@types/websocket": "^1.0.10",
     "cavy": "^4.0.2",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",

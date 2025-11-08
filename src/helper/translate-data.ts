@@ -1,9 +1,6 @@
-import {Asset} from 'expo-asset';
-import {readAsStringAsync} from 'expo-file-system';
-import {Platform} from 'react-native';
-import {getLanguage} from '@nex/data';
-import {getInternalAoeStrings} from '../redux/statecache';
-import {translateStringsSourceData} from "@nex/dataset";
+import { getLanguage } from '@nex/data';
+import { getInternalAoeStrings } from '../redux/statecache';
+import { translateStringsSourceData } from '@nex/dataset';
 
 const stringsSource = translateStringsSourceData;
 
@@ -19,24 +16,6 @@ export function addAoeStrings(language: string, data: Record<string, string>) {
 
 for (const key in stringsSource) {
     strings[key as any] = stringsSource[key];
-}
-
-export async function loadAoeStringsAsync(language: string) {
-    try {
-        const [{localUri}] = await Asset.loadAsync(stringsSource[language]);
-
-        if (Platform.OS === 'web') {
-            let response = await fetch(localUri!);
-            let parsed = await response.json();
-            addAoeStrings(language, parsed);
-        } else {
-            let json = await readAsStringAsync(localUri!);
-            let parsed = JSON.parse(json);
-            addAoeStrings(language, parsed);
-        }
-    } catch (e: any) {
-        console.log('ERRORED', e.toString());
-    }
 }
 
 export function getInternalAoeString(str: string) {

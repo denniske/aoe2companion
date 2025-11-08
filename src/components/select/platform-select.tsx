@@ -19,6 +19,6 @@ export function PlatformSelect(props: any) {
     };
 
     return (
-        <ButtonPicker value={platform} values={platformValues} formatter={formatPlatform} onSelect={setPlatform} />
+        <ButtonPicker value={platform} values={platformValues} formatter={formatPlatform as any} onSelect={setPlatform} />
     );
 }

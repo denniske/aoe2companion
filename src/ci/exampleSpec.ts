@@ -54,50 +54,50 @@ export default function(spec: any) {
             let route: string;
 
             route = `/matches`;
-            router.navigate(route);
+            router.navigate(route as any);
             await sleep(waitTime * 2);
             await capture('1-' + routeToScreenshotName(route));
             await sleep(1000);
 
             route = `/matches/users/select?search=${searchPlayerName}`;
-            router.navigate(route);
+            router.navigate(route as any);
             await sleep(waitTime*2);
             await capture('2-' + routeToScreenshotName(route));
             await sleep(1000);
 
             route = `/matches/users/${searchPlayerId}`;
-            router.navigate(route);
+            router.navigate(route as any);
             await sleep(waitTime*3);
             await capture('3-' + routeToScreenshotName(route));
             await sleep(1000);
 
             route = `/matches/users/${searchPlayerId}?tab=MainStats`;
-            router.navigate(route);
+            router.navigate(route as any);
             await sleep(waitTime*2);
             await capture('4-' + routeToScreenshotName(route));
             await sleep(1000);
 
             route = `/matches/users/${searchPlayerId}?tab=MainMatches`;
-            router.navigate(route);
+            router.navigate(route as any);
             await sleep(waitTime*2);
             await capture('5-' + routeToScreenshotName(route));
             await sleep(1000);
 
             route = `/statistics`;
-            router.navigate(route);
+            router.navigate(route as any);
             await sleep(waitTime*2);
             await capture('6-' + routeToScreenshotName(route));
             await sleep(1000);
 
             route = `/explore/civilizations/${searchCiv}`;
-            router.navigate(route);
+            router.navigate(route as any);
             await sleep(waitTime*2);
             await capture('7-' + routeToScreenshotName(route));
             await sleep(1000);
 
             if (appConfig.game === 'aoe2') {
                 route = `/explore/build-orders/17?focusMode=true`;
-                router.navigate(route);
+                router.navigate(route as any);
                 await sleep(waitTime * 2);
                 await capture('8-' + routeToScreenshotName(route));
                 await sleep(1000);

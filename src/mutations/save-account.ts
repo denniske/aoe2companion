@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PartialAccountWithPartialPrefs, saveAccount, saveAccountThrottled } from '@app/api/account';
 import { QUERY_KEY_ACCOUNT } from '@app/queries/all';
-import { IPrefs } from '@app/queries/prefs';
+import { IPrefs } from '@app/service/storage';
 
 export const useSaveAccountMutation = () => {
     const queryClient = useQueryClient();

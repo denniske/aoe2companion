@@ -3659,6 +3659,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cavy@npm:^3.2.9":
+  version: 3.2.9
+  resolution: "@types/cavy@npm:3.2.9"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10/9c79df5785fc8b22fbfbdf63998e20b68efc96fd5d4c356596345c749b811b368f545a6e6d063769a209ce5baa3e6089e809a6ab25a60db075d247cd0fccf092
+  languageName: node
+  linkType: hard
+
 "@types/d3-array@npm:^3.0.3":
   version: 3.2.2
   resolution: "@types/d3-array@npm:3.2.2"
@@ -3863,6 +3872,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react@npm:*":
+  version: 19.2.2
+  resolution: "@types/react@npm:19.2.2"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10/d6adf8fd4bb23a7e04da5700d96b15dc0f59653727a9c6e940c151d7232fa1dbbab98417d5ac830dcfb6cba3f206efbd4cd83647e6f9a688d7363a90e607f6bf
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:~19.1.0":
   version: 19.1.13
   resolution: "@types/react@npm:19.1.13"
@@ -3904,6 +3922,15 @@ __metadata:
   version: 3.4.13
   resolution: "@types/uuid@npm:3.4.13"
   checksum: 10/906c4bc29711b0fcdca4303a66a58c611a195b782b33e194ab80b4453a0aee26416bb04596a6e34a97dafa28e25fac9d5be5fcc0b5eae422e850200981d78f18
+  languageName: node
+  linkType: hard
+
+"@types/websocket@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "@types/websocket@npm:1.0.10"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10/ceab9632bb93147ae42e5768e7ddb6ab764f0240f312e68d205db87606fc201eb7b8deedabb14fd47561c6108f3f19e188615fd6f6cf673cc832d64441ddf83e
   languageName: node
   linkType: hard
 
@@ -4463,11 +4490,13 @@ __metadata:
     "@shopify/react-native-skia": "npm:2.2.12"
     "@supabase/supabase-js": "npm:^2.49.10"
     "@tanstack/react-query": "npm:^5.62.0"
+    "@types/cavy": "npm:^3.2.9"
     "@types/humps": "npm:^2.0.6"
     "@types/lodash": "npm:^4.17.20"
     "@types/react": "npm:~19.1.0"
     "@types/semver": "npm:^7.7.1"
     "@types/uuid": "npm:^3.4.9"
+    "@types/websocket": "npm:^1.0.10"
     array-flat-polyfill: "npm:^1.0.1"
     babel-plugin-module-resolver: "npm:^5.0.0"
     babel-plugin-transform-typescript-metadata: "npm:^0.3.0"

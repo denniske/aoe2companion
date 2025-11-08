@@ -85,7 +85,7 @@ export default function MatchesPage() {
     };
 
     const gotoPlayer = (profileId: number) => {
-        router.push(`/matches/users/${profileId}`);
+        router.push(`/matches/users/${profileId}` as any);
     };
 
     const formatPlayer = (player: any, i: number) => {

@@ -1,6 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import { LeaderboardId } from '@nex/data';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAccountData } from '@app/queries/all';
 import { IPrefs } from '@app/service/storage';
 
