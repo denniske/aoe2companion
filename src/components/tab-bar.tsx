@@ -1,7 +1,6 @@
 import { IconName } from '@fortawesome/fontawesome-svg-core';
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect } from 'react';
-import { Platform, Pressable, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Icon } from './icon';
 import { Text } from './text';
 import { usePathname, useRootNavigationState, useRouter } from 'expo-router';
@@ -11,7 +10,8 @@ import { useTranslation } from '@app/helper/translate';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { Button } from '@app/components/button';
 import { v4 as uuidv4 } from 'uuid';
-import { useResolveClassNames, useUniwind } from 'uniwind';
+import { useUniwind } from 'uniwind';
+import { StyledLinearGradientWithTwoColors } from '@app/components/linear-gradient-with-two-colors';
 
 function useCurrentTabName() {
     // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
@@ -45,15 +45,10 @@ export const TabBar: React.FC = () => {
     const routeName = useCurrentTabName();
     const { theme } = useUniwind();
 
-    const colorBlue950_0 = useResolveClassNames('text-blue-950/0').color;
-    const colorGold50_0 = useResolveClassNames('text-gold-50/0').color;
-    const colorBlue950_90 = useResolveClassNames('text-blue-950/90').color;
-    const colorGold50_90 = useResolveClassNames('text-gold-50/90').color;
-
     const gradient =
         theme === 'dark'
-            ? ([colorBlue950_0 ?? 'black', colorBlue950_90 ?? 'black'] as const)
-            : ([colorGold50_0 ?? 'white', colorGold50_90 ?? 'white'] as const);
+            ? (['text-blue-950/0', 'text-blue-950/90'] as const)
+            : (['text-gold-50/0', 'text-gold-50/90'] as const);
 
     const scrollPosition = useScrollPosition();
     const { setScrollPosition, setScrollToTop } = useMutateScroll();
@@ -137,7 +132,7 @@ export const TabBar: React.FC = () => {
             </Animated.View>
 
             <Animated.View className={`absolute px-4 pb-2 w-full ${showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`} style={animatedStyle}>
-                <LinearGradient className="absolute left-0 right-0" style={{ bottom: -bottom, top: -16 }} locations={[0, 0.25]} colors={gradient} />
+                <StyledLinearGradientWithTwoColors className="absolute left-0 right-0" style={{ bottom: -bottom, top: -16 }} locations={[0, 0.25]} colorFromClassName={gradient[0]} colorToClassName={gradient[1]} />
                 <View className="flex-row p-2 rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black">
                     {routes.map((route) => {
                         // console.log('ROUTE', route.key, route.path);

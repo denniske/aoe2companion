@@ -2,7 +2,6 @@ import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Image } from '@/src/components/uniwind/image';
-import { LinearGradient } from 'expo-linear-gradient';
 import { startCase } from 'lodash';
 import { TouchableOpacity, View } from 'react-native';
 import { BuildRating } from './build-rating';
@@ -11,7 +10,8 @@ import { IBuildOrder, sortBuildAges } from '@/data/src/helper/builds';
 import { genericCivIcon, getCivIconLocal } from '../../../helper/civs';
 import { getDifficultyIcon } from '../../../helper/difficulties';
 import { Tag } from '../tag';
-import { useResolveClassNames, useUniwind } from 'uniwind';
+import { useUniwind } from 'uniwind';
+import React from 'react';
 
 export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: () => void; size?: 'small' | 'large' }> = ({
     favorited,
@@ -42,16 +42,6 @@ export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavo
         );
     }
 
-    const colorBlue900_0 = useResolveClassNames('text-blue-900/0').color;
-    const colorWhite_0 = useResolveClassNames('text-white/0').color;
-    const colorBlue900_100 = useResolveClassNames('text-blue-900/100').color;
-    const colorWhite_100 = useResolveClassNames('text-white/100').color;
-
-    const gradient =
-        theme === 'dark'
-            ? [colorBlue900_0 ?? 'black', colorBlue900_100 ?? 'black']
-            : [colorWhite_0 ?? 'white', colorWhite_100 ?? 'white'];
-
     return (
         <Card href={`/explore/build-orders/${build.id}`}>
             <Image source={{ uri: build.imageURL }} className="w-12 h-12" />
@@ -80,8 +70,6 @@ export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavo
                             {build.attributes.map((attribute) => (
                                 <Tag key={attribute}>{startCase(attribute)}</Tag>
                             ))}
-
-                            <LinearGradient className="absolute top-0 right-0 h-full w-4" colors={gradient} start={[0, 0]} end={[1, 0]} />
                         </View>
                         <View className="flex-row gap-2 items-center">
                             {difficultyIcon && <Image className="w-6 h-6" source={difficultyIcon} />}
