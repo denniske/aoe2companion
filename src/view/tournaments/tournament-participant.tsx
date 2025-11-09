@@ -5,9 +5,14 @@ import { EventParticipant } from 'liquipedia';
 import { Image } from '@/src/components/uniwind/image';
 import { getDifficultyIcon } from '../../helper/difficulties';
 import { router } from 'expo-router';
+import { FC } from 'react';
 
-export const TournamentParticipant: React.FC<{
-    participant: EventParticipant;
+interface EventParticipantWithProfileId extends EventParticipant {
+    profileId?: string;
+}
+
+export const TournamentParticipant: FC<{
+    participant: EventParticipantWithProfileId;
     position?: number;
     size?: number;
     style?: ViewStyle;
@@ -21,7 +26,7 @@ export const TournamentParticipant: React.FC<{
         <TouchableOpacity
             style={[styles.row, style]}
             onPress={() => {
-                router.navigate(`/matches/users/${participant.profileId}`);
+                router.navigate(`/matches/users/${participant.profileId}/main-profile`);
                 onNavigate?.();
             }}
             disabled={!participant.profileId}
