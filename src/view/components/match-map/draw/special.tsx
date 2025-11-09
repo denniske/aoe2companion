@@ -8,7 +8,6 @@ interface Props {
         position: { x: number; y: number };
         unit: string;
         color?: string;
-        time: number;
     };
     coord: (value: number) => number;
 }
@@ -16,9 +15,6 @@ interface Props {
 interface PropsOrigin {
     unit: {
         position: { x: number; y: number };
-        unit: string;
-        color?: string;
-        time: number;
     };
     coord: (value: number) => number;
 }

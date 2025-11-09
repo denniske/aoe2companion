@@ -61,7 +61,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
         .pop();
 
     return (
-        <BottomSheet isActive={visible} onClose={() => setVisible(false)} showHandle style={styles.modal}>
+        <BottomSheet isActive={visible} title="Match" onClose={() => setVisible(false)} style={styles.modal} closeButton={true}>
             {match ? (
                 <>
                     {tournamentPath && tournament && (

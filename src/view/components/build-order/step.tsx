@@ -1,10 +1,9 @@
-import { createStylesheet } from '../../../theming-new';
 import { IBuildOrder, IBuildOrderStandardResources, IBuildOrderStep } from '@/data/src/helper/builds';
-import { GestureResponderEvent, Platform, Pressable, StyleSheet, View } from 'react-native';
-import { MyText } from '../my-text';
+import { GestureResponderEvent, Pressable, View } from 'react-native';
 import { ResourceAlloc } from './step-resource';
 import { StepActions } from './step-actions';
-import { useEffect, useRef } from 'react';
+import { Text } from '@app/components/text';
+import { useEffect } from 'react';
 import { useAppTheme } from '../../../theming';
 import { startCase } from 'lodash';
 import { useTranslation } from '@app/helper/translate';
@@ -13,8 +12,8 @@ import Animated, {
     interpolateColor,
     useAnimatedStyle,
     useSharedValue,
-    withTiming
-} from "react-native-reanimated";
+    withTiming,
+} from 'react-native-reanimated';
 
 export interface StepProps {
     highlighted: boolean;
@@ -29,7 +28,6 @@ export interface StepProps {
 export const Step: React.FC<StepProps> = ({ highlighted, step, build, onPress, index, count, shownResources }) => {
     const getTranslation = useTranslation();
     const { resources } = step;
-    const styles = useStyles();
     const opacity = useSharedValue(0);
     const theme = useAppTheme();
 
@@ -51,32 +49,32 @@ export const Step: React.FC<StepProps> = ({ highlighted, step, build, onPress, i
 
     return (
         <Animated.View
+            className="flex-col h-[235px] rounded-sm shadow-md"
             style={[
-                styles.step,
                 animatedStyle,
             ]}
         >
-            <Pressable onPress={onPress} style={styles.stepPressable}>
-                <View style={styles.stepHeader}>
-                    <MyText style={styles.text}>
+            <Pressable onPress={onPress} className="flex-1 rounded-lg overflow-hidden">
+                <View className="flex-row items-center justify-between p-4 bg-skeleton">
+                    <Text variant="header">
                         {getTranslation('builds.step.currentstep', {
                             step: index + 1,
                         })}{' '}
-                        <MyText style={[styles.text, styles.textNormal]}>
+                        <Text variant="body-xl">
                             {getTranslation('builds.step.maxstep', {
                                 max: count,
                             })}
-                        </MyText>
-                    </MyText>
+                        </Text>
+                    </Text>
                 </View>
-                <View style={styles.stepCentered}>
-                    <View style={styles.stepBody}>
+                <View className="flex-1 justify-center items-center">
+                    <View className="p-4">
                         <StepActions {...step} pop={step.age === 'feudalAge' ? build.pop[step.age] : undefined} />
 
-                        <MyText style={styles.text}>{step.text}</MyText>
+                        <Text variant="header">{step.text}</Text>
                     </View>
                 </View>
-                <View style={styles.stepFooter}>
+                <View className="flex-row items-center justify-between p-4 bg-skeleton">
                     {shownResources.map((resourceName) => (
                         <ResourceAlloc resource={startCase(resourceName)} count={resources[resourceName]} key={resourceName} />
                     ))}
@@ -85,57 +83,3 @@ export const Step: React.FC<StepProps> = ({ highlighted, step, build, onPress, i
         </Animated.View>
     );
 };
-
-const useStyles = createStylesheet((theme, darkMode) =>
-    StyleSheet.create({
-        step: {
-            flexDirection: 'column',
-            height: 235,
-            borderRadius: 4,
-            elevation: 4,
-            shadowColor: '#000000',
-            shadowOffset: {
-                width: 0,
-                height: 3,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
-        },
-        stepPressable: {
-            flex: 1,
-        },
-        stepCentered: {
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        stepBody: {
-            padding: 15,
-        },
-        stepFooter: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            backgroundColor: theme.skeletonColor,
-            padding: 15,
-            borderBottomLeftRadius: 4,
-            borderBottomRightRadius: 4,
-        },
-        stepHeader: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            backgroundColor: theme.skeletonColor,
-            padding: 15,
-            borderTopLeftRadius: 4,
-            borderTopRightRadius: 4,
-        },
-        text: {
-            fontSize: 18,
-            fontWeight: 'bold',
-        },
-        textNormal: {
-            fontWeight: 'normal',
-        },
-    })
-);

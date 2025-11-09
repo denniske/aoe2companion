@@ -174,7 +174,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                                         {
                                             font,
                                             labelColor: appTheme.textColor,
-                                            yKeys: [key],
+                                            yKeys: [key as any],
                                             linePathEffect: <DashPathEffect intervals={[4, 4]} />,
                                             formatYLabel: tickFormat,
                                         },
@@ -219,8 +219,8 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
             className="-mx-4 pb-6"
             slides={graphs.map(({ label, key, domain, tickFormat }) => {
                 const data = breakdown.priorStats.map((prior) => ({
-                    patch: prior.patch,
                     date: patches?.find((patch) => patch.number === prior.patch)?.release_date,
+                    patch: prior.patch,
                     [key]: prior.civ_stats[civ][key],
                 }));
 
@@ -257,8 +257,8 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                             formatYLabel: tickFormat,
                                         },
                                     ]}
-                                    xKey="date"
-                                    yKeys={[key]}
+                                    xKey={'date' as any}
+                                    yKeys={[key as any]}
                                 >
                                     {({ points, chartBounds }) =>
                                         domain[0] < domain[1] ? (

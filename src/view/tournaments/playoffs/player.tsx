@@ -7,9 +7,17 @@ import { CountryImage } from '../../components/country-image';
 import { getCivIconLocal } from '../../../helper/civs';
 import { civAbbrEnumListData } from '@nex/dataset';
 import { capitalize } from 'lodash';
+import { FC } from 'react';
 
-export const PlayoffPlayer: React.FC<{ player: EventPlayer; reverse?: boolean }> = ({ player, reverse = false }) => {
+interface EventPlayerWithCiv extends EventPlayer {
+    civ?: string;
+}
+
+export const PlayoffPlayer: FC<{ player: EventPlayerWithCiv; reverse?: boolean }> = ({ player, reverse = false }) => {
     const styles = useStyles();
+
+    // console.log('==============> PlayoffPlayer', player.civ, player.civilization);
+
     const civ = player.civ ? capitalize(player.civ) : player.civilization ? civAbbrEnumListData[player.civilization] : undefined;
 
     return (

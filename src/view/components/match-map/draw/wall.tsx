@@ -7,7 +7,6 @@ interface Props {
         position: { x: number; y: number };
         positionEnd: { x: number; y: number };
         color?: string;
-        time: number;
     };
     coord: (value: number) => number;
 }

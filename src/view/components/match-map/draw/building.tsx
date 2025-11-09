@@ -8,7 +8,6 @@ interface Props {
         width: number;
         height: number;
         color?: string;
-        time: number;
     };
     coord: (value: number) => number;
 }

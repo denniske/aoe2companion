@@ -1,5 +1,5 @@
 import {
-    AbilityHelperProps,
+    AbilityHelperProps, Age,
     aoeCivKey,
     Building,
     Civ,
@@ -98,11 +98,11 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
 }
 
 interface Ability3Props {
-    age: Other;
+    age: Age;
 }
 
 interface AbilityProps {
-    age?: Other;
+    age?: Age;
     civ?: Civ;
     tech?: Tech;
     unit?: Unit;

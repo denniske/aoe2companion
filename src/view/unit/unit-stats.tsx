@@ -5,7 +5,7 @@ import {
     ageUpgrades,
     allUnitSections,
     attackClasses,
-    Building,
+    Building, getAgeName,
     getBuildingData,
     getBuildingName,
     getUnitClassName,
@@ -88,10 +88,10 @@ export function GetValueByPath(props: PathProps) {
     const upgradeByAgeData = getUpgradeByAgeData({ unitId, buildingId });
     const eliteData = unitId ? getEliteData(getUnitLineIdForUnit(unitId)) : null;
 
-    const ageList = ['Dark', 'Feudal', 'Castle', 'Imperial'] as Age[];
+    const ageList = ['DarkAge', 'FeudalAge', 'CastleAge', 'ImperialAge'] as Age[];
 
     const hasAgeUpgrade = (age: Age) => upgradeByAgeData?.[age] && path(upgradeByAgeData?.[age]!) != null;
-    const hasAnyAgeUpgrade = hasAgeUpgrade('Dark') || hasAgeUpgrade('Feudal') || hasAgeUpgrade('Castle') || hasAgeUpgrade('Imperial');
+    const hasAnyAgeUpgrade = hasAgeUpgrade('DarkAge') || hasAgeUpgrade('FeudalAge') || hasAgeUpgrade('CastleAge') || hasAgeUpgrade('ImperialAge');
 
     const getUpgradeOverAges = (age: Age) => {
         let value = 0;
@@ -120,7 +120,7 @@ export function GetValueByPath(props: PathProps) {
                                         <MyText>{'\n'}</MyText>
                                     )}
                                     <MyText>{formatter(path(baseData) + getUpgradeOverAges(age))} </MyText>
-                                    <MyText style={styles.small}>({age} age)</MyText>
+                                    <MyText style={styles.small}>({getAgeName(age)})</MyText>
                                 </MyText>
                             )
                     )}
@@ -275,9 +275,9 @@ export function getAttackBonuses(params: GetDataParams) {
     return uniq([
         ...attackBonuses,
         ...attackBonusesElite,
-        ...ageUpgradeAttackBonuses('Feudal'),
-        ...ageUpgradeAttackBonuses('Castle'),
-        ...ageUpgradeAttackBonuses('Imperial'),
+        ...ageUpgradeAttackBonuses('FeudalAge'),
+        ...ageUpgradeAttackBonuses('CastleAge'),
+        ...ageUpgradeAttackBonuses('ImperialAge'),
     ]);
 }
 

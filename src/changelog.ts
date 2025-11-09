@@ -286,6 +286,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '168.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix unit info that changes for Feudal/Castle/Imperial age (e.g. Serjeant Hit Points)',
+        },
+    ],
     '167.0.0': [
         // Note: Also switched react compiler on
         {

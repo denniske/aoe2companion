@@ -67,13 +67,19 @@ export function ProfileLive({ data }: { data: IPlayerNew }) {
         return <MyText />;
     }
 
+    // const socialTwitchChannelUrl = "https://twitch.tv/example";
+    // const playerTwitchLive = {
+    //     type: 'live',
+    //     viewer_count: 10,
+    // }
+
     return (
-        <MyText style={styles.row} onPress={() => openLink(socialTwitchChannelUrl)}>
+        <MyText onPress={() => openLink(socialTwitchChannelUrl)}>
             {playerTwitchLive?.type === 'live' && (
                 <>
                     <MyText style={{ color: '#e91a16' }}> ● </MyText>
                     <MyText>{playerTwitchLive.viewer_count} </MyText>
-                    <FontAwesome5 solid name="twitch" size={14} style={styles.twitchIcon} />
+                    <FontAwesome5 solid name="twitch" size={14} />
                     <MyText> </MyText>
                 </>
             )}

@@ -1,5 +1,4 @@
 import { createStylesheet } from '../../../theming-new';
-import { IBuildOrderStep } from 'data/src/helper/builds';
 import { ImageSourcePropType, StyleSheet, View } from 'react-native';
 import { getTechIcon } from '../../../helper/techs';
 import {getAgeIcon, getOtherIcon, getUnitIcon} from '../../../helper/units';
@@ -7,9 +6,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { getBuildingIcon } from '../../../helper/buildings';
 import { MyText } from '../my-text';
 import { startCase } from 'lodash';
-import { Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import { Image } from '@/src/components/uniwind/image';
 import { useTranslation } from '@app/helper/translate';
+import { IBuildOrderStep } from '@/data/src/helper/builds';
 
 type Size = 'small' | 'large';
 
@@ -37,13 +37,13 @@ const taskMap: Record<NonNullable<IBuildOrderStep['task']>, ImageSourcePropType>
     collect40GoldWithTwoNewVillagers: 0,
 };
 
-const PlusIcon: React.FC<{ move?: boolean; size: Size }> = ({ move, size }) => {
+const PlusIcon: FC<{ move?: boolean; size: Size }> = ({ move, size }) => {
     const styles = useStyles();
 
     return <FontAwesome5 name={move ? 'arrow-right' : 'plus'} size={size === 'small' ? 10 : 14} style={styles.plusIcon} />;
 };
 
-const TaskIcon: React.FC<{ item?: string; size: Size }> = ({ item, size }) => {
+const TaskIcon: FC<{ item?: string; size: Size }> = ({ item, size }) => {
     const styles = useStyles();
     const taskIcon = item ? taskMap[item as unknown as NonNullable<IBuildOrderStep['task']>] : getBuildingIcon('House');
     const sizeNumber = size === 'small' ? 20 : 30;
@@ -65,7 +65,7 @@ function mapBuilding(building: string): string {
     }
 }
 
-export const StepActions: React.FC<IBuildOrderStep & { pop?: string | number; size?: Size }> = (step) => {
+export const StepActions: FC<IBuildOrderStep & { pop?: string | number; size?: Size }> = (step) => {
     const getTranslation = useTranslation();
     const styles = useStyles();
     const { buildings, tech, type, count, task, from, to, age, unit, pop, action, resource, size = 'large' } = step;

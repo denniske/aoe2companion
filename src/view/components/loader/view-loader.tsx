@@ -1,18 +1,16 @@
-import { StyleSheet, TextProps, View } from 'react-native';
+import { View, ViewProps } from 'react-native';
 import React from 'react';
-import { createStylesheet } from '../../../theming-new';
 
-type TextLoaderProps = TextProps & { children?: React.ReactNode, ready?: any }
+type TextLoaderProps = ViewProps & { children?: React.ReactNode, ready?: any }
 
 export function ViewLoader(props: TextLoaderProps) {
-    const styles = useStyles();
-    const { children, ...rest } = props;
+    const { children, className, ...rest } = props;
 
     if (props.children == null || ('ready' in props && !props.ready)) {
         return (
-            <View {...rest} style={[rest.style, { flexDirection: 'row', display: 'flex'}]}>
-                <View style={styles.container}>
-                    <View style={styles.view}>{children}</View>
+            <View {...rest} className={`flex flex-row ${className}`}>
+                <View className="flex-row bg-skeleton rounded-md">
+                    <View className="opacity-0">{children}</View>
                 </View>
             </View>
         );
@@ -21,14 +19,3 @@ export function ViewLoader(props: TextLoaderProps) {
         <View>{children}</View>
     )
 }
-
-const useStyles = createStylesheet(theme => StyleSheet.create({
-    container: {
-        backgroundColor: theme.skeletonColor,
-        borderRadius: 5,
-        flexDirection: 'row',
-    },
-    view: {
-        opacity: 0,
-    },
-}));

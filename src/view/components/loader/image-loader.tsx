@@ -1,11 +1,6 @@
-import {Image, ImageProps, StyleSheet, View} from "react-native";
-import React from "react";
-import {MyText} from "../my-text";
-import {createStylesheet} from '../../../theming-new';
-
-// interface ImageLoaderProps extends ImageProps {
-//     source?: ImageSourcePropType;
-// }
+import { Image, ImageProps, View } from 'react-native';
+import React from 'react';
+import { Text } from '@app/components/text';
 
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
 type ImageLoaderProps = Optional<ImageProps, 'source'> & {
@@ -13,11 +8,11 @@ type ImageLoaderProps = Optional<ImageProps, 'source'> & {
 }
 
 export function ImageLoader(props: ImageLoaderProps) {
-    const styles = useStyles();
+    const { className, ...rest } = props;
     if (props.source == null || ('ready' in props && !props.ready)) {
         return (
-            <View {...props} style={[props.style, styles.container, {height: 'auto'}]}>
-                <MyText style={styles.text} numberOfLines={1}>....................................</MyText>
+            <View {...rest} className={`flex-row bg-skeleton rounded-sm h-auto ${className}`}>
+                <Text className="text-transparent !leading-[normal]" numberOfLines={1}>....................................</Text>
             </View>
         );
     }
@@ -25,14 +20,3 @@ export function ImageLoader(props: ImageLoaderProps) {
         <Image {...(props as ImageProps)}/>
     )
 }
-
-const useStyles = createStylesheet(theme => StyleSheet.create({
-    container: {
-        backgroundColor: theme.skeletonColor,
-        borderRadius: 5,
-        flexDirection: 'row',
-    },
-    text: {
-        color: 'transparent',
-    },
-}));

@@ -41,21 +41,63 @@
     --color-gold-950: #453802;
 }
 
+/*
+export const light: ITheme = {
+    backgroundColor: "white",
+    textColor: "black",
+    textNoteColor: "#333",
+    borderColor: '#AAA',
+    hoverBackgroundColor: '#CCC',
+    lightBackgroundColor: '#AAA',
+    lightBorderColor: '#EEE',
+    skeletonColor: '#EEE',
+    linkColor: '#397AF9',
+};
+
+export const dark: ITheme = {
+    backgroundColor: "#121212",
+    textColor: "white",
+    textNoteColor: "#BBB",
+    borderColor: '#101010',
+    hoverBackgroundColor: '#555',
+    lightBackgroundColor: '#333',
+    lightBorderColor: '#101010',
+    skeletonColor: '#111',
+    linkColor: '#0A84FF', // from react navigation dark theme primary
+};
+ */
+
 @layer theme {
     :root {
         @variant light {
-            --color-background: #ffffff;
             --color-foreground: #000000;
-            --color-muted: #f3f4f6;
             --color-brand: var(--color-blue-600);
             --color-subtle: var(--color-gray-800);
+
+            --color-background: white;
+            --color-text: black;
+            --color-textNote: #333;
+            --color-border: #AAA;
+            --color-hoverBackground: #CCC;
+            --color-lightBackground: #AAA;
+            --color-lightBorder: #EEE;
+            --color-skeleton: #EEE;
+            --color-link: #397AF9;
         }
         @variant dark {
-            --color-background: #000000;
             --color-foreground: #ffffff;
-            --color-muted: #374151;
             --color-brand: var(--color-gold-200);
             --color-subtle: var(--color-gray-200);
+
+            --color-background: #121212;
+            --color-text: white;
+            --color-textNote: #BBB;
+            --color-border: #101010;
+            --color-hoverBackground: #555;
+            --color-lightBackground: #333;
+            --color-lightBorder: #101010;
+            --color-skeleton: #111;
+            --color-link: #0A84FF; /* from react navigation dark theme primary */
         }
     }
 }
