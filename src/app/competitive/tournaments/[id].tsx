@@ -296,9 +296,9 @@ export default function TournamentDetail() {
                                                             ))}
                                                         </Card>
 
-                                                        <View className="flex-row flex-wrap mb-4" style={{ rowGap: 12 }}>
+                                                        <View className="flex-row flex-wrap mb-4 gap-2" style={{ rowGap: 12 }}>
                                                             {group.rounds.map((round) => (
-                                                                <PlayoffRound round={round} width="50%" key={round.id} />
+                                                                <PlayoffRound key={round.id} round={round} className="w-[calc(50%-0.25rem)]" />
                                                             ))}
                                                         </View>
                                                     </View>
@@ -328,25 +328,25 @@ export default function TournamentDetail() {
                                             >
                                                 {tournament.playoffs.map((playoffRow, index) => (
                                                     <View className="w-full gap-2" key={index}>
-                                                        {playoffRow.name && playoffRow.name !== 'Playoffs' && (
-                                                            <View className="flex-row justify-between">
-                                                                <Text variant="label-lg">{playoffRow.name}</Text>
-                                                                {playoffRow.advances?.length ? (
-                                                                    <Text>
-                                                                        {playoffRow.advances.map((player) => player.name).join(', ')}{' '}
-                                                                        {playoffRow.advances.length === 1 ? 'advances' : 'advance'}
-                                                                    </Text>
-                                                                ) : null}
-                                                            </View>
-                                                        )}
+                                                        {/*{playoffRow.name && playoffRow.name !== 'Playoffs' && (*/}
+                                                        {/*    <View className="flex-row justify-between">*/}
+                                                        {/*        <Text variant="label-lg">{playoffRow.name}</Text>*/}
+                                                        {/*        {playoffRow.advances?.length ? (*/}
+                                                        {/*            <Text>*/}
+                                                        {/*                {playoffRow.advances.map((player) => player.name).join(', ')}{' '}*/}
+                                                        {/*                {playoffRow.advances.length === 1 ? 'advances' : 'advance'}*/}
+                                                        {/*            </Text>*/}
+                                                        {/*        ) : null}*/}
+                                                        {/*    </View>*/}
+                                                        {/*)}*/}
                                                         <ScrollView
-                                                            className="-mx-3"
+                                                            className="w-full"
                                                             horizontal
                                                             showsHorizontalScrollIndicator={false}
-                                                            contentContainerClassName="gap-5"
+                                                            contentContainerClassName="gap-2"
                                                         >
                                                             {playoffRow.rounds.map((playoffRound) => (
-                                                                <PlayoffRound round={playoffRound} width={playoffRoundWidth} key={playoffRound.id} />
+                                                                <PlayoffRound key={playoffRound.id} round={playoffRound} style={{width: playoffRoundWidth-8 }} />
                                                             ))}
                                                         </ScrollView>
                                                     </View>
