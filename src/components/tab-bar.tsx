@@ -132,7 +132,12 @@ export const TabBar: React.FC = () => {
             </Animated.View>
 
             <Animated.View className={`absolute px-4 pb-2 w-full ${showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`} style={animatedStyle}>
-                <StyledLinearGradientWithTwoColors className="absolute left-0 right-0" style={{ bottom: -bottom, top: -16 }} locations={[0, 0.25]} colorFromClassName={gradient[0]} colorToClassName={gradient[1]} />
+                <StyledLinearGradientWithTwoColors
+                    style={{ position: 'absolute', left: 0, right: 0, bottom: -bottom, top: -16 }}
+                    locations={[0, 0.25]}
+                    colorFromClassName={gradient[0]}
+                    colorToClassName={gradient[1]}
+                />
                 <View className="flex-row p-2 rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black">
                     {routes.map((route) => {
                         // console.log('ROUTE', route.key, route.path);
