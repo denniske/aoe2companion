@@ -17,6 +17,10 @@ export const changelog4: IChangelog = {
         },
         {
             type: 'bugfix',
+            title: 'Fix back button and follow button color in dark mode',
+        },
+        {
+            type: 'bugfix',
             title: 'Fix missing biome names in match options',
         },
         {
@@ -304,6 +308,10 @@ export const changelog: IChangelog = {
         {
             type: 'bugfix',
             title: 'Fix account steam linking (Android)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix back button and follow button color in dark mode',
         },
     ],
     '169.0.0': [

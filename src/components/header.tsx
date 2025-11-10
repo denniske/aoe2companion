@@ -17,7 +17,7 @@ export const Header: React.FC<NativeStackHeaderProps | (BottomTabHeaderProps & {
             {back && (
                 <View>
                     <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={10}>
-                        <Icon icon="angle-left" size={22} />
+                        <Icon icon="angle-left" size={22} color="foreground" />
                     </TouchableOpacity>
                 </View>
             )}

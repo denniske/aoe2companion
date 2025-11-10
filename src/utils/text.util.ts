@@ -38,23 +38,23 @@ export const textVariantStyles: Record<TextVariant, { fontSize: number; lineHeig
 };
 
 export const textColors: Record<TextColor, string | undefined> = {
-    link: 'text-[#397AF9] dark:text-[#0A84FF]',
+    link: 'text-link',
 
     foreground: 'text-foreground',
     white: 'text-white',
     brand: 'text-brand',
 
     subtle: 'text-subtle',
-    default: 'text-black dark:text-white',
+    default: 'text-default',
 };
 
 export const accentColors: Record<TextColor, string | undefined> = {
-    link: 'text-[#397AF9] dark:text-[#0A84FF]',
+    link: 'accent-link',
 
     foreground: 'accent-foreground',
     white: 'accent-white',
     brand: 'accent-brand',
 
     subtle: 'accent-subtle',
-    default: 'text-black dark:text-white',
+    default: 'accent-default',
 };

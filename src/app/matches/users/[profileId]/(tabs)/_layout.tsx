@@ -281,7 +281,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                     hitSlop={10}
                     onPress={followingThisUser ? () => unfollowMutation.mutate([profileId]) : () => followMutation.mutate([profileId])}
                 >
-                    <Icon prefix={followingThisUser ? 'fass' : 'fasr'} icon="heart" size={20} color="text-[#ef4444]" />
+                    <Icon prefix={followingThisUser ? 'fass' : 'fasr'} icon="heart" size={20} color="accent-[#ef4444]" />
                 </TouchableOpacity>
             </View>
         );
