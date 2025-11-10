@@ -2,7 +2,7 @@ import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
 import { useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, TouchableOpacity, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
@@ -23,10 +23,8 @@ import {
 import { ParamListBase, TabNavigationState } from '@react-navigation/native';
 import { openLink } from '@app/helper/url';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { createStylesheet } from '@app/theming-new';
 import { useTournamentPlayer } from '@app/api/tournaments';
 import { TournamentPlayerPopup } from '@app/view/tournaments/player-popup';
-import { FontAwesomeIconStyle } from '@fortawesome/react-native-fontawesome';
 import { MyText } from '@app/view/components/my-text';
 import { Image } from '@/src/components/uniwind/image';
 import { getCountryName } from '@app/helper/flags';
@@ -56,7 +54,6 @@ export function UserMenu({ profile }: UserMenuProps) {
     const getTranslation = useTranslation();
     const profileId = profile?.profileId;
     const authProfileId = useAuthProfileId();
-    const styles = useStyles();
     const [linkedProfilesVisible, setLinkedProfilesVisible] = useState(false);
     const theme = useAppTheme();
 
@@ -144,7 +141,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                 )}
 
                 {profile.verified && (
-                    <TouchableOpacity style={styles.menuButton} onPress={() => setShowTournamentPlayer(true)}>
+                    <TouchableOpacity className="w-8 items-center justify-center"onPress={() => setShowTournamentPlayer(true)}>
                         <Icon icon="check-circle" color="brand" size={20} />
                         {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
                     </TouchableOpacity>
@@ -161,7 +158,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                     visible={linkedProfilesVisible}
                     onDismiss={() => setLinkedProfilesVisible(false)}
                     anchor={
-                        <TouchableOpacity style={styles.menuButton} onPress={() => setLinkedProfilesVisible(true)}>
+                        <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setLinkedProfilesVisible(true)}>
                             <Icon icon="family" color="brand" size={20} />
                         </TouchableOpacity>
                     }
@@ -238,21 +235,20 @@ export function UserMenu({ profile }: UserMenuProps) {
                                         return (
                                             <TouchableOpacity
                                                 key={linkedProfile.profileId}
-                                                className="flex-row gap-1 items-center"
+                                                className="flex-row gap-2 items-center"
                                                 onPress={() => navigateToLinkedProfile(linkedProfile.profileId)}
                                             >
-                                                <Image source={{ uri: linkedProfile.avatarMediumUrl }} className="w-5 h-5 mr-1 rounded-full" />
+                                                <Image source={{ uri: linkedProfile.avatarMediumUrl }} className="w-5 h-5 rounded-full" />
                                                 <Text variant="body">{linkedProfile.name}</Text>
                                                 {linkedProfile.verified && (
                                                     <Icon
                                                         icon="check-circle"
                                                         color="brand"
                                                         size={14}
-                                                        style={styles.verifiedIcon as FontAwesomeIconStyle}
                                                     />
                                                 )}
                                                 {!linkedProfile.verified && linkedProfile.shared && (
-                                                    <Icon icon="family" color="brand" size={14} style={styles.verifiedIcon as FontAwesomeIconStyle} />
+                                                    <Icon icon="family" color="brand" size={14} />
                                                 )}
                                                 {!!linkedProfile.clan && (
                                                     <MyText>
@@ -277,7 +273,7 @@ export function UserMenu({ profile }: UserMenuProps) {
                 </MenuNew>
 
                 <TouchableOpacity
-                    style={styles.menuButton}
+                    className="w-8 items-center justify-center"
                     hitSlop={10}
                     onPress={followingThisUser ? () => unfollowMutation.mutate([profileId]) : () => followMutation.mutate([profileId])}
                 >
@@ -287,28 +283,6 @@ export function UserMenu({ profile }: UserMenuProps) {
         );
     }
 }
-
-const useStyles = createStylesheet((theme) =>
-    StyleSheet.create({
-        menu: {
-            // backgroundColor: 'red',
-            flexDirection: 'row',
-        },
-        menuButton: {
-            // backgroundColor: 'blue',
-            width: 32,
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        menuIcon: {
-            color: theme.textNoteColor,
-        },
-        verifiedIcon: {
-            marginLeft: 5,
-            color: theme.linkColor,
-        },
-    } as const)
-);
 
 type UserPageParams = {
     profileId: string;
