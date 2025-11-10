@@ -80,7 +80,7 @@ export default function AccountPage() {
 
     const toggleSharedHistory = async () => {
         saveAccountMutation.mutate({
-            sharedHistory: !account.data!.sharedHistory,
+            sharedHistory: !account?.data?.sharedHistory, // React compiler bug workaround https://github.com/facebook/react/issues/31205
         });
     };
 
