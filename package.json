@@ -6,6 +6,7 @@
     "start": "GAME=aoe2 expo start -c --dev-client -p 8081",
     "start:tunnel": "GAME=aoe2 expo start -c --dev-client -p 8081 --tunnel",
     "start4": "GAME=aoe4 expo start -c --dev-client -p 8082",
+    "start4:tunnel": "GAME=aoe4 expo start -c --dev-client -p 8082 --tunnel",
     "prebuild": "GAME=aoe2 expo prebuild",
     "prebuild4": "GAME=aoe4 expo prebuild",
     "dev:sim:ios": "PLATFORM=ios bash publish-dev-sim.sh",
