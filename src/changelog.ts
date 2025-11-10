@@ -15,6 +15,14 @@ export const changelog4: IChangelog = {
             type: 'bugfix',
             title: 'Fix account steam linking (Android)',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix missing biome names in match options',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix duration in match info',
+        },
     ],
     '26.0.0': [
         // Note: Also switched react compiler on

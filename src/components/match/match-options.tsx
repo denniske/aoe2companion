@@ -22,33 +22,33 @@ export default function MatchOptions(props: Props) {
         <Card direction="vertical">
             {appConfig.game === 'aoe4' && (
                 <View className="flex-col gap-1">
-                    <View className="flex-row items-center gap-1">
-                        <Text className="w-[180px]">{getTranslation('match.winConditions')}:</Text>
-                        <Text>{match.winConditionsName}</Text>
+                    <View className="flex-row gap-1">
+                        <Text className="w-[180px] flex-none">{getTranslation('match.winConditions')}:</Text>
+                        <Text className="flex-1">{match.winConditionsName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[180px]">{getTranslation('match.mapSize')}:</Text>
-                        <Text>{match.mapSizeName}</Text>
+                        <Text className="w-[180px] flex-none">{getTranslation('match.mapSize')}:</Text>
+                        <Text className="flex-1">{match.mapSizeName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[180px]">{getTranslation('match.biome')}:</Text>
-                        <Text>{match.biomeName}</Text>
+                        <Text className="w-[180px] flex-none">{getTranslation('match.biome')}:</Text>
+                        <Text className="flex-1">{match.biomeName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[180px]">{getTranslation('match.startingResources')}:</Text>
-                        <Text>{match.startingResourcesName}</Text>
+                        <Text className="w-[180px] flex-none">{getTranslation('match.startingResources')}:</Text>
+                        <Text className="flex-1">{match.startingResourcesName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[180px]">{getTranslation('match.startingAge')}:</Text>
-                        <Text>{match.startingAgeName}</Text>
+                        <Text className="w-[180px] flex-none">{getTranslation('match.startingAge')}:</Text>
+                        <Text className="flex-1">{match.startingAgeName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[180px]">{getTranslation('match.mapState')}:</Text>
-                        <Text>{match.mapStateName}</Text>
+                        <Text className="w-[180px] flex-none">{getTranslation('match.mapState')}:</Text>
+                        <Text className="flex-1">{match.mapStateName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[180px]">{getTranslation('match.cheats')}:</Text>
-                        <Text>{match.cheats ? 'Yes' : 'No'}</Text>
+                        <Text className="w-[180px] flex-none">{getTranslation('match.cheats')}:</Text>
+                        <Text className="flex-1">{match.cheats ? 'Yes' : 'No'}</Text>
                     </View>
                 </View>
             )}
@@ -56,60 +56,60 @@ export default function MatchOptions(props: Props) {
             {appConfig.game === 'aoe2' && (
                 <View className="flex-col gap-1">
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[50%] ml-5">{getTranslation('match.gameMode')}:</Text>
+                        <Text className="w-[50%] flex-none ml-5">{getTranslation('match.gameMode')}:</Text>
                         <Text className="flex-1 -ml-5">{match.gameModeName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[50%] ml-5">{getTranslation('match.map')}:</Text>
+                        <Text className="w-[50%] flex-none ml-5">{getTranslation('match.map')}:</Text>
                         <Text className="flex-1 -ml-5">{match.mapName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
-                        <Text className="w-[50%] ml-5">{getTranslation('match.mapsize')}:</Text>
+                        <Text className="w-[50%] flex-none ml-5">{getTranslation('match.mapsize')}:</Text>
                         <Text className="flex-1 -ml-5">{match.mapSizeName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
                         <Image source={require('../../../assets/explorer/match-icons/difficulty.png')} className="w-4 h-4"/>
-                        <Text className="w-[50%]">{getTranslation('match.aidifficulty')}:</Text>
+                        <Text className="w-[50%] flex-none">{getTranslation('match.aidifficulty')}:</Text>
                         <Text className="flex-1 -ml-5">{match.difficultyName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
                         <Image source={require('../../../assets/explorer/match-icons/resources.png')} className="w-4 h-4"/>
-                        <Text className="w-[50%]">{getTranslation('match.resources')}:</Text>
+                        <Text className="w-[50%] flex-none">{getTranslation('match.resources')}:</Text>
                         <Text className="flex-1 -ml-5">{match.resourcesName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
                         <Image source={require('../../../assets/explorer/match-icons/population.png')} className="w-4 h-4"/>
-                        <Text className="w-[50%]">{getTranslation('match.population')}:</Text>
+                        <Text className="w-[50%] flex-none">{getTranslation('match.population')}:</Text>
                         <Text className="flex-1 -ml-5">{match.population}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
                         <Image source={require('../../../assets/explorer/match-icons/speed.png')} className="w-4 h-4"/>
-                        <Text className="w-[50%]">{getTranslation('match.gamespeed')}:</Text>
+                        <Text className="w-[50%] flex-none">{getTranslation('match.gamespeed')}:</Text>
                         <Text className="flex-1 -ml-5">{match.speedName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
                         <Image source={require('../../../assets/explorer/match-icons/visibility.png')} className="w-4 h-4"/>
-                        <Text className="w-[50%]">{getTranslation('match.revealmap')}:</Text>
+                        <Text className="w-[50%] flex-none">{getTranslation('match.revealmap')}:</Text>
                         <Text className="flex-1 -ml-5">{match.revealMapName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
                         <Image source={require('../../../assets/explorer/match-icons/age.png')} className="w-4 h-4"/>
-                        <Text className="w-[50%]">{getTranslation('match.startingage')}:</Text>
+                        <Text className="w-[50%] flex-none">{getTranslation('match.startingage')}:</Text>
                         <Text className="flex-1 -ml-5">{match.startingAgeName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
                         <Image source={require('../../../assets/explorer/match-icons/age.png')} className="w-4 h-4"/>
-                        <Text className="w-[50%]">{getTranslation('match.endingage')}:</Text>
+                        <Text className="w-[50%] flex-none">{getTranslation('match.endingage')}:</Text>
                         <Text className="flex-1 -ml-5">{match.endingAgeName}</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
                         <Image source={require('../../../assets/explorer/match-icons/treaty.png')} className="w-4 h-4"/>
-                        <Text className="w-[50%]">{getTranslation('match.treatylength')}:</Text>
+                        <Text className="w-[50%] flex-none">{getTranslation('match.treatylength')}:</Text>
                         <Text className="flex-1 -ml-5">{match.treatyLength} minutes</Text>
                     </View>
                     <View className="flex-row items-center gap-1">
                         <Image source={require('../../../assets/explorer/match-icons/victory.png')} className="w-4 h-4"/>
-                        <Text className="w-[50%]">{getTranslation('match.victory')}:</Text>
+                        <Text className="w-[50%] flex-none">{getTranslation('match.victory')}:</Text>
                         <Text className="flex-1 -ml-5">{match.victoryName}</Text>
                     </View>
 
