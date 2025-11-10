@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
+    '27.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix account steam linking (Android)',
+        },
+    ],
     '26.0.0': [
         // Note: Also switched react compiler on
         {
@@ -286,6 +292,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '170.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix account steam linking (Android)',
+        },
+    ],
     '169.0.0': [
         {
             type: 'bugfix',
