@@ -10,8 +10,6 @@ import { useTranslation } from '@app/helper/translate';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { Button } from '@app/components/button';
 import { v4 as uuidv4 } from 'uuid';
-import { useUniwind } from 'uniwind';
-import { StyledLinearGradientWithTwoColors } from '@app/components/linear-gradient-with-two-colors';
 
 function useCurrentTabName() {
     // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
@@ -43,12 +41,6 @@ export const TabBar: React.FC = () => {
     const { bottom } = insets;
     const router = useRouter();
     const routeName = useCurrentTabName();
-    const { theme } = useUniwind();
-
-    const gradient =
-        theme === 'dark'
-            ? (['text-blue-950/0', 'text-blue-950/90'] as const)
-            : (['text-gold-50/0', 'text-gold-50/90'] as const);
 
     const scrollPosition = useScrollPosition();
     const { setScrollPosition, setScrollToTop } = useMutateScroll();
@@ -132,11 +124,9 @@ export const TabBar: React.FC = () => {
             </Animated.View>
 
             <Animated.View className={`absolute px-4 pb-2 w-full ${showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`} style={animatedStyle}>
-                <StyledLinearGradientWithTwoColors
+                <View
                     style={{ position: 'absolute', left: 0, right: 0, bottom: -bottom, top: -16 }}
-                    locations={[0, 0.25]}
-                    colorFromClassName={gradient[0]}
-                    colorToClassName={gradient[1]}
+                    className="bg-gradient-to-b from-[0%] to-[25%] from-gold-50/0 to-gold-50/90 dark:from-blue-950/0 dark:to-blue-950/90"
                 />
                 <View className="flex-row p-2 rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black">
                     {routes.map((route) => {

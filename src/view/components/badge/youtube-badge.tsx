@@ -1,8 +1,7 @@
-import {Linking, Platform, StyleSheet, TouchableOpacity} from "react-native";
-import React from "react";
-import {createStylesheet} from '../../../theming-new';
+import { TouchableOpacity } from 'react-native';
+import React from 'react';
 import Badge from './badge';
-import {openLink} from "../../../helper/url";
+import { openLink } from '../../../helper/url';
 
 
 interface Props {
@@ -16,7 +15,7 @@ export default function YoutubeBadge(props: Props) {
         <TouchableOpacity onPress={() => openLink(channelUrl)}>
             <Badge
                 label="Youtube"
-                labelColor="#FF0000"
+                labelColor="#FF0233"
                 // content={'100k subscribers'}
                 // contentColor="#333638"
                 logoIcon="youtube"
@@ -24,5 +23,3 @@ export default function YoutubeBadge(props: Props) {
         </TouchableOpacity>
     );
 }
-
-const useStyles = createStylesheet(theme => StyleSheet.create({}));

@@ -4520,7 +4520,6 @@ __metadata:
     expo-haptics: "npm:~15.0.7"
     expo-image: "npm:~3.0.8"
     expo-keep-awake: "npm:~15.0.7"
-    expo-linear-gradient: "npm:~15.0.7"
     expo-linking: "npm:~8.0.8"
     expo-localization: "npm:~17.0.7"
     expo-notifications: "npm:~0.32.11"
@@ -7211,17 +7210,6 @@ __metadata:
     expo: "*"
     react: "*"
   checksum: 10/574f3932356a23b3ee5f415115f95884d146cfd8d62bc19cdca463639c2d0941df01f7b82b489df8bdcd40e77fb088bcdd1724b001b157e25e2f97311f2c9ad1
-  languageName: node
-  linkType: hard
-
-"expo-linear-gradient@npm:~15.0.7":
-  version: 15.0.7
-  resolution: "expo-linear-gradient@npm:15.0.7"
-  peerDependencies:
-    expo: "*"
-    react: "*"
-    react-native: "*"
-  checksum: 10/a829d45e9d9a72c1a75238d142148fa25eb9f2d0b6ee9aa6b15b2dbb2d355b51b0c7749efd92bdf9c38b28cad00f6f1a919658d497d54ec1df69a471a9584d12
   languageName: node
   linkType: hard
 

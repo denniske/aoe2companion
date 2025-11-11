@@ -1,11 +1,9 @@
-import {Image, Platform, StyleSheet, View} from "react-native";
-import {MyText} from "../my-text";
-import React from "react";
-import {shadeColor} from "@nex/data";
-import {createStylesheet} from '../../../theming-new';
-import {LinearGradient} from 'expo-linear-gradient';
-import {FontAwesome5} from "@expo/vector-icons";
-import {SvgUri} from 'react-native-svg';
+import { Image, Platform, StyleSheet, View } from 'react-native';
+import { MyText } from '../my-text';
+import React from 'react';
+import { createStylesheet } from '../../../theming-new';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { SvgUri } from 'react-native-svg';
 
 
 interface Props {
@@ -26,14 +24,19 @@ interface Props {
 export default function Badge(props: Props) {
     const styles = useStyles();
 
-    const {label, content, labelColor, labelTextColor = 'white', contentColor = 'white', contentTextColor = 'white', logoPng, logoSvg, logoIcon, logoColor, dot} = props;
+    const {label, content, labelColor, labelTextColor = '#FCFCFC', contentColor = 'white', contentTextColor = '#FCFCFC', logoPng, logoSvg, logoIcon, logoColor, dot} = props;
 
     return (
         <View style={styles.container}>
-            <LinearGradient
-                style={styles.label}
-                colors={[labelColor, shadeColor(labelColor, -20)]}
-            >
+            <View
+                style={{
+                    backgroundColor: labelColor,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    padding: 6,
+                    paddingLeft: 6,
+                    gap: 4
+            }}>
                 {
                     logoPng &&
                     <Image style={styles.logo} source={logoPng} />
@@ -51,19 +54,24 @@ export default function Badge(props: Props) {
                     <FontAwesome5 style={styles.logo} name={logoIcon} color={logoColor} />
                 }
                 {label && <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>}
-            </LinearGradient>
+            </View>
             {
                 (content || dot) &&
-                <LinearGradient
-                    style={styles.content}
-                    colors={[contentColor, shadeColor(contentColor, -20)]}
+                <View
+                    style={{
+                        backgroundColor: contentColor,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        padding: 6,
+                        paddingRight: 6,
+                    }}
                 >
                     {
                         dot &&
                         <MyText style={{color: '#e91a16', fontSize: 10, lineHeight: 14}}> ● </MyText>
                     }
                     <MyText style={[styles.contentText, { color: contentTextColor }]}>{content}</MyText>
-                </LinearGradient>
+                </View>
             }
         </View>
     );
@@ -90,6 +98,7 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
         lineHeight: 14,
     },
     logo: {
+        paddingTop: 1,
         width: 14,
         height: 14,
         ...(Platform.OS === 'web' ? {filter: 'brightness(0) invert()'} : {}),
