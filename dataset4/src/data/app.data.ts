@@ -38,6 +38,12 @@ export const appConfig = {
     sentry: {
         dsn: 'https://42a075ff136400cea6b14fbe95b2adf5@o431543.ingest.sentry.io/4506235138080768',
     },
+    oauth: {
+        patreonClientId: '8XdrybGNipnVbCsNeXFoQLmMvpcqSRZEOBVR2idusfpgiMNAQUjqYrmnC22qF_8f',
+        youtubeClientId: '488773703040-894cl8823vjasguo1i8cin0vv5tsqosv.apps.googleusercontent.com',
+        twitchClientId: 'yxslhhtxc8um77cg9k05uriupg6as3',
+        discordClientId: '1437582633033924781',
+    }
 };
 
 export const appIconData = require('../../../assets4/icon.png');

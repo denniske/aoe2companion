@@ -11,7 +11,7 @@ import { appConfig } from '@nex/dataset';
 export function useDiscordAuth() {
     const [request, response, promptAsync] = useAuthRequest(
         {
-            clientId: '1311364669465956442',
+            clientId: appConfig.oauth.discordClientId,
             responseType: 'code',
             usePKCE: false,
             redirectUri: oAuthRedirectUri,

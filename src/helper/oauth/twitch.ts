@@ -10,7 +10,7 @@ import { appConfig } from '@nex/dataset';
 export function useTwitchAuth() {
     const [request, response, promptAsync] = useAuthRequest(
         {
-            clientId: 'yxslhhtxc8um77cg9k05uriupg6as3',
+            clientId: appConfig.oauth.twitchClientId,
             responseType: 'code',
             usePKCE: false,
             redirectUri: oAuthRedirectUri,

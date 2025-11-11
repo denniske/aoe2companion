@@ -14,9 +14,9 @@ import { appConfig } from '@nex/dataset';
 
 export function useYoutubeAuth() {
     const [request, response, promptAsync] = Google.useAuthRequest({
-        clientId: '488773703040-894cl8823vjasguo1i8cin0vv5tsqosv.apps.googleusercontent.com',
-        iosClientId: '488773703040-894cl8823vjasguo1i8cin0vv5tsqosv.apps.googleusercontent.com',
-        androidClientId: '488773703040-894cl8823vjasguo1i8cin0vv5tsqosv.apps.googleusercontent.com',
+        clientId: appConfig.oauth.youtubeClientId,
+        iosClientId: appConfig.oauth.youtubeClientId,
+        androidClientId: appConfig.oauth.youtubeClientId,
         responseType: 'code',
         usePKCE: false,
         redirectUri: oAuthRedirectUri,

@@ -10,7 +10,7 @@ import { appConfig } from '@nex/dataset';
 export function usePatreonAuth() {
     const [request, response, promptAsync] = useAuthRequest(
         {
-            clientId: 'jsn5ztplpiU4BZ1PxAzOnK5ZyXti69KhEFGQpZSNCt2ahACRi1LMo6kMKmxLFVmn',
+            clientId: appConfig.oauth.patreonClientId,
             responseType: 'code',
             usePKCE: false,
             redirectUri: oAuthRedirectUri,
