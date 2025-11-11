@@ -43,6 +43,7 @@ export function useTwitchAuth() {
             console.log('authLinkTwitch', data);
             await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
         } catch (error: any) {
+            console.log('error', error);
             showAlert('Error linking twitch', error.message);
         }
     };

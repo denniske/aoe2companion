@@ -10,7 +10,7 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
-    '28.0.0': [
+    '29.0.0': [
         {
             type: 'bugfix',
             title: 'Fix account steam linking (Android)',
@@ -304,7 +304,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '171.0.0': [
+    '172.0.0': [
         {
             type: 'bugfix',
             title: 'Fix account steam linking (Android)',

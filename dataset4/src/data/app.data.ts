@@ -41,7 +41,7 @@ export const appConfig = {
     oauth: {
         patreonClientId: '8XdrybGNipnVbCsNeXFoQLmMvpcqSRZEOBVR2idusfpgiMNAQUjqYrmnC22qF_8f',
         youtubeClientId: '488773703040-894cl8823vjasguo1i8cin0vv5tsqosv.apps.googleusercontent.com',
-        twitchClientId: 'yxslhhtxc8um77cg9k05uriupg6as3',
+        twitchClientId: '9l7clqgetb63e7sfkk28l6ar1jbrrk',
         discordClientId: '1437582633033924781',
     }
 };
