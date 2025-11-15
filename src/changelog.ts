@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
+    '30.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Add Xbox and PSN account linking',
+        },
+    ],
     '29.0.0': [
         {
             type: 'bugfix',
@@ -304,6 +310,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '173.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Add Xbox and PSN account linking',
+        },
+    ],
     '172.0.0': [
         {
             type: 'bugfix',

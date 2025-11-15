@@ -338,6 +338,22 @@ export async function authLinkDiscord(params: any): Promise<any> {
     });
 }
 
+export async function authLinkXbox(params: any): Promise<any> {
+    const url = getHost('aoe2companion-api') + `auth/link/xbox?${makeQueryString(params)}`;
+
+    return await fetchJson(url, {
+        method: 'GET',
+    });
+}
+
+export async function authLinkPsn(params: any): Promise<any> {
+    const url = getHost('aoe2companion-api') + `auth/link/psn?${makeQueryString(params)}`;
+
+    return await fetchJson(url, {
+        method: 'GET',
+    });
+}
+
 export async function authLinkTwitch(params: any): Promise<any> {
     const url = getHost('aoe2companion-api') + `auth/link/twitch?${makeQueryString(params)}`;
 

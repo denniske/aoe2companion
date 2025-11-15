@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { MyText } from '@app/view/components/my-text';
 import { createStylesheet } from '../../theming-new';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import useAuth from '@/data/src/hooks/use-auth';
 import Login from '@app/components/login';
@@ -35,6 +35,7 @@ import { useYoutubeAuth } from '@app/helper/oauth/youtube';
 import { useDiscordAuth } from '@app/helper/oauth/discord';
 import { usePatreonAuth } from '@app/helper/oauth/patreon';
 import { useSteamAuth } from '@app/helper/oauth/steam';
+import { useXboxAuth } from '@app/helper/oauth/xbox';
 
 export default function AccountPage() {
     const getTranslation = useTranslation();
@@ -67,6 +68,10 @@ export default function AccountPage() {
     const twitchPromptAsync = useTwitchAuth();
     const discordPromptAsync = useDiscordAuth();
     const steamPromptAsync = useSteamAuth();
+    const xboxPromptAsync = useXboxAuth();
+    const psnPromptAsync = () => {
+        router.push('/more/oauth/psn');
+    };
 
     useEffect(() => {
         if (relicVerificationData?.verified) {
@@ -151,6 +156,8 @@ export default function AccountPage() {
         );
     };
 
+    const linkedGameAccount = Boolean(account.data?.steamId || account.data?.authRelicId);
+
     return (
         <ScrollView contentContainerClassName="min-h-full p-5">
             <Stack.Screen options={{ title: !loggedIn ? getTranslation('login.signin') : getTranslation('account.title') }} />
@@ -191,10 +198,11 @@ export default function AccountPage() {
                     </View>
 
                     <View className="gap-2">
-                        <Text variant="header-sm">{getTranslation('account.steam.title')}</Text>
+                        <Text variant="header-sm">{getTranslation('account.link.title')}</Text>
 
-                        <Text variant="body">{getTranslation('account.steam.description')}</Text>
-                        {!(account.data?.steamId || account.data?.authRelicId) && (
+                        <Text variant="body">{getTranslation('account.link.description')}</Text>
+
+                        {!linkedGameAccount && (
                             <Button
                                 onPress={() => steamPromptAsync()}
                                 // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
@@ -203,6 +211,28 @@ export default function AccountPage() {
                                 {getTranslation('account.steam.link')}
                             </Button>
                         )}
+
+                        {!linkedGameAccount && (
+                            <Button
+                                onPress={() => xboxPromptAsync()}
+                                // icon={()=><FontAwesome5 name="xbox" size={14} color={theme.backgroundColor} />}
+                                className={'self-start'}
+                            >
+                                {getTranslation('account.xbox.link')}
+                            </Button>
+                        )}
+
+                        {!linkedGameAccount && (
+                            <Button
+                                onPress={() => psnPromptAsync()}
+                                // icon={()=><FontAwesome5 name="psn" size={14} color={theme.backgroundColor} />}
+                                className={'self-start'}
+                            >
+                                {getTranslation('account.psn.link')}
+                            </Button>
+                        )}
+
+                        <Text variant="body">{getTranslation('account.link.description2')}</Text>
 
                         {relicVerification && (
                             <>
@@ -217,7 +247,7 @@ export default function AccountPage() {
                             </>
                         )}
 
-                        {!(account.data?.steamId || account.data?.authRelicId) && (
+                        {!linkedGameAccount && (
                             <Button
                                 onPress={() => setRelicVerification((prev) => !prev)}
                                 // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
