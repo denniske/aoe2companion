@@ -21,7 +21,7 @@ export function useXboxAuth() {
             scopes: [],
         },
         {
-            authorizationEndpoint: `https://xbl.io/app/auth/${appConfig.oauth.xboxClientId}`,
+            authorizationEndpoint: `https://xbl.io/app/auth/${appConfig.oauth.xboxPublicKey}`,
         }
     );
 
