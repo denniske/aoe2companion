@@ -35,6 +35,7 @@ export default function PsnPage() {
 
     return (
         <WebView
+            originWhitelist={['http://', 'https://', 'com.scee.psxandroid.scecompcall']}
             overScrollMode="never"
             bounces={false}
             scrollEnabled={true}
