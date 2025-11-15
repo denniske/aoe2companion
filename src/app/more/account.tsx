@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { MyText } from '@app/view/components/my-text';
 import { createStylesheet } from '../../theming-new';
 import { router, Stack } from 'expo-router';
@@ -222,7 +222,7 @@ export default function AccountPage() {
                             </Button>
                         )}
 
-                        {!linkedGameAccount && (
+                        {!linkedGameAccount && Platform.OS !== 'web' && (
                             <Button
                                 onPress={() => psnPromptAsync()}
                                 // icon={()=><FontAwesome5 name="psn" size={14} color={theme.backgroundColor} />}
