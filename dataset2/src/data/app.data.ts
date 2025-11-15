@@ -41,6 +41,7 @@ export const appConfig = {
         twitchClientId: 'yxslhhtxc8um77cg9k05uriupg6as3',
         discordClientId: '1311364669465956442',
         xboxClientId: '3dbfbf8a-884a-482c-92a2-718557a8905e',
+        xboxPublicKey: 'a1f4b913-4e04-23a3-69cf-bfc1a870e0cf',
     }
 };
 

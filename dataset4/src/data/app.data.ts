@@ -43,6 +43,8 @@ export const appConfig = {
         youtubeClientId: '488773703040-894cl8823vjasguo1i8cin0vv5tsqosv.apps.googleusercontent.com',
         twitchClientId: '9l7clqgetb63e7sfkk28l6ar1jbrrk',
         discordClientId: '1437582633033924781',
+        xboxClientId: 'e24261f0-48b4-4920-a541-448ae6e2c0a1',
+        xboxPublicKey: '325d6616-0566-5ce3-aa1f-8e85fa7123de',
     }
 };
 
