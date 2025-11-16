@@ -283,7 +283,7 @@ export interface IProfilesResultProfile {
 
     profileId: number
     steamId: string
-    platform: string
+    platform: 'steam' | 'xbox' | 'psn'
     platformName: string
     name: string
     country: string

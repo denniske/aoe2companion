@@ -19,7 +19,7 @@ import {
     accountUnlinkYoutube,
 } from '@app/api/account';
 import { supabaseClient } from '@/data/src/helper/supabase';
-import { useAccount } from '@app/queries/all';
+import { useAccount, useAuthProfileId, useProfileFast } from '@app/queries/all';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '@app/components/button';
 import { Text } from '@app/components/text';
@@ -51,6 +51,9 @@ export default function AccountPage() {
     const [relicVerification, setRelicVerification] = useState(false);
     const [discordInvitation, setDiscordInvitation] = useState('https://discord.gg/gCunWKx');
     const [discordInvitationError, setDiscordInvitationError] = useState('');
+
+    const authProfileId = useAuthProfileId();
+    const { data: authProfile } = useProfileFast(authProfileId);
 
     const {
         data: relicVerificationData,
@@ -259,7 +262,7 @@ export default function AccountPage() {
 
                         {account.data?.steamId && (
                             <>
-                                <Text variant="label">{getTranslation('account.steam.id')}</Text>
+                                <Text variant="label">{getTranslation(`account.${authProfile?.platform ?? 'steam'}.id`)}</Text>
                                 <View className="flex-row gap-2 items-center">
                                     <FontAwesome5 name="steam" size={14} color={theme.textNoteColor} />
                                     <Text variant="body">{account.data.steamId}</Text>
