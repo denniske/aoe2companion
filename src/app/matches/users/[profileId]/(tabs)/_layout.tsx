@@ -21,19 +21,16 @@ import {
     MaterialTopTabNavigationOptions,
 } from '@react-navigation/material-top-tabs';
 import { ParamListBase, TabNavigationState } from '@react-navigation/native';
-import { openLink } from '@app/helper/url';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { useTournamentPlayer } from '@app/api/tournaments';
 import { TournamentPlayerPopup } from '@app/view/tournaments/player-popup';
 import { MyText } from '@app/view/components/my-text';
 import { Image } from '@/src/components/uniwind/image';
 import { getCountryName } from '@app/helper/flags';
-import { useAppTheme } from '@app/theming';
 import { MenuNew } from '@app/components/menu';
 import { useTranslation } from '@app/helper/translate';
 import { showAlert } from '@app/helper/alert';
-import { appConfig } from '@nex/dataset';
 import { useUniwind } from 'uniwind';
+import { LinkedAoEAccount, LinkedAoECompanionAccount, LinkedPlatformAccount } from '@app/components/linked-account';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -55,7 +52,6 @@ export function UserMenu({ profile }: UserMenuProps) {
     const profileId = profile?.profileId;
     const authProfileId = useAuthProfileId();
     const [linkedProfilesVisible, setLinkedProfilesVisible] = useState(false);
-    const theme = useAppTheme();
 
     const { data: account } = useAccount();
 
@@ -113,10 +109,6 @@ export function UserMenu({ profile }: UserMenuProps) {
         return null;
     }
 
-    const steamProfileUrl = `https://steamcommunity.com/profiles/${profile?.steamId}`;
-    const ageofempiresProfileUrl = `https://www.ageofempires.com/stats/?game=${appConfig.game}&profileId=${profile?.profileId}`;
-    const aoecompanionProfileUrl = `https://${appConfig.hostAoeCompanion}/profile/${profile?.profileId}`;
-
     const navigateToLinkedProfile = (profileId: number | undefined) => {
         setLinkedProfilesVisible(false);
         router.navigate(`/matches/users/${profileId}` as any);
@@ -165,67 +157,14 @@ export function UserMenu({ profile }: UserMenuProps) {
                 >
                     <View className="w-60">
                         <View className="gap-3">
-                            {profile?.steamId && (profile?.platform === 'steam') && (
-                                <>
-                                    <View className="flex flex-row gap-2 items-center">
-                                        <View className="flex-col items-center w-8">
-                                            <FontAwesome5 name="steam" size={30} color={theme.textNoteColor} />
-                                        </View>
-                                        <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(steamProfileUrl)}>
-                                            <Text variant="header-xs">{profile?.platformName}</Text>
-                                            <Text variant="body">{profile?.steamId}</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </>
+                            {profile?.steamId && profile?.platform && (
+                                <LinkedPlatformAccount
+                                    steamId={profile?.steamId}
+                                    platform={profile?.platform}
+                                />
                             )}
-                            {profile?.steamId && profile?.platform === 'xbox' && (
-                                <>
-                                    <View className="flex flex-row gap-2 items-center">
-                                        <View className="flex-col items-center w-8">
-                                            <FontAwesome5 className="w-8" name="xbox" size={28} color={theme.textNoteColor} />
-                                        </View>
-                                        <TouchableOpacity className="flex-col gap-0" disabled={true}>
-                                            <Text variant="header-xs">{profile?.platformName}</Text>
-                                            <Text variant="body">{profile?.steamId}</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </>
-                            )}
-                            {profile?.steamId && profile?.platform === 'psn' && (
-                                <>
-                                    <View className="flex flex-row gap-2 items-center">
-                                        <View className="flex-col items-center w-8">
-                                            <FontAwesome5 name="playstation" size={26} color={theme.textNoteColor} />
-                                        </View>
-                                        <TouchableOpacity className="flex-col gap-0" disabled={true}>
-                                            <Text variant="header-xs">{profile?.platformName}</Text>
-                                            <Text variant="body">{profile?.steamId}</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </>
-                            )}
-                            {profileId && (
-                                <>
-                                    <View className="flex flex-row gap-2 items-center">
-                                        <Image source={require('../../../../../../assets/icon/ageofempires.png')} className="w-8 h-8 rounded-md" />
-                                        <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(ageofempiresProfileUrl)}>
-                                            <Text variant="header-xs">Age of Empires</Text>
-                                            <Text variant="body">{profileId}</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </>
-                            )}
-                            {profileId && (
-                                <>
-                                    <View className="flex flex-row gap-2 items-center">
-                                        <Image source={appConfig.game === 'aoe2' ? require('../../../../../../assets/icon/aoe2companion.png') :  require('../../../../../../assets/icon/aoe4companion.png')} className="w-8 h-8 rounded-md" />
-                                        <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(aoecompanionProfileUrl)}>
-                                            <Text variant="header-xs">{appConfig.app.name}</Text>
-                                            <Text variant="body">{profileId}</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </>
-                            )}
+                            {profileId && <LinkedAoEAccount profileId={profileId} />}
+                            {profileId && <LinkedAoECompanionAccount profileId={profileId} />}
 
                             {profileFull && profileFull.linkedProfiles && profileFull.linkedProfiles.length > 0 && (
                                 <>

@@ -36,6 +36,7 @@ import { useDiscordAuth } from '@app/helper/oauth/discord';
 import { usePatreonAuth } from '@app/helper/oauth/patreon';
 import { useSteamAuth } from '@app/helper/oauth/steam';
 import { useXboxAuth } from '@app/helper/oauth/xbox';
+import { LinkedAoEAccount, LinkedPlatformAccount } from '@app/components/linked-account';
 
 export default function AccountPage() {
     const getTranslation = useTranslation();
@@ -253,31 +254,20 @@ export default function AccountPage() {
                         {!linkedGameAccount && (
                             <Button
                                 onPress={() => setRelicVerification((prev) => !prev)}
-                                // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
                                 className={'self-start'}
                             >
                                 {!relicVerification ? getTranslation('account.relic.link') : getTranslation('account.relic.cancel')}
                             </Button>
                         )}
 
-                        {account.data?.steamId && (
-                            <>
-                                <Text variant="label">{getTranslation(`account.${authProfile?.platform ?? 'steam'}.id`)}</Text>
-                                <View className="flex-row gap-2 items-center">
-                                    <FontAwesome5 name="steam" size={14} color={theme.textNoteColor} />
-                                    <Text variant="body">{account.data.steamId}</Text>
-                                </View>
-                            </>
+                        {account.data?.steamId && authProfile?.platform && (
+                            <LinkedPlatformAccount
+                                steamId={account.data.steamId}
+                                platform={authProfile.platform}
+                            />
                         )}
-                        {account.data?.authRelicId && (
-                            <>
-                                <Text variant="label">{getTranslation('account.relic.id')}</Text>
-                                <View className="flex-row gap-2 items-center">
-                                    <FontAwesome5 name="xbox" size={14} color={theme.textNoteColor} />
-                                    <Text variant="body">{account.data.authRelicId}</Text>
-                                </View>
-                            </>
-                        )}
+                        {account.data?.authRelicId && <LinkedAoEAccount profileId={account.data.authRelicId} />}
+
                         {(account.data?.steamId || account.data?.authRelicId) && (
                             <>
                                 <Button onPress={() => unlinkSteam()} className={'self-start mt-2'}>
