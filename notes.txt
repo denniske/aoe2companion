@@ -1,4 +1,7 @@
 
+vmware fusion update
+https://knowledge.broadcom.com/external/article?articleNumber=368734
+
 uniwind
 - it seems we dont need to wrap GestureHandlerRootView with withUniwind
 
