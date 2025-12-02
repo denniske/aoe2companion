@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
     Building, buildingSections, getBuildingData, getBuildingName, getUnitClassName, IUnitInfo, keysOf, Other,
@@ -14,6 +14,7 @@ import {getBuildingIcon} from "../../helper/buildings";
 import {getOtherIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
 import { useTranslation } from '@app/helper/translate';
+import { Text } from '@app/components/text';
 
 interface Props {
     buildingId: Building;
@@ -77,7 +78,7 @@ export function BuildingStats({ buildingId }: Props) {
                         sortResources(keysOf(baseData.Cost)).map(res =>
                             <View key={res} className="flex-row items-center gap-1">
                                 <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
-                                <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
+                                <Text variant="body">{baseData.Cost[res]}</Text>
                             </View>
                         )
                     }
@@ -89,7 +90,7 @@ export function BuildingStats({ buildingId }: Props) {
                             sortResources(keysOf(baseData2!.Cost)).map(res =>
                                 <View key={res} className="flex-row items-center gap-1">
                                     <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
-                                    <MyText style={styles.resDescription}>{baseData2!.Cost[res]}</MyText>
+                                    <Text variant="body">{baseData2!.Cost[res]}</Text>
                                 </View>
                             )
                         }
@@ -241,10 +242,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     resIcon: {
         width: 18,
         height: 18,
-        marginRight: 5,
-    },
-    resDescription: {
-        marginRight: 10,
     },
 
     costsRow: {

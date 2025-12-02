@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TextStyle, View } from 'react-native';
+import { Image, StyleSheet, TextStyle, View } from 'react-native';
 import { MyText } from '../components/my-text';
 import {
     Age,
@@ -29,6 +29,7 @@ import { getAgeIcon, getOtherIcon, getUnitIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
 import { uniq } from 'lodash';
 import { IGetTranslation, useTranslation } from '@app/helper/translate';
+import { Text } from '@app/components/text';
 
 interface Props {
     unitId: Unit;
@@ -362,7 +363,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                     {sortResources(keysOf(baseData.Cost)).map((res) => (
                         <View key={res} className="flex-row items-center gap-1">
                             <Image style={styles.resIcon} source={getOtherIcon(res as Other)} />
-                            <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
+                            <MyText>{baseData.Cost[res]}</MyText>
                         </View>
                     ))}
                 </View>
@@ -371,7 +372,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                         {sortResources(keysOf(baseData2!.Cost)).map((res) => (
                             <View key={res} className="flex-row items-center gap-1">
                                 <Image style={styles.resIcon} source={getOtherIcon(res as Other)} />
-                                <MyText style={styles.resDescription}>{baseData2!.Cost[res]}</MyText>
+                                <MyText>{baseData2!.Cost[res]}</MyText>
                             </View>
                         ))}
                     </View>
@@ -600,14 +601,10 @@ const useStyles = createStylesheet((theme) =>
         resIcon: {
             width: 18,
             height: 18,
-            marginRight: 5,
         },
         ageIcon: {
             width: 18,
             height: 18,
-        },
-        resDescription: {
-            marginRight: 10,
         },
 
         costsRow: {
