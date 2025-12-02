@@ -515,7 +515,7 @@ const techEffectDictInternal = {
         tech: 'AznauriCavalry',
         civ: 'Georgians',
         effect: {
-            other: '-15% population space',
+            other: '-20% population space',
         },
     },
     'Fereters': {
@@ -523,6 +523,12 @@ const techEffectDictInternal = {
         effect: {
             hitPoints: '+30',
             other: '+100% heal speed',
+        },
+    },
+    'FortifiedChurch': {
+        building: 'FortifiedChurch',
+        effect: {
+            other: '+10% work rate in the area 9 tiles from the buildings edges',
         },
     },
     'Centurion': {
@@ -652,36 +658,6 @@ const techEffectDictInternal = {
             attack: '33% blast damage in 0.5 tile radius',
         },
     },
-    // 'FeudalAge-ScoutCavalry': {
-    //     tech: 'FeudalAge',
-    //     unit: 'ScoutCavalry',
-    //     effect: {
-    //         attack: '+2',
-    //         speed: '+0.35',
-    //         sight: '+2',
-    //     },
-    // },
-    // 'CastleAge-ScoutCavalry': {
-    //     tech: 'CastleAge',
-    //     unit: 'ScoutCavalry',
-    //     effect: {
-    //         sight: '+2',
-    //     },
-    // },
-    // 'ImperialAge-ScoutCavalry': {
-    //     tech: 'ImperialAge',
-    //     unit: 'ScoutCavalry',
-    //     effect: {
-    //         sight: '+2',
-    //     },
-    // },
-    // 'ImperialAge-LightCavalry': {
-    //     tech: 'ImperialAge',
-    //     unit: 'LightCavalry',
-    //     effect: {
-    //         sight: '+2',
-    //     },
-    // },
     'Wheelbarrow-Speed': {
         tech: 'Wheelbarrow',
         effect: {
@@ -1454,7 +1430,7 @@ const techEffectDictInternal = {
         tech: 'Kamandaran',
         civ: 'Persians',
         effect: {
-            other: 'replaces the cost gold for wood, for total 60 wood each unit',
+            other: 'replaces the cost gold for wood, for total 50 wood each unit',
         },
     },
 

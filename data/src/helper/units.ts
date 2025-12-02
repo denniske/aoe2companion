@@ -495,6 +495,7 @@ export const unitLines: IUnitLineDict = {
             'BurgundianVineyards',
             'Mahayana',
             'PaperMoney',
+            'FortifiedChurch',
         ],
     },
     'Missionary': {

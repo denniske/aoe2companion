@@ -72,10 +72,10 @@ export function BuildingStats({ buildingId }: Props) {
 
             <View style={styles.costsRow}>
                 <MyText style={styles.cellName}>{getTranslation('unit.stats.heading.costs')}</MyText>
-                <View style={[styles.cellValue, {flexDirection: 'row'}]}>
+                <View className="flex-row items-center gap-2" style={styles.cellValue}>
                     {
                         sortResources(keysOf(baseData.Cost)).map(res =>
-                            <View key={res} style={styles.resRow}>
+                            <View key={res} className="flex-row items-center gap-1">
                                 <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
                                 <MyText style={styles.resDescription}>{baseData.Cost[res]}</MyText>
                             </View>
@@ -84,10 +84,10 @@ export function BuildingStats({ buildingId }: Props) {
                 </View>
                 {
                     comparisonUnit &&
-                    <View style={[styles.cellValue, {flexDirection: 'row'}]}>
+                    <View className="flex-row items-center gap-2" style={styles.cellValue}>
                         {
                             sortResources(keysOf(baseData2!.Cost)).map(res =>
-                                <View key={res} style={styles.resRow}>
+                                <View key={res} className="flex-row items-center gap-1">
                                     <Image style={styles.resIcon} source={getOtherIcon(res as Other)}/>
                                     <MyText style={styles.resDescription}>{baseData2!.Cost[res]}</MyText>
                                 </View>

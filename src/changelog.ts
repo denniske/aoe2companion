@@ -310,6 +310,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '175.0.0': [
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 162286](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-162286/)',
+        },
+    ],
     '174.0.0': [
         {
             type: 'bugfix',

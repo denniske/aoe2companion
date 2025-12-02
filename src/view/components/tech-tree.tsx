@@ -4,10 +4,10 @@ import {
     Building,
     Civ,
     civDict, getAbilityAge,
-    getAbilityEnabled,
+    getAbilityEnabled, getBuildingName,
     getCompactTechTree,
-    getFullTechTree,
-    getUnitLineForUnit,
+    getFullTechTree, getTechName,
+    getUnitLineForUnit, getUnitName,
     ITechTreeRow,
     Other,
     Tech,
@@ -111,6 +111,19 @@ interface AbilityProps {
     dependsOn?: any;
 }
 
+export function getAbilityName({tech, unit, building}: AbilityHelperProps) {
+    if (tech) {
+        return getTechName(tech);
+    }
+    if (unit) {
+        return getUnitName(unit);
+    }
+    if (building) {
+        return getBuildingName(building);
+    }
+    return false;
+}
+
 export function getAbilityIcon({civ, tech, unit, building}: AbilityHelperProps) {
     if (tech) {
         return getTechIcon(tech);
@@ -124,7 +137,7 @@ export function getAbilityIcon({civ, tech, unit, building}: AbilityHelperProps) 
     return false;
 }
 
-function getAbilityNavCallback({tech, unit, building}: AbilityHelperProps) {
+export function getAbilityNavCallback({tech, unit, building}: AbilityHelperProps) {
     if (tech) {
         return () => router.navigate(`/explore/technologies/${tech}`);
     }

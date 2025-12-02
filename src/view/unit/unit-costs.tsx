@@ -4,16 +4,17 @@ import { ICostDict, keysOf, Other, sortResources, Unit, UnitLine } from '@nex/da
 import React from 'react';
 import { getOtherIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
+import { Text } from '@app/components/text';
 
 export function Costs({ costDict }: { costDict: ICostDict }) {
     const styles = useStyles();
 
     return (
-        <View style={styles.row}>
+        <View className="flex-row items-center gap-2">
             {sortResources(keysOf(costDict)).map((res) => (
-                <View key={res} style={styles.resRow}>
+                <View key={res} className="flex-row items-center gap-1">
                     <Image style={styles.resIcon} source={getOtherIcon(res as Other)} />
-                    <MyText style={styles.resDescription}>{costDict[res]}</MyText>
+                    <Text variant="body">{costDict[res]}</Text>
                 </View>
             ))}
         </View>
@@ -52,32 +53,18 @@ interface Props {
 
 const useStyles = createStylesheet((theme) =>
     StyleSheet.create({
-        resRow: {
-            flexDirection: 'row',
-            // marginBottom: 5,
-            alignItems: 'center',
-            // backgroundColor: 'blue',
-        },
         resIcon: {
             width: 22,
             height: 22,
-            marginRight: 5,
         },
         resDescription: {
             marginRight: 10,
         },
 
-        row: {
-            flexDirection: 'row',
-        },
         costsRow: {
             // backgroundColor: 'blue',
             flexDirection: 'row',
             marginBottom: 5,
-        },
-        description: {
-            lineHeight: 20,
-            flex: 1,
         },
         small: {
             fontSize: 12,

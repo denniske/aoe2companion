@@ -124,7 +124,7 @@ export interface IMatchesMatchPlayer2 {
     wins?: number
     losses?: number
     drops?: number
-    civ?: number
+    civ?: string
     civName?: string
     civImageUrl?: string
     color?: number

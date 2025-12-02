@@ -145,4 +145,4 @@ async function loadStringAoe4Explorer(civ: string, explorerAbbreviation: string)
 // loadStrings();
 
 loadStringsAoE2TechTree();
-// loadDataAoE2TechTree();
+loadDataAoE2TechTree();

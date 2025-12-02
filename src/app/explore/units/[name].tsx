@@ -54,7 +54,7 @@ export default function UnitDetails() {
                     }}
                 />
                 {getUnitUpgradeCost(unitName) && (
-                    <View className="flex-row mb-2 items-center">
+                    <View className="flex-row mb-2 items-center gap-2">
                         <Text>Upgrade cost </Text>
                         <Costs costDict={getUnitUpgradeCost(unitName)!} />
                         <Text>

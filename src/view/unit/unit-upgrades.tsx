@@ -30,6 +30,7 @@ import { createStylesheet } from '../../theming-new';
 import { Image } from '@/src/components/uniwind/image';
 import { router } from 'expo-router';
 import { useTranslation } from '@app/helper/translate';
+import { getAbilityIcon, getAbilityName, getAbilityNavCallback } from '@app/view/components/tech-tree';
 
 interface Props {
     unitLineId: UnitLine;
@@ -45,9 +46,9 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
 
     const unitLineUpgrades = unitLine.upgrades
         .map((u) => techEffectDict[u])
-        .filter((u) => !u.onlyUnits || u.onlyUnits.includes(unitId))
+        .filter((u) => !u.onlyUnits || u.onlyUnits.includes(unitId));
         // Note: Centurion effect is sorted out by the filter (maybe change this)
-        .filter((u) => !u.unit || u.unit == unitId);
+        // .filter((u) => !u.unit || u.unit == unitId);
 
     const unitIndex = unitLine.units.indexOf(unitId);
 
@@ -115,11 +116,15 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                     </View>
                     {group.upgrades.map((upgrade) => (
                         <View style={[styles.row, { opacity: hasTech(upgrade.tech!) ? 1 : 0.5 }]} key={upgrade.name}>
-                            <Image style={styles.unitIcon} source={getTechIcon(upgrade.tech!)} />
+
+                            <Image style={styles.unitIcon} source={getAbilityIcon(upgrade)} />
+
                             <MyText style={styles.unitDesc}>
-                                <MyText style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>
-                                    {getTechName(upgrade.tech!)}
+
+                                <MyText style={appStyles.link} onPress={getAbilityNavCallback(upgrade)} >
+                                    {getAbilityName(upgrade)}
                                 </MyText>
+
                                 {(upgrade.effect[group.prop] || upgrade.civ) && (
                                     <MyText size="footnote">
                                         {' ('}
