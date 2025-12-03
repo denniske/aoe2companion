@@ -191,7 +191,7 @@ function convertNewLiquipediaMatches(newLiquipediaMatches: INewLiquipediaMatch[]
             return {
                 format: match.mode,
                 finished: match.finished === 1,
-                startTime: match.date ? new Date(match.date) : undefined,
+                startTime: match.date && match.date != '0000-01-01 00:00:00' ? new Date(match.date) : undefined,
                 participants: match.match2opponents.map((participant) => ({
                     name: participant.name,
                 })) as [Match['participants'][0], Match['participants'][1]],
@@ -204,7 +204,7 @@ function convertNewLiquipediaMatches(newLiquipediaMatches: INewLiquipediaMatch[]
             } as ConvertedLiquipediaMatch;
         })
     );
-    return list;
+    return orderBy(list, m => m.startTime);
 }
 
 export const useUpcomingTournamentMatches = (enabled: boolean = true) => {

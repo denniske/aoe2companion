@@ -34,6 +34,7 @@ export const TournamentMatch: React.FC<{ match: TournamentMatchProps; style?: Vi
                 </View>
             )}
             {match.startTime && <Text color="brand">{format(match.startTime, 'PP - p')}</Text>}
+            {!match.startTime && <Text color="brand">Not scheduled yet</Text>}
             {match.participants.map((participant, index) => (
                 <View className="flex-row" key={index}>
                     <PlayoffParticipant size={12} participant={participant} winner={match.winner === index} />
