@@ -8,6 +8,7 @@ import { View, ViewStyle } from 'react-native';
 
 import { PlayoffParticipant } from './playoffs/participant';
 import { PlayoffPopup } from './playoffs/popup';
+import { formatDateAndTime } from '@nex/data';
 
 export type TournamentMatchProps = {
     games?: IPlayoffMatch['games'];
@@ -33,7 +34,7 @@ export const TournamentMatch: React.FC<{ match: TournamentMatchProps; style?: Vi
                     </Text>
                 </View>
             )}
-            {match.startTime && <Text color="brand">{format(match.startTime, 'PP - p')}</Text>}
+            {match.startTime && <Text color="brand">{formatDateAndTime(match.startTime)}</Text>}
             {!match.startTime && <Text color="brand">Not scheduled yet</Text>}
             {match.participants.map((participant, index) => (
                 <View className="flex-row" key={index}>

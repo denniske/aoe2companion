@@ -25,7 +25,7 @@ import {
     VictoryTheme,
 } from 'victory-native';
 import { Slider } from '@app/view/components/slider';
-import { aoeCivKey, getCivNameById } from '@nex/data';
+import { aoeCivKey, formatCustom, getCivNameById } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { format } from 'date-fns';
 import { ImageBackground } from '@/src/components/uniwind/image';
@@ -217,7 +217,7 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                 theme={theme === 'dark' ? newVictoryTheme.customDark : newVictoryTheme.custom}
                             >
                                 <VictoryAxis dependentAxis crossAxis tickFormat={tickFormat} />
-                                <VictoryAxis crossAxis tickFormat={(x) => format(new Date(x), 'M/d')} />
+                                <VictoryAxis crossAxis tickFormat={(x) => formatCustom(new Date(x), 'M/d')} />
 
                                 {domain[0] > domain[1] ? (
                                     <VictoryLine

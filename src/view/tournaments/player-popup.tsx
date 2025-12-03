@@ -8,6 +8,7 @@ import { formatCurrency } from 'react-native-format-currency';
 
 import { TournamentMarkdown } from './tournament-markdown';
 import {BottomSheet, BottomSheetProps} from '../bottom-sheet';
+import { formatCustom } from '@nex/data';
 
 const Attribute: React.FC<{ label: string; value?: string }> = ({ label, value }) =>
     value && (
@@ -36,7 +37,7 @@ export const TournamentPlayerPopup: React.FC<{ id: string; title: string } & Pic
                                 <Attribute label="Name" value={player.fullName} />
                                 <Attribute
                                     label="Age"
-                                    value={`${player.age}${player.birthdate && !isNaN(player.birthdate?.valueOf()) ? ` (${format(player.birthdate, 'LLL d, y')})` : ''}`}
+                                    value={`${player.age}${player.birthdate && !isNaN(player.birthdate?.valueOf()) ? ` (${formatCustom(player.birthdate, 'LLL d, y')})` : ''}`}
                                 />
                                 <Attribute
                                     label="Total Winnings"

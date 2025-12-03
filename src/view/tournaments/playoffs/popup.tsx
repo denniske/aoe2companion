@@ -17,7 +17,7 @@ import {BottomSheet} from '../../bottom-sheet';
 import { MyText } from '../../components/my-text';
 import { TournamentMarkdown } from '../tournament-markdown';
 import { useTranslation } from '@app/helper/translate';
-import { getTwitchChannel } from '@nex/data';
+import { formatDateAndTime, getTwitchChannel } from '@nex/data';
 
 export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; setVisible: (visible: boolean) => void; tournamentPath?: string }> = ({
     match: selectedMatch,
@@ -96,7 +96,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                     <View className="flex-row items-center justify-center gap-6">
                         {match.startTime && (
                             <Text variant="label" align="center">
-                                {format(match.startTime, 'PP - p')}
+                                {formatDateAndTime(match.startTime)}
                             </Text>
                         )}
                         {match.bestOf && (

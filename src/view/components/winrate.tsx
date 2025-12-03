@@ -16,7 +16,7 @@ import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getCivHistoryImage, getCivIconLocal } from '@app/helper/civs';
 import { Slider2 } from '@app/view/components/slider2';
-import { aoeCivKey, getCivNameById } from '@nex/data';
+import { aoeCivKey, formatCustom, getCivNameById } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { format } from 'date-fns';
 import { ImageBackground } from '@/src/components/uniwind/image';
@@ -243,8 +243,8 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                         labelColor: appTheme.textColor,
                                         tickCount: data.length,
                                         lineWidth: 0,
-                                        formatXLabel: (x) => format(new Date(x), 'yy-MMM'),
-                                        // formatXLabel: (x) => format(new Date(x), 'yyyy MMM d'),
+                                        formatXLabel: (x) => formatCustom(new Date(x), 'yy-MMM'),
+                                        // formatXLabel: (x) => formatCustom(new Date(x), 'yyyy MMM d'),
                                         linePathEffect: <DashPathEffect intervals={[4, 4]} />,
                                         labelRotate: 0, //-90,
                                     }}

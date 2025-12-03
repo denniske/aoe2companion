@@ -147,6 +147,9 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     const pcDrops = sumBy(leaderboardsPC, x => x.drops);
     const consoleDrops = sumBy(leaderboardsConsole, x => x.drops);
 
+    console.log('pcGames', pcGames)
+    console.log('pcDrops', pcDrops)
+
     return (
         <View className="gap-y-3">
             {(data?.socialDiscordInvitationUrl ||
@@ -184,34 +187,34 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 </>
             }
 
-            {data &&
+            {(!!leaderboardsPC?.length || leaderboardsConsole?.length === 0) &&
                 <View className="flex-row items-center py-0.5 mt-2 gap-x-4">
                     <View className="flex-col w-8 items-center">
-                        <FontAwesome6
-                            name="computer-mouse" size={16} style={{color: theme.textNoteColor}} />
+                        <FontAwesome6 name="computer-mouse" size={16} style={{color: theme.textNoteColor}} />
                     </View>
                     <View className="flex-col w-10">
                         <Text variant="body">{pcGames}</Text>
                         <Text variant="body-xs">games</Text>
                     </View>
                     <View className="flex-col w-12">
-                        <Text variant="body">{((pcDrops as any) / (pcGames as any) * 100).toFixed(2)} %</Text>
+                        <Text variant="body">{pcGames === 0 ? '0' : (pcDrops / pcGames * 100).toFixed(2)} %</Text>
                         <Text variant="body-xs">drops</Text>
                     </View>
                 </View>
             }
 
-            <View className="py-1 gap-y-2">
-                {leaderboardsPC?.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />)}
-            </View>
+            {
+                !!leaderboardsPC?.length &&
+                <View className="py-1 gap-y-2">
+                    {leaderboardsPC.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />)}
+                </View>
+            }
 
             {
-                leaderboardsConsole && leaderboardsConsole.length > 0 && (
+                !!leaderboardsConsole?.length && (
                     <View className="flex-row items-center py-0.5 mt-2 gap-x-4">
                         <View className="flex-col w-8 items-center">
-                            <FontAwesome6
-                                className="px-1 rounded-md border-2 border-gold-50 bg-[#2E6CDD] text-white"
-                                name="gamepad" size={16} style={{color: 'black'}} />
+                            <FontAwesome6 name="gamepad" size={16} style={{color: theme.textNoteColor}} />
                         </View>
                         <View className="flex-col w-10">
                             <Text variant="body">{consoleGames}</Text>
@@ -225,9 +228,12 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 )
             }
 
-            <View className="py-1 gap-y-2">
-                {leaderboardsConsole?.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />)}
-            </View>
+            {
+                !!leaderboardsConsole?.length &&
+                <View className="py-1 gap-y-2">
+                    {leaderboardsConsole.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />)}
+                </View>
+            }
         </View>
     );
 }

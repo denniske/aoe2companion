@@ -6,6 +6,7 @@ import { format, isSameDay } from 'date-fns';
 import { PlayoffMatch } from 'liquipedia';
 import { orderBy } from 'lodash';
 import { View } from 'react-native';
+import { formatCustom } from '@nex/data';
 
 export interface StageCardProps extends CardProps {
     matches: PlayoffMatch[];
@@ -47,9 +48,9 @@ export const StageCard: React.FC<StageCardProps> = ({ title, matches, ...props }
                     </Text>
                     {start || end ? <Icon icon="minus" size={12} color="subtle" /> : null}
                     <Text color="subtle">
-                        {start && format(start, 'LLL d')}
+                        {start && formatCustom(start, 'LLL d')}
                         {start && end && ' - '}
-                        {end && format(end, 'LLL d')}
+                        {end && formatCustom(end, 'LLL d')}
                     </Text>
                 </View>
             </View>

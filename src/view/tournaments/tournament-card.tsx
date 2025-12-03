@@ -8,6 +8,7 @@ import { Platform, View } from 'react-native';
 
 import { formatPrizePool, formatTier, tournamentStatus } from '../../helper/tournaments';
 import { useTranslation } from '@app/helper/translate';
+import { formatCustom } from '@nex/data';
 
 const isCurrentYear = (date: Date | undefined) => date?.getFullYear() === new Date().getFullYear();
 
@@ -22,10 +23,10 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string; directio
     const getTranslation = useTranslation();
     const status = tournamentStatus(tournament);
     const startDateFormat = isCurrentYear(tournament.start) ? 'LLL d' : 'LLL d (yyyy)';
-    const start = tournament.start && format(tournament.start, startDateFormat);
+    const start = tournament.start && formatCustom(tournament.start, startDateFormat);
     const endDate = tournament.end || tournament.start;
     const endDateFormat = isCurrentYear(endDate) ? 'LLL d' : 'LLL d (yyyy)';
-    const end = endDate && format(endDate, endDateFormat);
+    const end = endDate && formatCustom(endDate, endDateFormat);
 
     return (
         <Card

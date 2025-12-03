@@ -32,6 +32,7 @@ import { useProfilesByLiquipediaNames } from '@app/queries/all';
 import compact from 'lodash/compact';
 import { uniq } from 'lodash';
 import { BottomSheet } from '@app/view/bottom-sheet';
+import { formatCustom } from '@nex/data';
 
 
 export default function TournamentDetail() {
@@ -143,9 +144,9 @@ export default function TournamentDetail() {
                                 title={title}
                                 subtitle={
                                     <Text variant="label">
-                                        {validStart && format(start, 'LLL d')}
+                                        {validStart && formatCustom(start, 'LLL d')}
                                         {validStart && validEnd && ' - '}
-                                        {validEnd && format(end, 'LLL d')}
+                                        {validEnd && formatCustom(end, 'LLL d')}
                                         {subtitle && (validStart || validEnd) && ' - '}
                                         {subtitle && <Text variant="label-sm">{subtitle.replace(tournament?.game ?? '', '').trim()}</Text>}
                                     </Text>

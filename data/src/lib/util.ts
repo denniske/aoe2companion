@@ -121,12 +121,20 @@ export function formatDayAndTime(date: Date) {
     return format(date, 'MMM d HH:mm', { locale: getLocale() });
 }
 
+export function formatDateAndTime(date: Date) {
+    return format(date, 'PP - p', { locale: getLocale() });
+}
+
 export function formatTime(date: Date) {
     return format(date, 'HH:mm', { locale: getLocale() });
 }
 
 export function formatDate(date: Date) {
     return format(date, 'dd MM yyyy', { locale: getLocale() });
+}
+
+export function formatCustom(date: Date, dateFormat: string) {
+    return format(date, dateFormat, { locale: getLocale() });
 }
 
 export function formatAgo(date: Date) {
