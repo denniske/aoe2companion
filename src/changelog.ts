@@ -310,7 +310,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '176.0.0': [
+    '177.0.0': [
         {
             type: 'bugfix',
             title: 'Fix tournaments scheduled matches date parsing and sorting',
