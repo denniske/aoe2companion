@@ -19,7 +19,7 @@ aoe2companion-firebase-adminsdk.json
 aoe4companion-firebase-adminsdk.json
 
 node_modules/**/*
-.expo/*
+.expo/
 npm-debug.*
 *.jks
 *.p8
