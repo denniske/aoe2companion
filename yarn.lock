@@ -4470,7 +4470,7 @@ __metadata:
     tslib: "npm:^2.0.0"
     twrnc: "npm:4.9.1"
     typescript: "npm:~5.9.2"
-    uniwind: "npm:^1.0.1"
+    uniwind: "npm:^1.1.0"
     uuid: "npm:^3.4.0"
     victory-native: "npm:^37.3.1"
     victory-native-current: "npm:victory-native@^41.19.3"
@@ -12963,9 +12963,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uniwind@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "uniwind@npm:1.0.1"
+"uniwind@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "uniwind@npm:1.1.0"
   dependencies:
     "@tailwindcss/node": "npm:4.1.17"
     "@tailwindcss/oxide": "npm:4.1.17"
@@ -12975,7 +12975,7 @@ __metadata:
     react: ">=19.0.0"
     react-native: ">=0.81.0"
     tailwindcss: ">=4"
-  checksum: 10/be2e819b05eaac5f87d5d46b31f243c777cdf80cab598a5f6018634cf310100911243f9418f5fedbce12bfec246d838d0fb54b106c7ccb0349437508de038fe1
+  checksum: 10/58ea34e3c21db58d402d8834ae8474047f58d156c2f2d86bde2b46ac1b14439d28ded5af39817d73074d651d1695f6f18a319a0f38675c7783170659d5ae51d3
   languageName: node
   linkType: hard
 
