@@ -68,7 +68,7 @@ function mapBuilding(building: string): string {
 export const StepActions: FC<IBuildOrderStep & { pop?: string | number; size?: Size }> = (step) => {
     const getTranslation = useTranslation();
     const styles = useStyles();
-    const { buildings, tech, type, count, task, from, to, age, unit, pop, action, resource, size = 'large' } = step;
+    const { buildings, tech, type, count, task, from, to, age, unit, pop, action, resource, animal, size = 'large' } = step;
     const hasBuildings = !!buildings?.length;
     const hasTech = !!tech?.length;
     const hasBuildingsOrTech = hasBuildings || hasTech;
@@ -132,8 +132,11 @@ export const StepActions: FC<IBuildOrderStep & { pop?: string | number; size?: S
             )}
             {type === 'lure' && (
                 <>
-                    <MyText style={textStyle}>{getTranslation('builds.step.lure', { count })}</MyText>
-                    <TaskIcon item="deer" size={size} />
+                    <MyText style={textStyle}>
+                        {count ? getTranslation('builds.step.lure.plural', { count }) : getTranslation('builds.step.lure')}
+                    </MyText>
+                    <TaskIcon item={animal} size={size} />
+                    {!count ? <MyText style={textStyle}>{getTranslation('builds.step.lure.under')}</MyText> : null}
                 </>
             )}
             {type === 'trade' && (

@@ -226,7 +226,9 @@
     "builds.step.newagewithpop": "Enter {pop} pop",
     "builds.step.currentstep": "Step {step}",
     "builds.step.maxstep": "of {max}",
-    "builds.step.lure": "Lure {count}",
+    "builds.step.lure": "Lure",
+    "builds.step.lure.plural": "Lure {count}",
+    "builds.step.lure.under": "with Villager Under TC",
     "builds.step.decision": "Decision",
     "builds.step.trade": "{action} {count}",
 
@@ -416,6 +418,15 @@
     "search.show": "Show",
     "search.heading.name": "Name",
     "search.heading.games": "Games",
+
+    "search.recent.title": "Recently Searched",
+    "search.recent.clear": "Clear",
+    "search.recent.clear.confirm.title": "Clear recent searches?",
+    "search.recent.clear.confirm.note": "Clearing your searches will remove your search history from this device.",
+    "search.recent.clear.confirm.cancel": "Cancel",
+    "search.recent.clear.confirm.clear": "Clear Searches",
+    "search.recent.empty.title": "No Recent Searches",
+    "search.recent.empty.description": "Your recent searches will appear here",
 
     "search.findmyaccount.title": "Find My Account",
     "search.findmyaccount.description": "Enter your AoE username to track your games",

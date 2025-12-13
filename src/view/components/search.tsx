@@ -10,6 +10,8 @@ import useDebounce from '../../hooks/use-debounce';
 import { useTranslation } from '@app/helper/translate';
 import { useProfilesByProfileIds, useProfilesBySearchInfiniteQuery, useProfilesBySteamId } from '@app/queries/all';
 import { compact } from 'lodash';
+import { RecentSearches } from './recent-searches';
+import { useRecentSearches } from '@app/service/recent-searches';
 
 interface ISearchProps {
     title?: string;
@@ -24,6 +26,7 @@ function onlyDigits(str: string) {
 }
 
 export default function Search({ title, selectedUser, actionText, action, initialText }: ISearchProps) {
+    const { add: addRecentSearch } = useRecentSearches();
     const getTranslation = useTranslation();
     const [text, setText] = useState(initialText ?? '');
     const [reloading, setReloading] = useState(false);
@@ -68,6 +71,11 @@ export default function Search({ title, selectedUser, actionText, action, initia
         return <FlatListLoadingIndicator />;
     };
 
+    const onSelectUser = (player: IProfilesResultProfile) => {
+        addRecentSearch(player);
+        selectedUser?.(player);
+    };
+
     return (
         <View className="flex-1">
             {title && <Text className="pt-4 text-center">{title}</Text>}
@@ -82,34 +90,38 @@ export default function Search({ title, selectedUser, actionText, action, initia
                 />
             </View>
 
-            <PlayerList
-                flatListRef={flatListRef}
-                actionText={actionText}
-                list={list}
-                action={action}
-                selectedUser={selectedUser}
-                ListFooterComponent={_renderFooter}
-                ListEmptyComponent={
-                    debouncedText.length < 2 ? (
-                        <Text color="subtle" align="center">
-                            {getTranslation('search.minlength')}
-                        </Text>
-                    ) : !isFetching ? (
-                        <>
-                            <Text align="center" variant="header-sm" className="my-3">
-                                {getTranslation('search.nouserfound')}
+            {debouncedText ? (
+                <PlayerList
+                    flatListRef={flatListRef}
+                    actionText={actionText}
+                    list={list}
+                    action={action}
+                    selectedUser={onSelectUser}
+                    ListFooterComponent={_renderFooter}
+                    ListEmptyComponent={
+                        debouncedText.length < 2 ? (
+                            <Text color="subtle" align="center">
+                                {getTranslation('search.minlength')}
                             </Text>
-                            <Text align="center" className="px-10">
-                                {getTranslation('search.condition.1')}
-                            </Text>
-                        </>
-                    ) : null
-                }
-                onEndReached={onEndReached}
-                onEndReachedThreshold={0.1}
-                keyExtractor={(item, index) => index.toString()}
-                refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={reloading} />}
-            />
+                        ) : !isFetching ? (
+                            <>
+                                <Text align="center" variant="header-sm" className="my-3">
+                                    {getTranslation('search.nouserfound')}
+                                </Text>
+                                <Text align="center" className="px-10">
+                                    {getTranslation('search.condition.1')}
+                                </Text>
+                            </>
+                        ) : null
+                    }
+                    onEndReached={onEndReached}
+                    onEndReachedThreshold={0.1}
+                    keyExtractor={(item, index) => index.toString()}
+                    refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={reloading} />}
+                />
+            ) : (
+                <RecentSearches onSelect={onSelectUser} actionText={actionText} action={action} />
+            )}
         </View>
     );
 }

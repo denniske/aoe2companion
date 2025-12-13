@@ -1,5 +1,5 @@
 import { FontAwesome6 } from '@expo/vector-icons';
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import DiscordBadge from './badge/discord-badge';
 import DouyuBadge from './badge/doyou-badge';
@@ -52,6 +52,7 @@ const mappingIconName: Record<string, IconName> = {
 
 function LeaderboardRow1({ data }: ILeaderboardRowProps) {
     const theme = useAppTheme();
+    const [streakWidth, setStreakWidth] = useState(0)
 
     const leaderboardInfo = data;
     const color = { color: getLeaderboardTextColor(data.leaderboardId, theme.dark) };
@@ -68,55 +69,65 @@ function LeaderboardRow1({ data }: ILeaderboardRowProps) {
 
     return (
         <View className="flex-row items-center py-0.5 mb-2 gap-x-4">
-
-            <View className="w-8">
+            <View className="w-10 -mr-2">
                 <Icon icon={mappedIconName} size={24} color="subtle" />
-                <View className="absolute -bottom-2 -right-2 rounded-md p-[1.25px] bg-gold-50 dark:bg-blue-950">
-                    <Text
-                        color="text-white"
-                        variant="body-tn"
-                        className="p-0.5 px-1 rounded-md bg-[#2E6CDD]"
-                        numberOfLines={1}>
+                <View className="absolute -bottom-2 right-0 rounded-md p-[1.25px] bg-gold-50 dark:bg-blue-950">
+                    <Text color="text-white" variant="body-tn" className="p-0.5 px-1 rounded-md bg-[#2E6CDD]" numberOfLines={1}>
                         {mappedBadgeStr}
                     </Text>
                 </View>
             </View>
 
-            <View className="flex-col w-16">
-                <Text variant="body" className="truncate flex-1"># {leaderboardInfo.rank}</Text>
-                <Text variant="body-xs" className="ml-[13]">Top {Math.max(1, leaderboardInfo.rank/leaderboardInfo.total*100).toFixed()}%</Text>
+            <View className="flex-col min-w-16">
+                <Text variant="body" className="truncate flex-1">
+                    # {leaderboardInfo.rank}
+                </Text>
+                <Text variant="body-xs" className="ml-[13]">
+                    Top {Math.max(1, (leaderboardInfo.rank / leaderboardInfo.total) * 100).toFixed()}%
+                </Text>
             </View>
 
-            <View className="flex-col w-12">
-                <Text variant="body">{leaderboardInfo.rating}</Text>
-                <Text variant="body-xs">max {leaderboardInfo.maxRating}</Text>
+            <View className="flex-col min-w-12">
+                <Text variant="label" color="brand">{leaderboardInfo.rating}</Text>
+                <Text variant="body-xs" numberOfLines={1}>
+                    max {leaderboardInfo.maxRating}
+                </Text>
             </View>
 
-            <View className="flex-col w-10">
+            <View className="flex-col min-w-10">
                 <Text variant="body">{leaderboardInfo.games}</Text>
-                <Text variant="body-xs">games</Text>
+                <Text variant="body-xs" numberOfLines={1}>
+                    games
+                </Text>
             </View>
 
-            <View className="flex-col w-9">
+            <View className="flex-col min-w-9">
                 <Text variant="body">{((leaderboardInfo?.wins / leaderboardInfo?.games) * 100).toFixed(0)} %</Text>
                 <Text variant="body-xs">wins</Text>
             </View>
 
-            <View className="flex-row w-16">
-                <View className="flex-col justify-items-stretch gap-y-1">
-                    <Text variant="body" className="self-end">{formatStreak(leaderboardInfo?.streak)}</Text>
-                    <View className="flex-row gap-x-1">
-                        {
-                            last5MatchesWon?.map(({ won }) =>(
-                                <View className={`${won ? 'bg-blue-500' : 'bg-gray-200'} rounded-full w-1.5 h-1.5`}></View>
-                                ))
-                        }
-                    </View>
-                </View>
-                <View className="flex-col">
-                    <Text variant="body" className="text-right"> {last5MatchesWon?.every(x => x.won) ? '🔥' : last5MatchesWon?.every(x => !x.won) ? '❄️' : ''}</Text>
-                    <Text variant="body-xs" className="text-right"></Text>
-                </View>
+            <View className="flex-row flex-1" onLayout={(e) => setStreakWidth(e.nativeEvent.layout.width)}>
+                {streakWidth > 60 && (
+                    <>
+                        <View className="flex-col justify-items-stretch gap-y-1">
+                            <Text variant="body" className="self-end">
+                                {formatStreak(leaderboardInfo?.streak)}
+                            </Text>
+                            <View className="flex-row gap-x-1">
+                                {last5MatchesWon?.map(({ won }) => (
+                                    <View className={`${won ? 'bg-blue-500' : 'bg-gray-200'} rounded-full w-1.5 h-1.5`}></View>
+                                ))}
+                            </View>
+                        </View>
+                        <View className="flex-col">
+                            <Text variant="body" className="text-right">
+                                {' '}
+                                {last5MatchesWon?.every((x) => x.won) ? '🔥' : last5MatchesWon?.every((x) => !x.won) ? '❄️' : ''}
+                            </Text>
+                            <Text variant="body-xs" className="text-right"></Text>
+                        </View>
+                    </>
+                )}
             </View>
         </View>
     );
@@ -192,11 +203,11 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                     <View className="flex-col w-8 items-center">
                         <FontAwesome6 name="computer-mouse" size={16} style={{color: theme.textNoteColor}} />
                     </View>
-                    <View className="flex-col w-10">
+                    <View className="flex-col">
                         <Text variant="body">{pcGames}</Text>
                         <Text variant="body-xs">games</Text>
                     </View>
-                    <View className="flex-col w-12">
+                    <View className="flex-col">
                         <Text variant="body">{pcGames === 0 ? '0' : (pcDrops / pcGames * 100).toFixed(2)} %</Text>
                         <Text variant="body-xs">drops</Text>
                     </View>

@@ -17,6 +17,6 @@ export const StyledFontAwesomeIcon = withUniwind(FontAwesomeIcon);
 
 export const Icon: React.FC<IconProps> = ({ icon, color = 'default', prefix = 'fass', ...rest }) => {
     let colorClassName = accentColors[color] ?? color;
-    // console.log('ICON COLOR CLASS NAME', colorClassName);
+    
     return <StyledFontAwesomeIcon {...rest} colorClassName={colorClassName} icon={[prefix, icon]}/>;
 };

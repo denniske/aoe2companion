@@ -554,7 +554,7 @@ function HeaderButtons({ id }: { id: string }) {
                 <Image style={{ width: 28, height: 20 }} source={require('../../../../assets/icon/liquipedia.png')} />
             </TouchableOpacity>
             <TouchableOpacity hitSlop={10} onPress={toggleFollow}>
-                <Icon prefix={isFollowed ? 'fass' : 'fasr'} icon="heart" size={20} color="text-[#ef4444]" />
+                <Icon prefix={isFollowed ? 'fass' : 'fasr'} icon="heart" size={20} color="accent-[#ef4444]" />
             </TouchableOpacity>
         </View>
     );

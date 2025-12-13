@@ -51,7 +51,7 @@ export function FavoriteHeaderButton(props: FavoriteHeaderButtonProps) {
 
     return (
         <TouchableOpacity hitSlop={10} onPress={toggleFavorite}>
-            <Icon prefix={isFavorited ? 'fass' : 'fasr'} icon="heart" size={20} color="text-[#ef4444]" />
+            <Icon prefix={isFavorited ? 'fass' : 'fasr'} icon="heart" size={20} color="accent-[#ef4444]" />
         </TouchableOpacity>
     );
 }
@@ -108,7 +108,7 @@ export default function BuildDetail() {
                 options={{
                     headerTitle: () => (
                         <HeaderTitle
-                            title={build.civilization + 'lol'}
+                            title={build.civilization}
                             subtitle={build.title.replace(build.civilization, '')}
                             icon={getCivIconLocal(build.civilization) ?? genericCivIcon}
                         />

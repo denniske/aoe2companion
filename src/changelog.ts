@@ -310,6 +310,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '179.0.0': [
+        {
+            type: 'feature',
+            title: 'Added "Recently Searched" section in player search',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fixed missing build order steps and icon colors',
+        },
+    ],
     '178.0.0': [
         {
             type: 'bugfix',
