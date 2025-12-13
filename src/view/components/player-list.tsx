@@ -202,7 +202,7 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
             showsHorizontalScrollIndicator={false}
             keyboardShouldPersistTaps="always"
             ItemSeparatorComponent={() =>
-                variant === 'vertical' ? <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full my-2.5" /> : <View className="w-2" />
+                variant === 'vertical' ? <View className="h-px bg-gray-200 dark:bg-gray-800 w-full my-2.5" /> : <View className="w-2" />
             }
             contentContainerClassName="px-4"
             renderItem={({ item }) => {
