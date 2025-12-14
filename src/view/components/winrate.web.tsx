@@ -83,7 +83,7 @@ export default function CivDetails() {
                                 {!sameRank && (
                                     <Icon
                                         icon={stats.rank > stats.prior_rank ? 'caret-down' : 'caret-up'}
-                                        color={stats.rank > stats.prior_rank ? 'text-red-500' : 'text-green-500'}
+                                        color={stats.rank > stats.prior_rank ? 'accent-red-500' : 'accent-green-500'}
                                     />
                                 )}
                             </View>
