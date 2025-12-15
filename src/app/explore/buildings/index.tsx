@@ -10,6 +10,8 @@ import { SectionList as SectionListRef, View } from 'react-native';
 import { BuildingCompBig } from '../../../view/building/building-comp';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { useTranslation } from '@app/helper/translate';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 export default function BuildingList() {
     const getTranslation = useTranslation();
@@ -48,7 +50,7 @@ export default function BuildingList() {
             <View className="flex-1">
                 <Stack.Screen options={{ title: getTranslation('building.title') }} />
 
-                <View className="pt-4 px-4">
+                <View className={cn("pt-4", containerClassName)}>
                     <Field
                         type="search"
                         placeholder={getTranslation('unit.search.placeholder')}

@@ -197,25 +197,9 @@ export const MenuNew: FC<MenuProps> = ({
         // console.log('anchorLayoutResult.x', anchorLayoutResult.x)
         // console.log('anchorLayoutResult.width', anchorLayoutResult.width)
 
-        const webMarginX = Platform.OS === 'web' ? (windowLayout.width - 450) / 2 : 0;
-        const webMarginY = Platform.OS === 'web' ? (windowLayout.height - 900) / 2 : 0;
-        const _left = anchorLayoutResult.x - webMarginX;
-
-        if (Platform.OS === 'web') {
-            // For some reason the left value is always in relation to the 450x900 viewport
-            // But the top value is relative to window top
-
-            setLeft(anchorLayoutResult.x - webMarginX);
-            setTop(anchorLayoutResult.y - webMarginY);
-
-            const _right = 450 - _left - anchorLayoutResult.width;
-            // console.log('_right', _right)
-            setRight(_right);
-        } else {
-            setLeft(anchorLayoutResult.x);
-            setTop(anchorLayoutResult.y);
-            setRight(windowLayout.width - _left - anchorLayoutResult.width);
-        }
+        setLeft(anchorLayoutResult.x);
+        setTop(anchorLayoutResult.y + 40);
+        setRight(windowLayout.width - anchorLayoutResult.x - anchorLayoutResult.width);
 
         // console.log('windowLayout.width', windowLayout.width)
         // console.log('_left', _left)

@@ -19,6 +19,8 @@ import { Link } from '@app/components/link';
 import { useAccountData, useFollowedAndMeProfileIds, useLanguage } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
 import { ProfileLive } from '@app/view/components/badge/twitch-badge';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 export default function MatchesPage() {
     const getTranslation = useTranslation();
@@ -118,7 +120,7 @@ export default function MatchesPage() {
                 <FollowedPlayers />
             </View>
 
-            <View className="flex-row justify-between items-center px-4">
+            <View className={cn("flex-row justify-between items-center", containerClassName)}>
                 <Text variant="header-lg">{getTranslation('matches.liveandrecentmatches')}</Text>
                 <Link href="/matches/live">{getTranslation('matches.viewlobbies')}</Link>
             </View>
@@ -134,7 +136,7 @@ export default function MatchesPage() {
                     </View>
                 </View>
             ) : profileIds?.length === 0 || list.length === 0 ? (
-                <View className="flex-1 p-4 gap-1">
+                <View className={cn("flex-1 py-4 gap-1", containerClassName)}>
                     <Text variant="label">{getTranslation('feed.following.info.1')}</Text>
                     <Link href="/matches/users/follow">
                         <Text variant="body-sm">{getTranslation('feed.following.info.2')}</Text>

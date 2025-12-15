@@ -10,6 +10,8 @@ import { SectionList as SectionListRef, View } from 'react-native';
 
 import { TechCompBig } from '../../../view/tech/tech-comp';
 import { useTranslation } from '@app/helper/translate';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 export default function TechList() {
     const getTranslation = useTranslation();
@@ -52,7 +54,7 @@ export default function TechList() {
             <View className="flex-1">
                 <Stack.Screen options={{ title: getTranslation('tech.title') }} />
 
-                <View className="pt-4 px-4">
+                <View className={cn("pt-4", containerClassName)}>
                     <Field
                         type="search"
                         placeholder={getTranslation('tech.search.placeholder')}

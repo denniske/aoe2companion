@@ -16,6 +16,8 @@ import { BuildCard } from '@app/view/components/build-order/build-card';
 import { usePrefData } from '@app/queries/prefs';
 import useDebounce from '@app/hooks/use-debounce';
 import { useFavoritedBuilds } from '@app/service/favorite-builds';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 export default function BuildListPage() {
     const getTranslation = useTranslation();
@@ -68,7 +70,7 @@ export default function BuildListPage() {
                 <View className="flex-1">
                     <BuildFilters />
 
-                    <View className="pb-4 px-4">
+                    <View className={cn("pb-4", containerClassName)}>
                         <Field
                             type="search"
                             value={search}

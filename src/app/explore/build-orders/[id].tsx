@@ -8,7 +8,7 @@ import { router, Stack, useLocalSearchParams } from 'expo-router';
 import startCase from 'lodash/startCase';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { IBuildOrderStandardResources, sortBuildAges } from '@/data/src/helper/builds';
+import { getBuildIcon, IBuildOrderStandardResources, sortBuildAges } from '@/data/src/helper/builds';
 import { getDifficultyIcon, getDifficultyName } from '../../../helper/difficulties';
 import { getAgeIcon, getOtherIcon } from '../../../helper/units';
 import { createStylesheet } from '../../../theming-new';
@@ -99,8 +99,9 @@ export default function BuildDetail() {
     }
 
     const difficultyIcon = getDifficultyIcon(build.difficulty);
-    const ages = sortBuildAges(Object.entries(build.pop));
+    const ages = sortBuildAges(Object.entries(build.pop ?? {}));
     const uptimes: Record<string, any> = build.uptime;
+    const icon = getBuildIcon(build.image);
 
     return (
         <ScrollView style={styles.container} contentContainerClassName="p-4 gap-4">
@@ -129,7 +130,7 @@ export default function BuildDetail() {
                 )}
             </MyText>
 
-            <Image source={{ uri: build.imageURL }} style={styles.image} />
+            {icon && <Image source={icon} style={styles.image} />}
 
             <View style={styles.tagsContainer}>
                 {ages.map(([ageName, agePop]) => (

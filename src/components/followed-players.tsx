@@ -7,6 +7,8 @@ import { useAccount, useAuthProfileId, useProfileFast, useProfilesByProfileIds }
 import { useTranslation } from '@app/helper/translate';
 import { Link } from '@app/components/link';
 import React from 'react';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 export const FollowedPlayers = () => {
     const getTranslation = useTranslation();
@@ -32,7 +34,7 @@ export const FollowedPlayers = () => {
 
     return (
         <View className="gap-2">
-            <View className="flex-row justify-between items-center px-4">
+            <View className={cn("flex-row justify-between items-center", containerClassName)}>
                 <Text variant="header-lg">
                     {getTranslation('home.followedplayers')}
                 </Text>

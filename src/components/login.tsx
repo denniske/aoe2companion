@@ -191,7 +191,7 @@ export default function Login() {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} className='max-w-3xl mx-auto w-full'>
             <View style={[styles.verticallySpaced, styles.mt20]}>
                 {/*<MyText>Email</MyText>*/}
                 <Field

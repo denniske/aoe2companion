@@ -36,6 +36,7 @@ import { useTranslation } from '@app/helper/translate';
 import { useInfiniteBuilds, useMaps } from '@app/queries/all';
 import { BuildCard } from '@app/view/components/build-order/build-card';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
+import { containerClassName } from '@app/styles';
 
 type Item =
     | { name: Civ; title: string; type: 'civ', image?: any }
@@ -158,7 +159,7 @@ export default function Explore() {
                     }}
                 />
 
-                <View className="px-4">
+                <View className={containerClassName}>
                     <Field
                         type="search"
                         value={search}

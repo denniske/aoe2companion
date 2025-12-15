@@ -1,10 +1,12 @@
 import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
-import { TouchableOpacity, View } from 'react-native';
+import { Platform, TouchableOpacity, View } from 'react-native';
 
 import { HeaderTitle } from './header-title';
 import { Icon } from './icon';
 import { Text } from './text';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 export const Header: React.FC<NativeStackHeaderProps | (BottomTabHeaderProps & { back?: boolean })> = ({ options, route, navigation, back }) => {
     const title = options.title || '';
@@ -12,16 +14,20 @@ export const Header: React.FC<NativeStackHeaderProps | (BottomTabHeaderProps & {
 
     return (
         <View
-            className={`p-4 border-b border-b-gray-200 dark:border-b-gray-800 flex-row justify-between items-center relative h-20 bg-gold-50 dark:bg-blue-950 ${back ? 'gap-3' : ''}`}
+            className={cn(
+                'p-4 border-b border-b-gray-200 dark:border-b-gray-800 flex-row justify-between items-center relative h-20 bg-gold-50 dark:bg-blue-950',
+                back && Platform.OS !== 'web' && 'gap-3',
+                containerClassName
+            )}
         >
-            {back && (
+            {back && Platform.OS !=='web' && (
                 <View>
                     <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={10}>
                         <Icon icon="angle-left" size={22} color="foreground" />
                     </TouchableOpacity>
                 </View>
             )}
-            {(back || typeof options.headerTitle === 'function') ? (
+            {(back && Platform.OS !== 'web') || typeof options.headerTitle === 'function' ? (
                 typeof options.headerTitle === 'function' ? (
                     options.headerTitle({ children: title, tintColor: 'white' })
                 ) : (

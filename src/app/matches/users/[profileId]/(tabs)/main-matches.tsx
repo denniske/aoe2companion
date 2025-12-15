@@ -18,6 +18,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
 import { useTranslation } from '@app/helper/translate';
+import { containerClassName } from '@app/styles';
 
 export default function MainMatches() {
     const getTranslation = useTranslation();
@@ -133,7 +134,7 @@ export default function MainMatches() {
     return (
         <View className="flex-1">
             {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
-            <View style={styles.pickerRow} className="px-4">
+            <View style={styles.pickerRow} className={containerClassName}>
                 <LeaderboardsSelect
                     leaderboardIdList={leaderboardIds}
                     onLeaderboardIdChange={setLeaderboardIds}
@@ -145,7 +146,7 @@ export default function MainMatches() {
                     </View>
                 )}
             </View>
-            <View className="px-4">
+            <View className={containerClassName}>
                 <Field
                     type="search"
                     placeholder={getTranslation('main.matches.search.placeholder')}

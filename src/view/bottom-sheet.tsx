@@ -12,6 +12,8 @@ import Animated, {
     Easing,
 } from "react-native-reanimated";
 import {scheduleOnRN} from "react-native-worklets";
+import cn from 'classnames';
+import { containerScrollClassName } from '@app/styles';
 
 export type BottomSheetProps = {
     title?: string;
@@ -84,17 +86,11 @@ export function BottomSheet({
 
     return (
         <Modal visible={isVisible} onRequestClose={onClose} animationType="fade" transparent>
-            <SafeAreaProvider
-                className={
-                    Platform.OS === 'web'
-                        ? 'overflow-hidden w-[450px] max-w-full max-h-[900px] mx-auto my-auto border border-gray-200 dark:border-gray-800 rounded-lg pt-12'
-                        : 'flex-1'
-                }
-            >
+            <SafeAreaProvider className="flex-1">
                 <Pressable disabled={!onClose} onPress={onClose} style={[styles.overlay, StyleSheet.absoluteFill]} />
 
-                <SafeAreaView edges={['top']} style={{ flex: 1, pointerEvents: 'box-none' }}>
-                    <View className="flex-1 justify-end" style={{pointerEvents: 'box-none'}}>
+                <SafeAreaView edges={['top']} style={{ flex: 1, pointerEvents: Platform.OS === 'web' ? 'none' : 'box-none' }}>
+                    <View className="flex-1 justify-end web:justify-center" style={{ pointerEvents: Platform.OS === 'web' ? 'none' : 'box-none' }}>
                         <Animated.View
                             onLayout={(e) => {
                                 const newHeight = Math.round(e.nativeEvent.layout.height);
@@ -103,8 +99,14 @@ export function BottomSheet({
                                 }
                                 setHeight(newHeight);
                             }}
-                            className={`bg-gold-50 dark:bg-blue-950 rounded-t-lg overflow-hidden max-h-full ${containerClassName}`}
+                            className={cn(
+                                'bg-gold-50 dark:bg-blue-950 rounded-t-lg overflow-hidden max-h-full',
+                                containerClassName,
+                                containerScrollClassName,
+                                Platform.OS === 'web' && 'border border-gray-200 dark:border-gray-800 rounded-lg max-w-4xl! my-12'
+                            )}
                             style={animatedStyle}
+                            pointerEvents={Platform.OS === 'web' ? 'box-none' : undefined}
                         >
                             <SafeAreaView
                                 edges={extendBottom ? [] : ['bottom']}
@@ -134,45 +136,41 @@ export function BottomSheet({
                                 {/*    </PanGestureHandler>*/}
                                 {/*)}*/}
 
-                                {
-                                    container === 'scroll' ? (
-                                        <ScrollView contentContainerStyle={[styles.contentContainer, style]}>
-                                            {title && (
-                                                <View className={closeButton ? 'relative px-6 flex-row' : 'flex-row'}>
-                                                    <Text color="brand" variant="header-lg" className="text-center flex-1">
-                                                        {title}
-                                                    </Text>
-                                                    {closeButton && (
-                                                        <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
-                                                            <Icon size={24} prefix="fasr" icon="times" />
-                                                        </TouchableOpacity>
-                                                    )}
-                                                </View>
-                                            )}
-                                            {children}
-                                        </ScrollView>
-                                    ) : null
-                                }
+                                {container === 'scroll' ? (
+                                    <ScrollView contentContainerStyle={[styles.contentContainer, style]} style={style}>
+                                        {title && (
+                                            <View className={closeButton ? 'relative px-6 flex-row' : 'flex-row'}>
+                                                <Text color="brand" variant="header-lg" className="text-center flex-1">
+                                                    {title}
+                                                </Text>
+                                                {closeButton && (
+                                                    <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
+                                                        <Icon size={24} prefix="fasr" icon="times" />
+                                                    </TouchableOpacity>
+                                                )}
+                                            </View>
+                                        )}
+                                        {children}
+                                    </ScrollView>
+                                ) : null}
 
-                                {
-                                    container === 'none' ? (
-                                        <>
-                                            {title && (
-                                                <View className={closeButton ? 'relative px-6 flex-row' : 'flex-row'}>
-                                                    <Text color="brand" variant="header-lg" className="text-center flex-1">
-                                                        {title}
-                                                    </Text>
-                                                    {closeButton && (
-                                                        <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
-                                                            <Icon size={24} prefix="fasr" icon="times" />
-                                                        </TouchableOpacity>
-                                                    )}
-                                                </View>
-                                            )}
-                                            {children}
-                                        </>
-                                    ) : null
-                                }
+                                {container === 'none' ? (
+                                    <>
+                                        {title && (
+                                            <View className={closeButton ? 'relative px-6 flex-row' : 'flex-row'}>
+                                                <Text color="brand" variant="header-lg" className="text-center flex-1">
+                                                    {title}
+                                                </Text>
+                                                {closeButton && (
+                                                    <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
+                                                        <Icon size={24} prefix="fasr" icon="times" />
+                                                    </TouchableOpacity>
+                                                )}
+                                            </View>
+                                        )}
+                                        {children}
+                                    </>
+                                ) : null}
                             </SafeAreaView>
                         </Animated.View>
                     </View>
@@ -194,7 +192,7 @@ const useStyles = createStylesheet((theme) =>
             backgroundColor: theme.hoverBackgroundColor,
         },
         contentContainer: {
-            padding: 12,
+            padding: Platform.OS === 'web' ? 24 : 12,
         },
     })
 );

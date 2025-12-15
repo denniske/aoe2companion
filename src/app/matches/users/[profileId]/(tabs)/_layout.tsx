@@ -31,6 +31,8 @@ import { useTranslation } from '@app/helper/translate';
 import { showAlert } from '@app/helper/alert';
 import { useUniwind } from 'uniwind';
 import { LinkedAoEAccount, LinkedAoECompanionAccount, LinkedPlatformAccount } from '@app/components/linked-account';
+import cn from 'classnames';
+import { containerScrollClassName } from '@app/styles';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -281,7 +283,7 @@ export default function UserPage() {
     return (
         <MaterialTopTabs
             tabBar={(props) => (
-                <View className="bg-white dark:bg-blue-900 ">
+                <View className={cn('bg-white dark:bg-blue-900', containerScrollClassName)}>
                     <MaterialTopTabBar {...props} />
                 </View>
             )}
