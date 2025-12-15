@@ -5,6 +5,9 @@ import { Text } from '@app/components/text';
 import { useTranslation } from '@app/helper/translate';
 import { LiveMatch } from '@app/components/live/live-match';
 import { useLobbies } from '@app/api/socket/lobbies';
+import { View } from 'react-native';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 type MatchPageParams = {
     lobbyId: string;
@@ -37,7 +40,11 @@ export default function LobbyPage() {
     }, []);
 
     if (!lobby) {
-        return <Text>Loading...</Text>;
+        return (
+            <View className={cn(containerClassName, 'flex-1 justify-center items-center')}>
+                <Text>Loading...</Text>
+            </View>
+        );
     }
 
     return (

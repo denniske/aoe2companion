@@ -12,6 +12,8 @@ import { ScrollView } from '@app/components/scroll-view';
 import { useVideoPlayer, VideoPlayer, VideoView } from 'expo-video';
 import { Delayed } from '@app/view/components/delayed';
 import { IGetTranslation, useTranslation } from '@app/helper/translate';
+import { containerScrollClassName } from '@app/styles';
+import cn from 'classnames';
 
 interface ITip {
     title: string;
@@ -283,21 +285,23 @@ export default function TipsPage() {
     return (
         <View style={styles.container}>
             <Stack.Screen options={{ title: getTranslation('tips.title') }} />
-            <View style={styles.showcaseContainer}>
-                <View style={styles.showcaseInner}>
-                    <Image
-                        source={require('../../../assets/tips/poster/aoe-sheep.webp')}
-                        style={[
-                            styles.showcase,
-                            {
-                                width: '100%',
-                                height: 'auto',
-                                aspectRatio: 16 / 9,
-                                opacity: 1,
-                                zIndex: 1,
-                            },
-                        ]}
-                    />
+            <View className={cn(containerScrollClassName, 'border-b border-b-gray-200 dark:border-b-gray-800')}>
+                <View style={styles.showcaseInner} className="max-w-md mx-auto">
+                    {Platform.OS !== 'web' && (
+                        <Image
+                            source={require('../../../assets/tips/poster/aoe-sheep.webp')}
+                            style={[
+                                styles.showcase,
+                                {
+                                    width: '100%',
+                                    height: 'auto',
+                                    aspectRatio: 16 / 9,
+                                    opacity: 1,
+                                    zIndex: 1,
+                                },
+                            ]}
+                        />
+                    )}
                     {tips.map((tip, i) => (
                         <Delayed key={i} delay={i * 100}>
                             {tip.video && <VideoTip tip={tip} active={i === currentTipIndex} />}
@@ -319,9 +323,7 @@ export default function TipsPage() {
                                 )}
                                 {!tip.icon && <Image style={styles.unitIconBig} source={tip.imageIcon ? tip.imageIcon : getAbilityIcon(tip)} />}
                                 <View style={styles.textContainer}>
-                                    <MyText style={[styles.title, { fontWeight: currentTipIndex === i ? 'bold' : 'normal' }]}>
-                                        {tip.title}
-                                    </MyText>
+                                    <MyText style={[styles.title, { fontWeight: currentTipIndex === i ? 'bold' : 'normal' }]}>{tip.title}</MyText>
                                     <MyText style={styles.description}>{tip.description}</MyText>
                                 </View>
                             </View>
@@ -349,12 +351,6 @@ const useStyles = createStylesheet((theme) =>
             justifyContent: 'center',
             position: 'absolute',
             backgroundColor: theme.backgroundColor,
-        },
-        showcaseContainer: {
-            // borderTopWidth: 0,
-            // borderTopColor: theme.borderColor,
-            borderBottomWidth: 2,
-            borderBottomColor: theme.borderColor,
         },
         showcaseInner: {
             width: '100%',

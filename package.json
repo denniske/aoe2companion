@@ -18,7 +18,8 @@
     "publish:android": "PLATFORM=android bash publish-no-sentry.sh",
     "publish:all": "yarn publish:ios && yarn publish:android",
     "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",

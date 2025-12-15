@@ -13,7 +13,7 @@ import { useProfile, useWithRefetching } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { useTranslation } from '@app/helper/translate';
 
-export default function MainProfile(props: any) {
+export default function MainProfile() {
     const getTranslation = useTranslation();
     const params = useLocalSearchParams<{ profileId: string }>();
     const profileId = parseInt(params.profileId);

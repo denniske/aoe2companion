@@ -12,11 +12,18 @@
       body {
         height: 100%;
       }
-      /* These styles disable body scrolling if you are using <ScrollView> */
+
       body {
+        overflow: hidden;
         background-color: #fffcf5;
         color: black;
-        overflow: hidden;
+      }
+
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      @media (min-width: 768px) {
+        body {
+          overflow: visible;
+        }
       }
 
       @media (prefers-color-scheme: dark) {

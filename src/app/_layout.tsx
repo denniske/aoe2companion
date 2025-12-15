@@ -31,7 +31,7 @@ import * as Sentry from '@sentry/react-native';
 import { focusManager, QueryClientProvider } from '@tanstack/react-query';
 import * as Device from 'expo-device';
 import * as Notifications from '../service/notifications';
-import { SplashScreen, Stack, usePathname, useRootNavigationState, useRouter } from 'expo-router';
+import { Href, Link, SplashScreen, Stack, usePathname, useRootNavigationState, useRouter } from 'expo-router';
 import { useCallback, useEffect } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -59,6 +59,10 @@ import { AvailableMainPage } from '@app/helper/routing';
 import { clearLastNotificationResponse } from 'expo-notifications';
 import { useCSSVariable } from 'uniwind';
 import { NavBar } from '@app/components/navbar';
+import { Text } from '@app/components/text';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 
 initSentry();
 
@@ -319,6 +323,8 @@ function AppWrapper() {
         }
     }, [fontsLoaded]);
 
+    const showTabBar = useShowTabBar();
+
     // if (!fontsLoaded || (cachedLanguage && !languageLoaded)) {
     if (!fontsLoaded) {
         return null;
@@ -400,9 +406,36 @@ function AppWrapper() {
                                 <View className="hidden md:web:block">
                                     <NavBar />
                                 </View>
-                                <Stack screenOptions={{ header: (props) => <Header {...props} /> }}></Stack>
+                                <Stack
+                                    screenOptions={{ header: (props) => <Header {...props} /> }}
+                                    layout={showTabBar ? undefined : ({ children }) => <View className="grow">{children}</View>}
+                                />
                                 <View className="md:web:hidden">
                                     <TabBar />
+                                </View>
+
+                                <View className={cn(containerClassName, 'hidden md:web:block pt-8 pb-4 web:max-w-3xl! justify-center')}>
+                                    <Text variant="body-sm" align="center" className="inline-block">
+                                        Age of Empires II© Microsoft Corporation. {appConfig.hostAoeCompanion} was created under Microsoft's "
+                                        <Link
+                                            className="text-link underline"
+                                            target="_blank"
+                                            href="https://www.xbox.com/en-US/developers/rules"
+                                            rel="noreferrer noopener"
+                                        >
+                                            Game Content Usage Rules
+                                        </Link>
+                                        " using assets from{' '}
+                                        <Link
+                                            className="text-link underline"
+                                            target="_blank"
+                                            href={appConfig.ms.url as Href}
+                                            rel="noreferrer noopener"
+                                        >
+                                            {appConfig.ms.name}
+                                        </Link>
+                                        , and it is not endorsed by or affiliated with Microsoft.
+                                    </Text>
                                 </View>
                             </>
                         </PortalProvider>

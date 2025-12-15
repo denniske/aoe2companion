@@ -48,7 +48,7 @@ export const NavBar: React.FC = () => {
     ] as const;
 
     return (
-        <View className={cn('flex flex-row pt-8 pb-4', containerClassName)}>
+        <View className={cn('flex flex-row pt-8 pb-4 justify-between', containerClassName)}>
             <Pressable
                 className="flex-row items-center gap-4 pr-8"
                 onPress={() => {
@@ -79,11 +79,16 @@ export const NavBar: React.FC = () => {
                     <Pressable
                         onPress={() => onPress()}
                         key={route.key}
-                        className={cn('flex-row justify-center items-center gap-2', route.label ? 'flex-1' : 'pl-8')}
+                        className={cn(
+                            'flex-row justify-center items-center gap-2 px-4 border border-transparent rounded-lg',
+                            isFocused
+                                ? 'text-brand fill-brand'
+                                : 'text-default hover:text-subtle fill-default hover:fill-subtle hover:bg-white hover:border-gold-100'
+                        )}
                     >
-                        {route.icon && <Icon color={isFocused ? 'brand' : 'default'} size={20} icon={route.icon as IconName} />}
+                        {route.icon && <Icon fill="inherit" size={20} icon={route.icon as IconName} />}
                         {route.label && (
-                            <Text variant="label-lg" color={isFocused ? 'brand' : 'default'} className="uppercase mt-1">
+                            <Text variant="label-lg" color="text-inherit" className="uppercase mt-1">
                                 {route.label}
                             </Text>
                         )}
