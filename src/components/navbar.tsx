@@ -50,7 +50,7 @@ export const NavBar: React.FC = () => {
     return (
         <View className={cn('flex flex-row pt-8 pb-4', containerClassName)}>
             <Pressable
-                className="flex-row items-center gap-4"
+                className="flex-row items-center gap-4 pr-8"
                 onPress={() => {
                     if (router.canDismiss()) {
                         router.dismissAll();

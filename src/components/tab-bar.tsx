@@ -128,7 +128,7 @@ export const TabBar: React.FC = () => {
                     style={{ position: 'absolute', left: 0, right: 0, bottom: -bottom, top: -16 }}
                     className="bg-gradient-to-b from-[0%] to-[25%] from-gold-50/0 to-gold-50/90 dark:from-blue-950/0 dark:to-blue-950/90"
                 />
-                <View className="flex-row p-2 rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black max-w-2xl mx-auto">
+                <View className="flex-row p-2 rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black max-w-2xl w-full mx-auto">
                     {routes.map((route) => {
                         // console.log('ROUTE', route.key, route.path);
 
