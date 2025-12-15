@@ -50,6 +50,7 @@
     "array-flat-polyfill": "^1.0.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.0",
+    "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "dotenv": "10.0.0",
     "expo": "^54.0.0",

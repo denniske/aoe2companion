@@ -12,6 +12,8 @@ import { useProfilesByProfileIds, useProfilesBySearchInfiniteQuery, useProfilesB
 import { compact } from 'lodash';
 import { RecentSearches } from './recent-searches';
 import { useRecentSearches } from '@app/service/recent-searches';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 interface ISearchProps {
     title?: string;
@@ -80,7 +82,7 @@ export default function Search({ title, selectedUser, actionText, action, initia
         <View className="flex-1">
             {title && <Text className="pt-4 text-center">{title}</Text>}
 
-            <View className="px-4 py-4">
+            <View className={cn("py-4", containerClassName)}>
                 <Field
                     placeholder={getTranslation('search.placeholder')}
                     type="search"

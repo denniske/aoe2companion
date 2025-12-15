@@ -11,6 +11,8 @@ import { useTranslation } from '@app/helper/translate';
 import { useMaps } from '@app/queries/all';
 import { IMap } from '@app/api/helper/api.types';
 import { compact, orderBy } from 'lodash';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 export default function MapsIndex() {
     const getTranslation = useTranslation();
@@ -44,7 +46,7 @@ export default function MapsIndex() {
                 <Stack.Screen options={{ title: getTranslation('maps.title') }} />
 
                 {appConfig.game === 'aoe2' && (
-                    <View className="pt-4 px-4">
+                    <View className={cn("pt-4", containerClassName)}>
                         <Field
                             type="search"
                             placeholder={getTranslation('unit.search.placeholder')}

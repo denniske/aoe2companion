@@ -6,11 +6,10 @@ import { startCase } from 'lodash';
 import { TouchableOpacity, View } from 'react-native';
 import { BuildRating } from './build-rating';
 import { getAgeIcon } from '../../../helper/units';
-import { IBuildOrder, sortBuildAges } from '@/data/src/helper/builds';
+import { getBuildIcon, IBuildOrder, sortBuildAges } from '@/data/src/helper/builds';
 import { genericCivIcon, getCivIconLocal } from '../../../helper/civs';
 import { getDifficultyIcon } from '../../../helper/difficulties';
 import { Tag } from '../tag';
-import { useUniwind } from 'uniwind';
 import React from 'react';
 
 export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: () => void; size?: 'small' | 'large' }> = ({
@@ -22,18 +21,18 @@ export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavo
     const title = build.title.replace(build.civilization, '').trim();
     const civIcon = getCivIconLocal(build.civilization) ?? genericCivIcon;
     const difficultyIcon = getDifficultyIcon(build.difficulty);
-    const ages = sortBuildAges(Object.entries(build.pop));
-    const { theme } = useUniwind();
+    const ages = sortBuildAges(Object.entries(build.pop ?? {}));
+    const icon = getBuildIcon(build.image);
 
     if (size === 'small') {
         return (
             <Card href={`/explore/build-orders/${build.id}`} direction="vertical" className="w-24 items-center justify-between gap-1">
                 <View className="w-full items-center justify-center">
-                    <Image source={{ uri: build.imageURL }} className="w-8 h-8" />
+                    {icon && <Image source={icon} className="w-8 h-8" />}
                     {civIcon ? <Image className="w-5 h-5 absolute top-0 left-0" source={civIcon} /> : null}
                 </View>
 
-                <Text variant="label-sm" numberOfLines={2} className="!leading-[14px] w-full" align="center">
+                <Text variant="label-sm" numberOfLines={2} className="leading-3.5! w-full" align="center">
                     {title}
                 </Text>
 
@@ -44,7 +43,7 @@ export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavo
 
     return (
         <Card href={`/explore/build-orders/${build.id}`}>
-            <Image source={{ uri: build.imageURL }} className="w-12 h-12" />
+            <Image source={icon} className="w-12 h-12" />
 
             <View className="flex-1 gap-0.5">
                 <View className="flex-row justify-between items-center gap-2">

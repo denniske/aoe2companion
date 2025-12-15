@@ -5,6 +5,8 @@ import { Icon } from '@app/components/icon';
 import { useRecentSearches } from '@app/service/recent-searches';
 import PlayerList from './player-list';
 import { IProfilesResultProfile } from '@app/api/helper/api.types';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 interface RecentSearchesProps {
     onSelect: (player: IProfilesResultProfile) => void;
@@ -18,7 +20,7 @@ export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action
 
     if (data.length === 0) {
         return (
-            <View className="flex-1 items-center justify-center gap-2 p-2 pb-40">
+            <View className={cn("flex-1 items-center justify-center gap-2 pt-2 pb-40", containerClassName)}>
                 <Icon icon="search" size={36} color="subtle" />
                 <View className="items-center">
                     <Text variant="header">{getTranslation('search.recent.empty.title')}</Text>
@@ -30,7 +32,7 @@ export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action
 
     return (
         <View className="gap-2">
-            <View className="flex-row justify-between items-center px-4">
+            <View className={cn("flex-row justify-between items-center", containerClassName)}>
                 <Text variant="header-sm">{getTranslation('search.recent.title')}</Text>
 
                 <Pressable
@@ -55,7 +57,7 @@ export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action
                 </Pressable>
             </View>
 
-            <View className="px-4">
+            <View className={containerClassName}>
                 <View className="h-px bg-gray-200 dark:bg-gray-800 w-full" />
             </View>
 

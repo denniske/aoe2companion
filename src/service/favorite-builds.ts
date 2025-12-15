@@ -8,6 +8,7 @@ import { Platform, Image } from 'react-native';
 import { fetchBuilds } from '@app/api/helper/api';
 import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
 import { appConfig } from '@nex/dataset';
+import { getBuildIcon } from '@/data/src/helper/builds';
 
 export const useFavoritedBuilds = () => {
     const { getItem, removeItem } = useAsyncStorage('favoritedBuilds');
@@ -73,7 +74,7 @@ export const useFavoritedBuilds = () => {
                             ),
                         icon:
                             Widget.getImagePathIfExists(`${camelCase(build.image.toString())}.png`) ??
-                            Widget.setImage(Image.resolveAssetSource({ uri: build.imageURL }).uri, `${camelCase(build.image.toString())}.png`),
+                            Widget.setImage(Image.resolveAssetSource(getBuildIcon(build.image)).uri, `${camelCase(build.image.toString())}.png`),
                     }))
             );
             Widget.setItem('savedData', newWidgetData);

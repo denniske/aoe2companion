@@ -10,6 +10,8 @@ import MatchAnalysis from '@app/view/components/match-map/match-analysis';
 import MatchOptions from '@app/components/match/match-options';
 import MatchInfo from '@app/components/match/match-info';
 import MatchTeams from '@app/components/match/match-teams';
+import { containerClassName } from '@app/styles';
+import cn from 'classnames';
 
 type MatchPageParams = {
     matchId: string;
@@ -38,7 +40,11 @@ export default function MatchPage() {
     }, [match]);
 
     if (!match) {
-        return <Text>Loading...</Text>;
+        return (
+            <View className={cn(containerClassName, 'flex-1 justify-center items-center')}>
+                <Text>Loading...</Text>
+            </View>
+        );
     }
 
     return (

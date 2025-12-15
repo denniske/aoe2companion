@@ -224,7 +224,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         },
         bundleIdentifier: app.bundleIdentifier,
         buildNumber: runtimeVersion,
-        supportsTablet: false,
+        supportsTablet: true,
         config: {
             usesNonExemptEncryption: false
         },

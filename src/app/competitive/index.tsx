@@ -68,7 +68,11 @@ export default function Competitive() {
 
     const liveTwitch = orderBy(liveTwitchAccounts, 'viewer_count', 'desc')[0];
     const liveTwitchAppUrl = liveTwitch ? `twitch://stream/${liveTwitch.user_login}` : null;
-    const liveTwitchUrl = liveTwitch ? `https://player.twitch.tv/?channel=${liveTwitch.user_login}&parent=aoe2companion.com` : null;
+    const liveTwitchUrl = liveTwitch
+        ? Platform.OS === 'web'
+            ? `https://twitch.tv/${liveTwitch.user_login}`
+            : `https://player.twitch.tv/?channel=${liveTwitch.user_login}&parent=aoe2companion.com`
+        : null;
 
     useEffect(() => {
         setIsVideoPlaying(false);
@@ -101,9 +105,9 @@ export default function Competitive() {
     };
 
     const playTwitchStream = async () => {
-        if (Platform.OS === 'ios') {
+        if (Platform.OS === 'ios' || Platform.OS ==='web') {
             try {
-                if (await Linking.canOpenURL(liveTwitchAppUrl!)) {
+                if (Platform.OS === 'ios' && await Linking.canOpenURL(liveTwitchAppUrl!)) {
                     await Linking.openURL(liveTwitchAppUrl!);
                 } else {
                     await openLinkWithCheck(liveTwitchUrl!);
@@ -259,11 +263,11 @@ export default function Competitive() {
                         ) : (
                             <>
                                 {
-                                    Platform.OS === 'ios' &&
+                                    (Platform.OS === 'ios' || Platform.OS === 'web') &&
                                     <Button className="self-start" onPress={playTwitchStream}>Open Stream</Button>
                                 }
                                 {
-                                    Platform.OS !== 'ios' &&
+                                    Platform.OS !== 'ios' && Platform.OS !== 'web' &&
                                     <TouchableOpacity className="relative" onPress={playTwitchStream}>
                                         <Image
                                             source={{ uri: liveTwitch.thumbnail_url.replace('{width}', '800').replace('{height}', '450') }}

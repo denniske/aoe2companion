@@ -10,6 +10,8 @@ import { SectionList as SectionListRef, View } from 'react-native';
 import { UnitCompBig } from '../../../view/unit/unit-comp';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { useTranslation } from '@app/helper/translate';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 export default function UnitList() {
     const getTranslation = useTranslation();
@@ -49,7 +51,7 @@ export default function UnitList() {
             <View className="flex-1">
                 <Stack.Screen options={{ title: getTranslation('unit.title') }} />
 
-                <View className="pt-4 px-4">
+                <View className={cn("pt-4", containerClassName)}>
                     <Field
                         type="search"
                         placeholder={getTranslation('unit.search.placeholder')}

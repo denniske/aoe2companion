@@ -11,6 +11,8 @@ import { TouchableOpacity, View } from 'react-native';
 import { getCivIconLocal } from '../../../helper/civs';
 import { useTranslation } from '@app/helper/translate';
 import { useAoe4CivData } from '@app/queries/all';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 type Mutable<Type> = {
     -readonly [Key in keyof Type]: Type[Key];
@@ -55,7 +57,7 @@ export default function CivList() {
                 <Stack.Screen options={{ title: getTranslation('civs.title') }} />
 
                 {appConfig.game === 'aoe2' && (
-                    <View className="pt-4 px-4">
+                    <View className={cn("pt-4", containerClassName)}>
                         <Field
                             type="search"
                             placeholder={getTranslation('unit.search.placeholder')}

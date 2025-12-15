@@ -32,6 +32,8 @@ import { useLazyAppendApi } from '../../hooks/use-lazy-append-api';
 import { useSelector } from '../../redux/reducer';
 import { createStylesheet } from '../../theming-new';
 import { FlatList } from '@app/components/flat-list';
+import cn from 'classnames';
+import { containerClassName, containerScrollClassName } from '@app/styles';
 
 const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
@@ -448,7 +450,7 @@ export default function LeaderboardPage() {
                 }}
             />
 
-            <View style={styles.pickerRow2}>
+            <View className={cn('items-center flex-row py-4 gap-2.5', containerClassName)}>
                 <LeaderboardSelect leaderboardId={leaderboardId} onLeaderboardIdChange={setLeaderboardId} />
                 <CountrySelect />
             </View>
@@ -489,22 +491,21 @@ export default function LeaderboardPage() {
                     }
                 />
             </View>
-            <View style={[styles.handleContainer, { bottom }]}>
-                <GestureDetector gesture={panGesture}>
-                    <Animated.View style={[{ right: 0, opacity: handleVisible ? 1 : 0 }, styles.handle, handleAnimatedStyle]}>
-                        <FontAwesome5 name="arrows-alt-v" size={26} style={styles.arrows} />
-                        {baseMoving && (
-                            <View style={styles.textContainer}>
-                                <View style={styles.textBox}>
-                                    <AnimatedValueText
-                                        value={handleStr}
-                                        style={styles.text}
-                                    />
+            <View className={cn(containerScrollClassName, 'absolute inset-0')} pointerEvents="box-none">
+                <View style={[styles.handleContainer, { bottom }]}>
+                    <GestureDetector gesture={panGesture}>
+                        <Animated.View style={[{ right: 0, opacity: handleVisible ? 1 : 0 }, styles.handle, handleAnimatedStyle]}>
+                            <FontAwesome5 name="arrows-alt-v" size={26} style={styles.arrows} />
+                            {baseMoving && (
+                                <View style={styles.textContainer}>
+                                    <View style={styles.textBox}>
+                                        <AnimatedValueText value={handleStr} style={styles.text} />
+                                    </View>
                                 </View>
-                            </View>
-                        )}
-                    </Animated.View>
-                </GestureDetector>
+                            )}
+                        </Animated.View>
+                    </GestureDetector>
+                </View>
             </View>
         </View>
     );
@@ -627,14 +628,6 @@ const useStyles = createStylesheet((theme) =>
         },
         content: {
             flex: 1,
-        },
-
-        pickerRow2: {
-            // backgroundColor: 'yellow',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 10,
-            padding: 10,
         },
 
         menuButton: {

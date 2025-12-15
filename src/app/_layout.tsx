@@ -58,6 +58,7 @@ import { LiveActivity } from '@/modules/widget';
 import { AvailableMainPage } from '@app/helper/routing';
 import { clearLastNotificationResponse } from 'expo-notifications';
 import { useCSSVariable } from 'uniwind';
+import { NavBar } from '@app/components/navbar';
 
 initSentry();
 
@@ -323,21 +324,11 @@ function AppWrapper() {
         return null;
     }
 
-    // console.log();
-    // console.log();
-    // console.log('ROOT RENDER', appConfig.game);
-    // console.log();
-    // console.log();
-
     return (
-        <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black ${isMobile ? '' : 'py-5'}` : ``}`}>
+        <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black` : ``}`}>
             <ConditionalTester>
                 <ThemeProvider value={customTheme}>
-                    <View
-                        className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full mx-auto my-auto flex-1 ${isMobile ? '' : 'max-h-[900px] border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
-                        style={{ paddingTop: insets.top }}
-                        onLayout={onLayoutRootView}
-                    >
+                    <View className="bg-gold-50 dark:bg-blue-950 flex-1" style={{ paddingTop: insets.top }} onLayout={onLayoutRootView}>
                         <StatusBar barStyle={contentTheme} backgroundColor="transparent" translucent />
 
                         {/*<FloatingDevTools*/}
@@ -406,8 +397,13 @@ function AppWrapper() {
 
                         <PortalProvider>
                             <>
+                                <View className="hidden md:web:block">
+                                    <NavBar />
+                                </View>
                                 <Stack screenOptions={{ header: (props) => <Header {...props} /> }}></Stack>
-                                <TabBar></TabBar>
+                                <View className="md:web:hidden">
+                                    <TabBar />
+                                </View>
                             </>
                         </PortalProvider>
                     </View>
@@ -416,7 +412,6 @@ function AppWrapper() {
         </GestureHandlerRootView>
     );
 }
-
 
 function useIsNavigationReady() {
     // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
