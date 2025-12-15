@@ -1,10 +1,11 @@
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Platform, ScrollView, ScrollViewProps } from 'react-native';
+import { Platform, ScrollView, ScrollViewProps, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { useMutateScroll, useScrollToTop } from '@app/redux/reducer';
+import { useShowTabBar } from './use-show-tab-bar';
 
-export interface UseScrollViewProps extends Pick<ScrollViewProps, 'horizontal' | 'onScroll' | 'onLayout'> {
+export interface UseScrollViewProps extends Pick<ScrollViewProps, 'horizontal' | 'onScroll' | 'onLayout' | 'scrollEnabled'> {
     contentContainerStyle?: string;
     ref: React.ForwardedRef<any>;
 }
@@ -14,12 +15,15 @@ export const useScrollView = ({
     onScroll,
     onLayout,
     ref,
-}: UseScrollViewProps): Omit<ScrollViewProps, 'hitSlop'> & { ref: React.RefObject<any> } => {
+    scrollEnabled,
+}: UseScrollViewProps): Omit<ScrollViewProps, 'hitSlop'> & { ref: React.RefObject<any> } & { initialNumToRender?: number } => {
+    const showTabBar = useShowTabBar();
+    const shouldDisableScroll = !showTabBar && !horizontal;
     const scrollViewRef = useRef<ScrollView>(null);
     const { bottom } = useSafeAreaInsets();
     // const tw = useTw();
     // const style = tw.style(contentContainerStyle);
-    const bottomOffset = horizontal ? 0 : bottom + 82;
+    const bottomOffset = horizontal || shouldDisableScroll ? 0 : bottom + 82;
     const paddingBottom = (horizontal ? 0 : 20) + (Platform.OS === 'ios' ? 0 : bottomOffset);
     const scrollToTop = useScrollToTop();
     const { setScrollPosition } = useMutateScroll();
@@ -75,5 +79,8 @@ export const useScrollView = ({
         contentInset: { bottom: bottomOffset },
         contentContainerStyle: { paddingBottom },
         ref: (ref || scrollViewRef) as React.RefObject<any>,
+        style: shouldDisableScroll && { overflow: 'visible', overflowX: 'clip' },
+        scrollEnabled: !shouldDisableScroll && scrollEnabled,
+        initialNumToRender: shouldDisableScroll ? 1000 : undefined,
     };
 };

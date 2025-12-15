@@ -45,7 +45,11 @@ export const appConfig = {
         discordClientId: '1437582633033924781',
         xboxClientId: 'e24261f0-48b4-4920-a541-448ae6e2c0a1',
         xboxPublicKey: '325d6616-0566-5ce3-aa1f-8e85fa7123de',
-    }
+    },
+    ms: {
+        name: 'Age of Empires IV',
+        url: 'https://www.ageofempires.com/games/age-of-empires-iv/',
+    },
 };
 
 export const appIconData = require('../../../assets4/icon.png');
