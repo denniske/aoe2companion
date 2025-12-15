@@ -60,7 +60,7 @@ export const NavBar: React.FC = () => {
             >
                 <Image source={appIconData} className="w-12 h-12 rounded" />
 
-                <Text variant="header-lg" color="default" className='hidden lg:flex'>
+                <Text variant="header-lg" color="default" className="hidden lg:flex">
                     {appConfig.app.name}
                 </Text>
             </Pressable>
@@ -80,15 +80,16 @@ export const NavBar: React.FC = () => {
                         onPress={() => onPress()}
                         key={route.key}
                         className={cn(
-                            'flex-row justify-center items-center gap-2 px-4 border border-transparent rounded-lg',
+                            'flex-row justify-center items-center gap-2 rounded-lg',
                             isFocused
-                                ? 'text-brand fill-brand'
-                                : 'text-default hover:text-subtle fill-default hover:fill-subtle hover:bg-white hover:border-gold-100'
+                                ? 'bg-blue-800 dark:bg-gold-700 text-white fill-white'
+                                : 'text-default fill-default hocus:bg-blue-50 dark:hocus:bg-blue-800',
+                            !route.label ? 'px-4' : 'px-6'
                         )}
                     >
                         {route.icon && <Icon fill="inherit" size={20} icon={route.icon as IconName} />}
                         {route.label && (
-                            <Text variant="label-lg" color="text-inherit" className="uppercase mt-1">
+                            <Text variant="label-lg" color="text-inherit" className="uppercase mt-0.5">
                                 {route.label}
                             </Text>
                         )}
