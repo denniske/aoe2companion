@@ -1,12 +1,13 @@
 import { FlatList } from '@app/components/flat-list';
 import { Icon, IconName } from '@app/components/icon';
 import { Text } from '@app/components/text';
-import { router, Stack } from 'expo-router';
+import { Redirect, router, Stack } from 'expo-router';
 import { Platform, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Constants from 'expo-constants';
 import { useTranslation } from '@app/helper/translate';
 import { appConfig } from '@nex/dataset';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 
 interface Link {
     icon: IconName;
@@ -31,6 +32,12 @@ export default function More() {
             [{ icon: 'coffee', title: getTranslation('footer.buymeacoffee'), path: 'https://www.buymeacoffee.com/denniskeil' } as Link] : []
         ),
     ];
+
+    const showTabBar = useShowTabBar()
+
+    if (!showTabBar) {
+        return <Redirect href="/" />
+    }
 
     return (
         <>

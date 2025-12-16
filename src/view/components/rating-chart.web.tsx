@@ -5,16 +5,17 @@ import { useAppTheme } from '../../theming';
 import { subYears } from 'date-fns';
 import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme } from 'victory-native';
 import { IProfileRatingsLeaderboard } from '../../api/helper/api.types';
-import { windowWidth } from '@app/app/statistics/leaderboard';
 import { cloneDeep, merge } from 'lodash';
 import { getRatingTimespan } from '@app/utils/rating';
 import { useCSSVariable, useUniwind } from 'uniwind';
+import { Dimensions } from 'react-native';
 
 interface IRatingChartProps {
     formatTick: (date: Date) => string;
     ratingHistoryDuration: string;
     filteredRatingHistories: IProfileRatingsLeaderboard[] | null | undefined;
     hiddenLeaderboardIds: LeaderboardId[];
+    width: number
 }
 
 export default function RatingChart(props: IRatingChartProps) {
@@ -23,6 +24,7 @@ export default function RatingChart(props: IRatingChartProps) {
         ratingHistoryDuration,
         filteredRatingHistories,
         hiddenLeaderboardIds,
+        width
     } = props;
 
     const appTheme = useAppTheme();
@@ -35,7 +37,7 @@ export default function RatingChart(props: IRatingChartProps) {
 
     return (
         <VictoryChart
-            width={windowWidth - 40}
+            width={width}
             height={300}
             theme={theme === 'dark' ? newVictoryTheme.customDark : newVictoryTheme.custom}
             padding={{ left: 50, bottom: 30, top: 20, right: 20 }}

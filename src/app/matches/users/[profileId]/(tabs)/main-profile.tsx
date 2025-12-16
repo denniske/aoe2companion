@@ -12,6 +12,7 @@ import RefreshControlThemed from '../../../../../view/components/refresh-control
 import { useProfile, useWithRefetching } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { useTranslation } from '@app/helper/translate';
+import { ScrollView } from '@app/components/scroll-view';
 
 export default function MainProfile() {
     const getTranslation = useTranslation();
@@ -45,64 +46,31 @@ export default function MainProfile() {
         await Promise.all([refetch()]);
     };
 
-    const list: any = ['profile', 'rating-header', 'rating'];
-
-    const nav = async (route: string) => {
-        navigation.navigate(route);
-    };
-
     return (
         <View style={styles.container}>
             <View style={styles.content}>
-                {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
                 {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
-                <FlatList
-                    // scrollEnabled={false}
-                    contentContainerClassName="p-4"
-                    data={list}
-                    renderItem={({ item, index }) => {
-                        switch (item) {
-                            case 'rating-header':
-                                if (rating?.length === 0) return <View />;
-                                return <MyText style={styles.sectionHeader}>{getTranslation('main.profile.ratinghistory.heading')}</MyText>;
-                            // case 'matches5-header':
-                            //     if (rating?.length === 0) return <View />;
-                            //     return <MyText style={styles.sectionHeader}>{getTranslation('main.profile.recentmatches.heading')}</MyText>;
-                            // case 'matches5-footer':
-                            //     return (
-                            //         <Button onPress={() => nav('MainMatches')} mode="contained" compact uppercase={false} dark>
-                            //             View All
-                            //         </Button>
-                            //     );
-                            // case 'matchesVersus-header':
-                            //     if (rating?.length === 0) return <View />;
-                            //     return <MyText style={styles.sectionHeader}>Recent matches with you</MyText>;
-                            // case 'matchesVersus-footer':
-                            //     return (
-                            //         <Button onPress={() => nav('MainMatches')} mode="contained" compact uppercase={false} dark>
-                            //             View All
-                            //         </Button>
-                            //     );
-                            case 'profile':
-                                if (profile === null)
-                                    return (
-                                        <View style={styles.container}>
-                                            <MyText>{getTranslation('main.profile.noleaderboarddata')}</MyText>
-                                        </View>
-                                    );
-                                return <Profile data={profile} profileId={profileId} ready={profile != null && rating != null} />;
-                            case 'rating':
-                                if (rating?.length === 0) return <View />;
-                                return <Rating ratingHistories={rating} profile={profile} ready={profile != null && rating != null} />;
-                            default:
-                                return <View />;
-                            // default:
-                            //     return <Game match={item as any} expanded={index === -1} highlightedUsers={[profileId]} user={profileId}/>;
-                        }
-                    }}
-                    keyExtractor={(item, index) => index.toString()}
-                    refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}
-                />
+                <ScrollView contentContainerClassName="p-4" refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}>
+                    <View className="md:flex-row md:justify-around gap-4">
+                        <View>
+                            {profile === null ? (
+                                <View style={styles.container}>
+                                    <MyText>{getTranslation('main.profile.noleaderboarddata')}</MyText>
+                                </View>
+                            ) : (
+                                <Profile data={profile} profileId={profileId} ready={profile != null && rating != null} />
+                            )}
+                        </View>
+
+                        <View className="md:w-1/2">
+                            {rating?.length === 0 ? (
+                                <View />
+                            ) : (
+                                <Rating ratingHistories={rating} profile={profile} ready={profile != null && rating != null} />
+                            )}
+                        </View>
+                    </View>
+                </ScrollView>
             </View>
         </View>
     );

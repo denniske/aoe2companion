@@ -1,20 +1,4 @@
 export const privacyHtmlEn = `
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-
-<style>
-    body {
-        margin: 14px;
-        font-size: 0.9em;
-        font-family: 'Roboto', sans-serif;
-    }
-</style>
-
-<!--<h1>Privacy Policy</h1>-->
 <p>Effective date: October 03, 2019</p>
 <p>{GAME} ("us", "we", or "our") operates the {GAME} mobile application (hereinafter referred to as the
     "Service").</p>
@@ -195,7 +179,4 @@ export const privacyHtmlEn = `
     <li>By email: hello@{GAME}.com</li>
 
 </ul>
-
-</body>
-</html>
 `;

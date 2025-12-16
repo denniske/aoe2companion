@@ -12,6 +12,12 @@ export const ScrollView = forwardRef(
     ({ contentContainerStyle, contentContainerClassName, ...props }: ScrollViewProps, ref: React.ForwardedRef<ScrollViewRN>) => {
         const scrollViewProps = useScrollView({ contentContainerStyle, ref, ...props });
 
-        return <ScrollViewRN {...props} {...scrollViewProps} contentContainerClassName={cn(containerScrollClassName, contentContainerClassName)} />;
+        return (
+            <ScrollViewRN
+                {...props}
+                {...scrollViewProps}
+                contentContainerClassName={cn(!props.horizontal && containerScrollClassName, contentContainerClassName)}
+            />
+        );
     }
 );

@@ -1,7 +1,7 @@
 import { Field } from '@app/components/field';
 import { Text } from '@app/components/text';
 import React, { useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, Platform, View } from 'react-native';
 import FlatListLoadingIndicator from './flat-list-loading-indicator';
 import PlayerList from './player-list';
 import RefreshControlThemed from './refresh-control-themed';
@@ -14,6 +14,7 @@ import { RecentSearches } from './recent-searches';
 import { useRecentSearches } from '@app/service/recent-searches';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
+import { Button } from '@app/components/button';
 
 interface ISearchProps {
     title?: string;
@@ -67,10 +68,19 @@ export default function Search({ title, selectedUser, actionText, action, initia
         if (!hasNextPage || isFetchingNextPage) return;
         await fetchNextPage();
     };
-
     const _renderFooter = () => {
-        if (!isFetchingNextPage) return null;
-        return <FlatListLoadingIndicator />;
+        if (isFetchingNextPage) {
+            return <FlatListLoadingIndicator />;
+        }
+
+        if (Platform.OS === 'web' && hasNextPage)
+            return (
+                <View className="pt-2 pb-6 flex-row justify-center">
+                    <Button onPress={onEndReached}>{getTranslation('footer.loadMore')}</Button>
+                </View>
+            );
+
+        return null;
     };
 
     const onSelectUser = (player: IProfilesResultProfile) => {
@@ -116,7 +126,7 @@ export default function Search({ title, selectedUser, actionText, action, initia
                             </>
                         ) : null
                     }
-                    onEndReached={onEndReached}
+                    onEndReached={Platform.OS === 'web' ? undefined : onEndReached}
                     onEndReachedThreshold={0.1}
                     keyExtractor={(item, index) => index.toString()}
                     refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={reloading} />}

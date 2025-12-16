@@ -190,7 +190,7 @@ export default function TournamentDetail() {
                                 <PlayerList
                                     selectedUser={(participant) => {
                                         if (participant.profileId) {
-                                            router.navigate(`/matches/users/${participant.profileId}/main-profile`);
+                                            router.navigate(`/matches/users/${participant.profileId}`);
                                         }
                                     }}
                                     variant="horizontal"
@@ -299,7 +299,7 @@ export default function TournamentDetail() {
 
                                                         <View className="flex-row flex-wrap mb-4 gap-2" style={{ rowGap: 12 }}>
                                                             {group.rounds.map((round) => (
-                                                                <PlayoffRound key={round.id} round={round} className="w-[calc(50%-0.25rem)]" />
+                                                                <PlayoffRound key={round.id} round={round} className="w-1/2" />
                                                             ))}
                                                         </View>
                                                     </View>

@@ -52,7 +52,9 @@ export default function MatchPage() {
             <View className="gap-2">
                 <MatchCard match={match} linkMap={true} />
                 <MatchInfo match={match} />
-                <MatchTeams match={match} />
+                <View className='lg:hidden'>
+                    <MatchTeams match={match} />
+                </View>
                 <MatchAnalysis match={match} matchError={matchError} matchLoading={matchLoading} />
                 <MatchOptions match={match} />
             </View>

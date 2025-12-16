@@ -6,7 +6,6 @@ import { TextLoader } from './loader/text-loader';
 import { useAppTheme } from '../../theming';
 import { isAfter } from 'date-fns';
 import { IProfileRatingsLeaderboard, IProfileResult } from '../../api/helper/api.types';
-import { windowWidth } from '@app/app/statistics/leaderboard';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
 import { useAuthProfileId } from '@app/queries/all';
 import { usePrefData } from '@app/queries/prefs';
@@ -24,6 +23,7 @@ interface IRatingProps {
 }
 
 export default function Rating({ ratingHistories, profile, ready }: IRatingProps) {
+    const [width, setWidth] = useState(0)
     const getTranslation = useTranslation();
     ratingHistories = ready ? ratingHistories : null;
 
@@ -97,17 +97,18 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     // console.log('Rendering Rating chart, hasData', hasData, filteredRatingHistories);
 
     return (
-        <View>
+        <View onLayout={(e) => setWidth(e.nativeEvent.layout.width)} className='w-full'>
             <View className="flex-row justify-between mb-4">
                 <PlatformSelect platform={platform} setPlatform={setPlatform}/>
                 <TimespanSelect ratingHistoryDuration={ratingHistoryDuration} setRatingHistoryDuration={setRatingHistoryDuration}/>
             </View>
 
             <ViewLoader ready={hasData}>
-                <View style={{ width: windowWidth - 40, height: 300 }}>
+                <View style={{ width: width, height: 300 }}>
                     {
                         hasData &&
                         <RatingChart
+                            width={width}
                             formatTick={formatTick}
                             ratingHistoryDuration={ratingHistoryDuration}
                             filteredRatingHistories={filteredRatingHistories}

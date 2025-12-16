@@ -166,12 +166,23 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     assetBundlePatterns: app.assetBundlePatterns,
     plugins: [
-        "expo-router",
+        [
+            "expo-router",
+            {
+                sitemap: !isProdBuild,
+                redirects: [
+                    { source: '/leaderboard', destination: '/statistics/leaderboard' },
+                    { source: '/lobby', destination: '/matches/live/lobbies' },
+                    { source: '/ongoing', destination: '/matches/live/all' },
+                    { source: '/privacy', destination: '/more/privacy' }
+                ]
+            }
+        ],
         [
             "expo-notifications",
             {
                 "icon": `./${app.assetsFolder}/notification.png`
-            }
+            },
         ],
         ...sentryConfigPlugins,
         ...appConfigPlugins,

@@ -1,5 +1,5 @@
 import { useTranslation } from '@app/helper/translate';
-import { Pressable, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
 import { Text } from './text';
 import { Href, useRouter } from 'expo-router';
 import { Icon, IconName } from './icon';
@@ -8,6 +8,8 @@ import { Image } from './uniwind/image';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
 import { appConfig, appIconData } from '@nex/dataset';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { InlinePlayerSearch } from './inline-player-search';
 
 export const NavBar: React.FC = () => {
     const router = useRouter();
@@ -15,7 +17,7 @@ export const NavBar: React.FC = () => {
 
     const getTranslation = useTranslation();
 
-    const routes: Array<{ key: string; label?: string; icon: IconName; path: Href }> = [
+    const routes: Array<{ key: string; label: string; icon: IconName; path: Href }> = [
         {
             key: 'matches',
             label: getTranslation('nav.matches'),
@@ -40,62 +42,67 @@ export const NavBar: React.FC = () => {
             icon: 'ranking-star',
             path: '/competitive',
         },
-        {
-            key: 'more',
-            icon: 'bars',
-            path: '/more',
-        },
     ] as const;
 
+    const { isLarge } = useBreakpoints();
+
     return (
-        <View className={cn('flex flex-row pt-8 pb-4 justify-between', containerClassName)}>
-            <Pressable
-                className="flex-row items-center gap-4 pr-8"
-                onPress={() => {
-                    if (router.canDismiss()) {
-                        router.dismissAll();
-                    }
-                    router.replace('/');
-                }}
-            >
-                <Image source={appIconData} className="w-12 h-12 rounded" />
+        <View className="bg-blue-800 dark:bg-blue-900 relative z-50">
+            <View className={cn('flex flex-row py-4 px-6 justify-between', containerClassName)}>
+                <Pressable
+                    className="flex-row items-center gap-4 lg:pr-4 xl:pr-8"
+                    onPress={() => {
+                        if (router.canDismiss()) {
+                            router.dismissAll();
+                        }
+                        router.replace('/');
+                    }}
+                >
+                    <Image source={appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
 
-                <Text variant="header-lg" color="default" className="hidden lg:flex">
-                    {appConfig.app.name}
-                </Text>
-            </Pressable>
+                    <Text variant="header-lg" color="white" className="hidden xl:flex">
+                        {appConfig.app.name}
+                    </Text>
+                </Pressable>
 
-            {routes.map((route) => {
-                const isFocused = routeName?.startsWith(route.key);
+                {routes.map((route) => {
+                    const isFocused = routeName?.startsWith(route.key);
 
-                const onPress = () => {
-                    if (router.canDismiss()) {
-                        router.dismissAll();
-                    }
-                    router.replace(route.path);
-                };
+                    const onPress = () => {
+                        if (router.canDismiss()) {
+                            router.dismissAll();
+                        }
+                        router.replace(route.path);
+                    };
 
-                return (
-                    <Pressable
-                        onPress={() => onPress()}
-                        key={route.key}
-                        className={cn(
-                            'flex-row justify-center items-center gap-2 rounded-lg',
-                            isFocused
-                                ? 'bg-blue-800 dark:bg-gold-700 text-white fill-white'
-                                : 'text-default fill-default hocus:bg-blue-50 dark:hocus:bg-blue-800',
-                            !route.label ? 'px-4' : 'px-6'
-                        )}
-                    >
-                        {route.icon && <Icon fill="inherit" size={20} icon={route.icon as IconName} />}
-                        {route.label && (
+                    return (
+                        <Pressable
+                            onPress={() => onPress()}
+                            key={route.key}
+                            className={cn(
+                                'flex-row justify-center items-center gap-2.5 rounded-lg px-5 xl:px-6',
+                                isFocused ? 'bg-blue-950 text-white fill-white' : 'text-white fill-white hocus:bg-blue-700'
+                            )}
+                        >
+                            <Icon fill="inherit" size={20} icon={route.icon as IconName} />
                             <Text variant="label-lg" color="text-inherit" className="uppercase mt-0.5">
                                 {route.label}
                             </Text>
-                        )}
+                        </Pressable>
+                    );
+                })}
+
+                {isLarge && Platform.OS === 'web' ? (
+                    <InlinePlayerSearch />
+                ) : (
+                    <Pressable
+                        onPress={() => router.replace('/matches/users/search')}
+                        className={cn('flex-row justify-center items-center gap-2.5 rounded-lg px-4 text-white fill-white hocus:bg-blue-700')}
+                    >
+                        <Icon fill="inherit" size={20} icon="search" />
                     </Pressable>
-                );
-            })}
+                )}
+            </View>
         </View>
     );
 };

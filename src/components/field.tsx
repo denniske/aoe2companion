@@ -53,7 +53,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
             <TextInput
                 {...typeOptions[inputType]}
                 {...props}
-                className={`bg-white dark:bg-blue-900 text-sm rounded-lg border border-gray-200 dark:border-gray-800 py-3 ${color} ${padding}`}
+                className={`bg-white dark:bg-blue-900 text-sm rounded-lg border border-gray-200 dark:border-gray-800 py-3 ${color} ${padding} shadow-xs`}
             />
             {inputType === 'search' && props.value ? (
                 <TouchableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => props.onChangeText?.('')}>

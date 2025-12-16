@@ -17,6 +17,10 @@ function SectionListInner<ItemT>({ contentContainerStyle, contentContainerClassN
     const scrollViewProps = useScrollView({ contentContainerStyle, ref, ...props });
 
     return (
-        <SectionListRN<ItemT> {...props} {...scrollViewProps} contentContainerClassName={cn(containerScrollClassName, contentContainerClassName)} />
+        <SectionListRN<ItemT>
+            {...props}
+            {...scrollViewProps}
+            contentContainerClassName={cn(!props.horizontal && containerScrollClassName, contentContainerClassName)}
+        />
     );
 }

@@ -780,7 +780,7 @@ export interface IFetchBuildsParams {
     attribute?: string;
     difficulty?: string;
     search?: string;
-
+    perPage?: number,
     page?: number;
     pageParam?: number;
 }

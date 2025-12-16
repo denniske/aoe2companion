@@ -223,6 +223,7 @@ export const useInfiniteBuilds = (params: IFetchBuildsParams) => {
     return useInfiniteQuery({
         queryKey: ['builds', removeUndefinedOrNullOrEmptyString(params)],
         queryFn: (context) => fetchBuilds({
+            perPage: 48,
             ...context,
             ...removeUndefinedOrNullOrEmptyString(params),
         }),

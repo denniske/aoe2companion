@@ -20,7 +20,7 @@ import { useAccountData, useFollowedAndMeProfileIds, useLanguage } from '@app/qu
 import { useTranslation } from '@app/helper/translate';
 import { ProfileLive } from '@app/view/components/badge/twitch-badge';
 import cn from 'classnames';
-import { containerClassName } from '@app/styles';
+import { containerClassName, containerScrollClassName } from '@app/styles';
 
 export default function MatchesPage() {
     const getTranslation = useTranslation();
@@ -74,8 +74,18 @@ export default function MatchesPage() {
     const list = data?.pages?.flatMap((p) => p.matches) || Array(15).fill(null);
 
     const _renderFooter = () => {
-        if (!isFetchingNextPage) return null;
-        return <FlatListLoadingIndicator />;
+        if (isFetchingNextPage) {
+            return <FlatListLoadingIndicator />;
+        }
+
+        if (Platform.OS === 'web' && hasNextPage)
+            return (
+                <View className="py-4 flex-row justify-center">
+                    <Button onPress={onEndReached}>{getTranslation('footer.loadMore')}</Button>
+                </View>
+            );
+
+        return null;
     };
 
     const filterAndSortPlayers = (players: IPlayerNew[]) => {
@@ -87,7 +97,7 @@ export default function MatchesPage() {
     };
 
     const gotoPlayer = (profileId: number) => {
-        router.push(`/matches/users/${profileId}` as any);
+        router.push(`/matches/users/${profileId}`);
     };
 
     const formatPlayer = (player: any, i: number) => {
@@ -116,13 +126,13 @@ export default function MatchesPage() {
                     ),
                 }}
             />
-            <View className="pb-5 pt-4">
+            <View className={cn("pb-5 pt-4", containerScrollClassName)}>
                 <FollowedPlayers />
             </View>
 
             <View className={cn("flex-row justify-between items-center", containerClassName)}>
                 <Text variant="header-lg">{getTranslation('matches.liveandrecentmatches')}</Text>
-                <Link href="/matches/live">{getTranslation('matches.viewlobbies')}</Link>
+                <Link href="/matches/live/lobbies">{getTranslation('matches.viewlobbies')}</Link>
             </View>
 
             {error ? (
@@ -256,7 +266,7 @@ export default function MatchesPage() {
                             );
                         }}
                         ListFooterComponent={_renderFooter}
-                        onEndReached={onEndReached}
+                        onEndReached={Platform.OS === 'web' ? undefined : onEndReached}
                         onEndReachedThreshold={0.1}
                         keyExtractor={(item, index) => index.toString()}
                         refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}

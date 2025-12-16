@@ -19,7 +19,7 @@ export const Card: React.FC<CardProps> = ({ className, flat, onPress, header, ch
     const directionStyles = direction === 'horizontal' ? 'flex-row items-center' : 'flex-col';
 
     if (flat) {
-        paddingStyles = 'px-2 py-2';
+        paddingStyles = 'px-2 py-2 md:px-4 md:py-4';
     }
 
     return (
@@ -31,7 +31,7 @@ export const Card: React.FC<CardProps> = ({ className, flat, onPress, header, ch
                 onPress?.(e);
             }}
             {...props}
-            className={`gap-2 ${alignmentStyles} ${colorStyles} ${paddingStyles} ${directionStyles} ${className ?? ''}`}
+            className={`gap-2 ${alignmentStyles} ${colorStyles} ${paddingStyles} ${directionStyles} ${className ?? ''} shadow-sm`}
         >
             {header}
             {children}

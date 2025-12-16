@@ -22,5 +22,5 @@ function FlatListInner<ItemT>(
     const Component = props.horizontal ? FlatListRN : FlatListRN; // FlatListGH : FlatListRN
     const scrollViewProps = useScrollView({ contentContainerStyle, ref, ...props });
 
-    return <Component<ItemT> {...props} {...scrollViewProps} contentContainerClassName={cn(containerScrollClassName, contentContainerClassName)} />;
+    return <Component<ItemT> {...props} {...scrollViewProps} contentContainerClassName={cn(!props.horizontal && containerScrollClassName, contentContainerClassName)} />;
 }

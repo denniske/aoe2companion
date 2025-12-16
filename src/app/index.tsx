@@ -3,34 +3,31 @@ import { FlatList } from '@app/components/flat-list';
 import { FollowedPlayers } from '@app/components/followed-players';
 import { Link } from '@app/components/link';
 import { Match } from '@app/components/match/match';
-import { NewsCard } from '@app/components/news-card';
+import { NewsCard, NewsCardSkeleton } from '@app/components/news-card';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { useFollowedTournaments } from '@app/service/favorite-tournaments';
 import { useAccountMostRecentMatches } from '@app/utils/match';
 import { useNews } from '@app/utils/news';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
-import { Stack, useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Stack } from 'expo-router';
+import React from 'react';
+import { View } from 'react-native';
 import { Button } from '@app/components/button';
-import { useAuthProfileId, useInfiniteBuilds, useMapsPoll, useMapsRanked } from '@app/queries/all';
+import { useAuthProfileId, useInfiniteBuilds } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
-import { Image } from '@/src/components/uniwind/image';
-import ButtonPicker from '@app/view/components/button-picker';
-import { isWithinInterval } from 'date-fns';
-import { formatDayAndTime } from '@nex/data';
 import { useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
-import { BuildCard } from '@app/view/components/build-order/build-card';
+import { BuildCard, BuildSkeletonCard } from '@app/view/components/build-order/build-card';
 import { compact } from 'lodash';
 import { useFavoritedBuilds } from '@app/service/favorite-builds';
 import { appConfig } from '@nex/dataset';
+import { RankedMaps } from '@app/components/ranked-maps';
+import { AnimateIn } from '@app/components/animate-in';
 
-export function FavoritedBuilds() {
+const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
-    const { favoriteIds } = useFavoritedBuilds();
-    const { data } = useInfiniteBuilds({ build_ids: favoriteIds });
+    const { data, isPending } = useInfiniteBuilds({ build_ids: favoriteIds });
     const favorites = compact(data?.pages?.flatMap((p) => p.builds));
 
     return (
@@ -42,17 +39,17 @@ export function FavoritedBuilds() {
 
             <FlatList
                 showsHorizontalScrollIndicator={false}
-                className="flex-none"
+                className="flex-none -mx-4"
                 horizontal
                 keyboardShouldPersistTaps="always"
-                data={favorites}
-                contentContainerClassName="gap-2.5"
-                renderItem={({ item }) => <BuildCard size="small" {...item} />}
-                keyExtractor={(item) => item.id.toString()}
+                data={isPending ? favoriteIds.map(() => null) : favorites}
+                contentContainerClassName="gap-2.5 px-4"
+                renderItem={({ item }) => (item ? <BuildCard size="small" {...item} /> : <BuildSkeletonCard size="small" />)}
+                keyExtractor={(item, index) => item?.id?.toString() ?? index.toString()}
             />
         </View>
-    )
-}
+    );
+};
 
 export default function IndexPage() {
     const appStyles = useTheme(appVariants);
@@ -61,20 +58,11 @@ export default function IndexPage() {
     const tournament = useFeaturedTournament();
     const accountMostRecentMatches = useAccountMostRecentMatches(1);
     const accountMostRecentMatch = accountMostRecentMatches?.length ? accountMostRecentMatches[0] : null;
-    const { data: news = Array(3).fill(null) } = useNews();
+    const { data: news = Array<null>(3).fill(null) } = useNews();
     const { favoriteIds } = useFavoritedBuilds();
-    const router = useRouter();
     const { followedIds } = useFollowedTournaments();
-    const { data: mapsRanked } = useMapsRanked();
-    const { data: mapsPoll } = useMapsPoll();
-
-    const [rankedMapLeaderboard, setRankedMapLeaderboard] = useState<string>();
-    const values: string[] = mapsRanked?.leaderboards?.map((l) => l.leaderboardId) || [];
-    const firstValue = mapsRanked?.leaderboards?.map((l) => l.leaderboardId)?.[0];
-    const formatLeaderboard = (leaderboardId: string) => mapsRanked?.leaderboards?.find((l) => l.leaderboardId === leaderboardId)?.abbreviation ?? '';
 
     return (
-        // <ScrollView contentContainerClassName="p-4 gap-5" className="scrollbar dark:scrollbar-dark">
         <ScrollView contentContainerClassName="p-4 gap-5">
             <Stack.Screen
                 options={{
@@ -92,28 +80,30 @@ export default function IndexPage() {
                 <FollowedPlayers />
             </View>
 
-            {/*<ConsoleModal />*/}
-
             {authProfileId && (
-                <View className="gap-2">
-                    <View className="flex-row justify-between items-center">
-                        <Text variant="header-lg">
-                            {getTranslation(accountMostRecentMatch?.finished === null ? 'home.current' : 'home.mostRecent')} Match
-                        </Text>
-                        <Link href="/matches/current">Open My Dashboard</Link>
-                    </View>
+                <AnimateIn>
                     <View className="gap-2">
-                        <Match
-                            user={accountMostRecentMatch?.filteredPlayers[0]}
-                            highlightedUsers={accountMostRecentMatch?.filteredPlayers}
-                            match={accountMostRecentMatch}
-                        />
+                        <View className="flex-row justify-between items-center">
+                            <Text variant="header-lg">
+                                {getTranslation(accountMostRecentMatch?.finished === null ? 'home.current' : 'home.mostRecent')} Match
+                            </Text>
+                            <Link href="/matches/live/mine">Open My Dashboard</Link>
+                        </View>
+                        <View className="gap-2">
+                            <Match
+                                user={accountMostRecentMatch?.filteredPlayers[0]}
+                                highlightedUsers={accountMostRecentMatch?.filteredPlayers}
+                                match={accountMostRecentMatch}
+                            />
+                        </View>
                     </View>
-                </View>
+                </AnimateIn>
             )}
 
             {favoriteIds.length > 0 && (
-                <FavoritedBuilds />
+                <AnimateIn>
+                    <FavoritedBuilds favoriteIds={favoriteIds} />
+                </AnimateIn>
             )}
 
             {tournamentsEnabled ? (
@@ -137,82 +127,11 @@ export default function IndexPage() {
                     className="-mx-4"
                     horizontal
                     data={news}
-                    renderItem={({ item }) => <NewsCard {...item} />}
+                    renderItem={({ item }) => (item ? <NewsCard {...item} /> : <NewsCardSkeleton />)}
                 />
             </View>
 
-            {
-                appConfig.game === 'aoe2' &&
-                <View className="gap-2">
-                    <Text variant="header-lg" className="mb-1">
-                        Ranked Maps
-                    </Text>
-                    {!!mapsPoll && (
-                        <View className="flex-row justify-between items-center mb-3">
-                            {
-                                isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired }) ?
-                                    <Text variant="body">New Map Rotation on {formatDayAndTime(mapsPoll.expired)}</Text> :
-                                    <Text variant="body">Maps active since {formatDayAndTime(mapsPoll.expired)}</Text>
-                            }
-                            {
-                                isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ?
-                                    <Link href="/explore/maps/poll">View Active Poll</Link> :
-                                    <Link href="/explore/maps/poll">View Poll Results</Link>
-                            }
-                        </View>
-                    )}
-                    {!!mapsRanked?.leaderboards && mapsRanked?.leaderboards?.length > 0 && (
-                        <>
-                            <View className="mb-3">
-                                <ButtonPicker
-                                    flex={true}
-                                    value={rankedMapLeaderboard ?? firstValue}
-                                    values={values}
-                                    formatter={formatLeaderboard}
-                                    onSelect={setRankedMapLeaderboard}
-                                />
-                            </View>
-                            <View className="flex-row flex-wrap">
-                                {mapsRanked?.leaderboards
-                                    ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
-                                    ?.maps?.map((map) => (
-                                        <TouchableOpacity
-                                            key={map.mapId}
-                                            className="flex-col justify-between items-center w-[25%] mb-4"
-                                            onPress={() => router.push(`/explore/maps/${map.mapId}` as any)}
-                                        >
-                                            <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
-                                            <Text variant={'body-sm'} className="text-center mb-1">
-                                                {map.mapName}
-                                            </Text>
-                                            <Text variant={'body-sm'} className="text-center">
-                                                {map.percentage.toFixed(0)} %
-                                            </Text>
-                                        </TouchableOpacity>
-                                    ))}
-                            </View>
-                        </>
-                    )}
-                </View>
-            }
+            {appConfig.game === 'aoe2' && <RankedMaps />}
         </ScrollView>
     );
 }
-
-
-
-// <Button onPress={crashSetImage}>Crash</Button>
-//
-// {authProfileId && (
-//     <View className="gap-2">
-//         <Text variant="header-lg">
-//             Current Lobby/Match
-//         </Text>
-//         <Link href="/matches/current">
-//             {getTranslation('home.viewAll')}
-//         </Link>
-//         {/*<View className="gap-2">*/}
-//         {/*    <Match user={accountMostRecentMatch?.filteredPlayers[0]} highlightedUsers={accountMostRecentMatch?.filteredPlayers} match={accountMostRecentMatch} />*/}
-//         {/*</View>*/}
-//     </View>
-// )}

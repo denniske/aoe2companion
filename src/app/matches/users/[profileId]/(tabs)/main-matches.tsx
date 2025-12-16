@@ -19,8 +19,10 @@ import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
 import { useTranslation } from '@app/helper/translate';
 import { containerClassName } from '@app/styles';
+import { Button } from '@app/components/button';
+import { IProfileResult } from '@app/api/helper/api.types';
 
-export default function MainMatches() {
+export default function MainMatches(props: {profile?: IProfileResult}) {
     const getTranslation = useTranslation();
     const params = useLocalSearchParams<{ profileId: string }>();
     const profileId = parseInt(params.profileId);
@@ -34,7 +36,7 @@ export default function MainMatches() {
     const realText = text.trim().length < 3 ? '' : text.trim();
     const debouncedSearch = useDebounce(realText, 600);
 
-    const { data: profile } = useProfile(profileId);
+    const { data: profile = props.profile } = useProfile(props.profile ? 0 : profileId);
 
     const language = useLanguage();
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery({
@@ -116,10 +118,20 @@ export default function MainMatches() {
         fetchNextPage();
     };
 
-    const _renderFooter = () => {
-        if (!isFetchingNextPage) return null;
-        return <FlatListLoadingIndicator />;
-    };
+     const _renderFooter = () => {
+         if (isFetchingNextPage) {
+             return <FlatListLoadingIndicator />;
+         }
+ 
+         if (Platform.OS === 'web' && hasNextPage)
+             return (
+                 <View className="pt-2 pb-6 flex-row justify-center">
+                     <Button onPress={onEndReached}>{getTranslation('footer.loadMore')}</Button>
+                 </View>
+             );
+ 
+         return null;
+     };
 
     if (profile?.sharedHistory === false) {
         return (
@@ -166,7 +178,7 @@ export default function MainMatches() {
                         <Match match={item as any} expanded={false} highlightedUsers={[Number(profileId)]} user={Number(profileId)} />
                     )}
                     ListFooterComponent={_renderFooter}
-                    onEndReached={onEndReached}
+                    onEndReached={Platform.OS === 'web' ? undefined : onEndReached}
                     onEndReachedThreshold={0.1}
                     keyExtractor={(item, index) => index.toString()}
                     refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={reloading} />}
