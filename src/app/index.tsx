@@ -24,6 +24,7 @@ import { useFavoritedBuilds } from '@app/service/favorite-builds';
 import { appConfig } from '@nex/dataset';
 import { RankedMaps } from '@app/components/ranked-maps';
 import { AnimateIn } from '@app/components/animate-in';
+import { useShowTabBar } from '../hooks/use-show-tab-bar';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -61,17 +62,19 @@ export default function IndexPage() {
     const { data: news = Array<null>(3).fill(null) } = useNews();
     const { favoriteIds } = useFavoritedBuilds();
     const { followedIds } = useFollowedTournaments();
+    const showTabBar = useShowTabBar();
 
     return (
         <ScrollView contentContainerClassName="p-4 gap-5">
             <Stack.Screen
                 options={{
                     animation: 'none',
-                    headerRight: () => (
-                        <Button href={'/matches/users/search'} icon="search">
-                            {getTranslation('home.findPlayer')}
-                        </Button>
-                    ),
+                    headerRight: () =>
+                        showTabBar ? (
+                            <Button href={'/matches/users/search'} icon="search">
+                                {getTranslation('home.findPlayer')}
+                            </Button>
+                        ) : null,
                     title: getTranslation('home.title'),
                 }}
             />

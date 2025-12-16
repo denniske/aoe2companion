@@ -21,8 +21,10 @@ import { useTranslation } from '@app/helper/translate';
 import { ProfileLive } from '@app/view/components/badge/twitch-badge';
 import cn from 'classnames';
 import { containerClassName, containerScrollClassName } from '@app/styles';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 
 export default function MatchesPage() {
+    const showTabBar = useShowTabBar();
     const getTranslation = useTranslation();
     const [refetching, setRefetching] = useState(false);
 
@@ -119,18 +121,19 @@ export default function MatchesPage() {
                 options={{
                     animation: 'none',
                     title: getTranslation('matches.title'),
-                    headerRight: () => (
-                        <Button href="/matches/users/search" icon="search">
-                            {getTranslation('matches.findPlayer')}
-                        </Button>
-                    ),
+                    headerRight: () =>
+                        showTabBar ? (
+                            <Button href={'/matches/users/search'} icon="search">
+                                {getTranslation('matches.findPlayer')}
+                            </Button>
+                        ) : null,
                 }}
             />
-            <View className={cn("pb-5 pt-4", containerScrollClassName)}>
+            <View className={cn('pb-5 pt-4', containerScrollClassName)}>
                 <FollowedPlayers />
             </View>
 
-            <View className={cn("flex-row justify-between items-center", containerClassName)}>
+            <View className={cn('flex-row justify-between items-center', containerClassName)}>
                 <Text variant="header-lg">{getTranslation('matches.liveandrecentmatches')}</Text>
                 <Link href="/matches/live/lobbies">{getTranslation('matches.viewlobbies')}</Link>
             </View>
@@ -146,7 +149,7 @@ export default function MatchesPage() {
                     </View>
                 </View>
             ) : profileIds?.length === 0 || list.length === 0 ? (
-                <View className={cn("flex-1 py-4 gap-1", containerClassName)}>
+                <View className={cn('flex-1 py-4 gap-1', containerClassName)}>
                     <Text variant="label">{getTranslation('feed.following.info.1')}</Text>
                     <Link href="/matches/users/follow">
                         <Text variant="body-sm">{getTranslation('feed.following.info.2')}</Text>

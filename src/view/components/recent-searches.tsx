@@ -14,16 +14,15 @@ interface RecentSearchesProps {
     actionText?: string;
     action?: (player: IProfilesResultProfile) => React.ReactNode;
     limit?: number;
-    emptyClassName?: string
 }
 
-export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action, actionText, limit, emptyClassName }) => {
+export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action, actionText, limit }) => {
     const { data, clear } = useRecentSearches();
     const getTranslation = useTranslation();
 
     if (data.length === 0) {
         return (
-            <View className={cn('flex-1 items-center justify-center gap-2 pt-2 pb-40', containerClassName, emptyClassName)}>
+            <View className={cn('flex-1 items-center justify-center gap-2 pt-2 pb-40', containerClassName)}>
                 <Icon icon="search" size={36} color="subtle" />
                 <View className="items-center">
                     <Text variant="header">{getTranslation('search.recent.empty.title')}</Text>

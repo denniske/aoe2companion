@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Field } from './field';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { RecentSearches } from '@app/view/components/recent-searches';
 import { router } from 'expo-router';
 import useDebounce from '@app/hooks/use-debounce';
@@ -10,17 +10,20 @@ import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import PlayerList from '@app/view/components/player-list';
 import { Button } from './button';
 import { useRecentSearches } from '@app/service/recent-searches';
+import { Text } from './text';
+import { useTranslation } from '@app/helper/translate';
 
 function onlyDigits(str: string) {
     return /^\d+$/.test(str);
 }
 
 export const InlinePlayerSearch: React.FC = () => {
+    const getTranslation = useTranslation();
     const ref = useRef<HTMLDivElement>(null);
     const [text, setText] = useState('');
     const [isFocused, setIsFocused] = useState(false);
     const debouncedText = useDebounce(text, 250);
-    const { add: addRecentSearch } = useRecentSearches();
+    const { add: addRecentSearch, data } = useRecentSearches();
 
     const { data: userPages } = useProfilesBySearchInfiniteQuery(debouncedText);
     const { data: usersBySteamId } = useProfilesBySteamId(debouncedText, onlyDigits(debouncedText));
@@ -74,7 +77,7 @@ export const InlinePlayerSearch: React.FC = () => {
             />
 
             {(isFocused || text) && (
-                <View className="absolute -top-3 -right-3 -left-3 bg-black rounded-lg shadow-md dark:shadow-black">
+                <View className="absolute -top-3 -right-3 -left-3 bg-white dark:bg-black rounded-lg shadow-md dark:shadow-black">
                     <View className="h-18 rounded-md"></View>
 
                     {debouncedText ? (
@@ -85,10 +88,23 @@ export const InlinePlayerSearch: React.FC = () => {
                                 keyExtractor={(item) => (typeof item === 'string' ? item : item.profileId.toString())}
                             />
 
-                            {list.length > 5 && <Button onPress={viewAll}>View All</Button>}
+                            {list.length > 5 && (
+                                <View className="px-4">
+                                    <View className="h-px bg-gray-200 dark:bg-gray-800 w-full mt-2.5" />
+                                    <Pressable onPress={viewAll} className="p-3 items-center">
+                                        <Text variant="label">View All</Text>
+                                    </Pressable>
+                                </View>
+                            )}
+                        </View>
+                    ) : data.length > 0 ? (
+                        <View className='pb-2.5'>
+                            <RecentSearches onSelect={onSelectUser} limit={5} />
                         </View>
                     ) : (
-                        <RecentSearches onSelect={onSelectUser} limit={5} emptyClassName="pb-6!" />
+                        <Text variant="label" align="center" className="pb-4">
+                            {getTranslation('search.minlength')}
+                        </Text>
                     )}
                 </View>
             )}
