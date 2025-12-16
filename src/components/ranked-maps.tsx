@@ -13,7 +13,7 @@ import { AnimateIn } from './animate-in';
 
 export const RankedMaps: React.FC = () => {
     const { data: mapsRanked, isPending: isLoadingRankedMaps } = useMapsRanked();
-    const { data: mapsPoll, isPending: isLoadingMapsPoll } = useMapsPoll();
+    const { data: mapsPoll } = useMapsPoll();
 
     const [rankedMapLeaderboard, setRankedMapLeaderboard] = useState<string>();
     const values: string[] = mapsRanked?.leaderboards?.map((l) => l.leaderboardId) || [];
@@ -25,28 +25,21 @@ export const RankedMaps: React.FC = () => {
             <Text variant="header-lg" className="mb-1">
                 Ranked Maps
             </Text>
-            
+
             <AnimateIn skipFirstAnimation>
-                {isLoadingMapsPoll ? (
+                {!!mapsPoll && (
                     <View className="flex-row justify-between items-center mb-3">
-                        <SkeletonText variant="body" alt className="w-60!" />
-                        <SkeletonText variant="label" alt className="w-20!" />
+                        {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired }) ? (
+                            <Text variant="body">New Map Rotation on {formatDayAndTime(mapsPoll.expired)}</Text>
+                        ) : (
+                            <Text variant="body">Maps active since {formatDayAndTime(mapsPoll.expired)}</Text>
+                        )}
+                        {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ? (
+                            <Link href="/explore/maps/poll">View Active Poll</Link>
+                        ) : (
+                            <Link href="/explore/maps/poll">View Poll Results</Link>
+                        )}
                     </View>
-                ) : (
-                    !!mapsPoll && (
-                        <View className="flex-row justify-between items-center mb-3">
-                            {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired }) ? (
-                                <Text variant="body">New Map Rotation on {formatDayAndTime(mapsPoll.expired)}</Text>
-                            ) : (
-                                <Text variant="body">Maps active since {formatDayAndTime(mapsPoll.expired)}</Text>
-                            )}
-                            {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ? (
-                                <Link href="/explore/maps/poll">View Active Poll</Link>
-                            ) : (
-                                <Link href="/explore/maps/poll">View Poll Results</Link>
-                            )}
-                        </View>
-                    )
                 )}
             </AnimateIn>
 

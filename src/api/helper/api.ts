@@ -148,7 +148,7 @@ export async function fetchMapsPoll(params: IFetchMapsPollParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/maps/poll?${queryString}`;
-    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMapsPollResult;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMapsPollResult | null;
 }
 
 export async function fetchBuilds(params: IFetchBuildsParams) {
