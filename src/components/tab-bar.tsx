@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export function useCurrentTabName() {
     // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
-    const pathname = usePathname();
+    usePathname();
 
     const rootNavigationState = useRootNavigationState();
     if (!rootNavigationState || !rootNavigationState.routes || rootNavigationState.routes.length === 0) {

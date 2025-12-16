@@ -1,7 +1,7 @@
 import { useTranslation } from '@app/helper/translate';
 import { Platform, Pressable, View } from 'react-native';
 import { Text } from './text';
-import { Href, useRouter } from 'expo-router';
+import { Href, usePathname, useRouter } from 'expo-router';
 import { Icon, IconName } from './icon';
 import { useCurrentTabName } from './tab-bar';
 import { Image } from './uniwind/image';
@@ -10,10 +10,17 @@ import { containerClassName } from '@app/styles';
 import { appConfig, appIconData } from '@nex/dataset';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { InlinePlayerSearch } from './inline-player-search';
+import { useEffect } from 'react';
 
 export const NavBar: React.FC = () => {
     const router = useRouter();
-    const routeName = useCurrentTabName();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        if (Platform.OS === 'web') {
+            window.scrollTo({ top: 0 });
+        }
+    }, [pathname]);
 
     const getTranslation = useTranslation();
 
@@ -47,8 +54,8 @@ export const NavBar: React.FC = () => {
     const { isLarge } = useBreakpoints();
 
     return (
-        <View className="bg-blue-800 dark:bg-blue-900 relative z-50">
-            <View className={cn('flex flex-row py-4 px-6 justify-between', containerClassName)}>
+        <View className="bg-[#F3EFE6] dark:bg-blue-900 relative z-50">
+            <View className={cn('flex flex-row py-4 justify-between', containerClassName)}>
                 <Pressable
                     className="flex-row items-center gap-4 lg:pr-4 xl:pr-8"
                     onPress={() => {
@@ -60,13 +67,13 @@ export const NavBar: React.FC = () => {
                 >
                     <Image source={appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
 
-                    <Text variant="header-lg" color="white" className="hidden xl:flex">
+                    <Text variant="header-lg" color="subtle" className="hidden xl:flex">
                         {appConfig.app.name}
                     </Text>
                 </Pressable>
 
                 {routes.map((route) => {
-                    const isFocused = routeName?.startsWith(route.key);
+                    const isFocused = pathname === route.path;
 
                     const onPress = () => {
                         if (router.canDismiss()) {
@@ -81,7 +88,9 @@ export const NavBar: React.FC = () => {
                             key={route.key}
                             className={cn(
                                 'flex-row justify-center items-center gap-2.5 rounded-lg px-5 xl:px-6',
-                                isFocused ? 'bg-blue-950 text-white fill-white' : 'text-white fill-white hocus:bg-blue-700'
+                                isFocused
+                                    ? 'bg-blue-700 dark:bg-blue-950 text-white fill-white'
+                                    : 'text-subtle fill-subtle hocus:bg-gold-50 dark:hocus:bg-blue-700'
                             )}
                         >
                             <Icon fill="inherit" size={20} icon={route.icon as IconName} />
@@ -97,7 +106,9 @@ export const NavBar: React.FC = () => {
                 ) : (
                     <Pressable
                         onPress={() => router.replace('/matches/users/search')}
-                        className={cn('flex-row justify-center items-center gap-2.5 rounded-lg px-4 text-white fill-white hocus:bg-blue-700')}
+                        className={cn(
+                            'flex-row justify-center items-center gap-2.5 rounded-lg px-4 fill-subtle hocus:bg-gold-50 dark:hocus:bg-blue-700'
+                        )}
                     >
                         <Icon fill="inherit" size={20} icon="search" />
                     </Pressable>

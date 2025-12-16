@@ -19,6 +19,7 @@ import { useTranslation } from '@app/helper/translate';
 import { getAppVersion } from '@app/api/util';
 import { Text } from '@app/components/text';
 import { ExpoUpdatesManifest } from 'expo-manifests';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 
 export default function AboutPage() {
     const getTranslation = useTranslation();
@@ -32,6 +33,7 @@ export default function AboutPage() {
     const [debugManifest, setDebugManifest] = useState('');
     const [versionClickCount, setVersionClickCount] = useState(0);
     const mutate = useMutate();
+    const showTabBar = useShowTabBar()
 
     const checkForUpdate = async () => {
         setState('checkingForUpdate');
@@ -258,8 +260,7 @@ export default function AboutPage() {
                 <Text variant="header-xs">{getTranslation('about.heading.version')}</Text>
                 <TouchableOpacity onPress={incrementVersionClickCount}>
                     <MyText>
-                        {channel || 'dev'} {getAppVersion()} (
-                        {runtimeVersion || 'dev'})
+                        {channel || 'dev'} {getAppVersion()} ({runtimeVersion || 'dev'})
                     </MyText>
                     <MyText>
                         n{nativeApplicationVersion}+{nativeBuildVersion}
@@ -274,9 +275,7 @@ export default function AboutPage() {
                 {Platform.OS === 'web' && state === '' && (
                     <View>
                         <Space />
-                        <Button onPress={checkForUpdate}>
-                            {getTranslation('about.update.checkforupdate')}
-                        </Button>
+                        <Button onPress={checkForUpdate}>{getTranslation('about.update.checkforupdate')}</Button>
                     </View>
                 )}
                 {state === 'checkingForUpdate' && (
@@ -417,41 +416,43 @@ export default function AboutPage() {
 
             <View className="flex-1" />
 
-            <Space />
+            {showTabBar && <>
+                <Space />
 
-            {appConfig.game === 'aoe2' && (
-                <Text variant="body-sm" className="text-justify">
-                    This app was created under Microsoft's "
-                    <Text
-                        variant="body-sm"
-                        color="link"
-                        onPress={() => {
-                            openLink('https://www.xbox.com/en-us/developers/rules');
-                        }}
-                    >
-                        Game Content Usage Rules
+                {appConfig.game === 'aoe2' && (
+                    <Text variant="body-sm" className="text-justify">
+                        This app was created under Microsoft's "
+                        <Text
+                            variant="body-sm"
+                            color="link"
+                            onPress={() => {
+                                openLink('https://www.xbox.com/en-us/developers/rules');
+                            }}
+                        >
+                            Game Content Usage Rules
+                        </Text>
+                        " using assets from Age of Empires II. This app is not affiliated with or endorsed by Microsoft Corporation. Age of Empires
+                        II: HD and Age of Empires II: Definitive Edition are trademarks or registered trademarks of Microsoft Corporation in the U.S.
+                        and other countries.
                     </Text>
-                    " using assets from Age of Empires II. This app is not affiliated with or endorsed by Microsoft Corporation. Age of Empires II: HD
-                    and Age of Empires II: Definitive Edition are trademarks or registered trademarks of Microsoft Corporation in the U.S. and other
-                    countries.
-                </Text>
-            )}
-            {appConfig.game === 'aoe4' && (
-                <Text variant="body-sm" className="text-justify">
-                    This app was created under Microsoft's "
-                    <Text
-                        variant="body-sm"
-                        color="link"
-                        onPress={() => {
-                            openLink('https://www.xbox.com/en-us/developers/rules');
-                        }}
-                    >
-                        Game Content Usage Rules
+                )}
+                {appConfig.game === 'aoe4' && (
+                    <Text variant="body-sm" className="text-justify">
+                        This app was created under Microsoft's "
+                        <Text
+                            variant="body-sm"
+                            color="link"
+                            onPress={() => {
+                                openLink('https://www.xbox.com/en-us/developers/rules');
+                            }}
+                        >
+                            Game Content Usage Rules
+                        </Text>
+                        " using assets from Age of Empires IV. This app is not affiliated with or endorsed by Microsoft Corporation. Age of Empires IV
+                        is a trademark or registered trademark of Microsoft Corporation in the U.S. and other countries. 1
                     </Text>
-                    " using assets from Age of Empires IV. This app is not affiliated with or endorsed by Microsoft Corporation. Age of Empires IV is
-                    a trademark or registered trademark of Microsoft Corporation in the U.S. and other countries. 1
-                </Text>
-            )}
+                )}
+            </>}
         </ScrollView>
     );
 }
