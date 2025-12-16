@@ -22,7 +22,7 @@ export function LivePlayer({ player }: IPlayerProps) {
 
     const gotoPlayer = () => {
         if (player == null) return;
-        router.push(`/matches/users/${player.profileId}/main-profile`);
+        router.push(`/matches/users/${player.profileId}`);
     };
 
     if (player == null) {

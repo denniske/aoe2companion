@@ -38,13 +38,13 @@ export const FollowedPlayers = () => {
                 <Text variant="header-lg">
                     {getTranslation('home.followedplayers')}
                 </Text>
-                <Link href="/matches/current-following">Open Following Dashboard</Link>
+                <Link href="/matches/live/following">Open Following Dashboard</Link>
             </View>
             <PlayerList
                 variant="horizontal"
                 showsHorizontalScrollIndicator={false}
                 list={profileIdList as any}
-                selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}?name=${user.name}&country=${user.country}` as any)}
+                selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)}
             />
         </View>
     );

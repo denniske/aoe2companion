@@ -1,12 +1,10 @@
-import { Platform, useWindowDimensions } from 'react-native';
-
-// MD breakpoint is the device size at which the site switches to tab bar.
-const MD_BREAKPOINT = 768;
+import { Platform } from 'react-native';
+import { useBreakpoints } from './use-breakpoints';
 
 export const useShowTabBar = () => {
-    const { width } = useWindowDimensions();
+    const { isMedium } = useBreakpoints();
 
-    const hideTabBar = Platform.OS === 'web' && width >= MD_BREAKPOINT;
+    const hideTabBar = Platform.OS === 'web' && isMedium;
 
     return !hideTabBar;
 };

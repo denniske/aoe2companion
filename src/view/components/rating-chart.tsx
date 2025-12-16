@@ -23,6 +23,7 @@ interface IRatingChartProps {
     ratingHistoryDuration: string;
     filteredRatingHistories: IProfileRatingsLeaderboard[] | null | undefined;
     hiddenLeaderboardIds: LeaderboardId[];
+    width: number;
 }
 
 export default function RatingChart(props: IRatingChartProps) {

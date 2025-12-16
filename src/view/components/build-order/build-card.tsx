@@ -11,13 +11,12 @@ import { genericCivIcon, getCivIconLocal } from '../../../helper/civs';
 import { getDifficultyIcon } from '../../../helper/difficulties';
 import { Tag } from '../tag';
 import React from 'react';
+import cn from 'classnames';
+import { Skeleton, SkeletonText } from '@app/components/skeleton';
 
-export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavorite?: () => void; size?: 'small' | 'large' }> = ({
-    favorited,
-    toggleFavorite,
-    size = 'large',
-    ...build
-}) => {
+export const BuildCard: React.FC<
+    IBuildOrder & { favorited?: boolean; toggleFavorite?: () => void; size?: 'small' | 'large'; className?: string }
+> = ({ favorited, toggleFavorite, size = 'large', className, ...build }) => {
     const title = build.title.replace(build.civilization, '').trim();
     const civIcon = getCivIconLocal(build.civilization) ?? genericCivIcon;
     const difficultyIcon = getDifficultyIcon(build.difficulty);
@@ -26,15 +25,21 @@ export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavo
 
     if (size === 'small') {
         return (
-            <Card href={`/explore/build-orders/${build.id}`} direction="vertical" className="w-24 items-center justify-between gap-1">
+            <Card
+                href={`/explore/build-orders/${build.id}`}
+                direction="vertical"
+                className={cn('w-24 md:w-36 items-center justify-between gap-1', className)}
+            >
                 <View className="w-full items-center justify-center">
-                    {icon && <Image source={icon} className="w-8 h-8" />}
-                    {civIcon ? <Image className="w-5 h-5 absolute top-0 left-0" source={civIcon} /> : null}
+                    {icon && <Image source={icon} className="w-8 h-8 md:w-12 md:h-12" />}
+                    {civIcon ? <Image className="w-5 h-5 md:w-8 md:h-8 absolute top-0 left-0" source={civIcon} /> : null}
                 </View>
 
-                <Text variant="label-sm" numberOfLines={2} className="leading-3.5! w-full" align="center">
-                    {title}
-                </Text>
+                <View className="w-full h-8 items-center justify-center">
+                    <Text variant="label-sm" numberOfLines={2} className="w-full" align="center">
+                        {title}
+                    </Text>
+                </View>
 
                 <BuildRating {...build} showCount={false} />
             </Card>
@@ -42,7 +47,7 @@ export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavo
     }
 
     return (
-        <Card href={`/explore/build-orders/${build.id}`}>
+        <Card href={`/explore/build-orders/${build.id}`} className={className}>
             <Image source={icon} className="w-12 h-12" />
 
             <View className="flex-1 gap-0.5">
@@ -84,4 +89,23 @@ export const BuildCard: React.FC<IBuildOrder & { favorited?: boolean; toggleFavo
             </View>
         </Card>
     );
+};
+
+export const BuildSkeletonCard: React.FC<{ size?: 'small' | 'large'; className?: string }> = ({ size = 'large', className }) => {
+    if (size === 'small') {
+        return (
+            <Card direction="vertical" className={cn('w-24 md:w-36 items-center justify-between gap-1', className)}>
+                <View className="w-full items-center justify-center">
+                    <Skeleton className="w-8 h-8 md:w-12 md:h-12" />
+                </View>
+
+                <SkeletonText variant="label-sm" numberOfLines={2} />
+
+                <Skeleton className="w-20 h-3.5" />
+            </Card>
+        );
+    }
+
+    // Large skeleton not needed yet
+    return null;
 };

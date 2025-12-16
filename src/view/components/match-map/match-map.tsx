@@ -21,6 +21,7 @@ import Eapm from '@app/view/components/match-map/eapm';
 import {aoe2PlayerColorsLightModeChatLegend} from '@app/helper/colors';
 import Timeseries from '@app/view/components/match-map/timeseries';
 import {useDarkMode} from '@app/hooks/use-dark-mode';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
 
 interface Props {
     match?: IMatchNew;
@@ -49,8 +50,8 @@ export default function MatchMap(props: Props) {
         return <Text>Loading...</Text>;
     }
 
-    const size = 60 * 4 - 2;
-    // const size = (60 * 4)*4 - 2;
+    const { isMedium } = useBreakpoints()
+    const size = (isMedium ? 384 : 240) - 2;
 
     const dimension = analysis.map.dimension;
 
@@ -317,7 +318,7 @@ export default function MatchMap(props: Props) {
         <View className="gap-2">
             <Card direction="vertical" flat={true}>
                 <View className="flex-row justify-center border0 border-gray-300">
-                    <View className="relative w-60 h-60 border0 border-gray-700">
+                    <View className="relative w-60 md:w-96 aspect-square border0 border-gray-700">
                         <View className="scale-y-[0.5]">
                             <View className="-rotate-45">
                                 <Image
@@ -362,9 +363,6 @@ export default function MatchMap(props: Props) {
                                             return <Rect key={index} width={width} height={height} x={x} y={y} color={unit.color} />;
                                         })
                                     )}
-
-
-
 
                                     {[...playerObjectsSingleToWalls].map((unit, index) => (
                                         <Wall unit={unit} coord={coord} />
@@ -412,27 +410,29 @@ export default function MatchMap(props: Props) {
                 </View>
                 <TimeScrubber time={time} duration={duration}></TimeScrubber>
             </Card>
-            <Card direction="vertical">
-                <Eapm teams={teams as any} />
-            </Card>
-            <Card direction="vertical">
-                <Timeseries
-                    teams={teams as any}
-                    metric="totalResources"
-                    title="Resources"
-                    description="Total resources"
-                    explanation="Total resources (wood + food + gold + stone)"
-                />
-            </Card>
-            <Card direction="vertical">
-                <Timeseries
-                    teams={teams as any}
-                    metric="totalObjects"
-                    title="Objects"
-                    description="Total objects"
-                    explanation="Total number of objects (include foundation), when a unit is lost, this counter updates after its displayable objects (body) dies"
-                />
-            </Card>
+            <View className="gap-2 md:flex-row md:flex-wrap justify-center">
+                <Card direction="vertical" className="max-w-full flex-1">
+                    <Eapm teams={teams as any} />
+                </Card>
+                <Card direction="vertical" className="max-w-full flex-1">
+                    <Timeseries
+                        teams={teams as any}
+                        metric="totalResources"
+                        title="Resources"
+                        description="Total resources"
+                        explanation="Total resources (wood + food + gold + stone)"
+                    />
+                </Card>
+                <Card direction="vertical" className="max-w-full flex-1">
+                    <Timeseries
+                        teams={teams as any}
+                        metric="totalObjects"
+                        title="Objects"
+                        description="Total objects"
+                        explanation="Total number of objects (include foundation), when a unit is lost, this counter updates after its displayable objects (body) dies"
+                    />
+                </Card>
+            </View>
             <Card direction="vertical">
                 <Uptimes time={time} teams={teams as any} />
             </Card>

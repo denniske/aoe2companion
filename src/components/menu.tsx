@@ -5,6 +5,7 @@ import {
     LayoutRectangle,
     NativeEventSubscription,
     Platform,
+    Pressable,
     StyleProp,
     TouchableOpacityProps,
     View,
@@ -198,7 +199,7 @@ export const MenuNew: FC<MenuProps> = ({
         // console.log('anchorLayoutResult.width', anchorLayoutResult.width)
 
         setLeft(anchorLayoutResult.x);
-        setTop(anchorLayoutResult.y + 40);
+        setTop(anchorLayoutResult.y + (Platform.OS === 'web' ? window.scrollY : 0));
         setRight(windowLayout.width - anchorLayoutResult.x - anchorLayoutResult.width);
 
         // console.log('windowLayout.width', windowLayout.width)
@@ -360,7 +361,8 @@ export const MenuNew: FC<MenuProps> = ({
                                 style={{
                                     width: '100%',
                                     height: '100%',
-                                    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                                    backgroundColor: Platform.OS === 'web' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.2)',
+                                    cursor: 'pointer'
                                 }}
                             >
                                 <GestureDetector gesture={noopGesture}>
@@ -376,6 +378,7 @@ export const MenuNew: FC<MenuProps> = ({
                                                     backgroundColor: theme.backgroundColor,
                                                     zIndex: 110000,
                                                     borderRadius: roundness,
+                                                    cursor: 'auto'
                                                 },
                                                 contentStyle,
                                                 v3Shadow(3),

@@ -1,6 +1,6 @@
 import { FontAwesome6 } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import DiscordBadge from './badge/discord-badge';
 import DouyuBadge from './badge/doyou-badge';
 import TwitchBadge from './badge/twitch-badge';
@@ -18,6 +18,7 @@ import { reverse, sumBy } from 'lodash';
 import useAuth from '@/data/src/hooks/use-auth';
 import { Skeleton } from '@app/view/components/loader/skeleton';
 import { IconName } from '@fortawesome/fontawesome-svg-core';
+import { AnimateIn } from '@app/components/animate-in';
 
 interface ILeaderboardRowProps {
     data: IProfileLeaderboardResult;
@@ -106,28 +107,24 @@ function LeaderboardRow1({ data }: ILeaderboardRowProps) {
                 <Text variant="body-xs">wins</Text>
             </View>
 
-            <View className="flex-row flex-1" onLayout={(e) => setStreakWidth(e.nativeEvent.layout.width)}>
-                {streakWidth > 60 && (
-                    <>
-                        <View className="flex-col justify-items-stretch gap-y-1">
-                            <Text variant="body" className="self-end">
-                                {formatStreak(leaderboardInfo?.streak)}
-                            </Text>
-                            <View className="flex-row gap-x-1">
-                                {last5MatchesWon?.map(({ won }) => (
-                                    <View className={`${won ? 'bg-blue-500' : 'bg-gray-200'} rounded-full w-1.5 h-1.5`}></View>
-                                ))}
-                            </View>
-                        </View>
-                        <View className="flex-col">
-                            <Text variant="body" className="text-right">
-                                {' '}
-                                {last5MatchesWon?.every((x) => x.won) ? '🔥' : last5MatchesWon?.every((x) => !x.won) ? '❄️' : ''}
-                            </Text>
-                            <Text variant="body-xs" className="text-right"></Text>
-                        </View>
-                    </>
-                )}
+            <View className="flex-row flex-1">
+                <View className="flex-col justify-items-stretch gap-y-1">
+                    <Text variant="body" className="self-end">
+                        {formatStreak(leaderboardInfo?.streak)}
+                    </Text>
+                    <View className="flex-row gap-x-1">
+                        {last5MatchesWon?.map(({ won }) => (
+                            <View className={`${won ? 'bg-blue-500' : 'bg-gray-200'} rounded-full w-1.5 h-1.5`}></View>
+                        ))}
+                    </View>
+                </View>
+                <View className="flex-col hidden xs:flex">
+                    <Text variant="body" className="text-right">
+                        {' '}
+                        {last5MatchesWon?.every((x) => x.won) ? '🔥' : last5MatchesWon?.every((x) => !x.won) ? '❄️' : ''}
+                    </Text>
+                    <Text variant="body-xs" className="text-right"></Text>
+                </View>
             </View>
         </View>
     );
@@ -159,7 +156,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     const consoleDrops = sumBy(leaderboardsConsole, x => x.drops);
 
     return (
-        <View className="gap-y-3">
+        <View className="gap-y-3 min-w-xs">
             {(data?.socialDiscordInvitationUrl ||
                 data?.socialYoutubeChannelUrl ||
                 data?.socialDouyuChannelUrl ||
@@ -168,12 +165,8 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                     {data?.socialDiscordInvitationUrl && data?.socialDiscordInvitation && (
                         <DiscordBadge invitationUrl={data?.socialDiscordInvitationUrl} invitation={data?.socialDiscordInvitation} />
                     )}
-                    {data?.socialYoutubeChannelUrl && (
-                        <YoutubeBadge channelUrl={data?.socialYoutubeChannelUrl} />
-                    )}
-                    {data?.socialDouyuChannelUrl && (
-                        <DouyuBadge channelUrl={data?.socialDouyuChannelUrl} />
-                    )}
+                    {data?.socialYoutubeChannelUrl && <YoutubeBadge channelUrl={data?.socialYoutubeChannelUrl} />}
+                    {data?.socialDouyuChannelUrl && <DouyuBadge channelUrl={data?.socialDouyuChannelUrl} />}
                     {data?.socialTwitchChannelUrl && data?.socialTwitchChannel && (
                         <TwitchBadge channelUrl={data?.socialTwitchChannelUrl} channel={data?.socialTwitchChannel} />
                     )}
@@ -187,61 +180,61 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 </View>
             )}
 
-            {!data &&
+            {!data && (
                 <>
                     <Skeleton className="h-8 w-20" />
                     <Skeleton className="h-8" />
                     <Skeleton className="h-8" />
                 </>
-            }
+            )}
 
-            {(!!leaderboardsPC?.length || leaderboardsConsole?.length === 0) &&
+            {(!!leaderboardsPC?.length || leaderboardsConsole?.length === 0) && (
                 <View className="flex-row items-center py-0.5 mt-2 gap-x-4">
                     <View className="flex-col w-8 items-center">
-                        <FontAwesome6 name="computer-mouse" size={16} style={{color: theme.textNoteColor}} />
+                        <FontAwesome6 name="computer-mouse" size={16} style={{ color: theme.textNoteColor }} />
                     </View>
                     <View className="flex-col">
                         <Text variant="body">{pcGames}</Text>
                         <Text variant="body-xs">games</Text>
                     </View>
                     <View className="flex-col">
-                        <Text variant="body">{pcGames === 0 ? '0' : (pcDrops / pcGames * 100).toFixed(2)} %</Text>
+                        <Text variant="body">{pcGames === 0 ? '0' : ((pcDrops / pcGames) * 100).toFixed(2)} %</Text>
                         <Text variant="body-xs">drops</Text>
                     </View>
                 </View>
-            }
+            )}
 
-            {
-                !!leaderboardsPC?.length &&
+            {!!leaderboardsPC?.length && (
                 <View className="py-1 gap-y-2">
-                    {leaderboardsPC.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />)}
+                    {leaderboardsPC.map((leaderboard) => (
+                        <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />
+                    ))}
                 </View>
-            }
+            )}
 
-            {
-                !!leaderboardsConsole?.length && (
-                    <View className="flex-row items-center py-0.5 mt-2 gap-x-4">
-                        <View className="flex-col w-8 items-center">
-                            <FontAwesome6 name="gamepad" size={16} style={{color: theme.textNoteColor}} />
-                        </View>
-                        <View className="flex-col w-10">
-                            <Text variant="body">{consoleGames}</Text>
-                            <Text variant="body-xs">games</Text>
-                        </View>
-                        <View className="flex-col w-12">
-                            <Text variant="body">{((consoleDrops as any) / (consoleGames as any) * 100).toFixed(2)} %</Text>
-                            <Text variant="body-xs">drops</Text>
-                        </View>
+            {!!leaderboardsConsole?.length && (
+                <View className="flex-row items-center py-0.5 mt-2 gap-x-4">
+                    <View className="flex-col w-8 items-center">
+                        <FontAwesome6 name="gamepad" size={16} style={{ color: theme.textNoteColor }} />
                     </View>
-                )
-            }
-
-            {
-                !!leaderboardsConsole?.length &&
-                <View className="py-1 gap-y-2">
-                    {leaderboardsConsole.map((leaderboard) => <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />)}
+                    <View className="flex-col w-10">
+                        <Text variant="body">{consoleGames}</Text>
+                        <Text variant="body-xs">games</Text>
+                    </View>
+                    <View className="flex-col w-12">
+                        <Text variant="body">{(((consoleDrops as any) / (consoleGames as any)) * 100).toFixed(2)} %</Text>
+                        <Text variant="body-xs">drops</Text>
+                    </View>
                 </View>
-            }
+            )}
+
+            {!!leaderboardsConsole?.length && (
+                <View className="py-1 gap-y-2">
+                    {leaderboardsConsole.map((leaderboard) => (
+                        <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />
+                    ))}
+                </View>
+            )}
         </View>
     );
 }

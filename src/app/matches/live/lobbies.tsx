@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Platform, View } from 'react-native';
-import { useAppTheme } from '../theming';
+import { useAppTheme } from '../../../theming';
 import { LiveMatch } from '@app/components/live/live-match';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { ILobbiesMatch } from '../api/helper/api.types';
-import { useNavigation, useRouter } from 'expo-router';
+import { ILobbiesMatch } from '../../../api/helper/api.types';
+import { Stack, useRouter } from 'expo-router';
 import { Field } from '@app/components/field';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { FlatList } from '@app/components/flat-list';
@@ -14,14 +14,8 @@ import { Text } from '@app/components/text';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
 
-export default function LivePage() {
+export default function LiveLobbiesPage() {
     const getTranslation = useTranslation();
-    const navigation = useNavigation();
-
-    useEffect(() => {
-        navigation.setOptions({ title: getTranslation('lobbies.title') });
-    }, [navigation]);
-
     const theme = useAppTheme();
     const [usage, setUsage] = useState(0);
     const [search, setSearch] = useState('');
@@ -71,14 +65,14 @@ export default function LivePage() {
         return filtered;
     }, [data, search]);
 
-    const list = ['header', ...(filteredData || Array(15).fill(null))];
-
     const openLobby = (lobbyId: number) => {
         router.push(`/matches/lobby/${lobbyId}`);
     };
 
     return (
         <KeyboardAvoidingView>
+            <Stack.Screen options={{ title: getTranslation('lobbies.title') }} />
+
             <View className="flex-1">
                 {Platform.OS !== 'web' && (
                     <View className={cn('flex-row items-center justify-center p-4 gap-2', containerClassName)}>
@@ -87,37 +81,25 @@ export default function LivePage() {
                     </View>
                 )}
 
-                <View className={cn(Platform.OS === 'web' && 'pt-4', containerClassName)}>
+                <View className={cn('gap-2', Platform.OS === 'web' && 'pt-4', containerClassName)}>
                     <Field
                         type="search"
                         placeholder={getTranslation('lobbies.search.placeholder')}
                         onChangeText={(text) => setSearch(text)}
                         value={search}
                     />
+
+                    <Text variant="label">
+                        {isConnecting ? 'Fetching lobbies...' : `There are ${filteredData?.length} ${search ? 'matching ' : ''}open lobbies`}
+                    </Text>
                 </View>
+
                 <FlatList
                     contentContainerClassName="p-4"
-                    data={list}
-                    renderItem={({ item, index }) => {
-                        switch (item) {
-                            case 'header':
-                                return isConnecting ? (
-                                    <Text className="text-center">Fetching lobbies...</Text>
-                                ) : (
-                                    <Text className="text-center">
-                                        There are {filteredData?.length} {search ? 'matching ' : ''}open lobbies
-                                    </Text>
-                                );
-                            default:
-                                return (
-                                    <LiveMatch
-                                        data={item as any}
-                                        expanded={index === -1}
-                                        onPress={() => openLobby((item as ILobbiesMatch).matchId)}
-                                    />
-                                );
-                        }
-                    }}
+                    data={filteredData}
+                    renderItem={({ item, index }) => (
+                        <LiveMatch data={item as any} expanded={index === -1} onPress={() => openLobby((item as ILobbiesMatch).matchId)} />
+                    )}
                     ItemSeparatorComponent={() => <View className="h-4" />}
                     keyExtractor={(item, index) => (typeof item === 'string' ? item : item.matchId?.toString())}
                 />

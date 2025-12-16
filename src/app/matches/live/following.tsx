@@ -14,7 +14,7 @@ import { Icon } from '@app/components/icon';
 import { Card } from '@app/components/card';
 import { Button } from '@app/components/button';
 
-export default function CurrentLobbyOrMatchPage() {
+export default function LiveFollowingPage() {
     const getTranslation = useTranslation();
 
     const { data: account, error, isLoading: isLoadingAccount } = useAccount();

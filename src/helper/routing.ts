@@ -6,7 +6,8 @@ export const availableMainPages =
         ? [
             '/',
             '/matches',
-            '/matches/live',
+            '/matches/live/lobbies',
+            '/matches/live/all',
             '/explore',
             '/explore/civilizations',
             '/explore/units',
@@ -22,7 +23,8 @@ export const availableMainPages =
         : [
             '/',
             '/matches',
-            '/matches/live',
+            '/matches/live/lobbies',
+            '/matches/live/all',
             '/explore',
             // '/explore/civilizations',
             // '/explore/units',

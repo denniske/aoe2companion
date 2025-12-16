@@ -70,7 +70,7 @@ export function StatsRow({ type, data }: IRowPropsCiv | IRowPropsMap | IRowProps
             router.push(`/explore/civilizations/${getCivIdByEnum(data.civ)}`);
         }
         if ((type === 'ally' || type === 'opponent') && data.profileId) {
-            router.push(`/matches/users/${data.profileId}?name=${data.name}&country=${data.country}` as any);
+            router.push(`/matches/users/${data.profileId}`);
         }
     };
 

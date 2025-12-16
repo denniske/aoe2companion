@@ -7,20 +7,23 @@ import PlayerList from './player-list';
 import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
+import { showAlert } from '@app/helper/alert';
 
 interface RecentSearchesProps {
     onSelect: (player: IProfilesResultProfile) => void;
     actionText?: string;
     action?: (player: IProfilesResultProfile) => React.ReactNode;
+    limit?: number;
+    emptyClassName?: string
 }
 
-export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action, actionText }) => {
+export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action, actionText, limit, emptyClassName }) => {
     const { data, clear } = useRecentSearches();
     const getTranslation = useTranslation();
 
     if (data.length === 0) {
         return (
-            <View className={cn("flex-1 items-center justify-center gap-2 pt-2 pb-40", containerClassName)}>
+            <View className={cn('flex-1 items-center justify-center gap-2 pt-2 pb-40', containerClassName, emptyClassName)}>
                 <Icon icon="search" size={36} color="subtle" />
                 <View className="items-center">
                     <Text variant="header">{getTranslation('search.recent.empty.title')}</Text>
@@ -32,12 +35,12 @@ export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action
 
     return (
         <View className="gap-2">
-            <View className={cn("flex-row justify-between items-center", containerClassName)}>
+            <View className={cn('flex-row justify-between items-center', containerClassName)}>
                 <Text variant="header-sm">{getTranslation('search.recent.title')}</Text>
 
                 <Pressable
                     onPress={() =>
-                        Alert.alert(getTranslation('search.recent.clear.confirm.title'), getTranslation('search.recent.clear.confirm.note'), [
+                        showAlert(getTranslation('search.recent.clear.confirm.title'), getTranslation('search.recent.clear.confirm.note'), [
                             {
                                 text: getTranslation('search.recent.clear.confirm.clear'),
                                 style: 'destructive',
@@ -63,7 +66,7 @@ export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action
 
             <PlayerList
                 actionText={actionText}
-                list={data}
+                list={limit ? data.slice(0, limit) : data}
                 action={action}
                 selectedUser={onSelect}
                 keyExtractor={(item) => (typeof item === 'string' ? item : item.profileId.toString())}

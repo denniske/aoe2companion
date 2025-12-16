@@ -39,8 +39,6 @@ import { formatAgo } from '@nex/data';
 const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
 
-export const windowWidth = Platform.OS === 'web' ? 450 : Dimensions.get('window').width;
-
 const pageSize = 100;
 
 export default function LeaderboardPage() {
@@ -235,7 +233,7 @@ export default function LeaderboardPage() {
     const total2 = useRef<number>(1000);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
-        router.push(`/matches/users/${player.profileId}/main-profile`);
+        router.push(`/matches/users/${player.profileId}`);
     };
 
     const _renderRow = useCallback(
@@ -567,7 +565,7 @@ function RenderRow(props: RenderRowProps) {
                 <View className='w-12'>
                     <TextLoader>{!!player?.games && !!player?.wins && ((player.wins / player.games) * 100).toFixed(0) + '%'}</TextLoader>
                 </View>
-                {windowWidth >= 360 && (
+                {Dimensions.get('window').width >= 360 && (
                     <TextLoader ready={player?.games} style={styles.cellGames}>
                         {getTranslation('leaderboard.games', { games: player?.games })}
                     </TextLoader>

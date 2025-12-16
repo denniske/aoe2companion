@@ -9,11 +9,10 @@ import {
     getFullTechTree, getTechName,
     getUnitLineForUnit, getUnitName,
     ITechTreeRow,
-    Other,
     Tech,
     Unit,
 } from '@nex/data';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Image, ImageBackground } from '@/src/components/uniwind/image';
 import React, { Fragment } from 'react';
 import { MyText } from './my-text';
@@ -24,7 +23,6 @@ import { getBuildingIcon } from '../../helper/buildings';
 import { isEmpty } from 'lodash';
 import { Delayed } from './delayed';
 import { router } from 'expo-router';
-import { windowWidth } from '@app/app/statistics/leaderboard';
 import { useTechTreeSize } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useTranslation } from '@app/helper/translate';
@@ -156,7 +154,7 @@ function Ability0() {
     );
 }
 
-const techTreeWidth = windowWidth - 28;
+const techTreeWidth = Math.min(Dimensions.get('window').width, 600) - 28;
 const colSize = (techTreeWidth / 8)-4;
 const colSize2 = colSize-6;
 

@@ -26,7 +26,7 @@ export const TournamentParticipant: FC<{
         <TouchableOpacity
             style={[styles.row, style]}
             onPress={() => {
-                router.navigate(`/matches/users/${participant.profileId}/main-profile`);
+                router.navigate(`/matches/users/${participant.profileId}`);
                 onNavigate?.();
             }}
             disabled={!participant.profileId}

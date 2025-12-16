@@ -19,13 +19,6 @@
         color: black;
       }
 
-      /* These styles disable body scrolling if you are using <ScrollView> */
-      @media (min-width: 768px) {
-        body {
-          overflow: visible;
-        }
-      }
-
       @media (prefers-color-scheme: dark) {
         body {
           color: white;
@@ -37,7 +30,23 @@
       #root {
         display: flex;
         height: 100%;
-        flex: 1;
+      }
+
+      @media (min-width: 768px) {
+        #root {
+          height: auto;
+          min-height: 100dvh;
+        }
+
+        body {
+          overflow: visible;
+        }
+
+        html,
+        body {
+          height: auto;
+          height: 100dvh;
+        }
       }
     </style>
   </head>
