@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Field } from './field';
-import { Pressable, View } from 'react-native';
+import { ActivityIndicator, Pressable, View } from 'react-native';
 import { RecentSearches } from '@app/view/components/recent-searches';
 import { router } from 'expo-router';
 import useDebounce from '@app/hooks/use-debounce';
@@ -25,7 +25,7 @@ export const InlinePlayerSearch: React.FC = () => {
     const debouncedText = useDebounce(text, 250);
     const { add: addRecentSearch, data } = useRecentSearches();
 
-    const { data: userPages } = useProfilesBySearchInfiniteQuery(debouncedText);
+    const { data: userPages, isFetching } = useProfilesBySearchInfiniteQuery(debouncedText);
     const { data: usersBySteamId } = useProfilesBySteamId(debouncedText, onlyDigits(debouncedText));
     const { data: usersByProfileId } = useProfilesByProfileIds([parseInt(debouncedText)], onlyDigits(debouncedText));
 
@@ -80,7 +80,11 @@ export const InlinePlayerSearch: React.FC = () => {
                 <View className="absolute -top-3 -right-3 -left-3 bg-white dark:bg-black rounded-lg shadow-md dark:shadow-black">
                     <View className="h-18 rounded-md"></View>
 
-                    {debouncedText ? (
+                    {debouncedText !== text || isFetching ? (
+                        <View className="pb-3">
+                            <ActivityIndicator animating size="large" color="#999" />
+                        </View>
+                    ) : debouncedText ? (
                         <View>
                             <PlayerList
                                 list={list.slice(0, 5)}
@@ -98,7 +102,7 @@ export const InlinePlayerSearch: React.FC = () => {
                             )}
                         </View>
                     ) : data.length > 0 ? (
-                        <View className='pb-2.5'>
+                        <View className="pb-2.5">
                             <RecentSearches onSelect={onSelectUser} limit={5} />
                         </View>
                     ) : (
