@@ -35,6 +35,8 @@ import { FlatList } from '@app/components/flat-list';
 import cn from 'classnames';
 import { containerClassName, containerScrollClassName } from '@app/styles';
 import { formatAgo } from '@nex/data';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { WebLeaderboard } from './_web-leaderboard';
 
 const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
@@ -42,6 +44,8 @@ const ROW_HEIGHT_MY_RANK = 52;
 const pageSize = 100;
 
 export default function LeaderboardPage() {
+    const showTabBar = useShowTabBar();
+
     // const flatListRef = useRef<FlatList>(null);
     //
     // const scrollToOffset = (offset: number) => {
@@ -214,6 +218,7 @@ export default function LeaderboardPage() {
     useEffect(() => {
         if (!leaderboardId) return;
         if (!isFocused) return;
+        if (!showTabBar) return;
         if (leaderboard.touched && leaderboard.lastParams?.leaderboardCountry === leaderboardCountry) return;
         list.current.length = Math.min(list.current.length, pageSize);
         listLength.value = Math.min(list.current.length, pageSize);
@@ -436,6 +441,10 @@ export default function LeaderboardPage() {
     // const text = useDerivedValue(() => ((positionY.value / scrollRange.value)).toFixed());
     const handleStr = useDerivedValue(() => '#' + ((positionY.value / scrollRange.value) * listLength.value).toFixed());
 
+    if (!showTabBar) {
+        return <WebLeaderboard leaderboards={leaderboards} />;
+    }
+
     if (!leaderboards || !leaderboardId) {
         return <View />;
     }
@@ -559,12 +568,7 @@ function RenderRow(props: RenderRowProps) {
                         {player?.name}
                     </TextLoader>
                 </View>
-                <View className='w-24'>
-                    <TextLoader>{player ? formatAgo(player?.lastMatchTime) : null}</TextLoader>
-                </View>
-                <View className='w-12'>
-                    <TextLoader>{!!player?.games && !!player?.wins && ((player.wins / player.games) * 100).toFixed(0) + '%'}</TextLoader>
-                </View>
+                
                 {Dimensions.get('window').width >= 360 && (
                     <TextLoader ready={player?.games} style={styles.cellGames}>
                         {getTranslation('leaderboard.games', { games: player?.games })}

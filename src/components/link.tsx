@@ -1,23 +1,15 @@
-import { Href, router } from 'expo-router';
+import { Link as ExpoLink, type LinkProps as ExpoLinkProps } from 'expo-router';
 import { Text, TextProps } from './text';
 import { FC } from 'react';
 
-export interface LinkProps extends TextProps {
-    href?: Href;
-}
+export type LinkProps = Pick<ExpoLinkProps, 'href' | 'target'> & TextProps;
 
-export const Link: FC<LinkProps> = ({ href, ...props }) => {
+export const Link: FC<LinkProps> = ({ href, target, children, ...props }) => {
     return (
-        <Text
-            onPress={() => {
-                if (href) {
-                    router.navigate(href);
-                }
-            }}
-            className="underline"
-            color="brand"
-            variant="label"
-            {...props}
-        />
+        <Text className="underline" color="brand" variant="label" {...props}>
+            <ExpoLink href={href} target={target}>
+                {children}
+            </ExpoLink>
+        </Text>
     );
 };
