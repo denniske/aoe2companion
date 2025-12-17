@@ -23,6 +23,7 @@
     "nav.explore": "Explore",
     "nav.stats": "Stats",
     "nav.pros": "Pros",
+    "nav.competitive": "Competitive",
     "nav.more": "More",
 
     "matches.title": "Matches",
@@ -639,6 +640,9 @@
     "footer.winrates": "Winrates",
     "footer.tournaments": "Tournaments",
     "footer.loadMore": "Load More",
+    "footer.all": "All",
+    "footer.mine": "Mine",
+    "footer.following": "Following",
 
     "tournaments.alltitle": "All Tournaments",
     "tournaments.title": "Tournaments",

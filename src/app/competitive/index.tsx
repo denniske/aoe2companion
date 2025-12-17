@@ -27,8 +27,10 @@ import { useTranslation } from '@app/helper/translate';
 import { openLinkWithCheck } from '@app/helper/url';
 import { showAlert } from '@app/helper/alert';
 import { Button } from '@app/components/button';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
 
 export default function Competitive() {
+    const { isMedium } = useBreakpoints();
     const getTranslation = useTranslation();
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const { matches } = useOngoing({ verified: true });
@@ -105,9 +107,9 @@ export default function Competitive() {
     };
 
     const playTwitchStream = async () => {
-        if (Platform.OS === 'ios' || Platform.OS ==='web') {
+        if (Platform.OS === 'ios' || Platform.OS === 'web') {
             try {
-                if (Platform.OS === 'ios' && await Linking.canOpenURL(liveTwitchAppUrl!)) {
+                if (Platform.OS === 'ios' && (await Linking.canOpenURL(liveTwitchAppUrl!))) {
                     await Linking.openURL(liveTwitchAppUrl!);
                 } else {
                     await openLinkWithCheck(liveTwitchUrl!);
@@ -162,9 +164,13 @@ export default function Competitive() {
                         <PlayerList
                             hideIcons
                             selectedUser={(user) => openMatch(user.match.matchId)}
-                            list={activePlayers.length > 0 ? activePlayers : ['loading', 'loading', 'loading', 'loading', 'loading']}
+                            list={
+                                activePlayers.length > 0
+                                    ? activePlayers
+                                    : ['loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading']
+                            }
                             variant="horizontal"
-                            playerStyle={{ width: 100 }}
+                            playerStyle={{ width: isMedium ? 128 : 100 }}
                             footer={(player) =>
                                 player ? (
                                     <>
@@ -255,19 +261,15 @@ export default function Competitive() {
                         </View>
 
                         {isVideoPlaying ? (
-                            <WebView
-                                allowsFullscreenVideo
-                                source={{ uri: liveTwitchUrl! }}
-                                style={{ width: '100%', aspectRatio: 800 / 450 }}
-                            />
+                            <WebView allowsFullscreenVideo source={{ uri: liveTwitchUrl! }} style={{ width: '100%', aspectRatio: 800 / 450 }} />
                         ) : (
                             <>
-                                {
-                                    (Platform.OS === 'ios' || Platform.OS === 'web') &&
-                                    <Button className="self-start" onPress={playTwitchStream}>Open Stream</Button>
-                                }
-                                {
-                                    Platform.OS !== 'ios' && Platform.OS !== 'web' &&
+                                {(Platform.OS === 'ios' || Platform.OS === 'web') && (
+                                    <Button className="self-start" onPress={playTwitchStream}>
+                                        Open Stream
+                                    </Button>
+                                )}
+                                {Platform.OS !== 'ios' && Platform.OS !== 'web' && (
                                     <TouchableOpacity className="relative" onPress={playTwitchStream}>
                                         <Image
                                             source={{ uri: liveTwitch.thumbnail_url.replace('{width}', '800').replace('{height}', '450') }}
@@ -277,7 +279,7 @@ export default function Competitive() {
                                             <Icon icon="play-circle" size={40} color="subtle" />
                                         </View>
                                     </TouchableOpacity>
-                                }
+                                )}
                             </>
                         )}
                     </View>

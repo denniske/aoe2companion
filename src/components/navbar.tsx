@@ -45,7 +45,7 @@ export const NavBar: React.FC = () => {
         },
         {
             key: 'competitive',
-            label: getTranslation('nav.pros'),
+            label: getTranslation('nav.competitive'),
             icon: 'ranking-star',
             path: '/competitive',
         },
