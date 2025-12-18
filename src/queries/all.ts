@@ -60,12 +60,12 @@ export const useMatch = (matchId: number) => {
     });
 };
 
-export const useLeaderboards = () => {
+export const useLeaderboards = (enabled = true) => {
     const language = useLanguage();
     return useQuery({
         queryKey: ['leaderboards'],
         queryFn: () => fetchLeaderboards({ language: language! }),
-        enabled: !!language,
+        enabled: !!language && enabled,
     });
 };
 

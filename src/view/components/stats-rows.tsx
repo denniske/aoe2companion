@@ -100,15 +100,15 @@ export function StatsRow({ type, data }: IRowPropsCiv | IRowPropsMap | IRowProps
     return (
         <View className="flex-row items-center gap-1 my-1">
             <TouchableOpacity className="flex-row flex-4 items-center" onPress={gotoEntity}>
-                <View className="flex-row items-center">
+                <View className="flex-row items-center w-full">
                     {(type === 'ally' || type === 'opponent') && <CountryImage country={data.country} />}
                     {type === 'civ' && <Image style={styles.civIcon as any} source={getIcon()} />}
                     {type === 'map' && <Image style={styles.icon as any} source={getIcon()} />}
                     <MyText>{getName()}</MyText>
                 </View>
             </TouchableOpacity>
-            <MyText className="flex-row flex-1 items-center text-right font-tabular">{data.games}</MyText>
-            <MyText className="flex-row flex-1 items-center text-right font-tabular">{isNaN(won) ? '-' : won.toFixed(0) + ' %'}</MyText>
+            <MyText className="flex-row flex-1 items-center text-right font-tabular" numberOfLines={1}>{data.games}</MyText>
+            <MyText className="flex-row flex-1 items-center text-right font-tabular" numberOfLines={1}>{isNaN(won) ? '-' : won.toFixed(0) + ' %'}</MyText>
         </View>
     );
 }

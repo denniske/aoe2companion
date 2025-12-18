@@ -17,7 +17,10 @@ function onlyDigits(str: string) {
     return /^\d+$/.test(str);
 }
 
-export const InlinePlayerSearch: React.FC = () => {
+export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResultProfile) => void; showViewAll?: boolean }> = ({
+    showViewAll = true,
+    onSelect,
+}) => {
     const getTranslation = useTranslation();
     const ref = useRef<HTMLDivElement>(null);
     const [text, setText] = useState('');
@@ -38,7 +41,11 @@ export const InlinePlayerSearch: React.FC = () => {
         addRecentSearch(profile);
         setText('');
         setIsFocused(false);
-        router.navigate(`/matches/users/${profile.profileId}`);
+        if (onSelect) {
+            onSelect(profile);
+        } else {
+            router.navigate(`/matches/users/${profile.profileId}`);
+        }
     };
 
     const viewAll = () => {
@@ -78,7 +85,7 @@ export const InlinePlayerSearch: React.FC = () => {
 
             {(isFocused || text) && (
                 <View className="absolute -top-3 -right-3 -left-3 bg-white dark:bg-black rounded-lg shadow-md dark:shadow-black">
-                    <View className="h-18 rounded-md"></View>
+                    <View className="h-18 rounded-md" />
 
                     {debouncedText !== text || isFetching ? (
                         <View className="pb-3">
@@ -92,7 +99,7 @@ export const InlinePlayerSearch: React.FC = () => {
                                 keyExtractor={(item) => (typeof item === 'string' ? item : item.profileId.toString())}
                             />
 
-                            {list.length > 5 && (
+                            {showViewAll && list.length > 5 && (
                                 <View className="px-4">
                                     <View className="h-px bg-gray-200 dark:bg-gray-800 w-full mt-2.5" />
                                     <Pressable onPress={viewAll} className="p-3 items-center">

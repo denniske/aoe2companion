@@ -20,8 +20,8 @@ const font = matchFont(fontStyle as any);
 
 interface IRatingChartProps {
     formatTick: (date: Date) => string;
-    ratingHistoryDuration: string;
-    filteredRatingHistories: IProfileRatingsLeaderboard[] | null | undefined;
+    ratingHistoryDuration?: string;
+    filteredRatingHistories: Array<IProfileRatingsLeaderboard & {label?: string, color?: string}> | null | undefined;
     hiddenLeaderboardIds: LeaderboardId[];
     width: number;
 }
@@ -98,10 +98,24 @@ export default function RatingChart(props: IRatingChartProps) {
                             // console.log('Rendering line for', key, !!(points as any)[key]);
                             return (
                                 <Fragment key={key}>
-                                    <Line points={(points as any)[key].filter((p: any) => p.yValue != null)}
-                                          color={getLeaderboardColor(key, theme.dark)} strokeWidth={1.25} />
-                                    <Scatter points={(points as any)[key]} shape="circle" radius={1}
-                                             style="fill" color={getLeaderboardColor(key, theme.dark)} />
+                                    <Line
+                                        points={(points as any)[key].filter((p: any) => p.yValue != null)}
+                                        color={
+                                            filteredRatingHistories?.find((h) => h.leaderboardId === key)?.color ??
+                                            getLeaderboardColor(key, theme.dark)
+                                        }
+                                        strokeWidth={1.25}
+                                    />
+                                    <Scatter
+                                        points={(points as any)[key]}
+                                        shape="circle"
+                                        radius={1}
+                                        style="fill"
+                                        color={
+                                            filteredRatingHistories?.find((h) => h.leaderboardId === key)?.color ??
+                                            getLeaderboardColor(key, theme.dark)
+                                        }
+                                    />
                                 </Fragment>
                             );
                         })

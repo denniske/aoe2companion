@@ -21,8 +21,8 @@ export const RankedMaps: React.FC = () => {
     const formatLeaderboard = (leaderboardId: string) => mapsRanked?.leaderboards?.find((l) => l.leaderboardId === leaderboardId)?.abbreviation ?? '';
 
     return (
-        <View className="gap-2">
-            <Text variant="header-lg" className="mb-1">
+        <View>
+            <Text variant="header-lg" className="pb-2">
                 Ranked Maps
             </Text>
 

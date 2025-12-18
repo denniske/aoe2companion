@@ -65,7 +65,7 @@ export default function IndexPage() {
     const showTabBar = useShowTabBar();
 
     return (
-        <ScrollView contentContainerClassName="p-4 gap-5">
+        <ScrollView contentContainerClassName="p-4">
             <Stack.Screen
                 options={{
                     animation: 'none',
@@ -79,13 +79,13 @@ export default function IndexPage() {
                 }}
             />
 
-            <View className="-mx-4">
+            <View className="-mx-4 mb-5">
                 <FollowedPlayers />
             </View>
 
             {authProfileId && (
                 <AnimateIn>
-                    <View className="gap-2">
+                    <View className="gap-2 pb-5">
                         <View className="flex-row justify-between items-center">
                             <Text variant="header-lg">
                                 {getTranslation(accountMostRecentMatch?.finished === null ? 'home.current' : 'home.mostRecent')} Match
@@ -105,12 +105,14 @@ export default function IndexPage() {
 
             {favoriteIds.length > 0 && (
                 <AnimateIn>
-                    <FavoritedBuilds favoriteIds={favoriteIds} />
+                    <View className='pb-5'>
+                        <FavoritedBuilds favoriteIds={favoriteIds} />
+                    </View>
                 </AnimateIn>
             )}
 
             {tournamentsEnabled ? (
-                <View className="gap-2">
+                <View className="gap-2 pb-5">
                     <View className="flex-row justify-between items-center">
                         <Text variant="header-lg">
                             {followedIds[0] ? getTranslation('home.favoriteTournament') : getTranslation('home.featuredTournament')}
@@ -121,7 +123,7 @@ export default function IndexPage() {
                 </View>
             ) : null}
 
-            <View className="gap-2">
+            <View className="gap-2 pb-5">
                 <Text variant="header-lg">Recent News</Text>
 
                 <FlatList
