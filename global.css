@@ -139,3 +139,6 @@ html.dark *::-webkit-scrollbar-thumb {
     background-color: #d1d5db;
 }
 
+.VictoryContainer > svg {
+    overflow: visible;
+}

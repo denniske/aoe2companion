@@ -1,58 +1,112 @@
-import { Redirect, useLocalSearchParams, useNavigation } from 'expo-router';
-import { Platform, View } from 'react-native';
-import MainProfile from './(tabs)/main-profile';
-import MainStats from './(tabs)/main-stats';
+import { Redirect, Stack, useLocalSearchParams } from 'expo-router';
+import { View } from 'react-native';
 import MainMatches from './(tabs)/main-matches';
-import { ScrollView } from '@app/components/scroll-view';
-import { useProfile, useProfileFast } from '@app/queries/all';
-import { useEffect } from 'react';
+import { useAccount, useAuthProfileId, useProfile, useProfileFast } from '@app/queries/all';
+import { useState } from 'react';
 import { UserMenu, UserTitle } from './(tabs)/_layout';
-import cn from 'classnames';
-import { containerClassName } from '@app/styles';
+import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { ScrollView } from '@app/components/scroll-view';
+import { AnimateIn } from '@app/components/animate-in';
+import { ProfileLeaderboards } from '@app/components/profile-leaderboards';
+import DiscordBadge from '@app/view/components/badge/discord-badge';
+import YoutubeBadge from '@app/view/components/badge/youtube-badge';
+import DouyuBadge from '@app/view/components/badge/doyou-badge';
+import TwitchBadge from '@app/view/components/badge/twitch-badge';
+import useAuth from '@/data/src/hooks/use-auth';
+import { Button } from '@app/components/button';
 import { Text } from '@app/components/text';
-import Profile from '@app/view/components/profile';
-import Rating from '@app/view/components/rating';
+import Badge from '@app/view/components/badge/badge';
+import { sumBy } from 'lodash';
+import { SkeletonText } from '@app/components/skeleton';
 
 type UserPageParams = {
     profileId: string;
 };
 
 export default function ProfilePage() {
+    const showTabBar = useShowTabBar();
+    const [leaderboardIds, setLeaderboardIds] = useState<string[]>([]);
     const params = useLocalSearchParams<UserPageParams>();
     const profileId = parseInt(params.profileId);
 
-    const navigation = useNavigation();
+    const authProfileId = useAuthProfileId();
 
-    const { data: fullProfile, isPending: isFullProfilePending } = useProfile(profileId, 'avatar_medium_url,avatar_full_url,last_10_matches_won,stats');
-    const { data: profile, isPending } = useProfileFast(profileId);
-    const isReady = !isFullProfilePending;
+    const user = useAuth();
+    const account = useAccount();
+    const loggedIn = user && !user.is_anonymous && account.data;
 
-    useEffect(() => {
-        navigation.setOptions({
-            headerTitle: () => <UserTitle profile={profile} />,
-            headerRight: () => <UserMenu profile={profile} fullProfile={fullProfile} />,
-        });
-    }, [profile]);
+    const { data: fullProfile } = useProfile(profileId, 'avatar_medium_url,avatar_full_url,last_10_matches_won,stats');
+    const { data: profile } = useProfileFast(profileId);
 
-    if (Platform.OS !== 'web') {
+    const leaderboards = fullProfile?.leaderboards.filter((l) => leaderboardIds.length === 0 || leaderboardIds.includes(l.leaderboardId));
+
+    const games = sumBy(leaderboards, (x) => x.games);
+    const drops = sumBy(leaderboards, (x) => x.drops);
+
+    const TextComponent = fullProfile ? Text : SkeletonText;
+
+    if (showTabBar) {
         return <Redirect href={`/matches/users/${profileId}/main-profile`} />;
     }
 
     return (
         <ScrollView>
-            <View className="md:flex-row md:justify-around gap-4 pt-6 pb-2">
-                <Profile data={fullProfile} profileId={profileId} ready={isReady} />
+            <Stack.Screen
+                options={{
+                    headerTitle: () => <UserTitle profile={profile} />,
+                    headerRight: () => <UserMenu profile={profile} fullProfile={fullProfile} />,
+                }}
+            />
 
-                <View className="md:w-1/2">
-                    {fullProfile?.ratings?.length === 0 ? (
-                        <View />
-                    ) : (
-                        <Rating ratingHistories={fullProfile?.ratings} profile={fullProfile} ready={isReady} />
+            <View className="flex flex-row justify-between items-center px-4 pt-4">
+                <View className="flex-row gap-4 items-center">
+                    <View className="flex-col">
+                        <TextComponent variant="label-lg" className="min-w-24">
+                            {games} Games
+                        </TextComponent>
+                        <TextComponent variant="label-sm" className="min-w-24">
+                            {drops} Drops ({games === 0 ? '0' : ((drops / games) * 100).toFixed(2)}%)
+                        </TextComponent>
+                    </View>
+
+                    {(fullProfile?.socialDiscordInvitationUrl ||
+                        fullProfile?.socialYoutubeChannelUrl ||
+                        fullProfile?.socialDouyuChannelUrl ||
+                        fullProfile?.socialTwitchChannelUrl != null) && (
+                        <View className="flex-row gap-x-2">
+                            {fullProfile?.socialDiscordInvitationUrl && fullProfile?.socialDiscordInvitation && (
+                                <DiscordBadge
+                                    invitationUrl={fullProfile?.socialDiscordInvitationUrl}
+                                    invitation={fullProfile?.socialDiscordInvitation}
+                                />
+                            )}
+                            {fullProfile?.socialYoutubeChannelUrl && <YoutubeBadge channelUrl={fullProfile?.socialYoutubeChannelUrl} />}
+                            {fullProfile?.socialDouyuChannelUrl && <DouyuBadge channelUrl={fullProfile?.socialDouyuChannelUrl} />}
+                            {fullProfile?.socialTwitchChannelUrl && fullProfile?.socialTwitchChannel && (
+                                <TwitchBadge channelUrl={fullProfile?.socialTwitchChannelUrl} channel={fullProfile?.socialTwitchChannel} />
+                            )}
+                        </View>
+                    )}
+
+                    {!loggedIn && authProfileId === profileId && (
+                        <View className="gap-x-1 flex-row items-center">
+                            <Button size="small" href="/more/account" className="min-h-[26px]">
+                                Sign up
+                            </Button>
+                            <TextComponent>to manage your profile.</TextComponent>
+                        </View>
                     )}
                 </View>
+
+                <LeaderboardsSelect leaderboardIdList={leaderboardIds} onLeaderboardIdChange={setLeaderboardIds} />
             </View>
 
-            {fullProfile && <MainMatches profile={fullProfile} />}
+            <AnimateIn skipFirstAnimation>
+                <ProfileLeaderboards profile={fullProfile} leaderboardIds={leaderboardIds} />
+            </AnimateIn>
+
+            <MainMatches profile={fullProfile || null} leaderboardIds={leaderboardIds} />
         </ScrollView>
     );
 }

@@ -2,7 +2,7 @@ import { IProfileResult, IProfilesResultProfile } from '@app/api/helper/api.type
 import { Icon } from '@app/components/icon';
 import { Redirect, useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Platform, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
@@ -33,6 +33,7 @@ import { useUniwind } from 'uniwind';
 import { LinkedAoEAccount, LinkedAoECompanionAccount, LinkedPlatformAccount } from '@app/components/linked-account';
 import cn from 'classnames';
 import { containerScrollClassName } from '@app/styles';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -188,7 +189,11 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                 )}
 
                 {profile.verified && (
-                    <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setShowTournamentPlayer(true)}>
+                    <TouchableOpacity
+                        className="w-8 items-center justify-center"
+                        onPress={() => setShowTournamentPlayer(true)}
+                        disabled={!liquipediaProfile}
+                    >
                         <Icon icon="check-circle" color="brand" size={20} />
                         {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
                     </TouchableOpacity>
@@ -270,6 +275,7 @@ export function UserTitle({ profile }: UserMenuProps) {
 // )
 
 export default function UserPage() {
+    const showTabBar = useShowTabBar();
     const getTranslation = useTranslation();
     const params = useLocalSearchParams<UserPageParams>();
     const profileId = parseInt(params.profileId);
@@ -289,7 +295,7 @@ export default function UserPage() {
 
     // console.log('PROFILE LAYOUT', profileId);
 
-    if (Platform.OS === 'web') {
+    if (!showTabBar) {
         return <Redirect href={`/matches/users/${profileId}`} />;
     }
 
