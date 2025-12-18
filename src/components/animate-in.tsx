@@ -16,10 +16,6 @@ export const AnimateIn: React.FC<PropsWithChildren<{ skipFirstAnimation?: boolea
         };
     });
 
-    useEffect(() => {
-        console.log('mount')
-    }, [])
-
     return (
         <Animated.View
             style={[
@@ -35,8 +31,8 @@ export const AnimateIn: React.FC<PropsWithChildren<{ skipFirstAnimation?: boolea
                 className={cn(canHaveAnimationStyles ? 'absolute top-4 left-4 right-4' : 'p-4')}
                 onLayout={(e) => {
                     if (skipFirstAnimation && !hasFirstAnimationRun) {
-                        height.value = e.nativeEvent.layout.height + 32;
-                        opacity.value = e.nativeEvent.layout.height > 32 ? 1 : 0;
+                        height.value = e.nativeEvent.layout.height;
+                        opacity.value = e.nativeEvent.layout.height > 0 ? 1 : 0;
                         setHasFirstAnimationRun(true);
                     } else {
                         height.value = withTiming(e.nativeEvent.layout.height + 32, { duration: 250 });

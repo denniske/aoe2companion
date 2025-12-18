@@ -11,7 +11,8 @@ import {
     loadPrefsFromStorage,
 } from '@app/service/storage';
 import { DarkMode } from '@app/redux/reducer';
-import {AvailableMainPage} from "@app/helper/routing";
+import { AvailableMainPage } from '@app/helper/routing';
+import { Platform } from 'react-native';
 
 export interface IAccountFollowedPlayer {
     profileId: number;
@@ -83,20 +84,22 @@ export async function fetchAccount(): Promise<IAccount> {
     if (!session.session) {
         console.log('fetchAccount: no session');
 
-        const { error, data } = await supabaseClient.auth.signInAnonymously({
-            options: {
-                data: {},
-            },
-        });
+        if (Platform.OS !== 'web') {
+            const { error, data } = await supabaseClient.auth.signInAnonymously({
+                options: {
+                    data: {},
+                },
+            });
 
-        session = data;
+            session = data;
 
-        // console.log('data.session', data.session);
-        // console.log('error', error);
+            // console.log('data.session', data.session);
+            // console.log('error', error);
 
-        if (error) {
-            console.log('fetchAccount: session creation failed', error);
-            throw error;
+            if (error) {
+                console.log('fetchAccount: session creation failed', error);
+                throw error;
+            }
         }
 
         const [account, auth, following, preferences, config] = await Promise.all([
@@ -127,6 +130,18 @@ export async function fetchAccount(): Promise<IAccount> {
 
         // console.log('accountData', accountData);
         // console.log('fetchAccount SAVING ACCOUNT');
+
+        if (Platform.OS === 'web') {
+            const account: IAccount = {
+                ...accountData,
+                profileId: accountData.profileId || null,
+                followedPlayers: [],
+                favoriteBuildIds: [],
+                favoriteTournamentIds: [],
+            };
+
+            return account;
+        }
 
         await saveAccount(accountData);
         await followV2(following.map((f: IFollowingEntry) => f.profileId));

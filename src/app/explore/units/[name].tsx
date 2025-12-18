@@ -4,11 +4,11 @@ import {
     getAbilityEnabledForAllCivs,
     getUnitDescription,
     getUnitLineIdForUnit,
-    getUnitLineNameForUnit,
     getUnitName,
     getUnitUpgradeCost,
     getUnitUpgradeTime,
     getWikiLinkForUnit,
+    hasUnitLine,
     Unit,
     unitLines,
 } from '@nex/data';
@@ -26,18 +26,18 @@ import { UnitUpgrades } from '../../../view/unit/unit-upgrades';
 import { ScrollView } from '@app/components/scroll-view';
 import { useTranslation } from '@app/helper/translate';
 import { Text } from '@app/components/text';
+import NotFound from '@app/app/+not-found';
 
 export default function UnitDetails() {
     const getTranslation = useTranslation();
-    const { name } = useLocalSearchParams<{ name: Unit }>();
-    const unitName = name!;
-    const unitLineId = getUnitLineIdForUnit(unitName);
-    const unitLineName = getUnitLineNameForUnit(unitName);
-    const unitLine = unitLines[unitLineId];
+    const { name: unitName } = useLocalSearchParams<{ name: Unit }>();
 
-    // console.log('unitLine', unitLine);
-    // console.log('unitLineId', unitLineId);
-    // console.log('unitLineName', unitLineName);
+    if (!hasUnitLine(unitName)) {
+        return <NotFound />
+    }
+    
+    const unitLineId = getUnitLineIdForUnit(unitName);
+    const unitLine = unitLines[unitLineId];
 
     return (
         <ScrollView>

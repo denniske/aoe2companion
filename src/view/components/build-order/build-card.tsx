@@ -13,6 +13,7 @@ import { Tag } from '../tag';
 import React from 'react';
 import cn from 'classnames';
 import { Skeleton, SkeletonText } from '@app/components/skeleton';
+import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 
 export const BuildCard: React.FC<
     IBuildOrder & { favorited?: boolean; toggleFavorite?: () => void; size?: 'small' | 'large'; className?: string }
@@ -79,9 +80,9 @@ export const BuildCard: React.FC<
                             {difficultyIcon && <Image className="w-6 h-6" source={difficultyIcon} />}
 
                             {toggleFavorite && (
-                                <TouchableOpacity hitSlop={10} onPress={toggleFavorite}>
+                                <UserLoginWrapper Component={TouchableOpacity} hitSlop={10} onPress={toggleFavorite}>
                                     <FontAwesome5 solid={favorited} name="heart" size={20} color="#ef4444" />
-                                </TouchableOpacity>
+                                </UserLoginWrapper>
                             )}
                         </View>
                     </View>

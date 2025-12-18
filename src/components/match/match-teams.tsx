@@ -9,6 +9,7 @@ import { MatchPlayer } from '@app/components/match/match-player';
 import { isMatchFreeForAll } from '@nex/data';
 import { Card } from '@app/components/card';
 import cn from 'classnames';
+import { appConfig } from '@nex/dataset';
 
 interface Props {
     match: IMatchNew;
@@ -42,7 +43,11 @@ export default function MatchTeams(props: Props) {
                                             player={player}
                                             freeForAll={freeForAll}
                                             canDownloadRec={player.replay}
-                                            className={cn('border-2 border-border rounded pr-4', teamIndex === 1 && 'md:flex-row-reverse md:pl-4 md:pr-0')}
+                                            className={cn(
+                                                'border-border rounded pr-4 border overflow-hidden',
+                                                appConfig.game === 'aoe2' && 'border-2',
+                                                teamIndex === 1 && 'md:flex-row-reverse md:pl-4 md:pr-0'
+                                            )}
                                             colorClassName={cn('w-8 h-8 pr-0.5', teamIndex === 1 && 'md:pl-0.5 md:pr-0')}
                                             // onClose={onClose}
                                         />

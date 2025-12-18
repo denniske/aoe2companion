@@ -34,6 +34,7 @@ import { LinkedAoEAccount, LinkedAoECompanionAccount, LinkedPlatformAccount } fr
 import cn from 'classnames';
 import { containerScrollClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -226,13 +227,14 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                     </View>
                 </MenuNew>
 
-                <TouchableOpacity
+                <UserLoginWrapper
+                    Component={TouchableOpacity}
                     className="w-8 items-center justify-center"
                     hitSlop={10}
                     onPress={followingThisUser ? () => unfollowMutation.mutate([profileId]) : () => followMutation.mutate([profileId])}
                 >
                     <Icon prefix={followingThisUser ? 'fass' : 'fasr'} icon="heart" size={20} color="accent-[#ef4444]" />
-                </TouchableOpacity>
+                </UserLoginWrapper>
             </View>
         );
     }

@@ -135,7 +135,13 @@ export default function MatchesPage() {
 
             <View className={cn('flex-row justify-between items-center', containerClassName)}>
                 <Text variant="header-lg">{getTranslation('matches.liveandrecentmatches')}</Text>
-                <Link href="/matches/live/lobbies">{getTranslation('matches.viewlobbies')}</Link>
+                <View className="flex-row gap-2 items-center">
+                    {!showTabBar && <>
+                        <Link href="/matches/live/all">{getTranslation('matches.alllivegames')}</Link>
+                        <View className="w-px bg-border self-stretch" />
+                    </>}
+                    <Link href="/matches/live/lobbies">{getTranslation('matches.viewlobbies')}</Link>
+                </View>
             </View>
 
             {error ? (
@@ -255,7 +261,9 @@ export default function MatchesPage() {
                                                 </MyText>
                                             )}
                                             {Platform.OS === 'web' && !match.finished && (
-                                                <MyText onPress={() => spectate(match.matchId)}> (Spectate)</MyText>
+                                                <Link className="pl-1" onPress={() => spectate(match.matchId)}>
+                                                    Spectate
+                                                </Link>
                                             )}
                                         </Text>
                                     )}

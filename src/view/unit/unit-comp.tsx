@@ -8,24 +8,44 @@ import {MyText} from "../components/my-text";
 import {getUnitIcon, getUnitLineIcon} from "../../helper/units";
 import {createStylesheet} from '../../theming-new';
 import { router } from 'expo-router';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { Card } from '@app/components/card';
+import { Text } from '@app/components/text';
 
 
 function getUnitLineTitle(unitLine: IUnitLine) {
     return unitLine.units.filter((x, i) => i > 0).map(getUnitName).join(', ');
 }
 
-export function UnitCompBig({unit, subtitle}: {unit: Unit, subtitle?: string}) {
+export function UnitCompBig({ unit, subtitle, canShowCard }: { unit: Unit; subtitle?: string; canShowCard?: boolean }) {
     const styles = useStyles();
+    const showTabBar = useShowTabBar();
+
+    if (!showTabBar && canShowCard) {
+        return (
+            <Card href={`/explore/units/${unit}`} direction="vertical" className="items-center w-40 mb-2 flex-1">
+                <Image style={styles.unitIconBig} source={getUnitIcon(unit)} />
+
+                <Text variant="label-lg" numberOfLines={1}>
+                    {getUnitName(unit)}
+                </Text>
+
+                {subtitle != null && (
+                    <Text variant="body-sm" color="subtle" numberOfLines={2}>
+                        {subtitle}
+                    </Text>
+                )}
+            </Card>
+        );
+    }
+
     return (
         <TouchableOpacity onPress={() => router.navigate(`/explore/units/${unit}`)}>
             <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getUnitIcon(unit)}/>
+                <Image style={styles.unitIconBig} source={getUnitIcon(unit)} />
                 <View style={styles.unitIconBigTitle}>
                     <MyText>{getUnitName(unit)}</MyText>
-                    {
-                        subtitle != null &&
-                        <MyText style={styles.base.small}>{subtitle}</MyText>
-                    }
+                    {subtitle != null && <MyText style={styles.base.small}>{subtitle}</MyText>}
                 </View>
             </View>
         </TouchableOpacity>

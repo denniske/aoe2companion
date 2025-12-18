@@ -61,6 +61,7 @@ import { useCSSVariable } from 'uniwind';
 import { NavBar } from '@app/components/navbar';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { Footer } from '@app/components/footer';
+import { LoginPopupProvider } from '@app/providers/login-popup-provider';
 
 initSentry();
 
@@ -400,7 +401,7 @@ function AppWrapper() {
                         </View>
 
                         <PortalProvider>
-                            <>
+                            <LoginPopupProvider>
                                 <View className="hidden md:web:block z-10">
                                     <NavBar />
                                 </View>
@@ -415,7 +416,7 @@ function AppWrapper() {
                                 <View className="hidden md:web:block">
                                     <Footer />
                                 </View>
-                            </>
+                            </LoginPopupProvider>
                         </PortalProvider>
                     </View>
                 </ThemeProvider>

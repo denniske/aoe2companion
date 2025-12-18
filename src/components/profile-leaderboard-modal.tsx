@@ -114,6 +114,7 @@ export const ProfileLeaderboardModal = ({
                                     {ratings && (
                                         <View className="z-50">
                                             <RatingChart
+                                                allowMouseInteraction
                                                 width={1200}
                                                 formatTick={(date) => {
                                                     if (

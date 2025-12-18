@@ -9,6 +9,7 @@ import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
 import { useTranslation } from '@app/helper/translate';
 import { showAlert } from '@app/helper/alert';
+import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 
 export default function Follow() {
     const getTranslation = useTranslation();
@@ -51,12 +52,12 @@ function FeedAction({ user }: { user: IPlayerListPlayer }) {
     };
 
     return (
-        <Button onPress={onSelect} disabled={isMe} size="small">
+        <UserLoginWrapper Component={Button} onPress={onSelect} disabled={isMe} size="small">
             {isMe
                 ? getTranslation('feed.following.you')
                 : followingThisUser
-                  ? getTranslation('feed.follow.unfollow')
-                  : getTranslation('feed.follow.follow')}
-        </Button>
+                ? getTranslation('feed.follow.unfollow')
+                : getTranslation('feed.follow.follow')}
+        </UserLoginWrapper>
     );
 }

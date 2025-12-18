@@ -21,6 +21,7 @@ export default function LiveAllPage() {
     const [search, setSearch] = useState('');
     const debouncedSearch = useDebounce(search, 250);
     const { matches, isLoading: isLoadingOngoing, connected: connectedOngoing, connect: connectOngoing } = useOngoing({});
+    const [limit, setLimit] = useState(20);
 
     const isLoading = isLoadingOngoing;
     const connected = connectedOngoing;
@@ -77,7 +78,7 @@ export default function LiveAllPage() {
 
                     {!isLoading && connected ? (
                         <Text variant="label">
-                            There are {filteredMatches.length} {search ? 'matching ' : ''}ongoing matches
+                            There are {filteredMatches.length} ongoing matches{search ? ' that match your search' : ''}
                         </Text>
                     ) : null}
 
@@ -100,8 +101,17 @@ export default function LiveAllPage() {
                 <FlatList
                     contentContainerClassName={containerPaddingClassName}
                     ItemSeparatorComponent={() => <View className="h-4" />}
-                    data={filteredMatches}
+                    data={filteredMatches.slice(0, limit)}
                     renderItem={({ item: match }) => <MatchCard match={match} onPress={() => openMatch(match.matchId)} />}
+                    ListFooterComponent={() => (
+                        <View className="flex-row items-center justify-center p-4">
+                            {filteredMatches.length > limit && (
+                                <View className="py-4 flex-row justify-center">
+                                    <Button onPress={() => setLimit(limit + 20)}>{getTranslation('footer.loadMore')}</Button>
+                                </View>
+                            )}
+                        </View>
+                    )}
                 />
             </View>
         </KeyboardAvoidingView>

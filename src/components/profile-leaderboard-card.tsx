@@ -12,6 +12,8 @@ import { IProfileLeaderboardResult } from '@app/api/helper/api.types';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { ProfileLeaderboardModal } from './profile-leaderboard-modal';
 import { useState } from 'react';
+import cn from 'classnames';
+import { appConfig } from '@nex/dataset';
 
 export const ProfileLeaderboardCard: React.FC<{
     leaderboard: IProfileLeaderboardResult | null | undefined;
@@ -103,7 +105,11 @@ export const ProfileLeaderboardCard: React.FC<{
                         <TextComponent variant="label-sm" numberOfLines={1}>
                             Favorite Civilization
                         </TextComponent>
-                        {topCiv ? <Image source={getCivIcon(topCiv)} className="w-12 h-12" /> : <Skeleton className="w-12 h-12" />}
+                        {topCiv ? (
+                            <Image source={getCivIcon(topCiv)} className={cn('w-12 h-12', appConfig.game === 'aoe4' && 'h-12 w-20')} />
+                        ) : (
+                            <Skeleton className={cn('w-12 h-12', appConfig.game === 'aoe4' && 'h-12 w-20')} />
+                        )}
 
                         <TextComponent variant="label-lg" numberOfLines={1}>
                             {topCiv?.civName}
@@ -121,7 +127,14 @@ export const ProfileLeaderboardCard: React.FC<{
                         <TextComponent variant="label-sm" numberOfLines={1}>
                             Favorite Map
                         </TextComponent>
-                        {topMap ? <Image source={getMapImage(topMap)} className="w-12 h-12" /> : <Skeleton className="w-12 h-12" />}
+                        {topMap ? (
+                            <Image
+                                source={getMapImage(topMap)}
+                                className={cn('w-12 h-12', appConfig.game === 'aoe4' && 'border border-gold-500 rounded')}
+                            />
+                        ) : (
+                            <Skeleton className="w-12 h-12" />
+                        )}
 
                         <TextComponent variant="label-lg" numberOfLines={1}>
                             {topMap?.mapName}

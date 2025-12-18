@@ -5,18 +5,19 @@ import { Text } from '@app/components/text';
 import { scrollToSection, sectionItemLayout } from '@app/utils/list';
 import { getBuildingName, getCivNameById, getTechName, techSections } from '@nex/data';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { SectionList as SectionListRef, View } from 'react-native';
 
 import { TechCompBig } from '../../../view/tech/tech-comp';
 import { useTranslation } from '@app/helper/translate';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 
 export default function TechList() {
     const getTranslation = useTranslation();
     const [text, setText] = useState('');
-    const [list, setList] = useState(techSections);
+    const [localList, setList] = useState(techSections);
     const [scrollReady, setScrollReady] = useState(false);
     const sectionList = useRef<SectionListRef>(null);
     const { section } = useLocalSearchParams<{ section: string }>();
@@ -39,6 +40,19 @@ export default function TechList() {
         refresh();
     }, [text]);
 
+    const showTabBar = useShowTabBar();
+
+    const list = useMemo(() => {
+        if (showTabBar) {
+            return localList;
+        } else {
+            const uniqueTechs = localList.flatMap((section) => (section.civ ? section.data : []));
+            const sections = localList.filter((section) => !section.civ);
+
+            return [...sections, { title: getTranslation('unit.section.unique'), data: uniqueTechs, civ: undefined, building: undefined }];
+        }
+    }, [text, localList]);
+
     useEffect(() => {
         if (section && scrollReady && sectionList.current) {
             scrollToSection(
@@ -54,7 +68,7 @@ export default function TechList() {
             <View className="flex-1">
                 <Stack.Screen options={{ title: getTranslation('tech.title') }} />
 
-                <View className={cn("pt-4", containerClassName)}>
+                <View className={cn('pt-4', containerClassName)}>
                     <Field
                         type="search"
                         placeholder={getTranslation('tech.search.placeholder')}
@@ -70,6 +84,7 @@ export default function TechList() {
                 </View>
 
                 <SectionList
+                    horizontalOnWeb
                     onLayout={() => setScrollReady(true)}
                     ref={sectionList}
                     getItemLayout={sectionItemLayout({ getItemHeight: () => 40, getSectionHeaderHeight: () => 40, listHeaderHeight: 16 })}
@@ -77,11 +92,11 @@ export default function TechList() {
                     contentContainerClassName="p-4"
                     sections={list}
                     stickySectionHeadersEnabled={false}
-                    renderItem={({ item }) => <TechCompBig key={item} tech={item} showCivBanner />}
-                    renderSectionHeader={({ section: { building, civ } }) => (
+                    renderItem={({ item }) => <TechCompBig canShowCard key={item} tech={item} showCivBanner />}
+                    renderSectionHeader={({ section: { building, civ, title } }) => (
                         <View className="h-10 justify-center">
                             <Text variant="header-sm" color="brand">
-                                {building ? getBuildingName(building) : getCivNameById(civ!)}
+                                {building ? getBuildingName(building) : civ ? getCivNameById(civ!) : title}
                             </Text>
                         </View>
                     )}

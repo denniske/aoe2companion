@@ -34,6 +34,7 @@
     "matches.findPlayer": "Find Player",
     "matches.liveandrecentmatches": "Live and Recent Matches",
     "matches.viewlobbies": "View Lobbies",
+    "matches.alllivegames": "View All Live Games",
 
     "matches.current.title": "My Dashboard",
     "matches.current.empty": "You are not in any lobby / match right now. This dashboard will be refreshed automatically when you are in a lobby or match. (Refresh interval 30s)",
@@ -264,7 +265,7 @@
     "resetpassword.changed": "Your password has been changed!",
 
     "login.title": "Login",
-    "login.placeholder.email": "email@address.com",
+    "login.placeholder.email": "Email Address",
     "login.placeholder.password": "Password",
     "login.forgotpassword": "Forgot password?",
     "login.signin": "Sign in",

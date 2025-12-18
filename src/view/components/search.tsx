@@ -36,24 +36,17 @@ export default function Search({ title, selectedUser, actionText, action, initia
     const flatListRef = React.useRef<FlatList>(null);
     const debouncedText = useDebounce(text, 250);
 
-    const {
-        data: userPages,
-        fetchNextPage,
-        hasNextPage,
-        isFetching,
-        isFetchingNextPage,
-        refetch,
-    } = useProfilesBySearchInfiniteQuery(debouncedText);
-    const { data: usersBySteamId, isLoading: isLoadingUsersBySteamId } = useProfilesBySteamId(
-        debouncedText,
-        onlyDigits(debouncedText)
-    );
+    const { data: userPages, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, refetch } = useProfilesBySearchInfiniteQuery(debouncedText);
+    const { data: usersBySteamId, isLoading: isLoadingUsersBySteamId } = useProfilesBySteamId(debouncedText, onlyDigits(debouncedText));
     const { data: usersByProfileId, isLoading: isLoadingUsersByProfileId } = useProfilesByProfileIds(
         [parseInt(debouncedText)],
         onlyDigits(debouncedText)
     );
 
-    const list = debouncedText.length < 2 ? [] : [...compact(usersByProfileId), ...compact(usersBySteamId), ...compact(userPages?.pages?.flatMap((p) => p.profiles))];
+    const list =
+        debouncedText.length < 2
+            ? []
+            : [...compact(usersByProfileId), ...compact(usersBySteamId), ...compact(userPages?.pages?.flatMap((p) => p.profiles))];
 
     const onRefresh = async () => {
         setReloading(true); // Needed for smooth animation when refreshing
@@ -92,7 +85,7 @@ export default function Search({ title, selectedUser, actionText, action, initia
         <View className="flex-1">
             {title && <Text className="pt-4 text-center">{title}</Text>}
 
-            <View className={cn("py-4", containerClassName)}>
+            <View className={cn('py-4', containerClassName)}>
                 <Field
                     placeholder={getTranslation('search.placeholder')}
                     type="search"
