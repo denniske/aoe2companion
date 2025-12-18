@@ -14,11 +14,14 @@ import { TechCompBig } from '../../../view/tech/tech-comp';
 import { UnitCompBig } from '../../../view/unit/unit-comp';
 import { useQuery } from '@tanstack/react-query';
 import { useUniwind } from 'uniwind';
+import NotFound from '@app/app/+not-found';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
 
 export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
     const civ = name!;
     const { theme } = useUniwind();
+    const {isMedium} = useBreakpoints()
 
     if (appConfig.game !== 'aoe2') {
         return <Civ4Details civ={civ} />;
@@ -27,7 +30,7 @@ export default function CivDetails() {
     const civDescription = parseCivDescription(civ);
 
     if (civDescription == null) {
-        return <View />;
+        return <NotFound />;
     }
 
     const { type, boni, uniqueUnitsTitle, uniqueTechsTitle, teamBonusTitle, teamBonus } = civDescription;
@@ -35,8 +38,8 @@ export default function CivDetails() {
     return (
         <ImageBackground
             tintColor={theme === 'dark' ? 'white' : 'black'}
-            imageStyle={styles.imageInner}
-            contentFit="cover"
+            imageStyle={[styles.imageInner, isMedium && { height: 600, width: '50%' }]}
+            contentFit={isMedium ? 'contain' : 'cover'}
             source={getCivHistoryImage(civ)}
             style={styles.image}
         >
@@ -46,43 +49,45 @@ export default function CivDetails() {
                 }}
             />
             <ScrollView>
-                <View style={styles.detailsContainer}>
-                    <MyText style={styles.content}>{type}</MyText>
+                <View style={styles.detailsContainer} className="lg:flex-row">
+                    <View className="lg:flex-1">
+                        <MyText style={styles.content}>{type}</MyText>
 
-                    <View style={styles.box}>
-                        <MyText style={styles.heading}>Bonus</MyText>
-                        {boni.map((bonus, i) => (
-                            <View key={i} style={styles.bonusRow}>
-                                <MyText style={styles.bullet}>• </MyText>
-                                <MyText style={styles.content}>
-                                    <HighlightUnitAndTechs str={bonus} />
-                                </MyText>
-                            </View>
-                        ))}
+                        <View style={styles.box}>
+                            <MyText style={styles.heading}>Bonus</MyText>
+                            {boni.map((bonus, i) => (
+                                <View key={i} style={styles.bonusRow}>
+                                    <MyText style={styles.bullet}>• </MyText>
+                                    <MyText style={styles.content}>
+                                        <HighlightUnitAndTechs str={bonus} />
+                                    </MyText>
+                                </View>
+                            ))}
+                        </View>
+
+                        <View style={styles.box}>
+                            <MyText style={styles.heading}>{uniqueUnitsTitle.replace(':', '')}</MyText>
+                            {civDict[civ].uniqueUnits.map((unit) => (
+                                <UnitCompBig key={unit} unit={unit} />
+                            ))}
+                        </View>
+
+                        <View style={styles.box}>
+                            <MyText style={styles.heading}>{uniqueTechsTitle.replace(':', '')}</MyText>
+                            {civDict[civ].uniqueTechs.map((tech) => (
+                                <TechCompBig key={tech} tech={tech} />
+                            ))}
+                        </View>
+
+                        <View style={styles.box}>
+                            <MyText style={styles.heading}>{teamBonusTitle.replace(':', '')}</MyText>
+                            <MyText style={styles.content}>
+                                <HighlightUnitAndTechs str={teamBonus} />
+                            </MyText>
+                        </View>
                     </View>
 
-                    <View style={styles.box}>
-                        <MyText style={styles.heading}>{uniqueUnitsTitle.replace(':', '')}</MyText>
-                        {civDict[civ].uniqueUnits.map((unit) => (
-                            <UnitCompBig key={unit} unit={unit} />
-                        ))}
-                    </View>
-
-                    <View style={styles.box}>
-                        <MyText style={styles.heading}>{uniqueTechsTitle.replace(':', '')}</MyText>
-                        {civDict[civ].uniqueTechs.map((tech) => (
-                            <TechCompBig key={tech} tech={tech} />
-                        ))}
-                    </View>
-
-                    <View style={styles.box}>
-                        <MyText style={styles.heading}>{teamBonusTitle.replace(':', '')}</MyText>
-                        <MyText style={styles.content}>
-                            <HighlightUnitAndTechs str={teamBonus} />
-                        </MyText>
-                    </View>
-
-                    <View style={styles.box}>
+                    <View style={styles.box} className="lg:flex-1">
                         <TechTree civ={civ} />
                     </View>
                 </View>

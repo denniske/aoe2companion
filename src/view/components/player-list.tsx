@@ -11,6 +11,7 @@ import { Image } from '@/src/components/uniwind/image';
 import { useCavy } from '../testing/tester';
 import { useAuthProfileId } from '@app/queries/all';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 
 export interface IPlayerListPlayer {
     country?: string;
@@ -72,7 +73,8 @@ function Player<PlayerType extends IPlayerListPlayer>({
 
     if (player === 'select') {
         return (
-            <Card
+            <UserLoginWrapper
+                Component={Card}
                 direction="vertical"
                 className="items-center justify-center gap-1! py-2 px-2.5 w-20 md:w-32 md:py-4 relative"
                 onPress={() => router.navigate('/matches/users/select')}
@@ -86,13 +88,14 @@ function Player<PlayerType extends IPlayerListPlayer>({
                         Find Me
                     </Text>
                 </View>
-            </Card>
+            </UserLoginWrapper>
         );
     }
 
     if (player === 'follow') {
         return (
-            <Card
+            <UserLoginWrapper
+                Component={Card}
                 direction="vertical"
                 className="items-center justify-center gap-1! py-2 px-2.5 w-20 md:w-32 md:py-4 relative"
                 onPress={() => router.navigate('/matches/users/follow')}
@@ -106,7 +109,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                         Add Player
                     </Text>
                 </View>
-            </Card>
+            </UserLoginWrapper>
         );
     }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View, AppState, TouchableOpacity } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { supabaseClient } from '@/data/src/helper/supabase';
@@ -9,6 +9,7 @@ import { useAccount } from '@app/queries/all';
 import { Text } from '@app/components/text';
 import { showAlert } from '@app/helper/alert';
 import { accountIsEmpty, accountMigrateFromAnonymous } from '@app/api/account';
+import useAuth from '@/data/src/hooks/use-auth';
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -16,41 +17,47 @@ import { accountIsEmpty, accountMigrateFromAnonymous } from '@app/api/account';
 // if the user's session is terminated. This should only be registered once.
 AppState.addEventListener('change', (state) => {
     if (state === 'active') {
-        supabaseClient.auth.startAutoRefresh()
+        supabaseClient.auth.startAutoRefresh();
     } else {
-        supabaseClient.auth.stopAutoRefresh()
+        supabaseClient.auth.stopAutoRefresh();
     }
-})
+});
 
-export default function Login() {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [loading, setLoading] = useState(false)
+export default function Login({ onComplete }: { onComplete?: () => void }) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLocalLoading] = useState(false);
     const getTranslation = useTranslation();
     const account = useAccount();
     const queryClient = useQueryClient();
+    const user = useAuth();
+
+    const setLoading = (value: boolean) => {
+        setLocalLoading(value);
+
+        if (!value) {
+            onComplete?.();
+        }
+    };
 
     // console.log('LOGIN user', user);
 
     async function resetPassword() {
-        setLoading(true)
+        setLoading(true);
 
-        const { error } = await supabaseClient.auth.resetPasswordForEmail(
-            email,
-            {
-                redirectTo: 'https://www.aoe2companion.com',
-            }
-        );
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+            redirectTo: 'https://www.aoe2companion.com',
+        });
 
         if (error) {
-            showAlert(error.message)
+            showAlert(error.message);
         } else {
-            showAlert(getTranslation('login.inboxreset'))
+            showAlert(getTranslation('login.inboxreset'));
         }
 
-        setLoading(false)
+        setLoading(false);
 
-        await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
+        await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
     }
 
     async function forgotPassword() {
@@ -66,22 +73,17 @@ export default function Login() {
     }
 
     async function migrateFromAnonymous(existingSessionAccountId: string, existingSessionAccessToken: string) {
-        const { error, result } = await accountMigrateFromAnonymous(
-            existingSessionAccountId, existingSessionAccessToken
-        );
+        const { error, result } = await accountMigrateFromAnonymous(existingSessionAccountId, existingSessionAccessToken);
         if (result === 'success') {
-            showAlert(
-                getTranslation('login.dialog.title.migrate.success'),
-                getTranslation('login.dialog.message.migrate.success')
-            );
+            showAlert(getTranslation('login.dialog.title.migrate.success'), getTranslation('login.dialog.message.migrate.success'));
         }
         if (error) {
-            showAlert(error)
+            showAlert(error);
         }
     }
 
     async function signInWithEmail() {
-        setLoading(true)
+        setLoading(true);
 
         const { data } = await supabaseClient.auth.getSession();
 
@@ -94,10 +96,10 @@ export default function Login() {
         const { error } = await supabaseClient.auth.signInWithPassword({
             email: email,
             password: password,
-        })
+        });
 
         if (error) {
-            setLoading(false);
+            setLocalLoading(false);
             showAlert(error.message);
         }
 
@@ -107,7 +109,8 @@ export default function Login() {
             console.log('existingSessionWasAnonymous', existingSessionWasAnonymous, existingSessionAccountId);
             console.log('currentAccountIsEmpty', currentAccountIsEmpty);
 
-            if (existingSessionWasAnonymous &&
+            if (
+                existingSessionWasAnonymous &&
                 existingSessionAccountId &&
                 existingSessionAccessToken &&
                 existingAccountProfileId &&
@@ -117,7 +120,7 @@ export default function Login() {
                 await supabaseClient.auth.updateUser({
                     data: {
                         existingSessionAccountId,
-                    }
+                    },
                 });
                 showAlert(
                     getTranslation('login.dialog.title.migrate'),
@@ -150,20 +153,30 @@ export default function Login() {
     }
 
     async function signUpWithEmail() {
-        setLoading(true)
+        setLoading(true);
 
-        let { data, error } = await supabaseClient.auth.updateUser(
-            {
-                email,
-                password,
-            },
-            {
-                emailRedirectTo: 'https://www.aoe2companion.com',
-            }
-        );
+        const {
+            data: { session },
+        } = await supabaseClient.auth.getSession();
 
-        console.log('signup data', data)
-        console.log('signup error', error)
+        let { data, error } = session
+            ? await supabaseClient.auth.updateUser(
+                  {
+                      email,
+                      password,
+                  },
+                  {
+                      emailRedirectTo: 'https://www.aoe2companion.com',
+                  }
+              )
+            : await supabaseClient.auth.signUp({
+                  email,
+                  password,
+                  options: { emailRedirectTo: 'https://www.aoe2companion.com' },
+              });
+
+        console.log('signup data', data);
+        console.log('signup error', error);
 
         if (error?.message?.includes('New password should be different from the old password.')) {
             const result = await supabaseClient.auth.updateUser(
@@ -179,77 +192,44 @@ export default function Login() {
         }
 
         if (error) {
-            showAlert(error.message)
+            showAlert(error.message);
         } else {
-            showAlert(getTranslation('login.inboxverification'))
+            showAlert(getTranslation('login.inboxverification'));
+
+            setLoading(false);
+            await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' });
         }
-
-        setLoading(false)
-
-        console.log('signup invalidating queries')
-        await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
     }
 
     return (
-        <View style={styles.container} className='max-w-3xl mx-auto w-full'>
-            <View style={[styles.verticallySpaced, styles.mt20]}>
-                {/*<MyText>Email</MyText>*/}
-                <Field
-                    placeholder={getTranslation('login.placeholder.email')}
-                    type="email"
-                    autoFocus={!__DEV__}
-                    onChangeText={text => setEmail(text.trim())}
-                    value={email}
-                />
-            </View>
-            <View style={styles.verticallySpaced}>
-                {/*<MyText>Password</MyText>*/}
-                <Field
-                    placeholder={getTranslation('login.placeholder.password')}
-                    type="password"
-                    onChangeText={setPassword}
-                    value={password}
-                />
+        <View className="gap-3">
+            <Field
+                type="email"
+                onChangeText={(text) => setEmail(text.trim())}
+                value={email}
+                placeholder={getTranslation('login.placeholder.email')}
+            />
+
+            <View className="gap-1">
+                <Field type="password" onChangeText={setPassword} value={password} placeholder={getTranslation('login.placeholder.password')} />
+
+                <View className="flex-row justify-end">
+                    <TouchableOpacity className="p-2" onPress={() => forgotPassword()}>
+                        <Text variant="body">{getTranslation('login.forgotpassword')}</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
-            <View className="flex-row justify-end">
-                <TouchableOpacity className="p-2" onPress={() => forgotPassword()}>
-                    <Text variant="body">{getTranslation('login.forgotpassword')}</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Button align="center"
-                        disabled={loading}
-                        onPress={() => signInWithEmail()}
-                >
+            <View className="gap-4 max-w-sm w-full mx-auto">
+                <Button align="center" disabled={loading} onPress={() => signInWithEmail()}>
                     {getTranslation('login.signin')}
                 </Button>
-            </View>
-            <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Button align="center"
-                        disabled={loading}
-                        onPress={() => signUpWithEmail()}
-                >
-                    {getTranslation('login.createnewaccount')}
-                </Button>
+                {!user || user.is_anonymous ? (
+                    <Button align="center" disabled={loading} onPress={() => signUpWithEmail()}>
+                        {getTranslation('login.createnewaccount')}
+                    </Button>
+                ) : null}
             </View>
         </View>
-    )
+    );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        // backgroundColor: 'yellow',
-        // marginTop: 40,
-        padding: 12,
-    },
-    verticallySpaced: {
-        paddingTop: 4,
-        paddingBottom: 4,
-        alignSelf: 'stretch',
-    },
-    mt20: {
-        marginTop: 20,
-    },
-})

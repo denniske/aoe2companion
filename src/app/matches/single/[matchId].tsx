@@ -3,15 +3,14 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { MatchCard } from '@app/components/match/match-card';
 import { View } from 'react-native';
 import { ScrollView } from '@app/components/scroll-view';
-import { Text } from '@app/components/text';
 import { useMatch, useWithRefetching } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
 import MatchAnalysis from '@app/view/components/match-map/match-analysis';
 import MatchOptions from '@app/components/match/match-options';
 import MatchInfo from '@app/components/match/match-info';
 import MatchTeams from '@app/components/match/match-teams';
-import { containerClassName } from '@app/styles';
-import cn from 'classnames';
+import { LoadingScreen } from '@app/components/loading-screen';
+import NotFound from '@app/app/+not-found';
 
 type MatchPageParams = {
     matchId: string;
@@ -41,9 +40,7 @@ export default function MatchPage() {
 
     if (!match) {
         return (
-            <View className={cn(containerClassName, 'flex-1 justify-center items-center')}>
-                <Text>Loading...</Text>
-            </View>
+           matchLoading ? <LoadingScreen /> : <NotFound />
         );
     }
 

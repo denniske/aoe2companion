@@ -113,6 +113,13 @@ export const NavBar: React.FC = () => {
                         <Icon fill="inherit" size={20} icon="search" />
                     </Pressable>
                 )}
+
+                {/* <Pressable
+                    onPress={() => router.replace('/more/account')}
+                    className={cn('flex-row justify-center items-center gap-2.5 rounded-lg px-4 fill-subtle hocus:bg-gold-50 dark:hocus:bg-blue-700')}
+                >
+                    <Icon fill="inherit" size={20} icon="user" />
+                </Pressable> */}
             </View>
         </View>
     );

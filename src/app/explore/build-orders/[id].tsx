@@ -22,6 +22,9 @@ import { useTranslation } from '@app/helper/translate';
 import { isValidUrl } from '@app/api/helper/util';
 import { useBuild } from '@app/queries/all';
 import { useFavoritedBuild } from '@app/service/favorite-builds';
+import { UserLoginWrapper } from '@app/components/user-login-wrapper';
+import NotFound from '@app/app/+not-found';
+import { LoadingScreen } from '@app/components/loading-screen';
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -50,9 +53,9 @@ export function FavoriteHeaderButton(props: FavoriteHeaderButtonProps) {
     const { toggleFavorite, isFavorited } = useFavoritedBuild(id);
 
     return (
-        <TouchableOpacity hitSlop={10} onPress={toggleFavorite}>
+        <UserLoginWrapper Component={TouchableOpacity} hitSlop={10} onPress={toggleFavorite}>
             <Icon prefix={isFavorited ? 'fass' : 'fasr'} icon="heart" size={20} color="accent-[#ef4444]" />
-        </TouchableOpacity>
+        </UserLoginWrapper>
     );
 }
 
@@ -60,9 +63,8 @@ export default function BuildDetail() {
     const getTranslation = useTranslation();
     const styles = useStyles();
     const { id = '', focusMode } = useLocalSearchParams<{ id: string; focusMode: string }>();
-    const { data: build } = useBuild(id);
+    const { data: build, isLoading } = useBuild(id);
     const [focused, setFocused] = useState(!!focusMode);
-
 
     useEffect(() => {
         if (Platform.OS === 'web') return;
@@ -95,7 +97,7 @@ export default function BuildDetail() {
     }, [build]);
 
     if (!build) {
-        return <View />;
+        return isLoading ? <LoadingScreen /> : <NotFound />;
     }
 
     const difficultyIcon = getDifficultyIcon(build.difficulty);

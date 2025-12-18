@@ -51,7 +51,7 @@ export default function UnitList() {
             <View className="flex-1">
                 <Stack.Screen options={{ title: getTranslation('unit.title') }} />
 
-                <View className={cn("pt-4", containerClassName)}>
+                <View className={cn('pt-4', containerClassName)}>
                     <Field
                         type="search"
                         placeholder={getTranslation('unit.search.placeholder')}
@@ -67,6 +67,7 @@ export default function UnitList() {
                 </View>
 
                 <SectionList
+                    horizontalOnWeb
                     onLayout={() => setScrollReady(true)}
                     sections={list}
                     ref={sectionList}
@@ -75,7 +76,7 @@ export default function UnitList() {
                     contentContainerClassName="p-4"
                     stickySectionHeadersEnabled={false}
                     renderItem={({ item }) => {
-                        return <UnitCompBig key={item} unit={item} />;
+                        return <UnitCompBig canShowCard key={item} unit={item} />;
                     }}
                     renderSectionHeader={({ section: { title } }) => {
                         return (

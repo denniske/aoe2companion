@@ -1,13 +1,7 @@
 import { HeaderTitle } from '@app/components/header-title';
 import { ScrollView } from '@app/components/scroll-view';
 import { getBuildingIcon } from '@app/helper/buildings';
-import {
-    Building,
-    getBuildingDescription,
-    getBuildingLineIdForBuilding,
-    getBuildingName,
-    getWikiLinkForBuilding,
-} from '@nex/data';
+import { Building, getBuildingDescription, getBuildingLineIdForBuilding, getBuildingName, getWikiLinkForBuilding, hasBuildingLine } from '@nex/data';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
@@ -17,10 +11,13 @@ import CivAvailability from '../../../view/components/civ-availability';
 import Fandom from '../../../view/components/fandom';
 import Space from '../../../view/components/space';
 import { Text } from '@app/components/text';
+import NotFound from '@app/app/+not-found';
 
 export default function BuildingDetails() {
-    const { name } = useLocalSearchParams<{ name: Building }>();
-    const building = name!;
+    const { name: building } = useLocalSearchParams<{ name: Building }>();
+    if (!hasBuildingLine(building)) {
+        return <NotFound />;
+    }
     const buildingLineId = getBuildingLineIdForBuilding(building);
     return (
         <ScrollView>

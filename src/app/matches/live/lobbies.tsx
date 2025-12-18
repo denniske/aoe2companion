@@ -13,12 +13,14 @@ import { initLobbySubscription } from '@app/api/socket/lobbies';
 import { Text } from '@app/components/text';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
+import { Button } from '@app/components/button';
 
 export default function LiveLobbiesPage() {
     const getTranslation = useTranslation();
     const theme = useAppTheme();
     const [usage, setUsage] = useState(0);
     const [search, setSearch] = useState('');
+    const [limit, setLimit] = useState(20);
 
     const [data, setData] = useState<ILobbiesMatch[]>([]);
     const [isConnecting, setIsConnecting] = useState(true);
@@ -90,18 +92,27 @@ export default function LiveLobbiesPage() {
                     />
 
                     <Text variant="label">
-                        {isConnecting ? 'Fetching lobbies...' : `There are ${filteredData?.length} ${search ? 'matching ' : ''}open lobbies`}
+                        {isConnecting ? 'Fetching lobbies...' : `There are ${filteredData?.length} open lobbies${search ? ' that match your search ' : ''}`}
                     </Text>
                 </View>
 
                 <FlatList
                     contentContainerClassName="p-4"
-                    data={filteredData}
+                    data={filteredData.slice(0, limit)}
                     renderItem={({ item, index }) => (
                         <LiveMatch data={item as any} expanded={index === -1} onPress={() => openLobby((item as ILobbiesMatch).matchId)} />
                     )}
                     ItemSeparatorComponent={() => <View className="h-4" />}
                     keyExtractor={(item, index) => (typeof item === 'string' ? item : item.matchId?.toString())}
+                    ListFooterComponent={() => (
+                        <View className="flex-row items-center justify-center p-4">
+                            {filteredData.length > limit && (
+                                <View className="py-4 flex-row justify-center">
+                                    <Button onPress={() => setLimit(limit + 20)}>{getTranslation('footer.loadMore')}</Button>
+                                </View>
+                            )}
+                        </View>
+                    )}
                 />
             </View>
         </KeyboardAvoidingView>

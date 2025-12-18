@@ -15,6 +15,7 @@ import {
     getUpgradeFormatted,
     getUpgradeList,
     getWikiLinkForTech,
+    hasTechData,
     keysOf,
     Other,
     sortResources,
@@ -38,6 +39,7 @@ import { HeaderTitle } from '@app/components/header-title';
 import { getTechIcon } from '@app/helper/techs';
 import { useTranslation } from '@app/helper/translate';
 import { Text } from '@app/components/text';
+import NotFound from '@app/app/+not-found';
 
 function capitalizeFirstLetter(string: string | number) {
     return string.toString().charAt(0).toUpperCase() + string.toString().slice(1);
@@ -45,14 +47,16 @@ function capitalizeFirstLetter(string: string | number) {
 
 export default function TechDetails() {
     const getTranslation = useTranslation();
-    const { name } = useLocalSearchParams<{ name: Tech }>();
-    const tech = name!;
+    const { name: tech } = useLocalSearchParams<{ name: Tech }>();
+    if (!hasTechData(tech)) {
+        return <NotFound />;
+    }
+
     const data = getTechData(tech);
     const techInfo = techs[tech];
 
     const affectedUnitInfos = getAffectedUnitInfos(tech);
     const affectedBuildingInfos = getAffectedBuildingInfos(tech);
-    // console.log(affectedUnitInfos);
 
     let affectedUnits: any[] = [];
     let affectedBuildings: any[] = [];
@@ -75,7 +79,11 @@ export default function TechDetails() {
                             <HeaderTitle
                                 icon={getTechIcon(tech)}
                                 title={getTechName(tech)}
-                                subtitle={techInfo.civ ? techInfo.civ + ' ' + getTranslation('explore.techs.uniquetech') + ' (' + getAgeName(techInfo.age) + ')' : undefined}
+                                subtitle={
+                                    techInfo.civ
+                                        ? techInfo.civ + ' ' + getTranslation('explore.techs.uniquetech') + ' (' + getAgeName(techInfo.age) + ')'
+                                        : undefined
+                                }
                             />
                         ),
                     }}

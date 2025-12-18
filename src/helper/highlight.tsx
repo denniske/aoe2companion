@@ -85,7 +85,12 @@ export function HighlightUnitAndTechs(props: IProps) {
             const matchingTech = reverseTechMap[parts[i].toLowerCase()]?.name;
             if (matchingTech) {
                 texts.push(
-                    <MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/technologies/${matchingTech}`)}>
+                    <MyText
+                        key={i}
+                        style={appStyles.link}
+                        className="hover:underline"
+                        onPress={() => router.navigate(`/explore/technologies/${matchingTech}`)}
+                    >
                         {parts[i]}
                     </MyText>
                 );
@@ -94,7 +99,12 @@ export function HighlightUnitAndTechs(props: IProps) {
             const matchingUnit = reverseUnitMap[parts[i].toLowerCase()]?.name;
             if (matchingUnit) {
                 texts.push(
-                    <MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/units/${matchingUnit}`)}>
+                    <MyText
+                        key={i}
+                        style={appStyles.link}
+                        className="hover:underline"
+                        onPress={() => router.navigate(`/explore/units/${matchingUnit}`)}
+                    >
                         {parts[i]}
                     </MyText>
                 );
@@ -103,7 +113,12 @@ export function HighlightUnitAndTechs(props: IProps) {
             const matchingBuilding = reverseBuildingMap[parts[i].toLowerCase()]?.name;
             if (matchingBuilding) {
                 texts.push(
-                    <MyText key={i} style={appStyles.link} onPress={() => router.navigate(`/explore/buildings/${matchingBuilding}`)}>
+                    <MyText
+                        key={i}
+                        style={appStyles.link}
+                        className="hover:underline"
+                        onPress={() => router.navigate(`/explore/buildings/${matchingBuilding}`)}
+                    >
                         {parts[i]}
                     </MyText>
                 );

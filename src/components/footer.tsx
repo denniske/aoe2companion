@@ -15,8 +15,8 @@ export const Footer: React.FC = () => {
     const profileIds = useFollowedAndMeProfileIds();
 
     return (
-        <View className="bg-[#F3EFE6] dark:bg-blue-900 mt-4">
-            <View className={cn('py-4 flex-row items-start', containerClassName)}>
+        <View className="bg-[#F3EFE6] dark:bg-blue-900 mt-2">
+            <View className={cn('py-4 flex-row items-center', containerClassName)}>
                 <Pressable
                     className="flex-row items-center gap-4 lg:pr-4 xl:pr-8 hidden lg:flex"
                     onPress={() => {
@@ -33,54 +33,7 @@ export const Footer: React.FC = () => {
                     </Text>
                 </Pressable>
 
-                <View className="items-center gap-1 flex-1">
-                    <Text variant="header" color="subtle">
-                        {getTranslation('account.title')}
-                    </Text>
-
-                    <Link color="subtle" href="/more/account">
-                        {getTranslation('main.heading.profile')}
-                    </Link>
-                    <Link color="subtle" href="/more/settings">
-                        {getTranslation('settings.title')}
-                    </Link>
-                </View>
-
-                <View className="items-center gap-1 flex-1">
-                    <Text variant="header" color="subtle">
-                        Ongoing Matches
-                    </Text>
-
-                    {authProfileId && (
-                        <Link color="subtle" href="/matches/live/mine">
-                            {getTranslation('footer.mine')}
-                        </Link>
-                    )}
-
-                    {profileIds?.length ? (
-                        <Link color="subtle" href="/matches/live/following">
-                            {getTranslation('footer.following')}
-                        </Link>
-                    ) : null}
-
-                    <Link color="subtle" href="/competitive/games">
-                        {getTranslation('competitive.title')}
-                    </Link>
-
-                    <Link color="subtle" href="/matches/live/lobbies">
-                        {getTranslation('lobbies.title')}
-                    </Link>
-
-                    <Link color="subtle" href="/matches/live/all">
-                        {getTranslation('footer.all')}
-                    </Link>
-                </View>
-
-                <View className="items-center gap-1 flex-1">
-                    <Text variant="header" color="subtle">
-                        Information
-                    </Text>
-
+                <View className="flex-2 flex-row justify-around">
                     <Link color="subtle" href="/more/about">
                         {getTranslation('about.title')}
                     </Link>
@@ -91,22 +44,21 @@ export const Footer: React.FC = () => {
                         {getTranslation('privacy.title')}
                     </Link>
                 </View>
-            </View>
 
-            {Platform.OS === 'web' && (
-                <View className={cn(containerClassName, 'py-4 web:max-w-3xl! justify-center flex-row gap-4')}>
-                    &nbsp;&nbsp;
-                    <a href="https://discord.gg/gCunWKx" target="_blank">
-                        <img src="https://img.shields.io/discord/727175083977736262.svg?label=Discord&logo=discord&logoColor=ffffff&labelColor=7289DA&color=2c2f33" />
-                    </a>
-                    <a href="https://www.buymeacoffee.com/denniskeil" target="_blank">
-                        <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshields-io-buymeacoffee.vercel.app%2Fapi%3Fusername%3Ddenniskeil" />
-                    </a>
-                    <a href="https://github.com/denniske/aoe2companion" target="_blank">
-                        <img src={`https://img.shields.io/badge/github-aoe2companion-brightgreen?label=Github&logo=github`} />
-                    </a>
-                </View>
-            )}
+                {Platform.OS === 'web' && (
+                    <View className="flex-3 flex-row justify-around items-center gap-2">
+                        <a href="https://discord.gg/gCunWKx" target="_blank">
+                            <img src="https://img.shields.io/discord/727175083977736262.svg?label=Discord&logo=discord&logoColor=ffffff&labelColor=7289DA&color=2c2f33" />
+                        </a>
+                        <a href="https://www.buymeacoffee.com/denniskeil" target="_blank">
+                            <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshields-io-buymeacoffee.vercel.app%2Fapi%3Fusername%3Ddenniskeil" />
+                        </a>
+                        <a href="https://github.com/denniske/aoe2companion" target="_blank">
+                            <img src={`https://img.shields.io/badge/github-aoe2companion-brightgreen?label=Github&logo=github`} />
+                        </a>
+                    </View>
+                )}
+            </View>
 
             <View className={cn(containerClassName, 'py-4 web:max-w-3xl! justify-center')}>
                 <Text variant="body-sm" color="subtle" align="center" className="inline-block">
