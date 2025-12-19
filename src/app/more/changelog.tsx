@@ -54,7 +54,7 @@ export default function ChangelogPage() {
                 const match = parts[i].match(/\[(.+)]\((.+)\)/);
                 const [all, text, url] = match || [];
                 texts.push(
-                    <MyText key={i} style={appStyles.link} onPress={() => openLink(url)}>
+                    <MyText key={i} style={appStyles.link} className="hover:underline" onPress={() => openLink(url)}>
                         {text}
                     </MyText>
                 );

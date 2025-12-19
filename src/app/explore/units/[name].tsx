@@ -27,15 +27,16 @@ import { ScrollView } from '@app/components/scroll-view';
 import { useTranslation } from '@app/helper/translate';
 import { Text } from '@app/components/text';
 import NotFound from '@app/app/+not-found';
+import { Card } from '@app/components/card';
 
 export default function UnitDetails() {
     const getTranslation = useTranslation();
     const { name: unitName } = useLocalSearchParams<{ name: Unit }>();
 
     if (!hasUnitLine(unitName)) {
-        return <NotFound />
+        return <NotFound />;
     }
-    
+
     const unitLineId = getUnitLineIdForUnit(unitName);
     const unitLine = unitLines[unitLineId];
 
@@ -44,6 +45,7 @@ export default function UnitDetails() {
             <View className="flex-1 min-h-full p-5">
                 <Stack.Screen
                     options={{
+                        title: getUnitName(unitName),
                         headerTitle: () => (
                             <HeaderTitle
                                 icon={getUnitIcon(unitName)}
@@ -53,29 +55,40 @@ export default function UnitDetails() {
                         ),
                     }}
                 />
-                {getUnitUpgradeCost(unitName) && (
-                    <View className="flex-row mb-2 items-center gap-2">
-                        <Text>Upgrade cost </Text>
-                        <Costs costDict={getUnitUpgradeCost(unitName)!} />
-                        <Text>
-                            {getTranslation('unit.stats.heading.researchedin')} {getUnitUpgradeTime(unitName)}s
-                        </Text>
+
+                <View className="lg:flex-row lg:gap-6 lg:items-start">
+                    <View className="lg:flex-1">
+                        {getUnitUpgradeCost(unitName) && (
+                            <View className="flex-row mb-2 items-center gap-2">
+                                <Text>Upgrade cost </Text>
+                                <Costs costDict={getUnitUpgradeCost(unitName)!} />
+                                <Text>
+                                    {getTranslation('unit.stats.heading.researchedin')} {getUnitUpgradeTime(unitName)}s
+                                </Text>
+                            </View>
+                        )}
+
+                        <Text>{getUnitDescription(unitName)}</Text>
+
+                        <Space />
+
+                        <UnitRelated unitId={unitName} />
+
+                        <UnitStats unitLineId={unitLineId} unitId={unitName} />
+
+                        <UnitCounters unitId={unitName} />
+
+                        <UnitUpgrades unitLineId={unitLineId} unitId={unitName} />
                     </View>
-                )}
 
-                <Text>{getUnitDescription(unitName)}</Text>
+                    {!getAbilityEnabledForAllCivs({ unit: unitName }) && (
+                        <Card direction="vertical" className="w-sm hidden lg:flex pt-2!">
+                            <CivAvailability unit={unitName} />
+                        </Card>
+                    )}
+                </View>
 
-                <Space />
-
-                <UnitRelated unitId={unitName} />
-
-                <UnitStats unitLineId={unitLineId} unitId={unitName} />
-
-                <UnitCounters unitId={unitName} />
-
-                <UnitUpgrades unitLineId={unitLineId} unitId={unitName} />
-
-                {!getAbilityEnabledForAllCivs({ unit: unitName }) && <CivAvailability unit={unitName} />}
+                <View className="flex lg:hidden">{!getAbilityEnabledForAllCivs({ unit: unitName }) && <CivAvailability unit={unitName} />}</View>
 
                 <View className="flex-1" />
                 <Fandom articleName={getUnitName(unitName)} articleLink={getWikiLinkForUnit(unitName)} />

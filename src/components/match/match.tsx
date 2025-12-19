@@ -19,7 +19,7 @@ export const Match: React.FC<Props> = ({ match, ...props }) => {
     const router = useRouter();
 
     const openMatch = () => {
-        router.push(`/matches/single/${match?.matchId}`);
+        router.push(`/matches/${match?.matchId}`);
     };
 
     if (!match) {

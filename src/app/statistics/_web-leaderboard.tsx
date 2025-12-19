@@ -119,7 +119,7 @@ function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; sea
                                     <Text>{player.rank}</Text>
                                 </td>
                                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <Link href={`/matches/users/${player.profileId}`}>{player.name}</Link>
+                                    <Link href={`/players/${player.profileId}`}>{player.name}</Link>
                                 </th>
                                 <td className="py-4 px-6">
                                     <Text>{player.rating}</Text>

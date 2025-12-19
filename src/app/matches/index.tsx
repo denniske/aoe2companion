@@ -99,7 +99,7 @@ export default function MatchesPage() {
     };
 
     const gotoPlayer = (profileId: number) => {
-        router.push(`/matches/users/${profileId}`);
+        router.push(`/players/${profileId}`);
     };
 
     const formatPlayer = (player: any, i: number) => {
@@ -123,7 +123,7 @@ export default function MatchesPage() {
                     title: getTranslation('matches.title'),
                     headerRight: () =>
                         showTabBar ? (
-                            <Button href={'/matches/users/search'} icon="search">
+                            <Button href={'/players/search'} icon="search">
                                 {getTranslation('matches.findPlayer')}
                             </Button>
                         ) : null,
@@ -137,10 +137,10 @@ export default function MatchesPage() {
                 <Text variant="header-lg">{getTranslation('matches.liveandrecentmatches')}</Text>
                 <View className="flex-row gap-2 items-center">
                     {!showTabBar && <>
-                        <Link href="/matches/live/all">{getTranslation('matches.alllivegames')}</Link>
+                        <Link href="/matches/live">{getTranslation('matches.alllivegames')}</Link>
                         <View className="w-px bg-border self-stretch" />
                     </>}
-                    <Link href="/matches/live/lobbies">{getTranslation('matches.viewlobbies')}</Link>
+                    <Link href="/matches/lobbies">{getTranslation('matches.viewlobbies')}</Link>
                 </View>
             </View>
 
@@ -157,7 +157,7 @@ export default function MatchesPage() {
             ) : profileIds?.length === 0 || list.length === 0 ? (
                 <View className={cn('flex-1 py-4 gap-1', containerClassName)}>
                     <Text variant="label">{getTranslation('feed.following.info.1')}</Text>
-                    <Link href="/matches/users/follow">
+                    <Link href="/players/follow">
                         <Text variant="body-sm">{getTranslation('feed.following.info.2')}</Text>
                     </Link>
                 </View>

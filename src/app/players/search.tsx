@@ -13,7 +13,7 @@ export default function SearchPage() {
     return (
         <>
             <Stack.Screen options={{ title: getTranslation('matches.search.title') }} />
-            <Search selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)} initialText={params.query} />
+            <Search selectedUser={(user) => router.navigate(`/players/${user.profileId}`)} initialText={params.query} />
         </>
     );
 }

@@ -68,13 +68,13 @@ export default function IndexPage() {
         <ScrollView contentContainerClassName="p-4">
             <Stack.Screen
                 options={{
+                    headerShown: showTabBar,
                     animation: 'none',
-                    headerRight: () =>
-                        showTabBar ? (
-                            <Button href={'/matches/users/search'} icon="search">
-                                {getTranslation('home.findPlayer')}
-                            </Button>
-                        ) : null,
+                    headerRight: () => (
+                        <Button href={'/players/search'} icon="search">
+                            {getTranslation('home.findPlayer')}
+                        </Button>
+                    ),
                     title: getTranslation('home.title'),
                 }}
             />
@@ -105,7 +105,7 @@ export default function IndexPage() {
 
             {favoriteIds.length > 0 && (
                 <AnimateIn>
-                    <View className='pb-5'>
+                    <View className="pb-5">
                         <FavoritedBuilds favoriteIds={favoriteIds} />
                     </View>
                 </AnimateIn>

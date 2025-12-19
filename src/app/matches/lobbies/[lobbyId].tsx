@@ -28,7 +28,7 @@ export default function LobbyPage() {
 
     return (
         <ScrollView contentContainerClassName="p-4 gap-4">
-            <Stack.Screen options={{title: 'Lobby'}} />
+            <Stack.Screen options={{title: lobby.mapName}} />
             <LiveMatch data={lobby} expanded={true} />
         </ScrollView>
     );

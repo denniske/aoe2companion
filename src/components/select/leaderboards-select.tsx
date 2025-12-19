@@ -101,7 +101,7 @@ export function LeaderboardsSelect(props: Props) {
         <Picker
             popupAlign="left"
             itemHeight={40}
-            textMinWidth={200}
+            textMinWidth={192}
             container="sectionlist"
             sections={sections}
             icon={icon}
@@ -109,7 +109,7 @@ export function LeaderboardsSelect(props: Props) {
             value={selectedLeaderboard}
             formatter={formatLeaderboard}
             onSelect={onLeaderboardIdSelected}
-            style={{ width: 200 }}
+            style={{ width: 192 }}
         />
     );
 }

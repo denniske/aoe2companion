@@ -18,6 +18,8 @@
     "home.favoriteTournament": "Favorite Tournament",
     "home.viewAll": "View All",
 
+    "players.title": "Players",
+
     "nav.home": "Home",
     "nav.matches": "Matches",
     "nav.explore": "Explore",
@@ -390,9 +392,9 @@
 
     "competitive.title": "Competitive",
     "competitive.onlineVerifiedPlayers.title": "Online Verified Players",
-    "competitive.onlineVerifiedPlayers.viewGames": "View Games",
-    "competitive.activeGames.title": "Active Competitive Games",
-    "competitive.activeGames.empty": "No active games.",
+    "competitive.onlineVerifiedPlayers.viewGames": "View Matches",
+    "competitive.activeGames.title": "Active Competitive Matches",
+    "competitive.activeGames.empty": "No active matches.",
     "competitive.upcomingMatches.title": "Upcoming Tournament Matches",
     "competitive.upcomingMatches.empty": "No upcoming matches right now. Check back later!",
     "competitive.twitchStream.title": "Twitch Stream - {user}",

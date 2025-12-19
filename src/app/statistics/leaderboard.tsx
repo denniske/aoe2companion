@@ -238,7 +238,7 @@ export default function LeaderboardPage() {
     const total2 = useRef<number>(1000);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
-        router.push(`/matches/users/${player.profileId}`);
+        router.push(`/players/${player.profileId}`);
     };
 
     const _renderRow = useCallback(

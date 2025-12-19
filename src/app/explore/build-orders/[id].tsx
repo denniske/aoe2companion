@@ -63,7 +63,7 @@ export default function BuildDetail() {
     const getTranslation = useTranslation();
     const styles = useStyles();
     const { id = '', focusMode } = useLocalSearchParams<{ id: string; focusMode: string }>();
-    const { data: build, isLoading } = useBuild(id);
+    const { data: build, isPending: isLoading } = useBuild(id);
     const [focused, setFocused] = useState(!!focusMode);
 
     useEffect(() => {
@@ -97,7 +97,24 @@ export default function BuildDetail() {
     }, [build]);
 
     if (!build) {
-        return isLoading ? <LoadingScreen /> : <NotFound />;
+        return isLoading ? (
+            <>
+                <Stack.Screen
+                    options={{
+                        headerTitle: () => (
+                            <HeaderTitle
+                                title
+                                subtitle
+                                icon
+                            />
+                        ),
+                    }}
+                />
+                <LoadingScreen />
+            </>
+        ) : (
+            <NotFound />
+        );
     }
 
     const difficultyIcon = getDifficultyIcon(build.difficulty);
@@ -109,6 +126,7 @@ export default function BuildDetail() {
         <ScrollView style={styles.container} contentContainerClassName="p-4 gap-4">
             <Stack.Screen
                 options={{
+                    title: build.title.replace(build.civilization, ''),
                     headerTitle: () => (
                         <HeaderTitle
                             title={build.civilization}

@@ -172,8 +172,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
                 sitemap: !isProdBuild,
                 redirects: [
                     { source: '/leaderboard', destination: '/statistics/leaderboard' },
-                    { source: '/lobby', destination: '/matches/live/lobbies' },
-                    { source: '/ongoing', destination: '/matches/live/all' },
+                    { source: '/lobby', destination: '/matches/lobbies' },
+                    { source: '/ongoing', destination: '/matches/live' },
                     { source: '/privacy', destination: '/more/privacy' }
                 ]
             }

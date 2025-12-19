@@ -67,36 +67,42 @@ export const TabBar: React.FC = () => {
     const routes = [
         {
             key: 'index',
+            additionalRoutes: [],
             label: getTranslation('nav.home'),
             icon: 'home',
             path: '/',
         },
         {
             key: 'matches',
+            additionalRoutes: ['players'],
             label: getTranslation('nav.matches'),
             icon: 'chess',
             path: '/matches',
         },
         {
             key: 'explore',
+            additionalRoutes: [],
             label: getTranslation('nav.explore'),
             icon: 'landmark',
             path: '/explore',
         },
         {
             key: 'statistics',
+            additionalRoutes: [],
             label: getTranslation('nav.stats'),
             icon: 'chart-simple',
             path: '/statistics',
         },
         {
             key: 'competitive',
+            additionalRoutes: [],
             label: getTranslation('nav.pros'),
             icon: 'ranking-star',
             path: '/competitive',
         },
         {
             key: 'more',
+            additionalRoutes: ['auth'],
             label: getTranslation('nav.more'),
             icon: 'bars',
             path: '/more',
@@ -133,7 +139,7 @@ export const TabBar: React.FC = () => {
                         // console.log('ROUTE', route.key, route.path);
 
                         const label = route.label;
-                        const isFocused = routeName?.startsWith(route.key);
+                        const isFocused = routeName?.startsWith(route.key) || route.additionalRoutes.some(r => routeName?.startsWith(r));
 
                         const onPress = () => {
                             if (router.canDismiss()) {

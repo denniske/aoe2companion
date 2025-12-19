@@ -16,9 +16,9 @@ import TwitchBadge from '@app/view/components/badge/twitch-badge';
 import useAuth from '@/data/src/hooks/use-auth';
 import { Button } from '@app/components/button';
 import { Text } from '@app/components/text';
-import Badge from '@app/view/components/badge/badge';
 import { sumBy } from 'lodash';
-import { SkeletonText } from '@app/components/skeleton';
+import { Skeleton, SkeletonText } from '@app/components/skeleton';
+import NotFound from '@app/app/+not-found';
 
 type UserPageParams = {
     profileId: string;
@@ -28,7 +28,7 @@ export default function ProfilePage() {
     const showTabBar = useShowTabBar();
     const [leaderboardIds, setLeaderboardIds] = useState<string[]>([]);
     const params = useLocalSearchParams<UserPageParams>();
-    const profileId = parseInt(params.profileId);
+    const profileId = !Number.isInteger(Number(params.profileId)) ? NaN : Number(params.profileId);
 
     const authProfileId = useAuthProfileId();
 
@@ -36,8 +36,12 @@ export default function ProfilePage() {
     const account = useAccount();
     const loggedIn = user && !user.is_anonymous && account.data;
 
-    const { data: fullProfile } = useProfile(profileId, 'avatar_medium_url,avatar_full_url,last_10_matches_won,stats');
-    const { data: profile } = useProfileFast(profileId);
+    const { data: fullProfile, isPending: isFullProfilePending } = useProfile(
+        profileId,
+        'avatar_medium_url,avatar_full_url,last_10_matches_won,stats'
+    );
+    const { data: profile, isPending: isProfilePending } = useProfileFast(profileId);
+    const isPending = isFullProfilePending || isProfilePending;
 
     const leaderboards = fullProfile?.leaderboards.filter((l) => leaderboardIds.length === 0 || leaderboardIds.includes(l.leaderboardId));
 
@@ -47,13 +51,18 @@ export default function ProfilePage() {
     const TextComponent = fullProfile ? Text : SkeletonText;
 
     if (showTabBar) {
-        return <Redirect href={`/matches/users/${profileId}/main-profile`} />;
+        return <Redirect href={`/players/${profileId}/main-profile`} />;
+    }
+
+    if ((!isPending && !fullProfile && !profile) || isNaN(profileId)) {
+        return <NotFound />;
     }
 
     return (
         <ScrollView>
             <Stack.Screen
                 options={{
+                    title: profile?.name,
                     headerTitle: () => <UserTitle profile={profile} />,
                     headerRight: () => <UserMenu profile={profile} fullProfile={fullProfile} />,
                 }}
@@ -62,10 +71,10 @@ export default function ProfilePage() {
             <View className="flex flex-row justify-between items-center px-4 pt-4">
                 <View className="flex-row gap-4 items-center">
                     <View className="flex-col">
-                        <TextComponent variant="label-lg" className="min-w-24">
-                            {games} Games
+                        <TextComponent alt variant="label-lg" className="min-w-24">
+                            {games} Matches
                         </TextComponent>
-                        <TextComponent variant="label-sm" className="min-w-24">
+                        <TextComponent alt variant="label-sm" className="min-w-24">
                             {drops} Drops ({games === 0 ? '0' : ((drops / games) * 100).toFixed(2)}%)
                         </TextComponent>
                     </View>
@@ -99,7 +108,11 @@ export default function ProfilePage() {
                     )}
                 </View>
 
-                <LeaderboardsSelect leaderboardIdList={leaderboardIds} onLeaderboardIdChange={setLeaderboardIds} />
+                {fullProfile ? (
+                    <LeaderboardsSelect leaderboardIdList={leaderboardIds} onLeaderboardIdChange={setLeaderboardIds} />
+                ) : (
+                    <Skeleton alt className="w-48 h-11" />
+                )}
             </View>
 
             <AnimateIn skipFirstAnimation>

@@ -78,7 +78,7 @@ export const dark: ITheme = {
             --color-background: white;
             --color-text: black;
             --color-textNote: #333;
-            --color-border: #AAA;
+            --color-border: var(--color-gray-200);
             --color-hoverBackground: #CCC;
             --color-lightBackground: #AAA;
             --color-lightBorder: #EEE;
@@ -94,7 +94,7 @@ export const dark: ITheme = {
             --color-background: #121212;
             --color-text: white;
             --color-textNote: #BBB;
-            --color-border: #101010;
+            --color-border: var(--color-gray-800);
             --color-hoverBackground: #555;
             --color-lightBackground: #333;
             --color-lightBorder: #101010;

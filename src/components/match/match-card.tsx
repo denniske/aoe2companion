@@ -52,7 +52,7 @@ export function MatchCard(props: MatchCardProps) {
 
     attributes = uniq(attributes);
 
-    const { isMedium, isLarge } = useBreakpoints()
+    const { isMedium, isLarge } = useBreakpoints();
 
     return (
         <Card
@@ -116,11 +116,13 @@ export const MarchCardSkeleton = () => {
                 </View>
             }
         >
-            <View className="flex-1">
+            <View className="flex-1 lg:flex-none lg:min-w-3xs lg:max-w-3xs">
                 <SkeletonText variant="header-sm" />
                 <SkeletonText />
                 <SkeletonText />
             </View>
+
+            <View className="hidden lg:flex flex-1 px-4" />
         </Card>
     );
 };
