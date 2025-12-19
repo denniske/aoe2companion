@@ -135,6 +135,7 @@ export default function TournamentDetail() {
         >
             <Stack.Screen
                 options={{
+                    title,
                     headerShown: true,
                     headerTitle: () => (
                         <View className="flex-1">
@@ -190,7 +191,7 @@ export default function TournamentDetail() {
                                 <PlayerList
                                     selectedUser={(participant) => {
                                         if (participant.profileId) {
-                                            router.navigate(`/matches/users/${participant.profileId}`);
+                                            router.navigate(`/players/${participant.profileId}`);
                                         }
                                     }}
                                     variant="horizontal"

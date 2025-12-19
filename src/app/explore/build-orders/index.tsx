@@ -85,6 +85,7 @@ export default function BuildListPage() {
         <KeyboardAvoidingView>
             <Stack.Screen
                 options={{
+                    title: getTranslation('builds.title'),
                     headerTitle: () => (
                         <HeaderTitle
                             align="center"

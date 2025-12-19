@@ -49,11 +49,11 @@ export default function LiveAllPage() {
     const router = useRouter();
 
     const openMatch = (matchId: number) => {
-        router.push(`/matches/single/${matchId}`);
+        router.push(`/matches/${matchId}`);
     };
 
     const openLobby = (lobbyId: number) => {
-        router.push(`/matches/lobby/${lobbyId}`);
+        router.push(`/matches/lobbies/${lobbyId}`);
     };
 
     return (

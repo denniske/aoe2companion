@@ -20,6 +20,7 @@ import { getAppVersion } from '@app/api/util';
 import { Text } from '@app/components/text';
 import { ExpoUpdatesManifest } from 'expo-manifests';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { Link } from '@app/components/link';
 
 export default function AboutPage() {
     const getTranslation = useTranslation();
@@ -33,7 +34,7 @@ export default function AboutPage() {
     const [debugManifest, setDebugManifest] = useState('');
     const [versionClickCount, setVersionClickCount] = useState(0);
     const mutate = useMutate();
-    const showTabBar = useShowTabBar()
+    const showTabBar = useShowTabBar();
 
     const checkForUpdate = async () => {
         setState('checkingForUpdate');
@@ -330,49 +331,49 @@ export default function AboutPage() {
                 {appConfig.game === 'aoe2' && (
                     <>
                         <View className="flex-row">
-                            <MyText>Game data from </MyText>
-                            <TouchableOpacity onPress={() => openLink('https://github.com/SiegeEngineers/aoe2techtree')}>
-                                <MyText style={appStyles.link}>aoe2techtree</MyText>
-                            </TouchableOpacity>
+                            <Text>Game data from </Text>
+                            <Link alt href="https://github.com/SiegeEngineers/aoe2techtree" target="_blank">
+                                aoe2techtree
+                            </Link>
                         </View>
 
                         <View className="flex-row">
-                            <MyText>Player info from </MyText>
-                            <TouchableOpacity onPress={() => openLink('https://github.com/SiegeEngineers/aoc-reference-data')}>
-                                <MyText style={appStyles.link}>aoc-reference-data</MyText>
-                            </TouchableOpacity>
+                            <Text>Player info from </Text>
+                            <Link alt href="https://github.com/SiegeEngineers/aoc-reference-data" target="_blank">
+                                aoc-reference-data
+                            </Link>
                         </View>
 
                         <View className="flex-row">
-                            <MyText>Game data from </MyText>
-                            <TouchableOpacity onPress={() => openLink('https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal')}>
-                                <MyText style={appStyles.link}>Age of Empires II Wiki</MyText>
-                            </TouchableOpacity>
-                            <MyText> at </MyText>
-                            <TouchableOpacity onPress={() => openLink('https://www.fandom.com/')}>
-                                <MyText style={appStyles.link}>Fandom</MyText>
-                            </TouchableOpacity>
+                            <Text>Game data from </Text>
+                            <Link alt href="https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal" target="_blank">
+                                Age of Empires II Wiki
+                            </Link>
+                            <Text> at </Text>
+                            <Link alt href="https://www.fandom.com/" target="_blank">
+                                Fandom
+                            </Link>
                         </View>
                     </>
                 )}
                 {appConfig.game === 'aoe4' && (
                     <>
                         <View className="flex-row">
-                            <MyText>Match data from </MyText>
-                            <TouchableOpacity onPress={() => openLink('https://aoe4world.com/')}>
-                                <MyText style={appStyles.link}>aoe4world.com</MyText>
-                            </TouchableOpacity>
+                            <Text>Match data from </Text>
+                            <Link alt href="https://aoe4world.com/" target="_blank">
+                                aoe4world.com
+                            </Link>
                         </View>
 
                         <View className="flex-row">
-                            <MyText>Game data from </MyText>
-                            <TouchableOpacity onPress={() => openLink('https://ageofempires.fandom.com/wiki/Age_of_Empires_IV:Portal')}>
-                                <MyText style={appStyles.link}>Age of Empires IV Wiki</MyText>
-                            </TouchableOpacity>
-                            <MyText> at </MyText>
-                            <TouchableOpacity onPress={() => openLink('https://www.fandom.com/')}>
-                                <MyText style={appStyles.link}>Fandom</MyText>
-                            </TouchableOpacity>
+                            <Text>Game data from </Text>
+                            <Link alt href="https://ageofempires.fandom.com/wiki/Age_of_Empires_IV:Portal" target="_blank">
+                                Age of Empires IV Wiki
+                            </Link>
+                            <Text> at </Text>
+                            <Link alt href="https://www.fandom.com/" target="_blank">
+                                Fandom
+                            </Link>
                         </View>
                     </>
                 )}
@@ -382,77 +383,68 @@ export default function AboutPage() {
                 <Text variant="header-xs">Checkout my other apps</Text>
 
                 {appConfig.game === 'aoe4' ? (
-                    <View className="flex-row">
-                        <MyText> </MyText>
-                        <TouchableOpacity onPress={openAoe2CompanionInStore}>
-                            <MyText style={appStyles.link}>AoE II Companion</MyText>
-                        </TouchableOpacity>
-                    </View>
+                    <Link alt onPress={openAoe2CompanionInStore}>
+                        AoE II Companion
+                    </Link>
                 ) : (
-                    <View className="flex-row">
-                        <MyText> </MyText>
-                        <TouchableOpacity onPress={openAoe4CompanionInStore}>
-                            <MyText style={appStyles.link}>AoE IV Companion</MyText>
-                        </TouchableOpacity>
-                    </View>
+                    <Link alt onPress={openAoe4CompanionInStore}>
+                        AoE IV Companion
+                    </Link>
                 )}
 
-                <View className="flex-row">
-                    <MyText> </MyText>
-                    <TouchableOpacity onPress={open59SecondsInStore}>
-                        <MyText style={appStyles.link}>59seconds - online charade</MyText>
-                    </TouchableOpacity>
-                </View>
+                <Link alt onPress={open59SecondsInStore}>
+                    59seconds - online charade
+                </Link>
             </View>
 
             <View className="items-center gap-y-1">
                 <Text variant="header-xs">Legal</Text>
-                <View className="flex-row">
-                    <TouchableOpacity onPress={() => linkTo('/privacy')}>
-                        <MyText style={appStyles.link}>Privacy Policy</MyText>
-                    </TouchableOpacity>
-                </View>
+                <Link alt href="/more/privacy">
+                    Privacy Policy
+                </Link>
             </View>
 
             <View className="flex-1" />
 
-            {showTabBar && <>
-                <Space />
+            {showTabBar && (
+                <>
+                    <Space />
 
-                {appConfig.game === 'aoe2' && (
-                    <Text variant="body-sm" className="text-justify">
-                        This app was created under Microsoft's "
-                        <Text
-                            variant="body-sm"
-                            color="link"
-                            onPress={() => {
-                                openLink('https://www.xbox.com/en-us/developers/rules');
-                            }}
-                        >
-                            Game Content Usage Rules
+                    {appConfig.game === 'aoe2' && (
+                        <Text variant="body-sm" className="text-justify">
+                            This app was created under Microsoft's "
+                            <Text
+                                variant="body-sm"
+                                color="link"
+                                onPress={() => {
+                                    openLink('https://www.xbox.com/en-us/developers/rules');
+                                }}
+                            >
+                                Game Content Usage Rules
+                            </Text>
+                            " using assets from Age of Empires II. This app is not affiliated with or endorsed by Microsoft Corporation. Age of
+                            Empires II: HD and Age of Empires II: Definitive Edition are trademarks or registered trademarks of Microsoft Corporation
+                            in the U.S. and other countries.
                         </Text>
-                        " using assets from Age of Empires II. This app is not affiliated with or endorsed by Microsoft Corporation. Age of Empires
-                        II: HD and Age of Empires II: Definitive Edition are trademarks or registered trademarks of Microsoft Corporation in the U.S.
-                        and other countries.
-                    </Text>
-                )}
-                {appConfig.game === 'aoe4' && (
-                    <Text variant="body-sm" className="text-justify">
-                        This app was created under Microsoft's "
-                        <Text
-                            variant="body-sm"
-                            color="link"
-                            onPress={() => {
-                                openLink('https://www.xbox.com/en-us/developers/rules');
-                            }}
-                        >
-                            Game Content Usage Rules
+                    )}
+                    {appConfig.game === 'aoe4' && (
+                        <Text variant="body-sm" className="text-justify">
+                            This app was created under Microsoft's "
+                            <Text
+                                variant="body-sm"
+                                color="link"
+                                onPress={() => {
+                                    openLink('https://www.xbox.com/en-us/developers/rules');
+                                }}
+                            >
+                                Game Content Usage Rules
+                            </Text>
+                            " using assets from Age of Empires IV. This app is not affiliated with or endorsed by Microsoft Corporation. Age of
+                            Empires IV is a trademark or registered trademark of Microsoft Corporation in the U.S. and other countries. 1
                         </Text>
-                        " using assets from Age of Empires IV. This app is not affiliated with or endorsed by Microsoft Corporation. Age of Empires IV
-                        is a trademark or registered trademark of Microsoft Corporation in the U.S. and other countries. 1
-                    </Text>
-                )}
-            </>}
+                    )}
+                </>
+            )}
         </ScrollView>
     );
 }

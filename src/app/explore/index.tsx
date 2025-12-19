@@ -21,6 +21,7 @@ import {
     getCivNameById,
     getTechName,
     getUnitName,
+    ITechSection,
     orderCivs,
     Tech,
     techSections,
@@ -30,7 +31,7 @@ import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
 import { Href, Redirect, router, Stack } from 'expo-router';
 import { compact, orderBy, uniq } from 'lodash';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ImageSourcePropType, Platform, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { useInfiniteBuilds, useMaps } from '@app/queries/all';
@@ -38,6 +39,7 @@ import { BuildCard } from '@app/view/components/build-order/build-card';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
 import { containerClassName } from '@app/styles';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 
 type Item =
     | { name: Civ; title: string; type: 'civ'; image?: any }
@@ -58,15 +60,15 @@ const typeAttributes: Record<
 };
 
 const ExploreCard: React.FC<{ text: string; href: Href } & ({ image: ImageSourcePropType } | { icon: IconName })> = ({ text, href, ...props }) => {
-    const {isMedium} = useBreakpoints();
+    const { isMedium } = useBreakpoints();
 
     return (
-        <Card direction="vertical" className="w-20 md:w-36 items-center py-2.5 px-1 gap-1 md:py-4 md:px-2 md:gap-2" href={href}>
-            {'image' in props ? (
+        <Card direction="vertical" className="w-20 md:w-36 items-center py-2.5 px-1 gap-1 md:py-4 md:px-2 md:gap-2 justify-between" href={href}>
+            {'image' in props && props.image ? (
                 <Image className="w-8 h-8 md:w-12 md:h-12" source={props.image} contentFit="contain" />
-            ) : (
+            ) : 'icon' in props ?(
                 <Icon icon={props.icon} size={isMedium ? 36 : 22} color="brand" />
-            )}
+            ) : null}
             <Text variant={isMedium ? 'label' : 'label-sm'} numberOfLines={1}>
                 {text}
             </Text>
@@ -96,7 +98,21 @@ const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
 
 export default function Explore() {
     const getTranslation = useTranslation();
+    const showTabBar = useShowTabBar();
     const { data: maps } = useMaps();
+    const techsList = useMemo<Array<ITechSection & { title?: string }>>(() => {
+        if (showTabBar) {
+            return techSections;
+        } else {
+            const uniqueTechs = techSections.flatMap((section) => (section.civ ? section.data : []));
+            const sections = techSections.filter((section) => !section.civ);
+
+            return [
+                ...sections.map((s) => ({ ...s, title: s.building ?? s.civ })),
+                { title: getTranslation('unit.section.unique'), civ: undefined, building: undefined, data: uniqueTechs },
+            ];
+        }
+    }, [techSections]);
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBuilds({});
     const builds = data?.pages?.flatMap((p) => p.builds);
@@ -203,7 +219,7 @@ export default function Explore() {
                         keyboardShouldPersistTaps="handled"
                         contentContainerClassName="px-4 pb-4"
                         data={filteredData}
-                        ItemSeparatorComponent={() => <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full" />}
+                        ItemSeparatorComponent={() => <View className="h-px bg-gray-200 dark:bg-gray-800 w-full" />}
                         renderItem={(props) => <Result {...props} />}
                     />
                 ) : (
@@ -291,13 +307,20 @@ export default function Explore() {
                                 className="flex-none"
                                 horizontal
                                 keyboardShouldPersistTaps="always"
-                                data={techSections}
+                                data={techsList}
                                 contentContainerClassName="gap-2.5 px-4"
-                                renderItem={({ item: { building, civ } }) => (
+                                renderItem={({ item: { building, civ, title } }) => (
                                     <ExploreCard
                                         image={building ? getBuildingIcon(building) : getCivIconLocal(civ!)}
-                                        text={building ? getBuildingName(building).replace('Camp', '').replace('Range', '') : getCivNameById(civ!)}
-                                        href={`/explore/technologies?section=${building ?? civ}`}
+                                        icon={title ? 'star' : undefined}
+                                        text={
+                                            building
+                                                ? getBuildingName(building).replace('Camp', '').replace('Range', '')
+                                                : civ
+                                                ? getCivNameById(civ!)
+                                                : title ?? ''
+                                        }
+                                        href={`/explore/technologies?section=${building ?? civ ?? title}`}
                                     />
                                 )}
                                 keyExtractor={(item) => item.building || item.civ!}

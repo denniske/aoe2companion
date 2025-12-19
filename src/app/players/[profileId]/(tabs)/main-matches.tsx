@@ -6,13 +6,6 @@ import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { flatten } from 'lodash';
 import React, { useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
-import { fetchMatches } from '../../../../../api/helper/api';
-import useDebounce from '../../../../../hooks/use-debounce';
-import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
-import { createStylesheet } from '../../../../../theming-new';
-import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
-import { MyText } from '../../../../../view/components/my-text';
-import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
 import { useAuthProfileId, useLanguage, useLeaderboards, useProfile } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
@@ -22,6 +15,14 @@ import { containerClassName } from '@app/styles';
 import { Button } from '@app/components/button';
 import { IProfileResult } from '@app/api/helper/api.types';
 import cn from 'classnames';
+import useDebounce from '@app/hooks/use-debounce';
+import { fetchMatches } from '@app/api/helper/api';
+import { useWebRefresh } from '@app/hooks/use-web-refresh';
+import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
+import { MyText } from '@app/view/components/my-text';
+import RefreshControlThemed from '@app/view/components/refresh-control-themed';
+import { createStylesheet } from '@app/theming-new';
+import { Skeleton } from '@app/components/skeleton';
 
 interface MainMatchesProps {
     profile?: IProfileResult | null;
@@ -134,16 +135,20 @@ export default function MainMatches(props: MainMatchesProps) {
                 </View>
             )}
             <View className={cn('flex-row gap-4 items-center justify-between', containerClassName)}>
-                <View className="flex-1 max-w-md">
-                    <Field
-                        type="search"
-                        placeholder={getTranslation('main.matches.search.placeholder')}
-                        onChangeText={(text) => setText(text)}
-                        value={text}
-                    />
-                </View>
+                {profile ? (
+                    <View className="flex-1 max-w-md">
+                        <Field
+                            type="search"
+                            placeholder={getTranslation('main.matches.search.placeholder')}
+                            onChangeText={(text) => setText(text)}
+                            value={text}
+                        />
+                    </View>
+                ) : (
+                    <Skeleton className="max-w-md flex-1 h-[45px] border border-border rounded-lg" alt />
+                )}
 
-                {props.leaderboardIds && authProfileId && profileId !== authProfileId && (
+                {props.leaderboardIds && authProfileId && profileId !== authProfileId && profile && (
                     <View style={styles.row2}>
                         <CheckboxNew checked={withMe} onPress={toggleWithMe} text={getTranslation('main.matches.withme')} />
                     </View>

@@ -35,6 +35,7 @@ import cn from 'classnames';
 import { containerScrollClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { UserLoginWrapper } from '@app/components/user-login-wrapper';
+import { Skeleton } from '@app/components/skeleton';
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -99,107 +100,33 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
 
     const unlinkSteam = async () => {
         unlinkSteamMutation.mutate();
-        router.replace('/matches/users/select');
+        router.replace('/players/select');
     };
 
     const resetUser = async () => {
         saveAccountMutation.mutate({ profileId: null });
-        router.replace('/matches/users/select');
+        router.replace('/players/select');
     };
 
     const [showTournamentPlayer, setShowTournamentPlayer] = useState(false);
 
-    if (!profileId || !profile) {
-        return null;
+    if (!profileId || !profile || !fullProfile) {
+        return (
+            <View className="flex flex-row gap-2">
+                <Skeleton className="w-8 h-5" alt />
+                <Skeleton className="w-8 h-5" alt />
+            </View>
+        );
     }
 
     const navigateToLinkedProfile = (profileId: number | undefined) => {
         setLinkedProfilesVisible(false);
-        router.navigate(`/matches/users/${profileId}`);
+        router.navigate(`/players/${profileId}`);
     };
 
-    if (profileId === authProfileId) {
-        return (
-            <TouchableOpacity onPress={showResetOrUnlinkDialog}>
-                <Icon icon="user-times" size={20} color="subtle" />
-            </TouchableOpacity>
-        );
-    } else {
-        return (
-            <View className="flex flex-row gap-2">
-                {fullProfile && fullProfile.linkedProfiles && fullProfile.linkedProfiles.length > 0 && (
-                    <MenuNew
-                        contentStyle={{
-                            padding: 15,
-                            paddingTop: 15,
-                            paddingBottom: 15,
-                            marginTop: 30,
-                            left: 'auto',
-                        }}
-                        visible={linkedProfilesVisible}
-                        onDismiss={() => setLinkedProfilesVisible(false)}
-                        anchor={
-                            <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setLinkedProfilesVisible(true)}>
-                                <Icon icon="family" color="brand" size={20} />
-                            </TouchableOpacity>
-                        }
-                    >
-                        <View className="w-60">
-                            <View className="gap-3">
-                                <Text variant="header-sm">Linked Profiles</Text>
-
-                                {fullProfile.linkedProfiles.map((linkedProfile) => {
-                                    return (
-                                        <TouchableOpacity
-                                            key={linkedProfile.profileId}
-                                            className="flex-row gap-2 items-center w-full overflow-hidden"
-                                            onPress={() => navigateToLinkedProfile(linkedProfile.profileId)}
-                                        >
-                                            <Image source={{ uri: linkedProfile.avatarMediumUrl }} className="w-5 h-5 rounded-full" />
-                                            <Text variant="body">{linkedProfile.name}</Text>
-                                            {linkedProfile.verified && <Icon icon="check-circle" color="brand" size={14} />}
-                                            {!linkedProfile.verified && linkedProfile.shared && <Icon icon="family" color="brand" size={14} />}
-                                            {!!linkedProfile.clan && (
-                                                <MyText>
-                                                    {' '}
-                                                    ({getTranslation('main.profile.clan')}: {linkedProfile.clan})
-                                                </MyText>
-                                            )}
-                                        </TouchableOpacity>
-                                    );
-                                })}
-
-                                {!fullProfile?.verified && fullProfile?.shared && (
-                                    <View className="flex-row items-center gap-x-2">
-                                        <Icon icon="family" color="brand" size={14} />
-                                        <MyText>{getTranslation('main.profile.steamfamilysharing')}</MyText>
-                                    </View>
-                                )}
-                            </View>
-                        </View>
-                    </MenuNew>
-                )}
-
-                {liquipediaProfile && (
-                    <TournamentPlayerPopup
-                        id={liquipediaProfile.name}
-                        title={liquipediaProfile.name}
-                        isActive={showTournamentPlayer}
-                        onClose={() => setShowTournamentPlayer(false)}
-                    />
-                )}
-
-                {profile.verified && (
-                    <TouchableOpacity
-                        className="w-8 items-center justify-center"
-                        onPress={() => setShowTournamentPlayer(true)}
-                        disabled={!liquipediaProfile}
-                    >
-                        <Icon icon="check-circle" color="brand" size={20} />
-                        {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
-                    </TouchableOpacity>
-                )}
-
+    return (
+        <View className="flex flex-row gap-2">
+            {fullProfile && fullProfile.linkedProfiles && fullProfile.linkedProfiles.length > 0 && (
                 <MenuNew
                     contentStyle={{
                         padding: 15,
@@ -208,25 +135,100 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                         marginTop: 30,
                         left: 'auto',
                     }}
-                    visible={linksVisible}
-                    onDismiss={() => setLinksVisible(false)}
+                    visible={linkedProfilesVisible}
+                    onDismiss={() => setLinkedProfilesVisible(false)}
                     anchor={
-                        <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setLinksVisible(true)}>
-                            <Icon icon="link" color="brand" size={20} />
+                        <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setLinkedProfilesVisible(true)}>
+                            <Icon icon="family" color="brand" size={20} />
                         </TouchableOpacity>
                     }
                 >
                     <View className="w-60">
                         <View className="gap-3">
-                            {profile?.steamId && profile?.platform && (
-                                <LinkedPlatformAccount steamId={profile?.steamId} platform={profile?.platform} />
+                            <Text variant="header-sm">Linked Profiles</Text>
+
+                            {fullProfile.linkedProfiles.map((linkedProfile) => {
+                                return (
+                                    <TouchableOpacity
+                                        key={linkedProfile.profileId}
+                                        className="flex-row gap-2 items-center w-full overflow-hidden"
+                                        onPress={() => navigateToLinkedProfile(linkedProfile.profileId)}
+                                    >
+                                        <Image source={{ uri: linkedProfile.avatarMediumUrl }} className="w-5 h-5 rounded-full" />
+                                        <Text variant="body">{linkedProfile.name}</Text>
+                                        {linkedProfile.verified && <Icon icon="check-circle" color="brand" size={14} />}
+                                        {!linkedProfile.verified && linkedProfile.shared && <Icon icon="family" color="brand" size={14} />}
+                                        {!!linkedProfile.clan && (
+                                            <MyText>
+                                                {' '}
+                                                ({getTranslation('main.profile.clan')}: {linkedProfile.clan})
+                                            </MyText>
+                                        )}
+                                    </TouchableOpacity>
+                                );
+                            })}
+
+                            {!fullProfile?.verified && fullProfile?.shared && (
+                                <View className="flex-row items-center gap-x-2">
+                                    <Icon icon="family" color="brand" size={14} />
+                                    <MyText>{getTranslation('main.profile.steamfamilysharing')}</MyText>
+                                </View>
                             )}
-                            {profileId && <LinkedAoEAccount profileId={profileId} />}
-                            {profileId && <LinkedAoECompanionAccount profileId={profileId} />}
                         </View>
                     </View>
                 </MenuNew>
+            )}
 
+            {liquipediaProfile && (
+                <TournamentPlayerPopup
+                    id={liquipediaProfile.name}
+                    title={liquipediaProfile.name}
+                    isActive={showTournamentPlayer}
+                    onClose={() => setShowTournamentPlayer(false)}
+                />
+            )}
+
+            {profile.verified && (
+                <TouchableOpacity
+                    className="w-8 items-center justify-center"
+                    onPress={() => setShowTournamentPlayer(true)}
+                    disabled={!liquipediaProfile}
+                >
+                    <Icon icon="check-circle" color="brand" size={20} />
+                    {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
+                </TouchableOpacity>
+            )}
+
+            <MenuNew
+                contentStyle={{
+                    padding: 15,
+                    paddingTop: 15,
+                    paddingBottom: 15,
+                    marginTop: 30,
+                    left: 'auto',
+                }}
+                visible={linksVisible}
+                onDismiss={() => setLinksVisible(false)}
+                anchor={
+                    <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setLinksVisible(true)}>
+                        <Icon icon="link" color="brand" size={20} />
+                    </TouchableOpacity>
+                }
+            >
+                <View className="w-60">
+                    <View className="gap-3">
+                        {profile?.steamId && profile?.platform && <LinkedPlatformAccount steamId={profile?.steamId} platform={profile?.platform} />}
+                        {profileId && <LinkedAoEAccount profileId={profileId} />}
+                        {profileId && <LinkedAoECompanionAccount profileId={profileId} />}
+                    </View>
+                </View>
+            </MenuNew>
+
+            {profileId === authProfileId ? (
+                <TouchableOpacity onPress={showResetOrUnlinkDialog}>
+                    <Icon icon="user-times" size={20} color="subtle" />
+                </TouchableOpacity>
+            ) : (
                 <UserLoginWrapper
                     Component={TouchableOpacity}
                     className="w-8 items-center justify-center"
@@ -235,9 +237,9 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                 >
                     <Icon prefix={followingThisUser ? 'fass' : 'fasr'} icon="heart" size={20} color="accent-[#ef4444]" />
                 </UserLoginWrapper>
-            </View>
-        );
-    }
+            )}
+        </View>
+    );
 }
 
 type UserPageParams = {
@@ -247,19 +249,21 @@ type UserPageParams = {
 export function UserTitle({ profile }: UserMenuProps) {
     const getTranslation = useTranslation();
 
-    if (!profile) {
-        return <View />;
-    }
-
     return (
         <HeaderTitle
-            iconComponent={<Image source={{ uri: profile?.avatarFullUrl }} className="rounded-full w-[38px] h-[38px]" />}
+            iconComponent={
+                profile ? (
+                    <Image source={{ uri: profile?.avatarFullUrl }} className="rounded-full w-[38px] h-[38px]" />
+                ) : (
+                    <Skeleton alt className="rounded-full w-[38px] h-[38px]" />
+                )
+            }
             title={profile?.name || ''}
             subtitle={
                 <>
                     <CountryImage style={{ fontSize: 14 }} country={profile?.country} />
-                    <MyText> {getCountryName(profile.country as Country)}</MyText>
-                    <MyText>{profile.clan ? ', ' + getTranslation('main.profile.clan') + ' ' + profile.clan : ''}</MyText>
+                    <Text> {getCountryName(profile?.country as Country)}</Text>
+                    <Text>{profile?.clan ? ', ' + getTranslation('main.profile.clan') + ' ' + profile.clan : ''}</Text>
                 </>
             }
         />
@@ -269,7 +273,7 @@ export function UserTitle({ profile }: UserMenuProps) {
 // isVerified &&
 // !isMainAccount && (
 //     <Text variant="label" numberOfLines={1} allowFontScaling={false}>
-//         <Link href={`/matches/users/${verifiedPlayer?.platforms.rl?.[0]}`}>
+//         <Link href={`/players${verifiedPlayer?.platforms.rl?.[0]}`}>
 //             {verifiedPlayer?.name}
 //         </Link>{' '}
 //         - Alternate account
@@ -298,7 +302,7 @@ export default function UserPage() {
     // console.log('PROFILE LAYOUT', profileId);
 
     if (!showTabBar) {
-        return <Redirect href={`/matches/users/${profileId}`} />;
+        return <Redirect href={`/players/${profileId}`} />;
     }
 
     return (

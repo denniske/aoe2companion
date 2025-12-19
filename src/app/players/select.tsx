@@ -21,7 +21,7 @@ const SelectProfilePage = () => {
         saveAccountMutation.mutate({
             profileId: user.profileId,
         });
-        router.navigate(`/matches/users/${user.profileId!}`);
+        router.navigate(`/players${user.profileId!}`);
     };
 
     const navigation = useNavigation();

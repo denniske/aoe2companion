@@ -21,7 +21,7 @@ export default function MatchPage() {
     const params = useLocalSearchParams<MatchPageParams>();
     const matchId = parseInt(params.matchId);
 
-    const { data: match, error: matchError, isLoading: matchLoading } = useWithRefetching(useMatch(matchId));
+    const { data: match, error: matchError, isPending: matchLoading } = useWithRefetching(useMatch(matchId));
 
     const navigation = useNavigation();
 
@@ -29,11 +29,6 @@ export default function MatchPage() {
         if (match) {
             navigation.setOptions({
                 title: match.mapName,
-                // headerTitle: () => <MatchCard match={match} flat={true} />,
-                // headerStyle: {
-                //     height: 200, // Set your custom height here
-                // },
-                // headerRight: () => <UserMenu profile={profile} />,
             });
         }
     }, [match]);

@@ -77,7 +77,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 Component={Card}
                 direction="vertical"
                 className="items-center justify-center gap-1! py-2 px-2.5 w-20 md:w-32 md:py-4 relative"
-                onPress={() => router.navigate('/matches/users/select')}
+                onPress={() => router.navigate('/players/select')}
                 style={playerStyle}
             >
                 <View className="opacity-0 gap-1">{FullSkeleton}</View>
@@ -98,7 +98,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 Component={Card}
                 direction="vertical"
                 className="items-center justify-center gap-1! py-2 px-2.5 w-20 md:w-32 md:py-4 relative"
-                onPress={() => router.navigate('/matches/users/follow')}
+                onPress={() => router.navigate('/players/follow')}
                 style={playerStyle}
             >
                 <View className="opacity-0 gap-1">{FullSkeleton}</View>

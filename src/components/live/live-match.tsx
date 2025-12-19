@@ -33,7 +33,7 @@ export function LiveMatch({data, expanded = false, onPress}: IGameProps) {
     const router = useRouter();
 
     const openLobby = (lobbyId: number) => {
-        router.push(`/matches/lobby/${lobbyId}`);
+        router.push(`/matches/lobbies/${lobbyId}`);
     };
 
     if (data == null) {

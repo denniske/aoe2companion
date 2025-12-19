@@ -12,6 +12,7 @@ import Fandom from '../../../view/components/fandom';
 import Space from '../../../view/components/space';
 import { Text } from '@app/components/text';
 import NotFound from '@app/app/+not-found';
+import { Card } from '@app/components/card';
 
 export default function BuildingDetails() {
     const { name: building } = useLocalSearchParams<{ name: Building }>();
@@ -24,18 +25,30 @@ export default function BuildingDetails() {
             <View className="flex-1 min-h-full p-5">
                 <Stack.Screen
                     options={{
+                        title: getBuildingName(building),
                         headerTitle: () => <HeaderTitle icon={getBuildingIcon(building)} title={getBuildingName(building)} />,
                     }}
                 />
 
-                <Text>{getBuildingDescription(building)}</Text>
-                <Space />
+                <View className="lg:flex-row lg:gap-6 lg:items-start">
+                    <View className="lg:flex-1">
+                        <Text>{getBuildingDescription(building)}</Text>
 
-                <BuildingStats buildingId={building} />
+                        <Space />
 
-                <BuildingUpgrades buildingLineId={buildingLineId} buildingId={building} />
+                        <BuildingStats buildingId={building} />
 
-                <CivAvailability building={building} />
+                        <BuildingUpgrades buildingLineId={buildingLineId} buildingId={building} />
+                    </View>
+
+                    <Card direction="vertical" className="w-sm hidden lg:flex pt-2!">
+                        <CivAvailability building={building} />
+                    </Card>
+                </View>
+
+                <View className="flex lg:hidden">
+                    <CivAvailability building={building} />
+                </View>
 
                 <View className="flex-1" />
                 <Fandom articleName={getBuildingName(building)} articleLink={getWikiLinkForBuilding(building)} />

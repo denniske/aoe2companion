@@ -21,7 +21,7 @@ export default function Follow() {
 
     return (
         <Search
-            selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)}
+            selectedUser={(user) => router.navigate(`/players${user.profileId}`)}
             action={(user: IProfilesResultProfile) => <FeedAction user={user} />}
         />
     );

@@ -66,7 +66,7 @@ export default function CivList() {
                         <Text variant="header-sm">{getCivNameById(civ)}</Text>
                     </View>
 
-                    <Text variant="body" numberOfLines={1} className={cn(appConfig.game === 'aoe2' && "flex-1")}>
+                    <Text variant="body" numberOfLines={1} className={cn(appConfig.game === 'aoe2' && 'flex-1')}>
                         {strength}
                     </Text>
                     <Text variant="body" color="subtle" numberOfLines={1}>
@@ -80,7 +80,7 @@ export default function CivList() {
     return (
         <KeyboardAvoidingView>
             <View className="flex-1">
-                <Stack.Screen options={{ title: getTranslation('civs.title') }} />
+                <Stack.Screen options={{ title: isMedium ? getTranslation('explore.civilizations') : getTranslation('civs.title') }} />
 
                 {appConfig.game === 'aoe2' && (
                     <View className={cn('pt-4', containerClassName)}>

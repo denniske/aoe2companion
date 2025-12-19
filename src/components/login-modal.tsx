@@ -4,8 +4,11 @@ import { Icon } from './icon';
 import { TouchableOpacity, View } from 'react-native';
 import { Text } from './text';
 import Login from './login';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
 
 export const LoginModal = ({ onClose, isVisible }: { isVisible: boolean; onClose: () => void }) => {
+const {isMedium} = useBreakpoints()
+
     return (
         <Transition appear show={isVisible} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -33,11 +36,11 @@ export const LoginModal = ({ onClose, isVisible }: { isVisible: boolean; onClose
                             leaveTo="opacity-0 scale-95"
                         >
                             <DialogPanel className="w-full max-w-2xl transform rounded-2xl bg-gold-50 dark:bg-blue-950 p-6 text-left align-middle shadow-xl transition-all flex flex-col relative gap-4 items-center">
-                                <Text variant="title" color="brand" align="center">
+                                <Text variant={isMedium ? 'title' : 'header-lg'} color="brand" align="center">
                                     Sign In Required
                                 </Text>
 
-                                <TouchableOpacity onPress={onClose} className="absolute top-4 right-4">
+                                <TouchableOpacity onPress={onClose} className="absolute top-5 right-5">
                                     <Icon icon="times" size={32} prefix="fasr" />
                                 </TouchableOpacity>
 

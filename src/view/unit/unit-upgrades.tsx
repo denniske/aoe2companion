@@ -116,12 +116,10 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                     </View>
                     {group.upgrades.map((upgrade) => (
                         <View style={[styles.row, { opacity: hasTech(upgrade.tech!) ? 1 : 0.5 }]} key={upgrade.name}>
-
                             <Image style={styles.unitIcon} source={getAbilityIcon(upgrade)} />
 
                             <MyText style={styles.unitDesc}>
-
-                                <MyText style={appStyles.link} onPress={getAbilityNavCallback(upgrade)} >
+                                <MyText style={appStyles.link} className="hover:underline" onPress={getAbilityNavCallback(upgrade)}>
                                     {getAbilityName(upgrade)}
                                 </MyText>
 
@@ -133,7 +131,12 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                                         {upgrade.civ && (
                                             <>
                                                 <MyText size="footnote">only </MyText>
-                                                <MyText size="footnote" style={appStyles.link} onPress={() => gotoCiv(upgrade.civ!)}>
+                                                <MyText
+                                                    size="footnote"
+                                                    style={appStyles.link}
+                                                    className="hover:underline"
+                                                    onPress={() => gotoCiv(upgrade.civ!)}
+                                                >
                                                     {upgrade.civ}
                                                 </MyText>
                                             </>

@@ -3,17 +3,17 @@ import { leaderboardIdsByType } from '@app/helper/leaderboard';
 import { useIsFocused, useNavigationState, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
-import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
-import { createStylesheet } from '../../../../../theming-new';
-import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
-import { MyText } from '../../../../../view/components/my-text';
-import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
-import { StatsHeader, StatsRow } from '../../../../../view/components/stats-rows';
 import { useLeaderboards, useProfileWithStats, useWithRefetching } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 import { useTranslation } from '@app/helper/translate';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { useWebRefresh } from '@app/hooks/use-web-refresh';
+import { MyText } from '@app/view/components/my-text';
+import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
+import { StatsHeader, StatsRow } from '@app/view/components/stats-rows';
+import RefreshControlThemed from '@app/view/components/refresh-control-themed';
+import { createStylesheet } from '@app/theming-new';
 
 export default function MainStats() {
     const getTranslation = useTranslation();

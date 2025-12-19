@@ -6,7 +6,7 @@ import cn from 'classnames';
 export const Skeleton: React.FC<ViewProps & { alt?: boolean }> = ({ className, alt, children, ...props }) => {
     const color = alt ? 'bg-gray-100 dark:bg-blue-900' : 'bg-gray-100 dark:bg-blue-950';
 
-    return <View className={cn('rounded', color, className)} {...props} />;
+    return <View className={cn('rounded animate-pulse', color, className)} {...props} />;
 };
 
 export const SkeletonText: React.FC<ViewProps & { variant?: TextVariant; numberOfLines?: number; alt?: boolean }> = ({

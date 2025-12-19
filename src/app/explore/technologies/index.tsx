@@ -13,6 +13,7 @@ import { useTranslation } from '@app/helper/translate';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
 
 export default function TechList() {
     const getTranslation = useTranslation();
@@ -44,29 +45,30 @@ export default function TechList() {
 
     const list = useMemo(() => {
         if (showTabBar) {
-            return localList;
+            return localList.map((s) => ({ ...s, title: s.building ?? s.civ }));
         } else {
             const uniqueTechs = localList.flatMap((section) => (section.civ ? section.data : []));
             const sections = localList.filter((section) => !section.civ);
 
-            return [...sections, { title: getTranslation('unit.section.unique'), data: uniqueTechs, civ: undefined, building: undefined }];
+            return [
+                ...sections.map((s) => ({ ...s, title: s.building ?? s.civ })),
+                { title: getTranslation('unit.section.unique'), data: uniqueTechs },
+            ];
         }
     }, [text, localList]);
 
     useEffect(() => {
         if (section && scrollReady && sectionList.current) {
-            scrollToSection(
-                sectionList.current,
-                section,
-                list.map((s) => ({ ...s, title: s.building ?? s.civ }))
-            );
+            scrollToSection(sectionList.current, section, list);
         }
     }, [section, scrollReady]);
+
+    const {isMedium} = useBreakpoints()
 
     return (
         <KeyboardAvoidingView>
             <View className="flex-1">
-                <Stack.Screen options={{ title: getTranslation('tech.title') }} />
+                <Stack.Screen options={{ title: getTranslation(isMedium ? 'explore.technologies' : 'tech.title') }} />
 
                 <View className={cn('pt-4', containerClassName)}>
                     <Field

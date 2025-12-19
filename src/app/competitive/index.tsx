@@ -103,7 +103,7 @@ export default function Competitive() {
     const router = useRouter();
 
     const openMatch = (matchId: number) => {
-        router.push(`/matches/single/${matchId}`);
+        router.push(`/matches/${matchId}`);
     };
 
     const playTwitchStream = async () => {
@@ -158,7 +158,7 @@ export default function Competitive() {
                     <View className="gap-2">
                         <View className="flex-row justify-between items-center px-4">
                             <Text variant="header-lg">{getTranslation('competitive.onlineVerifiedPlayers.title')}</Text>
-                            <Link href="/competitive/games">{getTranslation('competitive.onlineVerifiedPlayers.viewGames')}</Link>
+                            <Link href="/matches/live/competitive">{getTranslation('competitive.onlineVerifiedPlayers.viewGames')}</Link>
                         </View>
 
                         <PlayerList

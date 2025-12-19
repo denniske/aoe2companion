@@ -3,7 +3,6 @@ import { Platform, Pressable, View } from 'react-native';
 import { Text } from './text';
 import { Href, usePathname, useRouter } from 'expo-router';
 import { Icon, IconName } from './icon';
-import { useCurrentTabName } from './tab-bar';
 import { Image } from './uniwind/image';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
@@ -75,16 +74,9 @@ export const NavBar: React.FC = () => {
                 {routes.map((route) => {
                     const isFocused = pathname === route.path;
 
-                    const onPress = () => {
-                        if (router.canDismiss()) {
-                            router.dismissAll();
-                        }
-                        router.replace(route.path);
-                    };
-
                     return (
                         <Pressable
-                            onPress={() => onPress()}
+                            onPress={() => router.push(route.path)}
                             key={route.key}
                             className={cn(
                                 'flex-row justify-center items-center gap-2.5 rounded-lg px-5 xl:px-6',
@@ -105,7 +97,7 @@ export const NavBar: React.FC = () => {
                     <InlinePlayerSearch />
                 ) : (
                     <Pressable
-                        onPress={() => router.replace('/matches/users/search')}
+                        onPress={() => router.push('/players/search')}
                         className={cn(
                             'flex-row justify-center items-center gap-2.5 rounded-lg px-4 fill-subtle hocus:bg-gold-50 dark:hocus:bg-blue-700'
                         )}
@@ -114,12 +106,12 @@ export const NavBar: React.FC = () => {
                     </Pressable>
                 )}
 
-                {/* <Pressable
-                    onPress={() => router.replace('/more/account')}
+                <Pressable
+                    onPress={() => router.push('/more/account')}
                     className={cn('flex-row justify-center items-center gap-2.5 rounded-lg px-4 fill-subtle hocus:bg-gold-50 dark:hocus:bg-blue-700')}
                 >
                     <Icon fill="inherit" size={20} icon="user" />
-                </Pressable> */}
+                </Pressable>
             </View>
         </View>
     );

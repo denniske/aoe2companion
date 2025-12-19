@@ -45,6 +45,7 @@ export default function CivDetails() {
         >
             <Stack.Screen
                 options={{
+                    title: getCivNameById(civ),
                     headerTitle: () => <HeaderTitle icon={getCivIconLocal(civ)} title={getCivNameById(civ)} />,
                 }}
             />

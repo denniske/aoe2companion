@@ -44,7 +44,7 @@ export const FollowedPlayers = () => {
                 variant="horizontal"
                 showsHorizontalScrollIndicator={false}
                 list={profileIdList as any}
-                selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}`)}
+                selectedUser={(user) => router.navigate(`/players/${user.profileId}`)}
             />
         </View>
     );

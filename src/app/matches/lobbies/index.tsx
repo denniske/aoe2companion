@@ -68,7 +68,7 @@ export default function LiveLobbiesPage() {
     }, [data, search]);
 
     const openLobby = (lobbyId: number) => {
-        router.push(`/matches/lobby/${lobbyId}`);
+        router.push(`/matches/lobbies/${lobbyId}`);
     };
 
     return (

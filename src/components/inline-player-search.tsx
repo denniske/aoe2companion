@@ -44,14 +44,14 @@ export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResult
         if (onSelect) {
             onSelect(profile);
         } else {
-            router.navigate(`/matches/users/${profile.profileId}`);
+            router.navigate(`/players/${profile.profileId}`);
         }
     };
 
     const viewAll = () => {
         setText('');
         setIsFocused(false);
-        router.navigate(`/matches/users/search?query=${text}`);
+        router.navigate(`/players/search?query=${text}`);
     };
 
     useEffect(() => {
@@ -68,7 +68,7 @@ export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResult
     });
 
     return (
-        <div className="relative w-xs" ref={ref}>
+        <div className="relative w-2xs" ref={ref}>
             <Field
                 type="search"
                 placeholder="Search Players"
