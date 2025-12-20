@@ -4,7 +4,7 @@ import { useAppTheme } from '../../../theming';
 import { LiveMatch } from '@app/components/live/live-match';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { ILobbiesMatch } from '../../../api/helper/api.types';
-import { Stack, useRouter } from 'expo-router';
+import { Stack } from 'expo-router';
 import { Field } from '@app/components/field';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { FlatList } from '@app/components/flat-list';
@@ -25,8 +25,6 @@ export default function LiveLobbiesPage() {
     const [data, setData] = useState<ILobbiesMatch[]>([]);
     const [isConnecting, setIsConnecting] = useState(true);
     const [connected, setConnected] = useState(false);
-
-    const router = useRouter();
 
     const connect = async () => {
         setIsConnecting(true);
@@ -67,10 +65,6 @@ export default function LiveLobbiesPage() {
         return filtered;
     }, [data, search]);
 
-    const openLobby = (lobbyId: number) => {
-        router.push(`/matches/lobbies/${lobbyId}`);
-    };
-
     return (
         <KeyboardAvoidingView>
             <Stack.Screen options={{ title: getTranslation('lobbies.title') }} />
@@ -100,7 +94,7 @@ export default function LiveLobbiesPage() {
                     contentContainerClassName="p-4"
                     data={filteredData.slice(0, limit)}
                     renderItem={({ item, index }) => (
-                        <LiveMatch data={item as any} expanded={index === -1} onPress={() => openLobby((item as ILobbiesMatch).matchId)} />
+                        <LiveMatch data={item} expanded={index === -1} clickable />
                     )}
                     ItemSeparatorComponent={() => <View className="h-4" />}
                     keyExtractor={(item, index) => (typeof item === 'string' ? item : item.matchId?.toString())}

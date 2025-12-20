@@ -1,5 +1,5 @@
 import Search from '@app/view/components/search';
-import { router, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 import { useTranslation } from '@app/helper/translate';
 
 export default function PlayersPage() {
@@ -8,7 +8,7 @@ export default function PlayersPage() {
     return (
         <>
             <Stack.Screen options={{ title: getTranslation('players.title') }} />
-            <Search selectedUser={(user) => router.navigate(`/players/${user.profileId}`)} />
+            <Search />
         </>
     );
 }

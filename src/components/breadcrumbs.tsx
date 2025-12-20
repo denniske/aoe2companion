@@ -20,7 +20,9 @@ export const Breadcrumbs: React.FC<{ title: string }> = ({ title }) => {
 
     return (
         <View className={cn('flex-row items-center gap-1 py-1.5', containerClassName)}>
-            <Link href="/">Home</Link>
+            <Link href="/" color="subtle">
+                Home
+            </Link>
             <Icon icon="chevron-right" size={12} />
 
             {screenNames.map((segment, index) => {
@@ -29,13 +31,15 @@ export const Breadcrumbs: React.FC<{ title: string }> = ({ title }) => {
                 const fullPath = `/${allSegments.join('/')}`;
 
                 return isLast ? (
-                    <TextComponent key={fullPath} color="brand" variant="label" className={!title ? 'w-10!' : undefined} alt>
+                    <TextComponent key={fullPath} color="subtle" variant="label" className={!title ? 'w-10!' : undefined} alt>
                         {title}
                     </TextComponent>
                 ) : (
                     <Fragment key={fullPath}>
-                        <Link href={fullPath as Href}>{startCase(segment)}</Link>
-                        <Icon icon="chevron-right" size={12} />
+                        <Link href={fullPath as Href} color="subtle">
+                            {startCase(segment)}
+                        </Link>
+                        <Icon icon="chevron-right" size={12} color="subtle" />
                     </Fragment>
                 );
             })}

@@ -1,6 +1,6 @@
 import { getCivIdByEnum } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { CountryImage } from './country-image';
@@ -49,7 +49,7 @@ export function StatsHeader({ title }: any) {
                 </MyText>
             </View>
         </View>
-    )
+    );
 }
 
 export function StatsRow({ type, data }: IRowPropsCiv | IRowPropsMap | IRowPropsAlly | IRowPropsOpponent) {
@@ -64,15 +64,6 @@ export function StatsRow({ type, data }: IRowPropsCiv | IRowPropsMap | IRowProps
             </View>
         );
     }
-
-    const gotoEntity = () => {
-        if (type === 'civ') {
-            router.push(`/explore/civilizations/${getCivIdByEnum(data.civ)}`);
-        }
-        if ((type === 'ally' || type === 'opponent') && data.profileId) {
-            router.push(`/players/${data.profileId}`);
-        }
-    };
 
     const getIcon = () => {
         if (type === 'civ') {
@@ -99,16 +90,31 @@ export function StatsRow({ type, data }: IRowPropsCiv | IRowPropsMap | IRowProps
 
     return (
         <View className="flex-row items-center gap-1 my-1">
-            <TouchableOpacity className="flex-row flex-4 items-center" onPress={gotoEntity}>
-                <View className="flex-row items-center w-full">
-                    {(type === 'ally' || type === 'opponent') && <CountryImage country={data.country} />}
-                    {type === 'civ' && <Image style={styles.civIcon as any} source={getIcon()} />}
-                    {type === 'map' && <Image style={styles.icon as any} source={getIcon()} />}
-                    <MyText>{getName()}</MyText>
-                </View>
-            </TouchableOpacity>
-            <MyText className="flex-row flex-1 items-center text-right font-tabular" numberOfLines={1}>{data.games}</MyText>
-            <MyText className="flex-row flex-1 items-center text-right font-tabular" numberOfLines={1}>{isNaN(won) ? '-' : won.toFixed(0) + ' %'}</MyText>
+            <Link
+                asChild
+                href={
+                    type === 'civ'
+                        ? `/explore/civilizations/${getCivIdByEnum(data.civ)}`
+                        : type === 'opponent' || type === 'ally'
+                        ? `/players/${data.profileId}`
+                        : `/explore/maps/${data.map}`
+                }
+            >
+                <TouchableOpacity className="flex-row flex-4 items-center">
+                    <View className="flex-row items-center w-full">
+                        {(type === 'ally' || type === 'opponent') && <CountryImage country={data.country} />}
+                        {type === 'civ' && <Image style={styles.civIcon as any} source={getIcon()} />}
+                        {type === 'map' && <Image style={styles.icon as any} source={getIcon()} />}
+                        <MyText>{getName()}</MyText>
+                    </View>
+                </TouchableOpacity>
+            </Link>
+            <MyText className="flex-row flex-1 items-center text-right font-tabular" numberOfLines={1}>
+                {data.games}
+            </MyText>
+            <MyText className="flex-row flex-1 items-center text-right font-tabular" numberOfLines={1}>
+                {isNaN(won) ? '-' : won.toFixed(0) + ' %'}
+            </MyText>
         </View>
     );
 }

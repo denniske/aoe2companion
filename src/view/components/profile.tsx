@@ -175,7 +175,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
 
             {!loggedIn && authProfileId === profileId && (
                 <View className="gap-x-2 flex-row items-center">
-                    <Button onPress={() => router.push('/more/account')}>Sign up</Button>
+                    <Button href="/more/account">Sign up</Button>
                     <MyText>to manage your profile.</MyText>
                 </View>
             )}

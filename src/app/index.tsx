@@ -12,7 +12,7 @@ import { useNews } from '@app/utils/news';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
 import { Stack } from 'expo-router';
 import React from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
 import { useAuthProfileId, useInfiniteBuilds } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
@@ -25,6 +25,8 @@ import { appConfig } from '@nex/dataset';
 import { RankedMaps } from '@app/components/ranked-maps';
 import { AnimateIn } from '@app/components/animate-in';
 import { useShowTabBar } from '../hooks/use-show-tab-bar';
+import { Card } from '@app/components/card';
+import { FeaturedVideos } from '@app/components/featured-videos';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -81,6 +83,16 @@ export default function IndexPage() {
 
             <View className="-mx-4 mb-5">
                 <FollowedPlayers />
+            </View>
+
+            {/* {Platform.OS === 'web' && (
+                <Card className="mb-5">
+                    <Text variant="header-lg">Buy Age of Empires 2</Text>
+                </Card>
+            )} */}
+
+            <View className="mb-5">
+                <FeaturedVideos />
             </View>
 
             {authProfileId && (

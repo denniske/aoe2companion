@@ -1,6 +1,6 @@
 import { useOngoing } from '@app/api/socket/ongoing';
 import { Text } from '@app/components/text';
-import { Stack, useRouter } from 'expo-router';
+import { Stack } from 'expo-router';
 import React, { Fragment, useMemo } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
@@ -59,22 +59,6 @@ export default function LiveFollowingPage() {
     let lobbyList = lobbies;
     let matchList = matches.map((m) => getMatchFromOngoingMatch(m));
 
-    // const freeForAll = match ? isMatchFreeForAll(match) : false;
-    // console.log('Current match', match);
-
-    const router = useRouter();
-
-    const openMatch = (matchId: number) => {
-        router.push(`/matches/${matchId}`);
-    };
-
-    const openLobby = (lobbyId: number) => {
-        router.push(`/matches/lobbies/${lobbyId}`);
-    };
-
-    // console.log('isLoading', isLoading);
-    // console.log('connected', connected);
-
     return (
         <ScrollView contentContainerClassName="p-4 gap-4">
             <Stack.Screen options={{ title: getTranslation('matches.currentfollowing.title') }} />
@@ -93,7 +77,7 @@ export default function LiveFollowingPage() {
                                 </Fragment>
                             ))}
                         </View>
-                        <LiveMatch data={lobby} expanded={false} onPress={() => openLobby(lobby.matchId)} />
+                        <LiveMatch data={lobby} expanded={false} clickable />
                     </View>
                 );
             })}
@@ -133,7 +117,7 @@ export default function LiveFollowingPage() {
                                 </Fragment>
                             ))}
                         </View>
-                        <MatchCard match={match} onPress={() => openMatch(match.matchId)} />
+                        <MatchCard match={match} clickable />
                     </View>
                 );
             })}

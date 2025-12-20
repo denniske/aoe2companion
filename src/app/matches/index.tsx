@@ -7,7 +7,7 @@ import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-ind
 import { MyText } from '@app/view/components/my-text';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
-import { router, Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { flatten, orderBy, uniq } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
@@ -98,10 +98,6 @@ export default function MatchesPage() {
         return filteredPlayers;
     };
 
-    const gotoPlayer = (profileId: number) => {
-        router.push(`/players/${profileId}`);
-    };
-
     const formatPlayer = (player: any, i: number) => {
         return player?.profileId === authProfileId
             ? i == 0
@@ -136,10 +132,12 @@ export default function MatchesPage() {
             <View className={cn('flex-row justify-between items-center', containerClassName)}>
                 <Text variant="header-lg">{getTranslation('matches.liveandrecentmatches')}</Text>
                 <View className="flex-row gap-2 items-center">
-                    {!showTabBar && <>
-                        <Link href="/matches/live">{getTranslation('matches.alllivegames')}</Link>
-                        <View className="w-px bg-border self-stretch" />
-                    </>}
+                    {!showTabBar && (
+                        <>
+                            <Link href="/matches/live">{getTranslation('matches.alllivegames')}</Link>
+                            <View className="w-px bg-border self-stretch" />
+                        </>
+                    )}
                     <Link href="/matches/lobbies">{getTranslation('matches.viewlobbies')}</Link>
                 </View>
             </View>
@@ -223,9 +221,14 @@ export default function MatchesPage() {
                                         <Text className="flex-row flex-wrap items-center mb-3">
                                             {filteredPlayers.map((p, i) => (
                                                 <MyText key={i} className="flex-row flex-wrap items-center">
-                                                    <Text variant="header-xs" onPress={() => gotoPlayer(p.profileId)}>
+                                                    <Link
+                                                        color="default"
+                                                        variant="header-xs"
+                                                        className="no-underline! hover:text-default! hover:underline!"
+                                                        href={`/players/${p.profileId}`}
+                                                    >
                                                         {formatPlayer(p, i)}
-                                                    </Text>
+                                                    </Link>
 
                                                     {!match.finished && (
                                                         // match.match_id == '72116505' &&

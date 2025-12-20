@@ -19,12 +19,7 @@ export default function Follow() {
         navigation.setOptions({ title: getTranslation('matches.follow.title') });
     }, [navigation]);
 
-    return (
-        <Search
-            selectedUser={(user) => router.navigate(`/players${user.profileId}`)}
-            action={(user: IProfilesResultProfile) => <FeedAction user={user} />}
-        />
-    );
+    return <Search action={(user: IProfilesResultProfile) => <FeedAction user={user} />} />;
 }
 
 function FeedAction({ user }: { user: IPlayerListPlayer }) {

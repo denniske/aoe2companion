@@ -1,6 +1,6 @@
 import { IProfileResult, IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
-import { Redirect, useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
+import { Link, Redirect, useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
@@ -119,11 +119,6 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
         );
     }
 
-    const navigateToLinkedProfile = (profileId: number | undefined) => {
-        setLinkedProfilesVisible(false);
-        router.navigate(`/players/${profileId}`);
-    };
-
     return (
         <View className="flex flex-row gap-2">
             {fullProfile && fullProfile.linkedProfiles && fullProfile.linkedProfiles.length > 0 && (
@@ -149,22 +144,23 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
 
                             {fullProfile.linkedProfiles.map((linkedProfile) => {
                                 return (
-                                    <TouchableOpacity
-                                        key={linkedProfile.profileId}
-                                        className="flex-row gap-2 items-center w-full overflow-hidden"
-                                        onPress={() => navigateToLinkedProfile(linkedProfile.profileId)}
-                                    >
-                                        <Image source={{ uri: linkedProfile.avatarMediumUrl }} className="w-5 h-5 rounded-full" />
-                                        <Text variant="body">{linkedProfile.name}</Text>
-                                        {linkedProfile.verified && <Icon icon="check-circle" color="brand" size={14} />}
-                                        {!linkedProfile.verified && linkedProfile.shared && <Icon icon="family" color="brand" size={14} />}
-                                        {!!linkedProfile.clan && (
-                                            <MyText>
-                                                {' '}
-                                                ({getTranslation('main.profile.clan')}: {linkedProfile.clan})
-                                            </MyText>
-                                        )}
-                                    </TouchableOpacity>
+                                    <Link asChild href={`/players/${linkedProfile.profileId}`} key={linkedProfile.profileId}>
+                                        <TouchableOpacity
+                                            className="flex-row gap-2 items-center w-full overflow-hidden"
+                                            onPress={() => setLinkedProfilesVisible(false)}
+                                        >
+                                            <Image source={{ uri: linkedProfile.avatarMediumUrl }} className="w-5 h-5 rounded-full" />
+                                            <Text variant="body">{linkedProfile.name}</Text>
+                                            {linkedProfile.verified && <Icon icon="check-circle" color="brand" size={14} />}
+                                            {!linkedProfile.verified && linkedProfile.shared && <Icon icon="family" color="brand" size={14} />}
+                                            {!!linkedProfile.clan && (
+                                                <MyText>
+                                                    {' '}
+                                                    ({getTranslation('main.profile.clan')}: {linkedProfile.clan})
+                                                </MyText>
+                                            )}
+                                        </TouchableOpacity>
+                                    </Link>
                                 );
                             })}
 
@@ -273,7 +269,7 @@ export function UserTitle({ profile }: UserMenuProps) {
 // isVerified &&
 // !isMainAccount && (
 //     <Text variant="label" numberOfLines={1} allowFontScaling={false}>
-//         <Link href={`/players${verifiedPlayer?.platforms.rl?.[0]}`}>
+//         <Link href={`/players/${verifiedPlayer?.platforms.rl?.[0]}`}>
 //             {verifiedPlayer?.name}
 //         </Link>{' '}
 //         - Alternate account

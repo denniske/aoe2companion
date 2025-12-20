@@ -14,9 +14,10 @@ interface RecentSearchesProps {
     actionText?: string;
     action?: (player: IProfilesResultProfile) => React.ReactNode;
     limit?: number;
+    shouldLink?: boolean;
 }
 
-export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action, actionText, limit }) => {
+export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action, actionText, limit, shouldLink = true }) => {
     const { data, clear } = useRecentSearches();
     const getTranslation = useTranslation();
 
@@ -69,6 +70,7 @@ export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action
                 action={action}
                 selectedUser={onSelect}
                 keyExtractor={(item) => (typeof item === 'string' ? item : item.profileId.toString())}
+                shouldLink={shouldLink}
             />
         </View>
     );

@@ -2,8 +2,8 @@ import { HeaderTitle } from '@app/components/header-title';
 import { ScrollView } from '@app/components/scroll-view';
 import { aoeCivKey, civDict, getCivNameById, parseCivDescription } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { ImageBackground } from '@/src/components/uniwind/image';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Image, ImageBackground } from '@/src/components/uniwind/image';
+import { Link, Stack, useLocalSearchParams } from 'expo-router';
 import React, { Fragment } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { getCivHistoryImage, getCivIconLocal } from '../../../helper/civs';
@@ -16,12 +16,15 @@ import { useQuery } from '@tanstack/react-query';
 import { useUniwind } from 'uniwind';
 import NotFound from '@app/app/+not-found';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { useVideo } from '@app/utils/video';
+import { Text } from '@app/components/text';
 
 export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
     const civ = name!;
     const { theme } = useUniwind();
-    const {isMedium} = useBreakpoints()
+    const { isMedium } = useBreakpoints();
+    const { data: video } = useVideo(appConfig.game === 'aoe2' ? civ.toLowerCase() : '');
 
     if (appConfig.game !== 'aoe2') {
         return <Civ4Details civ={civ} />;
@@ -50,7 +53,7 @@ export default function CivDetails() {
                 }}
             />
             <ScrollView>
-                <View style={styles.detailsContainer} className="lg:flex-row">
+                <View style={styles.detailsContainer} className="lg:flex-row lg:gap-6">
                     <View className="lg:flex-1">
                         <MyText style={styles.content}>{type}</MyText>
 
@@ -86,6 +89,23 @@ export default function CivDetails() {
                                 <HighlightUnitAndTechs str={teamBonus} />
                             </MyText>
                         </View>
+
+                        {video && (
+                            <View className="py-4 gap-0.5">
+                                <Text variant="header-lg">Video Guide</Text>
+                                <Text variant="label-sm">By {video.author}</Text>
+                                <Link
+                                    href={`https://www.youtube.com/watch?v=${video.videoId}`}
+                                    target="_blank"
+                                    className="flex-row w-full aspect-video"
+                                >
+                                    <Image
+                                        source={{ uri: video.thumbnailUrl }}
+                                        className="w-full h-full rounded-lg cursor-pointer transition-all hover:scale-105 hover:opacity-80"
+                                    />
+                                </Link>
+                            </View>
+                        )}
                     </View>
 
                     <View style={styles.box} className="lg:flex-1">
@@ -131,7 +151,8 @@ export function Civ4Details({ civ }: { civ: aoeCivKey }) {
 
     const { data: civData } = useQuery({
         queryKey: ['civ-infos', civ],
-        queryFn: async () => (await fetch(`https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`)).json(),
+        queryFn: async () =>
+            (await fetch(`https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`)).json(),
     });
 
     if (!civData) return null;

@@ -6,7 +6,7 @@ import { isWithinInterval } from 'date-fns';
 import { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import ButtonPicker from '../view/components/button-picker';
-import { router } from 'expo-router';
+import { Link as ExpoLink } from 'expo-router';
 import { Image } from '@/src/components/uniwind/image';
 import { Skeleton, SkeletonText } from './skeleton';
 import { AnimateIn } from './animate-in';
@@ -74,19 +74,17 @@ export const RankedMaps: React.FC = () => {
                             : mapsRanked?.leaderboards
                                   ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
                                   ?.maps?.map((map) => (
-                                      <TouchableOpacity
-                                          key={map.mapId}
-                                          className="flex-col justify-between items-center w-[25%] md:w-[20%] lg:w-[12.5%] mb-4"
-                                          onPress={() => router.push(`/explore/maps/${map.mapId}` as any)}
-                                      >
-                                          <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
-                                          <Text variant="label-sm" className="text-center mb-0.5">
-                                              {map.mapName}
-                                          </Text>
-                                          <Text variant={'body-sm'} className="text-center">
-                                              {map.percentage.toFixed(0)} %
-                                          </Text>
-                                      </TouchableOpacity>
+                                      <ExpoLink asChild href={`/explore/maps/${map.mapId}`} key={map.mapId}>
+                                          <TouchableOpacity className="flex-col justify-between items-center w-[25%] md:w-[20%] lg:w-[12.5%] mb-4">
+                                              <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
+                                              <Text variant="label-sm" className="text-center mb-0.5">
+                                                  {map.mapName}
+                                              </Text>
+                                              <Text variant={'body-sm'} className="text-center">
+                                                  {map.percentage.toFixed(0)} %
+                                              </Text>
+                                          </TouchableOpacity>
+                                      </ExpoLink>
                                   ))}
                     </View>
                 </>

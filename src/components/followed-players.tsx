@@ -1,8 +1,6 @@
 import PlayerList from '@app/view/components/player-list';
-import { router } from 'expo-router';
 import { View } from 'react-native';
 import { Text } from './text';
-import { uniqBy } from 'lodash';
 import { useAccount, useAuthProfileId, useProfileFast, useProfilesByProfileIds } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
 import { Link } from '@app/components/link';
@@ -44,7 +42,6 @@ export const FollowedPlayers = () => {
                 variant="horizontal"
                 showsHorizontalScrollIndicator={false}
                 list={profileIdList as any}
-                selectedUser={(user) => router.navigate(`/players/${user.profileId}`)}
             />
         </View>
     );

@@ -6,13 +6,10 @@ import { Href, Link as ExpoLink, router } from 'expo-router';
 import { appConfig, appIconData } from '@nex/dataset';
 import { Link } from './link';
 import { useTranslation } from '@app/helper/translate';
-import { useAuthProfileId, useFollowedAndMeProfileIds } from '@app/queries/all';
 import { Image } from './uniwind/image';
 
 export const Footer: React.FC = () => {
     const getTranslation = useTranslation();
-    const authProfileId = useAuthProfileId();
-    const profileIds = useFollowedAndMeProfileIds();
 
     return (
         <View className="bg-[#F3EFE6] dark:bg-blue-900 mt-2">

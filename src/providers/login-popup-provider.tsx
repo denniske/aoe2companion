@@ -1,5 +1,5 @@
 import { LoginModal } from '@app/components/login-modal';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { LoginPopupContext } from './login-popup-context';
 import useAuth from '@/data/src/hooks/use-auth';
 import { Platform } from 'react-native';

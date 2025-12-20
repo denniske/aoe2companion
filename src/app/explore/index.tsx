@@ -29,7 +29,7 @@ import {
 } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
-import { Href, Redirect, router, Stack } from 'expo-router';
+import { Href, Redirect, router, Stack, Link as ExpoLink, RouteSegments } from 'expo-router';
 import { compact, orderBy, uniq } from 'lodash';
 import React, { useMemo, useState } from 'react';
 import { ImageSourcePropType, Platform, TouchableOpacity, View } from 'react-native';
@@ -50,7 +50,7 @@ type Item =
 
 const typeAttributes: Record<
     Item['type'],
-    { path: string; labelKey: string; title: (name: any) => string; icon: (name: any) => ImageSourcePropType }
+    { path: 'civilizations' | 'units' | 'buildings' | 'technologies' | 'maps'; labelKey: string; title: (name: any) => string; icon: (name: any) => ImageSourcePropType }
 > = {
     civ: { path: 'civilizations', labelKey: 'explore.civilization', title: getCivNameById, icon: getCivIconLocal },
     unit: { path: 'units', labelKey: 'explore.unit', title: getUnitName, icon: getUnitIcon },
@@ -81,18 +81,19 @@ const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
     const { path, labelKey, title, icon } = typeAttributes[item.type];
 
     return (
-        <TouchableOpacity
-            className={`flex-row items-center py-2.5 gap-2 -mx-4 px-4 -mb-px ${index === 0 ? 'bg-gold-100 dark:bg-blue-900 z-10' : ''}`}
-            onPress={() => router.navigate(`/explore/${path}/${item.name}` as any)}
-        >
-            <Image source={item.image} className="w-8 h-8" />
-            <View className="flex-1">
-                <Text variant="label">{item.title}</Text>
-            </View>
-            <Text color="subtle" variant="body-sm">
-                {item.type !== 'civ' && item.section && item.section} {getTranslation(labelKey as any)}
-            </Text>
-        </TouchableOpacity>
+        <ExpoLink asChild href={`/explore/${path}/${item.name}`}>
+            <TouchableOpacity
+                className={`flex-row items-center py-2.5 gap-2 -mx-4 px-4 -mb-px ${index === 0 ? 'bg-gold-100 dark:bg-blue-900 z-10' : ''}`}
+            >
+                <Image source={item.image} className="w-8 h-8" />
+                <View className="flex-1">
+                    <Text variant="label">{item.title}</Text>
+                </View>
+                <Text color="subtle" variant="body-sm">
+                    {item.type !== 'civ' && item.section && item.section} {getTranslation(labelKey as any)}
+                </Text>
+            </TouchableOpacity>
+        </ExpoLink>
     );
 };
 
@@ -206,7 +207,7 @@ export default function Explore() {
                             const topResult = filteredData[0];
                             if (topResult) {
                                 const { path } = typeAttributes[topResult.type];
-                                router.navigate(`/explore/${path}/${topResult.name}` as any);
+                                router.navigate(`/explore/${path}/${topResult.name}`);
                             }
                         }}
                         onChangeText={setSearch}

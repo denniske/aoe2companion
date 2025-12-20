@@ -11,7 +11,7 @@ export const UserLoginWrapper = <T extends React.FC<{ onPress?: () => void }>>({
 
     return (
         <>
-            <Component {...props} onPress={shouldPromptLogin ? showLoginPopup : onPress} />
+            <Component {...props} onPress={shouldPromptLogin ? showLoginPopup : onPress} href={shouldPromptLogin ? null : props.href} />
         </>
     );
 };
