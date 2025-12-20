@@ -310,6 +310,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '180.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Added Petard to Krepost in Tech Tree',
+        },
+    ],
     '179.0.0': [
         {
             type: 'feature',

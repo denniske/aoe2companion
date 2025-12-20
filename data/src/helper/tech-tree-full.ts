@@ -487,12 +487,14 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {},
                 {age: 'CastleAge', building: 'Krepost'},
                 {},
+                {},
                 {age: 'FeudalAge', building: 'Donjon'},
             ],
         },
         {
             items: [
                 {age: 'FeudalAge'},
+                {},
                 {},
                 {},
                 {age: 'FeudalAge', unit: 'Serjeant', unique: true},
@@ -503,6 +505,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'CastleAge'},
                 {age: 'CastleAge', unit: 'Konnik', unique: true},
+                {age: 'CastleAge', unit: 'Petard'},
                 {},
                 {},
                 {age: 'CastleAge', unit: 'Pikeman', dependsOn: {building: 'Donjon'}},
@@ -512,6 +515,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'ImperialAge'},
                 {age: 'ImperialAge', unit: 'EliteKonnik', unique: true},
+                {},
                 {},
                 {age: 'ImperialAge', unit: 'EliteSerjeant', unique: true},
                 {age: 'ImperialAge', unit: 'Halberdier', dependsOn: {building: 'Donjon'}},
