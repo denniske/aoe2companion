@@ -211,7 +211,13 @@ export default function Login({ onComplete }: { onComplete?: () => void }) {
             />
 
             <View className="gap-1">
-                <Field type="password" onChangeText={setPassword} value={password} placeholder={getTranslation('login.placeholder.password')} />
+                <Field
+                    type="password"
+                    onChangeText={setPassword}
+                    value={password}
+                    placeholder={getTranslation('login.placeholder.password')}
+                    onSubmitEditing={() => signInWithEmail()}
+                />
 
                 <View className="flex-row justify-end">
                     <TouchableOpacity className="p-2" onPress={() => forgotPassword()}>

@@ -320,6 +320,18 @@ export type INews = {
     link: string;
 };
 
+export type IVideosResult = IVideo[];
+
+export interface IVideo {
+    source: 'youtube';
+    title: string;
+    author: string;
+    thumbnailUrl: string;
+    videoId: string;
+    publishDate: string;
+    civ?: string;
+}
+
 export type IMapsResult = IMap[];
 
 export type IMap = {

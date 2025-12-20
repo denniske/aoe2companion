@@ -22,6 +22,7 @@ import {
     INewsResult,
     IProfileResult,
     IProfilesResult,
+    IVideosResult,
 } from './api.types';
 import { dateReviver, getHost } from '@nex/data';
 import { fetchJson } from '@app/api/util';
@@ -119,6 +120,15 @@ export async function fetchLeaderboards(params: IFetchLeaderboardsParams) {
 export async function fetchNews() {
     const url = `${getHost('aoe2companion-data')}api/news`;
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as INewsResult;
+}
+
+export async function fetchVideos(civ?: string) {
+    let queryString = '';
+    if (civ) {
+        queryString += `civ=${civ}`
+    }
+    const url = `${getHost('aoe2companion-data')}api/videos?${queryString}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IVideosResult;
 }
 
 export async function fetchMaps(params: IFetchMapsParams) {

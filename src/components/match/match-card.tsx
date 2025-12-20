@@ -2,7 +2,7 @@ import { getMapImage } from '@app/helper/maps';
 import { isMatchFreeForAll, teamRatio } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { flatten, startCase, uniq } from 'lodash';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Card } from '../card';
 import { Icon } from '../icon';
@@ -10,19 +10,19 @@ import { Skeleton, SkeletonText } from '../skeleton';
 import { Text } from '../text';
 import { MatchProps } from '@app/components/match/match';
 import { ElapsedTimeOrDuration } from '@app/components/elapsed-time-or-duration';
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { Image } from '@/src/components/uniwind/image';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import MatchTeams from './match-teams';
 
 export interface MatchCardProps extends MatchProps {
-    onPress?: () => void;
+    clickable?: boolean;
     flat?: boolean;
     linkMap?: boolean;
 }
 
 export function MatchCard(props: MatchCardProps) {
-    const { flat, match, user, highlightedUsers, expanded = false, showLiveActivity = false, linkMap = false, onPress } = props;
+    const { flat, match, user, highlightedUsers, expanded = false, showLiveActivity = false, linkMap = false, clickable } = props;
     const players = flatten(match?.teams.map((t) => t.players));
     const freeForAll = isMatchFreeForAll(match);
     let attributes = [teamRatio(match)];
@@ -53,20 +53,23 @@ export function MatchCard(props: MatchCardProps) {
     attributes = uniq(attributes);
 
     const { isMedium, isLarge } = useBreakpoints();
+    const MapLinkComponent = linkMap ? Link : Fragment;
 
     return (
         <Card
             flat={flat}
-            onPress={onPress}
+            href={clickable ? `/matches/${match.matchId}` : undefined}
             header={
                 <View className="relative">
-                    <TouchableOpacity disabled={!linkMap} onPress={() => router.push(`/explore/maps/${match.map}`)}>
-                        <Image
-                            source={getMapImage(match)}
-                            className={`w-14 h-14 md:w-20 md:h-20 ${appConfig.game === 'aoe2' ? '' : 'border border-gold-500 rounded'}`}
-                            contentFit="cover"
-                        />
-                    </TouchableOpacity>
+                    <MapLinkComponent asChild href={`/explore/maps/${match.map}`}>
+                        <TouchableOpacity disabled={!linkMap}>
+                            <Image
+                                source={getMapImage(match)}
+                                className={`w-14 h-14 md:w-20 md:h-20 ${appConfig.game === 'aoe2' ? '' : 'border border-gold-500 rounded'}`}
+                                contentFit="cover"
+                            />
+                        </TouchableOpacity>
+                    </MapLinkComponent>
                     <View className={`absolute ${appConfig.game === 'aoe2' ? 'top-0 left-0' : 'top-1 left-1'}`}>
                         {players.some((p) => p.profileId === user && p.won === true && (freeForAll || p.team != -1)) && (
                             <Icon size={isMedium ? 20 : 12} icon="crown" color={appConfig.game === 'aoe2' ? 'brand' : 'brand'} />
@@ -84,13 +87,15 @@ export function MatchCard(props: MatchCardProps) {
             }
         >
             <View className="flex-1 lg:flex-none lg:min-w-3xs lg:max-w-3xs">
-                <TouchableOpacity disabled={!linkMap} onPress={() => router.push(`/explore/maps/${match.map}`)}>
-                    <Text numberOfLines={1} variant="header-sm">
-                        {match.gameVariant === 'ror' && 'RoR - '}
-                        {match.mapName}
-                        {match.server && <Text> - {match.server}</Text>}
-                    </Text>
-                </TouchableOpacity>
+                <MapLinkComponent asChild href={`/explore/maps/${match.map}`}>
+                    <TouchableOpacity disabled={!linkMap}>
+                        <Text numberOfLines={1} variant="header-sm">
+                            {match.gameVariant === 'ror' && 'RoR - '}
+                            {match.mapName}
+                            {match.server && <Text> - {match.server}</Text>}
+                        </Text>
+                    </TouchableOpacity>
+                </MapLinkComponent>
 
                 <Text numberOfLines={1}>{attributes.join(' - ')}</Text>
 

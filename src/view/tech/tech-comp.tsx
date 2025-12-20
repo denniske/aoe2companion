@@ -6,7 +6,7 @@ import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";
 import {getTechIcon} from "../../helper/techs";
 import {getCivIconLocal} from "../../helper/civs";
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
@@ -52,17 +52,19 @@ export function TechCompBig({ tech: tech, showCivBanner: showCivBanner, canShowC
     }
 
     return (
-        <TouchableOpacity onPress={() => router.push(`/explore/technologies/${tech}`)} className="h-10">
-            <View style={styles.rowBig}>
-                <TechIcon style={styles.unitIconBig} tech={tech} />
-                <View style={styles.unitIconBigTitle}>
-                    <MyText style={styles.name}>{getTechName(tech)}</MyText>
-                    <MyText numberOfLines={1} style={styles.base.small}>
-                        {getTechDescription(tech)}
-                    </MyText>
+        <Link asChild href={`/explore/technologies/${tech}`}>
+            <TouchableOpacity className="h-10">
+                <View style={styles.rowBig}>
+                    <TechIcon style={styles.unitIconBig} tech={tech} />
+                    <View style={styles.unitIconBigTitle}>
+                        <MyText style={styles.name}>{getTechName(tech)}</MyText>
+                        <MyText numberOfLines={1} style={styles.base.small}>
+                            {getTechDescription(tech)}
+                        </MyText>
+                    </View>
                 </View>
-            </View>
-        </TouchableOpacity>
+            </TouchableOpacity>
+        </Link>
     );
 }
 

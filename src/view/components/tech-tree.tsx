@@ -22,7 +22,7 @@ import { getAgeIcon, getOtherIcon, getUnitIcon } from '../../helper/units';
 import { getBuildingIcon } from '../../helper/buildings';
 import { isEmpty } from 'lodash';
 import { Delayed } from './delayed';
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { useTechTreeSize } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useTranslation } from '@app/helper/translate';
@@ -143,17 +143,17 @@ export function getAbilityIcon({civ, tech, unit, building}: AbilityHelperProps) 
     return false;
 }
 
-export function getAbilityNavCallback({tech, unit, building}: AbilityHelperProps) {
+export function getAbilityNavHref({tech, unit, building}: AbilityHelperProps) {
     if (tech) {
-        return () => router.navigate(`/explore/technologies/${tech}`);
+        return `/explore/technologies/${tech}` as const;
     }
     if (unit) {
-        return () => router.navigate(`/explore/units/${unit}`);
+        return `/explore/units/${unit}` as const;
     }
     if (building) {
-        return () => router.navigate(`/explore/buildings/${building}`);
+        return `/explore/buildings/${building}` as const;
     }
-    return () => {};
+    return '/'
 }
 
 function Ability0() {
@@ -183,29 +183,31 @@ function Ability2({civ, age, tech, unit, building, unique, dependsOn}: AbilityPr
         borderColor = '#AA460F';
     }
     return (
-        <TouchableOpacity style={[styles.imageContainer2, { borderColor, opacity }]} onPress={getAbilityNavCallback({ tech, unit, building })}>
-            <ImageBackground
-                source={getAbilityIcon({ civ, tech, unit, building })}
-                imageStyle={styles.imageInner2}
-                contentFit="cover"
-                style={styles.image2}
-            >
-                {!enabled && <Image source={getOtherIcon('Cross' as any)} style={styles.cross} />}
-                {age !== availableAge && (
-                    <Image
-                        source={getAgeIcon(availableAge as any)}
-                        style={{
-                            position: 'absolute',
-                            top: -8,
-                            right: -8,
-                            width: 16,
-                            height: 16,
-                        }}
-                        className="absolute -top-2 -right-2 w-4 h-4 md:-top-4 md:-right-4 md:w-8 md:h-8"
-                    />
-                )}
-            </ImageBackground>
-        </TouchableOpacity>
+        <Link asChild href={getAbilityNavHref({ tech, unit, building })} style={[styles.imageContainer2, { borderColor, opacity }]}>
+            <TouchableOpacity>
+                <ImageBackground
+                    source={getAbilityIcon({ civ, tech, unit, building })}
+                    imageStyle={styles.imageInner2}
+                    contentFit="cover"
+                    style={styles.image2}
+                >
+                    {!enabled && <Image source={getOtherIcon('Cross' as any)} style={styles.cross} />}
+                    {age !== availableAge && (
+                        <Image
+                            source={getAgeIcon(availableAge as any)}
+                            style={{
+                                position: 'absolute',
+                                top: -8,
+                                right: -8,
+                                width: 16,
+                                height: 16,
+                            }}
+                            className="absolute -top-2 -right-2 w-4 h-4 md:-top-4 md:-right-4 md:w-8 md:h-8"
+                        />
+                    )}
+                </ImageBackground>
+            </TouchableOpacity>
+        </Link>
     );
 }
 

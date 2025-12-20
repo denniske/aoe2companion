@@ -2,13 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { Field } from './field';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 import { RecentSearches } from '@app/view/components/recent-searches';
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
 import useDebounce from '@app/hooks/use-debounce';
 import { useProfilesByProfileIds, useProfilesBySearchInfiniteQuery, useProfilesBySteamId } from '@app/queries/all';
 import compact from 'lodash/compact';
 import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import PlayerList from '@app/view/components/player-list';
-import { Button } from './button';
 import { useRecentSearches } from '@app/service/recent-searches';
 import { Text } from './text';
 import { useTranslation } from '@app/helper/translate';
@@ -43,15 +42,12 @@ export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResult
         setIsFocused(false);
         if (onSelect) {
             onSelect(profile);
-        } else {
-            router.navigate(`/players/${profile.profileId}`);
         }
     };
 
     const viewAll = () => {
         setText('');
         setIsFocused(false);
-        router.navigate(`/players/search?query=${text}`);
     };
 
     useEffect(() => {
@@ -70,15 +66,17 @@ export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResult
     return (
         <div className="relative w-2xs" ref={ref}>
             <Field
+                className="h-full border-transparent dark:border-border"
                 type="search"
                 placeholder="Search Players"
                 onFocus={() => setIsFocused(true)}
-                style={{ zIndex: 1 }}
+                style={{ zIndex: 1, height: 48 }}
                 onChangeText={setText}
                 value={text}
                 onKeyPress={(e) => {
                     if (e.nativeEvent.key === 'Enter') {
                         viewAll();
+                        router.navigate(`/players/search?query=${text}`);
                     }
                 }}
             />
@@ -96,21 +94,24 @@ export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResult
                             <PlayerList
                                 list={list.slice(0, 5)}
                                 selectedUser={onSelectUser}
+                                shouldLink={!onSelect}
                                 keyExtractor={(item) => (typeof item === 'string' ? item : item.profileId.toString())}
                             />
 
                             {showViewAll && list.length > 5 && (
                                 <View className="px-4">
                                     <View className="h-px bg-gray-200 dark:bg-gray-800 w-full mt-2.5" />
-                                    <Pressable onPress={viewAll} className="p-3 items-center">
-                                        <Text variant="label">View All</Text>
-                                    </Pressable>
+                                    <Link asChild href={`/players/search?query=${text}`}>
+                                        <Pressable onPress={viewAll} className="p-3 items-center">
+                                            <Text variant="label">View All</Text>
+                                        </Pressable>
+                                    </Link>
                                 </View>
                             )}
                         </View>
                     ) : data.length > 0 ? (
                         <View className="pb-2.5">
-                            <RecentSearches onSelect={onSelectUser} limit={5} />
+                            <RecentSearches onSelect={onSelectUser} limit={5} shouldLink={!onSelect} />
                         </View>
                     ) : (
                         <Text variant="label" align="center" className="pb-4">

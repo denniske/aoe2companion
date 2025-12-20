@@ -1,5 +1,5 @@
 import Search from '@app/view/components/search';
-import { router, Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from '@app/helper/translate';
 
 type SearchPageParams = {
@@ -13,7 +13,7 @@ export default function SearchPage() {
     return (
         <>
             <Stack.Screen options={{ title: getTranslation('matches.search.title') }} />
-            <Search selectedUser={(user) => router.navigate(`/players/${user.profileId}`)} initialText={params.query} />
+            <Search initialText={params.query} />
         </>
     );
 }

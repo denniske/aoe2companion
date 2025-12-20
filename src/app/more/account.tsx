@@ -73,9 +73,6 @@ export default function AccountPage() {
     const discordPromptAsync = useDiscordAuth();
     const steamPromptAsync = useSteamAuth();
     const xboxPromptAsync = useXboxAuth();
-    const psnPromptAsync = () => {
-        router.push('/more/oauth/psn');
-    };
 
     useEffect(() => {
         if (relicVerificationData?.verified) {
@@ -129,23 +126,11 @@ export default function AccountPage() {
         }
     };
 
-    const logout = async () => {
-        await supabaseClient.auth.signOut();
-
-        await AsyncStorage.removeItem('account');
-        await AsyncStorage.removeItem('config');
-        await AsyncStorage.removeItem('settings');
-        await AsyncStorage.removeItem('following');
-        await AsyncStorage.removeItem('prefs');
-
-        await account.refetch();
-    };
-
     const deleteAccount = async () => {
         console.log('deleteAccount');
 
         await accountDelete();
-        await logout();
+        await account.logout();
     };
 
     const showDeleteDialog = () => {
@@ -232,7 +217,7 @@ export default function AccountPage() {
 
                         {!linkedGameAccount && Platform.OS !== 'web' && (
                             <Button
-                                onPress={() => psnPromptAsync()}
+                                href="/more/oauth/psn"
                                 // icon={()=><FontAwesome5 name="psn" size={14} color={theme.backgroundColor} />}
                                 className={'self-start'}
                             >
@@ -400,7 +385,7 @@ export default function AccountPage() {
 
                     <View className="gap-2">
                         <Text variant="header-sm"></Text>
-                        <Button onPress={() => logout()} className={'self-start'}>
+                        <Button onPress={() => account.logout()} className={'self-start'}>
                             {getTranslation('account.action.logout')}
                         </Button>
                     </View>

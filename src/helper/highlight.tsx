@@ -5,7 +5,7 @@ import { MyText } from '../view/components/my-text';
 import React from 'react';
 import { memoize } from 'lodash';
 import { getLanguage } from '../../data/src/lib/aoe-data';
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 
 // export function highlightUnitAndCivs(str: string) {
 //     const appStyles = useTheme(appVariants);
@@ -85,42 +85,33 @@ export function HighlightUnitAndTechs(props: IProps) {
             const matchingTech = reverseTechMap[parts[i].toLowerCase()]?.name;
             if (matchingTech) {
                 texts.push(
-                    <MyText
-                        key={i}
-                        style={appStyles.link}
-                        className="hover:underline"
-                        onPress={() => router.navigate(`/explore/technologies/${matchingTech}`)}
-                    >
-                        {parts[i]}
-                    </MyText>
+                    <Link asChild href={`/explore/technologies/${matchingTech}`} key={i}>
+                        <MyText style={appStyles.link} className="hover:underline">
+                            {parts[i]}
+                        </MyText>
+                    </Link>
                 );
                 continue;
             }
             const matchingUnit = reverseUnitMap[parts[i].toLowerCase()]?.name;
             if (matchingUnit) {
                 texts.push(
-                    <MyText
-                        key={i}
-                        style={appStyles.link}
-                        className="hover:underline"
-                        onPress={() => router.navigate(`/explore/units/${matchingUnit}`)}
-                    >
-                        {parts[i]}
-                    </MyText>
+                    <Link asChild href={`/explore/units/${matchingUnit}`} key={i}>
+                        <MyText style={appStyles.link} className="hover:underline">
+                            {parts[i]}
+                        </MyText>
+                    </Link>
                 );
                 continue;
             }
             const matchingBuilding = reverseBuildingMap[parts[i].toLowerCase()]?.name;
             if (matchingBuilding) {
                 texts.push(
-                    <MyText
-                        key={i}
-                        style={appStyles.link}
-                        className="hover:underline"
-                        onPress={() => router.navigate(`/explore/buildings/${matchingBuilding}`)}
-                    >
-                        {parts[i]}
-                    </MyText>
+                    <Link asChild href={`/explore/buildings/${matchingBuilding}`} key={i}>
+                        <MyText style={appStyles.link} className="hover:underline">
+                            {parts[i]}
+                        </MyText>
+                    </Link>
                 );
             }
         }

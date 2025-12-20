@@ -7,7 +7,7 @@ import Login from './login';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 
 export const LoginModal = ({ onClose, isVisible }: { isVisible: boolean; onClose: () => void }) => {
-const {isMedium} = useBreakpoints()
+    const { isMedium } = useBreakpoints();
 
     return (
         <Transition appear show={isVisible} as={Fragment}>

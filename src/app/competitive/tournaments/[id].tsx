@@ -189,11 +189,6 @@ export default function TournamentDetail() {
                                 </View>
 
                                 <PlayerList
-                                    selectedUser={(participant) => {
-                                        if (participant.profileId) {
-                                            router.navigate(`/players/${participant.profileId}`);
-                                        }
-                                    }}
                                     variant="horizontal"
                                     list={tournamentParticipants?.map((participant) => ({
                                         ...participant,

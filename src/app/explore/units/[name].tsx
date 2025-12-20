@@ -81,11 +81,9 @@ export default function UnitDetails() {
                         <UnitUpgrades unitLineId={unitLineId} unitId={unitName} />
                     </View>
 
-                    {!getAbilityEnabledForAllCivs({ unit: unitName }) && (
-                        <Card direction="vertical" className="w-sm hidden lg:flex pt-2!">
-                            <CivAvailability unit={unitName} />
-                        </Card>
-                    )}
+                    <Card direction="vertical" className="w-sm hidden lg:flex pt-2!">
+                        <CivAvailability unit={unitName} />
+                    </Card>
                 </View>
 
                 <View className="flex lg:hidden">{!getAbilityEnabledForAllCivs({ unit: unitName }) && <CivAvailability unit={unitName} />}</View>

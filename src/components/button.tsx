@@ -1,9 +1,10 @@
 import { TextColor, TextVariant } from '@app/utils/text.util';
-import { Href, router } from 'expo-router';
+import { Href, Link, router } from 'expo-router';
 import { Pressable, TouchableOpacityProps } from 'react-native';
 
 import { Icon, IconProps } from './icon';
 import { Text, TextProps } from './text';
+import { Fragment } from 'react';
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
     children?: string;
@@ -15,6 +16,7 @@ export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
 }
 
 export const Button: React.FC<ButtonProps> = ({ className, children, icon, onPress, href, size = 'medium', disabled, align, color, ...props }) => {
+    const Wrapper = href ? Link : Fragment;
     const textSizes: Record<NonNullable<ButtonProps['size']>, TextVariant> = {
         small: 'label-sm',
         medium: 'header-xs',
@@ -31,28 +33,22 @@ export const Button: React.FC<ButtonProps> = ({ className, children, icon, onPre
     const finalColor = disabled ? 'text-gray-600' : color ?? 'text-white';
 
     return (
-        <Pressable
-            className={`flex-row rounded items-center ${spacingSizes[size]} ${backgroundColor} ${className ?? ''}`}
-            onPress={(e) => {
-                if (href) {
-                    router.push(href);
-                }
-                onPress?.(e);
-            }}
-        >
-            {icon && <Icon color="white" icon={icon} size={14} />}
-            {children && (
-                <Text
-                    variant={textSizes[size]}
-                    color={finalColor}
-                    className={`uppercase ${align ? 'flex-1' : ''}`}
-                    align={align}
-                    // style={textStyle}
-                    allowFontScaling={false}
-                >
-                    {children}
-                </Text>
-            )}
-        </Pressable>
+        <Wrapper asChild href={href!}>
+            <Pressable className={`flex-row rounded items-center ${spacingSizes[size]} ${backgroundColor} ${className ?? ''}`} onPress={onPress}>
+                {icon && <Icon color="white" icon={icon} size={14} />}
+                {children && (
+                    <Text
+                        variant={textSizes[size]}
+                        color={finalColor}
+                        className={`uppercase ${align ? 'flex-1' : ''}`}
+                        align={align}
+                        // style={textStyle}
+                        allowFontScaling={false}
+                    >
+                        {children}
+                    </Text>
+                )}
+            </Pressable>
+        </Wrapper>
     );
 };

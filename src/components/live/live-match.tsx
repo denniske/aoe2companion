@@ -11,12 +11,11 @@ import { createStylesheet } from '../../theming-new';
 import { ILobbiesMatch } from '../../api/helper/api.types';
 import { Card } from '@app/components/card';
 import { Text } from '../text';
-import { useRouter } from 'expo-router';
 
 interface IGameProps {
+    clickable?: boolean;
     data: ILobbiesMatch;
     expanded?: boolean;
-    onPress?: () => void;
 }
 
 const formatDuration = (start: Date, finish: Date) => {
@@ -27,14 +26,8 @@ const formatDuration = (start: Date, finish: Date) => {
     return `${hours.length < 2 ? 0 + hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} min`;
 };
 
-export function LiveMatch({data, expanded = false, onPress}: IGameProps) {
+export function LiveMatch({ data, expanded = false, clickable }: IGameProps) {
     const styles = useStyles();
-
-    const router = useRouter();
-
-    const openLobby = (lobbyId: number) => {
-        router.push(`/matches/lobbies/${lobbyId}`);
-    };
 
     if (data == null) {
         return (
@@ -42,17 +35,19 @@ export function LiveMatch({data, expanded = false, onPress}: IGameProps) {
                 <MyListAccordion
                     style={styles.accordion}
                     expanded={expanded}
-                    left={props => (
+                    left={(props) => (
                         <View style={styles.row}>
-                            <ImageLoader style={styles.map}/>
+                            <ImageLoader style={styles.map} />
                             <View style={styles.header}>
-                                <TextLoader numberOfLines={1} style={[styles.matchTitle, {marginVertical: 2, height: 10}]}/>
-                                <TextLoader numberOfLines={1} style={[styles.matchContent, {marginVertical: 2, height: 10}]}/>
-                                <TextLoader numberOfLines={1} style={[styles.matchContent, {marginVertical: 2, height: 10}]}/>
+                                <TextLoader numberOfLines={1} style={[styles.matchTitle, { marginVertical: 2, height: 10 }]} />
+                                <TextLoader numberOfLines={1} style={[styles.matchContent, { marginVertical: 2, height: 10 }]} />
+                                <TextLoader numberOfLines={1} style={[styles.matchContent, { marginVertical: 2, height: 10 }]} />
                             </View>
                         </View>
                     )}
-                ><View/></MyListAccordion>
+                >
+                    <View />
+                </MyListAccordion>
             </Card>
         );
     }
@@ -61,42 +56,34 @@ export function LiveMatch({data, expanded = false, onPress}: IGameProps) {
 
     return (
         <View className="gap-4">
-            <Card direction="vertical" onPress={onPress}>
+            <Card direction="vertical" href={clickable ? `/matches/lobbies/${data.matchId}` : undefined}>
                 <View style={styles.row}>
-                    <Image style={styles.map} source={{uri: data.mapImageUrl}}/>
+                    <Image style={styles.map} source={{ uri: data.mapImageUrl }} />
                     <View style={styles.header}>
                         <Text numberOfLines={1} variant="header-sm">
                             {data.mapName} - {data.name}
                         </Text>
                         <Text numberOfLines={1}>
                             {data.gameModeName}
-                            {
-                                data.server &&
-                                <MyText> - {data.server}</MyText>
-                            }
+                            {data.server && <MyText> - {data.server}</MyText>}
                         </Text>
                         <Text numberOfLines={1}>
                             {data.blockedSlotCount}/{data.totalSlotCount}
-                            {
-                                data.averageRating &&
-                                <MyText> (~{data.averageRating})</MyText>
-                            }
+                            {data.averageRating && <MyText> (~{data.averageRating})</MyText>}
                         </Text>
                     </View>
                 </View>
             </Card>
-            {
-                expanded && (
-                    <Card>
-                        <View style={styles.playerList} className="gap-2">
-                            <LivePlayer key={'header'} player={null}/>
-                            {
-                                players.map((player, j) => <LivePlayer key={j} player={player}/>)
-                            }
-                        </View>
-                    </Card>
-                )
-            }
+            {expanded && (
+                <Card>
+                    <View style={styles.playerList} className="gap-2">
+                        <LivePlayer key={'header'} player={null} />
+                        {players.map((player, j) => (
+                            <LivePlayer key={j} player={player} />
+                        ))}
+                    </View>
+                </Card>
+            )}
         </View>
     );
 }

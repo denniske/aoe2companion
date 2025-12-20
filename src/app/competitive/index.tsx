@@ -16,7 +16,7 @@ import { TournamentMatch } from '@app/view/tournaments/tournament-match';
 import { matchAttributes } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
-import { Stack, useFocusEffect, useRouter } from 'expo-router';
+import { Stack, useFocusEffect } from 'expo-router';
 import { PlayoffMatch } from 'liquipedia';
 import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';
@@ -58,6 +58,7 @@ export default function Competitive() {
                 const twitch = player.socialTwitchChannel && liveTwitchAccounts?.find((twitch) => twitch.user_login === player.socialTwitchChannel);
                 return {
                     ...player,
+                    href: `/matches/${match.matchId}`,
                     match,
                     isLive: !!twitch,
                     viewerCount: twitch ? twitch.viewer_count : 0,
@@ -99,12 +100,6 @@ export default function Competitive() {
     );
 
     const { data: featuredTournaments, isLoading } = useFeaturedTournaments();
-
-    const router = useRouter();
-
-    const openMatch = (matchId: number) => {
-        router.push(`/matches/${matchId}`);
-    };
 
     const playTwitchStream = async () => {
         if (Platform.OS === 'ios' || Platform.OS === 'web') {
@@ -163,7 +158,6 @@ export default function Competitive() {
 
                         <PlayerList
                             hideIcons
-                            selectedUser={(user) => openMatch(user.match.matchId)}
                             list={
                                 activePlayers.length > 0
                                     ? activePlayers

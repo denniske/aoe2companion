@@ -108,7 +108,7 @@ export const dark: ITheme = {
     font-variant: tabular-nums;
 }
 
-@custom-variant hocus (&:hover, &:focus);
+@custom-variant hocus (&:hover, &:focus-visible);
 
 /* Scrollbar styling */
 * {

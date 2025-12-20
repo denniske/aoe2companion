@@ -1,6 +1,6 @@
 import { useOngoing } from '@app/api/socket/ongoing';
 import { Text } from '@app/components/text';
-import { Stack, useRouter } from 'expo-router';
+import { Stack } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
@@ -45,16 +45,6 @@ export default function LiveAllPage() {
         });
         return filtered.map((m) => getMatchFromOngoingMatch(m));
     }, [matches, debouncedSearch]);
-
-    const router = useRouter();
-
-    const openMatch = (matchId: number) => {
-        router.push(`/matches/${matchId}`);
-    };
-
-    const openLobby = (lobbyId: number) => {
-        router.push(`/matches/lobbies/${lobbyId}`);
-    };
 
     return (
         <KeyboardAvoidingView>
@@ -102,7 +92,7 @@ export default function LiveAllPage() {
                     contentContainerClassName={containerPaddingClassName}
                     ItemSeparatorComponent={() => <View className="h-4" />}
                     data={filteredMatches.slice(0, limit)}
-                    renderItem={({ item: match }) => <MatchCard match={match} onPress={() => openMatch(match.matchId)} />}
+                    renderItem={({ item: match }) => <MatchCard match={match} clickable />}
                     ListFooterComponent={() => (
                         <View className="flex-row items-center justify-center p-4">
                             {filteredMatches.length > limit && (

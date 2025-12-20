@@ -5,7 +5,7 @@ import { Image } from '@/src/components/uniwind/image';
 import { getBuildingIcon } from '../../helper/buildings';
 import { MyText } from '../components/my-text';
 import { Building, getBuildingDescription, getBuildingName, iconHeight, iconWidth } from '@nex/data';
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { useShowTabBar } from '../../hooks/use-show-tab-bar';
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
@@ -33,20 +33,22 @@ export function BuildingCompBig({ building, subtitle, canShowCard }: { building:
     }
 
     return (
-        <TouchableOpacity className="pt-1 pb-1" onPress={() => router.push(`/explore/buildings/${building}`)}>
-            <View style={styles.rowBig}>
-                <Image style={styles.unitIconBig} source={getBuildingIcon(building)} />
-                <View style={styles.unitIconBigTitle}>
-                    <MyText>{getBuildingName(building)}</MyText>
-                    {subtitle && <MyText style={styles.base.small}>{subtitle}</MyText>}
-                    {!subtitle && (
-                        <MyText numberOfLines={1} style={styles.base.small}>
-                            {getBuildingDescription(building)}
-                        </MyText>
-                    )}
+        <Link asChild href={`/explore/buildings/${building}`}>
+            <TouchableOpacity className="pt-1 pb-1">
+                <View style={styles.rowBig}>
+                    <Image style={styles.unitIconBig} source={getBuildingIcon(building)} />
+                    <View style={styles.unitIconBigTitle}>
+                        <MyText>{getBuildingName(building)}</MyText>
+                        {subtitle && <MyText style={styles.base.small}>{subtitle}</MyText>}
+                        {!subtitle && (
+                            <MyText numberOfLines={1} style={styles.base.small}>
+                                {getBuildingDescription(building)}
+                            </MyText>
+                        )}
+                    </View>
                 </View>
-            </View>
-        </TouchableOpacity>
+            </TouchableOpacity>
+        </Link>
     );
 }
 
