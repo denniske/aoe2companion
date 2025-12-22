@@ -9,13 +9,26 @@ import { Fragment } from 'react';
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
     children?: string;
     icon?: IconProps['icon'];
+    iconPrefix?: IconProps['prefix'];
     href?: Href;
     size?: 'small' | 'medium' | 'large';
     align?: TextProps['align'];
     color?: TextColor;
 }
 
-export const Button: React.FC<ButtonProps> = ({ className, children, icon, onPress, href, size = 'medium', disabled, align, color, ...props }) => {
+export const Button: React.FC<ButtonProps> = ({
+    className,
+    children,
+    icon,
+    iconPrefix,
+    onPress,
+    href,
+    size = 'medium',
+    disabled,
+    align,
+    color,
+    ...props
+}) => {
     const Wrapper = href ? Link : Fragment;
     const textSizes: Record<NonNullable<ButtonProps['size']>, TextVariant> = {
         small: 'label-sm',
@@ -35,7 +48,7 @@ export const Button: React.FC<ButtonProps> = ({ className, children, icon, onPre
     return (
         <Wrapper asChild href={href!}>
             <Pressable className={`flex-row rounded items-center ${spacingSizes[size]} ${backgroundColor} ${className ?? ''}`} onPress={onPress}>
-                {icon && <Icon color="white" icon={icon} size={14} />}
+                {icon && <Icon color="white" icon={icon} prefix={iconPrefix} size={14} />}
                 {children && (
                     <Text
                         variant={textSizes[size]}

@@ -122,12 +122,13 @@ export async function fetchNews() {
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as INewsResult;
 }
 
-export async function fetchVideos(civ?: string) {
-    let queryString = '';
-    if (civ) {
-        queryString += `civ=${civ}`
-    }
-    const url = `${getHost('aoe2companion-data')}api/videos?${queryString}`;
+export async function fetchFeaturedVideos(language: string) {
+    const url = `${getHost('aoe2companion-data')}api/videos/featured?language=${language}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IVideosResult;
+}
+
+export async function fetchCivVideos(civ: string) {
+    const url = `${getHost('aoe2companion-data')}api/videos/civ/${civ}`;
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IVideosResult;
 }
 

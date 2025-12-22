@@ -26,7 +26,7 @@ export default function StatisticsPage() {
 
             <Card href="/statistics/leaderboard" direction="vertical" className="overflow-hidden md:flex-1">
                 <View className="-mx-4 -mt-4 mb-1">
-                    <Image source={require('../../../assets/statistics/hero.webp')} className="h-36 w-full" />
+                    <Image source={require('../../../assets/statistics/hero.webp')} className="h-36 lg:h-64 w-full" />
                 </View>
                 <Text variant="label-lg">{getTranslation('leaderboards.title')}</Text>
             </Card>
@@ -37,7 +37,7 @@ export default function StatisticsPage() {
                 className="overflow-hidden md:flex-1"
             >
                 <View className="-mx-4 -mt-4 mb-1">
-                    <Image source={require('../../../assets/statistics/armenians.webp')} className="h-36 w-full" />
+                    <Image source={require('../../../assets/statistics/armenians.webp')} className="h-36 lg:h-64 w-full" />
                 </View>
                 <Text variant="label-lg">{getTranslation('winrates.title')}</Text>
             </Card>

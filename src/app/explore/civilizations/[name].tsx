@@ -16,7 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useUniwind } from 'uniwind';
 import NotFound from '@app/app/+not-found';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
-import { useVideo } from '@app/utils/video';
+import { useCivVideo } from '@app/utils/video';
 import { Text } from '@app/components/text';
 
 export default function CivDetails() {
@@ -24,7 +24,7 @@ export default function CivDetails() {
     const civ = name!;
     const { theme } = useUniwind();
     const { isMedium } = useBreakpoints();
-    const { data: video } = useVideo(appConfig.game === 'aoe2' ? civ.toLowerCase() : '');
+    const { data: video } = useCivVideo(appConfig.game === 'aoe2' ? civ.toLowerCase() : '');
 
     if (appConfig.game !== 'aoe2') {
         return <Civ4Details civ={civ} />;

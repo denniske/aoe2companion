@@ -328,7 +328,7 @@ export interface IVideo {
     author: string;
     thumbnailUrl: string;
     videoId: string;
-    publishDate: string;
+    publishDate: Date;
     civ?: string;
 }
 
@@ -747,6 +747,7 @@ export interface ILeaderboardPlayer {
     rank: number;
     rankCountry: number;
     rating: number;
+    maxRating: number;
     lastMatchTime: Date;
     streak: number;
     wins: number;
