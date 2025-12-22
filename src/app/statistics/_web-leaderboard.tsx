@@ -102,6 +102,9 @@ function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; sea
                                 Rating
                             </th>
                             <th scope="col" className="py-3 px-6">
+                                Highest Rating
+                            </th>
+                            <th scope="col" className="py-3 px-6">
                                 Wins
                             </th>
                             <th scope="col" className="py-3 px-6">
@@ -123,6 +126,9 @@ function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; sea
                                 </th>
                                 <td className="py-4 px-6">
                                     <Text>{player.rating}</Text>
+                                </td>
+                                <td className="py-4 px-6">
+                                    <Text>{player.maxRating}</Text>
                                 </td>
                                 <td className="py-4 px-6">
                                     <Text>{((player.wins / player.games) * 100).toFixed(0)} %</Text>

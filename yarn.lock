@@ -1809,6 +1809,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/free-brands-svg-icons@npm:^6.5.2":
+  version: 6.7.2
+  resolution: "@fortawesome/free-brands-svg-icons@npm:6.7.2"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10/7dcbb389ccfee519d4639b992e65180ee4665bc0627e608a5d756c78acd50414f9a8d4a21a27e38f845c89cca33eb23bb468fb050c7764504659581e35e78b48
+  languageName: node
+  linkType: hard
+
 "@fortawesome/react-native-fontawesome@npm:^0.3.1":
   version: 0.3.2
   resolution: "@fortawesome/react-native-fontawesome@npm:0.3.2"
@@ -4561,6 +4570,7 @@ __metadata:
     "@expo/metro-runtime": "npm:~6.1.2"
     "@expo/vector-icons": "npm:^15.0.3"
     "@fortawesome/fontawesome-svg-core": "npm:^6.5.2"
+    "@fortawesome/free-brands-svg-icons": "npm:^6.5.2"
     "@fortawesome/react-native-fontawesome": "npm:^0.3.1"
     "@fortawesome/sharp-regular-svg-icons": "npm:^6.5.2"
     "@fortawesome/sharp-solid-svg-icons": "npm:^6.5.2"

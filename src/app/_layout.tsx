@@ -17,6 +17,7 @@ import {
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
     Environment,
     IHostService,
@@ -79,7 +80,7 @@ function onAppStateChange(status: AppStateStatus) {
     }
 }
 
-library.add(fass, fasr);
+library.add(fass, fasr, fab);
 
 SplashScreen.preventAutoHideAsync();
 

@@ -10,7 +10,7 @@ import { useFollowedTournaments } from '@app/service/favorite-tournaments';
 import { useAccountMostRecentMatches } from '@app/utils/match';
 import { useNews } from '@app/utils/news';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
-import { Stack } from 'expo-router';
+import { Href, Stack } from 'expo-router';
 import React from 'react';
 import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
@@ -21,12 +21,15 @@ import { appVariants } from '@app/styles';
 import { BuildCard, BuildSkeletonCard } from '@app/view/components/build-order/build-card';
 import { compact } from 'lodash';
 import { useFavoritedBuilds } from '@app/service/favorite-builds';
-import { appConfig } from '@nex/dataset';
+import { appConfig, appIconData } from '@nex/dataset';
 import { RankedMaps } from '@app/components/ranked-maps';
 import { AnimateIn } from '@app/components/animate-in';
 import { useShowTabBar } from '../hooks/use-show-tab-bar';
 import { Card } from '@app/components/card';
 import { FeaturedVideos } from '@app/components/featured-videos';
+import { useLoginPopup } from '@app/hooks/use-login-popup';
+import { Icon, IconName } from '@app/components/icon';
+import { Image } from '@app/components/uniwind/image';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -55,6 +58,7 @@ const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) =
 };
 
 export default function IndexPage() {
+    const { shouldPromptLogin } = useLoginPopup();
     const appStyles = useTheme(appVariants);
     const getTranslation = useTranslation();
     const authProfileId = useAuthProfileId();
@@ -65,6 +69,22 @@ export default function IndexPage() {
     const { favoriteIds } = useFavoritedBuilds();
     const { followedIds } = useFollowedTournaments();
     const showTabBar = useShowTabBar();
+    const welcomeCards: Array<{ icon: IconName; title: string; description: string; href: Href }> = [
+        { icon: 'search', title: 'Find Players', description: 'Search players and view match history, civs, and ratings', href: '/players/search' },
+        {
+            icon: 'ranking-star',
+            title: 'Leaderboard',
+            description: 'Track top players, rankings, and current competitive ladders',
+            href: '/statistics/leaderboard',
+        },
+        {
+            icon: 'diagram-sankey',
+            title: 'Tech Tree',
+            description: 'Explore civilizations, units, upgrades, and unique bonuses',
+            href: '/explore',
+        },
+        { icon: 'bookmark', title: 'Sign in to Save', description: 'Follow players, save favorites, and sync across devices', href: '/more/account' },
+    ];
 
     return (
         <ScrollView contentContainerClassName="p-4">
@@ -72,28 +92,85 @@ export default function IndexPage() {
                 options={{
                     headerShown: showTabBar,
                     animation: 'none',
-                    headerRight: () => (
-                        <Button href={'/players/search'} icon="search">
-                            {getTranslation('home.findPlayer')}
-                        </Button>
-                    ),
+                    headerTitle:
+                        Platform.OS === 'web'
+                            ? () => (
+                                  <View className="flex flex-row items-center gap-4">
+                                      <Image source={appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
+
+                                      <Text variant="header-lg" color="subtle">
+                                          {appConfig.app.name}
+                                      </Text>
+                                  </View>
+                              )
+                            : undefined,
+                    headerRight: () =>
+                        Platform.OS !== 'web' && (
+                            <Button href={'/players/search'} icon="search">
+                                {getTranslation('home.findPlayer')}
+                            </Button>
+                        ),
                     title: getTranslation('home.title'),
                 }}
             />
 
-            <View className="-mx-4 mb-5">
-                <FollowedPlayers />
-            </View>
+            <AnimateIn skipFirstAnimation={Platform.OS !== 'web'}>
+                {!shouldPromptLogin && (
+                    <View className="-mx-4 mb-5">
+                        <FollowedPlayers />
+                    </View>
+                )}
+            </AnimateIn>
 
-            {/* {Platform.OS === 'web' && (
-                <Card className="mb-5">
-                    <Text variant="header-lg">Buy Age of Empires 2</Text>
+            <AnimateIn>
+                {shouldPromptLogin && (
+                    <View className="mb-5 gap-2">
+                        <Text variant="header-lg">Get Started</Text>
+
+                        <View className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {welcomeCards.map((card) => (
+                                <Card className="flex-1 items-center gap-2" href={card.href} direction="vertical">
+                                    <View className="p-4 bg-blue-800 dark:bg-blue-700 rounded-full mb-1">
+                                        <Icon icon={card.icon} size={24} color="white" />
+                                    </View>
+                                    <Text variant="header">{card.title}</Text>
+                                    <Text align="center" color="subtle" className="hidden md:inline-block">
+                                        {card.description}
+                                    </Text>
+                                </Card>
+                            ))}
+                        </View>
+                    </View>
+                )}
+            </AnimateIn>
+
+            {Platform.OS === 'web' && (
+                <Card className="mb-5 justify-between">
+                    <Text variant="header-lg">
+                        Buy <Text variant='header-lg' className='italic'>Age of Empires II: Definitive Edition</Text>
+                    </Text>
+
+                    <View className="flex-row gap-4">
+                        <Button icon="steam" iconPrefix="fab" href="https://store.steampowered.com/app/813780/Age_of_Empires_II_Definitive_Edition/">
+                            Steam
+                        </Button>
+                        <Button
+                            icon="xbox"
+                            iconPrefix="fab"
+                            href="https://www.xbox.com/en-us/games/store/age-of-empires-ii-definitive-edition/9njdd0jgpp2q"
+                        >
+                            XBox
+                        </Button>
+                        <Button
+                            icon="playstation"
+                            iconPrefix="fab"
+                            href="https://store.playstation.com/en-us/product/UP6312-PPSA18654_00-0965895154892062"
+                        >
+                            PS5
+                        </Button>
+                    </View>
                 </Card>
-            )} */}
-
-            <View className="mb-5">
-                <FeaturedVideos />
-            </View>
+            )}
 
             {authProfileId && (
                 <AnimateIn>
@@ -146,6 +223,10 @@ export default function IndexPage() {
                     data={news}
                     renderItem={({ item }) => (item ? <NewsCard {...item} /> : <NewsCardSkeleton />)}
                 />
+            </View>
+
+            <View className="mb-5">
+                <FeaturedVideos />
             </View>
 
             {appConfig.game === 'aoe2' && <RankedMaps />}
