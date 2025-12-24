@@ -11,9 +11,9 @@ import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } f
 import { Button } from '@app/components/button';
 import { v4 as uuidv4 } from 'uuid';
 
-function useCurrentTabName() {
+export function useCurrentTabName() {
     // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
-    const pathname = usePathname();
+    usePathname();
 
     const rootNavigationState = useRootNavigationState();
     if (!rootNavigationState || !rootNavigationState.routes || rootNavigationState.routes.length === 0) {
@@ -67,36 +67,42 @@ export const TabBar: React.FC = () => {
     const routes = [
         {
             key: 'index',
+            additionalRoutes: [],
             label: getTranslation('nav.home'),
             icon: 'home',
             path: '/',
         },
         {
             key: 'matches',
+            additionalRoutes: ['players'],
             label: getTranslation('nav.matches'),
             icon: 'chess',
             path: '/matches',
         },
         {
             key: 'explore',
+            additionalRoutes: [],
             label: getTranslation('nav.explore'),
             icon: 'landmark',
             path: '/explore',
         },
         {
             key: 'statistics',
+            additionalRoutes: [],
             label: getTranslation('nav.stats'),
             icon: 'chart-simple',
             path: '/statistics',
         },
         {
             key: 'competitive',
+            additionalRoutes: [],
             label: getTranslation('nav.pros'),
             icon: 'ranking-star',
             path: '/competitive',
         },
         {
             key: 'more',
+            additionalRoutes: ['auth'],
             label: getTranslation('nav.more'),
             icon: 'bars',
             path: '/more',
@@ -104,10 +110,7 @@ export const TabBar: React.FC = () => {
     ] as const;
     return (
         <>
-            <Animated.View
-                className="absolute px-4 pb-2 w-full"
-                style={animatedArrowStyle}
-            >
+            <Animated.View className="absolute px-4 pb-2 w-full" style={animatedArrowStyle}>
                 <View style={{ height: 74, pointerEvents: 'box-none' }} className="items-center justify-center">
                     <View className={`${!showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`}>
                         <Button
@@ -123,17 +126,20 @@ export const TabBar: React.FC = () => {
                 </View>
             </Animated.View>
 
-            <Animated.View className={`absolute px-4 pb-2 w-full ${showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`} style={animatedStyle}>
+            <Animated.View
+                className={`absolute px-4 pb-2 w-full ${showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                style={animatedStyle}
+            >
                 <View
                     style={{ position: 'absolute', left: 0, right: 0, bottom: -bottom, top: -16 }}
                     className="bg-gradient-to-b from-[0%] to-[25%] from-gold-50/0 to-gold-50/90 dark:from-blue-950/0 dark:to-blue-950/90"
                 />
-                <View className="flex-row p-2 rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black">
+                <View className="flex-row p-2 rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black max-w-2xl w-full mx-auto">
                     {routes.map((route) => {
                         // console.log('ROUTE', route.key, route.path);
 
                         const label = route.label;
-                        const isFocused = routeName?.startsWith(route.key);
+                        const isFocused = routeName?.startsWith(route.key) || route.additionalRoutes.some(r => routeName?.startsWith(r));
 
                         const onPress = () => {
                             if (router.canDismiss()) {
@@ -143,16 +149,13 @@ export const TabBar: React.FC = () => {
                         };
 
                         return (
-                            <Pressable onPress={() => onPress()} key={route.label}
-                                       className={`justify-center items-center py-2 flex-1 ${isFocused && 'bg-blue-800 dark:bg-gold-700'} rounded-lg`}
+                            <Pressable
+                                onPress={() => onPress()}
+                                key={route.label}
+                                className={`justify-center items-center py-2 flex-1 ${isFocused && 'bg-blue-800 dark:bg-gold-700'} rounded-lg`}
                             >
                                 {route.icon && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon as IconName} />}
-                                <Text
-                                    allowFontScaling={false}
-                                    variant="nav"
-                                    color={isFocused ? 'white' : 'brand'}
-                                    className={`uppercase mt-2`}
-                                >
+                                <Text allowFontScaling={false} variant="nav" color={isFocused ? 'white' : 'brand'} className={`uppercase mt-2`}>
                                     {label}
                                 </Text>
                             </Pressable>

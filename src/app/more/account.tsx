@@ -73,9 +73,6 @@ export default function AccountPage() {
     const discordPromptAsync = useDiscordAuth();
     const steamPromptAsync = useSteamAuth();
     const xboxPromptAsync = useXboxAuth();
-    const psnPromptAsync = () => {
-        router.push('/more/oauth/psn');
-    };
 
     useEffect(() => {
         if (relicVerificationData?.verified) {
@@ -129,23 +126,11 @@ export default function AccountPage() {
         }
     };
 
-    const logout = async () => {
-        await supabaseClient.auth.signOut();
-
-        await AsyncStorage.removeItem('account');
-        await AsyncStorage.removeItem('config');
-        await AsyncStorage.removeItem('settings');
-        await AsyncStorage.removeItem('following');
-        await AsyncStorage.removeItem('prefs');
-
-        await account.refetch();
-    };
-
     const deleteAccount = async () => {
         console.log('deleteAccount');
 
         await accountDelete();
-        await logout();
+        await account.logout();
     };
 
     const showDeleteDialog = () => {
@@ -166,7 +151,14 @@ export default function AccountPage() {
         <ScrollView contentContainerClassName="min-h-full p-5">
             <Stack.Screen options={{ title: !loggedIn ? getTranslation('login.signin') : getTranslation('account.title') }} />
 
-            {!loggedIn && <Login />}
+            {!loggedIn && (
+                <View className="max-w-2xl mx-auto w-full gap-4">
+                    <Text variant="body-lg" align="center">
+                        An account lets you follow players and save your favorites. Your information syncs automatically across devices.
+                    </Text>
+                    <Login />
+                </View>
+            )}
 
             {loggedIn && (
                 <View className="gap-6">
@@ -192,10 +184,7 @@ export default function AccountPage() {
                             </>
                         )}
                         {!account.data?.patreonId && (
-                            <Button
-                                onPress={() => patreonPromptAsync()}
-                                className={'self-start'}
-                            >
+                            <Button onPress={() => patreonPromptAsync()} className={'self-start'}>
                                 {getTranslation('account.patreon.link')}
                             </Button>
                         )}
@@ -228,7 +217,7 @@ export default function AccountPage() {
 
                         {!linkedGameAccount && Platform.OS !== 'web' && (
                             <Button
-                                onPress={() => psnPromptAsync()}
+                                href="/more/oauth/psn"
                                 // icon={()=><FontAwesome5 name="psn" size={14} color={theme.backgroundColor} />}
                                 className={'self-start'}
                             >
@@ -252,19 +241,13 @@ export default function AccountPage() {
                         )}
 
                         {!linkedGameAccount && (
-                            <Button
-                                onPress={() => setRelicVerification((prev) => !prev)}
-                                className={'self-start'}
-                            >
+                            <Button onPress={() => setRelicVerification((prev) => !prev)} className={'self-start'}>
                                 {!relicVerification ? getTranslation('account.relic.link') : getTranslation('account.relic.cancel')}
                             </Button>
                         )}
 
                         {account.data?.steamId && authProfile?.platform && (
-                            <LinkedPlatformAccount
-                                steamId={account.data.steamId}
-                                platform={authProfile.platform}
-                            />
+                            <LinkedPlatformAccount steamId={account.data.steamId} platform={authProfile.platform} />
                         )}
                         {account.data?.authRelicId && <LinkedAoEAccount profileId={account.data.authRelicId} />}
 
@@ -394,10 +377,7 @@ export default function AccountPage() {
                             </>
                         )}
                         {!account.data?.twitchChannel && (
-                            <Button
-                                onPress={() => twitchPromptAsync()}
-                                className={'self-start'}
-                            >
+                            <Button onPress={() => twitchPromptAsync()} className={'self-start'}>
                                 {getTranslation('account.twitch.link')}
                             </Button>
                         )}
@@ -405,7 +385,7 @@ export default function AccountPage() {
 
                     <View className="gap-2">
                         <Text variant="header-sm"></Text>
-                        <Button onPress={() => logout()} className={'self-start'}>
+                        <Button onPress={() => account.logout()} className={'self-start'}>
                             {getTranslation('account.action.logout')}
                         </Button>
                     </View>

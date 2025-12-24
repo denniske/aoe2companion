@@ -2,7 +2,7 @@ import { getMapImage } from '@app/helper/maps';
 import { isMatchFreeForAll, teamRatio } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { flatten, startCase, uniq } from 'lodash';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Card } from '../card';
 import { Icon } from '../icon';
@@ -10,17 +10,20 @@ import { Skeleton, SkeletonText } from '../skeleton';
 import { Text } from '../text';
 import { MatchProps } from '@app/components/match/match';
 import { ElapsedTimeOrDuration } from '@app/components/elapsed-time-or-duration';
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { Image } from '@/src/components/uniwind/image';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import MatchTeams from './match-teams';
+import { CustomFragment } from '../custom-fragment';
 
 export interface MatchCardProps extends MatchProps {
-    onPress?: () => void;
+    clickable?: boolean;
     flat?: boolean;
     linkMap?: boolean;
 }
 
 export function MatchCard(props: MatchCardProps) {
-    const { flat, match, user, highlightedUsers, expanded = false, showLiveActivity = false, linkMap = false, onPress } = props;
+    const { flat, match, user, highlightedUsers, expanded = false, showLiveActivity = false, linkMap = false, clickable } = props;
     const players = flatten(match?.teams.map((t) => t.players));
     const freeForAll = isMatchFreeForAll(match);
     let attributes = [teamRatio(match)];
@@ -50,48 +53,61 @@ export function MatchCard(props: MatchCardProps) {
 
     attributes = uniq(attributes);
 
+    const { isMedium, isLarge } = useBreakpoints();
+    const MapLinkComponent = linkMap ? Link : CustomFragment;
+
     return (
         <Card
             flat={flat}
-            onPress={onPress}
+            href={clickable ? `/matches/${match.matchId}` : undefined}
             header={
                 <View className="relative">
-                    <TouchableOpacity disabled={!linkMap} onPress={() => router.push(`/explore/maps/${match.map}`)}>
-                        <Image
-                            source={getMapImage(match)}
-                            className={`w-14 h-14 ${appConfig.game === 'aoe2' ? '' : 'border border-gold-500 rounded'}`}
-                            contentFit="cover"
-                        />
-                    </TouchableOpacity>
+                    <MapLinkComponent asChild href={`/explore/maps/${match.map}`}>
+                        <TouchableOpacity disabled={!linkMap}>
+                            <Image
+                                source={getMapImage(match)}
+                                className={`w-14 h-14 md:w-20 md:h-20 ${appConfig.game === 'aoe2' ? '' : 'border border-gold-500 rounded'}`}
+                                contentFit="cover"
+                            />
+                        </TouchableOpacity>
+                    </MapLinkComponent>
                     <View className={`absolute ${appConfig.game === 'aoe2' ? 'top-0 left-0' : 'top-1 left-1'}`}>
                         {players.some((p) => p.profileId === user && p.won === true && (freeForAll || p.team != -1)) && (
-                            <Icon size={12} icon="crown" color={appConfig.game === 'aoe2' ? 'brand' : 'brand'} />
+                            <Icon size={isMedium ? 20 : 12} icon="crown" color={appConfig.game === 'aoe2' ? 'brand' : 'brand'} />
                         )}
 
                         {user == null && players.some((p) => p.won != null) && appConfig.game !== 'aoe2' && (
-                            <Image className="w-3 h-3" source={require('../../../assets/other/SkullCrown.png')} />
+                            <Image className="w-3 h-3 md:w-5 md:h-5" source={require('../../../assets/other/SkullCrown.png')} />
                         )}
 
                         {players.some((p) => p.profileId === user && p.won === false && (freeForAll || p.team != -1)) && (
-                            <Icon size={12} icon="skull" color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
+                            <Icon size={isMedium ? 20 : 12} icon="skull" color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
                         )}
                     </View>
                 </View>
             }
         >
-            <View className="flex-1">
-                <TouchableOpacity disabled={!linkMap} onPress={() => router.push(`/explore/maps/${match.map}`)}>
-                    <Text numberOfLines={1} variant="header-sm">
-                        {match.gameVariant === 'ror' && 'RoR - '}
-                        {match.mapName}
-                        {match.server && <Text> - {match.server}</Text>}
-                    </Text>
-                </TouchableOpacity>
+            <View className="flex-1 lg:flex-none lg:min-w-3xs lg:max-w-3xs">
+                <MapLinkComponent asChild href={`/explore/maps/${match.map}`}>
+                    <TouchableOpacity disabled={!linkMap}>
+                        <Text numberOfLines={1} variant="header-sm">
+                            {match.gameVariant === 'ror' && 'RoR - '}
+                            {match.mapName}
+                            {match.server && <Text> - {match.server}</Text>}
+                        </Text>
+                    </TouchableOpacity>
+                </MapLinkComponent>
 
                 <Text numberOfLines={1}>{attributes.join(' - ')}</Text>
 
                 <ElapsedTimeOrDuration match={match} />
             </View>
+
+            {isLarge && (
+                <View className="flex-1 px-4">
+                    <MatchTeams match={match} wrap={false} />
+                </View>
+            )}
         </Card>
     );
 }
@@ -99,17 +115,20 @@ export function MatchCard(props: MatchCardProps) {
 export const MarchCardSkeleton = () => {
     return (
         <Card
+            flat
             header={
                 <View className="relative">
-                    <Skeleton className="w-14 h-[57px]" />
+                    <Skeleton className="w-14 h-14 md:w-20 md:h-20" />
                 </View>
             }
         >
-            <View className="flex-1">
+            <View className="flex-1 lg:flex-none lg:min-w-3xs lg:max-w-3xs">
                 <SkeletonText variant="header-sm" />
                 <SkeletonText />
                 <SkeletonText />
             </View>
+
+            <View className="hidden lg:flex flex-1 px-4" />
         </Card>
     );
 };

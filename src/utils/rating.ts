@@ -1,6 +1,6 @@
 import { subDays, subMonths, subWeeks } from 'date-fns';
 
-export function getRatingTimespan(ratingHistoryDuration: string) {
+export function getRatingTimespan(ratingHistoryDuration?: string) {
     let since: any = null;
     switch (ratingHistoryDuration) {
         case '3m':

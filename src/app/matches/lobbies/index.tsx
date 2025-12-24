@@ -1,44 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { useAppTheme } from '../../theming';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Platform, View } from 'react-native';
+import { useAppTheme } from '../../../theming';
 import { LiveMatch } from '@app/components/live/live-match';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { ILobbiesMatch } from '../../api/helper/api.types';
-import { useNavigation, useRouter } from 'expo-router';
+import { ILobbiesMatch } from '../../../api/helper/api.types';
+import { Stack } from 'expo-router';
 import { Field } from '@app/components/field';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { FlatList } from '@app/components/flat-list';
 import { useTranslation } from '@app/helper/translate';
 import { initLobbySubscription } from '@app/api/socket/lobbies';
 import { Text } from '@app/components/text';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
+import { Button } from '@app/components/button';
 
-export default function LivePage() {
+export default function LiveLobbiesPage() {
     const getTranslation = useTranslation();
-    const navigation = useNavigation();
-
-    useEffect(() => {
-        navigation.setOptions({ title: getTranslation('lobbies.title') });
-    }, [navigation]);
-
     const theme = useAppTheme();
     const [usage, setUsage] = useState(0);
     const [search, setSearch] = useState('');
+    const [limit, setLimit] = useState(20);
 
     const [data, setData] = useState<ILobbiesMatch[]>([]);
-    const [filteredData, setFilteredData] = useState<ILobbiesMatch[]>([]);
+    const [isConnecting, setIsConnecting] = useState(true);
     const [connected, setConnected] = useState(false);
 
-    const router = useRouter();
-
     const connect = async () => {
+        setIsConnecting(true);
+
         await initLobbySubscription({
             onOpen: () => {
                 setConnected(true);
             },
             onClose: () => {
+                setIsConnecting(false);
                 setConnected(false);
             },
             onLobbies: (_lobbies: any[]) => {
+                setIsConnecting(false);
                 setData(_lobbies);
             },
         });
@@ -48,7 +48,7 @@ export default function LivePage() {
         connect();
     }, []);
 
-    useEffect(() => {
+    const filteredData = useMemo(() => {
         const parts = search.toLowerCase().split(' ');
         const filtered = data.filter((match) => {
             if (search === '') return true;
@@ -62,46 +62,51 @@ export default function LivePage() {
                 );
             });
         });
-        setFilteredData(filtered);
+        return filtered;
     }, [data, search]);
-
-    const list = ['header', ...(filteredData || Array(15).fill(null))];
-
-    const openLobby = (lobbyId: number) => {
-        router.push(`/matches/lobby/${lobbyId}`);
-    };
 
     return (
         <KeyboardAvoidingView>
-            <View className="flex-1">
-                <View className="flex-row items-center justify-center p-4 gap-2">
-                    <FontAwesome5 name="exclamation-triangle" size={14} color={theme.textNoteColor} />
-                    <Text>
-                        {getTranslation('lobbies.datausagewarning', { usage: (usage / 1000000).toFixed(1) })}
-                    </Text>
-                </View>
+            <Stack.Screen options={{ title: getTranslation('lobbies.title') }} />
 
-                <View className="px-4">
+            <View className="flex-1">
+                {Platform.OS !== 'web' && (
+                    <View className={cn('flex-row items-center justify-center p-4 gap-2', containerClassName)}>
+                        <FontAwesome5 name="exclamation-triangle" size={14} color={theme.textNoteColor} />
+                        <Text>{getTranslation('lobbies.datausagewarning', { usage: (usage / 1000000).toFixed(1) })}</Text>
+                    </View>
+                )}
+
+                <View className={cn('gap-2', Platform.OS === 'web' && 'pt-4', containerClassName)}>
                     <Field
                         type="search"
                         placeholder={getTranslation('lobbies.search.placeholder')}
                         onChangeText={(text) => setSearch(text)}
                         value={search}
                     />
+
+                    <Text variant="label">
+                        {isConnecting ? 'Fetching lobbies...' : `There are ${filteredData?.length} open lobbies${search ? ' that match your search ' : ''}`}
+                    </Text>
                 </View>
+
                 <FlatList
                     contentContainerClassName="p-4"
-                    data={list}
-                    renderItem={({ item, index }) => {
-                        switch (item) {
-                            case 'header':
-                                return <Text className="text-center">{filteredData?.length} lobbies</Text>;
-                            default:
-                                return <LiveMatch data={item as any} expanded={index === -1} onPress={() => openLobby((item as ILobbiesMatch).matchId)}  />;
-                        }
-                    }}
+                    data={filteredData.slice(0, limit)}
+                    renderItem={({ item, index }) => (
+                        <LiveMatch data={item} expanded={index === -1} clickable />
+                    )}
                     ItemSeparatorComponent={() => <View className="h-4" />}
                     keyExtractor={(item, index) => (typeof item === 'string' ? item : item.matchId?.toString())}
+                    ListFooterComponent={() => (
+                        <View className="flex-row items-center justify-center p-4">
+                            {filteredData.length > limit && (
+                                <View className="py-4 flex-row justify-center">
+                                    <Button onPress={() => setLimit(limit + 20)}>{getTranslation('footer.loadMore')}</Button>
+                                </View>
+                            )}
+                        </View>
+                    )}
                 />
             </View>
         </KeyboardAvoidingView>

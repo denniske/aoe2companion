@@ -15,6 +15,7 @@ import {
     getUpgradeFormatted,
     getUpgradeList,
     getWikiLinkForTech,
+    hasTechData,
     keysOf,
     Other,
     sortResources,
@@ -38,6 +39,8 @@ import { HeaderTitle } from '@app/components/header-title';
 import { getTechIcon } from '@app/helper/techs';
 import { useTranslation } from '@app/helper/translate';
 import { Text } from '@app/components/text';
+import NotFound from '@app/app/+not-found';
+import { Card } from '@app/components/card';
 
 function capitalizeFirstLetter(string: string | number) {
     return string.toString().charAt(0).toUpperCase() + string.toString().slice(1);
@@ -45,14 +48,16 @@ function capitalizeFirstLetter(string: string | number) {
 
 export default function TechDetails() {
     const getTranslation = useTranslation();
-    const { name } = useLocalSearchParams<{ name: Tech }>();
-    const tech = name!;
+    const { name: tech } = useLocalSearchParams<{ name: Tech }>();
+    if (!hasTechData(tech)) {
+        return <NotFound />;
+    }
+
     const data = getTechData(tech);
     const techInfo = techs[tech];
 
     const affectedUnitInfos = getAffectedUnitInfos(tech);
     const affectedBuildingInfos = getAffectedBuildingInfos(tech);
-    // console.log(affectedUnitInfos);
 
     let affectedUnits: any[] = [];
     let affectedBuildings: any[] = [];
@@ -71,95 +76,111 @@ export default function TechDetails() {
             <View className="flex-1 min-h-full p-5">
                 <Stack.Screen
                     options={{
+                        title: getTechName(tech),
                         headerTitle: () => (
                             <HeaderTitle
                                 icon={getTechIcon(tech)}
                                 title={getTechName(tech)}
-                                subtitle={techInfo.civ ? techInfo.civ + ' ' + getTranslation('explore.techs.uniquetech') + ' (' + getAgeName(techInfo.age) + ')' : undefined}
+                                subtitle={
+                                    techInfo.civ
+                                        ? techInfo.civ + ' ' + getTranslation('explore.techs.uniquetech') + ' (' + getAgeName(techInfo.age) + ')'
+                                        : undefined
+                                }
                             />
                         ),
                     }}
                 />
-                <View className="flex-row mb-2 items-center gap-2">
-                    {sortResources(keysOf(data.Cost)).map((res) => (
-                        <View key={res} className="flex-row items-center gap-1">
-                            <Image className="w-[22px] h-[22px]" source={getOtherIcon(res as Other)} />
-                            <Text>{data.Cost[res]}</Text>
+
+                <View className="lg:flex-row lg:gap-6 lg:items-start">
+                    <View className="lg:flex-1">
+                        <View className="flex-row mb-2 items-center gap-2">
+                            {sortResources(keysOf(data.Cost)).map((res) => (
+                                <View key={res} className="flex-row items-center gap-1">
+                                    <Image className="w-[22px] h-[22px]" source={getOtherIcon(res as Other)} />
+                                    <Text>{data.Cost[res]}</Text>
+                                </View>
+                            ))}
+                            <Text>
+                                {getTranslation('unit.stats.heading.researchedin')} {data.ResearchTime}s
+                            </Text>
                         </View>
-                    ))}
-                    <Text>
-                        {getTranslation('unit.stats.heading.researchedin')} {data.ResearchTime}s
-                    </Text>
+
+                        <Text>{getTechDescription(tech)}</Text>
+                        <Space />
+
+                        <View className="flex lg:hidden">
+                            <CivAvailability tech={tech} />
+                        </View>
+
+                        {!techsAffectingAllUnits.includes(tech) && affectedUnitInfos.length > 0 && (
+                            <View>
+                                <Space />
+                                <MyText>Affected Units</MyText>
+                                <Space />
+                                {affectedUnitInfos.map((affectedUnit) => (
+                                    <UnitCompBig
+                                        key={affectedUnit.unitId}
+                                        unit={affectedUnit.unitId}
+                                        subtitle={getUpgradeList(tech, affectedUnit)
+                                            .map((g) => g.name + ': ' + capitalizeFirstLetter(g.upgrades.join(', ')))
+                                            .join('\n')}
+                                    />
+                                ))}
+                            </View>
+                        )}
+
+                        {!techsAffectingAllUnits.includes(tech) && affectedBuildingInfos.length > 0 && (
+                            <View>
+                                <Space />
+                                <MyText>Affected Buildings</MyText>
+                                <Space />
+                                {affectedBuildingInfos.map((affectedBuilding) => (
+                                    <BuildingCompBig
+                                        key={affectedBuilding.buildingId}
+                                        building={affectedBuilding.buildingId}
+                                        subtitle={getUpgradeList(tech, affectedBuilding)
+                                            .map((g) => g.name + ': ' + capitalizeFirstLetter(g.upgrades.join(', ')))
+                                            .join('\n')}
+                                    />
+                                ))}
+                            </View>
+                        )}
+
+                        {affectedUnits.length > 0 && (
+                            <View>
+                                <Space />
+                                <MyText>Affected Units</MyText>
+                                <Space />
+                                {affectedUnits.map((affectedUnit) => (
+                                    <UnitCompBig
+                                        key={affectedUnit.unitId}
+                                        unit={affectedUnit.unitId}
+                                        subtitle={affectedUnit.props.map((g: any) => g.name + ': +' + capitalizeFirstLetter(g.effect)).join('\n')}
+                                    />
+                                ))}
+                            </View>
+                        )}
+
+                        {affectedBuildings.length > 0 && (
+                            <View>
+                                <Space />
+                                <MyText>Affected Buildings</MyText>
+                                <Space />
+                                {affectedBuildings.map((affectedBuilding) => (
+                                    <BuildingCompBig
+                                        key={affectedBuilding.unitId}
+                                        building={affectedBuilding.unitId}
+                                        subtitle={affectedBuilding.props.map((g: any) => g.name + ': +' + capitalize(g.effect)).join('\n')}
+                                    />
+                                ))}
+                            </View>
+                        )}
+                    </View>
+
+                    <Card direction="vertical" className="w-sm hidden lg:flex pt-2!">
+                        <CivAvailability tech={tech} />
+                    </Card>
                 </View>
-
-                <Text>{getTechDescription(tech)}</Text>
-                <Space />
-
-                <CivAvailability tech={tech} />
-
-                {!techsAffectingAllUnits.includes(tech) && affectedUnitInfos.length > 0 && (
-                    <View>
-                        <Space />
-                        <MyText>Affected Units</MyText>
-                        <Space />
-                        {affectedUnitInfos.map((affectedUnit) => (
-                            <UnitCompBig
-                                key={affectedUnit.unitId}
-                                unit={affectedUnit.unitId}
-                                subtitle={getUpgradeList(tech, affectedUnit)
-                                    .map((g) => g.name + ': ' + capitalizeFirstLetter(g.upgrades.join(', ')))
-                                    .join('\n')}
-                            />
-                        ))}
-                    </View>
-                )}
-
-                {!techsAffectingAllUnits.includes(tech) && affectedBuildingInfos.length > 0 && (
-                    <View>
-                        <Space />
-                        <MyText>Affected Buildings</MyText>
-                        <Space />
-                        {affectedBuildingInfos.map((affectedBuilding) => (
-                            <BuildingCompBig
-                                key={affectedBuilding.buildingId}
-                                building={affectedBuilding.buildingId}
-                                subtitle={getUpgradeList(tech, affectedBuilding)
-                                    .map((g) => g.name + ': ' + capitalizeFirstLetter(g.upgrades.join(', ')))
-                                    .join('\n')}
-                            />
-                        ))}
-                    </View>
-                )}
-
-                {affectedUnits.length > 0 && (
-                    <View>
-                        <Space />
-                        <MyText>Affected Units</MyText>
-                        <Space />
-                        {affectedUnits.map((affectedUnit) => (
-                            <UnitCompBig
-                                key={affectedUnit.unitId}
-                                unit={affectedUnit.unitId}
-                                subtitle={affectedUnit.props.map((g: any) => g.name + ': +' + capitalizeFirstLetter(g.effect)).join('\n')}
-                            />
-                        ))}
-                    </View>
-                )}
-
-                {affectedBuildings.length > 0 && (
-                    <View>
-                        <Space />
-                        <MyText>Affected Buildings</MyText>
-                        <Space />
-                        {affectedBuildings.map((affectedBuilding) => (
-                            <BuildingCompBig
-                                key={affectedBuilding.unitId}
-                                building={affectedBuilding.unitId}
-                                subtitle={affectedBuilding.props.map((g: any) => g.name + ': +' + capitalize(g.effect)).join('\n')}
-                            />
-                        ))}
-                    </View>
-                )}
 
                 <View className="flex-1" />
                 <Fandom articleName={getTechName(tech)} articleLink={getWikiLinkForTech(tech)} />

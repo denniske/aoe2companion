@@ -1,9 +1,10 @@
 import Search from '@app/view/components/search';
-import { router, useLocalSearchParams, useNavigation } from 'expo-router';
-import { useEffect } from 'react';
+import { router, useFocusEffect, useLocalSearchParams, useNavigation } from 'expo-router';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from '@app/helper/translate';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useAccount } from '@app/queries/all';
+import { supabaseClient } from '@nex/data';
 
 export type ISearchProfilePageParams = {
     search?: string;
@@ -20,7 +21,6 @@ const SelectProfilePage = () => {
         saveAccountMutation.mutate({
             profileId: user.profileId,
         });
-        router.navigate(`/matches/users/${user.profileId!}/main-profile`);
     };
 
     const navigation = useNavigation();
@@ -28,6 +28,16 @@ const SelectProfilePage = () => {
     useEffect(() => {
         navigation.setOptions({ title: getTranslation('search.findmyaccount.title') });
     }, [navigation, getTranslation]);
+
+    useFocusEffect(
+        useCallback(() => {
+            supabaseClient.auth.getSession().then(({ data: { session } }) => {
+                if (!session) {
+                    router.replace('/more/account');
+                }
+            });
+        }, [])
+    );
 
     return (
         <Search

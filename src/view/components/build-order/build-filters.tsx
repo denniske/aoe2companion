@@ -7,6 +7,8 @@ import { getDifficultyName } from '../../../helper/difficulties';
 import { useTranslation } from '@app/helper/translate';
 import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 
 export const BuildFilters = () => {
@@ -33,7 +35,7 @@ export const BuildFilters = () => {
     const civOptions: Array<Civ | undefined> = [undefined, ...orderCivs(civs.filter((civ) => civ !== 'Indians'))];
 
     return (
-        <View className="relative z-[1] flex flex-row items-center justify-center gap-[15px] p-4">
+        <View className={cn("relative z-1 flex flex-row items-center justify-center gap-[15px] py-4", containerClassName)}>
             <Filter
                 icon={civIcon}
                 onChange={(civ) => setFilter('civilization', civ)}

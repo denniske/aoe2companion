@@ -33,12 +33,12 @@ import compact from 'lodash/compact';
 import { uniq } from 'lodash';
 import { BottomSheet } from '@app/view/bottom-sheet';
 import { formatCustom } from '@nex/data';
-
+import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 
 export default function TournamentDetail() {
     const getTranslation = useTranslation();
     const params = useLocalSearchParams<{ id: string[] }>();
-    const id = typeof params.id === 'string' ? params.id : (params.id?.join('/') ?? '');
+    const id = typeof params.id === 'string' ? params.id : params.id?.join('/') ?? '';
     const { data: tournament, ...query } = useTournament(id);
     const { data: mainTournament } = useTournament(tournament?.tabs[0]?.[0]?.path ?? id, false);
     const refreshControlProps = useRefreshControl(query);
@@ -135,6 +135,7 @@ export default function TournamentDetail() {
         >
             <Stack.Screen
                 options={{
+                    title,
                     headerShown: true,
                     headerTitle: () => (
                         <View className="flex-1">
@@ -188,11 +189,6 @@ export default function TournamentDetail() {
                                 </View>
 
                                 <PlayerList
-                                    selectedUser={(participant) => {
-                                        if (participant.profileId) {
-                                            router.navigate(`/matches/users/${participant.profileId}/main-profile`);
-                                        }
-                                    }}
                                     variant="horizontal"
                                     list={tournamentParticipants?.map((participant) => ({
                                         ...participant,
@@ -201,7 +197,12 @@ export default function TournamentDetail() {
                                     }))}
                                     footer={(player) => (
                                         <View className="flex-row gap-1 items-center">
-                                            <Text numberOfLines={1} variant="body-sm" allowFontScaling={false} className={`${player?.profileId ? 'font-bold' : ''}`}>
+                                            <Text
+                                                numberOfLines={1}
+                                                variant="body-sm"
+                                                allowFontScaling={false}
+                                                className={`${player?.profileId ? 'font-bold' : ''}`}
+                                            >
                                                 {player?.participant}
                                             </Text>
                                             <Text variant="label-xs" className="-mt-1">
@@ -299,7 +300,7 @@ export default function TournamentDetail() {
 
                                                         <View className="flex-row flex-wrap mb-4 gap-2" style={{ rowGap: 12 }}>
                                                             {group.rounds.map((round) => (
-                                                                <PlayoffRound key={round.id} round={round} className="w-[calc(50%-0.25rem)]" />
+                                                                <PlayoffRound key={round.id} round={round} className="w-1/2" />
                                                             ))}
                                                         </View>
                                                     </View>
@@ -347,7 +348,11 @@ export default function TournamentDetail() {
                                                             contentContainerClassName="gap-2"
                                                         >
                                                             {playoffRow.rounds.map((playoffRound) => (
-                                                                <PlayoffRound key={playoffRound.id} round={playoffRound} style={{width: playoffRoundWidth-8 }} />
+                                                                <PlayoffRound
+                                                                    key={playoffRound.id}
+                                                                    round={playoffRound}
+                                                                    style={{ width: playoffRoundWidth - 8 }}
+                                                                />
                                                             ))}
                                                         </ScrollView>
                                                     </View>
@@ -553,9 +558,9 @@ function HeaderButtons({ id }: { id: string }) {
             <TouchableOpacity hitSlop={10} onPress={openInBrowser}>
                 <Image style={{ width: 28, height: 20 }} source={require('../../../../assets/icon/liquipedia.png')} />
             </TouchableOpacity>
-            <TouchableOpacity hitSlop={10} onPress={toggleFollow}>
+            <UserLoginWrapper Component={TouchableOpacity} hitSlop={10} onPress={toggleFollow}>
                 <Icon prefix={isFollowed ? 'fass' : 'fasr'} icon="heart" size={20} color="accent-[#ef4444]" />
-            </TouchableOpacity>
+            </UserLoginWrapper>
         </View>
     );
 }

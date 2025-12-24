@@ -27,7 +27,7 @@ import { getEliteUniqueResearchIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
 import { Image } from '@/src/components/uniwind/image';
 import { getBuildingIcon } from '../../helper/buildings';
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { useTranslation } from '@app/helper/translate';
 
 interface Props {
@@ -56,10 +56,6 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
     }));
 
     groups = groups.filter((g) => g.upgrades.length > 0);
-
-    const gotoCiv = (civ: Civ) => router.push(`/explore/civilizations/${civ}`);
-    const gotoBuilding = (building: Building) => router.push(`/explore/buildings/${building}`);
-    const gotoTech = (tech: Tech) => router.push(`/explore/technologies/${tech}`);
 
     // const { match, player } = useSelector(state => state.ingame ?? {});
 
@@ -91,9 +87,11 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                         <View style={[styles.row, { opacity: hasTech(upgrade.tech!) ? 1 : 0.5 }]} key={upgrade.name}>
                             <Image style={styles.buildingIcon} source={getTechIcon(upgrade.tech!)} />
                             <MyText style={styles.buildingDesc}>
-                                <MyText style={appStyles.link} onPress={() => gotoTech(upgrade.tech!)}>
-                                    {getTechName(upgrade.tech!)}
-                                </MyText>
+                                <Link asChild href={`/explore/technologies/${upgrade.tech}`}>
+                                    <MyText style={appStyles.link} className="hover:underline">
+                                        {getTechName(upgrade.tech!)}
+                                    </MyText>
+                                </Link>
                                 {(upgrade.effect[group.prop] || upgrade.civ) && (
                                     <MyText size="footnote">
                                         {' ('}
@@ -102,9 +100,11 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                                         {upgrade.civ && (
                                             <>
                                                 <MyText size="footnote">only </MyText>
-                                                <MyText size="footnote" style={appStyles.link} onPress={() => gotoCiv(upgrade.civ!)}>
-                                                    {upgrade.civ}
-                                                </MyText>
+                                                <Link asChild href={`/explore/civilizations/${upgrade.civ}`}>
+                                                    <MyText size="footnote" style={appStyles.link} className="hover:underline">
+                                                        {upgrade.civ}
+                                                    </MyText>
+                                                </Link>
                                             </>
                                         )}
                                         {')'}
@@ -121,15 +121,17 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                     <View style={styles.row}>
                         <MyText style={styles.header2}>{getTranslation('unit.heading.upgradedfrom')}</MyText>
                     </View>
-                    <TouchableOpacity onPress={() => gotoBuilding(upgradedFrom!)}>
-                        <View style={styles.row}>
-                            <Image
-                                style={styles.buildingIcon}
-                                source={buildingLine.unique ? getEliteUniqueResearchIcon() : getBuildingIcon(upgradedFrom)}
-                            />
-                            <MyText style={styles.buildingDesc}>{getBuildingName(upgradedFrom)}</MyText>
-                        </View>
-                    </TouchableOpacity>
+                    <Link asChild href={`/explore/buildings/${upgradedFrom}`}>
+                        <TouchableOpacity>
+                            <View style={styles.row}>
+                                <Image
+                                    style={styles.buildingIcon}
+                                    source={buildingLine.unique ? getEliteUniqueResearchIcon() : getBuildingIcon(upgradedFrom)}
+                                />
+                                <MyText style={styles.buildingDesc}>{getBuildingName(upgradedFrom)}</MyText>
+                            </View>
+                        </TouchableOpacity>
+                    </Link>
                 </View>
             )}
             {upgradedToList.length > 0 && (
@@ -139,15 +141,17 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                         <MyText style={styles.header2}>{getTranslation('unit.heading.upgradedto')}</MyText>
                     </View>
                     {upgradedToList.map((upgradedTo) => (
-                        <TouchableOpacity key={upgradedTo} disabled={buildingLine.unique} onPress={() => gotoBuilding(upgradedTo)}>
-                            <View style={styles.row}>
-                                <Image
-                                    style={styles.buildingIcon}
-                                    source={buildingLine.unique ? getEliteUniqueResearchIcon() : getBuildingIcon(upgradedTo)}
-                                />
-                                <MyText style={styles.buildingDesc}>{getBuildingName(upgradedTo)}</MyText>
-                            </View>
-                        </TouchableOpacity>
+                        <Link asChild href={`/explore/buildings/${upgradedTo}`}>
+                            <TouchableOpacity key={upgradedTo} disabled={buildingLine.unique}>
+                                <View style={styles.row}>
+                                    <Image
+                                        style={styles.buildingIcon}
+                                        source={buildingLine.unique ? getEliteUniqueResearchIcon() : getBuildingIcon(upgradedTo)}
+                                    />
+                                    <MyText style={styles.buildingDesc}>{getBuildingName(upgradedTo)}</MyText>
+                                </View>
+                            </TouchableOpacity>
+                        </Link>
                     ))}
                 </View>
             )}

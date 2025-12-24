@@ -166,12 +166,23 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     assetBundlePatterns: app.assetBundlePatterns,
     plugins: [
-        "expo-router",
+        [
+            "expo-router",
+            {
+                sitemap: !isProdBuild,
+                redirects: [
+                    { source: '/leaderboard', destination: '/statistics/leaderboard' },
+                    { source: '/lobby', destination: '/matches/lobbies' },
+                    { source: '/ongoing', destination: '/matches/live' },
+                    { source: '/privacy', destination: '/more/privacy' }
+                ]
+            }
+        ],
         [
             "expo-notifications",
             {
                 "icon": `./${app.assetsFolder}/notification.png`
-            }
+            },
         ],
         ...sentryConfigPlugins,
         ...appConfigPlugins,
@@ -224,7 +235,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         },
         bundleIdentifier: app.bundleIdentifier,
         buildNumber: runtimeVersion,
-        supportsTablet: false,
+        supportsTablet: true,
         config: {
             usesNonExemptEncryption: false
         },

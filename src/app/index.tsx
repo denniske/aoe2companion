@@ -3,34 +3,37 @@ import { FlatList } from '@app/components/flat-list';
 import { FollowedPlayers } from '@app/components/followed-players';
 import { Link } from '@app/components/link';
 import { Match } from '@app/components/match/match';
-import { NewsCard } from '@app/components/news-card';
+import { NewsCard, NewsCardSkeleton } from '@app/components/news-card';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { useFollowedTournaments } from '@app/service/favorite-tournaments';
 import { useAccountMostRecentMatches } from '@app/utils/match';
 import { useNews } from '@app/utils/news';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
-import { Stack, useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Href, Stack } from 'expo-router';
+import React from 'react';
+import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
-import { useAuthProfileId, useInfiniteBuilds, useMapsPoll, useMapsRanked } from '@app/queries/all';
+import { useAuthProfileId, useInfiniteBuilds } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
-import { Image } from '@/src/components/uniwind/image';
-import ButtonPicker from '@app/view/components/button-picker';
-import { isWithinInterval } from 'date-fns';
-import { formatDayAndTime } from '@nex/data';
 import { useTheme } from '@app/theming';
 import { appVariants } from '@app/styles';
-import { BuildCard } from '@app/view/components/build-order/build-card';
+import { BuildCard, BuildSkeletonCard } from '@app/view/components/build-order/build-card';
 import { compact } from 'lodash';
 import { useFavoritedBuilds } from '@app/service/favorite-builds';
-import { appConfig } from '@nex/dataset';
+import { appConfig, appIconData } from '@nex/dataset';
+import { RankedMaps } from '@app/components/ranked-maps';
+import { AnimateIn } from '@app/components/animate-in';
+import { useShowTabBar } from '../hooks/use-show-tab-bar';
+import { Card } from '@app/components/card';
+import { FeaturedVideos } from '@app/components/featured-videos';
+import { useLoginPopup } from '@app/hooks/use-login-popup';
+import { Icon, IconName } from '@app/components/icon';
+import { Image } from '@app/components/uniwind/image';
 
-export function FavoritedBuilds() {
+const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
-    const { favoriteIds } = useFavoritedBuilds();
-    const { data } = useInfiniteBuilds({ build_ids: favoriteIds });
+    const { data, isPending } = useInfiniteBuilds({ build_ids: favoriteIds });
     const favorites = compact(data?.pages?.flatMap((p) => p.builds));
 
     return (
@@ -42,82 +45,170 @@ export function FavoritedBuilds() {
 
             <FlatList
                 showsHorizontalScrollIndicator={false}
-                className="flex-none"
+                className="flex-none -mx-4"
                 horizontal
                 keyboardShouldPersistTaps="always"
-                data={favorites}
-                contentContainerClassName="gap-2.5"
-                renderItem={({ item }) => <BuildCard size="small" {...item} />}
-                keyExtractor={(item) => item.id.toString()}
+                data={isPending ? favoriteIds.map(() => null) : favorites}
+                contentContainerClassName="gap-2.5 px-4"
+                renderItem={({ item }) => (item ? <BuildCard size="small" {...item} /> : <BuildSkeletonCard size="small" />)}
+                keyExtractor={(item, index) => item?.id?.toString() ?? index.toString()}
             />
         </View>
-    )
-}
+    );
+};
 
 export default function IndexPage() {
+    const { shouldPromptLogin } = useLoginPopup();
     const appStyles = useTheme(appVariants);
     const getTranslation = useTranslation();
     const authProfileId = useAuthProfileId();
     const tournament = useFeaturedTournament();
     const accountMostRecentMatches = useAccountMostRecentMatches(1);
     const accountMostRecentMatch = accountMostRecentMatches?.length ? accountMostRecentMatches[0] : null;
-    const { data: news = Array(3).fill(null) } = useNews();
+    const { data: news = Array<null>(3).fill(null) } = useNews();
     const { favoriteIds } = useFavoritedBuilds();
-    const router = useRouter();
     const { followedIds } = useFollowedTournaments();
-    const { data: mapsRanked } = useMapsRanked();
-    const { data: mapsPoll } = useMapsPoll();
-
-    const [rankedMapLeaderboard, setRankedMapLeaderboard] = useState<string>();
-    const values: string[] = mapsRanked?.leaderboards?.map((l) => l.leaderboardId) || [];
-    const firstValue = mapsRanked?.leaderboards?.map((l) => l.leaderboardId)?.[0];
-    const formatLeaderboard = (leaderboardId: string) => mapsRanked?.leaderboards?.find((l) => l.leaderboardId === leaderboardId)?.abbreviation ?? '';
+    const showTabBar = useShowTabBar();
+    const welcomeCards: Array<{ icon: IconName; title: string; description: string; href: Href }> = [
+        { icon: 'search', title: 'Find Players', description: 'Search players and view match history, civs, and ratings', href: '/players/search' },
+        {
+            icon: 'ranking-star',
+            title: 'Leaderboard',
+            description: 'Track top players, rankings, and current competitive ladders',
+            href: '/statistics/leaderboard',
+        },
+        {
+            icon: 'diagram-sankey',
+            title: 'Tech Tree',
+            description: 'Explore civilizations, units, upgrades, and unique bonuses',
+            href: '/explore',
+        },
+        { icon: 'bookmark', title: 'Sign in to Save', description: 'Follow players, save favorites, and sync across devices', href: '/more/account' },
+    ];
 
     return (
-        // <ScrollView contentContainerClassName="p-4 gap-5" className="scrollbar dark:scrollbar-dark">
-        <ScrollView contentContainerClassName="p-4 gap-5">
+        <ScrollView contentContainerClassName="p-4 md:py-6">
             <Stack.Screen
                 options={{
+                    headerShown: showTabBar,
                     animation: 'none',
-                    headerRight: () => (
-                        <Button href={'/matches/users/search'} icon="search">
-                            {getTranslation('home.findPlayer')}
-                        </Button>
-                    ),
+                    headerTitle:
+                        Platform.OS === 'web'
+                            ? () => (
+                                  <View className="flex flex-row items-center gap-4">
+                                      <Image source={appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
+
+                                      <Text variant="header-lg" color="subtle">
+                                          {appConfig.app.name}
+                                      </Text>
+                                  </View>
+                              )
+                            : undefined,
+                    headerRight: () =>
+                        Platform.OS !== 'web' && (
+                            <Button href={'/players/search'} icon="search">
+                                {getTranslation('home.findPlayer')}
+                            </Button>
+                        ),
                     title: getTranslation('home.title'),
                 }}
             />
 
-            <View className="-mx-4">
-                <FollowedPlayers />
-            </View>
+            <AnimateIn skipFirstAnimation={Platform.OS !== 'web'}>
+                {!shouldPromptLogin && (
+                    <View className="-mx-4 pb-5 lg:pb-8">
+                        <FollowedPlayers />
+                    </View>
+                )}
+            </AnimateIn>
 
-            {/*<ConsoleModal />*/}
+            <AnimateIn>
+                {shouldPromptLogin && (
+                    <View className="gap-2 pb-5 lg:pb-8">
+                        <Text variant="header-lg">Get Started</Text>
+
+                        <View className="gap-4">
+                            <View className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                {welcomeCards.map((card) => (
+                                    <Card className="flex-1 items-center gap-2" href={card.href} direction="vertical">
+                                        <View className="p-4 bg-blue-800 dark:bg-blue-700 rounded-full mb-1">
+                                            <Icon icon={card.icon} size={24} color="white" />
+                                        </View>
+                                        <Text variant="header">{card.title}</Text>
+                                        <Text align="center" color="subtle" className="hidden md:inline-block">
+                                            {card.description}
+                                        </Text>
+                                    </Card>
+                                ))}
+                            </View>
+
+                            <Card className="items-center md:justify-between md:flex-row gap-4" direction="vertical">
+                                <Text variant="header-lg" className="text-center">
+                                    Buy{' '}
+                                    <Text variant="header-lg" className="italic">
+                                        Age of Empires II: Definitive Edition
+                                    </Text>
+                                </Text>
+
+                                <View className="flex-row gap-4">
+                                    <Button
+                                        icon="steam"
+                                        iconPrefix="fab"
+                                        href="https://store.steampowered.com/app/813780/Age_of_Empires_II_Definitive_Edition/"
+                                    >
+                                        Steam
+                                    </Button>
+                                    <Button
+                                        icon="xbox"
+                                        iconPrefix="fab"
+                                        href="https://www.xbox.com/en-us/games/store/age-of-empires-ii-definitive-edition/9njdd0jgpp2q"
+                                    >
+                                        XBox
+                                    </Button>
+                                    <Button
+                                        icon="playstation"
+                                        iconPrefix="fab"
+                                        href="https://store.playstation.com/en-us/product/UP6312-PPSA18654_00-0965895154892062"
+                                    >
+                                        PS5
+                                    </Button>
+                                </View>
+                            </Card>
+                        </View>
+                    </View>
+                )}
+            </AnimateIn>
 
             {authProfileId && (
-                <View className="gap-2">
-                    <View className="flex-row justify-between items-center">
-                        <Text variant="header-lg">
-                            {getTranslation(accountMostRecentMatch?.finished === null ? 'home.current' : 'home.mostRecent')} Match
-                        </Text>
-                        <Link href="/matches/current">Open My Dashboard</Link>
+                <AnimateIn>
+                    <View className="gap-2 pb-5 lg:pb-8">
+                        <View className="flex-row justify-between items-center">
+                            <Text variant="header-lg">
+                                {getTranslation(accountMostRecentMatch?.finished === null ? 'home.current' : 'home.mostRecent')} Match
+                            </Text>
+                            <Link href="/matches/live/mine">Open My Dashboard</Link>
+                        </View>
+                        <View className="gap-2">
+                            <Match
+                                user={accountMostRecentMatch?.filteredPlayers[0]}
+                                highlightedUsers={accountMostRecentMatch?.filteredPlayers}
+                                match={accountMostRecentMatch}
+                            />
+                        </View>
                     </View>
-                    <View className="gap-2">
-                        <Match
-                            user={accountMostRecentMatch?.filteredPlayers[0]}
-                            highlightedUsers={accountMostRecentMatch?.filteredPlayers}
-                            match={accountMostRecentMatch}
-                        />
-                    </View>
-                </View>
+                </AnimateIn>
             )}
 
             {favoriteIds.length > 0 && (
-                <FavoritedBuilds />
+                <AnimateIn>
+                    <View className="pb-5 lg:pb-8">
+                        <FavoritedBuilds favoriteIds={favoriteIds} />
+                    </View>
+                </AnimateIn>
             )}
 
             {tournamentsEnabled ? (
-                <View className="gap-2">
+                <View className="gap-2 pb-5 lg:pb-8">
                     <View className="flex-row justify-between items-center">
                         <Text variant="header-lg">
                             {followedIds[0] ? getTranslation('home.favoriteTournament') : getTranslation('home.featuredTournament')}
@@ -128,7 +219,7 @@ export default function IndexPage() {
                 </View>
             ) : null}
 
-            <View className="gap-2">
+            <View className="gap-2 pb-5 lg:pb-8">
                 <Text variant="header-lg">Recent News</Text>
 
                 <FlatList
@@ -137,82 +228,17 @@ export default function IndexPage() {
                     className="-mx-4"
                     horizontal
                     data={news}
-                    renderItem={({ item }) => <NewsCard {...item} />}
+                    renderItem={({ item }) => (item ? <NewsCard {...item} /> : <NewsCardSkeleton />)}
                 />
             </View>
 
-            {
-                appConfig.game === 'aoe2' &&
-                <View className="gap-2">
-                    <Text variant="header-lg" className="mb-1">
-                        Ranked Maps
-                    </Text>
-                    {!!mapsPoll && (
-                        <View className="flex-row justify-between items-center mb-3">
-                            {
-                                isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired }) ?
-                                    <Text variant="body">New Map Rotation on {formatDayAndTime(mapsPoll.expired)}</Text> :
-                                    <Text variant="body">Maps active since {formatDayAndTime(mapsPoll.expired)}</Text>
-                            }
-                            {
-                                isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ?
-                                    <Link href="/explore/maps/poll">View Active Poll</Link> :
-                                    <Link href="/explore/maps/poll">View Poll Results</Link>
-                            }
-                        </View>
-                    )}
-                    {!!mapsRanked?.leaderboards && mapsRanked?.leaderboards?.length > 0 && (
-                        <>
-                            <View className="mb-3">
-                                <ButtonPicker
-                                    flex={true}
-                                    value={rankedMapLeaderboard ?? firstValue}
-                                    values={values}
-                                    formatter={formatLeaderboard}
-                                    onSelect={setRankedMapLeaderboard}
-                                />
-                            </View>
-                            <View className="flex-row flex-wrap">
-                                {mapsRanked?.leaderboards
-                                    ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
-                                    ?.maps?.map((map) => (
-                                        <TouchableOpacity
-                                            key={map.mapId}
-                                            className="flex-col justify-between items-center w-[25%] mb-4"
-                                            onPress={() => router.push(`/explore/maps/${map.mapId}` as any)}
-                                        >
-                                            <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
-                                            <Text variant={'body-sm'} className="text-center mb-1">
-                                                {map.mapName}
-                                            </Text>
-                                            <Text variant={'body-sm'} className="text-center">
-                                                {map.percentage.toFixed(0)} %
-                                            </Text>
-                                        </TouchableOpacity>
-                                    ))}
-                            </View>
-                        </>
-                    )}
+            {appConfig.game === 'aoe2' && (
+                <View className="pb-5 lg:pb-8">
+                    <RankedMaps />
                 </View>
-            }
+            )}
+
+            <FeaturedVideos />
         </ScrollView>
     );
 }
-
-
-
-// <Button onPress={crashSetImage}>Crash</Button>
-//
-// {authProfileId && (
-//     <View className="gap-2">
-//         <Text variant="header-lg">
-//             Current Lobby/Match
-//         </Text>
-//         <Link href="/matches/current">
-//             {getTranslation('home.viewAll')}
-//         </Link>
-//         {/*<View className="gap-2">*/}
-//         {/*    <Match user={accountMostRecentMatch?.filteredPlayers[0]} highlightedUsers={accountMostRecentMatch?.filteredPlayers} match={accountMostRecentMatch} />*/}
-//         {/*</View>*/}
-//     </View>
-// )}

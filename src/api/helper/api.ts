@@ -22,6 +22,7 @@ import {
     INewsResult,
     IProfileResult,
     IProfilesResult,
+    IVideosResult,
 } from './api.types';
 import { dateReviver, getHost } from '@nex/data';
 import { fetchJson } from '@app/api/util';
@@ -94,11 +95,11 @@ export async function fetchMatches(params: IFetchMatchesParams) {
 }
 
 export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
-    const { leaderboardId, ...restParams } = params;
+    const { leaderboardId, extend = [], ...restParams } = params;
     const queryString = makeQueryString(
         decamelizeKeys({
             ...removeReactQueryParams(restParams),
-            extend: 'players.avatar_small_url',
+            extend: ['players.avatar_small_url', ...extend].join(','),
             page: restParams.page || restParams.pageParam || 1,
         })
     );
@@ -119,6 +120,16 @@ export async function fetchLeaderboards(params: IFetchLeaderboardsParams) {
 export async function fetchNews() {
     const url = `${getHost('aoe2companion-data')}api/news`;
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as INewsResult;
+}
+
+export async function fetchFeaturedVideos(language: string) {
+    const url = `${getHost('aoe2companion-data')}api/videos/featured?language=${language}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IVideosResult;
+}
+
+export async function fetchCivVideos(civ: string) {
+    const url = `${getHost('aoe2companion-data')}api/videos/civ/${civ}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IVideosResult;
 }
 
 export async function fetchMaps(params: IFetchMapsParams) {
@@ -148,7 +159,7 @@ export async function fetchMapsPoll(params: IFetchMapsPollParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/maps/poll?${queryString}`;
-    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMapsPollResult;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMapsPollResult | null;
 }
 
 export async function fetchBuilds(params: IFetchBuildsParams) {

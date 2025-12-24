@@ -27,7 +27,11 @@ export function LinkedPlatformAccount({steamId, platform}: {steamId: string, pla
             <View className="flex-col items-center w-8">
                 <FontAwesome5 name={getPlatformIcon(platform)} size={30} color={theme.textNoteColor} />
             </View>
-            <TouchableOpacity className="flex-col gap-0" onPress={() => platform === 'steam' ? openLink(steamProfileUrl) : noop()} disabled={platform !== 'xbox'}>
+            <TouchableOpacity
+                className="flex-col gap-0"
+                onPress={() => (platform === 'steam' ? openLink(steamProfileUrl) : noop())}
+                disabled={platform !== 'steam'}
+            >
                 <Text variant="header-xs">{platformName}</Text>
                 <Text variant="body">{steamId}</Text>
             </TouchableOpacity>

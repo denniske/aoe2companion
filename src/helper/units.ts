@@ -1,5 +1,7 @@
-import { Age, Civ, getCivMonkType, Other, Unit, UnitLine, unitLines } from '@nex/data';
+import { Age, Building, Civ, getCivMonkType, Other, Tech, Unit, UnitLine, unitLines } from '@nex/data';
 import {ImageSourcePropType} from "react-native";
+import { getBuildingIcon } from './buildings';
+import { getTechIcon } from './techs';
 
 
 const otherIcons = {
@@ -231,4 +233,8 @@ export function getUnitIcon(unit: Unit, civ?: Civ) {
         return unitIcons['Monk' + monkType];
     }
     return unitIcons[unit];
+}
+
+export function getIcon(icon: string) {
+    return unitIcons[icon] ?? unitIcons[unitLines[icon]?.units?.[0]] ?? getBuildingIcon(icon as Building) ?? getTechIcon(icon as Tech) ?? getAgeIcon(icon as Age) ?? getOtherIcon(icon as Other);
 }

@@ -1,6 +1,5 @@
-import { Platform, StyleSheet, View } from 'react-native';
+import { Dimensions, Platform, StyleSheet, View } from 'react-native';
 import React, { Fragment, useMemo } from 'react';
-import { windowWidth } from '@app/app/statistics/leaderboard';
 import { orderBy } from 'lodash';
 import { CartesianChart, Line, Scatter } from 'victory-native-current';
 import { matchFont } from '@shopify/react-native-skia';
@@ -58,7 +57,7 @@ export default function Eapm({ teams }: Props) {
                     Effective Actions Per Minute
                 </Text>
 
-                <View style={{ width: windowWidth - 75, height: 160, marginVertical: 12 }}>
+                <View style={{ height: 160, marginVertical: 12 }}>
                     {dataset.data?.length > 0 && (
                         <CartesianChart
                             data={dataset.data}

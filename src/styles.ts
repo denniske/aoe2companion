@@ -1,11 +1,14 @@
-import {StyleSheet} from "react-native";
-import {makeVariants, useTheme} from "./theming";
-import {FinalDarkMode, ITheme} from '@nex/data';
-
+import { StyleSheet } from 'react-native';
+import { makeVariants, useTheme } from './theming';
+import { FinalDarkMode, ITheme } from '@nex/data';
 
 // export const linkColor = '#397AF9';
 // export const linkColor = '#3498db';
 // export const linkColor = 'rgb(10, 132, 255)';
+
+export const containerScrollClassName = 'web:max-w-7xl web:mx-auto web:w-full';
+export const containerPaddingClassName = 'px-4';
+export const containerClassName = `${containerPaddingClassName} ${containerScrollClassName}`;
 
 function createMasterStylesheet<S extends (theme: ITheme, mode: FinalDarkMode) => any>(factory: S) {
     const variants = makeVariants(factory);

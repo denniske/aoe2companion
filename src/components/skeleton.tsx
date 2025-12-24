@@ -1,29 +1,29 @@
 import { TextVariant, textVariantStyles } from '@app/utils/text.util';
 import { View, ViewProps } from 'react-native';
 
-import { Text } from './text';
+import cn from 'classnames';
 
-export const Skeleton: React.FC<ViewProps> = (props) => {
-    return <View className="bg-gray-100 dark:bg-blue-950 rounded" {...props} />;
+export const Skeleton: React.FC<ViewProps & { alt?: boolean }> = ({ className, alt, children, ...props }) => {
+    const color = alt ? 'bg-gray-100 dark:bg-blue-900' : 'bg-gray-100 dark:bg-blue-950';
+
+    return <View className={cn('rounded animate-pulse', color, className)} {...props} />;
 };
 
-// export const SkeletonText: React.FC<ViewProps & { variant?: TextVariant; numberOfLines?: number }> = ({ variant, numberOfLines = 1, ...props }) => {
-//     return (
-//         <Skeleton className="w-full" {...props}>
-//             <Text numberOfLines={numberOfLines} className="text-gray-100 dark:text-blue-950 " variant={variant}>
-//                 {Array(numberOfLines).fill('Loading...').join('\n')}
-//             </Text>
-//         </Skeleton>
-//     );
-// };
-
-export const SkeletonText: React.FC<ViewProps & { variant?: TextVariant; numberOfLines?: number }> = ({ variant, numberOfLines = 1, ...props }) => {
+export const SkeletonText: React.FC<ViewProps & { variant?: TextVariant; numberOfLines?: number; alt?: boolean }> = ({
+    variant,
+    numberOfLines = 1,
+    className,
+    ...props
+}) => {
     const { fontSize, lineHeight } = textVariantStyles[variant ?? 'body'];
 
     return (
-        <View className="w-full flex flex-row items-center" style={{ height: lineHeight }} {...props}>
-            <Skeleton className="w-full" style={{ height: fontSize }} {...props}>
-            </Skeleton>
+        <View className={cn('w-full justify-around', className)} style={{ height: lineHeight * numberOfLines }} {...props}>
+            {Array(numberOfLines)
+                .fill(null)
+                .map((_, index) => (
+                    <Skeleton className={cn('w-full', className)} key={index} style={{ height: fontSize }} {...props}></Skeleton>
+                ))}
         </View>
     );
 };

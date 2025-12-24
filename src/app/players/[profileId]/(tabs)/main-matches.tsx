@@ -6,26 +6,37 @@ import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { flatten } from 'lodash';
 import React, { useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
-import { fetchMatches } from '../../../../../api/helper/api';
-import useDebounce from '../../../../../hooks/use-debounce';
-import { useWebRefresh } from '../../../../../hooks/use-web-refresh';
-import { createStylesheet } from '../../../../../theming-new';
-import FlatListLoadingIndicator from '../../../../../view/components/flat-list-loading-indicator';
-import { MyText } from '../../../../../view/components/my-text';
-import RefreshControlThemed from '../../../../../view/components/refresh-control-themed';
 import { useAuthProfileId, useLanguage, useLeaderboards, useProfile } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
 import { useTranslation } from '@app/helper/translate';
+import { containerClassName } from '@app/styles';
+import { Button } from '@app/components/button';
+import { IProfileResult } from '@app/api/helper/api.types';
+import cn from 'classnames';
+import useDebounce from '@app/hooks/use-debounce';
+import { fetchMatches } from '@app/api/helper/api';
+import { useWebRefresh } from '@app/hooks/use-web-refresh';
+import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
+import { MyText } from '@app/view/components/my-text';
+import RefreshControlThemed from '@app/view/components/refresh-control-themed';
+import { createStylesheet } from '@app/theming-new';
+import { Skeleton } from '@app/components/skeleton';
 
-export default function MainMatches() {
+interface MainMatchesProps {
+    profile?: IProfileResult | null;
+    leaderboardIds?: string[];
+}
+
+export default function MainMatches(props: MainMatchesProps) {
     const getTranslation = useTranslation();
     const params = useLocalSearchParams<{ profileId: string }>();
     const profileId = parseInt(params.profileId);
     const styles = useStyles();
     const [text, setText] = useState('');
-    const [leaderboardIds, setLeaderboardIds] = useState<string[]>([]);
+    const [localLeaderboardIds, setLeaderboardIds] = useState<string[]>([]);
+    const leaderboardIds = props.leaderboardIds ?? localLeaderboardIds;
     const [withMe, setWithMe] = useState(false);
     const [reloading, setReloading] = useState(false);
     const authProfileId = useAuthProfileId();
@@ -33,7 +44,7 @@ export default function MainMatches() {
     const realText = text.trim().length < 3 ? '' : text.trim();
     const debouncedSearch = useDebounce(realText, 600);
 
-    const { data: profile } = useProfile(profileId);
+    const { data: profile = props.profile } = useProfile(props.profile === undefined ? profileId : 0);
 
     const language = useLanguage();
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery({
@@ -53,42 +64,11 @@ export default function MainMatches() {
         placeholderData: keepPreviousData,
     });
 
-    // console.log('data', data);
-
     const toggleWithMe = () => setWithMe(!withMe);
 
-    const { data: leaderboards } = useLeaderboards();
-
-    const renderLeaderboard = (value: string, selected: boolean) => {
-        return (
-            <View style={styles.col}>
-                <MyText style={[styles.h1, { fontWeight: selected ? 'bold' : 'normal' }]}>
-                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationTitle}
-                </MyText>
-                <MyText style={[styles.h2, { fontWeight: selected ? 'bold' : 'normal' }]}>
-                    {leaderboards?.find((l) => l.leaderboardId === value)?.abbreviationSubtitle}
-                </MyText>
-            </View>
-        );
-    };
-
-    //     if (text.trim().length > 0) {
-    //         const parts = text.toLowerCase().split(' ');
-    //         filtered = filtered.filter(m => {
-    //             return parts.every(part => {
-    //                 return m.name.toLowerCase().indexOf(part) >= 0 ||
-    //                     (getMapName(m.map_type, m.ugc, m.rms, m.game_type, m.scenario) || '').toLowerCase().indexOf(part) >= 0 ||
-    //                     m.players.some(p => p.name?.toLowerCase().indexOf(part) >= 0) ||
-    //                     m.players.some(p => p.civ != null && getCivName(p.civ) && getCivName(p.civ)!.toLowerCase()?.indexOf(part) >= 0);
-    //             });
-    //         });
-    //     }
-    //     if (withMe && auth) {
-    //         filtered = filtered.filter(m => m.players.some(p => sameUser(p, auth)));
-    //     }
+    const { data: leaderboards } = useLeaderboards(!props.leaderboardIds);
 
     const list = flatten(data?.pages?.map((p) => p.matches) || Array(15).fill(null));
-    // const list = [...(filteredMatches ? ['header'] : []), ...(filteredMatches || Array(15).fill(null))];
 
     const route = useRoute();
     const state = useNavigationState((state) => state);
@@ -106,7 +86,7 @@ export default function MainMatches() {
         setReloading(false);
     };
 
-    if (!leaderboards) {
+    if (!leaderboards && !props.leaderboardIds) {
         return <View />;
     }
 
@@ -116,8 +96,18 @@ export default function MainMatches() {
     };
 
     const _renderFooter = () => {
-        if (!isFetchingNextPage) return null;
-        return <FlatListLoadingIndicator />;
+        if (isFetchingNextPage) {
+            return <FlatListLoadingIndicator />;
+        }
+
+        if (Platform.OS === 'web' && hasNextPage)
+            return (
+                <View className="pt-2 pb-6 flex-row justify-center">
+                    <Button onPress={onEndReached}>{getTranslation('footer.loadMore')}</Button>
+                </View>
+            );
+
+        return null;
     };
 
     if (profile?.sharedHistory === false) {
@@ -133,25 +123,36 @@ export default function MainMatches() {
     return (
         <View className="flex-1">
             {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
-            <View style={styles.pickerRow} className="px-4">
-                <LeaderboardsSelect
-                    leaderboardIdList={leaderboardIds}
-                    onLeaderboardIdChange={setLeaderboardIds}
-                />
-                <View className="flex-1" />
-                {authProfileId && profileId !== authProfileId && (
+            {!props.leaderboardIds && (
+                <View style={styles.pickerRow} className={containerClassName}>
+                    <LeaderboardsSelect leaderboardIdList={leaderboardIds} onLeaderboardIdChange={setLeaderboardIds} />
+                    <View className="flex-1" />
+                    {authProfileId && profileId !== authProfileId && (
+                        <View style={styles.row2}>
+                            <CheckboxNew checked={withMe} onPress={toggleWithMe} text={getTranslation('main.matches.withme')} />
+                        </View>
+                    )}
+                </View>
+            )}
+            <View className={cn('flex-row gap-4 items-center justify-between', containerClassName)}>
+                {profile ? (
+                    <View className="flex-1 max-w-md">
+                        <Field
+                            type="search"
+                            placeholder={getTranslation('main.matches.search.placeholder')}
+                            onChangeText={(text) => setText(text)}
+                            value={text}
+                        />
+                    </View>
+                ) : (
+                    <Skeleton className="max-w-md flex-1 h-[45px] border border-border rounded-lg" alt />
+                )}
+
+                {props.leaderboardIds && authProfileId && profileId !== authProfileId && profile && (
                     <View style={styles.row2}>
                         <CheckboxNew checked={withMe} onPress={toggleWithMe} text={getTranslation('main.matches.withme')} />
                     </View>
                 )}
-            </View>
-            <View className="px-4">
-                <Field
-                    type="search"
-                    placeholder={getTranslation('main.matches.search.placeholder')}
-                    onChangeText={(text) => setText(text)}
-                    value={text}
-                />
             </View>
             {Platform.OS === 'web' && reloading && <FlatListLoadingIndicator />}
             <View style={{ flex: 1, opacity: isRefetching ? 0.7 : 1 }}>
@@ -165,7 +166,7 @@ export default function MainMatches() {
                         <Match match={item as any} expanded={false} highlightedUsers={[Number(profileId)]} user={Number(profileId)} />
                     )}
                     ListFooterComponent={_renderFooter}
-                    onEndReached={onEndReached}
+                    onEndReached={Platform.OS === 'web' ? undefined : onEndReached}
                     onEndReachedThreshold={0.1}
                     keyExtractor={(item, index) => index.toString()}
                     refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={reloading} />}

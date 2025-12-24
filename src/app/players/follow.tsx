@@ -9,6 +9,7 @@ import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
 import { useTranslation } from '@app/helper/translate';
 import { showAlert } from '@app/helper/alert';
+import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 
 export default function Follow() {
     const getTranslation = useTranslation();
@@ -18,12 +19,7 @@ export default function Follow() {
         navigation.setOptions({ title: getTranslation('matches.follow.title') });
     }, [navigation]);
 
-    return (
-        <Search
-            selectedUser={(user) => router.navigate(`/matches/users/${user.profileId}/main-profile`)}
-            action={(user: IProfilesResultProfile) => <FeedAction user={user} />}
-        />
-    );
+    return <Search action={(user: IProfilesResultProfile) => <FeedAction user={user} />} />;
 }
 
 function FeedAction({ user }: { user: IPlayerListPlayer }) {
@@ -51,12 +47,21 @@ function FeedAction({ user }: { user: IPlayerListPlayer }) {
     };
 
     return (
-        <Button onPress={onSelect} disabled={isMe} size="small">
+        <UserLoginWrapper
+            Component={Button}
+            onPress={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onSelect();
+            }}
+            disabled={isMe}
+            size="small"
+        >
             {isMe
                 ? getTranslation('feed.following.you')
                 : followingThisUser
-                  ? getTranslation('feed.follow.unfollow')
-                  : getTranslation('feed.follow.follow')}
-        </Button>
+                ? getTranslation('feed.follow.unfollow')
+                : getTranslation('feed.follow.follow')}
+        </UserLoginWrapper>
     );
 }

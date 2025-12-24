@@ -1,6 +1,6 @@
 import { getUnitLineIdForUnit, getUnitLineName, iconSmallHeight, iconSmallWidth, sortUnitCounter, Unit, UnitLine, unitLines } from '@nex/data';
 import { Image } from '@/src/components/uniwind/image';
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
@@ -10,14 +10,16 @@ import { MyText } from '../components/my-text';
 
 function CounterUnit({ unitLineId }: { unitLineId: UnitLine }) {
     const styles = useStyles();
-    const gotoUnit = (unit: Unit) => router.push(`/explore/units/${unit}`);
+
     return (
-        <TouchableOpacity onPress={() => gotoUnit(unitLineId)}>
-            <View style={styles.row}>
-                <Image style={styles.unitIcon} source={getUnitLineIcon(unitLineId)} />
-                <MyText style={styles.unitDesc}>{getUnitLineName(unitLineId)}</MyText>
-            </View>
-        </TouchableOpacity>
+        <Link asChild href={`/explore/units/${unitLineId}`}>
+            <TouchableOpacity>
+                <View style={styles.row}>
+                    <Image style={styles.unitIcon} source={getUnitLineIcon(unitLineId)} />
+                    <MyText style={styles.unitDesc}>{getUnitLineName(unitLineId)}</MyText>
+                </View>
+            </TouchableOpacity>
+        </Link>
     );
 }
 

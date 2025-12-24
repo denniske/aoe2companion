@@ -3035,6 +3035,15 @@ export function getTechData(tech: Tech) {
     return data;
 }
 
+export const hasTechData = (tech: Tech) => {
+    try {
+        getTechData(tech);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
 export function getTechName(tech: Tech) {
     const data = getTechData(tech);
     return getAoeString(data.LanguageNameId.toString());

@@ -1,4 +1,3 @@
-import { HeaderTitle } from '@app/components/header-title';
 import { ScrollView } from '@app/components/scroll-view';
 import { Image } from '@/src/components/uniwind/image';
 import { Stack, useLocalSearchParams } from 'expo-router';
@@ -13,10 +12,6 @@ export default function MapDetails() {
     const { data: maps } = useMaps();
     const map = compact(maps).find((m) => m.mapId === name);
 
-    // if (appConfig.game !== 'aoe2') {
-    //     return <Civ4Details civ={map} />;
-    // }
-
     if (map == null) {
         return <View />;
     }
@@ -25,8 +20,7 @@ export default function MapDetails() {
         <View style={styles.container}>
             <Stack.Screen
                 options={{
-                    headerTitle: () => <HeaderTitle title={map.mapName} />,
-                    // headerTitle: () => <HeaderTitle icon={{uri: map.imageUrl}} title={map.mapName} />,
+                    title: map.mapName,
                 }}
             />
             <ScrollView>

@@ -4,13 +4,15 @@ import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { Text } from '@app/components/text';
 import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
-import { router, Stack } from 'expo-router';
+import { Link, router, Stack } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { useMaps } from '@app/queries/all';
 import { IMap } from '@app/api/helper/api.types';
 import { compact, orderBy } from 'lodash';
+import cn from 'classnames';
+import { containerClassName } from '@app/styles';
 
 export default function MapsIndex() {
     const getTranslation = useTranslation();
@@ -25,17 +27,19 @@ export default function MapsIndex() {
     }, [maps, text]);
 
     const renderItem = (map: IMap, index: number) => (
-        <TouchableOpacity key={map.mapId} onPress={() => router.push(`/explore/maps/${map.mapId}`)}>
-            <View className={`flex-row items-center py-1.5 -mx-4 px-4 ${text && index === 0 ? 'bg-gold-100 dark:bg-blue-900' : ''}`}>
-                <Image className={`${appConfig.game === 'aoe2' ? 'w-8' : 'w-14'} h-8`} source={{ uri: map.imageUrl }} />
-                <View className="flex-1 ml-2.5">
-                    <Text variant="label">{map.mapName}</Text>
-                    <Text variant="body-sm" color="subtle" numberOfLines={1}>
-                        {map.description}
-                    </Text>
+        <Link href={`/explore/maps/${map.mapId}`} key={map.mapId}>
+            <TouchableOpacity>
+                <View className={`flex-row items-center py-1.5 -mx-4 px-4 ${text && index === 0 ? 'bg-gold-100 dark:bg-blue-900' : ''}`}>
+                    <Image className={`${appConfig.game === 'aoe2' ? 'w-8' : 'w-14'} h-8`} source={{ uri: map.imageUrl }} />
+                    <View className="flex-1 ml-2.5">
+                        <Text variant="label">{map.mapName}</Text>
+                        <Text variant="body-sm" color="subtle" numberOfLines={1}>
+                            {map.description}
+                        </Text>
+                    </View>
                 </View>
-            </View>
-        </TouchableOpacity>
+            </TouchableOpacity>
+        </Link>
     );
 
     return (
@@ -44,7 +48,7 @@ export default function MapsIndex() {
                 <Stack.Screen options={{ title: getTranslation('maps.title') }} />
 
                 {appConfig.game === 'aoe2' && (
-                    <View className="pt-4 px-4">
+                    <View className={cn("pt-4", containerClassName)}>
                         <Field
                             type="search"
                             placeholder={getTranslation('unit.search.placeholder')}

@@ -1,5 +1,7 @@
+import { Text } from '@app/components/text';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { runOnJS, SharedValue, useAnimatedReaction } from 'react-native-reanimated';
 
 interface IChatMessage {
@@ -59,6 +61,8 @@ export default function Chat({ time, chat }: Props) {
         [currentMessages]
     );
 
+        const { isMedium, isLarge } = useBreakpoints();
+
     return (
         <View
             style={{
@@ -72,10 +76,10 @@ export default function Chat({ time, chat }: Props) {
         >
             {currentMessages.map((message) => (
                 <Text
+                    variant={isLarge ? 'body-lg' : isMedium ? 'body' : 'body-xs'}
                     key={message.index}
                     style={{
                         color: message.color?.toLowerCase(),
-                        fontSize: 10,
                     }}
                 >
                     {message.playerName || 'AI'}: {message.message}

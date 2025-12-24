@@ -3,7 +3,7 @@ import {Civ, civDict, civs} from "./civs";
 import {Building} from './buildings';
 import {appConfig} from '@nex/dataset';
 
-interface ITechSection {
+export interface ITechSection {
     building?: Building;
     civ?: Civ;
     data: Tech[];

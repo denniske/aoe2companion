@@ -2,8 +2,8 @@ import { HeaderTitle } from '@app/components/header-title';
 import { ScrollView } from '@app/components/scroll-view';
 import { aoeCivKey, civDict, getCivNameById, parseCivDescription } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { ImageBackground } from '@/src/components/uniwind/image';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Image, ImageBackground } from '@/src/components/uniwind/image';
+import { Link, Stack, useLocalSearchParams } from 'expo-router';
 import React, { Fragment } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { getCivHistoryImage, getCivIconLocal } from '../../../helper/civs';
@@ -14,11 +14,17 @@ import { TechCompBig } from '../../../view/tech/tech-comp';
 import { UnitCompBig } from '../../../view/unit/unit-comp';
 import { useQuery } from '@tanstack/react-query';
 import { useUniwind } from 'uniwind';
+import NotFound from '@app/app/+not-found';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { useCivVideo } from '@app/utils/video';
+import { Text } from '@app/components/text';
 
 export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
     const civ = name!;
     const { theme } = useUniwind();
+    const { isMedium } = useBreakpoints();
+    const { data: video } = useCivVideo(appConfig.game === 'aoe2' ? civ.toLowerCase() : '');
 
     if (appConfig.game !== 'aoe2') {
         return <Civ4Details civ={civ} />;
@@ -27,7 +33,7 @@ export default function CivDetails() {
     const civDescription = parseCivDescription(civ);
 
     if (civDescription == null) {
-        return <View />;
+        return <NotFound />;
     }
 
     const { type, boni, uniqueUnitsTitle, uniqueTechsTitle, teamBonusTitle, teamBonus } = civDescription;
@@ -35,54 +41,74 @@ export default function CivDetails() {
     return (
         <ImageBackground
             tintColor={theme === 'dark' ? 'white' : 'black'}
-            imageStyle={styles.imageInner}
-            contentFit="cover"
+            imageStyle={[styles.imageInner, isMedium && { height: 600, width: '50%' }]}
+            contentFit={isMedium ? 'contain' : 'cover'}
             source={getCivHistoryImage(civ)}
             style={styles.image}
         >
             <Stack.Screen
                 options={{
+                    title: getCivNameById(civ),
                     headerTitle: () => <HeaderTitle icon={getCivIconLocal(civ)} title={getCivNameById(civ)} />,
                 }}
             />
             <ScrollView>
-                <View style={styles.detailsContainer}>
-                    <MyText style={styles.content}>{type}</MyText>
+                <View style={styles.detailsContainer} className="lg:flex-row lg:gap-6">
+                    <View className="lg:flex-1">
+                        <MyText style={styles.content}>{type}</MyText>
 
-                    <View style={styles.box}>
-                        <MyText style={styles.heading}>Bonus</MyText>
-                        {boni.map((bonus, i) => (
-                            <View key={i} style={styles.bonusRow}>
-                                <MyText style={styles.bullet}>• </MyText>
-                                <MyText style={styles.content}>
-                                    <HighlightUnitAndTechs str={bonus} />
-                                </MyText>
+                        <View style={styles.box}>
+                            <MyText style={styles.heading}>Bonus</MyText>
+                            {boni.map((bonus, i) => (
+                                <View key={i} style={styles.bonusRow}>
+                                    <MyText style={styles.bullet}>• </MyText>
+                                    <MyText style={styles.content}>
+                                        <HighlightUnitAndTechs str={bonus} />
+                                    </MyText>
+                                </View>
+                            ))}
+                        </View>
+
+                        <View style={styles.box}>
+                            <MyText style={styles.heading}>{uniqueUnitsTitle.replace(':', '')}</MyText>
+                            {civDict[civ].uniqueUnits.map((unit) => (
+                                <UnitCompBig key={unit} unit={unit} />
+                            ))}
+                        </View>
+
+                        <View style={styles.box}>
+                            <MyText style={styles.heading}>{uniqueTechsTitle.replace(':', '')}</MyText>
+                            {civDict[civ].uniqueTechs.map((tech) => (
+                                <TechCompBig key={tech} tech={tech} />
+                            ))}
+                        </View>
+
+                        <View style={styles.box}>
+                            <MyText style={styles.heading}>{teamBonusTitle.replace(':', '')}</MyText>
+                            <MyText style={styles.content}>
+                                <HighlightUnitAndTechs str={teamBonus} />
+                            </MyText>
+                        </View>
+
+                        {video && (
+                            <View className="py-4 gap-0.5">
+                                <Text variant="header-lg">Video Guide</Text>
+                                <Text variant="label-sm">By {video.author}</Text>
+                                <Link
+                                    href={`https://www.youtube.com/watch?v=${video.videoId}`}
+                                    target="_blank"
+                                    className="flex-row w-full aspect-video"
+                                >
+                                    <Image
+                                        source={{ uri: video.thumbnailUrl }}
+                                        className="w-full h-full rounded-lg cursor-pointer transition-all hover:scale-105 hover:opacity-80"
+                                    />
+                                </Link>
                             </View>
-                        ))}
+                        )}
                     </View>
 
-                    <View style={styles.box}>
-                        <MyText style={styles.heading}>{uniqueUnitsTitle.replace(':', '')}</MyText>
-                        {civDict[civ].uniqueUnits.map((unit) => (
-                            <UnitCompBig key={unit} unit={unit} />
-                        ))}
-                    </View>
-
-                    <View style={styles.box}>
-                        <MyText style={styles.heading}>{uniqueTechsTitle.replace(':', '')}</MyText>
-                        {civDict[civ].uniqueTechs.map((tech) => (
-                            <TechCompBig key={tech} tech={tech} />
-                        ))}
-                    </View>
-
-                    <View style={styles.box}>
-                        <MyText style={styles.heading}>{teamBonusTitle.replace(':', '')}</MyText>
-                        <MyText style={styles.content}>
-                            <HighlightUnitAndTechs str={teamBonus} />
-                        </MyText>
-                    </View>
-
-                    <View style={styles.box}>
+                    <View style={styles.box} className="lg:flex-1">
                         <TechTree civ={civ} />
                     </View>
                 </View>
@@ -125,7 +151,8 @@ export function Civ4Details({ civ }: { civ: aoeCivKey }) {
 
     const { data: civData } = useQuery({
         queryKey: ['civ-infos', civ],
-        queryFn: async () => (await fetch(`https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`)).json(),
+        queryFn: async () =>
+            (await fetch(`https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`)).json(),
     });
 
     if (!civData) return null;

@@ -1,7 +1,51 @@
+import { getIcon } from '@app/helper/units';
+import { camelCase, upperFirst } from 'lodash';
 
 export const sortBuildAges = (ages: [string, any][]) => {
     const sortedAges = ['feudalAge', 'castleAge', 'imperialAge'];
     return ages.sort((a, b) => sortedAges.indexOf(a[0]) - sortedAges.indexOf(b[0]));
+};
+
+export const getBuildIcon = (image?: string) => {
+    let iconName = upperFirst(camelCase(image ?? ''));
+
+    if (iconName === 'Eagle') {
+        iconName = 'EagleWarrior';
+    }
+
+    if (iconName === 'Scout') {
+        iconName = 'ScoutCavalry';
+    }
+
+    if (iconName === 'Karambit') {
+        iconName = 'KarambitWarrior';
+    }
+
+    if (iconName === 'NativeMonk') {
+        iconName = 'MonkNative';
+    }
+
+    if (iconName === 'Tower') {
+        iconName = 'WatchTower';
+    }
+
+    if (iconName === 'FemaleVillager') {
+        iconName = 'Villager';
+    }
+
+    if (iconName === 'FastImperial') {
+        iconName = 'ImperialAge';
+    }
+
+    if (iconName === 'FastFeudal') {
+        iconName = 'FeudalAge';
+    }
+
+    if (iconName === 'FastCastle') {
+        iconName = 'CastleAge';
+    }
+
+    return getIcon(iconName);
 };
 
 export interface IBuildOrderBuilding {

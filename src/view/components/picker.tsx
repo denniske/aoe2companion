@@ -2,6 +2,7 @@ import {
     Dimensions,
     FlatList,
     FlatListProps,
+    Platform,
     SectionList,
     SectionListData,
     StyleProp,
@@ -12,9 +13,10 @@ import {
 } from 'react-native';
 import { MyText } from './my-text';
 import { FontAwesome } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { type CSSProperties, useMemo, useState } from 'react';
 import { useAppTheme } from '../../theming';
 import { MenuNew } from '@app/components/menu';
+import { Icon } from '@app/components/icon';
 
 interface IPickerProps<T> {
     value?: T;
@@ -100,16 +102,19 @@ export default function Picker<T>(props: IPickerProps<T>) {
         );
     };
 
-    const renderSectionHeader = (title: string) => (
-        <View key={title} style={{ height: itemHeight }}>
-            <View style={styles.menuItem}>
-                <View style={styles.row}>
-                    <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color }]}>
-                        {sectionFormatter(title)}
-                    </MyText>
+    const renderSectionHeader = (title: string, index: number) => (
+        <>
+            {index !== 0 && <View className="h-px bg-border mt-1"></View>}
+            <View key={title} style={{ height: itemHeight }}>
+                <View style={styles.menuItem}>
+                    <View style={styles.row}>
+                        <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color }]}>
+                            {sectionFormatter(title)}
+                        </MyText>
+                    </View>
                 </View>
             </View>
-        </View>
+        </>
     );
 
     const flatListProps: Partial<FlatListProps<T>> = {};
@@ -130,6 +135,78 @@ export default function Picker<T>(props: IPickerProps<T>) {
     const valuesHeight = values ? values.length * (itemHeight || 40) : 100;
     const sectionsHeight = sections ? sections.filter((s) => s.title != null).length * (itemHeight || 40) : 0;
     const valuesAndSectionsHeight = valuesHeight + sectionsHeight;
+    const [isFocused, setIsFocused] = useState(false);
+
+    const valueIndex = useMemo(() => {
+        if (container === 'flatlist') {
+            if (values && value) {
+                return values.indexOf(value);
+            }
+        } else {
+            if (sections && value) {
+                const sectionIndex = sections.findIndex((section) => section.data.some((item) => item === value));
+                const itemIndex = sections[sectionIndex].data.findIndex((item) => item === value);
+
+                if (sectionIndex >= 0 && itemIndex >= 0) {
+                    return `${sectionIndex}-${itemIndex}`;
+                }
+            }
+        }
+    }, [values, value, sections, container]);
+
+    if (Platform.OS === 'web') {
+        const renderWebItem = (item: T, index: number | string) => (
+            <option key={index} value={index}>
+                {formatter(item, isFocused) as string}
+            </option>
+        );
+
+        return (
+            <View style={style} className="relative">
+                <select
+                    value={valueIndex}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    className="px-2.5 py-1 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-blue-900 h-11 appearance-none shadow-xs"
+                    style={anchorStyle as CSSProperties}
+                    onChange={(e) => {
+                        if (container === 'flatlist') {
+                            const value = values?.[Number(e.target.value)];
+
+                            if (value !== undefined) {
+                                onSelect(value);
+                            }
+                        } else if (container === 'sectionlist') {
+                            const [sectionIndex, valueIndex] = e.target.value.split('-').map(Number);
+                            const value = sections?.[sectionIndex]?.data[valueIndex];
+
+                            if (value !== undefined) {
+                                onSelect(value);
+                            }
+                        }
+
+                        e.target.blur();
+                    }}
+                >
+                    {container === 'flatlist' && values?.map(renderWebItem)}
+                    {container === 'sectionlist' &&
+                        sections?.map((section, index) =>
+                            section.title ? (
+                                <optgroup label={sectionFormatter(section.title)} key={index} data-section-index={index}>
+                                    {section.data.map((item, itemIndex) => renderWebItem(item, `${index}-${itemIndex}`))}
+                                </optgroup>
+                            ) : (
+                                section.data.map((item, itemIndex) => renderWebItem(item, `${index}-${itemIndex}`))
+                            )
+                        )}
+                </select>
+
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <Icon icon="angle-down" />
+                </div>
+            </View>
+        );
+    }
 
     return (
         <View style={[style]}>
@@ -146,7 +223,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 onDismiss={() => setMenu(false)}
                 anchor={
                     <TouchableOpacity
-                        className="px-2.5 py-1 rounded-lg border border-gray-200 dark:border-gray-800"
+                        className="px-2.5 py-1 rounded-lg border border-gray-200 dark:border-gray-800 shadow-xs"
                         style={[styles.anchor, anchorStyle, { backgroundColor: theme.backgroundColor }]}
                         onPress={() => setMenu(true)}
                         disabled={disabled}
@@ -187,9 +264,9 @@ export default function Picker<T>(props: IPickerProps<T>) {
                             initialNumToRender={15}
                             stickySectionHeadersEnabled={false}
                             keyboardShouldPersistTaps={'always'}
-                            sections={sections!}
+                            sections={sections!.map((s, index) => ({ ...s, index }))}
                             renderItem={({ item, index }) => renderItem(item, index)}
-                            renderSectionHeader={({ section: { title } }) => (title ? renderSectionHeader(title) : null)}
+                            renderSectionHeader={({ section: { title, index } }) => (title ? renderSectionHeader(title, index) : null)}
                             keyExtractor={(item, index) => index.toString()}
                         />
                     </View>
