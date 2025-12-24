@@ -1,7 +1,7 @@
 import { appConfig } from '@nex/dataset';
 import { Href } from 'expo-router';
 
-export const availableMainPages: Href[] =
+export const availableMainPages =
     appConfig.game === 'aoe2'
         ? ([
               '/',
@@ -19,7 +19,7 @@ export const availableMainPages: Href[] =
               '/statistics',
               '/competitive',
               '/competitive/tournaments',
-          ] as const)
+          ] as const satisfies Href[])
         : ([
               '/',
               '/matches',
@@ -36,6 +36,6 @@ export const availableMainPages: Href[] =
               '/competitive',
               // '/competitive/games',
               '/competitive/tournaments',
-          ] as const);
+          ] as const satisfies Href[]);
 
 export type AvailableMainPage = (typeof availableMainPages)[number];

@@ -52,7 +52,7 @@ export function StatsHeader({ title }: any) {
     );
 }
 
-export function StatsRow({ type, data }: IRowPropsCiv | IRowPropsMap | IRowPropsAlly | IRowPropsOpponent) {
+export function StatsRow({ type, data, onPress }: (IRowPropsCiv | IRowPropsMap | IRowPropsAlly | IRowPropsOpponent) & { onPress?: () => void }) {
     const styles = useStyles();
 
     if (!data) {
@@ -91,6 +91,7 @@ export function StatsRow({ type, data }: IRowPropsCiv | IRowPropsMap | IRowProps
     return (
         <View className="flex-row items-center gap-1 my-1">
             <Link
+                onPress={onPress}
                 asChild
                 href={
                     type === 'civ'

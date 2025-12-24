@@ -42,7 +42,7 @@ export const Button: React.FC<ButtonProps> = ({
         large: 'gap-2 py-2 px-3 w-full',
     };
 
-    const backgroundColor = disabled ? 'bg-gray-500' : 'bg-blue-800 dark:bg-gold-700';
+    const backgroundColor = disabled ? 'bg-gray-500' : 'bg-blue-800 dark:bg-gold-700 hover:bg-blue-900 dark:hover:bg-gold-800 transition-colors';
     const finalColor = disabled ? 'text-gray-600' : color ?? 'text-white';
 
     return (

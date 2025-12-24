@@ -2,17 +2,18 @@ import { fetchLeaderboard } from '@app/api/helper/api';
 import { ILeaderboardDef } from '@app/api/helper/api.types';
 import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
-import { Link } from '@app/components/link';
 import { Text } from '@app/components/text';
+import { Image } from '@app/components/uniwind/image';
 import { useTranslation } from '@app/helper/translate';
 import useDebounce from '@app/hooks/use-debounce';
+import { useLanguage } from '@app/queries/all';
 import { containerClassName } from '@app/styles';
 import ButtonPicker from '@app/view/components/button-picker';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
 import { formatAgo } from '@nex/data';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import cn from 'classnames';
-import { Stack } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 import { flatten } from 'lodash';
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
@@ -66,6 +67,7 @@ export const WebLeaderboard: React.FC<{ leaderboards: ILeaderboardDef[] | undefi
 function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; search: string }) {
     const getTranslation = useTranslation();
     const debouncedSearch = useDebounce(search, 600);
+    const language = useLanguage();
 
     const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery({
         queryKey: ['leaderboard-players', debouncedSearch, leaderboard.leaderboardId],
@@ -75,9 +77,10 @@ function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; sea
                 pageParam: `${context.pageParam}`,
                 search: context.queryKey[1] as string,
                 leaderboardId: context.queryKey[2] as string,
-                language: 'en',
+                language: language!,
             });
         },
+        enabled: !!language,
         initialPageParam: 1,
         getNextPageParam: (lastPage, pages) => lastPage.page + 1,
     });
@@ -93,7 +96,7 @@ function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; sea
                     <thead className={`text-xs text-gray-700 uppercase dark:text-gray-400`}>
                         <tr>
                             <th scope="col" className="py-3 px-6">
-                                #
+                                Rank
                             </th>
                             <th scope="col" className="py-3 px-6">
                                 Name
@@ -119,13 +122,21 @@ function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; sea
                         {flatten(data?.pages?.map((p) => p.players) || []).map((player) => (
                             <tr key={player.profileId} className="border-b border-border">
                                 <td className="py-4 px-6">
-                                    <Text>{player.rank}</Text>
+                                    <Text variant="label-lg">#{player.rank}</Text>
                                 </td>
-                                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <Link href={`/players/${player.profileId}`}>{player.name}</Link>
+                                <th scope="row" className="py-4 px-6">
+                                    <Link
+                                        href={`/players/${player.profileId}`}
+                                        className="flex flex-row gap-2 items-center text-default hover:underline"
+                                    >
+                                        <Image source={{ uri: player?.avatarSmallUrl }} className="w-8 h-8 rounded-full" />
+                                        <Text variant="label-lg" color="inherit">
+                                            {player.name}
+                                        </Text>
+                                    </Link>
                                 </th>
                                 <td className="py-4 px-6">
-                                    <Text>{player.rating}</Text>
+                                    <Text variant="label">{player.rating}</Text>
                                 </td>
                                 <td className="py-4 px-6">
                                     <Text>{player.maxRating}</Text>

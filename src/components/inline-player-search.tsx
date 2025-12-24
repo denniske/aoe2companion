@@ -53,8 +53,10 @@ export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResult
     useEffect(() => {
         function handleFocusOutside(event: FocusEvent): void {
             if (ref.current && !ref.current.contains(event.relatedTarget as Node)) {
-                setText('');
-                setIsFocused(false);
+                setTimeout(() => {
+                    setText('');
+                    setIsFocused(false);
+                }, 250);
             }
         }
         document.addEventListener('focusout', handleFocusOutside);
@@ -73,6 +75,9 @@ export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResult
                 style={{ zIndex: 1, height: 48 }}
                 onChangeText={setText}
                 value={text}
+                autoCapitalize="none"
+                autoCorrect={false}
+                autoComplete="off"
                 onKeyPress={(e) => {
                     if (e.nativeEvent.key === 'Enter') {
                         viewAll();

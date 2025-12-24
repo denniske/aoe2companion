@@ -95,11 +95,11 @@ export async function fetchMatches(params: IFetchMatchesParams) {
 }
 
 export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
-    const { leaderboardId, ...restParams } = params;
+    const { leaderboardId, extend = [], ...restParams } = params;
     const queryString = makeQueryString(
         decamelizeKeys({
             ...removeReactQueryParams(restParams),
-            extend: 'players.avatar_small_url',
+            extend: ['players.avatar_small_url', ...extend].join(','),
             page: restParams.page || restParams.pageParam || 1,
         })
     );

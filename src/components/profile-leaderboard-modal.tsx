@@ -200,17 +200,23 @@ export const ProfileLeaderboardModal = ({
                                                             <View className="h-px bg-border" />
 
                                                             {title === 'civ' &&
-                                                                stats.civ.map((stat, index) => <StatsRow key={index} data={stat} type={title} />)}
+                                                                stats.civ.map((stat, index) => (
+                                                                    <StatsRow key={index} data={stat} type={title} onPress={onClose} />
+                                                                ))}
 
                                                             {title === 'map' &&
-                                                                stats.map.map((stat, index) => <StatsRow key={index} data={stat} type={title} />)}
+                                                                stats.map.map((stat, index) => (
+                                                                    <StatsRow key={index} data={stat} type={title} onPress={onClose} />
+                                                                ))}
 
                                                             {title === 'ally' &&
-                                                                stats.allies.map((stat, index) => <StatsRow key={index} data={stat} type={title} />)}
+                                                                stats.allies.map((stat, index) => (
+                                                                    <StatsRow key={index} data={stat} type={title} onPress={onClose} />
+                                                                ))}
 
                                                             {title === 'opponent' &&
                                                                 stats.opponents.map((stat, index) => (
-                                                                    <StatsRow key={index} data={stat} type={title} />
+                                                                    <StatsRow key={index} data={stat} type={title} onPress={onClose} />
                                                                 ))}
                                                         </Card>
                                                     ) : null

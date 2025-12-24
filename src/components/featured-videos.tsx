@@ -7,6 +7,7 @@ import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { useMemo } from 'react';
 import { Link } from 'expo-router';
 import { formatAgo } from '@nex/data';
+import { orderBy } from 'lodash';
 
 export const FeaturedVideos = () => {
     const { data: videos } = useFeaturedVideos();
@@ -29,7 +30,7 @@ export const FeaturedVideos = () => {
             <Text variant="header-lg">Recent Videos</Text>
 
             <View className="flex flex-row gap-2.5">
-                {videos?.slice(0, count)?.map((video) => (
+                {orderBy(videos?.slice(0, count), 'publishDate', 'desc')?.map((video) => (
                     <Link
                         key={video.videoId}
                         className="flex-1 flex flex-col w-0 bg-white dark:bg-blue-900 hover:bg-gray-50 hover:dark:bg-blue-800 transition-colors rounded-lg"
