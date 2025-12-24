@@ -49,7 +49,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
             )}
 
             <Link href={player.civ ? `/explore/civilizations/${getLocalCivEnum(player.civ)}` : '/'} disabled={!player.civ} asChild>
-                <TouchableOpacity className={'flex-row flex-1 gap-1'} style={{ flexDirection: styles.flexDirection }} onPress={onClose}>
+                <TouchableOpacity className={'flex-row flex-1 gap-1'} style={styles.flexDirection && { flexDirection: styles.flexDirection }} onPress={onClose}>
                     <Image className={appConfig.game === 'aoe2' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="cover" />
                     <Text numberOfLines={1} variant={highlight ? 'label' : 'body'} className="flex-1">
                         {player.civName}

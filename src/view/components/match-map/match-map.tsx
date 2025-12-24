@@ -50,8 +50,8 @@ export default function MatchMap(props: Props) {
         return <Text>Loading...</Text>;
     }
 
-    const { isMedium } = useBreakpoints()
-    const size = (isMedium ? 384 : 240) - 2;
+    const { isMedium, isLarge } = useBreakpoints()
+    const size = (isLarge ? 576 : (isMedium ? 384 : 240)) - 2;
 
     const dimension = analysis.map.dimension;
 
@@ -318,7 +318,7 @@ export default function MatchMap(props: Props) {
         <View className="gap-2">
             <Card direction="vertical" flat={true}>
                 <View className="flex-row justify-center border0 border-gray-300">
-                    <View className="relative w-60 md:w-96 aspect-square border0 border-gray-700">
+                    <View className="relative w-60 md:w-96 lg:w-xl aspect-square border0 border-gray-700">
                         <View className="scale-y-[0.5]">
                             <View className="-rotate-45">
                                 <Image
