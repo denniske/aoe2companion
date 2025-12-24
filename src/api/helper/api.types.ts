@@ -766,9 +766,10 @@ export interface IFetchLeaderboardParams {
     steamId?: string;
     profileId?: number;
     country?: string;
-
+    perPage?: number;
     pageParam?: string;
     language: string;
+    extend?: string[];
 }
 
 export interface IFetchLeaderboardsParams {

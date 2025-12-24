@@ -20,7 +20,7 @@ export const Header: React.FC<NativeStackHeaderProps | (BottomTabHeaderProps & {
     return (
         <>
             {!showTabBar && (
-                <View className="bg-white dark:bg-blue-800 border-b border-border shadow-xs z-10">
+                <View className="bg-gold-50 dark:bg-blue-950 z-10">
                     <Breadcrumbs title={title} />
                 </View>
             )}

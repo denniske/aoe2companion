@@ -13,7 +13,7 @@ import { makeQueryString } from '@app/api/helper/util';
 import { parseISO, subDays } from 'date-fns';
 import { ConvertedLiquipediaMatch, ILiquipediaPlacement, INewLiquipediaMatch } from '@app/api/tournament.types';
 
-export const tournamentsEnabled = (true && __DEV__) || Platform.OS !== 'web';
+export const tournamentsEnabled = (false && __DEV__) || Platform.OS !== 'web';
 
 const liquipedia = new Liquipedia({
     USER_AGENT: `${Application.applicationName}/${Application.nativeApplicationVersion} (hello@aoe2companion.com)`,

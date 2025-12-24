@@ -87,7 +87,7 @@ export default function IndexPage() {
     ];
 
     return (
-        <ScrollView contentContainerClassName="p-4">
+        <ScrollView contentContainerClassName="p-4 md:py-6">
             <Stack.Screen
                 options={{
                     headerShown: showTabBar,
@@ -127,54 +127,61 @@ export default function IndexPage() {
                     <View className="mb-5 gap-2">
                         <Text variant="header-lg">Get Started</Text>
 
-                        <View className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {welcomeCards.map((card) => (
-                                <Card className="flex-1 items-center gap-2" href={card.href} direction="vertical">
-                                    <View className="p-4 bg-blue-800 dark:bg-blue-700 rounded-full mb-1">
-                                        <Icon icon={card.icon} size={24} color="white" />
-                                    </View>
-                                    <Text variant="header">{card.title}</Text>
-                                    <Text align="center" color="subtle" className="hidden md:inline-block">
-                                        {card.description}
+                        <View className="gap-4">
+                            <View className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                {welcomeCards.map((card) => (
+                                    <Card className="flex-1 items-center gap-2" href={card.href} direction="vertical">
+                                        <View className="p-4 bg-blue-800 dark:bg-blue-700 rounded-full mb-1">
+                                            <Icon icon={card.icon} size={24} color="white" />
+                                        </View>
+                                        <Text variant="header">{card.title}</Text>
+                                        <Text align="center" color="subtle" className="hidden md:inline-block">
+                                            {card.description}
+                                        </Text>
+                                    </Card>
+                                ))}
+                            </View>
+
+                            <Card className="mb-5 items-center md:justify-between md:flex-row gap-4" direction="vertical">
+                                <Text variant="header-lg" className="text-center">
+                                    Buy{' '}
+                                    <Text variant="header-lg" className="italic">
+                                        Age of Empires II: Definitive Edition
                                     </Text>
-                                </Card>
-                            ))}
+                                </Text>
+
+                                <View className="flex-row gap-4">
+                                    <Button
+                                        icon="steam"
+                                        iconPrefix="fab"
+                                        href="https://store.steampowered.com/app/813780/Age_of_Empires_II_Definitive_Edition/"
+                                    >
+                                        Steam
+                                    </Button>
+                                    <Button
+                                        icon="xbox"
+                                        iconPrefix="fab"
+                                        href="https://www.xbox.com/en-us/games/store/age-of-empires-ii-definitive-edition/9njdd0jgpp2q"
+                                    >
+                                        XBox
+                                    </Button>
+                                    <Button
+                                        icon="playstation"
+                                        iconPrefix="fab"
+                                        href="https://store.playstation.com/en-us/product/UP6312-PPSA18654_00-0965895154892062"
+                                    >
+                                        PS5
+                                    </Button>
+                                </View>
+                            </Card>
                         </View>
                     </View>
                 )}
             </AnimateIn>
 
-            {Platform.OS === 'web' && (
-                <Card className="mb-5 justify-between">
-                    <Text variant="header-lg">
-                        Buy <Text variant='header-lg' className='italic'>Age of Empires II: Definitive Edition</Text>
-                    </Text>
-
-                    <View className="flex-row gap-4">
-                        <Button icon="steam" iconPrefix="fab" href="https://store.steampowered.com/app/813780/Age_of_Empires_II_Definitive_Edition/">
-                            Steam
-                        </Button>
-                        <Button
-                            icon="xbox"
-                            iconPrefix="fab"
-                            href="https://www.xbox.com/en-us/games/store/age-of-empires-ii-definitive-edition/9njdd0jgpp2q"
-                        >
-                            XBox
-                        </Button>
-                        <Button
-                            icon="playstation"
-                            iconPrefix="fab"
-                            href="https://store.playstation.com/en-us/product/UP6312-PPSA18654_00-0965895154892062"
-                        >
-                            PS5
-                        </Button>
-                    </View>
-                </Card>
-            )}
-
             {authProfileId && (
                 <AnimateIn>
-                    <View className="gap-2 pb-5">
+                    <View className="gap-2 pb-5 lg:pb-8">
                         <View className="flex-row justify-between items-center">
                             <Text variant="header-lg">
                                 {getTranslation(accountMostRecentMatch?.finished === null ? 'home.current' : 'home.mostRecent')} Match
@@ -194,14 +201,14 @@ export default function IndexPage() {
 
             {favoriteIds.length > 0 && (
                 <AnimateIn>
-                    <View className="pb-5">
+                    <View className="pb-5 lg:pb-8">
                         <FavoritedBuilds favoriteIds={favoriteIds} />
                     </View>
                 </AnimateIn>
             )}
 
             {tournamentsEnabled ? (
-                <View className="gap-2 pb-5">
+                <View className="gap-2 pb-5 lg:pb-8">
                     <View className="flex-row justify-between items-center">
                         <Text variant="header-lg">
                             {followedIds[0] ? getTranslation('home.favoriteTournament') : getTranslation('home.featuredTournament')}
@@ -212,7 +219,7 @@ export default function IndexPage() {
                 </View>
             ) : null}
 
-            <View className="gap-2 pb-5">
+            <View className="gap-2 pb-5 lg:pb-8">
                 <Text variant="header-lg">Recent News</Text>
 
                 <FlatList
@@ -225,11 +232,13 @@ export default function IndexPage() {
                 />
             </View>
 
-            <View className="mb-5">
-                <FeaturedVideos />
-            </View>
+            {appConfig.game === 'aoe2' && (
+                <View className="pb-5 lg:pb-8">
+                    <RankedMaps />
+                </View>
+            )}
 
-            {appConfig.game === 'aoe2' && <RankedMaps />}
+            <FeaturedVideos />
         </ScrollView>
     );
 }

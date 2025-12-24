@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { MyText } from './my-text';
 import { FontAwesome } from '@expo/vector-icons';
-import React, { type CSSProperties, useState } from 'react';
+import React, { type CSSProperties, useMemo, useState } from 'react';
 import { useAppTheme } from '../../theming';
 import { MenuNew } from '@app/components/menu';
 import { Icon } from '@app/components/icon';
@@ -137,6 +137,23 @@ export default function Picker<T>(props: IPickerProps<T>) {
     const valuesAndSectionsHeight = valuesHeight + sectionsHeight;
     const [isFocused, setIsFocused] = useState(false);
 
+    const valueIndex = useMemo(() => {
+        if (container === 'flatlist') {
+            if (values && value) {
+                return values.indexOf(value);
+            }
+        } else {
+            if (sections && value) {
+                const sectionIndex = sections.findIndex((section) => section.data.some((item) => item === value));
+                const itemIndex = sections[sectionIndex].data.findIndex((item) => item === value);
+
+                if (sectionIndex >= 0 && itemIndex >= 0) {
+                    return `${sectionIndex}-${itemIndex}`;
+                }
+            }
+        }
+    }, [values, value, sections, container]);
+
     if (Platform.OS === 'web') {
         const renderWebItem = (item: T, index: number | string) => (
             <option key={index} value={index}>
@@ -147,6 +164,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
         return (
             <View style={style} className="relative">
                 <select
+                    value={valueIndex}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     className="px-2.5 py-1 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-blue-900 h-11 appearance-none shadow-xs"
