@@ -2,7 +2,7 @@ import { IProfileResult, IProfilesResultProfile } from '@app/api/helper/api.type
 import { Icon } from '@app/components/icon';
 import { Link, Redirect, useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Platform, TouchableOpacity, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
@@ -184,16 +184,21 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                 />
             )}
 
-            {profile.verified && (
-                <TouchableOpacity
-                    className="w-8 items-center justify-center"
-                    onPress={() => setShowTournamentPlayer(true)}
-                    disabled={!liquipediaProfile}
-                >
-                    <Icon icon="check-circle" color="brand" size={20} />
-                    {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
-                </TouchableOpacity>
-            )}
+            {profile.verified &&
+                (Platform.OS === 'web' ? (
+                    <Link href={`https://liquipedia.net/ageofempires/${profile.socialLiquipedia}`} target="_blank">
+                        <Icon icon="check-circle" color="brand" size={20} />
+                    </Link>
+                ) : (
+                    <TouchableOpacity
+                        className="w-8 items-center justify-center"
+                        onPress={() => setShowTournamentPlayer(true)}
+                        disabled={!liquipediaProfile}
+                    >
+                        <Icon icon="check-circle" color="brand" size={20} />
+                        {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
+                    </TouchableOpacity>
+                ))}
 
             <MenuNew
                 contentStyle={{

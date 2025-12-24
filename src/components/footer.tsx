@@ -57,6 +57,33 @@ export const Footer: React.FC = () => {
                 )}
             </View>
 
+            <View className={cn(containerClassName, 'py-4 flex-row gap-4 justify-center')}>
+                <ExpoLink
+                    href={`https://play.google.com/store/apps/details?id=${appConfig.app.android.bundleId}`}
+                    target="_blank"
+                    className="flex flex-1 flex-row items-end"
+                >
+                    <Image
+                        source={require('../../assets/app-button-play-store.png')}
+                        className="h-12 flex-1 object-contain"
+                        contentFit="contain"
+                        contentPosition="right"
+                    />
+                </ExpoLink>
+                <ExpoLink
+                    href={`https://apps.apple.com/app/id${appConfig.app.ios.bundleId}`}
+                    target="_blank"
+                    className="flex flex-1 flex-row items-start"
+                >
+                    <Image
+                        contentPosition="left"
+                        source={require('../../assets/app-button-app-store.png')}
+                        className="h-12 flex-1 object-contain"
+                        contentFit="contain"
+                    />
+                </ExpoLink>
+            </View>
+
             <View className={cn(containerClassName, 'py-4 web:max-w-3xl! justify-center')}>
                 <Text variant="body-sm" color="subtle" align="center" className="inline-block">
                     Age of Empires II© Microsoft Corporation. {appConfig.hostAoeCompanion} was created under Microsoft's "
