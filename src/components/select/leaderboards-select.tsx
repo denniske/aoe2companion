@@ -1,15 +1,13 @@
-import { setLeaderboardId, useMutate, useSelector } from '@app/redux/reducer';
-import { useQuery } from '@tanstack/react-query';
-import { fetchLeaderboards } from '@app/api/helper/api';
 import { ILeaderboardDef } from '@app/api/helper/api.types';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { leaderboardIdsByType, leaderboardsByType } from '@app/helper/leaderboard';
-import { View } from 'react-native';
 import Picker from '@app/view/components/picker';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useAppTheme } from '@app/theming';
 import { useLeaderboards } from '@app/queries/all';
 import { isEqual } from 'lodash';
+import { usePrefData } from '@app/queries/prefs';
+import { useSavePrefsMutation } from '@app/mutations/save-account';
 
 interface Props {
     leaderboardIdList: string[];
@@ -17,6 +15,15 @@ interface Props {
 }
 
 export function LeaderboardsSelect(props: Props) {
+    const savedLeaderboards = usePrefData((state) => state?.selectedLeaderboards);
+    const savePrefsMutation = useSavePrefsMutation();
+
+    useEffect(() => {
+        if (savedLeaderboards) {
+            onLeaderboardIdSelected(savedLeaderboards);
+        }
+    }, [savedLeaderboards]);
+
     const { leaderboardIdList, onLeaderboardIdChange } = props;
     const theme = useAppTheme();
 
@@ -62,16 +69,14 @@ export function LeaderboardsSelect(props: Props) {
         }
     };
 
-    const onLeaderboardIdSelected = (leaderboard: ILeaderboardDef | string | null) => {
+    const onLeaderboardIdSelected = (leaderboard: string | null) => {
         let leaderboardIds: string[] = [];
-        if (typeof leaderboard === 'string') {
-            if (leaderboard === 'PC' && leaderboards) {
-                leaderboardIds = leaderboardIdsByType(leaderboards, 'pc');
-            } else if (leaderboard === 'Console' && leaderboards) {
-                leaderboardIds = leaderboardIdsByType(leaderboards, 'xbox');
-            }
-        } else if (leaderboard) {
-            leaderboardIds = [leaderboard.leaderboardId];
+        if (leaderboard === 'PC' && leaderboards) {
+            leaderboardIds = leaderboardIdsByType(leaderboards, 'pc');
+        } else if (leaderboard === 'Console' && leaderboards) {
+            leaderboardIds = leaderboardIdsByType(leaderboards, 'xbox');
+        } else if (typeof leaderboard === 'string') {
+            leaderboardIds = [leaderboard];
         }
 
         onLeaderboardIdChange?.(leaderboardIds);
@@ -108,7 +113,11 @@ export function LeaderboardsSelect(props: Props) {
             disabled={loadingLeaderboard}
             value={selectedLeaderboard}
             formatter={formatLeaderboard}
-            onSelect={onLeaderboardIdSelected}
+            onSelect={(leaderboard) => {
+                const leaderboardId = typeof leaderboard === 'string' ? leaderboard : leaderboard?.leaderboardId ?? null;
+                savePrefsMutation.mutate({ selectedLeaderboards: typeof leaderboard === 'string' ? leaderboard : leaderboard?.leaderboardId });
+                onLeaderboardIdSelected(leaderboardId);
+            }}
             style={{ width: 192 }}
         />
     );

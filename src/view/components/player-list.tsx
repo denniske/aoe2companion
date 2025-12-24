@@ -12,6 +12,7 @@ import { useCavy } from '../testing/tester';
 import { useAuthProfileId } from '@app/queries/all';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { UserLoginWrapper } from '@app/components/user-login-wrapper';
+import { CustomFragment } from '@app/components/custom-fragment';
 
 export interface IPlayerListPlayer {
     country?: string;
@@ -157,7 +158,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
         );
     }
 
-    const Wrapper = href ? Link : Fragment;
+    const Wrapper = href ? Link : CustomFragment;
 
     return (
         <Wrapper href={href!} asChild>

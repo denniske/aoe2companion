@@ -3,12 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchLeaderboards } from '@app/api/helper/api';
 import { ILeaderboardDef } from '@app/api/helper/api.types';
 import { FontAwesome6 } from '@expo/vector-icons';
-import { leaderboardsByType } from '@app/helper/leaderboard';
+import { leaderboardIdsByType, leaderboardsByType } from '@app/helper/leaderboard';
 import { View } from 'react-native';
 import Picker from '@app/view/components/picker';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppTheme } from '@app/theming';
 import { useLeaderboards } from '@app/queries/all';
+import { usePrefData } from '@app/queries/prefs';
+import { useSavePrefsMutation } from '@app/mutations/save-account';
 
 interface Props {
     leaderboardId?: string | null;
@@ -17,11 +19,34 @@ interface Props {
 
 export function LeaderboardSelect(props: Props) {
     const { leaderboardId, onLeaderboardIdChange } = props;
+    const savedLeaderboards = usePrefData((state) => state?.selectedLeaderboards);
+    const savePrefsMutation = useSavePrefsMutation();
+
     const theme = useAppTheme();
 
     const { data: leaderboards } = useLeaderboards();
 
-    const selectedLeaderboard = leaderboards?.find(l => l.leaderboardId === leaderboardId);
+    useEffect(() => {
+        if (savedLeaderboards && leaderboards) {
+            let leaderboardId: string | null = null;
+            const matchingLeaderboard = leaderboards.find((l) => l.leaderboardId === savedLeaderboards);
+            if (savedLeaderboards === 'PC') {
+                leaderboardId = leaderboardIdsByType(leaderboards, 'pc')[0];
+            } else if (savedLeaderboards === 'Console') {
+                leaderboardId = leaderboardIdsByType(leaderboards, 'xbox')[0];
+            } else if (matchingLeaderboard) {
+                leaderboardId = matchingLeaderboard.leaderboardId;
+            }
+
+            const leaderboard = leaderboards.find((l) => l.leaderboardId === leaderboardId);
+
+            if (leaderboardId && leaderboard) {
+                onLeaderboardIdSelected(leaderboard);
+            }
+        }
+    }, [savedLeaderboards, leaderboards]);
+
+    const selectedLeaderboard = leaderboards?.find((l) => l.leaderboardId === leaderboardId);
 
     const formatLeaderboard = (x: ILeaderboardDef, inList?: boolean) => {
         if (x == null) return '';
@@ -31,9 +56,9 @@ export function LeaderboardSelect(props: Props) {
     const icon = (x: any) => {
         if (x == null) return null;
         if (x.abbreviation.includes('🎮')) {
-            return <FontAwesome6 name="gamepad" size={16} style={{paddingRight: 10, paddingVertical:8, color: theme.textColor}} />;
+            return <FontAwesome6 name="gamepad" size={16} style={{ paddingRight: 10, paddingVertical: 8, color: theme.textColor }} />;
         } else {
-            return <FontAwesome6 name="computer-mouse" size={16} style={{paddingRight: 10, paddingVertical:8, color: theme.textColor}} />;
+            return <FontAwesome6 name="computer-mouse" size={16} style={{ paddingRight: 10, paddingVertical: 8, color: theme.textColor }} />;
         }
     };
 
@@ -70,7 +95,10 @@ export function LeaderboardSelect(props: Props) {
             value={selectedLeaderboard}
             values={leaderboards}
             formatter={formatLeaderboard}
-            onSelect={onLeaderboardIdSelected}
+            onSelect={(leaderboard) => {
+                savePrefsMutation.mutate({ selectedLeaderboards: leaderboard.leaderboardId });
+                onLeaderboardIdSelected(leaderboard);
+            }}
             style={{ width: 150 }}
         />
     );
