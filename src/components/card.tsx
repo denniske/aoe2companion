@@ -1,6 +1,7 @@
 import { Href, Link } from 'expo-router';
 import { Fragment } from 'react';
 import { Pressable, PressableProps, View, ViewProps } from 'react-native';
+import { CustomFragment } from './custom-fragment';
 
 export interface CardProps extends ViewProps {
     onPress?: PressableProps['onPress'];
@@ -14,7 +15,7 @@ export interface CardProps extends ViewProps {
 
 export const Card: React.FC<CardProps> = ({ className, flat, onPress, header, children, footer, direction = 'horizontal', href, ...props }) => {
     const Component = onPress || href ? Pressable : View;
-    const Wrapper = href ? Link : Fragment;
+    const Wrapper = href ? Link : CustomFragment;
     let colorStyles = `bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800`;
     let alignmentStyles = direction === 'horizontal' ? 'items-center' : '';
     let paddingStyles = 'px-4 py-4';

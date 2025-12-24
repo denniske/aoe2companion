@@ -116,7 +116,7 @@ export default function IndexPage() {
 
             <AnimateIn skipFirstAnimation={Platform.OS !== 'web'}>
                 {!shouldPromptLogin && (
-                    <View className="-mx-4 mb-5">
+                    <View className="-mx-4 pb-5 lg:pb-8">
                         <FollowedPlayers />
                     </View>
                 )}
@@ -124,7 +124,7 @@ export default function IndexPage() {
 
             <AnimateIn>
                 {shouldPromptLogin && (
-                    <View className="mb-5 gap-2">
+                    <View className="gap-2 pb-5 lg:pb-8">
                         <Text variant="header-lg">Get Started</Text>
 
                         <View className="gap-4">
@@ -142,7 +142,7 @@ export default function IndexPage() {
                                 ))}
                             </View>
 
-                            <Card className="mb-5 items-center md:justify-between md:flex-row gap-4" direction="vertical">
+                            <Card className="items-center md:justify-between md:flex-row gap-4" direction="vertical">
                                 <Text variant="header-lg" className="text-center">
                                     Buy{' '}
                                     <Text variant="header-lg" className="italic">

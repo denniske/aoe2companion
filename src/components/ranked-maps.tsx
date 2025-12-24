@@ -30,8 +30,8 @@ export const RankedMaps: React.FC = () => {
 
     return (
         <View>
-            <Text variant="header-lg" className="pb-2 md:hidden">
-                Ranked Maps
+            <Text variant="header-lg" className="pb-2">
+                {isMedium ? 'Ranked Ladder' : 'Ranked Maps'}
             </Text>
 
             <AnimateIn skipFirstAnimation>
@@ -68,8 +68,8 @@ export const RankedMaps: React.FC = () => {
                     </View>
                     <View className="md:flex-row gap-4">
                         <View className="hidden md:flex md:flex-1">
-                            <Text variant="header-lg" className="pb-2">
-                                Top 5 Ranked Players
+                            <Text variant="header-xs" className="pb-2">
+                                Top 5 Players
                             </Text>
 
                             <LeaderboardSnapshot leaderboardId={rankedMapLeaderboard ?? firstValue} />
@@ -79,8 +79,8 @@ export const RankedMaps: React.FC = () => {
                             </Button>
                         </View>
                         <View className="md:flex-1">
-                            <Text variant="header-lg" className="pb-2 hidden md:flex">
-                                Ranked Maps
+                            <Text variant="header-xs" className="pb-2 hidden md:flex">
+                                Current Maps
                             </Text>
 
                             <View className="flex-row flex-wrap md:flex-1">

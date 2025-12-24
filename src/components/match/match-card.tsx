@@ -14,6 +14,7 @@ import { Link } from 'expo-router';
 import { Image } from '@/src/components/uniwind/image';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import MatchTeams from './match-teams';
+import { CustomFragment } from '../custom-fragment';
 
 export interface MatchCardProps extends MatchProps {
     clickable?: boolean;
@@ -53,7 +54,7 @@ export function MatchCard(props: MatchCardProps) {
     attributes = uniq(attributes);
 
     const { isMedium, isLarge } = useBreakpoints();
-    const MapLinkComponent = linkMap ? Link : Fragment;
+    const MapLinkComponent = linkMap ? Link : CustomFragment;
 
     return (
         <Card

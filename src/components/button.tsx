@@ -5,6 +5,7 @@ import { Pressable, TouchableOpacityProps } from 'react-native';
 import { Icon, IconProps } from './icon';
 import { Text, TextProps } from './text';
 import { Fragment } from 'react';
+import { CustomFragment } from './custom-fragment';
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
     children?: string;
@@ -29,7 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
     color,
     ...props
 }) => {
-    const Wrapper = href ? Link : Fragment;
+    const Wrapper = href ? Link : CustomFragment;
     const textSizes: Record<NonNullable<ButtonProps['size']>, TextVariant> = {
         small: 'label-sm',
         medium: 'header-xs',

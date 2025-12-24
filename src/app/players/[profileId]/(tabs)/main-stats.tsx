@@ -7,7 +7,6 @@ import { useLeaderboards, useProfileWithStats, useWithRefetching } from '@app/qu
 import { useLocalSearchParams } from 'expo-router';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 import { useTranslation } from '@app/helper/translate';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { useWebRefresh } from '@app/hooks/use-web-refresh';
 import { MyText } from '@app/view/components/my-text';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
@@ -20,7 +19,6 @@ export default function MainStats() {
     const params = useLocalSearchParams<{ profileId: string }>();
     const profileId = parseInt(params.profileId);
     const styles = useStyles();
-    const {getItem: getStoredLeaderboardId, setItem: setStoredLeaderboardId} = useAsyncStorage('statsLeaderboardId')
     const [leaderboardId, setLeaderboardId] = useState<string>();
 
     const { data: leaderboards } = useLeaderboards();
@@ -30,13 +28,7 @@ export default function MainStats() {
     useEffect(() => {
         if (leaderboards == null) return;
         if (leaderboardId == null) {
-            getStoredLeaderboardId().then((id) => {
-                if (id && leaderboards.some((l) => l.leaderboardId === id)) {
-                    setLeaderboardId(id);
-                } else {
-                    setLeaderboardId(leaderboardIdsByType(leaderboards, 'pc')[0]);
-                }
-            });
+            setLeaderboardId(leaderboardIdsByType(leaderboards, 'pc')[0]);
         }
     }, [leaderboards]);
 
@@ -114,21 +106,10 @@ export default function MainStats() {
                                         <View style={styles.pickerRow}>
                                             <LeaderboardSelect
                                                 leaderboardId={leaderboardId}
-                                                onLeaderboardIdChange={(id) => {
-                                                    if (id) {
-                                                        setStoredLeaderboardId(id);
-                                                    }
-
-                                                    setLeaderboardId(id ?? undefined);}
-                                                }
+                                                onLeaderboardIdChange={(x) => setLeaderboardId(x ?? undefined)}
                                             />
                                         </View>
-                                        {
-                                            statsLoaded && !hasStats &&
-                                            <MyText style={styles.info}>
-                                                {getTranslation('main.stats.nomatches')}
-                                            </MyText>
-                                        }
+                                        {statsLoaded && !hasStats && <MyText style={styles.info}>{getTranslation('main.stats.nomatches')}</MyText>}
                                     </View>
                                 );
                             case 'header':

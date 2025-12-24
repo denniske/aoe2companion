@@ -47,7 +47,16 @@ function FeedAction({ user }: { user: IPlayerListPlayer }) {
     };
 
     return (
-        <UserLoginWrapper Component={Button} onPress={onSelect} disabled={isMe} size="small">
+        <UserLoginWrapper
+            Component={Button}
+            onPress={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onSelect();
+            }}
+            disabled={isMe}
+            size="small"
+        >
             {isMe
                 ? getTranslation('feed.following.you')
                 : followingThisUser
