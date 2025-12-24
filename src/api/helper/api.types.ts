@@ -757,6 +757,7 @@ export interface ILeaderboardPlayer {
     games: number;
     country: string;
     avatarSmallUrl?: string;
+    avatarMediumUrl?: string;
 }
 
 export interface IFetchLeaderboardParams {

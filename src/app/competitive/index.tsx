@@ -20,7 +20,7 @@ import { Stack, useFocusEffect } from 'expo-router';
 import { PlayoffMatch } from 'liquipedia';
 import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Linking, Platform, TouchableOpacity, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { useTranslation } from '@app/helper/translate';
@@ -102,7 +102,7 @@ export default function Competitive() {
     const { data: featuredTournaments, isLoading } = useFeaturedTournaments();
 
     const playTwitchStream = async () => {
-        if (Platform.OS === 'ios' || Platform.OS === 'web') {
+        if (Platform.OS === 'ios') {
             try {
                 if (Platform.OS === 'ios' && (await Linking.canOpenURL(liveTwitchAppUrl!))) {
                     await Linking.openURL(liveTwitchAppUrl!);
@@ -116,6 +116,30 @@ export default function Competitive() {
             setIsVideoPlaying(true);
         }
     };
+
+    const embedRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (Platform.OS === 'web' && liveTwitch) {
+            const script = document.createElement('script');
+            script.src = 'https://embed.twitch.tv/embed/v1.js';
+            script.async = true;
+            script.onload = () => {
+                if (embedRef.current) {
+                    new (window as any).Twitch.Embed(embedRef.current!.id, {
+                        width: '100%',
+                        height: isMedium ? 540 : 320,
+                        channel: liveTwitch.user_login,
+                    });
+                }
+            };
+            document.body.appendChild(script);
+
+            return () => {
+                document.body.removeChild(script);
+            };
+        }
+    }, [liveTwitch]);
 
     return (
         <ScrollView className="flex-1" contentContainerClassName="pb-4">
@@ -254,16 +278,18 @@ export default function Competitive() {
                             <Tag leftComponent={<View className="w-2 h-2 rounded-full bg-red-600" />}>{liveTwitch.viewer_count.toString()}</Tag>
                         </View>
 
-                        {isVideoPlaying ? (
+                        {Platform.OS === 'web' ? (
+                            <div id="twitch-embed" ref={embedRef} />
+                        ) : isVideoPlaying ? (
                             <WebView allowsFullscreenVideo source={{ uri: liveTwitchUrl! }} style={{ width: '100%', aspectRatio: 800 / 450 }} />
                         ) : (
                             <>
-                                {(Platform.OS === 'ios' || Platform.OS === 'web') && (
+                                {Platform.OS === 'ios' && (
                                     <Button className="self-start" onPress={playTwitchStream}>
                                         Open Stream
                                     </Button>
                                 )}
-                                {Platform.OS !== 'ios' && Platform.OS !== 'web' && (
+                                {Platform.OS !== 'ios' && (
                                     <TouchableOpacity className="relative" onPress={playTwitchStream}>
                                         <Image
                                             source={{ uri: liveTwitch.thumbnail_url.replace('{width}', '800').replace('{height}', '450') }}

@@ -77,6 +77,7 @@ function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; sea
                 pageParam: `${context.pageParam}`,
                 search: context.queryKey[1] as string,
                 leaderboardId: context.queryKey[2] as string,
+                extend: ['players.avatar_medium_url'],
                 language: language!,
             });
         },
@@ -127,9 +128,9 @@ function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; sea
                                 <th scope="row" className="py-4 px-6">
                                     <Link
                                         href={`/players/${player.profileId}`}
-                                        className="flex flex-row gap-2 items-center text-default hover:underline"
+                                        className="flex flex-row gap-3 items-center text-default hover:underline"
                                     >
-                                        <Image source={{ uri: player?.avatarSmallUrl }} className="w-8 h-8 rounded-full" />
+                                        <Image source={{ uri: player?.avatarMediumUrl }} className="w-10 h-10 rounded-full" />
                                         <Text variant="label-lg" color="inherit">
                                             {player.name}
                                         </Text>
