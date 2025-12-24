@@ -117,7 +117,7 @@ export default function BuildListPage() {
 
                     <FlatList
                         key={isLarge ? 'large' : isMedium ? 'medium' : 'small'}
-                        numColumns={isLarge ? 3 : isMedium ? 2 : undefined}
+                        numColumns={isLarge ? 3 : isMedium ? 2 : 1}
                         className="flex-1"
                         data={filteredBuilds || []}
                         columnWrapperClassName="gap-4"

@@ -8,6 +8,7 @@ import Constants from 'expo-constants';
 import { useTranslation } from '@app/helper/translate';
 import { appConfig } from '@nex/dataset';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { Image } from '@app/components/uniwind/image';
 
 interface Link {
     icon: IconName;
@@ -62,6 +63,30 @@ export default function More() {
                         </TouchableOpacity>
                     </Link>
                 )}
+                ListFooterComponent={
+                    Platform.OS === 'web' ? (
+                        <View className="gap-4 pt-8">
+                            <Link
+                                href={`https://play.google.com/store/apps/details?id=${appConfig.app.android.bundleId}`}
+                                target="_blank"
+                                className="flex flex-col"
+                            >
+                                <Image
+                                    source={require('../../../assets/app-button-play-store.png')}
+                                    className="h-12 object-contain"
+                                    contentFit="contain"
+                                />
+                            </Link>
+                            <Link href={`https://apps.apple.com/app/id${appConfig.app.ios.bundleId}`} target="_blank" className="flex flex-col">
+                                <Image
+                                    source={require('../../../assets/app-button-app-store.png')}
+                                    className="h-12 object-contain"
+                                    contentFit="contain"
+                                />
+                            </Link>
+                        </View>
+                    ) : undefined
+                }
             />
         </>
     );
