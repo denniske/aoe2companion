@@ -5,7 +5,7 @@ import { supabaseClient } from '@nex/data';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
-class FetchNotOkError extends Error {
+export class FetchNotOkError extends Error {
     constructor(
         message: string,
         public status: number,

@@ -6,6 +6,7 @@ import { useMatchAnalysis, useMatchAnalysisSvg, useWithRefetching } from '@app/q
 import SkiaLoader from '@app/components/skia-loader';
 import { Button } from '@app/components/button';
 import { appConfig } from '@nex/dataset';
+import { FetchNotOkError } from '@app/api/util';
 
 interface Props {
     match?: IMatchNew;
@@ -21,6 +22,8 @@ export default function MatchAnalysis(props: Props) {
         data: analysis,
         error: analysisError,
         isLoading: analysisLoading,
+        refetch: analysisRefetch,
+        isRefetching: analysisIsRefetching,
     } = useWithRefetching(useMatchAnalysis(match!.matchId, !!match && analyzeNow));
 
     const { data: analysisSvgUrl } = useWithRefetching(useMatchAnalysisSvg(match!.matchId, !!analysis));
@@ -32,10 +35,20 @@ export default function MatchAnalysis(props: Props) {
                     <Text className="text-red-800">{matchError?.message}</Text>
                 </View>
             )}
-            {analysisError && (
-                <View className="bg-red-100 p-4 rounded-lg">
-                    <Text className="text-red-800">{analysisError?.message}</Text>
-                </View>
+            {analysisError && !analysisIsRefetching && (
+                <>
+                    <View className="bg-red-100 p-4 rounded-lg">
+                        <Text className="text-red-800">{analysisError?.message}</Text>
+                    </View>
+                    {
+                        (analysisError as FetchNotOkError)?.status === 503 &&
+                        <View className="flex-row items-center justify-center h-20">
+                            <View className="flex-row justify-center my-3 gap-2">
+                                <Button onPress={() => analysisRefetch()}>Retry</Button>
+                            </View>
+                        </View>
+                    }
+                </>
             )}
             {analysis && !analysisError && (
                 <SkiaLoader

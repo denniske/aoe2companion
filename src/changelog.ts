@@ -315,6 +315,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Added Petard to Krepost in Tech Tree',
         },
+        {
+            type: 'bugfix',
+            title: 'Added "Retry" button to match analysis when server is overloaded',
+        },
     ],
     '179.0.0': [
         {

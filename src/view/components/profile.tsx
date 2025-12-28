@@ -158,9 +158,6 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
     const pcDrops = sumBy(leaderboardsPC, x => x.drops);
     const consoleDrops = sumBy(leaderboardsConsole, x => x.drops);
 
-    console.log('pcGames', pcGames)
-    console.log('pcDrops', pcDrops)
-
     return (
         <View className="gap-y-3">
             {(data?.socialDiscordInvitationUrl ||
