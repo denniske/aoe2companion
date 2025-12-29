@@ -1,18 +1,17 @@
 import Search from '@app/view/components/search';
-import { router, useFocusEffect, useLocalSearchParams, useNavigation } from 'expo-router';
-import { useCallback, useEffect } from 'react';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { useTranslation } from '@app/helper/translate';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
-import { useAccount } from '@app/queries/all';
-import { supabaseClient } from '@nex/data';
+import { useRedirectUnauthenticated } from '@app/hooks/use-redirect-unauthenticated';
 
 export type ISearchProfilePageParams = {
     search?: string;
 };
 
 const SelectProfilePage = () => {
+    useRedirectUnauthenticated();
     const { search } = useLocalSearchParams<ISearchProfilePageParams>();
-    const { data: account } = useAccount();
     const saveAccountMutation = useSaveAccountMutation();
     const getTranslation = useTranslation();
 
@@ -28,16 +27,6 @@ const SelectProfilePage = () => {
     useEffect(() => {
         navigation.setOptions({ title: getTranslation('search.findmyaccount.title') });
     }, [navigation, getTranslation]);
-
-    useFocusEffect(
-        useCallback(() => {
-            supabaseClient.auth.getSession().then(({ data: { session } }) => {
-                if (!session) {
-                    router.replace('/more/account');
-                }
-            });
-        }, [])
-    );
 
     return (
         <Search

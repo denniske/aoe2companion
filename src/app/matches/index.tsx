@@ -22,6 +22,7 @@ import { ProfileLive } from '@app/view/components/badge/twitch-badge';
 import cn from 'classnames';
 import { containerClassName, containerScrollClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { UserLoginWrapper } from '../../components/user-login-wrapper';
 
 export default function MatchesPage() {
     const showTabBar = useShowTabBar();
@@ -155,9 +156,9 @@ export default function MatchesPage() {
             ) : profileIds?.length === 0 || list.length === 0 ? (
                 <View className={cn('flex-1 py-4 gap-1', containerClassName)}>
                     <Text variant="label">{getTranslation('feed.following.info.1')}</Text>
-                    <Link href="/players/follow">
+                    <UserLoginWrapper Component={Link} href="/players/follow">
                         <Text variant="body-sm">{getTranslation('feed.following.info.2')}</Text>
-                    </Link>
+                    </UserLoginWrapper>
                 </View>
             ) : (
                 <View className="flex-1">

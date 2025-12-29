@@ -13,8 +13,10 @@ import { useAccount } from '@app/queries/all';
 import { Icon } from '@app/components/icon';
 import { Card } from '@app/components/card';
 import { Button } from '@app/components/button';
+import { useRedirectUnauthenticated } from '@app/hooks/use-redirect-unauthenticated';
 
 export default function LiveFollowingPage() {
+    useRedirectUnauthenticated();
     const getTranslation = useTranslation();
 
     const { data: account, error, isLoading: isLoadingAccount } = useAccount();
