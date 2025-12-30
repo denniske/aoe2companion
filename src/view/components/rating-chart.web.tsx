@@ -1,5 +1,5 @@
 import React from 'react';
-import { LeaderboardId } from '@nex/data';
+import { formatCustom, formatDate, LeaderboardId } from '@nex/data';
 import { getLeaderboardColor } from '../../helper/colors';
 import { useAppTheme } from '../../theming';
 import { isAfter, subYears } from 'date-fns';
@@ -9,7 +9,6 @@ import { cloneDeep, merge, orderBy } from 'lodash';
 import { getRatingTimespan } from '@app/utils/rating';
 import { useCSSVariable, useResolveClassNames, useUniwind } from 'uniwind';
 import _ from 'lodash';
-import { View } from 'react-native';
 
 interface IRatingChartProps {
     formatTick: (date: Date) => string;
@@ -51,22 +50,29 @@ export default function RatingChart(props: IRatingChartProps) {
                                 orderBy(history.ratings, 'date', 'desc').find((r) => !isAfter(r.date, datum.x))
                             );
 
-                            const labels =
-                                ratings?.map((r, index) =>
+                            const labels = [
+                                `${formatCustom(datum.x, 'P')}`,
+                                ...(ratings?.map((r, index) =>
                                     r?.rating
                                         ? `${filteredRatingHistories?.[index]?.label} - ${r?.rating}`
                                         : `${filteredRatingHistories?.[index]?.label} = No rating`
-                                ) ?? [];
+                                ) ?? []),
+                            ];
                             return labels as unknown as number;
                         }}
                         cursorLabelComponent={
                             <VictoryLabel
-                                backgroundStyle={filteredRatingHistories?.map((h) => ({
+                                backgroundStyle={filteredRatingHistories ? [{
+                                    fill: 'black',
+                                    borderRadius: 100,
+                                    strokeWidth: 1,
+                                    stroke: 'white',
+                                }, ...filteredRatingHistories?.map((h) => ({
                                     fill: h.color,
                                     borderRadius: 100,
                                     strokeWidth: 1,
                                     stroke: 'white',
-                                }))}
+                                }))] : undefined}
                                 backgroundPadding={{ top: 5, bottom: 5, right: 8, left: 8 }}
                                 style={{ fill: 'white' }}
                             />
