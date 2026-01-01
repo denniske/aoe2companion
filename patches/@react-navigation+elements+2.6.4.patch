@@ -1,0 +1,23 @@
+diff --git a/node_modules/@react-navigation/elements/lib/module/Background.js b/node_modules/@react-navigation/elements/lib/module/Background.js
+index 991f746..67364b3 100644
+--- a/node_modules/@react-navigation/elements/lib/module/Background.js
++++ b/node_modules/@react-navigation/elements/lib/module/Background.js
+@@ -2,7 +2,7 @@
+ 
+ import { useTheme } from '@react-navigation/native';
+ import * as React from 'react';
+-import { Animated } from 'react-native';
++import { Animated, Platform } from 'react-native';
+ import { jsx as _jsx } from "react/jsx-runtime";
+ export function Background({
+   style,
+@@ -16,7 +16,7 @@ export function Background({
+     style: [{
+       flex: 1,
+       backgroundColor: colors.background
+-    }, style]
++    }, style, Platform.OS === 'web' && {position: 'static'}]
+   });
+ }
+ //# sourceMappingURL=Background.js.map
+\ No newline at end of file

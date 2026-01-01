@@ -27,7 +27,7 @@ export default function ButtonPicker<T>(props: IPickerProps<T>) {
                     return (
                         <Button
                             key={i}
-                            className={`py-2 ${flex ? `flex-1` : `px-6`} justify-center ${selected ? '' : 'bg-transparent dark:bg-transparent'}`}
+                            className={`py-2 ${flex ? `flex-1` : `px-6`} justify-center ${selected ? '' : 'bg-transparent dark:bg-transparent hover:bg-white/50! dark:hover:bg-black/50!'}`}
                             onPress={() => onSelect(val)}
                             color={selected ? 'white' : 'subtle'}
                             disabled={disabled}

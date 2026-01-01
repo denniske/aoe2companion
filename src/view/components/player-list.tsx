@@ -2,15 +2,17 @@ import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
 import { FlatList, FlatListProps, FlatListRef } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
-import { Skeleton } from '@app/components/skeleton';
+import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
-import { router } from 'expo-router';
-import React from 'react';
-import { TouchableOpacity, View, ViewStyle } from 'react-native';
+import { Href, Link, router } from 'expo-router';
+import React, { Fragment, useMemo } from 'react';
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { Image } from '@/src/components/uniwind/image';
 import { useCavy } from '../testing/tester';
 import { useAuthProfileId } from '@app/queries/all';
-import { TextLoader } from '@app/view/components/loader/text-loader';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { UserLoginWrapper } from '@app/components/user-login-wrapper';
+import { CustomFragment } from '@app/components/custom-fragment';
 
 export interface IPlayerListPlayer {
     country?: string;
@@ -32,6 +34,7 @@ interface IPlayerProps<PlayerType extends IPlayerListPlayer> {
     variant?: 'vertical' | 'horizontal';
     hideIcons?: boolean;
     playerStyle?: ViewStyle;
+    shouldLink: boolean;
 }
 
 function Player<PlayerType extends IPlayerListPlayer>({
@@ -44,74 +47,100 @@ function Player<PlayerType extends IPlayerListPlayer>({
     image,
     hideIcons,
     playerStyle,
+    shouldLink,
 }: IPlayerProps<PlayerType>) {
+    const { isMedium } = useBreakpoints();
     const generateTestHook = useCavy();
     const authProfileId = useAuthProfileId();
 
+    const FullSkeleton = useMemo(
+        () => (
+            <>
+                <View className="w-7 h-7 md:w-12 md:h-12 items-center justify-center">
+                    <Skeleton className="w-6 h-6 md:w-10 md:h-10" />
+                </View>
+                <SkeletonText variant={isMedium ? 'label' : 'body-sm'} />
+                {footer ? footer() : <SkeletonText variant={isMedium ? 'body-sm' : 'body-xs'} />}
+            </>
+        ),
+        [footer]
+    );
+
     if (player === 'loading') {
         return (
-            <Card direction="vertical" className="items-center justify-center gap-0 pt-2 pb-2 px-2.5 w-20" style={playerStyle}>
-                <View className="w-[29px] h-[28px] items-center justify-center">
-                    <Skeleton className="w-6 h-6" />
-                </View>
-                <TextLoader />
-                {footer ? footer() : <TextLoader />}
+            <Card direction="vertical" className="items-center justify-center gap-1! py-2 px-2.5 w-20 md:w-32 md:py-4" style={playerStyle}>
+                {FullSkeleton}
             </Card>
         );
     }
 
     if (player === 'select') {
         return (
-            <Card
+            <UserLoginWrapper
+                Component={Card}
                 direction="vertical"
-                className="items-center justify-center gap-1 py-2 px-2.5 w-20"
-                onPress={() => router.navigate('/matches/users/select')}
+                className="items-center justify-center gap-1! py-2 px-2.5 w-20 md:w-32 md:py-4 relative"
+                href="/players/select"
                 style={playerStyle}
             >
-                <Icon icon="user" color="brand" size={24} />
-                <View className="flex-row gap-1 items-center">
-                    <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
+                <View className="opacity-0 gap-1">{FullSkeleton}</View>
+
+                <View className="absolute inset-0 items-center justify-center gap-2">
+                    <Icon icon="user" color="brand" size={isMedium ? 48 : 28} />
+                    <Text numberOfLines={1} variant={isMedium ? 'label' : 'body-sm'} allowFontScaling={false}>
                         Find Me
                     </Text>
                 </View>
-            </Card>
+            </UserLoginWrapper>
         );
     }
 
     if (player === 'follow') {
         return (
-            <Card
+            <UserLoginWrapper
+                Component={Card}
                 direction="vertical"
-                className="items-center justify-center gap-1 py-2 px-2.5 w-20"
-                onPress={() => router.navigate('/matches/users/follow')}
+                className="items-center justify-center gap-1! py-2 px-2.5 w-20 md:w-32 md:py-4 relative"
+                href="/players/follow"
                 style={playerStyle}
             >
-                <Icon icon="plus" color="brand" size={24} />
-                <View className="flex-row gap-1 items-center">
-                    <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
+                <View className="opacity-0 gap-1">{FullSkeleton}</View>
+
+                <View className="absolute inset-0 items-center justify-center gap-2">
+                    <Icon icon="plus" color="brand" size={isMedium ? 48 : 28} />
+                    <Text numberOfLines={1} variant={isMedium ? 'label' : 'body-sm'} allowFontScaling={false}>
                         Add Player
                     </Text>
                 </View>
-            </Card>
+            </UserLoginWrapper>
         );
     }
 
     const isMe = player.profileId === authProfileId;
+    let href: Href | undefined;
 
-    const onSelect = async () => {
-        selectedUser!(player);
-    };
-
-    //  w-[5.5rem]
+    if (shouldLink) {
+        if ('href' in player) {
+            href = player.href as Href;
+        } else if (player.profileId) {
+            href = `/players/${player.profileId}`;
+        }
+    }
 
     if (variant === 'horizontal') {
         return (
-            <Card direction="vertical" className="items-center justify-center gap-1 pt-2 pb-2 px-2.5" style={playerStyle} onPress={onSelect}>
-                {image ? image(player) : <Image source={{ uri: player.avatarMediumUrl }} className="w-7 h-7 rounded-full" />}
+            <Card
+                direction="vertical"
+                className="items-center justify-center gap-1! py-2 px-2.5 md:min-w-32 md:py-4"
+                style={playerStyle}
+                onPress={selectedUser ? () => selectedUser?.(player) : undefined}
+                href={href}
+            >
+                {image ? image(player) : <Image source={{ uri: player.avatarMediumUrl }} className="w-7 h-7 md:w-12 md:h-12 rounded-full" />}
                 {!!player.name && (
                     <View className="flex-row gap-1 max-w-full items-center">
                         {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
-                        <Text numberOfLines={1} variant="body-sm" allowFontScaling={false}>
+                        <Text numberOfLines={1} variant={isMedium ? 'label' : 'body-sm'} allowFontScaling={false}>
                             {player.name}
                         </Text>
                         {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon="circle-check" size={12} />}
@@ -121,7 +150,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 {footer ? (
                     footer(player)
                 ) : (
-                    <Text color="subtle" variant="body-xs" numberOfLines={1} allowFontScaling={false}>
+                    <Text color="subtle" variant={isMedium ? 'body-sm' : 'body-xs'} numberOfLines={1} allowFontScaling={false}>
                         {player.games || '<10'} Games
                     </Text>
                 )}
@@ -129,40 +158,44 @@ function Player<PlayerType extends IPlayerListPlayer>({
         );
     }
 
+    const Wrapper = href ? Link : CustomFragment;
+
     return (
-        <TouchableOpacity
-            className="flex-row items-center w-full gap-2"
-            ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: onSelect } }) as any}
-            onPress={onSelect}
-            style={playerStyle}
-        >
-            {image ? image(player) : <Image source={{ uri: player.avatarMediumUrl }} className="w-7 h-7 rounded-full" />}
-            <View>
-                <View className="flex-row gap-1 items-center">
-                    <Text numberOfLines={1} variant="label">
-                        {player.name}
-                    </Text>
-                    {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
-                    {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon="circle-check" size={12} />}
+        <Wrapper href={href!} asChild>
+            <TouchableOpacity
+                className="flex-row items-center w-full gap-2"
+                ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: () => selectedUser?.(player) } }) as any}
+                onPress={selectedUser ? () => selectedUser?.(player) : undefined}
+                style={playerStyle}
+            >
+                {image ? image(player) : <Image source={{ uri: player.avatarMediumUrl }} className="w-7 h-7 rounded-full" />}
+                <View>
+                    <View className="flex-row gap-1 items-center">
+                        <Text numberOfLines={1} variant="label">
+                            {player.name}
+                        </Text>
+                        {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
+                        {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon="circle-check" size={12} />}
+                    </View>
+                    {footer ? (
+                        footer(player)
+                    ) : (
+                        <Text variant="body-sm" color="subtle">
+                            {player.games || '<10'} Games
+                        </Text>
+                    )}
                 </View>
-                {footer ? (
-                    footer(player)
-                ) : (
-                    <Text variant="body-sm" color="subtle">
-                        {player.games || '<10'} Games
-                    </Text>
-                )}
-            </View>
-            <View className="flex-1 flex-row justify-end gap-2">
-                {action && action(player)}
-                {actionText && selectedUser && (
-                    <Button size="small" onPress={onSelect}>
-                        {actionText}
-                    </Button>
-                )}
-            </View>
-            <Icon icon="angle-right" color="brand" size={20} />
-        </TouchableOpacity>
+                <View className="flex-1 flex-row justify-end gap-2">
+                    {action && action(player)}
+                    {actionText && selectedUser && (
+                        <Button size="small" onPress={() => selectedUser?.(player)} href={href}>
+                            {actionText}
+                        </Button>
+                    )}
+                </View>
+                <Icon icon="angle-right" color="brand" size={20} />
+            </TouchableOpacity>
+        </Wrapper>
     );
 }
 
@@ -177,6 +210,7 @@ interface ISearchProps<PlayerType extends IPlayerListPlayer>
     variant?: 'vertical' | 'horizontal';
     flatListRef?: FlatListRef<PlayerType | 'select' | 'follow' | 'loading'>;
     hideIcons?: boolean;
+    shouldLink?: boolean;
     playerStyle?: ViewStyle;
 }
 
@@ -191,6 +225,7 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
     image,
     hideIcons,
     playerStyle,
+    shouldLink = true,
     ...props
 }: ISearchProps<PlayerType>) {
     return (
@@ -217,6 +252,7 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
                         variant={variant}
                         hideIcons={hideIcons}
                         playerStyle={playerStyle}
+                        shouldLink={shouldLink}
                     />
                 );
             }}

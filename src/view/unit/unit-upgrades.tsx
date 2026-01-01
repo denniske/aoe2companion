@@ -28,9 +28,9 @@ import { getTechIcon } from '../../helper/techs';
 import { getEliteUniqueResearchIcon, getUnitIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
 import { Image } from '@/src/components/uniwind/image';
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { useTranslation } from '@app/helper/translate';
-import { getAbilityIcon, getAbilityName, getAbilityNavCallback } from '@app/view/components/tech-tree';
+import { getAbilityIcon, getAbilityName, getAbilityNavHref } from '@app/view/components/tech-tree';
 
 interface Props {
     unitLineId: UnitLine;
@@ -44,11 +44,9 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
 
     const unitLine = unitLines[unitLineId];
 
-    const unitLineUpgrades = unitLine.upgrades
-        .map((u) => techEffectDict[u])
-        .filter((u) => !u.onlyUnits || u.onlyUnits.includes(unitId));
-        // Note: Centurion effect is sorted out by the filter (maybe change this)
-        // .filter((u) => !u.unit || u.unit == unitId);
+    const unitLineUpgrades = unitLine.upgrades.map((u) => techEffectDict[u]).filter((u) => !u.onlyUnits || u.onlyUnits.includes(unitId));
+    // Note: Centurion effect is sorted out by the filter (maybe change this)
+    // .filter((u) => !u.unit || u.unit == unitId);
 
     const unitIndex = unitLine.units.indexOf(unitId);
 
@@ -88,14 +86,6 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
 
     groups = groups.filter((g) => g.upgrades.length > 0);
 
-    const gotoCiv = (civ: Civ) => router.push(`/explore/civilizations/${civ}`);
-    const gotoUnit = (unit: Unit) => router.push(`/explore/units/${unit}`);
-    const gotoTech = (tech: Tech) => router.push(`/explore/technologies/${tech}`);
-
-    // const { match, player } = useSelector(state => state.ingame ?? {});
-
-    // console.log('player', player);
-
     const hasTech = (tech: Tech) => {
         return true;
         // if (!player) return true;
@@ -116,14 +106,14 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                     </View>
                     {group.upgrades.map((upgrade) => (
                         <View style={[styles.row, { opacity: hasTech(upgrade.tech!) ? 1 : 0.5 }]} key={upgrade.name}>
-
                             <Image style={styles.unitIcon} source={getAbilityIcon(upgrade)} />
 
                             <MyText style={styles.unitDesc}>
-
-                                <MyText style={appStyles.link} onPress={getAbilityNavCallback(upgrade)} >
-                                    {getAbilityName(upgrade)}
-                                </MyText>
+                                <Link asChild href={getAbilityNavHref(upgrade)}>
+                                    <MyText style={appStyles.link} className="hover:underline">
+                                        {getAbilityName(upgrade)}
+                                    </MyText>
+                                </Link>
 
                                 {(upgrade.effect[group.prop] || upgrade.civ) && (
                                     <MyText size="footnote">
@@ -133,9 +123,11 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                                         {upgrade.civ && (
                                             <>
                                                 <MyText size="footnote">only </MyText>
-                                                <MyText size="footnote" style={appStyles.link} onPress={() => gotoCiv(upgrade.civ!)}>
-                                                    {upgrade.civ}
-                                                </MyText>
+                                                <Link asChild href={`/explore/civilizations/${upgrade.civ}`}>
+                                                    <MyText size="footnote" style={appStyles.link} className="hover:underline">
+                                                        {upgrade.civ}
+                                                    </MyText>
+                                                </Link>
                                             </>
                                         )}
                                         {')'}
@@ -152,12 +144,14 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                     <View style={styles.row}>
                         <MyText style={styles.header2}>{getTranslation('unit.heading.upgradedfrom')}</MyText>
                     </View>
-                    <TouchableOpacity onPress={() => gotoUnit(upgradedFrom!)}>
-                        <View style={styles.row}>
-                            <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedFrom)} />
-                            <MyText style={styles.unitDesc}>{getUnitName(upgradedFrom)}</MyText>
-                        </View>
-                    </TouchableOpacity>
+                    <Link asChild href={`/explore/units/${upgradedFrom}`}>
+                        <TouchableOpacity>
+                            <View style={styles.row}>
+                                <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedFrom)} />
+                                <MyText style={styles.unitDesc}>{getUnitName(upgradedFrom)}</MyText>
+                            </View>
+                        </TouchableOpacity>
+                    </Link>
                 </View>
             )}
             {upgradedToList.length > 0 && (
@@ -167,13 +161,18 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                         <MyText style={styles.header2}>{getTranslation('unit.heading.upgradedto')}</MyText>
                     </View>
                     {upgradedToList.map((upgradedTo) => (
-                        <TouchableOpacity key={upgradedTo} disabled={unitLine.unique} onPress={() => gotoUnit(upgradedTo)}>
-                            <View style={styles.row}>
-                                <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)} />
-                                <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>
-                                {getUnitUpgradeCost(upgradedTo) && <Costs costDict={getUnitUpgradeCost(upgradedTo)!} />}
-                            </View>
-                        </TouchableOpacity>
+                        <Link asChild href={`/explore/units/${upgradedTo}`} key={upgradedTo}>
+                            <TouchableOpacity disabled={unitLine.unique}>
+                                <View style={styles.row}>
+                                    <Image
+                                        style={styles.unitIcon}
+                                        source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}
+                                    />
+                                    <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>
+                                    {getUnitUpgradeCost(upgradedTo) && <Costs costDict={getUnitUpgradeCost(upgradedTo)!} />}
+                                </View>
+                            </TouchableOpacity>
+                        </Link>
                     ))}
                 </View>
             )}

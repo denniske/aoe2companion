@@ -32,22 +32,21 @@ export default function MatchAnalysis(props: Props) {
         <View>
             {matchError && (
                 <View className="bg-red-100 p-4 rounded-lg">
-                    <Text className="text-red-800">{matchError?.message}</Text>
+                    <Text color="text-red-800">{matchError?.message}</Text>
                 </View>
             )}
             {analysisError && !analysisIsRefetching && (
                 <>
                     <View className="bg-red-100 p-4 rounded-lg">
-                        <Text className="text-red-800">{analysisError?.message}</Text>
+                        <Text color="text-red-800">{analysisError?.message}</Text>
                     </View>
-                    {
-                        (analysisError as FetchNotOkError)?.status === 503 &&
+                    {(analysisError as FetchNotOkError)?.status === 503 && (
                         <View className="flex-row items-center justify-center h-20">
                             <View className="flex-row justify-center my-3 gap-2">
                                 <Button onPress={() => analysisRefetch()}>Retry</Button>
                             </View>
                         </View>
-                    }
+                    )}
                 </>
             )}
             {analysis && !analysisError && (

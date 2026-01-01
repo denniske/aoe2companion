@@ -1,6 +1,6 @@
 import { Text } from '@app/components/text';
 import { Image } from '@/src/components/uniwind/image';
-import { router, Stack } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
@@ -56,21 +56,19 @@ export default function MapsPoll() {
                         {mapsPoll?.questions
                             ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
                             ?.options?.map((map) => (
-                                <TouchableOpacity
-                                    key={map.mapId}
-                                    className="flex-col justify-between items-center w-[25%] mb-4"
-                                    onPress={() => router.push(`/explore/maps/${map.mapId}`)}
-                                >
-                                    <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
-                                    <Text variant={'body-sm'} className="text-center mb-1">
-                                        {map.mapName}
-                                    </Text>
-                                    {pollEnded && (
-                                        <Text variant={'body-sm'} className="text-center">
-                                            {map.percentage.toFixed(0)} %
+                                <Link asChild href={`/explore/maps/${map.mapId}`} key={map.mapId}>
+                                    <TouchableOpacity className="flex-col justify-between items-center w-[25%] mb-4">
+                                        <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
+                                        <Text variant={'body-sm'} className="text-center mb-1">
+                                            {map.mapName}
                                         </Text>
-                                    )}
-                                </TouchableOpacity>
+                                        {pollEnded && (
+                                            <Text variant={'body-sm'} className="text-center">
+                                                {map.percentage.toFixed(0)} %
+                                            </Text>
+                                        )}
+                                    </TouchableOpacity>
+                                </Link>
                             ))}
                     </View>
                     <Text variant="header" className="mt-2 mb-5">
@@ -80,16 +78,14 @@ export default function MapsPoll() {
                         {mapsPoll?.questions
                             ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
                             ?.devOptions?.map((map) => (
-                                <TouchableOpacity
-                                    key={map.mapId}
-                                    className="flex-col justify-between items-center w-[25%]"
-                                    onPress={() => router.push(`/explore/maps/${map.mapId}`)}
-                                >
-                                    <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
-                                    <Text variant={'body-sm'} className="text-center mb-1">
-                                        {map.mapName}
-                                    </Text>
-                                </TouchableOpacity>
+                                <Link asChild href={`/explore/maps/${map.mapId}`} key={map.mapId}>
+                                    <TouchableOpacity className="flex-col justify-between items-center w-[25%]">
+                                        <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
+                                        <Text variant={'body-sm'} className="text-center mb-1">
+                                            {map.mapName}
+                                        </Text>
+                                    </TouchableOpacity>
+                                </Link>
                             ))}
                     </View>
                 </>

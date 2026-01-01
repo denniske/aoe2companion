@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { runOnJS, SharedValue, useAnimatedReaction } from 'react-native-reanimated';
 import { isEqual, last } from 'lodash';
 import { getTimestampMs, ILegendInfo } from '@app/view/components/match-map/match-map';
@@ -10,19 +10,19 @@ import { getAgeIcon } from '@app/helper/units';
 import startCase from 'lodash/startCase';
 import { Age } from '@nex/data';
 import { IMatchNew } from '@app/api/helper/api.types';
-
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { Text } from '@app/components/text';
 
 type ILegendTeams = Array<{
-    teamId?: number
+    teamId?: number;
     players: Array<{
-        name: string
-        civImageUrl: string
-        color: string
-        resigned: boolean
-        age: string
-    }>
-}>
-
+        name: string;
+        civImageUrl: string;
+        color: string;
+        resigned: boolean;
+        age: string;
+    }>;
+}>;
 
 interface Props {
     time: SharedValue<number>;
@@ -48,20 +48,20 @@ const shallowArrayEqual = (a: any[], b: any[]): boolean => {
 };
 
 const analysisAgeToAge: Record<string, string> = {
-    'dark_age': 'DarkAge',
-    'feudal_age': 'FeudalAge',
-    'castle_age': 'CastleAge',
-    'imperial_age': 'ImperialAge',
-}
+    dark_age: 'DarkAge',
+    feudal_age: 'FeudalAge',
+    castle_age: 'CastleAge',
+    imperial_age: 'ImperialAge',
+};
 
 const startingAges: Record<string, string> = {
-    'standard': 'dark_age',
-    'dark_age': 'dark_age',
-    'feudal_age': 'feudal_age',
-    'castle_age': 'castle_age',
-    'imperial_age': 'imperial_age',
-    'post_imperial_age': 'imperial_age',
-}
+    standard: 'dark_age',
+    dark_age: 'dark_age',
+    feudal_age: 'feudal_age',
+    castle_age: 'castle_age',
+    imperial_age: 'imperial_age',
+    post_imperial_age: 'imperial_age',
+};
 
 export default function Legend({ time, legendInfo, match }: Props) {
     const [currentLegendTeams, setCurrentLegendTeams] = useState<ILegendTeams>([]);
@@ -71,11 +71,14 @@ export default function Legend({ time, legendInfo, match }: Props) {
     const updateMessages = (time: number) => {
         // console.log('updateMessages', time)
 
-        const newLegendInfo = legendInfo.map(team =>{
+        const newLegendInfo = legendInfo.map((team) => {
             return {
                 ...team,
                 players: team.players.map((player) => {
-                    let age = last(player.uptimes.filter(uptime => getTimestampMs(uptime.timestamp) < time))?.age ?? startingAges[match.startingAge] ?? 'dark';
+                    let age =
+                        last(player.uptimes.filter((uptime) => getTimestampMs(uptime.timestamp) < time))?.age ??
+                        startingAges[match.startingAge] ??
+                        'dark';
                     // console.log('age', player.name, age, match.startingAge, analysisAgeToAge[age]);
                     return {
                         name: player.name,
@@ -104,6 +107,8 @@ export default function Legend({ time, legendInfo, match }: Props) {
         [currentLegendTeams]
     );
 
+    const { isMedium, isLarge } = useBreakpoints();
+
     // console.log('match.startingAge', match.startingAge);
     // console.log('uptimes', legendInfo[0].players[0].uptimes);
     // console.log('LEGEND', currentLegendTeams);
@@ -122,16 +127,16 @@ export default function Legend({ time, legendInfo, match }: Props) {
                     {item.players.map((player) => (
                         <View className="flex-row justify-end items-center gap-0" key={player.color}>
                             <Text
+                                variant={isLarge ? 'body-lg' : isMedium ? 'body' : 'body-xs'}
                                 style={{
                                     color: player.color?.toLowerCase(),
-                                    fontSize: 10,
                                     textDecorationLine: player.resigned ? 'line-through' : 'none',
                                 }}
                             >
                                 {player.name}
                             </Text>
-                            <Image className={'w-4 h-3'} source={player.civImageUrl} contentFit="contain" />
-                            <Image className={'w-4 h-3'} source={getAgeIcon(player.age as Age)} contentFit="contain" />
+                            <Image className={'w-4 h-3 md:w-8 md:h-6'} source={player.civImageUrl} contentFit="contain" />
+                            <Image className={'w-4 h-3 md:w-8 md:h-6'} source={getAgeIcon(player.age as Age)} contentFit="contain" />
                         </View>
                     ))}
                 </View>

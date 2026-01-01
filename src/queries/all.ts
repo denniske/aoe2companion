@@ -16,15 +16,32 @@ import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { appConfig } from '@nex/dataset';
+import { supabaseClient } from '@nex/data';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
 
-export const useAccount = () =>
-    useQuery({
+export const useAccount = () => {
+    const account = useQuery({
         queryKey: QUERY_KEY_ACCOUNT(),
         queryFn: async () => await fetchAccount(),
         staleTime: 10 * 1000, // 10s
     });
+
+    const logout = async () => {
+        await supabaseClient.auth.signOut();
+
+        await AsyncStorage.removeItem('account');
+        await AsyncStorage.removeItem('config');
+        await AsyncStorage.removeItem('settings');
+        await AsyncStorage.removeItem('following');
+        await AsyncStorage.removeItem('prefs');
+
+        await account.refetch();
+    };
+
+    return { ...account, logout };
+};
 
 export const useAccountData = <T>(select?: (data: IAccount) => T) =>
     useQuery({
@@ -60,12 +77,12 @@ export const useMatch = (matchId: number) => {
     });
 };
 
-export const useLeaderboards = () => {
+export const useLeaderboards = (enabled = true) => {
     const language = useLanguage();
     return useQuery({
         queryKey: ['leaderboards'],
         queryFn: () => fetchLeaderboards({ language: language! }),
-        enabled: !!language,
+        enabled: !!language && enabled,
     });
 };
 
@@ -126,7 +143,7 @@ export const useProfilesBySteamId = (steamId?: string, enabled: boolean = true) 
         queryFn: async () => {
             return (await fetchProfiles({ language: language!, steamId, extend })).profiles;
         },
-        enabled: !!language && !!steamId && steamId.length > 10,
+        enabled: !!language && !!steamId && steamId.length > 10 && enabled,
     });
 };
 
@@ -138,7 +155,7 @@ export const useProfilesByProfileIds = (profileIds?: number[], enabled: boolean 
         queryFn: async () => {
             return (await fetchProfiles({ language: language!, profileIds, extend })).profiles;
         },
-        enabled: !!language && !!profileIds && profileIds.length > 0,
+        enabled: !!language && !!profileIds && profileIds.length > 0 && enabled,
     });
 };
 
@@ -214,18 +231,18 @@ interface IFetchBuildsParams {
 }
 
 export function removeUndefinedOrNullOrEmptyString<T extends object>(params: T): T {
-    return Object.fromEntries(
-        Object.entries(params).filter(([_, v]) => v !== undefined && v !== null && v !== '')
-    ) as T;
+    return Object.fromEntries(Object.entries(params).filter(([_, v]) => v !== undefined && v !== null && v !== '')) as T;
 }
 
 export const useInfiniteBuilds = (params: IFetchBuildsParams) => {
     return useInfiniteQuery({
         queryKey: ['builds', removeUndefinedOrNullOrEmptyString(params)],
-        queryFn: (context) => fetchBuilds({
-            ...context,
-            ...removeUndefinedOrNullOrEmptyString(params),
-        }),
+        queryFn: (context) =>
+            fetchBuilds({
+                perPage: 48,
+                ...context,
+                ...removeUndefinedOrNullOrEmptyString(params),
+            }),
         initialPageParam: 1,
         getNextPageParam: (lastPage, allPages) => (lastPage.builds.length === lastPage.perPage ? lastPage.page + 1 : null),
         placeholderData: keepPreviousData,
@@ -274,19 +291,14 @@ export const useAoe4CivData = () =>
 
             const results = await Promise.all(
                 entries.map(async ([key, slug]) => {
-                    const res = await fetch(
-                        `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${slug}.json`
-                    );
+                    const res = await fetch(`https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${slug}.json`);
                     if (!res.ok) throw new Error(`Failed to fetch ${slug}`);
                     const data = await res.json();
                     return [key, data] as const;
                 })
             );
 
-            return Object.fromEntries(results) as Record<
-                string,
-                { classes: string }
-            >;
+            return Object.fromEntries(results) as Record<string, { classes: string }>;
         },
         staleTime: 3600 * 1000, // 1 hour
         enabled: appConfig.game === 'aoe4',

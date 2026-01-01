@@ -1,20 +1,36 @@
 import { TextColor, TextVariant } from '@app/utils/text.util';
-import { Href, router } from 'expo-router';
+import { Href, Link, router } from 'expo-router';
 import { Pressable, TouchableOpacityProps } from 'react-native';
 
 import { Icon, IconProps } from './icon';
 import { Text, TextProps } from './text';
+import { Fragment } from 'react';
+import { CustomFragment } from './custom-fragment';
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
     children?: string;
     icon?: IconProps['icon'];
+    iconPrefix?: IconProps['prefix'];
     href?: Href;
     size?: 'small' | 'medium' | 'large';
     align?: TextProps['align'];
     color?: TextColor;
 }
 
-export const Button: React.FC<ButtonProps> = ({ className, children, icon, onPress, href, size = 'medium', disabled, align, color, ...props }) => {
+export const Button: React.FC<ButtonProps> = ({
+    className,
+    children,
+    icon,
+    iconPrefix,
+    onPress,
+    href,
+    size = 'medium',
+    disabled,
+    align,
+    color,
+    ...props
+}) => {
+    const Wrapper = href ? Link : CustomFragment;
     const textSizes: Record<NonNullable<ButtonProps['size']>, TextVariant> = {
         small: 'label-sm',
         medium: 'header-xs',
@@ -27,32 +43,26 @@ export const Button: React.FC<ButtonProps> = ({ className, children, icon, onPre
         large: 'gap-2 py-2 px-3 w-full',
     };
 
-    const backgroundColor = disabled ? 'bg-gray-500' : 'bg-blue-800 dark:bg-gold-700';
+    const backgroundColor = disabled ? 'bg-gray-500' : 'bg-blue-800 dark:bg-gold-700 hover:bg-blue-900 dark:hover:bg-gold-800 transition-colors';
     const finalColor = disabled ? 'text-gray-600' : color ?? 'text-white';
 
     return (
-        <Pressable
-            className={`flex-row rounded items-center ${spacingSizes[size]} ${backgroundColor} ${className ?? ''}`}
-            onPress={(e) => {
-                if (href) {
-                    router.push(href);
-                }
-                onPress?.(e);
-            }}
-        >
-            {icon && <Icon color="white" icon={icon} size={14} />}
-            {children && (
-                <Text
-                    variant={textSizes[size]}
-                    color={finalColor}
-                    className={`uppercase ${align ? 'flex-1' : ''}`}
-                    align={align}
-                    // style={textStyle}
-                    allowFontScaling={false}
-                >
-                    {children}
-                </Text>
-            )}
-        </Pressable>
+        <Wrapper asChild href={href!}>
+            <Pressable className={`flex-row rounded items-center ${spacingSizes[size]} ${backgroundColor} ${className ?? ''}`} onPress={onPress}>
+                {icon && <Icon color="white" icon={icon} prefix={iconPrefix} size={14} />}
+                {children && (
+                    <Text
+                        variant={textSizes[size]}
+                        color={finalColor}
+                        className={`uppercase ${align ? 'flex-1' : ''}`}
+                        align={align}
+                        // style={textStyle}
+                        allowFontScaling={false}
+                    >
+                        {children}
+                    </Text>
+                )}
+            </Pressable>
+        </Wrapper>
     );
 };

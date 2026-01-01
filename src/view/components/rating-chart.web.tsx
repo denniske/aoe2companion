@@ -1,29 +1,26 @@
 import React from 'react';
-import { LeaderboardId } from '@nex/data';
+import { formatCustom, formatDate, LeaderboardId } from '@nex/data';
 import { getLeaderboardColor } from '../../helper/colors';
 import { useAppTheme } from '../../theming';
-import { subYears } from 'date-fns';
-import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme } from 'victory-native';
+import { isAfter, subYears } from 'date-fns';
+import { LineSegment, VictoryAxis, VictoryChart, VictoryCursorContainer, VictoryLabel, VictoryLine, VictoryScatter, VictoryTheme } from 'victory';
 import { IProfileRatingsLeaderboard } from '../../api/helper/api.types';
-import { windowWidth } from '@app/app/statistics/leaderboard';
-import { cloneDeep, merge } from 'lodash';
+import { cloneDeep, merge, orderBy } from 'lodash';
 import { getRatingTimespan } from '@app/utils/rating';
-import { useCSSVariable, useUniwind } from 'uniwind';
+import { useCSSVariable, useResolveClassNames, useUniwind } from 'uniwind';
+import _ from 'lodash';
 
 interface IRatingChartProps {
     formatTick: (date: Date) => string;
-    ratingHistoryDuration: string;
-    filteredRatingHistories: IProfileRatingsLeaderboard[] | null | undefined;
+    ratingHistoryDuration?: string;
+    filteredRatingHistories: Array<IProfileRatingsLeaderboard & { label?: string; color?: string }> | null | undefined;
     hiddenLeaderboardIds: LeaderboardId[];
+    width: number;
+    allowMouseInteraction?: boolean;
 }
 
 export default function RatingChart(props: IRatingChartProps) {
-    const {
-        formatTick,
-        ratingHistoryDuration,
-        filteredRatingHistories,
-        hiddenLeaderboardIds,
-    } = props;
+    const { formatTick, ratingHistoryDuration, filteredRatingHistories, hiddenLeaderboardIds, width, allowMouseInteraction } = props;
 
     const appTheme = useAppTheme();
     const { theme } = useUniwind();
@@ -33,16 +30,56 @@ export default function RatingChart(props: IRatingChartProps) {
 
     const newVictoryTheme = useNewVictoryTheme();
 
+    const styles = useResolveClassNames('stroke-black dark:stroke-white');
+
     return (
         <VictoryChart
-            width={windowWidth - 40}
-            height={300}
+            width={width}
+            height={400}
+            domainPadding={{ y: 10 }}
             theme={theme === 'dark' ? newVictoryTheme.customDark : newVictoryTheme.custom}
             padding={{ left: 50, bottom: 30, top: 20, right: 20 }}
             scale={{ x: 'time' }}
-            // containerComponent={
-            //     <VictoryZoomContainer key={'zoom'}/>
-            // }
+            containerComponent={
+                allowMouseInteraction ? (
+                    <VictoryCursorContainer
+                        cursorComponent={<LineSegment style={styles} />}
+                        cursorDimension="x"
+                        cursorLabel={({ datum }) => {
+                            const ratings = filteredRatingHistories?.map((history) =>
+                                orderBy(history.ratings, 'date', 'desc').find((r) => !isAfter(r.date, datum.x))
+                            );
+
+                            const labels = [
+                                `${formatCustom(datum.x, 'P')}`,
+                                ...(ratings?.map((r, index) =>
+                                    r?.rating
+                                        ? `${filteredRatingHistories?.[index]?.label} - ${r?.rating}`
+                                        : `${filteredRatingHistories?.[index]?.label} = No rating`
+                                ) ?? []),
+                            ];
+                            return labels as unknown as number;
+                        }}
+                        cursorLabelComponent={
+                            <VictoryLabel
+                                backgroundStyle={filteredRatingHistories ? [{
+                                    fill: 'black',
+                                    borderRadius: 100,
+                                    strokeWidth: 1,
+                                    stroke: 'white',
+                                }, ...filteredRatingHistories?.map((h) => ({
+                                    fill: h.color,
+                                    borderRadius: 100,
+                                    strokeWidth: 1,
+                                    stroke: 'white',
+                                }))] : undefined}
+                                backgroundPadding={{ top: 5, bottom: 5, right: 8, left: 8 }}
+                                style={{ fill: 'white' }}
+                            />
+                        }
+                    />
+                ) : undefined
+            }
         >
             <VictoryAxis crossAxis tickFormat={formatTick} fixLabelOverlap={true} scale={'time'} domain={[firstDate, new Date()] as any} />
             <VictoryAxis dependentAxis crossAxis />
@@ -56,7 +93,9 @@ export default function RatingChart(props: IRatingChartProps) {
                         x="date"
                         y="rating"
                         style={{
-                            data: { stroke: getLeaderboardColor(ratingHistory.leaderboardId, appTheme.dark) },
+                            data: {
+                                stroke: ratingHistory.color ?? getLeaderboardColor(ratingHistory.leaderboardId, appTheme.dark),
+                            },
                         }}
                     />
                 ))}
@@ -71,14 +110,13 @@ export default function RatingChart(props: IRatingChartProps) {
                         y="rating"
                         size={1.5}
                         style={{
-                            data: { fill: getLeaderboardColor(ratingHistory.leaderboardId, appTheme.dark) },
+                            data: { fill: ratingHistory.color ?? getLeaderboardColor(ratingHistory.leaderboardId, appTheme.dark) },
                         }}
                     />
                 ))}
         </VictoryChart>
     );
 }
-
 
 function replaceRobotoWithSystemFont(obj: any) {
     const keys = Object.keys(obj);

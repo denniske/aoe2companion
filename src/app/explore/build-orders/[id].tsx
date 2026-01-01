@@ -8,7 +8,7 @@ import { router, Stack, useLocalSearchParams } from 'expo-router';
 import startCase from 'lodash/startCase';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { IBuildOrderStandardResources, sortBuildAges } from '@/data/src/helper/builds';
+import { getBuildIcon, IBuildOrderStandardResources, sortBuildAges } from '@/data/src/helper/builds';
 import { getDifficultyIcon, getDifficultyName } from '../../../helper/difficulties';
 import { getAgeIcon, getOtherIcon } from '../../../helper/units';
 import { createStylesheet } from '../../../theming-new';
@@ -22,6 +22,9 @@ import { useTranslation } from '@app/helper/translate';
 import { isValidUrl } from '@app/api/helper/util';
 import { useBuild } from '@app/queries/all';
 import { useFavoritedBuild } from '@app/service/favorite-builds';
+import { UserLoginWrapper } from '@app/components/user-login-wrapper';
+import NotFound from '@app/app/+not-found';
+import { LoadingScreen } from '@app/components/loading-screen';
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -50,9 +53,9 @@ export function FavoriteHeaderButton(props: FavoriteHeaderButtonProps) {
     const { toggleFavorite, isFavorited } = useFavoritedBuild(id);
 
     return (
-        <TouchableOpacity hitSlop={10} onPress={toggleFavorite}>
+        <UserLoginWrapper Component={TouchableOpacity} hitSlop={10} onPress={toggleFavorite}>
             <Icon prefix={isFavorited ? 'fass' : 'fasr'} icon="heart" size={20} color="accent-[#ef4444]" />
-        </TouchableOpacity>
+        </UserLoginWrapper>
     );
 }
 
@@ -60,9 +63,8 @@ export default function BuildDetail() {
     const getTranslation = useTranslation();
     const styles = useStyles();
     const { id = '', focusMode } = useLocalSearchParams<{ id: string; focusMode: string }>();
-    const { data: build } = useBuild(id);
+    const { data: build, isPending: isLoading } = useBuild(id);
     const [focused, setFocused] = useState(!!focusMode);
-
 
     useEffect(() => {
         if (Platform.OS === 'web') return;
@@ -95,17 +97,36 @@ export default function BuildDetail() {
     }, [build]);
 
     if (!build) {
-        return <View />;
+        return isLoading ? (
+            <>
+                <Stack.Screen
+                    options={{
+                        headerTitle: () => (
+                            <HeaderTitle
+                                title
+                                subtitle
+                                icon
+                            />
+                        ),
+                    }}
+                />
+                <LoadingScreen />
+            </>
+        ) : (
+            <NotFound />
+        );
     }
 
     const difficultyIcon = getDifficultyIcon(build.difficulty);
-    const ages = sortBuildAges(Object.entries(build.pop));
+    const ages = sortBuildAges(Object.entries(build.pop ?? {}));
     const uptimes: Record<string, any> = build.uptime;
+    const icon = getBuildIcon(build.image);
 
     return (
         <ScrollView style={styles.container} contentContainerClassName="p-4 gap-4">
             <Stack.Screen
                 options={{
+                    title: build.title.replace(build.civilization, ''),
                     headerTitle: () => (
                         <HeaderTitle
                             title={build.civilization}
@@ -129,7 +150,7 @@ export default function BuildDetail() {
                 )}
             </MyText>
 
-            <Image source={{ uri: build.imageURL }} style={styles.image} />
+            {icon && <Image source={icon} style={styles.image} />}
 
             <View style={styles.tagsContainer}>
                 {ages.map(([ageName, agePop]) => (

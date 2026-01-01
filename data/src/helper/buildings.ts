@@ -541,6 +541,9 @@ export const buildingList = buildingLineIds.map(ul => ({
     name: ul,
     ...buildingLines[ul],
 }))
+
+export const hasBuildingLine = (building: Building) => buildingList.some((ul) => ul.buildings.includes(building))
+
 export function getBuildingLineIdForBuilding(building: Building) {
     const buildingInfo = buildingList.find(ul => ul.buildings.includes(building));
     if (buildingInfo == null) {

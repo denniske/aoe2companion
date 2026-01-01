@@ -59,25 +59,25 @@ export default function(spec: any) {
             await capture('1-' + routeToScreenshotName(route));
             await sleep(1000);
 
-            route = `/matches/users/select?search=${searchPlayerName}`;
+            route = `/players/select?search=${searchPlayerName}`;
             router.navigate(route as any);
             await sleep(waitTime*2);
             await capture('2-' + routeToScreenshotName(route));
             await sleep(1000);
 
-            route = `/matches/users/${searchPlayerId}`;
+            route = `/players/${searchPlayerId}`;
             router.navigate(route as any);
             await sleep(waitTime*3);
             await capture('3-' + routeToScreenshotName(route));
             await sleep(1000);
 
-            route = `/matches/users/${searchPlayerId}?tab=MainStats`;
+            route = `/players/${searchPlayerId}?tab=MainStats`;
             router.navigate(route as any);
             await sleep(waitTime*2);
             await capture('4-' + routeToScreenshotName(route));
             await sleep(1000);
 
-            route = `/matches/users/${searchPlayerId}?tab=MainMatches`;
+            route = `/players/${searchPlayerId}?tab=MainMatches`;
             router.navigate(route as any);
             await sleep(waitTime*2);
             await capture('5-' + routeToScreenshotName(route));

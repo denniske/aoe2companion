@@ -15,10 +15,6 @@ import { INews } from '@app/api/helper/api.types';
 export const NewsCard: React.FC<INews> = (news) => {
     const [visible, setVisible] = useState(false);
 
-    if (!news) {
-        return <NewsCardSkeleton />;
-    }
-
     const handlePress = () => {
         if (Platform.OS === 'web') {
             openLink(news.link);
@@ -45,7 +41,7 @@ export const NewsCardSkeleton = () => {
     return (
         <Card direction="vertical" className="overflow-hidden w-56">
             <View className="-mx-4 -mt-4 mb-1">
-                <Skeleton className="w-full" style={{ aspectRatio: 1.75 }} />
+                <Skeleton className="w-full aspect-video" />
             </View>
             <SkeletonText variant="label" numberOfLines={2} />
         </Card>

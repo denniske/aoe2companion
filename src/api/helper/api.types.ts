@@ -320,6 +320,18 @@ export type INews = {
     link: string;
 };
 
+export type IVideosResult = IVideo[];
+
+export interface IVideo {
+    source: 'youtube';
+    title: string;
+    author: string;
+    thumbnailUrl: string;
+    videoId: string;
+    publishDate: Date;
+    civ?: string;
+}
+
 export type IMapsResult = IMap[];
 
 export type IMap = {
@@ -735,6 +747,7 @@ export interface ILeaderboardPlayer {
     rank: number;
     rankCountry: number;
     rating: number;
+    maxRating: number;
     lastMatchTime: Date;
     streak: number;
     wins: number;
@@ -744,6 +757,7 @@ export interface ILeaderboardPlayer {
     games: number;
     country: string;
     avatarSmallUrl?: string;
+    avatarMediumUrl?: string;
 }
 
 export interface IFetchLeaderboardParams {
@@ -753,9 +767,10 @@ export interface IFetchLeaderboardParams {
     steamId?: string;
     profileId?: number;
     country?: string;
-
+    perPage?: number;
     pageParam?: string;
     language: string;
+    extend?: string[];
 }
 
 export interface IFetchLeaderboardsParams {
@@ -780,7 +795,7 @@ export interface IFetchBuildsParams {
     attribute?: string;
     difficulty?: string;
     search?: string;
-
+    perPage?: number,
     page?: number;
     pageParam?: number;
 }

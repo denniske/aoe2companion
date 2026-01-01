@@ -9,11 +9,10 @@ import {
     getFullTechTree, getTechName,
     getUnitLineForUnit, getUnitName,
     ITechTreeRow,
-    Other,
     Tech,
     Unit,
 } from '@nex/data';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Image, ImageBackground } from '@/src/components/uniwind/image';
 import React, { Fragment } from 'react';
 import { MyText } from './my-text';
@@ -23,11 +22,11 @@ import { getAgeIcon, getOtherIcon, getUnitIcon } from '../../helper/units';
 import { getBuildingIcon } from '../../helper/buildings';
 import { isEmpty } from 'lodash';
 import { Delayed } from './delayed';
-import { router } from 'expo-router';
-import { windowWidth } from '@app/app/statistics/leaderboard';
+import { Link } from 'expo-router';
 import { useTechTreeSize } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useTranslation } from '@app/helper/translate';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 
 function TechTreeRow({ civ, row }: { civ: aoeCivKey; row: ITechTreeRow }) {
     const getTranslation = useTranslation();
@@ -66,33 +65,40 @@ export function TechTree({civ}: {civ: aoeCivKey}) {
 
     const compactTechTree = getCompactTechTree(civInfo);
     const fullTechTree = getFullTechTree(civInfo, uniqueLine);
+    const showTabBar = useShowTabBar()
 
     return (
         <View style={styles.container}>
-            <View style={styles.row}>
-                <MyText style={styles.sectionHeader}>{getTranslation('techtree.title')}    </MyText>
-                <ButtonPicker value={techTreeSize} values={values} formatter={x => getTranslation(`techtree.type.${x}` as any)} onSelect={nav}/>
+            <View style={styles.row} className="lg:gap-2">
+                <MyText style={styles.sectionHeader}>{getTranslation('techtree.title')} </MyText>
+                <ButtonPicker value={techTreeSize} values={values} formatter={(x) => getTranslation(`techtree.type.${x}` as any)} onSelect={nav} />
             </View>
-            {
-                techTreeSize === 'compact' &&
+            {techTreeSize === 'compact' && (
                 <View style={styles.compactTechTree}>
-                    {
-                        compactTechTree.map((row, i) =>
-                            <Delayed key={i} delay={i*30}><TechTreeRow civ={civ} row={row}/></Delayed>
+                    {compactTechTree.map((row, i) =>
+                        showTabBar ? (
+                            <Delayed key={i} delay={i * 30}>
+                                <TechTreeRow civ={civ} row={row} />
+                            </Delayed>
+                        ) : (
+                            <TechTreeRow civ={civ} row={row} />
                         )
-                    }
+                    )}
                 </View>
-            }
-            {
-                techTreeSize === 'full' &&
+            )}
+            {techTreeSize === 'full' && (
                 <View style={styles.fullTechTree}>
-                    {
-                        fullTechTree.map((row, i) =>
-                            <Delayed key={i} delay={i*30}><TechTreeRow civ={civ} row={row}/></Delayed>
+                    {fullTechTree.map((row, i) =>
+                        showTabBar ? (
+                            <Delayed key={i} delay={i * 30}>
+                                <TechTreeRow civ={civ} row={row} />
+                            </Delayed>
+                        ) : (
+                            <TechTreeRow civ={civ} row={row} />
                         )
-                    }
+                    )}
                 </View>
-            }
+            )}
         </View>
     );
 }
@@ -137,17 +143,17 @@ export function getAbilityIcon({civ, tech, unit, building}: AbilityHelperProps) 
     return false;
 }
 
-export function getAbilityNavCallback({tech, unit, building}: AbilityHelperProps) {
+export function getAbilityNavHref({tech, unit, building}: AbilityHelperProps) {
     if (tech) {
-        return () => router.navigate(`/explore/technologies/${tech}`);
+        return `/explore/technologies/${tech}` as const;
     }
     if (unit) {
-        return () => router.navigate(`/explore/units/${unit}`);
+        return `/explore/units/${unit}` as const;
     }
     if (building) {
-        return () => router.navigate(`/explore/buildings/${building}`);
+        return `/explore/buildings/${building}` as const;
     }
-    return () => {};
+    return '/'
 }
 
 function Ability0() {
@@ -156,7 +162,7 @@ function Ability0() {
     );
 }
 
-const techTreeWidth = windowWidth - 28;
+const techTreeWidth = Math.min(Dimensions.get('window').width, 450) - 28;
 const colSize = (techTreeWidth / 8)-4;
 const colSize2 = colSize-6;
 
@@ -177,18 +183,31 @@ function Ability2({civ, age, tech, unit, building, unique, dependsOn}: AbilityPr
         borderColor = '#AA460F';
     }
     return (
-        <TouchableOpacity style={[styles.imageContainer2, {borderColor, opacity}]} onPress={getAbilityNavCallback({tech, unit, building})}>
-            <ImageBackground source={getAbilityIcon({civ, tech, unit, building})} imageStyle={styles.imageInner2} contentFit="cover" style={styles.image2}>
-                {
-                    !enabled &&
-                    <Image source={getOtherIcon('Cross' as any)} style={styles.cross}/>
-                }
-                {
-                    age !== availableAge &&
-                    <Image source={getAgeIcon(availableAge as any)} style={styles.availableAge}/>
-                }
-            </ImageBackground>
-        </TouchableOpacity>
+        <Link asChild href={getAbilityNavHref({ tech, unit, building })} style={[styles.imageContainer2, { borderColor, opacity }]}>
+            <TouchableOpacity>
+                <ImageBackground
+                    source={getAbilityIcon({ civ, tech, unit, building })}
+                    imageStyle={styles.imageInner2}
+                    contentFit="cover"
+                    style={styles.image2}
+                >
+                    {!enabled && <Image source={getOtherIcon('Cross' as any)} style={styles.cross} />}
+                    {age !== availableAge && (
+                        <Image
+                            source={getAgeIcon(availableAge as any)}
+                            style={{
+                                position: 'absolute',
+                                top: -8,
+                                right: -8,
+                                width: 16,
+                                height: 16,
+                            }}
+                            className="absolute -top-2 -right-2 w-4 h-4 md:-top-4 md:-right-4 md:w-8 md:h-8"
+                        />
+                    )}
+                </ImageBackground>
+            </TouchableOpacity>
+        </Link>
     );
 }
 
@@ -243,13 +262,6 @@ const styles = StyleSheet.create({
     cross: {
         width: 28,
         height: 28,
-    },
-    availableAge: {
-        position: 'absolute',
-        top: -8,
-        right: -8,
-        width: 16,
-        height: 16,
     },
     imageContainer3: {
         // backgroundColor: 'yellow',

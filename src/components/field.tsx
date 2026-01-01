@@ -3,6 +3,7 @@ import { TextInput, TextInputProps, TouchableOpacity, View, ViewStyle } from 're
 
 import { Icon } from './icon';
 import { useState } from 'react';
+import cn from 'classnames';
 
 type BaseProps = Omit<TextInputProps, 'style'>;
 
@@ -28,8 +29,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
             textContentType: 'password',
             secureTextEntry,
         },
-        email: {
-        },
+        email: {},
     };
 
     const paddingMap = {
@@ -53,7 +53,10 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
             <TextInput
                 {...typeOptions[inputType]}
                 {...props}
-                className={`bg-white dark:bg-blue-900 text-sm rounded-lg border border-gray-200 dark:border-gray-800 py-3 ${color} ${padding}`}
+                className={cn(
+                    `bg-white dark:bg-blue-900 text-sm rounded-lg border border-gray-200 dark:border-gray-800 py-3 ${color} ${padding} shadow-xs`,
+                    props.className
+                )}
             />
             {inputType === 'search' && props.value ? (
                 <TouchableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => props.onChangeText?.('')}>
@@ -61,7 +64,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
                 </TouchableOpacity>
             ) : null}
             {inputType === 'password' ? (
-                <TouchableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => setSecureTextEntry(x => !x)}>
+                <TouchableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => setSecureTextEntry((x) => !x)}>
                     <Icon icon={secureTextEntry ? 'eye' : 'eye-slash'} color="subtle" />
                 </TouchableOpacity>
             ) : null}

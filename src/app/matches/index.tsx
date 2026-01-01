@@ -7,7 +7,7 @@ import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-ind
 import { MyText } from '@app/view/components/my-text';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
-import { router, Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { flatten, orderBy, uniq } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
@@ -19,8 +19,13 @@ import { Link } from '@app/components/link';
 import { useAccountData, useFollowedAndMeProfileIds, useLanguage } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
 import { ProfileLive } from '@app/view/components/badge/twitch-badge';
+import cn from 'classnames';
+import { containerClassName, containerScrollClassName } from '@app/styles';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { UserLoginWrapper } from '../../components/user-login-wrapper';
 
 export default function MatchesPage() {
+    const showTabBar = useShowTabBar();
     const getTranslation = useTranslation();
     const [refetching, setRefetching] = useState(false);
 
@@ -72,8 +77,18 @@ export default function MatchesPage() {
     const list = data?.pages?.flatMap((p) => p.matches) || Array(15).fill(null);
 
     const _renderFooter = () => {
-        if (!isFetchingNextPage) return null;
-        return <FlatListLoadingIndicator />;
+        if (isFetchingNextPage) {
+            return <FlatListLoadingIndicator />;
+        }
+
+        if (Platform.OS === 'web' && hasNextPage)
+            return (
+                <View className="py-4 flex-row justify-center">
+                    <Button onPress={onEndReached}>{getTranslation('footer.loadMore')}</Button>
+                </View>
+            );
+
+        return null;
     };
 
     const filterAndSortPlayers = (players: IPlayerNew[]) => {
@@ -82,10 +97,6 @@ export default function MatchesPage() {
         );
         filteredPlayers = orderBy(filteredPlayers, (p) => p.profileId == authProfileId);
         return filteredPlayers;
-    };
-
-    const gotoPlayer = (profileId: number) => {
-        router.push(`/matches/users/${profileId}` as any);
     };
 
     const formatPlayer = (player: any, i: number) => {
@@ -107,20 +118,29 @@ export default function MatchesPage() {
                 options={{
                     animation: 'none',
                     title: getTranslation('matches.title'),
-                    headerRight: () => (
-                        <Button href="/matches/users/search" icon="search">
-                            {getTranslation('matches.findPlayer')}
-                        </Button>
-                    ),
+                    headerRight: () =>
+                        showTabBar ? (
+                            <Button href={'/players/search'} icon="search">
+                                {getTranslation('matches.findPlayer')}
+                            </Button>
+                        ) : null,
                 }}
             />
-            <View className="pb-5 pt-4">
+            <View className={cn('pb-5 pt-4', containerScrollClassName)}>
                 <FollowedPlayers />
             </View>
 
-            <View className="flex-row justify-between items-center px-4">
+            <View className={cn('flex-row justify-between items-center', containerClassName)}>
                 <Text variant="header-lg">{getTranslation('matches.liveandrecentmatches')}</Text>
-                <Link href="/matches/live">{getTranslation('matches.viewlobbies')}</Link>
+                <View className="flex-row gap-2 items-center">
+                    {!showTabBar && (
+                        <>
+                            <Link href="/matches/live">{getTranslation('matches.alllivegames')}</Link>
+                            <View className="w-px bg-border self-stretch" />
+                        </>
+                    )}
+                    <Link href="/matches/lobbies">{getTranslation('matches.viewlobbies')}</Link>
+                </View>
             </View>
 
             {error ? (
@@ -134,11 +154,11 @@ export default function MatchesPage() {
                     </View>
                 </View>
             ) : profileIds?.length === 0 || list.length === 0 ? (
-                <View className="flex-1 p-4 gap-1">
+                <View className={cn('flex-1 py-4 gap-1', containerClassName)}>
                     <Text variant="label">{getTranslation('feed.following.info.1')}</Text>
-                    <Link href="/matches/users/follow">
+                    <UserLoginWrapper Component={Link} href="/players/follow">
                         <Text variant="body-sm">{getTranslation('feed.following.info.2')}</Text>
-                    </Link>
+                    </UserLoginWrapper>
                 </View>
             ) : (
                 <View className="flex-1">
@@ -202,9 +222,14 @@ export default function MatchesPage() {
                                         <Text className="flex-row flex-wrap items-center mb-3">
                                             {filteredPlayers.map((p, i) => (
                                                 <MyText key={i} className="flex-row flex-wrap items-center">
-                                                    <Text variant="header-xs" onPress={() => gotoPlayer(p.profileId)}>
+                                                    <Link
+                                                        color="default"
+                                                        variant="header-xs"
+                                                        className="no-underline! hover:text-default! hover:underline!"
+                                                        href={`/players/${p.profileId}`}
+                                                    >
                                                         {formatPlayer(p, i)}
-                                                    </Text>
+                                                    </Link>
 
                                                     {!match.finished && (
                                                         // match.match_id == '72116505' &&
@@ -240,7 +265,9 @@ export default function MatchesPage() {
                                                 </MyText>
                                             )}
                                             {Platform.OS === 'web' && !match.finished && (
-                                                <MyText onPress={() => spectate(match.matchId)}> (Spectate)</MyText>
+                                                <Link className="pl-1" onPress={() => spectate(match.matchId)}>
+                                                    Spectate
+                                                </Link>
                                             )}
                                         </Text>
                                     )}
@@ -254,7 +281,7 @@ export default function MatchesPage() {
                             );
                         }}
                         ListFooterComponent={_renderFooter}
-                        onEndReached={onEndReached}
+                        onEndReached={Platform.OS === 'web' ? undefined : onEndReached}
                         onEndReachedThreshold={0.1}
                         keyExtractor={(item, index) => index.toString()}
                         refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}

@@ -18,11 +18,14 @@
     "home.favoriteTournament": "Favorite Tournament",
     "home.viewAll": "View All",
 
+    "players.title": "Players",
+
     "nav.home": "Home",
     "nav.matches": "Matches",
     "nav.explore": "Explore",
     "nav.stats": "Stats",
     "nav.pros": "Pros",
+    "nav.competitive": "Competitive",
     "nav.more": "More",
 
     "matches.title": "Matches",
@@ -33,6 +36,7 @@
     "matches.findPlayer": "Find Player",
     "matches.liveandrecentmatches": "Live and Recent Matches",
     "matches.viewlobbies": "View Lobbies",
+    "matches.alllivegames": "View All Live Games",
 
     "matches.current.title": "My Dashboard",
     "matches.current.empty": "You are not in any lobby / match right now. This dashboard will be refreshed automatically when you are in a lobby or match. (Refresh interval 30s)",
@@ -263,7 +267,7 @@
     "resetpassword.changed": "Your password has been changed!",
 
     "login.title": "Login",
-    "login.placeholder.email": "email@address.com",
+    "login.placeholder.email": "Email Address",
     "login.placeholder.password": "Password",
     "login.forgotpassword": "Forgot password?",
     "login.signin": "Sign in",
@@ -388,9 +392,9 @@
 
     "competitive.title": "Competitive",
     "competitive.onlineVerifiedPlayers.title": "Online Verified Players",
-    "competitive.onlineVerifiedPlayers.viewGames": "View Games",
-    "competitive.activeGames.title": "Active Competitive Games",
-    "competitive.activeGames.empty": "No active games.",
+    "competitive.onlineVerifiedPlayers.viewGames": "View Matches",
+    "competitive.activeGames.title": "Active Competitive Matches",
+    "competitive.activeGames.empty": "No active matches.",
     "competitive.upcomingMatches.title": "Upcoming Tournament Matches",
     "competitive.upcomingMatches.empty": "No upcoming matches right now. Check back later!",
     "competitive.twitchStream.title": "Twitch Stream - {user}",
@@ -625,6 +629,7 @@
     "playerlist.heading.games": "Games",
 
     "footer.help": "Help",
+    "footer.community": "Community",
     "footer.buymeacoffee": "Buy me a coffee",
     "footer.about": "About",
     "footer.changelog": "Changelog",
@@ -637,6 +642,10 @@
     "footer.units": "Units",
     "footer.winrates": "Winrates",
     "footer.tournaments": "Tournaments",
+    "footer.loadMore": "Load More",
+    "footer.all": "All",
+    "footer.mine": "Mine",
+    "footer.following": "Following",
 
     "tournaments.alltitle": "All Tournaments",
     "tournaments.title": "Tournaments",

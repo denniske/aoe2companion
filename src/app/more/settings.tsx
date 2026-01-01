@@ -177,9 +177,7 @@ export default function SettingsPage() {
                                 onPress={togglePushNotifications}
                             />
                             <View className="flex-1" />
-                            <Button onPress={() => router.navigate('/more/push')}>
-                                {getTranslation('settings.pushnotifications.action.test')}
-                            </Button>
+                            <Button href={'/more/push'}>{getTranslation('settings.pushnotifications.action.test')}</Button>
                         </View>
                     </View>
                 </View>
@@ -214,7 +212,6 @@ export default function SettingsPage() {
             {/*    <Icon icon="square-check" color="brand" prefix="fasr" size={20}  />*/}
             {/*    <Icon icon="square" color="brand" prefix="fasr" size={20}  />*/}
             {/*</View>*/}
-
 
             {/*<Button onPress={() => router.navigate('/more/push')}>*/}
             {/*    {getTranslation('settings.pushnotifications.action.test')}*/}

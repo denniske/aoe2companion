@@ -21,6 +21,7 @@ import {
     getCivNameById,
     getTechName,
     getUnitName,
+    ITechSection,
     orderCivs,
     Tech,
     techSections,
@@ -28,56 +29,93 @@ import {
 } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
-import { Redirect, router, Stack } from 'expo-router';
+import { Href, Redirect, router, Stack, Link as ExpoLink, RouteSegments } from 'expo-router';
 import { compact, orderBy, uniq } from 'lodash';
-import React, { useState } from 'react';
-import { ImageSourcePropType, TouchableOpacity, View } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { ImageSourcePropType, Platform, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { useInfiniteBuilds, useMaps } from '@app/queries/all';
 import { BuildCard } from '@app/view/components/build-order/build-card';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
+import { containerClassName } from '@app/styles';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 
 type Item =
-    | { name: Civ; title: string; type: 'civ', image?: any }
-    | { name: Unit; title: string; type: 'unit'; section: string, image?: any }
-    | { name: Building; title: string; type: 'building'; section: string, image?: any }
-    | { name: Tech; title: string; type: 'tech'; section?: string, image?: any }
-    | { name: string; title: string; type: 'map'; section?: string, image?: any };
+    | { name: Civ; title: string; type: 'civ'; image?: any }
+    | { name: Unit; title: string; type: 'unit'; section: string; image?: any }
+    | { name: Building; title: string; type: 'building'; section: string; image?: any }
+    | { name: Tech; title: string; type: 'tech'; section?: string; image?: any }
+    | { name: string; title: string; type: 'map'; section?: string; image?: any };
 
-const typeAttributes: Record<Item['type'], { path: string; labelKey: string; title: (name: any) => string; icon: (name: any) => ImageSourcePropType }> =
-    {
-        civ: { path: 'civilizations', labelKey: 'explore.civilization', title: getCivNameById, icon: getCivIconLocal },
-        unit: { path: 'units', labelKey: 'explore.unit', title: getUnitName, icon: getUnitIcon },
-        building: { path: 'buildings', labelKey: 'explore.building', title: getBuildingName, icon: getBuildingIcon },
-        tech: { path: 'technologies', labelKey: 'explore.tech', title: getTechName, icon: getTechIcon },
-        map: { path: 'maps', labelKey: 'explore.map', title: getTechName, icon: getTechIcon },
-    };
+const typeAttributes: Record<
+    Item['type'],
+    { path: 'civilizations' | 'units' | 'buildings' | 'technologies' | 'maps'; labelKey: string; title: (name: any) => string; icon: (name: any) => ImageSourcePropType }
+> = {
+    civ: { path: 'civilizations', labelKey: 'explore.civilization', title: getCivNameById, icon: getCivIconLocal },
+    unit: { path: 'units', labelKey: 'explore.unit', title: getUnitName, icon: getUnitIcon },
+    building: { path: 'buildings', labelKey: 'explore.building', title: getBuildingName, icon: getBuildingIcon },
+    tech: { path: 'technologies', labelKey: 'explore.tech', title: getTechName, icon: getTechIcon },
+    map: { path: 'maps', labelKey: 'explore.map', title: getTechName, icon: getTechIcon },
+};
+
+const ExploreCard: React.FC<{ text: string; href: Href } & ({ image: ImageSourcePropType } | { icon: IconName })> = ({ text, href, ...props }) => {
+    const { isMedium } = useBreakpoints();
+
+    return (
+        <Card direction="vertical" className="w-20 md:w-36 items-center py-2.5 px-1 gap-1 md:py-4 md:px-2 md:gap-2 justify-between" href={href}>
+            {'image' in props && props.image ? (
+                <Image className="w-8 h-8 md:w-12 md:h-12" source={props.image} contentFit="contain" />
+            ) : 'icon' in props ?(
+                <Icon icon={props.icon} size={isMedium ? 36 : 22} color="brand" />
+            ) : null}
+            <Text variant={isMedium ? 'label' : 'label-sm'} numberOfLines={1}>
+                {text}
+            </Text>
+        </Card>
+    );
+};
 
 const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
     const getTranslation = useTranslation();
     const { path, labelKey, title, icon } = typeAttributes[item.type];
 
     return (
-        <TouchableOpacity
-            className={`flex-row items-center py-2.5 gap-2 -mx-4 px-4 -mb-px ${index === 0 ? 'bg-gold-100 dark:bg-blue-900 z-10' : ''}`}
-            onPress={() => router.navigate(`/explore/${path}/${item.name}` as any)}
-        >
-            <Image source={item.image} className="w-8 h-8" />
-            <View className="flex-1">
-                <Text variant="label">{item.title}</Text>
-            </View>
-            <Text color="subtle" variant="body-sm">
-                {item.type !== 'civ' && item.section && item.section} {getTranslation(labelKey as any)}
-            </Text>
-        </TouchableOpacity>
+        <ExpoLink asChild href={`/explore/${path}/${item.name}`}>
+            <TouchableOpacity
+                className={`flex-row items-center py-2.5 gap-2 -mx-4 px-4 -mb-px ${index === 0 ? 'bg-gold-100 dark:bg-blue-900 z-10' : ''}`}
+            >
+                <Image source={item.image} className="w-8 h-8" />
+                <View className="flex-1">
+                    <Text variant="label">{item.title}</Text>
+                </View>
+                <Text color="subtle" variant="body-sm">
+                    {item.type !== 'civ' && item.section && item.section} {getTranslation(labelKey as any)}
+                </Text>
+            </TouchableOpacity>
+        </ExpoLink>
     );
 };
 
 export default function Explore() {
     const getTranslation = useTranslation();
+    const showTabBar = useShowTabBar();
     const { data: maps } = useMaps();
+    const techsList = useMemo<Array<ITechSection & { title?: string }>>(() => {
+        if (showTabBar) {
+            return techSections;
+        } else {
+            const uniqueTechs = techSections.flatMap((section) => (section.civ ? section.data : []));
+            const sections = techSections.filter((section) => !section.civ);
 
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBuilds({})
+            return [
+                ...sections.map((s) => ({ ...s, title: s.building ?? s.civ })),
+                { title: getTranslation('unit.section.unique'), civ: undefined, building: undefined, data: uniqueTechs },
+            ];
+        }
+    }, [techSections]);
+
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBuilds({});
     const builds = data?.pages?.flatMap((p) => p.builds);
 
     const onEndReached = async () => {
@@ -96,7 +134,7 @@ export default function Explore() {
             name: civ,
             title: getCivNameById(civ),
             image: getCivIconLocal(civ),
-            type: 'civ'
+            type: 'civ',
         })),
         ...allUnitSections.flatMap((section) =>
             section.data.map<Item>((unit) => ({
@@ -104,7 +142,7 @@ export default function Explore() {
                 title: getUnitName(unit),
                 image: getUnitIcon(unit),
                 type: 'unit',
-                section: getTranslation(section.title as any)
+                section: getTranslation(section.title as any),
             }))
         ),
         ...buildingSections.flatMap((section) =>
@@ -125,12 +163,15 @@ export default function Explore() {
                 section: section.building ? getBuildingName(section.building) : getCivNameById(section.civ!),
             }))
         ),
-        ...compact(maps).map((map) => ({
-            name: map.mapId,
-            title: map.mapName,
-            image: { uri: map.imageUrl },
-            type: 'map'
-        }) as Item),
+        ...compact(maps).map(
+            (map) =>
+                ({
+                    name: map.mapId,
+                    title: map.mapName,
+                    image: { uri: map.imageUrl },
+                    type: 'map',
+                } as Item)
+        ),
     ];
     const filteredData = search
         ? uniq([
@@ -158,7 +199,7 @@ export default function Explore() {
                     }}
                 />
 
-                <View className="px-4">
+                <View className={containerClassName}>
                     <Field
                         type="search"
                         value={search}
@@ -166,7 +207,7 @@ export default function Explore() {
                             const topResult = filteredData[0];
                             if (topResult) {
                                 const { path } = typeAttributes[topResult.type];
-                                router.navigate(`/explore/${path}/${topResult.name}` as any);
+                                router.navigate(`/explore/${path}/${topResult.name}`);
                             }
                         }}
                         onChangeText={setSearch}
@@ -179,12 +220,11 @@ export default function Explore() {
                         keyboardShouldPersistTaps="handled"
                         contentContainerClassName="px-4 pb-4"
                         data={filteredData}
-                        ItemSeparatorComponent={() => <View className="h-[1px] bg-gray-200 dark:bg-gray-800 w-full" />}
+                        ItemSeparatorComponent={() => <View className="h-px bg-gray-200 dark:bg-gray-800 w-full" />}
                         renderItem={(props) => <Result {...props} />}
                     />
                 ) : (
                     <ScrollView className="flex-1" contentContainerClassName="gap-5 pb-4" keyboardShouldPersistTaps="handled">
-
                         <View className="gap-2">
                             <View className="flex-row justify-between items-center px-4">
                                 <Text variant="header-lg">{getTranslation('explore.civilizations')}</Text>
@@ -200,12 +240,7 @@ export default function Explore() {
                                 data={orderCivs(civs.filter((c) => c !== 'Indians'))}
                                 contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: civ }) => (
-                                    <Card direction="vertical" className="w-20 items-center py-2.5 px-1 gap-1" href={`/explore/civilizations/${civ}`}>
-                                        <Image className="w-8 h-8" source={getCivIconLocal(civ)} contentFit="contain" />
-                                        <Text variant="label-sm" numberOfLines={1}>
-                                            {getCivNameById(civ)}
-                                        </Text>
-                                    </Card>
+                                    <ExploreCard href={`/explore/civilizations/${civ}`} image={getCivIconLocal(civ)} text={getCivNameById(civ)} />
                                 )}
                                 keyExtractor={(item) => item}
                             />
@@ -226,16 +261,11 @@ export default function Explore() {
                                 data={allUnitSections}
                                 contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: { title, icon } }) => (
-                                    <Card
-                                        direction="vertical"
-                                        className="w-20 items-center py-2.5 px-1 gap-1"
+                                    <ExploreCard
+                                        icon={icon as IconName}
+                                        text={getTranslation(title as any)}
                                         href={`/explore/units?section=${title}`}
-                                    >
-                                        <Icon icon={icon as IconName} size={22} color="brand" />
-                                        <Text variant="label-sm" numberOfLines={1}>
-                                            {getTranslation(title as any)}
-                                        </Text>
-                                    </Card>
+                                    />
                                 )}
                                 keyExtractor={(item) => item.title}
                             />
@@ -256,16 +286,11 @@ export default function Explore() {
                                 data={buildingSections}
                                 contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: { title, icon } }) => (
-                                    <Card
-                                        direction="vertical"
-                                        className="w-20 items-center py-2.5 px-1 gap-1"
+                                    <ExploreCard
+                                        icon={icon as IconName}
+                                        text={getTranslation(title as any)}
                                         href={`/explore/buildings?section=${title}`}
-                                    >
-                                        <Icon icon={icon as IconName} size={22} color="brand" />
-                                        <Text variant="label-sm" numberOfLines={1}>
-                                            {getTranslation(title as any)}
-                                        </Text>
-                                    </Card>
+                                    />
                                 )}
                                 keyExtractor={(item) => item.title}
                             />
@@ -283,23 +308,21 @@ export default function Explore() {
                                 className="flex-none"
                                 horizontal
                                 keyboardShouldPersistTaps="always"
-                                data={techSections}
+                                data={techsList}
                                 contentContainerClassName="gap-2.5 px-4"
-                                renderItem={({ item: { building, civ } }) => (
-                                    <Card
-                                        direction="vertical"
-                                        className="w-20 items-center py-2.5 px-1 gap-1"
-                                        href={`/explore/technologies?section=${building ?? civ}`}
-                                    >
-                                        <Image
-                                            className="w-8 h-8"
-                                            source={building ? getBuildingIcon(building) : getCivIconLocal(civ!)}
-                                            contentFit="contain"
-                                        />
-                                        <Text variant="label-sm" numberOfLines={1}>
-                                            {building ? getBuildingName(building).replace('Camp', '').replace('Range', '') : getCivNameById(civ!)}
-                                        </Text>
-                                    </Card>
+                                renderItem={({ item: { building, civ, title } }) => (
+                                    <ExploreCard
+                                        image={building ? getBuildingIcon(building) : getCivIconLocal(civ!)}
+                                        icon={title ? 'star' : undefined}
+                                        text={
+                                            building
+                                                ? getBuildingName(building).replace('Camp', '').replace('Range', '')
+                                                : civ
+                                                ? getCivNameById(civ!)
+                                                : title ?? ''
+                                        }
+                                        href={`/explore/technologies?section=${building ?? civ ?? title}`}
+                                    />
                                 )}
                                 keyExtractor={(item) => item.building || item.civ!}
                             />
@@ -322,7 +345,7 @@ export default function Explore() {
                                 renderItem={({ item }) => <BuildCard size="small" {...item} />}
                                 keyExtractor={(item) => item.id.toString()}
                                 ListFooterComponent={_renderFooter}
-                                onEndReached={onEndReached}
+                                onEndReached={Platform.OS === 'web' ? undefined : onEndReached}
                                 onEndReachedThreshold={0.1}
                             />
                         </View>
@@ -339,20 +362,14 @@ export default function Explore() {
                                 className="flex-none"
                                 horizontal
                                 keyboardShouldPersistTaps="always"
-                                data={orderBy(compact(maps), map => map.mapName)}
+                                data={orderBy(compact(maps), (map) => map.mapName)}
                                 contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: map }) => (
-                                    <Card direction="vertical" className="w-20 items-center py-2.5 px-1 gap-1" href={`/explore/maps/${map.mapId}`}>
-                                        <Image className="w-8 h-8" source={{ uri: map.imageUrl }} contentFit="contain" />
-                                        <Text variant="label-sm" numberOfLines={1}>
-                                            {map.mapName}
-                                        </Text>
-                                    </Card>
+                                    <ExploreCard href={`/explore/maps/${map.mapId}`} image={{ uri: map.imageUrl }} text={map.mapName} />
                                 )}
                                 keyExtractor={(item) => item.mapId}
                             />
                         </View>
-
                     </ScrollView>
                 )}
             </View>

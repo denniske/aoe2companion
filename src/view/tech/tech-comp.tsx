@@ -6,7 +6,10 @@ import {MyText} from "../components/my-text";
 import {createStylesheet} from "../../theming-new";
 import {getTechIcon} from "../../helper/techs";
 import {getCivIconLocal} from "../../helper/civs";
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { Card } from '@app/components/card';
+import { Text } from '@app/components/text';
 
 
 export function TechIcon({tech: tech} : any) {
@@ -25,19 +28,43 @@ export function TechIcon({tech: tech} : any) {
     return <Image style={styles.unitIconBig} source={getTechIcon(tech)}/>;
 }
 
-export function TechCompBig({tech: tech, showCivBanner: showCivBanner}: any) {
+export function TechCompBig({ tech: tech, showCivBanner: showCivBanner, canShowCard }: any) {
     const styles = useStyles();
+    const showTabBar = useShowTabBar();
+    const civ = techs[tech]?.civ;
+
+    if (!showTabBar && canShowCard) {
+        return (
+            <Card href={`/explore/technologies/${tech}`} direction="vertical" className="items-center w-40 mb-2 flex-1 relative">
+                {showCivBanner && civ && <Image className='absolute top-3 right-3 w-6 h-6' source={getCivIconLocal(civ)} />}
+
+                <Image style={styles.unitIconBig} source={getTechIcon(tech)} />
+
+                <Text variant="label-lg" numberOfLines={1}>
+                    {getTechName(tech)}
+                </Text>
+
+                <Text variant="body-sm" numberOfLines={2} color="subtle" align="center">
+                    {getTechDescription(tech)}
+                </Text>
+            </Card>
+        );
+    }
 
     return (
-        <TouchableOpacity onPress={() => router.push(`/explore/technologies/${tech}`)} className="h-10">
-            <View style={styles.rowBig}>
-                <TechIcon style={styles.unitIconBig} tech={tech}/>
-                <View style={styles.unitIconBigTitle}>
-                    <MyText style={styles.name}>{getTechName(tech)}</MyText>
-                    <MyText numberOfLines={1} style={styles.base.small}>{getTechDescription(tech)}</MyText>
+        <Link asChild href={`/explore/technologies/${tech}`}>
+            <TouchableOpacity className="h-10">
+                <View style={styles.rowBig}>
+                    <TechIcon style={styles.unitIconBig} tech={tech} />
+                    <View style={styles.unitIconBigTitle}>
+                        <MyText style={styles.name}>{getTechName(tech)}</MyText>
+                        <MyText numberOfLines={1} style={styles.base.small}>
+                            {getTechDescription(tech)}
+                        </MyText>
+                    </View>
                 </View>
-            </View>
-        </TouchableOpacity>
+            </TouchableOpacity>
+        </Link>
     );
 }
 

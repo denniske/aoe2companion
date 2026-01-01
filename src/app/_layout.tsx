@@ -17,6 +17,7 @@ import {
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
     Environment,
     IHostService,
@@ -31,7 +32,7 @@ import * as Sentry from '@sentry/react-native';
 import { focusManager, QueryClientProvider } from '@tanstack/react-query';
 import * as Device from 'expo-device';
 import * as Notifications from '../service/notifications';
-import { SplashScreen, Stack, usePathname, useRootNavigationState, useRouter } from 'expo-router';
+import {  SplashScreen, Stack, usePathname, useRootNavigationState, useRouter } from 'expo-router';
 import { useCallback, useEffect } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -58,6 +59,10 @@ import { LiveActivity } from '@/modules/widget';
 import { AvailableMainPage } from '@app/helper/routing';
 import { clearLastNotificationResponse } from 'expo-notifications';
 import { useCSSVariable } from 'uniwind';
+import { NavBar } from '@app/components/navbar';
+import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { Footer } from '@app/components/footer';
+import { LoginPopupProvider } from '@app/providers/login-popup-provider';
 
 initSentry();
 
@@ -75,7 +80,7 @@ function onAppStateChange(status: AppStateStatus) {
     }
 }
 
-library.add(fass, fasr);
+library.add(fass, fasr, fab);
 
 SplashScreen.preventAutoHideAsync();
 
@@ -318,26 +323,18 @@ function AppWrapper() {
         }
     }, [fontsLoaded]);
 
+    const showTabBar = useShowTabBar();
+
     // if (!fontsLoaded || (cachedLanguage && !languageLoaded)) {
     if (!fontsLoaded) {
         return null;
     }
 
-    // console.log();
-    // console.log();
-    // console.log('ROOT RENDER', appConfig.game);
-    // console.log();
-    // console.log();
-
     return (
-        <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black ${isMobile ? '' : 'py-5'}` : ``}`}>
+        <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black` : ``}`}>
             <ConditionalTester>
                 <ThemeProvider value={customTheme}>
-                    <View
-                        className={`bg-gold-50 dark:bg-blue-950 ${Platform.OS === 'web' ? `overflow-hidden w-[450px] max-w-full mx-auto my-auto flex-1 ${isMobile ? '' : 'max-h-[900px] border border-gray-200 dark:border-gray-800'} rounded-lg` : 'flex-1'}`}
-                        style={{ paddingTop: insets.top }}
-                        onLayout={onLayoutRootView}
-                    >
+                    <View className="bg-gold-50 dark:bg-blue-950 flex-1" style={{ paddingTop: insets.top }} onLayout={onLayoutRootView}>
                         <StatusBar barStyle={contentTheme} backgroundColor="transparent" translucent />
 
                         {/*<FloatingDevTools*/}
@@ -405,10 +402,22 @@ function AppWrapper() {
                         </View>
 
                         <PortalProvider>
-                            <>
-                                <Stack screenOptions={{ header: (props) => <Header {...props} /> }}></Stack>
-                                <TabBar></TabBar>
-                            </>
+                            <LoginPopupProvider>
+                                <View className="hidden md:web:block z-10">
+                                    <NavBar />
+                                </View>
+                                <Stack
+                                    screenOptions={{ header: (props) => <Header {...props} /> }}
+                                    layout={showTabBar ? undefined : ({ children }) => <View className="grow">{children}</View>}
+                                />
+                                <View className="md:web:hidden">
+                                    <TabBar />
+                                </View>
+
+                                <View className="hidden md:web:block">
+                                    <Footer />
+                                </View>
+                            </LoginPopupProvider>
                         </PortalProvider>
                     </View>
                 </ThemeProvider>
@@ -416,7 +425,6 @@ function AppWrapper() {
         </GestureHandlerRootView>
     );
 }
-
 
 function useIsNavigationReady() {
     // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
