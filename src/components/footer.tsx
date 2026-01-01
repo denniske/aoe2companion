@@ -40,6 +40,9 @@ export const Footer: React.FC = () => {
                     <Link color="subtle" href="/more/privacy">
                         {getTranslation('privacy.title')}
                     </Link>
+                    <Link color="subtle" href="/more/api">
+                        {getTranslation('api.title')}
+                    </Link>
                 </View>
 
                 {Platform.OS === 'web' && (
