@@ -74,8 +74,9 @@ export const PlayerRow = ({
                         {initialRank && initialRank !== rank && (
                             <Icon
                                 icon={initialRank > rank ? 'caret-up' : 'caret-down'}
-                                color={initialRank > rank ? '#22C55E' : '#EF4444'}
-                                className={initialRank > rank ? '-mt-0.5' : '-mt-1.5'}
+                                color={initialRank > rank ? 'accent-[#22C55E]' : 'accent-[#EF4444]'}
+                                className={initialRank > rank ? 'inline-block -mt-0.5' : 'inline-block -mt-1.5'}
+                                size={16}
                             />
                         )}
                         {hasDuplicateRank && (
