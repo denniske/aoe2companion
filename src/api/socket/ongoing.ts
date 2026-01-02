@@ -7,11 +7,15 @@ import { IMatchesMatch } from '../helper/api.types';
 import { makeQueryString } from '@app/api/helper/util';
 import { decamelizeKeys } from 'humps';
 import { useIsFocused } from '@react-navigation/native';
+import { cloneDeep } from 'lodash';
 
 interface IConnectionHandler {
     onOpen?: () => void;
     onMessage?: (message: any) => void;
     onMatches?: (_matches: any[]) => void;
+    onMatchAdded?: (match: any) => void;
+    onMatchRemoved?: (match: any) => void;
+    onMatchUpdated?: (match: any) => void;
     onClose?: (event: ICloseEvent) => void;
 }
 
@@ -83,11 +87,14 @@ export function initMatchSubscription(handler: IConnectionHandler, profileIds?: 
                         switch (event.type) {
                             case 'matchAdded':
                                 matches.push(event.data);
+                                handler.onMatchAdded?.(event.data);
                                 break;
                             case 'matchUpdated':
                                 Object.assign(match, event.data);
+                                handler.onMatchUpdated?.(match);
                                 break;
                             case 'matchRemoved':
+                                handler.onMatchRemoved?.(cloneDeep({ ...match, finished: new Date() }));
                                 matches.splice(matches.indexOf(match), 1);
                                 break;
                         }

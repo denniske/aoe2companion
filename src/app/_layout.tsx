@@ -1,6 +1,4 @@
 import { fetchJson } from '@app/api/util';
-import { Header } from '@app/components/header';
-import { TabBar } from '@app/components/tab-bar';
 import initSentry from '@app/helper/sentry';
 import { getTranslationInternal, mmkvDefaultInstance, useMMKWTranslationCache } from '@app/helper/translate';
 import { getInternalAoeString } from '@app/helper/translate-data';
@@ -59,12 +57,16 @@ import { LiveActivity } from '@/modules/widget';
 import { AvailableMainPage } from '@app/helper/routing';
 import { clearLastNotificationResponse } from 'expo-notifications';
 import { useCSSVariable } from 'uniwind';
-import { NavBar } from '@app/components/navbar';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
-import { Footer } from '@app/components/footer';
 import { LoginPopupProvider } from '@app/providers/login-popup-provider';
+import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
 
 initSentry();
+
+
+if (Platform.OS === 'web') {
+    polyfillCountryFlagEmojis();
+}
 
 console.error = (function (error) {
     return function (message) {

@@ -12,43 +12,43 @@ export interface ILobbiesMatch {
     gameModeName: string;
     averageRating: number;
 
-    matchId: number
-    started?: Date
-    finished?: Date
-    leaderboardId?: string
-    leaderboardName?: string
-    name: string
-    server?: string
-    internalLeaderboardId?: number
-    difficulty: number
-    startingAge: number
-    fullTechTree: boolean
-    allowCheats: boolean
-    empireWarsMode: boolean
-    endingAge: number
-    gameMode?: string
-    lockSpeed: boolean
-    lockTeams: boolean
-    mapSize: number
-    map?: string
-    mapName: string
-    mapImageUrl: string
-    population: number
-    recordGame: boolean
-    regicideMode: boolean
-    resources: number
-    sharedExploration: boolean
-    speed: number
-    suddenDeathMode: boolean
-    teamPositions: boolean
-    teamTogether: boolean
-    treatyLength: number
-    turboMode: boolean
-    victory: number
-    revealMap: number
-    privacy: number
+    matchId: number;
+    started?: Date;
+    finished?: Date;
+    leaderboardId?: string;
+    leaderboardName?: string;
+    name: string;
+    server?: string;
+    internalLeaderboardId?: number;
+    difficulty: number;
+    startingAge: number;
+    fullTechTree: boolean;
+    allowCheats: boolean;
+    empireWarsMode: boolean;
+    endingAge: number;
+    gameMode?: string;
+    lockSpeed: boolean;
+    lockTeams: boolean;
+    mapSize: number;
+    map?: string;
+    mapName: string;
+    mapImageUrl: string;
+    population: number;
+    recordGame: boolean;
+    regicideMode: boolean;
+    resources: number;
+    sharedExploration: boolean;
+    speed: number;
+    suddenDeathMode: boolean;
+    teamPositions: boolean;
+    teamTogether: boolean;
+    treatyLength: number;
+    turboMode: boolean;
+    victory: number;
+    revealMap: number;
+    privacy: number;
     players: IMatchesMatchPlayer2[];
-    mod: boolean
+    mod: boolean;
     difficultyName?: string;
     startingAgeName?: string;
     endingAgeName?: string;
@@ -64,6 +64,7 @@ export interface ILobbiesMatch {
     scenario?: string;
     modDataset?: string;
     speedName?: string;
+    speedFactor: number;
     gameVariant?: number;
 }
 
@@ -744,6 +745,8 @@ export interface ILeaderboardPlayer {
     leaderboardId: number;
     profileId: number;
     name: string;
+    countryIcon?: string;
+    last10MatchesWon?: Array<boolean | null>;
     rank: number;
     rankCountry: number;
     rating: number;

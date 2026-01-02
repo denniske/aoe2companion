@@ -5,7 +5,6 @@ import { Footer } from './_components/footer';
 import { PlayerList } from './_components/player-list';
 import { statuses } from './statuses';
 import { InfoModal } from './_components/info-modal';
-import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
 import { Image } from '../uniwind/image';
 
 
@@ -22,13 +21,9 @@ export default function Page() {
         isFuture(START_DATE)
     );
 
-    useEffect(() => {
-        polyfillCountryFlagEmojis();
-    }, []);
-
     return (
         <main
-            className="flex flex-col 2xl:flex-row px-4 md:px-8 py-8 gap-12 text-white min-h-screen relative items-center 2xl:items-stretch selection:bg-blue-600/90 select-none justify-around max-w-[2600px] mx-auto"
+            className="flex flex-col 2xl:flex-row px-4 md:px-8 py-8 gap-12 text-white min-h-screen relative items-center 2xl:items-stretch selection:bg-blue-600/90 select-none justify-around max-w-[2600px] mx-auto overflow-y-auto md:overflow-y-visible"
             style={{ colorScheme: 'dark' }}
         >
             <div className="fixed inset-0">

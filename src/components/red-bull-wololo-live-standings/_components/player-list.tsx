@@ -248,17 +248,17 @@ export function PlayerList({
         ['maxRating', 'rating'],
         ['desc', 'desc']
     )
-        ?.slice(0, 25)
+        ?.slice(0, 50)
         .map((p) => p.profileId);
     const qualifiedPlayers = sortedPlayerIds?.slice(
         statuses.qualified.minPlace - 1,
         statuses.qualified.maxPlace
     );
     const players = orderBy(
-        orderBy(mappedPlayers, 'maxRating', 'desc')?.slice(0, 25),
+        orderBy(mappedPlayers, 'maxRating', 'desc')?.slice(0, 50),
         [sort[0], 'rating'],
         [sort[1], 'desc']
-    )?.slice(0, 25);
+    )?.slice(0, 50);
 
     const minRatingToQualify = Math.min(
         ...players
@@ -276,7 +276,7 @@ export function PlayerList({
             leave: { height: 0, opacity: 0 },
             enter: ({ y }) => ({ y, opacity: 1 }),
             update: ({ y }) => ({ y }),
-            key: (item) => item?.profileId,
+            key: (item: any) => item?.profileId,
         }
     );
 
@@ -359,7 +359,7 @@ export function PlayerList({
                         </HeadCell>
                     </tr>
                 </thead>
-                <tbody className="block min-h-[1600px]" ref={ref}>
+                <tbody className="block min-h-[3200px]" ref={ref}>
                     {!players || players.length === 0 || isError ? (
                         <tr className="flex h-96 items-center justify-center">
                             <td className="flex">
