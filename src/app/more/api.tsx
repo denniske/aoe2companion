@@ -23,11 +23,11 @@ export default function ApiPage() {
                 </Text>
 
                 <Text className="text-base">
-                    When making calls to the API provide a user agent header set to you app / website / bot name.
+                    When making calls to the API provide a user agent header set to your website url / app name / bot name.
                 </Text>
 
                 <Text className="text-base">
-                    Please make responsible use of our API – don't make extraneous calls or try to extract all data in bulk through crawling the API.
+                    Please make responsible use of our API – don't make extraneous calls or try to extract all data in bulk through crawling the API. For that purpose see <a href={"/more/api#dumps" as any} className="underline">dumps</a>
                 </Text>
 
                 <Text className="text-base">
@@ -37,6 +37,55 @@ export default function ApiPage() {
                 <Text className="text-base">
                     If you have a specific usecase in mind reach out on <Link target="_blank" href="https://discord.gg/gCunWKx">Discord</Link>.
                 </Text>
+
+
+                <View className="text-lg font-bold my-3">
+                    Bruno API Examples
+                </View>
+
+                <View className="ml-2 space-y-2">
+                    <View className="">
+                        <Text className="text-base">
+                            Checkout <Link target="_blank" href="https://github.com/denniske/aoe2companion-api">https://github.com/denniske/aoe2companion-api</Link>
+                        </Text>
+                        <Text className="text-base">
+                            And download bruno <Link target="_blank" href="https://www.usebruno.com/v3-preview">https://www.usebruno.com/v3-preview</Link>
+                        </Text>
+                    </View>
+                </View>
+
+
+                <View id="dumps" className="text-lg font-bold my-3">
+                    Dumps
+                </View>
+
+                <View className="ml-2 space-y-2">
+                    <View className="">
+                        <Text className="text-base">
+                            Use daily dumps instead of trying to extract all data in bulk through crawling the API.
+                        </Text>
+                        <Text className="text-base">
+                            For a list of daily dumps <Link target="_blank" href="https://data.aoe2companion.com/api/dump/list">/api/dump/list</Link>
+                        </Text>
+                        <Text className="text-base">
+                            Daily Leaderboard Csv <Link target="_blank" href="https://dump.cdn.aoe2companion.com/leaderboard.csv">https://dump.cdn.aoe2companion.com/leaderboard.csv</Link>
+                        </Text>
+                        <Text className="text-base">
+                            Daily Leaderboard Parquet <Link target="_blank" href="https://dump.cdn.aoe2companion.com/leaderboard.parquet">https://dump.cdn.aoe2companion.com/leaderboard.parquet</Link>
+                        </Text>
+                        <Text className="text-base">
+                            Daily Profile Csv <Link target="_blank" href="https://dump.cdn.aoe2companion.com/profile.csv">https://dump.cdn.aoe2companion.com/profile.csv</Link>
+                        </Text>
+                        <Text className="text-base">
+                            Daily Profile Parquet <Link target="_blank" href="https://dump.cdn.aoe2companion.com/profile.parquet">https://dump.cdn.aoe2companion.com/profile.parquet</Link>
+                        </Text>
+                        <Text className="text-base">
+                            Daily Matches <Link target="_blank" href="https://dump.cdn.aoe2companion.com/match-2026-01-01.parquet">https://dump.cdn.aoe2companion.com/match-2026-01-01.parquet</Link>
+                        </Text>
+                    </View>
+                </View>
+
+
 
 
                 <View className="text-lg font-bold my-3">
