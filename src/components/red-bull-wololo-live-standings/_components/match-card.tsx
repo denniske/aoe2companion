@@ -24,22 +24,29 @@ export const MatchCard = ({
     match,
     playerNames,
     userId,
+    index = 0
 }: {
     userId?: number;
     match: ILobbiesMatch;
     playerNames: Record<string, { name: string; icon?: string }>;
+    index?: number
 }) => {
     return (
         <div className="relative flex flex-row gap-3 items-center text-sm w-full">
-            {match.players.some((p) => p.profileId === userId && p.won === true) && <Icon icon="crown" color="accent-[#f9b806]" className="absolute top-1" />}
+            {match.players.some((p) => p.profileId === userId && p.won === true) && (
+                <Icon icon="crown" color="accent-[#f9b806]" className="absolute top-1" />
+            )}
 
             {match.players.some((p) => p.profileId === userId && p.won === false) && <Icon icon="skull" className="absolute top-1" color="white" />}
 
-            {!match.finished && (
-                <a href={`aoe2de://1/${match.matchId}`} target="_blank" className="absolute top-0" rel="noreferrer">
-                    <Icon icon="eye" color="accent-[#EAC65E]" />
-                </a>
-            )}
+            {!match.finished &&
+                (index === 0 ? (
+                    <a href={`aoe2de://1/${match.matchId}`} target="_blank" className="absolute top-0" rel="noreferrer">
+                        <Icon icon="eye" color="accent-[#EAC65E]" />
+                    </a>
+                ) : (
+                    <Icon icon="signal-alt-slash" color="white" className="absolute top-1" />
+                ))}
 
             <img src={match.mapImageUrl} className="w-16 h-16" />
             <div className="flex-1 flex flex-col gap-1">
@@ -49,6 +56,8 @@ export const MatchCard = ({
                         <time dateTime={formatISO(match.started)} className="flex gap-2 items-center">
                             {match.finished ? (
                                 formatAgo(match.finished)
+                            ) : index > 0 ? (
+                                formatAgo(match.started)
                             ) : (
                                 <Countdown
                                     date={match.started}

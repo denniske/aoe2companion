@@ -1,9 +1,4 @@
-import {
-    ILeaderboard,
-    ILeaderboardPlayer,
-    ILobbiesMatch,
-    IMatchNew,
-} from '@app/api/helper/api.types';
+import { ILeaderboard, ILeaderboardPlayer, ILobbiesMatch, IMatchNew } from '@app/api/helper/api.types';
 import { useQuery } from '@tanstack/react-query';
 import { isEmpty, orderBy } from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -28,37 +23,21 @@ export function PlayerList({
     maxRatingOverrides: Record<number, number>;
 }) {
     const [time, setTime] = useState<Date>();
-    const [initialRankings, setInitialRankings] = useState<
-        Record<string, number>
-    >({});
-    const [sort, setSort] = useState(['maxRating', 'desc'] as [
-        keyof ILeaderboardPlayer | 'winrates',
-        'desc' | 'asc'
-    ]);
+    const [initialRankings, setInitialRankings] = useState<Record<string, number>>({});
+    const [sort, setSort] = useState(['maxRating', 'desc'] as [keyof ILeaderboardPlayer | 'winrates', 'desc' | 'asc']);
     const [matches, setMatches] = useState<ILobbiesMatch[]>([]);
     const [isConnecting, setIsConnecting] = useState(false);
     const [connected, setConnected] = useState(false);
     const ref = useRef(null);
     const refetchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    const updateMatches = (
-        newMatches: ILobbiesMatch[],
-        clearMatches = false
-    ) => {
+    const updateMatches = (newMatches: ILobbiesMatch[], clearMatches = false) => {
         setMatches((prev) => {
-            const newMatchesFiltered = newMatches.filter(
-                (match) => match.leaderboardId === leaderboardId
-            );
+            const newMatchesFiltered = newMatches.filter((match) => match.leaderboardId === leaderboardId);
             const newMatchIds = newMatchesFiltered.map((g) => g.matchId);
-            const oldMatches = prev.filter(
-                (g) => !newMatchIds.includes(g.matchId)
-            );
+            const oldMatches = prev.filter((g) => !newMatchIds.includes(g.matchId));
 
-            return orderBy(
-                [...(clearMatches ? [] : oldMatches), ...newMatchesFiltered],
-                'started',
-                'desc'
-            );
+            return orderBy([...(clearMatches ? [] : oldMatches), ...newMatchesFiltered], 'started', 'desc');
         });
     };
 
@@ -94,48 +73,42 @@ export function PlayerList({
         );
     };
 
-    const { data, isFetching, refetch, isLoading, isError, isSuccess } =
-        useQuery<ILeaderboard, Error, ILeaderboard>({
-            queryKey: ['leaderboard-players', leaderboardId],
-            queryFn: async () => {
-                closeSocket();
+    const { data, isFetching, refetch, isLoading, isError, isSuccess } = useQuery<ILeaderboard, Error, ILeaderboard>({
+        queryKey: ['leaderboard-players', leaderboardId],
+        queryFn: async () => {
+            closeSocket();
 
-                const response = await fetch(`https://aoe2frontend.vercel.app/api/leaderboard/${leaderboardId}`);
-                const text = await response.text();
-                const leaderboardData = JSON.parse(text, dateReviver) as {
-                    leaderboard: ILeaderboard;
-                    matches: IMatchNew[];
-                    isCached: boolean;
-                };
+            const response = await fetch(`https://aoe2frontend.vercel.app/api/leaderboard/${leaderboardId}`);
+            const text = await response.text();
+            const leaderboardData = JSON.parse(text, dateReviver) as {
+                leaderboard: ILeaderboard;
+                matches: IMatchNew[];
+                isCached: boolean;
+            };
 
-                if (!leaderboardData?.leaderboard?.players?.length) {
-                    throw Error('Leaderboard bug');
-                }
+            if (!leaderboardData?.leaderboard?.players?.length) {
+                throw Error('Leaderboard bug');
+            }
 
-                if (!leaderboardData?.matches) {
-                    throw Error('Matches bug');
-                }
+            if (!leaderboardData?.matches) {
+                throw Error('Matches bug');
+            }
 
-                if (leaderboardData.isCached) {
-                    await new Promise<void>((resolve) =>
-                        setTimeout(resolve, 1000)
-                    );
-                }
+            if (leaderboardData.isCached) {
+                await new Promise<void>((resolve) => setTimeout(resolve, 1000));
+            }
 
-                updateMatches(
-                    leaderboardData.matches.map(reformatTeamMatch),
-                    true
-                );
+            updateMatches(leaderboardData.matches.map(reformatTeamMatch), true);
 
-                setTime(new Date());
+            setTime(new Date());
 
-                return leaderboardData.leaderboard;
-            },
-            staleTime: 10 * 60 * 1000,
-            gcTime: Infinity,
-            refetchInterval: 2 * 30 * 1000,
-            refetchOnWindowFocus: true,
-        });
+            return leaderboardData.leaderboard;
+        },
+        staleTime: 10 * 60 * 1000,
+        gcTime: Infinity,
+        refetchInterval: 2 * 30 * 1000,
+        refetchOnWindowFocus: true,
+    });
 
     useEffect(() => {
         if (isSuccess) {
@@ -147,12 +120,7 @@ export function PlayerList({
         }
     }, [data, isSuccess]);
 
-    const playerNames = Object.fromEntries(
-        data?.players.map((p) => [
-            p.profileId,
-            { name: p.name, icon: p.countryIcon },
-        ]) ?? []
-    );
+    const playerNames = Object.fromEntries(data?.players.map((p) => [p.profileId, { name: p.name, icon: p.countryIcon }]) ?? []);
     const socket = useRef<w3cwebsocket>(null);
 
     const openSocket = (profileIds: number[]) => {
@@ -168,29 +136,12 @@ export function PlayerList({
     const mappedPlayers = useMemo(
         () =>
             data?.players.map((player) => {
-                const finishedMatch = matches.find(
-                    (m) =>
-                        m.players.some(
-                            (p) => p.profileId === player.profileId
-                        ) && m.finished
-                );
-                const mostRecentMatch = isPastDeadline
-                    ? finishedMatch
-                    : matches.find((m) =>
-                          m.players.some(
-                              (p) => p.profileId === player.profileId
-                          )
-                      );
+                const finishedMatch = matches.find((m) => m.players.some((p) => p.profileId === player.profileId) && m.finished);
+                const mostRecentMatch = isPastDeadline ? finishedMatch : matches.find((m) => m.players.some((p) => p.profileId === player.profileId));
 
-                const matchPlayer = finishedMatch?.players.find(
-                    (p) => p.profileId === player.profileId
-                );
-                const rating =
-                    matchPlayer?.rating && matchPlayer?.ratingDiff
-                        ? matchPlayer.rating + matchPlayer.ratingDiff
-                        : player.rating;
-                let maxRating =
-                    rating > player.maxRating ? rating : player.maxRating;
+                const matchPlayer = finishedMatch?.players.find((p) => p.profileId === player.profileId);
+                const rating = matchPlayer?.rating && matchPlayer?.ratingDiff ? matchPlayer.rating + matchPlayer.ratingDiff : player.rating;
+                let maxRating = rating > player.maxRating ? rating : player.maxRating;
 
                 for (const profileId in maxRatingOverrides) {
                     if (player.profileId === Number(profileId)) {
@@ -198,12 +149,15 @@ export function PlayerList({
                     }
                 }
 
+                if (player.last10MatchesWon) {
+                    player.last10MatchesWon = player.last10MatchesWon.filter((m, index) => m !== null || index === 0);
+                }
+
                 if (player.last10MatchesWon?.[0] !== null && mostRecentMatch?.started && !mostRecentMatch.finished) {
                     player.last10MatchesWon = [null, ...player.last10MatchesWon!.slice(0, 9)];
                 }
 
-                const last10FinishedMatches =
-                    player.last10MatchesWon?.filter((m) => m !== null) ?? [];
+                const last10FinishedMatches = player.last10MatchesWon?.filter((m) => m !== null) ?? [];
 
                 if (player.streak > 0 && last10FinishedMatches[0] === false) {
                     player.streak = 0;
@@ -215,10 +169,7 @@ export function PlayerList({
                             break;
                         }
                     }
-                } else if (
-                    player.streak < 0 &&
-                    last10FinishedMatches[0] === true
-                ) {
+                } else if (player.streak < 0 && last10FinishedMatches[0] === true) {
                     player.streak = 0;
 
                     for (const match of last10FinishedMatches) {
@@ -233,38 +184,20 @@ export function PlayerList({
                 return {
                     ...player,
                     winrates: (player.wins / player.games) * 100,
-                    lastMatchTime:
-                        mostRecentMatch?.started ??
-                        mostRecentMatch?.finished ??
-                        player.lastMatchTime,
+                    lastMatchTime: mostRecentMatch?.started ?? mostRecentMatch?.finished ?? player.lastMatchTime,
                     rating,
                     maxRating,
                 };
             }),
         [data?.players, isPastDeadline, matches]
     );
-    const sortedPlayerIds = orderBy(
-        mappedPlayers,
-        ['maxRating', 'rating'],
-        ['desc', 'desc']
-    )
+    const sortedPlayerIds = orderBy(mappedPlayers, ['maxRating', 'rating'], ['desc', 'desc'])
         ?.slice(0, 50)
         .map((p) => p.profileId);
-    const qualifiedPlayers = sortedPlayerIds?.slice(
-        statuses.qualified.minPlace - 1,
-        statuses.qualified.maxPlace
-    );
-    const players = orderBy(
-        orderBy(mappedPlayers, 'maxRating', 'desc')?.slice(0, 50),
-        [sort[0], 'rating'],
-        [sort[1], 'desc']
-    )?.slice(0, 50);
+    const qualifiedPlayers = sortedPlayerIds?.slice(statuses.qualified.minPlace - 1, statuses.qualified.maxPlace);
+    const players = orderBy(orderBy(mappedPlayers, 'maxRating', 'desc')?.slice(0, 50), [sort[0], 'rating'], [sort[1], 'desc'])?.slice(0, 50);
 
-    const minRatingToQualify = Math.min(
-        ...players
-            .filter((p) => qualifiedPlayers.includes(p.profileId))
-            .map((p) => p.maxRating)
-    );
+    const minRatingToQualify = Math.min(...players.filter((p) => qualifiedPlayers.includes(p.profileId)).map((p) => p.maxRating));
 
     const transitions = useTransition(
         players.map((data, i) => ({ ...data, y: i * 64 })),
@@ -282,11 +215,7 @@ export function PlayerList({
 
     useEffect(() => {
         if (!isLoading && isEmpty(initialRankings) && sortedPlayerIds) {
-            setInitialRankings(
-                Object.fromEntries(
-                    sortedPlayerIds.map((pid, index) => [pid, index + 1])
-                )
-            );
+            setInitialRankings(Object.fromEntries(sortedPlayerIds.map((pid, index) => [pid, index + 1])));
         }
     }, [isLoading]);
 

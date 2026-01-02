@@ -3,7 +3,7 @@ import { isMatchFreeForAll, teamRatio } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { flatten, startCase, uniq } from 'lodash';
 import React, { Fragment } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Platform, TouchableOpacity, View } from 'react-native';
 import { Card } from '../card';
 import { Icon } from '../icon';
 import { Skeleton, SkeletonText } from '../skeleton';
@@ -82,6 +82,12 @@ export function MatchCard(props: MatchCardProps) {
 
                         {players.some((p) => p.profileId === user && p.won === false && (freeForAll || p.team != -1)) && (
                             <Icon size={isMedium ? 20 : 12} icon="skull" color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
+                        )}
+
+                        {Platform.OS === 'web' && !match.finished && (
+                            <Link className="pl-1" href={`aoe2de://1/${match.matchId}`} target="_blank">
+                                <Icon size={isMedium ? 20 : 12} icon="eye" color="brand" />
+                            </Link>
                         )}
                     </View>
                 </View>

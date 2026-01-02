@@ -378,9 +378,9 @@ export const PlayerModal = ({
                                                 <p>Unable to fetch recent games</p>
                                             )
                                         ) : (
-                                            data?.map((match) => (
+                                            data?.map((match, index) => (
                                                 <div key={match.matchId} className="bg-blue-800 rounded-lg border border-gray-800 px-3 py-2">
-                                                    <MatchCard userId={player.profileId} match={reformatTeamMatch(match)} playerNames={playerNames} />
+                                                    <MatchCard index={index} userId={player.profileId} match={reformatTeamMatch(match)} playerNames={playerNames} />
                                                 </div>
                                             ))
                                         )}

@@ -69,7 +69,7 @@ export const ElapsedTimeOrDuration: React.FC<ElapsedTimeOrDurationProps> = ({ ma
     return (
         <Text numberOfLines={1}>
             {!matchIsFinishedOrTimedOut(match) && duration}
-            {matchIsFinishedOrTimedOut(match) ? (match.started ? formatAgo(match.started) : 'none') : null} - {duration}
+            {matchIsFinishedOrTimedOut(match) ? `${match.started ? formatAgo(match.started) : 'none'} - ${duration}` : null}
         </Text>
     );
 };
