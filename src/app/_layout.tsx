@@ -32,7 +32,7 @@ import * as Sentry from '@sentry/react-native';
 import { focusManager, QueryClientProvider } from '@tanstack/react-query';
 import * as Device from 'expo-device';
 import * as Notifications from '../service/notifications';
-import {  SplashScreen, Stack, usePathname, useRootNavigationState, useRouter } from 'expo-router';
+import {  Slot, SplashScreen, Stack, usePathname, useRootNavigationState, useRouter } from 'expo-router';
 import { useCallback, useEffect } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -403,20 +403,7 @@ function AppWrapper() {
 
                         <PortalProvider>
                             <LoginPopupProvider>
-                                <View className="hidden md:web:block z-10">
-                                    <NavBar />
-                                </View>
-                                <Stack
-                                    screenOptions={{ header: (props) => <Header {...props} /> }}
-                                    layout={showTabBar ? undefined : ({ children }) => <View className="grow">{children}</View>}
-                                />
-                                <View className="md:web:hidden">
-                                    <TabBar />
-                                </View>
-
-                                <View className="hidden md:web:block">
-                                    <Footer />
-                                </View>
+                                <Slot />
                             </LoginPopupProvider>
                         </PortalProvider>
                     </View>

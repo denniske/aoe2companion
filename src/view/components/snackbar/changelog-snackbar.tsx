@@ -6,7 +6,7 @@ import { useSelector } from '../../../redux/reducer';
 import { compareBuild } from 'semver';
 import Constants from 'expo-constants';
 import { router } from 'expo-router';
-import { IChangelogPageParams } from '@app/app/more/changelog';
+import { IChangelogPageParams } from '@app/app/(main)/more/changelog';
 import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useAccountData } from '@app/queries/all';
