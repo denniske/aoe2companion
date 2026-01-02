@@ -86,6 +86,26 @@ export default function ApiPage() {
                 </View>
 
 
+                <View id="dumps" className="text-lg font-bold my-3">
+                    Overlays
+                </View>
+
+                <View className="ml-2 space-y-2">
+                    <View className="">
+                        <Text className="text-base">
+                            For overlays use the websockets.
+                        </Text>
+                        <Text className="text-base">
+                            Ongoing Matches for Viper <Link target="_blank" href="https://piehost.com/websocket-tester?url=wss://socket.aoe2companion.com/listen?handler=ongoing-matches&profile_ids=196240">wss://socket.aoe2companion.com/listen?handler=ongoing-matches&profile_ids=196240</Link>
+                        </Text>
+                        <Text className="text-base">
+                            If you cannot use websockets you can poll the last match of a player.
+                        </Text>
+                        <Text className="text-base">
+                            Last Match of Viper <Link target="_blank" href="https://data.aoe2companion.com/api/matches?profile_ids=196240&use_enums=true&page=1&per_page=1">/api/matches?profile_ids=196240&use_enums=true&page=1&per_page=1</Link>
+                        </Text>
+                    </View>
+                </View>
 
 
                 <View className="text-lg font-bold my-3">
