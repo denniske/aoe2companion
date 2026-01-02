@@ -23,7 +23,7 @@ export default function ApiPage() {
                 </Text>
 
                 <Text className="text-base">
-                    When making calls to the API provide a user agent header set to your website url / app name / bot name.
+                    When making calls to the API provide a user agent header set to your project url.
                 </Text>
 
                 <Text className="text-base">
