@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 @import 'uniwind';
 
-
 @theme {
     --color-transparent: transparent;
     --color-current: currentColor;
@@ -39,6 +38,8 @@
     --color-gold-800: #92680c;
     --color-gold-900: #785b0d;
     --color-gold-950: #453802;
+
+    --font-flag: "Twemoji Country Flags", sans-serif;
 }
 
 /*

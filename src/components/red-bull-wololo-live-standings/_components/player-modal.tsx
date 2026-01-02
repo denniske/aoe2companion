@@ -204,7 +204,7 @@ export const PlayerModal = ({
                             <DialogPanel className="w-full md:max-w-md lg:max-w-6xl transform overflow-hidden rounded-2xl bg-blue-950 p-6 text-left align-middle shadow-xl transition-all text-white">
                                 <div className="flex justify-between">
                                     <DialogTitle as="h2" className="text-xl font-semibold">
-                                        <span className="text-3xl mr-2 align-middle">{player.countryIcon}</span>
+                                        <span className="text-3xl mr-2 align-middle font-flag">{player.countryIcon}</span>
                                         {player.name}
                                     </DialogTitle>
 
@@ -370,7 +370,7 @@ export const PlayerModal = ({
                                         {isLoading || !data?.length ? (
                                             isLoading ? (
                                                 <Icon
-                                                    className={isLoading ? "animate-spin [animation-duration:1s]" : undefined}
+                                                    className={isLoading ? 'animate-spin [animation-duration:1s]' : undefined}
                                                     icon="spinner"
                                                     size={32}
                                                 />

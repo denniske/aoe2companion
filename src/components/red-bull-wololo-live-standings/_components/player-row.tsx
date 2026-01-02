@@ -96,7 +96,7 @@ export const PlayerRow = ({
                 />
             </Cell>
             <Cell className="font-bold w-36 flex-1 border-l-4 md:border-l-0" style={{ borderColor: statuses[status].color }}>
-                <span className="text-2xl mr-2 align-middle">{player.countryIcon}</span>
+                <span className="text-2xl mr-2 align-middle font-flag">{player.countryIcon}</span>
                 <span className="text-ellipsis overflow-hidden cursor-pointer hover:text-[#EAC65E] transition-colors" onClick={() => setIsOpen(true)}>
                     {player.name}
                 </span>
