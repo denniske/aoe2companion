@@ -112,7 +112,7 @@ export function PlayerList({
                     throw Error('Leaderboard bug');
                 }
 
-                if (!leaderboardData?.matches?.length) {
+                if (!leaderboardData?.matches) {
                     throw Error('Matches bug');
                 }
 
