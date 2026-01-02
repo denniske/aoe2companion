@@ -285,7 +285,7 @@ export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastD
                         </HeadCell>
                     </tr>
                 </thead>
-                <tbody className="block min-h-[3200px]" ref={ref}>
+                <tbody className="block" ref={ref} style={{minHeight: limit * 64}}>
                     {!players || players.length === 0 || isError ? (
                         <tr className="flex h-96 items-center justify-center">
                             <td className="flex">

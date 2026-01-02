@@ -1,5 +1,5 @@
-import { PlayerList } from "@app/components/red-bull-wololo-live-standings/_components/player-list";
-import { useEffect } from "react";
+import { PlayerList } from '@app/components/red-bull-wololo-live-standings/_components/player-list';
+import { useEffect } from 'react';
 
 export default function RedBullWololoLiveStandingsOverlay() {
     useEffect(() => {
@@ -16,8 +16,11 @@ export default function RedBullWololoLiveStandingsOverlay() {
     }, []);
 
     return (
-        <div className="p-4">
+        <main
+            className="p-6 gap-12 text-white relative selection:bg-blue-600/90 select-none"
+            style={{ colorScheme: 'dark' }}
+        >
             <PlayerList isPastDeadline={false} limit={10} hideHeader />
-        </div>
+        </main>
     );
 }
