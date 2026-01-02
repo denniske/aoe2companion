@@ -167,9 +167,10 @@ export const PlayerRow = ({
                 )}
             </Cell>
             <Cell className="w-32 hidden md:flex flex-col gap-1.5 items-start pb-0 pt-1 justify-center">
-                <LastFiveMatches player={player} />
+                <LastFiveMatches player={player} match={match} playerNames={playerNames} />
                 <p className={`text-sm whitespace-nowrap overflow-hidden text-ellipsis ${player.streak >= 5 ? 'font-bold' : ''}`}>
-                    {formatStreak(player.streak)} {player.streak >= 5 ? <Icon icon="fire-alt" size={20} color="accent-orange-500" className="inline-block" /> : null}
+                    {formatStreak(player.streak)}{' '}
+                    {player.streak >= 5 ? <Icon icon="fire-alt" size={20} color="accent-orange-500" className="inline-block" /> : null}
                 </p>
             </Cell>
             <Cell className="w-24 hidden lg:flex">{player.winrates.toFixed(0)}%</Cell>

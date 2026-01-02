@@ -13,15 +13,10 @@ import { initMatchSubscription } from '@app/api/socket/ongoing';
 import { dateReviver } from '@nex/data';
 import { Icon } from '@app/components/icon';
 
-export function PlayerList({
-    leaderboardId,
-    isPastDeadline,
-    maxRatingOverrides,
-}: {
-    leaderboardId: string;
-    isPastDeadline: boolean;
-    maxRatingOverrides: Record<number, number>;
-}) {
+const leaderboardId = 'ew_1v1_redbullwololo';
+const maxRatingOverrides: Record<number, number> = {};
+
+export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastDeadline: boolean; limit?: number; hideHeader?: boolean }) {
     const [time, setTime] = useState<Date>();
     const [initialRankings, setInitialRankings] = useState<Record<string, number>>({});
     const [sort, setSort] = useState(['maxRating', 'desc'] as [keyof ILeaderboardPlayer | 'winrates', 'desc' | 'asc']);
@@ -192,10 +187,10 @@ export function PlayerList({
         [data?.players, isPastDeadline, matches]
     );
     const sortedPlayerIds = orderBy(mappedPlayers, ['maxRating', 'rating'], ['desc', 'desc'])
-        ?.slice(0, 50)
+        ?.slice(0, limit)
         .map((p) => p.profileId);
     const qualifiedPlayers = sortedPlayerIds?.slice(statuses.qualified.minPlace - 1, statuses.qualified.maxPlace);
-    const players = orderBy(orderBy(mappedPlayers, 'maxRating', 'desc')?.slice(0, 50), [sort[0], 'rating'], [sort[1], 'desc'])?.slice(0, 50);
+    const players = orderBy(orderBy(mappedPlayers, 'maxRating', 'desc')?.slice(0, limit), [sort[0], 'rating'], [sort[1], 'desc'])?.slice(0, limit);
 
     const minRatingToQualify = Math.min(...players.filter((p) => qualifiedPlayers.includes(p.profileId)).map((p) => p.maxRating));
 
@@ -227,38 +222,40 @@ export function PlayerList({
 
     return (
         <div>
-            <div className="pb-2 mb-8 border-b-2 border-[#EAC65E] flex flex-col md:flex-row justify-between items-center select-text">
-                <h2 className="text-xl md:text-5xl uppercase font-bold">{isPastDeadline ? '' : 'Current '}Top Players</h2>
+            {hideHeader ? null : (
+                <div className="pb-2 mb-8 border-b-2 border-[#EAC65E] flex flex-col md:flex-row justify-between items-center select-text">
+                    <h2 className="text-xl md:text-5xl uppercase font-bold">{isPastDeadline ? '' : 'Current '}Top Players</h2>
 
-                <div className="flex gap-4">
-                    {time && !isFetching ? (
-                        <time dateTime={formatISO(time)} className="text-center md:text-right">
-                            Last updated {format(time, 'pp')}
-                            <br />
-                            {!isPastDeadline && (
-                                <p className="text-xs italic text-right">
-                                    {isConnecting
-                                        ? 'Connecting to live updates server...'
-                                        : connected
-                                        ? 'Live updates are enabled (no need to manually refresh)'
-                                        : 'Live updates are disabled (refresh to enable)'}
-                                </p>
-                            )}
-                        </time>
-                    ) : (
-                        <p className="text-center md:text-right">Updating leaderboard</p>
-                    )}
+                    <div className="flex gap-4">
+                        {time && !isFetching ? (
+                            <time dateTime={formatISO(time)} className="text-center md:text-right">
+                                Last updated {format(time, 'pp')}
+                                <br />
+                                {!isPastDeadline && (
+                                    <p className="text-xs italic text-right">
+                                        {isConnecting
+                                            ? 'Connecting to live updates server...'
+                                            : connected
+                                            ? 'Live updates are enabled (no need to manually refresh)'
+                                            : 'Live updates are disabled (refresh to enable)'}
+                                    </p>
+                                )}
+                            </time>
+                        ) : (
+                            <p className="text-center md:text-right">Updating leaderboard</p>
+                        )}
 
-                    <button onClick={() => refetch()} disabled={isFetching} className="cursor-pointer">
-                        <Icon
-                            icon="arrows-rotate"
-                            color="accent-[#EAC65E]"
-                            className={isFetching ? 'animate-spin [animation-duration:1s]' : undefined}
-                            size={20}
-                        />
-                    </button>
+                        <button onClick={() => refetch()} disabled={isFetching} className="cursor-pointer">
+                            <Icon
+                                icon="arrows-rotate"
+                                color="accent-[#EAC65E]"
+                                className={isFetching ? 'animate-spin [animation-duration:1s]' : undefined}
+                                size={20}
+                            />
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
             <table className={`w-full text-sm text-left relative z-20`}>
                 <thead className={`text-lg uppercase block`}>
                     <tr className="flex">

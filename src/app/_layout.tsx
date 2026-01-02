@@ -333,10 +333,10 @@ function AppWrapper() {
     }
 
     return (
-        <GestureHandlerRootView className={`flex-1 ${Platform.OS === 'web' ? `bg-white dark:bg-black` : ``}`}>
+        <GestureHandlerRootView className='flex-1'>
             <ConditionalTester>
                 <ThemeProvider value={customTheme}>
-                    <View className="bg-gold-50 dark:bg-blue-950 flex-1" style={{ paddingTop: insets.top }} onLayout={onLayoutRootView}>
+                    <View className="flex-1" style={{ paddingTop: insets.top }} onLayout={onLayoutRootView}>
                         <StatusBar barStyle={contentTheme} backgroundColor="transparent" translucent />
 
                         {/*<FloatingDevTools*/}

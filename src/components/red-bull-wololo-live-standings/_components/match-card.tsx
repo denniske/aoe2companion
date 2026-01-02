@@ -79,7 +79,7 @@ export const MatchCard = ({
 
                         <span className="flex gap-2">
                             {p.ratingDiff ? <RatingDiff ratingDiff={p.ratingDiff} /> : null}
-                            {p.rating}
+                            {p.rating || 'Unranked'}
                         </span>
                     </div>
                 ))}

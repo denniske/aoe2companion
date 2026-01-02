@@ -7,13 +7,8 @@ import { statuses } from './statuses';
 import { InfoModal } from './_components/info-modal';
 import { Image } from '../uniwind/image';
 
-
 const END_DATE = new Date(1768755600000);
 const START_DATE = new Date(1767373200000);
-
-const LEADERBOARD_ID = isFuture(START_DATE) ? 'rm_1v1' : 'ew_1v1_redbullwololo';
-
-const MAX_RATING_OVERRIDES: Record<number, number> = {};
 
 export default function Page() {
     const [isPastDeadline, setIsPastDeadline] = useState(isPast(END_DATE));
@@ -31,7 +26,7 @@ export default function Page() {
             </div>
             <div className="fixed inset-0 bg-linear-to-r from-black/80 via-black/90 to-black" />
             <div className="flex-1 relative order-2 2xl:order-1 self-center md:self-start xl:self-center 2xl:self-center max-w-[1500px]">
-                <PlayerList leaderboardId={LEADERBOARD_ID} isPastDeadline={isPastDeadline} maxRatingOverrides={MAX_RATING_OVERRIDES} />
+                <PlayerList isPastDeadline={isPastDeadline} />
                 <div id="rankdisclaimer" className="text-center md:text-left text-sm italic select-text">
                     * In case of a tie between players, the player with the highest current rating will take precedence. In the rare case that
                     there&apos;s still a tie, Red Bull will organise an additional matchup between these players. See{' '}
