@@ -9,6 +9,7 @@ export const HeadCell = ({
     sort,
     setSort,
     hideIcon,
+    hideCols,
     ...props
 }: {
     className?: string;
@@ -17,27 +18,29 @@ export const HeadCell = ({
     hideIcon?: boolean;
     sort: [keyof ILeaderboardPlayer | 'winrates', 'desc' | 'asc'];
     setSort: (s: [keyof ILeaderboardPlayer | 'winrates', 'desc' | 'asc']) => void;
-} & HTMLAttributes<HTMLTableCellElement>) => (
-    <th scope="col" className={`py-2 px-6 whitespace-nowrap block ${className} select-none`} {...props}>
-        <button
-            type="button"
-            disabled={!columnName}
-            onClick={() => columnName && setSort([columnName, sort[1] === 'asc' || sort[0] !== columnName ? 'desc' : 'asc'])}
-        >
-            {children}
-            {columnName && (
-                <>
-                    {' '}
-                    <Icon
-                        icon={sort[1] === 'asc' ? 'angle-up' : 'angle-down'}
-                        color={sort[0] === columnName ? 'accent-white' : 'accent-transparent'}
-                        className={`max-w-4 inline-block ${hideIcon ? 'md:hidden!' : ''}`}
-                    />
-                </>
-            )}
-        </button>
-    </th>
-);
+    hideCols: Array<keyof ILeaderboardPlayer | 'winrates'>;
+} & HTMLAttributes<HTMLTableCellElement>) =>
+    columnName && hideCols.includes(columnName) ? null : (
+        <th scope="col" className={`py-2 px-6 whitespace-nowrap block ${className} select-none`} {...props}>
+            <button
+                type="button"
+                disabled={!columnName}
+                onClick={() => columnName && setSort([columnName, sort[1] === 'asc' || sort[0] !== columnName ? 'desc' : 'asc'])}
+            >
+                {children}
+                {columnName && (
+                    <>
+                        {' '}
+                        <Icon
+                            icon={sort[1] === 'asc' ? 'angle-up' : 'angle-down'}
+                            color={sort[0] === columnName ? 'accent-white' : 'accent-transparent'}
+                            className={`max-w-4 inline-block ${hideIcon ? 'md:hidden!' : ''}`}
+                        />
+                    </>
+                )}
+            </button>
+        </th>
+    );
 
 export const Cell = ({
     className,
@@ -47,10 +50,7 @@ export const Cell = ({
     className?: string;
     children: React.ReactNode;
 } & HTMLAttributes<HTMLTableCellElement>) => (
-    <td
-        className={`py-3 px-6 text-lg border-t border-t-gray-700! whitespace-nowrap flex items-center ${className} select-text`}
-        {...props}
-    >
+    <td className={`py-3 px-6 text-lg border-t border-t-gray-700! whitespace-nowrap flex items-center ${className} select-text`} {...props}>
         {children}
     </td>
 );

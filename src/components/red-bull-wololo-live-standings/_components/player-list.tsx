@@ -16,7 +16,18 @@ import { Icon } from '@app/components/icon';
 const leaderboardId = 'ew_1v1_redbullwololo';
 const maxRatingOverrides: Record<number, number> = {};
 
-export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastDeadline: boolean; limit?: number; hideHeader?: boolean }) {
+export function PlayerList({
+    isPastDeadline,
+    limit = 50,
+    hideHeader,
+    hideCols = [],
+}: {
+    isPastDeadline: boolean;
+    limit?: number;
+    hideHeader?: boolean;
+    hideCols?: Array<keyof ILeaderboardPlayer | 'winrates'>;
+}) {
+    const [refetchInterval, setRefectchInterval] = useState(60 * 1000);
     const [time, setTime] = useState<Date>();
     const [initialRankings, setInitialRankings] = useState<Record<string, number>>({});
     const [sort, setSort] = useState(['maxRating', 'desc'] as [keyof ILeaderboardPlayer | 'winrates', 'desc' | 'asc']);
@@ -24,11 +35,20 @@ export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastD
     const [isConnecting, setIsConnecting] = useState(false);
     const [connected, setConnected] = useState(false);
     const ref = useRef(null);
-    const refetchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const updateMatches = (newMatches: ILobbiesMatch[], clearMatches = false) => {
         setMatches((prev) => {
-            const newMatchesFiltered = newMatches.filter((match) => match.leaderboardId === leaderboardId);
+            const newMatchesFiltered = newMatches
+                .filter((match) => match.leaderboardId === leaderboardId)
+                .map((match) => {
+                    const oldMatch = prev.find((m) => m.matchId === match.matchId);
+
+                    if (oldMatch?.finished && !match.finished) {
+                        return oldMatch;
+                    } else {
+                        return match;
+                    }
+                });
             const newMatchIds = newMatchesFiltered.map((g) => g.matchId);
             const oldMatches = prev.filter((g) => !newMatchIds.includes(g.matchId));
 
@@ -52,15 +72,9 @@ export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastD
                     updateMatches(games);
                 },
                 onMatchRemoved: (match: ILobbiesMatch) => {
+                    console.log('on match removed', match);
                     if (match && match.leaderboardId === leaderboardId) {
-                        if (refetchTimer.current) {
-                            clearTimeout(refetchTimer.current);
-                        }
                         updateMatches([match]);
-
-                        refetchTimer.current = setTimeout(() => {
-                            refetch();
-                        }, 15000);
                     }
                 },
             },
@@ -71,8 +85,6 @@ export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastD
     const { data, isFetching, refetch, isLoading, isError, isSuccess } = useQuery<ILeaderboard, Error, ILeaderboard>({
         queryKey: ['leaderboard-players', leaderboardId],
         queryFn: async () => {
-            closeSocket();
-
             const response = await fetch(`https://aoe2frontend.vercel.app/api/leaderboard/${leaderboardId}`);
             const text = await response.text();
             const leaderboardData = JSON.parse(text, dateReviver) as {
@@ -80,6 +92,8 @@ export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastD
                 matches: IMatchNew[];
                 isCached: boolean;
             };
+
+            closeSocket();
 
             if (!leaderboardData?.leaderboard?.players?.length) {
                 throw Error('Leaderboard bug');
@@ -90,7 +104,7 @@ export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastD
             }
 
             if (leaderboardData.isCached) {
-                await new Promise<void>((resolve) => setTimeout(resolve, 1000));
+                await new Promise<void>((resolve) => setTimeout(resolve, 500));
             }
 
             updateMatches(leaderboardData.matches.map(reformatTeamMatch), true);
@@ -101,7 +115,7 @@ export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastD
         },
         staleTime: 10 * 60 * 1000,
         gcTime: Infinity,
-        refetchInterval: 2 * 30 * 1000,
+        refetchInterval,
         refetchOnWindowFocus: true,
     });
 
@@ -152,6 +166,11 @@ export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastD
                     player.last10MatchesWon = [null, ...player.last10MatchesWon!.slice(0, 9)];
                 }
 
+                if (player.last10MatchesWon?.[0] === null && mostRecentMatch?.finished) {
+                    const matchResult = mostRecentMatch.players.find((p) => p.profileId === player.profileId)?.won ?? null;
+                    player.last10MatchesWon = [matchResult, ...player.last10MatchesWon!.slice(1)];
+                }
+
                 const last10FinishedMatches = player.last10MatchesWon?.filter((m) => m !== null) ?? [];
 
                 if (player.streak > 0 && last10FinishedMatches[0] === false) {
@@ -182,15 +201,32 @@ export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastD
                     lastMatchTime: mostRecentMatch?.started ?? mostRecentMatch?.finished ?? player.lastMatchTime,
                     rating,
                     maxRating,
+                    hasLatestRating: !finishedMatch || !!finishedMatch.players.find((p) => p.profileId === player.profileId)?.ratingDiff,
                 };
             }),
         [data?.players, isPastDeadline, matches]
     );
+
+    const allPlayersHaveLatestRating = mappedPlayers?.map((p) => p.hasLatestRating).every((hasLatestRating) => hasLatestRating);
+
+    useEffect(() => {
+        if (allPlayersHaveLatestRating) {
+            setRefectchInterval(60 * 1000);
+        } else {
+            setRefectchInterval(5 * 1000);
+            refetch();
+        }
+    }, [allPlayersHaveLatestRating]);
+
     const sortedPlayerIds = orderBy(mappedPlayers, ['maxRating', 'rating'], ['desc', 'desc'])
         ?.slice(0, limit)
         .map((p) => p.profileId);
     const qualifiedPlayers = sortedPlayerIds?.slice(statuses.qualified.minPlace - 1, statuses.qualified.maxPlace);
-    const players = orderBy(orderBy(mappedPlayers, 'maxRating', 'desc')?.slice(0, limit), [sort[0], 'rating'], [sort[1], 'desc'])?.slice(0, limit);
+    const players = orderBy(
+        orderBy(mappedPlayers, ['maxRating', 'rating'], ['desc', 'desc'])?.slice(0, limit),
+        [sort[0], 'rating'],
+        [sort[1], 'desc']
+    )?.slice(0, limit);
 
     const minRatingToQualify = Math.min(...players.filter((p) => qualifiedPlayers.includes(p.profileId)).map((p) => p.maxRating));
 
@@ -259,33 +295,33 @@ export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastD
             <table className={`w-full text-sm text-left relative z-20`}>
                 <thead className={`text-lg uppercase block`}>
                     <tr className="flex">
-                        <HeadCell sort={sort} setSort={setSort} className="w-20 hidden md:block" columnName="maxRating">
+                        <HeadCell sort={sort} setSort={setSort} className="w-20 hidden md:block" columnName="maxRating" hideCols={hideCols}>
                             Rank
                         </HeadCell>
-                        <HeadCell sort={sort} setSort={setSort} className="w-36 flex-1">
+                        <HeadCell sort={sort} setSort={setSort} className="w-36 flex-1" hideCols={hideCols}>
                             Player
                         </HeadCell>
-                        <HeadCell sort={sort} setSort={setSort} className="w-48 md:w-44" columnName="maxRating" hideIcon>
+                        <HeadCell sort={sort} setSort={setSort} className="w-48 md:w-44" columnName="maxRating" hideIcon hideCols={hideCols}>
                             Highest Rating
                         </HeadCell>
-                        <HeadCell sort={sort} setSort={setSort} className="w-44 hidden md:block" columnName="rating">
+                        <HeadCell sort={sort} setSort={setSort} className="w-44 hidden md:block" columnName="rating" hideCols={hideCols}>
                             Current Rating
                         </HeadCell>
-                        <HeadCell sort={sort} setSort={setSort} className="w-64 hidden lg:block" columnName="lastMatchTime">
+                        <HeadCell sort={sort} setSort={setSort} className="w-64 hidden lg:block" columnName="lastMatchTime" hideCols={hideCols}>
                             Last Match
                         </HeadCell>
-                        <HeadCell sort={sort} setSort={setSort} className="w-32 hidden md:block" columnName="streak">
+                        <HeadCell sort={sort} setSort={setSort} className="w-32 hidden md:block" columnName="streak" hideCols={hideCols}>
                             Last 5
                         </HeadCell>
-                        <HeadCell sort={sort} setSort={setSort} className="w-24 hidden lg:block" columnName="winrates">
+                        <HeadCell sort={sort} setSort={setSort} className="w-24 hidden lg:block" columnName="winrates" hideCols={hideCols}>
                             Win %
                         </HeadCell>
-                        <HeadCell sort={sort} setSort={setSort} className="w-24 hidden 2xl:block" columnName="games">
+                        <HeadCell sort={sort} setSort={setSort} className="w-24 hidden 2xl:block" columnName="games" hideCols={hideCols}>
                             Games
                         </HeadCell>
                     </tr>
                 </thead>
-                <tbody className="block" ref={ref} style={{minHeight: limit * 64}}>
+                <tbody className="block" ref={ref} style={{ minHeight: limit * 64 }}>
                     {!players || players.length === 0 || isError ? (
                         <tr className="flex h-96 items-center justify-center">
                             <td className="flex">
@@ -316,6 +352,7 @@ export function PlayerList({ isPastDeadline, limit = 50, hideHeader }: { isPastD
 
                             return (
                                 <PlayerRow
+                                    hideCols={hideCols}
                                     leaderboardId={leaderboardId}
                                     isPastDeadline={isPastDeadline}
                                     style={{

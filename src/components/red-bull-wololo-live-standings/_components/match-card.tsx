@@ -24,12 +24,12 @@ export const MatchCard = ({
     match,
     playerNames,
     userId,
-    index = 0
+    index = 0,
 }: {
     userId?: number;
     match: ILobbiesMatch;
     playerNames: Record<string, { name: string; icon?: string }>;
-    index?: number
+    index?: number;
 }) => {
     return (
         <div className="relative flex flex-row gap-3 items-center text-sm w-full">
@@ -54,19 +54,21 @@ export const MatchCard = ({
                     <b className="text-base font-semibold">{match.mapName}</b>
                     {match.started && (
                         <time dateTime={formatISO(match.started)} className="flex gap-2 items-center">
-                            {match.finished ? (
-                                formatAgo(match.finished)
-                            ) : index > 0 ? (
-                                formatAgo(match.started)
-                            ) : (
-                                <Countdown
-                                    date={match.started}
-                                    overtime
-                                    renderer={({ total }) => {
-                                        return formatDuration((Math.abs(total) / 1000) * match.speedFactor);
-                                    }}
-                                />
-                            )}
+                            <Countdown
+                                date={match.started}
+                                overtime
+                                renderer={({ total }) => {
+                                    if (!match.started) return '';
+
+                                    if (match.finished) {
+                                        return formatAgo(match.finished);
+                                    } else if (index > 0) {
+                                        return formatAgo(match.started);
+                                    }
+
+                                    return formatDuration((Math.abs(total) / 1000) * match.speedFactor);
+                                }}
+                            />
                         </time>
                     )}
                 </div>
