@@ -232,11 +232,12 @@ export default function IndexPage() {
                 />
             </View>
 
-            {appConfig.game === 'aoe2' && (
+            {/* Disabling until RBW is over */}
+            {/* {appConfig.game === 'aoe2' && (
                 <View className="pb-5 lg:pb-8">
                     <RankedMaps />
                 </View>
-            )}
+            )} */}
 
             <FeaturedVideos />
         </ScrollView>

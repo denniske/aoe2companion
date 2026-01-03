@@ -1,6 +1,5 @@
 import React from 'react';
 import {flagEmojiDict} from '../../helper/flags';
-import {Flag} from '@nex/data';
 import {MyText} from './my-text';
 import {TextLoader} from './loader/text-loader';
 import { TextProps } from 'react-native';
@@ -20,7 +19,7 @@ export function CountryImageForDropDown(props: Props) {
     const fontSize = country == 'EARTH' ? 16 : 24;
 
     return (
-        <MyText style={{ fontSize, textAlign: 'center' }} className="w-7 mr-2">{country ? flagEmojiDict[country.toUpperCase() as any] : '🏳'}</MyText>
+        <MyText style={{ fontSize, textAlign: 'center' }} className="w-7 mr-2 font-flag">{country ? flagEmojiDict[country.toUpperCase() as any] : '🏳'}</MyText>
     );
 }
 
@@ -30,10 +29,11 @@ export function SpecialImageForDropDown(props: { emoji: string }) {
     );
 }
 
-export function CountryImage({ country, ...props }: Props) {
+export function CountryImage({ country, className, ...props }: Props) {
     return (
         <MyText
             {...props}
+            className={`font-flag ${className ?? ''}`}
             style={
                 props.style ?? {
                     transform: [{ scale: 1.3 }],
@@ -51,7 +51,7 @@ export function CountryImageLoader(props: LoaderProps) {
     const { country, ready } = props;
 
     return (
-        <TextLoader width={21} ready={ready} style={{
+        <TextLoader width={21} ready={ready} className="font-flag" style={{
             marginRight: 4+3,
         }} textStyle={{
             marginLeft: 3,
