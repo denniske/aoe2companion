@@ -6,10 +6,8 @@ function RedBullWololoLiveStandingsOverlay() {
     const { container, content } = useToolbarStyles();
 
     return (
-        <main
-            className="gap-12 text-white relative selection:bg-blue-600/90 select-none max-w-[1000px]" style={{...container, colorScheme: 'dark'}}
-        >
-            <div style={content}>
+        <main className="gap-12 text-white relative selection:bg-blue-600/90 select-none flex min-h-full" style={{ ...container, colorScheme: 'dark' }}>
+            <div style={content} className="max-w-[1000px]">
                 <PlayerList isPastDeadline={false} limit={12} hideHeader hideCols={['winrates', 'games']} />
             </div>
         </main>

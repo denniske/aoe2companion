@@ -8,10 +8,8 @@ function RedBullWololoLiveCountdownOverlay() {
     const { container, content } = useToolbarStyles();
 
     return (
-        <div className="flex h-full" style={container}>
-            <div
-                style={content}
-            >
+        <div className="flex h-full" style={{ ...container, colorScheme: 'dark' }}>
+            <div style={content}>
                 <EndDateCountdown endDate={END_DATE} className="flex flex-col items-center" />
             </div>
         </div>
