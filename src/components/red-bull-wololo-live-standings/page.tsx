@@ -1,20 +1,15 @@
-import { isFuture, isPast } from 'date-fns';
-import { Fragment, useEffect, useState } from 'react';
-import Countdown from 'react-countdown';
+import { isPast } from 'date-fns';
+import { Fragment, useState } from 'react';
 import { Footer } from './_components/footer';
 import { PlayerList } from './_components/player-list';
 import { statuses } from './statuses';
-import { InfoModal } from './_components/info-modal';
 import { Image } from '../uniwind/image';
+import { EndDateCountdown } from './_components/end-date-countdown';
 
 const END_DATE = new Date(1768755600000);
-const START_DATE = new Date(1767373200000);
 
 export default function Page() {
     const [isPastDeadline, setIsPastDeadline] = useState(isPast(END_DATE));
-    const [isInfoModalOpen, setIsInfoModalOpen] = useState(
-        isFuture(START_DATE)
-    );
 
     return (
         <main
@@ -59,50 +54,10 @@ export default function Page() {
                             qualifier, and 13th+ finishers will be seeded via the ATP for the last-chance qualifier.
                         </p>
 
-                        <Countdown
-                            date={END_DATE}
+                        <EndDateCountdown
+                            endDate={END_DATE}
                             onComplete={() => setIsPastDeadline(true)}
-                            renderer={({ days, hours, minutes, seconds, completed }) => {
-                                return (
-                                    <div className="bg-blue-800 px-6 py-2 rounded-lg flex flex-col items-center justify-center">
-                                        {completed ? (
-                                            <p className="text-2xl font-bold text-center">
-                                                Qualification has Ended
-                                                <span className="text-sm text-center block">Ratings will no longer update</span>
-                                            </p>
-                                        ) : (
-                                            <>
-                                                <div className="font-bold">Qualification ends in...</div>
-                                                <div className="flex justify-center text-center">
-                                                    {(days > 0
-                                                        ? [
-                                                              ['DAY', days],
-                                                              ['HRS', hours],
-                                                              ['MIN', minutes],
-                                                              ['SEC', seconds],
-                                                          ]
-                                                        : [
-                                                              ['HRS', hours],
-                                                              ['MIN', minutes],
-                                                              ['SEC', seconds],
-                                                          ]
-                                                    ).map(([label, seg], index) => (
-                                                        <Fragment key={label}>
-                                                            {index !== 0 && <div className="w-8 text-2xl font-bold">:</div>}
-                                                            <div>
-                                                                <div className="text-2xl font-bold leading-tight">
-                                                                    {seg.toString().padStart(2, '0')}
-                                                                </div>
-                                                                <div className="text-sm">{label}</div>
-                                                            </div>
-                                                        </Fragment>
-                                                    ))}
-                                                </div>
-                                            </>
-                                        )}
-                                    </div>
-                                );
-                            }}
+                            className="bg-blue-800 px-6 py-2 rounded-lg flex flex-col items-center justify-center"
                         />
                     </div>
 
@@ -152,8 +107,6 @@ export default function Page() {
 
                 <Footer className="hidden 2xl:block" />
             </div>
-
-            <InfoModal isVisible={isInfoModalOpen} onClose={() => setIsInfoModalOpen(false)} countdownDate={START_DATE} />
         </main>
     );
 }

@@ -24,6 +24,7 @@ export const HeadCell = ({
         <th scope="col" className={`py-2 px-6 whitespace-nowrap block ${className} select-none`} {...props}>
             <button
                 type="button"
+                className="cursor-pointer disabled:cursor-default"
                 disabled={!columnName}
                 onClick={() => columnName && setSort([columnName, sort[1] === 'asc' || sort[0] !== columnName ? 'desc' : 'asc'])}
             >

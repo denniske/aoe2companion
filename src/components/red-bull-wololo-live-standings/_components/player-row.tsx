@@ -179,7 +179,7 @@ export const PlayerRow = ({
                 </Cell>
             )}
             {hideCols.includes('streak') ? null : (
-                <Cell className="w-32 hidden md:flex flex-col gap-1.5 items-start pb-0 pt-1 justify-center">
+                <Cell className="w-36 hidden md:flex flex-col gap-1.5 items-start pb-0 pt-1 justify-center">
                     <LastFiveMatches player={player} match={match} playerNames={playerNames} />
                     <p className={`text-sm whitespace-nowrap overflow-hidden text-ellipsis ${player.streak >= 5 ? 'font-bold' : ''}`}>
                         {formatStreak(player.streak)}{' '}

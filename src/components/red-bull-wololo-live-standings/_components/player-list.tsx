@@ -310,7 +310,7 @@ export function PlayerList({
                         <HeadCell sort={sort} setSort={setSort} className="w-64 hidden lg:block" columnName="lastMatchTime" hideCols={hideCols}>
                             Last Match
                         </HeadCell>
-                        <HeadCell sort={sort} setSort={setSort} className="w-32 hidden md:block" columnName="streak" hideCols={hideCols}>
+                        <HeadCell sort={sort} setSort={setSort} className="w-36 hidden md:block" columnName="streak" hideCols={hideCols}>
                             Last 5
                         </HeadCell>
                         <HeadCell sort={sort} setSort={setSort} className="w-24 hidden lg:block" columnName="winrates" hideCols={hideCols}>
