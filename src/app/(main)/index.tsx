@@ -1,4 +1,4 @@
-import { tournamentsEnabled, useFeaturedTournament } from '@app/api/tournaments';
+import { tournamentsEnabled, useFeaturedTournaments } from '@app/api/tournaments';
 import { FlatList } from '@app/components/flat-list';
 import { FollowedPlayers } from '@app/components/followed-players';
 import { Link } from '@app/components/link';
@@ -11,7 +11,7 @@ import { useAccountMostRecentMatches } from '@app/utils/match';
 import { useNews } from '@app/utils/news';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
 import { Href, Stack } from 'expo-router';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
 import { useAuthProfileId, useInfiniteBuilds } from '@app/queries/all';
@@ -30,6 +30,7 @@ import { useLoginPopup } from '@app/hooks/use-login-popup';
 import { Icon, IconName } from '@app/components/icon';
 import { Image } from '@app/components/uniwind/image';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -62,7 +63,7 @@ export default function IndexPage() {
     const appStyles = useTheme(appVariants);
     const getTranslation = useTranslation();
     const authProfileId = useAuthProfileId();
-    const tournament = useFeaturedTournament();
+    const tournaments = useFeaturedTournaments();
     const accountMostRecentMatches = useAccountMostRecentMatches(1);
     const accountMostRecentMatch = accountMostRecentMatches?.length ? accountMostRecentMatches[0] : null;
     const { data: news = Array<null>(3).fill(null) } = useNews();
@@ -85,6 +86,18 @@ export default function IndexPage() {
         },
         { icon: 'bookmark', title: 'Sign in to Save', description: 'Follow players, save favorites, and sync across devices', href: '/more/account' },
     ];
+
+    const { isLarge, isMedium, isSmall } = useBreakpoints();
+
+    const count = useMemo(() => {
+        if (isLarge) {
+            return 3;
+        } else if (isMedium) {
+            return 2;
+        }
+
+        return 1;
+    }, [isLarge, isMedium, isSmall]);
 
     return (
         <ScrollView contentContainerClassName="p-4 md:py-6">
@@ -211,11 +224,25 @@ export default function IndexPage() {
                 <View className="gap-2 pb-5 lg:pb-8">
                     <View className="flex-row justify-between items-center">
                         <Text variant="header-lg">
-                            {followedIds[0] ? getTranslation('home.favoriteTournament') : getTranslation('home.featuredTournament')}
+                            {followedIds[0]
+                                ? getTranslation(isMedium ? 'home.favoriteTournaments' : 'home.favoriteTournament')
+                                : getTranslation(isMedium ? 'home.featuredTournaments' : 'home.featuredTournament')}
                         </Text>
                         <Link href="/competitive/tournaments">{getTranslation('home.viewAll')}</Link>
                     </View>
-                    {followedIds[0] ? <TournamentCardLarge path={followedIds[0]} /> : <TournamentCardLarge {...tournament} />}
+                    <View className="flex flex-row -mx-2">
+                        {followedIds[0]
+                            ? followedIds.slice(0, count).map((tournament) => (
+                                  <View key={tournament} style={{ width: `${100 / count}%` }} className="px-2">
+                                      <TournamentCardLarge path={tournament} />
+                                  </View>
+                              ))
+                            : tournaments.data.slice(0, count).map((tournament) => (
+                                  <View key={tournament.path} style={{ width: `${100 / count}%` }} className="px-2">
+                                      <TournamentCardLarge {...tournament} />
+                                  </View>
+                              ))}
+                    </View>
                 </View>
             ) : null}
 
@@ -232,12 +259,11 @@ export default function IndexPage() {
                 />
             </View>
 
-            {/* Disabling until RBW is over */}
-            {/* {appConfig.game === 'aoe2' && (
+            {appConfig.game === 'aoe2' && (
                 <View className="pb-5 lg:pb-8">
                     <RankedMaps />
                 </View>
-            )} */}
+            )}
 
             <FeaturedVideos />
         </ScrollView>

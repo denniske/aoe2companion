@@ -14,21 +14,16 @@ export const Footer: React.FC = () => {
     return (
         <View className="bg-[#F3EFE6] dark:bg-blue-900 mt-2">
             <View className={cn('py-4 flex-row items-center', containerClassName)}>
-                <Pressable
+                <ExpoLink
                     className="flex-row items-center gap-4 lg:pr-4 xl:pr-8 hidden lg:flex"
-                    onPress={() => {
-                        if (router.canDismiss()) {
-                            router.dismissAll();
-                        }
-                        router.replace('/');
-                    }}
+                    href="/"
                 >
                     <Image source={appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
 
                     <Text variant="header-lg" color="subtle">
                         {appConfig.app.name}
                     </Text>
-                </Pressable>
+                </ExpoLink>
 
                 <View className="flex-2 flex-row justify-around">
                     <Link color="subtle" href="/more/about">

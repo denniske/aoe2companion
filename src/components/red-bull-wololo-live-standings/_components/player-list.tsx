@@ -27,7 +27,7 @@ export function PlayerList({
     hideHeader?: boolean;
     hideCols?: Array<keyof ILeaderboardPlayer | 'winrates'>;
 }) {
-    const [refetchInterval, setRefectchInterval] = useState(60 * 1000);
+    const [refetchInterval, setRefetchInterval] = useState(60 * 1000);
     const [time, setTime] = useState<Date>();
     const [initialRankings, setInitialRankings] = useState<Record<string, number>>({});
     const [sort, setSort] = useState(['maxRating', 'desc'] as [keyof ILeaderboardPlayer | 'winrates' | 'rankMaxRating', 'desc' | 'asc']);
@@ -212,9 +212,9 @@ export function PlayerList({
 
     useEffect(() => {
         if (allPlayersHaveLatestRating) {
-            setRefectchInterval(60 * 1000);
+            setRefetchInterval(60 * 1000);
         } else {
-            setRefectchInterval(5 * 1000);
+            setRefetchInterval(5 * 1000);
             refetch();
         }
     }, [allPlayersHaveLatestRating]);

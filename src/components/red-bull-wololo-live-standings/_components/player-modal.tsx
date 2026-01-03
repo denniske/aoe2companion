@@ -231,7 +231,7 @@ export const PlayerModal = ({
                                                 {
                                                     name: 'Streak',
                                                     value: formatStreakShort(player.streak),
-                                                    desc: <LastFiveMatches player={player} />,
+                                                    desc: <LastFiveMatches playerNames={playerNames} player={player} />,
                                                 },
                                                 {
                                                     name: 'Games Played',

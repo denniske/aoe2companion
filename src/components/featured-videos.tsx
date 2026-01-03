@@ -23,7 +23,7 @@ export const FeaturedVideos = () => {
         }
 
         return 2;
-    }, []);
+    }, [isLarge, isMedium, isSmall]);
 
     return (
         <View className="gap-2">
