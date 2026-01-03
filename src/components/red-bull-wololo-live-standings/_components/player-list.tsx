@@ -30,7 +30,7 @@ export function PlayerList({
     const [refetchInterval, setRefectchInterval] = useState(60 * 1000);
     const [time, setTime] = useState<Date>();
     const [initialRankings, setInitialRankings] = useState<Record<string, number>>({});
-    const [sort, setSort] = useState(['maxRating', 'desc'] as [keyof ILeaderboardPlayer | 'winrates', 'desc' | 'asc']);
+    const [sort, setSort] = useState(['maxRating', 'desc'] as [keyof ILeaderboardPlayer | 'winrates' | 'rankMaxRating', 'desc' | 'asc']);
     const [matches, setMatches] = useState<ILobbiesMatch[]>([]);
     const [isConnecting, setIsConnecting] = useState(false);
     const [connected, setConnected] = useState(false);
@@ -201,6 +201,7 @@ export function PlayerList({
                     lastMatchTime: mostRecentMatch?.started ?? mostRecentMatch?.finished ?? player.lastMatchTime,
                     rating,
                     maxRating,
+                    rankMaxRating: maxRating,
                     hasLatestRating: !finishedMatch || !!finishedMatch.players.find((p) => p.profileId === player.profileId)?.ratingDiff,
                 };
             }),
@@ -293,19 +294,33 @@ export function PlayerList({
                 </div>
             )}
             <table className={`w-full text-sm text-left relative z-20`}>
-                <thead className={`text-lg uppercase block`}>
+                <thead className={`text-base md:text-lg uppercase block`}>
                     <tr className="flex">
-                        <HeadCell sort={sort} setSort={setSort} className="w-20 hidden md:block" columnName="maxRating" hideCols={hideCols}>
+                        <HeadCell
+                            sort={sort}
+                            setSort={setSort}
+                            className="w-20 hidden md:block"
+                            columnName="rankMaxRating"
+                            siblingColumnName="maxRating"
+                            hideCols={hideCols}
+                        >
                             Rank
                         </HeadCell>
                         <HeadCell sort={sort} setSort={setSort} className="w-36 flex-1" hideCols={hideCols}>
                             Player
                         </HeadCell>
-                        <HeadCell sort={sort} setSort={setSort} className="w-48 md:w-44" columnName="maxRating" hideIcon hideCols={hideCols}>
-                            Highest Rating
+                        <HeadCell
+                            sort={sort}
+                            setSort={setSort}
+                            className="w-24 md:w-44 px-2! md:px-6!"
+                            columnName="maxRating"
+                            siblingColumnName="rankMaxRating"
+                            hideCols={hideCols}
+                        >
+                            Highest<span className="hidden md:inline"> Rating</span>
                         </HeadCell>
-                        <HeadCell sort={sort} setSort={setSort} className="w-44 hidden md:block" columnName="rating" hideCols={hideCols}>
-                            Current Rating
+                        <HeadCell sort={sort} setSort={setSort} className="w-24 md:w-44 px-2! md:px-6!" columnName="rating" hideCols={hideCols}>
+                            Current<span className="hidden md:inline"> Rating</span>
                         </HeadCell>
                         <HeadCell sort={sort} setSort={setSort} className="w-64 hidden lg:block" columnName="lastMatchTime" hideCols={hideCols}>
                             Last Match

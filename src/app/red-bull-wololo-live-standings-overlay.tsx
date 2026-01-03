@@ -7,7 +7,7 @@ function RedBullWololoLiveStandingsOverlay() {
 
     return (
         <main className="gap-12 text-white relative selection:bg-blue-600/90 select-none flex min-h-full" style={{ ...container, colorScheme: 'dark' }}>
-            <div style={content} className="max-w-[1000px]">
+            <div style={content} className="w-[1075px]">
                 <PlayerList isPastDeadline={false} limit={12} hideHeader hideCols={['winrates', 'games']} />
             </div>
         </main>

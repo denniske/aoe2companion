@@ -320,7 +320,7 @@ export const PlayerModal = ({
                                         <h3 className="text-lg font-bold -mb-2">Winrates</h3>
                                         {isProfileLoading || !ratingHistory ? (
                                             isProfileLoading ? (
-                                                <Icon className="animate-spin [animation-duration:1s]" icon="spinner" size={32} />
+                                                <Icon className="animate-spin [animation-duration:1s]" icon="spinner" color="white" size={32} />
                                             ) : (
                                                 <p>Unable to fetch winrates</p>
                                             )
@@ -372,6 +372,7 @@ export const PlayerModal = ({
                                                 <Icon
                                                     className={isLoading ? 'animate-spin [animation-duration:1s]' : undefined}
                                                     icon="spinner"
+                                                    color="white"
                                                     size={32}
                                                 />
                                             ) : (

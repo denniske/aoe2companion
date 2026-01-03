@@ -6,6 +6,7 @@ export const HeadCell = ({
     className,
     children,
     columnName,
+    siblingColumnName,
     sort,
     setSort,
     hideIcon,
@@ -14,11 +15,12 @@ export const HeadCell = ({
 }: {
     className?: string;
     children: React.ReactNode;
-    columnName?: keyof ILeaderboardPlayer | 'winrates';
+    columnName?: keyof ILeaderboardPlayer | 'winrates' | 'rankMaxRating';
+    siblingColumnName?: keyof ILeaderboardPlayer | 'winrates' | 'rankMaxRating';
     hideIcon?: boolean;
-    sort: [keyof ILeaderboardPlayer | 'winrates', 'desc' | 'asc'];
-    setSort: (s: [keyof ILeaderboardPlayer | 'winrates', 'desc' | 'asc']) => void;
-    hideCols: Array<keyof ILeaderboardPlayer | 'winrates'>;
+    sort: [keyof ILeaderboardPlayer | 'winrates' | 'rankMaxRating', 'desc' | 'asc'];
+    setSort: (s: [keyof ILeaderboardPlayer | 'winrates' | 'rankMaxRating', 'desc' | 'asc']) => void;
+    hideCols: Array<keyof ILeaderboardPlayer | 'winrates' | 'rankMaxRating'>;
 } & HTMLAttributes<HTMLTableCellElement>) =>
     columnName && hideCols.includes(columnName) ? null : (
         <th scope="col" className={`py-2 px-6 whitespace-nowrap block ${className} select-none`} {...props}>
@@ -26,7 +28,10 @@ export const HeadCell = ({
                 type="button"
                 className="cursor-pointer disabled:cursor-default"
                 disabled={!columnName}
-                onClick={() => columnName && setSort([columnName, sort[1] === 'asc' || sort[0] !== columnName ? 'desc' : 'asc'])}
+                onClick={() =>
+                    columnName &&
+                    setSort([columnName, sort[1] === 'asc' || (sort[0] !== columnName && sort[0] !== siblingColumnName) ? 'desc' : 'asc'])
+                }
             >
                 {children}
                 {columnName && (

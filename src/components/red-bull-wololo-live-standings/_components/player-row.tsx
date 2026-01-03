@@ -104,14 +104,14 @@ export const PlayerRow = ({
                     {player.name}
                 </span>
             </Cell>
-            {hideCols.includes('maxRating') ? null : <Cell className="font-bold w-44">{player.maxRating}</Cell>}
+            {hideCols.includes('maxRating') ? null : <Cell className="font-bold w-24 md:w-44 py-0! px-2! md:py-3! md:px-6!">{player.maxRating}</Cell>}
             {hideCols.includes('rating') ? null : (
                 <Cell
-                    className={`w-48 md:w-44 hidden md:flex group ${
+                    className={`w-24 md:w-44 group py-0! px-2! md:py-3! md:px-6! ${
                         player.rating === player.maxRating || (status !== 'qualified' && !isPastDeadline) ? 'cursor-pointer' : ''
                     }`}
                 >
-                    <div className="relative flex items-center gap-2">
+                    <div className="relative hidden md:flex items-center gap-2">
                         {player.rating}
                         {player.rating === player.maxRating && <Icon icon="chart-line" color="white" size={14} />}
                         {(player.rating === player.maxRating || (status !== 'qualified' && !isPastDeadline)) && (
@@ -126,6 +126,7 @@ export const PlayerRow = ({
                             </div>
                         )}
                     </div>
+                    <div className="flex md:hidden">{player.rating}</div>
                 </Cell>
             )}
             {hideCols.includes('lastMatchTime') ? null : (
