@@ -196,7 +196,7 @@ export const PlayerModal = ({
                                     <div className="flex-1 flex flex-col gap-3">
                                         <h3 className="text-lg font-bold -mb-2">Statistics</h3>
 
-                                        {isProfileLoading || !profile ? (
+                                        {!player.rank && (isProfileLoading || !profile) ? (
                                             <div className="flex items-center justify-center py-4">
                                                 {isProfileLoading ? (
                                                     <Icon className="animate-spin [animation-duration:1s]" icon="spinner" color="white" size={32} />
