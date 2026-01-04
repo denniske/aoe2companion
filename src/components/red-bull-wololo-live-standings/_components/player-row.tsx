@@ -95,6 +95,7 @@ export const PlayerRow = ({
                         player={{ ...player, rank }}
                         onClose={() => setIsOpen(false)}
                         isVisible={isOpen}
+                        minRatingToQualify={minRatingToQualify}
                     />
                 </Cell>
             )}
@@ -152,6 +153,7 @@ export const PlayerRow = ({
                                             'vs '
                                         )}
                                         {opponentName}
+                                        {!ratingDiff ? <span className="text-xs italic text-gray-200"> - fetching match result...</span> : ''}
                                     </p>
                                 </div>
                             ) : (

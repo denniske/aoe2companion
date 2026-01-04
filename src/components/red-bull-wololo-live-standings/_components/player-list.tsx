@@ -1,4 +1,4 @@
-import { ILeaderboard, ILeaderboardPlayer, ILobbiesMatch, IMatchNew } from '@app/api/helper/api.types';
+import { ILeaderboard, ILeaderboardPlayer, ILobbiesMatch, IMatchNew, IProfilesResultProfile } from '@app/api/helper/api.types';
 import { useQuery } from '@tanstack/react-query';
 import { isEmpty, orderBy } from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -12,6 +12,8 @@ import { reformatTeamMatch } from '../util';
 import { initMatchSubscription } from '@app/api/socket/ongoing';
 import { dateReviver } from '@nex/data';
 import { Icon } from '@app/components/icon';
+// import { InlinePlayerSearch } from '@app/components/inline-player-search';
+// import { PlayerModal } from './player-modal';
 
 const leaderboardId = 'ew_1v1_redbullwololo';
 const maxRatingOverrides: Record<number, number> = {};
@@ -119,6 +121,8 @@ export function PlayerList({
         refetchOnWindowFocus: true,
     });
 
+    // const [selectedPlayer, setSelectedPlayer] = useState<ILeaderboardPlayer | null>(null);
+
     useEffect(() => {
         if (isSuccess) {
             const pids = data?.players?.map((p) => p.profileId);
@@ -173,26 +177,29 @@ export function PlayerList({
 
                 const last10FinishedMatches = player.last10MatchesWon?.filter((m) => m !== null) ?? [];
 
-                if (player.streak > 0 && last10FinishedMatches[0] === false) {
-                    player.streak = 0;
-
-                    for (const match of last10FinishedMatches) {
-                        if (match === false) {
-                            player.streak++;
-                        } else {
-                            break;
-                        }
-                    }
-                } else if (player.streak < 0 && last10FinishedMatches[0] === true) {
-                    player.streak = 0;
-
+                let detectedStreak = 0;
+                if (last10FinishedMatches[0] === true) {
                     for (const match of last10FinishedMatches) {
                         if (match === true) {
-                            player.streak++;
+                            detectedStreak++;
                         } else {
                             break;
                         }
                     }
+                } else {
+                    for (const match of last10FinishedMatches) {
+                        if (match === false) {
+                            detectedStreak--;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+
+                if (last10FinishedMatches[0] === false && player.streak > detectedStreak) {
+                    player.streak = detectedStreak;
+                } else if (last10FinishedMatches[0] === true && player.streak < detectedStreak) {
+                    player.streak = detectedStreak;
                 }
 
                 return {
@@ -257,11 +264,31 @@ export function PlayerList({
         }
     }, [isPastDeadline]);
 
+    // const selectPlayer = (player: ILeaderboardPlayer | IProfilesResultProfile) => {
+    //     const topPlayer = players.find((p) => p.profileId === player.profileId);
+    //     setSelectedPlayer(topPlayer ?? (player as unknown as ILeaderboardPlayer));
+    //     console.log('select player', player);
+    // };
+
     return (
         <div>
             {hideHeader ? null : (
-                <div className="pb-2 mb-8 border-b-2 border-[#EAC65E] flex flex-col md:flex-row justify-between items-center select-text">
+                <div className="pb-2 mb-8 border-b-2 border-[#EAC65E] flex flex-col md:flex-row justify-between items-center select-text relative z-50">
                     <h2 className="text-xl md:text-5xl uppercase font-bold">{isPastDeadline ? '' : 'Current '}Top Players</h2>
+
+                    {/* <InlinePlayerSearch onSelect={selectPlayer} />
+
+                    {selectedPlayer && (
+                        <PlayerModal
+                            leaderboardId={leaderboardId}
+                            playerNames={playerNames}
+                            player={selectedPlayer}
+                            onClose={() => setSelectedPlayer(null)}
+                            isVisible={!!selectedPlayer}
+                            minRatingToQualify={minRatingToQualify}
+                            selectPlayer={selectPlayer}
+                        />
+                    )} */}
 
                     <div className="flex gap-4">
                         {time && !isFetching ? (

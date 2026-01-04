@@ -5,7 +5,7 @@ export const RatingDiff: React.FC<{ ratingDiff: number; suffix?: string }> = ({ 
     <span className={ratingDiff > 0 ? 'text-green-500' : 'text-red-500'}>
         <Icon
             icon={ratingDiff > 0 ? 'plus' : 'minus'}
-            className="inline-block -mt-0.5 mr-0.5"
+            className="inline-block -mt-0.5"
             color={ratingDiff > 0 ? 'accent-green-500' : 'accent-red-500'}
             size={12}
         />{Math.abs(ratingDiff)}

@@ -15,12 +15,14 @@ export const LastFiveMatches = ({
     player,
     playerNames,
     match,
+    last10MatchesWon,
 }: {
     player: ILeaderboardPlayer;
     playerNames: Record<string, { name: string; icon?: string }>;
     match?: ILobbiesMatch;
+    last10MatchesWon?: Array<boolean | null>;
 }) => {
-    const last5MatchesWon = reverse(clone(player.last10MatchesWon?.filter((_, i) => i < 5) ?? []));
+    const last5MatchesWon = reverse(clone((last10MatchesWon ?? player.last10MatchesWon)?.filter((_, i) => i < 5) ?? []));
 
     return (
         <div className="inline-flex gap-1.5">
@@ -28,7 +30,11 @@ export const LastFiveMatches = ({
                 <div
                     key={index}
                     className={`group w-4 h-4 relative flex items-center justify-center rounded-full text-md ${
-                        won === null ? `bg-gold-500 animate-pulse ${!!match ? 'hover:animate-none cursor-pointer' : ''}` : won ? 'bg-green-500' : 'bg-red-500'
+                        won === null
+                            ? `bg-gold-500 animate-pulse ${!!match ? 'hover:animate-none cursor-pointer' : ''}`
+                            : won
+                            ? 'bg-green-500'
+                            : 'bg-red-500'
                     }`}
                 >
                     {won ? <Icon icon="check" color="white" size={10} /> : won === false && <Icon icon="times" color="white" size={10} />}

@@ -1,54 +1,27 @@
 import { fetchMatches, fetchProfile } from '@app/api/helper/api';
-import { ILeaderboardPlayer } from '@app/api/helper/api.types';
-import {
-    Dialog,
-    DialogPanel,
-    DialogTitle,
-    Transition,
-    TransitionChild,
-} from '@headlessui/react';
+import { ILeaderboardPlayer, IProfilesResultProfile, IStatOpponent } from '@app/api/helper/api.types';
+import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { useQuery } from '@tanstack/react-query';
 import { isAfter, subWeeks } from 'date-fns';
 import { merge, orderBy } from 'lodash';
 import { Fragment, useState } from 'react';
-import {
-    LineSegment,
-    VictoryAxis,
-    VictoryChart,
-    VictoryLine,
-    VictoryScatter,
-    VictoryTheme,
-} from 'victory';
+import { LineSegment, VictoryAxis, VictoryChart, VictoryCursorContainer, VictoryLabel, VictoryLine, VictoryScatter, VictoryTheme } from 'victory';
 import { formatStreakShort, LastFiveMatches } from './last-five-matches';
-import { formatDateShort, formatMonth, formatTime, formatYear } from '@nex/data';
+import { formatCustom, formatDateShort, formatMonth, formatTime, formatYear } from '@nex/data';
 import { MatchCard } from './match-card';
 import { reformatTeamMatch } from '../util';
 import { Icon } from '@app/components/icon';
+import cn from 'classnames';
 
 const formatTick = (tick: any, index: number, ticks: any[]) => {
     const date = ticks[index] as Date;
-    if (
-        date.getMonth() == 0 &&
-        date.getDate() == 1 &&
-        date.getHours() == 0 &&
-        date.getMinutes() == 0 &&
-        date.getSeconds() == 0
-    ) {
+    if (date.getMonth() == 0 && date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
         return formatYear(date);
     }
-    if (
-        date.getDate() == 1 &&
-        date.getHours() == 0 &&
-        date.getMinutes() == 0 &&
-        date.getSeconds() == 0
-    ) {
+    if (date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
         return formatMonth(date);
     }
-    if (
-        date.getHours() == 0 &&
-        date.getMinutes() == 0 &&
-        date.getSeconds() == 0
-    ) {
+    if (date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
         return formatDateShort(date);
     }
     return formatTime(ticks[index]);
@@ -60,12 +33,16 @@ export const PlayerModal = ({
     onClose,
     isVisible,
     playerNames,
+    minRatingToQualify,
+    selectPlayer,
 }: {
     leaderboardId: string;
     player: ILeaderboardPlayer;
     isVisible: boolean;
     onClose: () => void;
     playerNames: Record<string, { name: string; icon?: string }>;
+    minRatingToQualify: number;
+    selectPlayer?: (player: IProfilesResultProfile) => void;
 }) => {
     const { data, isLoading } = useQuery({
         queryKey: ['leaderboard-player', player.profileId],
@@ -92,6 +69,7 @@ export const PlayerModal = ({
                 language: 'en',
                 profileId: player.profileId,
                 extend: 'stats',
+                // extend: 'stats,last_10_matches_won',
             });
             if (!statsData?.stats || !statsData?.ratings) {
                 throw new Error('Unable to load stats');
@@ -103,17 +81,15 @@ export const PlayerModal = ({
         staleTime: 5 * 60 * 1000,
     });
 
-    let ratingHistory = profile?.ratings?.find(
-        (r) => r.leaderboardId === leaderboardId
-    );
+    const leaderboardPlayer = profile?.leaderboards.find((l) => l.leaderboardId === leaderboardId);
+
+    let ratingHistory = profile?.ratings?.find((r) => r.leaderboardId === leaderboardId);
     const since = subWeeks(new Date(), 1);
 
     ratingHistory = ratingHistory
         ? {
               ...ratingHistory,
-              ratings: ratingHistory.ratings.filter(
-                  (d) => since == null || isAfter(d.date, since)
-              ),
+              ratings: ratingHistory.ratings.filter((d) => since == null || isAfter(d.date, since)),
           }
         : undefined;
 
@@ -175,6 +151,9 @@ export const PlayerModal = ({
 
     tabData = orderBy(tabData, ['games', 'wins'], ['desc', 'desc']);
 
+    const lastTenMatchesWon = player.last10MatchesWon ?? leaderboardPlayer?.last10MatchesWon?.map((w) => w.won);
+    const rank = player.rank ?? leaderboardPlayer?.rank;
+
     return (
         <Transition appear show={isVisible} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -204,7 +183,7 @@ export const PlayerModal = ({
                             <DialogPanel className="w-full md:max-w-md lg:max-w-6xl transform overflow-hidden rounded-2xl bg-blue-950 p-6 text-left align-middle shadow-xl transition-all text-white">
                                 <div className="flex justify-between">
                                     <DialogTitle as="h2" className="text-xl font-semibold">
-                                        <span className="text-3xl mr-2 align-middle font-flag">{player.countryIcon}</span>
+                                        <span className="text-3xl mr-2 align-middle font-flag">{player.countryIcon ?? profile?.countryIcon}</span>
                                         {player.name}
                                     </DialogTitle>
 
@@ -216,121 +195,184 @@ export const PlayerModal = ({
                                 <div className="flex flex-col lg:flex-row gap-4 items-center lg:items-stretch">
                                     <div className="flex-1 flex flex-col gap-3">
                                         <h3 className="text-lg font-bold -mb-2">Statistics</h3>
-                                        <div className="flex flex-wrap gap-3 justify-center">
-                                            {[
-                                                {
-                                                    name: 'Rank',
-                                                    value: `#${player.rank}`,
-                                                    desc: `${player.rank > 4 ? `${player.rank - 4} Below Qualifying` : 'Qualified Position'}`,
-                                                },
-                                                {
-                                                    name: 'Highest Rating',
-                                                    value: `${player.maxRating}`,
-                                                    desc: `Current Rating ${player.rating}`,
-                                                },
-                                                {
-                                                    name: 'Streak',
-                                                    value: formatStreakShort(player.streak),
-                                                    desc: <LastFiveMatches playerNames={playerNames} player={player} />,
-                                                },
-                                                {
-                                                    name: 'Games Played',
-                                                    value: `${player.games}`,
-                                                    desc: `${player.wins} Wins, ${player.losses} Losses`,
-                                                },
-                                            ].map((stat) => (
-                                                <div
-                                                    className="bg-blue-800 rounded-lg border border-gray-800 p-2 items-center text-center w-36"
-                                                    key={stat.name}
-                                                >
-                                                    <div className="stat-title">{stat.name}</div>
-                                                    <div className={typeof stat.value === 'string' ? 'text-2xl' : undefined}>{stat.value}</div>
-                                                    <div className={typeof stat.value === 'string' ? 'text-xs' : undefined}>{stat.desc}</div>
-                                                </div>
-                                            ))}
-                                        </div>
 
-                                        {ratingHistory && (
-                                            <VictoryChart
-                                                width={350}
-                                                height={250}
-                                                theme={chartTheme}
-                                                padding={{
-                                                    left: 50,
-                                                    bottom: 30,
-                                                    top: 20,
-                                                    right: 20,
-                                                }}
-                                                scale={{ x: 'time' }}
-                                            >
-                                                <VictoryAxis
-                                                    crossAxis
-                                                    gridComponent={
-                                                        <LineSegment
-                                                            active={false}
+                                        {isProfileLoading || !profile ? (
+                                            <div className="flex items-center justify-center py-4">
+                                                {isProfileLoading ? (
+                                                    <Icon className="animate-spin [animation-duration:1s]" icon="spinner" color="white" size={32} />
+                                                ) : (
+                                                    <p>Unable to fetch profile</p>
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <div className="flex flex-wrap gap-3 justify-center">
+                                                    {[
+                                                        {
+                                                            name: player.rank ? 'Rank' : 'Current Rank',
+                                                            value: `#${rank}`,
+                                                            desc: player.rank
+                                                                ? `${rank > 4 ? `${rank - 4} Below Qualifying` : 'Qualified Position'}`
+                                                                : `${
+                                                                      minRatingToQualify - (player.rating ?? leaderboardPlayer?.rating)
+                                                                  } points to be in qualified position`,
+                                                        },
+                                                        {
+                                                            name: 'Highest Rating',
+                                                            value: `${player.maxRating ?? leaderboardPlayer?.maxRating}`,
+                                                            desc: `Current Rating ${player.rating ?? leaderboardPlayer?.rating}`,
+                                                        },
+                                                        {
+                                                            name: 'Streak',
+                                                            value: formatStreakShort(player.streak ?? leaderboardPlayer?.streak),
+                                                            desc: (
+                                                                <LastFiveMatches
+                                                                    playerNames={playerNames}
+                                                                    last10MatchesWon={lastTenMatchesWon}
+                                                                    player={player}
+                                                                />
+                                                            ),
+                                                        },
+                                                        {
+                                                            name: 'Games Played',
+                                                            value: `${player.games ?? leaderboardPlayer?.games}`,
+                                                            desc: `${player.wins ?? leaderboardPlayer?.wins} Wins, ${
+                                                                player.losses ?? leaderboardPlayer?.losses
+                                                            } Losses`,
+                                                        },
+                                                    ].map((stat) => (
+                                                        <div
+                                                            className="bg-blue-800 rounded-lg border border-gray-800 p-2 items-center text-center w-36"
+                                                            key={stat.name}
+                                                        >
+                                                            <div className="stat-title">{stat.name}</div>
+                                                            <div className={typeof stat.value === 'string' ? 'text-2xl' : undefined}>
+                                                                {stat.value}
+                                                            </div>
+                                                            <div className={typeof stat.value === 'string' ? 'text-xs' : undefined}>{stat.desc}</div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+
+                                                {ratingHistory && (
+                                                    <VictoryChart
+                                                        width={350}
+                                                        height={250}
+                                                        theme={chartTheme}
+                                                        padding={{
+                                                            left: 50,
+                                                            bottom: 30,
+                                                            top: 20,
+                                                            right: 20,
+                                                        }}
+                                                        scale={{ x: 'time' }}
+                                                        containerComponent={
+                                                            <VictoryCursorContainer
+                                                                cursorComponent={<LineSegment style={{ stroke: 'white' }} />}
+                                                                cursorDimension="x"
+                                                                cursorLabel={({ datum }) => {
+                                                                    const labels = [
+                                                                        `${formatCustom(datum.x, 'Pp')} - ${
+                                                                            orderBy(ratingHistory.ratings, 'date', 'desc').find(
+                                                                                (r) => !isAfter(r.date, datum.x)
+                                                                            )?.rating
+                                                                        }`,
+                                                                    ];
+                                                                    return labels as unknown as number;
+                                                                }}
+                                                                cursorLabelComponent={
+                                                                    <VictoryLabel
+                                                                        backgroundStyle={
+                                                                            ratingHistory
+                                                                                ? [
+                                                                                      {
+                                                                                          fill: 'black',
+                                                                                          borderRadius: 100,
+                                                                                          strokeWidth: 1,
+                                                                                          stroke: 'white',
+                                                                                      },
+                                                                                  ]
+                                                                                : undefined
+                                                                        }
+                                                                        backgroundPadding={{ top: 5, bottom: 5, right: 8, left: 8 }}
+                                                                        style={{ fill: 'white' }}
+                                                                    />
+                                                                }
+                                                            />
+                                                        }
+                                                    >
+                                                        <VictoryAxis
+                                                            crossAxis
+                                                            gridComponent={
+                                                                <LineSegment
+                                                                    active={false}
+                                                                    style={{
+                                                                        stroke: 'transparent',
+                                                                    }}
+                                                                />
+                                                            }
+                                                            tickFormat={formatTick}
+                                                            tickCount={5}
+                                                        />
+                                                        <VictoryAxis
+                                                            dependentAxis
+                                                            crossAxis
+                                                            gridComponent={
+                                                                <LineSegment
+                                                                    active={false}
+                                                                    style={{
+                                                                        stroke: '#272e43',
+                                                                    }}
+                                                                />
+                                                            }
+                                                        />
+                                                        <VictoryLine
+                                                            name={'line-' + ratingHistory.leaderboardId}
+                                                            key={'line-' + ratingHistory.leaderboardId}
+                                                            data={ratingHistory.ratings}
+                                                            x="date"
+                                                            y="rating"
                                                             style={{
-                                                                stroke: 'transparent',
+                                                                data: {
+                                                                    stroke: '#D00E4D',
+                                                                },
                                                             }}
                                                         />
-                                                    }
-                                                    tickFormat={formatTick}
-                                                    tickCount={7}
-                                                />
-                                                <VictoryAxis
-                                                    dependentAxis
-                                                    crossAxis
-                                                    gridComponent={
-                                                        <LineSegment
-                                                            active={false}
+                                                        <VictoryScatter
+                                                            name={'scatter-' + ratingHistory.leaderboardId}
+                                                            key={'scatter-' + ratingHistory.leaderboardId}
+                                                            data={ratingHistory.ratings}
+                                                            x="date"
+                                                            y="rating"
+                                                            size={1.5}
                                                             style={{
-                                                                stroke: '#272e43',
+                                                                data: {
+                                                                    fill: 'red',
+                                                                },
                                                             }}
                                                         />
-                                                    }
-                                                />
-                                                <VictoryLine
-                                                    name={'line-' + ratingHistory.leaderboardId}
-                                                    key={'line-' + ratingHistory.leaderboardId}
-                                                    data={ratingHistory.ratings}
-                                                    x="date"
-                                                    y="rating"
-                                                    style={{
-                                                        data: {
-                                                            stroke: '#D00E4D',
-                                                        },
-                                                    }}
-                                                />
-                                                <VictoryScatter
-                                                    name={'scatter-' + ratingHistory.leaderboardId}
-                                                    key={'scatter-' + ratingHistory.leaderboardId}
-                                                    data={ratingHistory.ratings}
-                                                    x="date"
-                                                    y="rating"
-                                                    size={1.5}
-                                                    style={{
-                                                        data: {
-                                                            fill: 'red',
-                                                        },
-                                                    }}
-                                                />
-                                            </VictoryChart>
+                                                    </VictoryChart>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                     <div className="flex-1 flex flex-col gap-3 h-[500px] lg:overflow-y-scroll">
                                         <h3 className="text-lg font-bold -mb-2">Winrates</h3>
-                                        {isProfileLoading || !ratingHistory ? (
-                                            isProfileLoading ? (
-                                                <Icon className="animate-spin [animation-duration:1s]" icon="spinner" color="white" size={32} />
-                                            ) : (
-                                                <p>Unable to fetch winrates</p>
-                                            )
+                                        {isProfileLoading || !stats ? (
+                                            <div className="flex items-center justify-center py-4">
+                                                {isProfileLoading ? (
+                                                    <Icon className="animate-spin [animation-duration:1s]" icon="spinner" color="white" size={32} />
+                                                ) : (
+                                                    <p>Unable to fetch winrates</p>
+                                                )}
+                                            </div>
                                         ) : (
                                             <>
                                                 <div className="flex gap-2">
                                                     {tabs.map((t) => (
                                                         <button
                                                             onClick={() => setTab(t)}
-                                                            className={`flex-1 uppercase font-bold text-xs px-4 pt-2 pb-1.5 rounded ${
+                                                            className={`flex-1 uppercase font-bold text-xs px-4 pt-2 pb-1.5 rounded cursor-pointer ${
                                                                 tab === t ? 'bg-gold-700' : ''
                                                             }`}
                                                             key={t}
@@ -347,7 +389,18 @@ export const PlayerModal = ({
                                                         <div className="w-16 text-right">Won</div>
                                                     </div>
                                                     {tabData.map((row) => (
-                                                        <div key={row.key} className="flex items-center">
+                                                        <div
+                                                            key={row.key}
+                                                            className={cn(
+                                                                'flex items-center',
+                                                                tab === 'Opponents' && selectPlayer && 'cursor-pointer hover:underline'
+                                                            )}
+                                                            onClick={
+                                                                tab === 'Opponents' && selectPlayer
+                                                                    ? () => selectPlayer(row as unknown as IProfilesResultProfile)
+                                                                    : undefined
+                                                            }
+                                                        >
                                                             <div className="flex gap-2 flex-1 items-center">
                                                                 {row.imageUrl ? (
                                                                     <img src={row.imageUrl} className="w-5 h-5" />
@@ -368,20 +421,27 @@ export const PlayerModal = ({
                                     <div className="flex-1 flex flex-col gap-3 h-[500px] lg:overflow-y-scroll">
                                         <h3 className="text-lg font-bold -mb-2">Recent Games</h3>
                                         {isLoading || !data?.length ? (
-                                            isLoading ? (
-                                                <Icon
-                                                    className={isLoading ? 'animate-spin [animation-duration:1s]' : undefined}
-                                                    icon="spinner"
-                                                    color="white"
-                                                    size={32}
-                                                />
-                                            ) : (
-                                                <p>Unable to fetch recent games</p>
-                                            )
+                                            <div className="flex items-center justify-center py-4">
+                                                {isLoading ? (
+                                                    <Icon
+                                                        className={isLoading ? 'animate-spin [animation-duration:1s]' : undefined}
+                                                        icon="spinner"
+                                                        color="white"
+                                                        size={32}
+                                                    />
+                                                ) : (
+                                                    <p>Unable to fetch recent games</p>
+                                                )}
+                                            </div>
                                         ) : (
                                             data?.map((match, index) => (
                                                 <div key={match.matchId} className="bg-blue-800 rounded-lg border border-gray-800 px-3 py-2">
-                                                    <MatchCard index={index} userId={player.profileId} match={reformatTeamMatch(match)} playerNames={playerNames} />
+                                                    <MatchCard
+                                                        index={index}
+                                                        userId={player.profileId}
+                                                        match={reformatTeamMatch(match)}
+                                                        playerNames={playerNames}
+                                                    />
                                                 </div>
                                             ))
                                         )}
