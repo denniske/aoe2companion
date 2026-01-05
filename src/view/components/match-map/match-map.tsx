@@ -46,12 +46,12 @@ export default function MatchMap(props: Props) {
 
     const time = useSharedValue<number>(0);
 
+    const { isMedium, isLarge } = useBreakpoints()
+    const size = (isLarge ? 576 : (isMedium ? 384 : 240)) - 2;
+
     if (!match || !analysis || !analysisSvgUrl) {
         return <Text>Loading...</Text>;
     }
-
-    const { isMedium, isLarge } = useBreakpoints()
-    const size = (isLarge ? 576 : (isMedium ? 384 : 240)) - 2;
 
     const dimension = analysis.map.dimension;
 

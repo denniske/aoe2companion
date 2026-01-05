@@ -11,15 +11,19 @@ import PlayerList from '@app/view/components/player-list';
 import { useRecentSearches } from '@app/service/recent-searches';
 import { Text } from './text';
 import { useTranslation } from '@app/helper/translate';
+import cn from 'classnames';
 
 function onlyDigits(str: string) {
     return /^\d+$/.test(str);
 }
 
-export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResultProfile) => void; showViewAll?: boolean }> = ({
-    showViewAll = true,
-    onSelect,
-}) => {
+export const InlinePlayerSearch: React.FC<{
+    onSelect?: (profile: IProfilesResultProfile) => void;
+    showViewAll?: boolean;
+    className?: string;
+    position?: 'top' | 'bottom';
+    iconColor?: string;
+}> = ({ showViewAll = true, onSelect, className, position = 'bottom', iconColor }) => {
     const getTranslation = useTranslation();
     const ref = useRef<HTMLDivElement>(null);
     const [text, setText] = useState('');
@@ -68,7 +72,8 @@ export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResult
     return (
         <div className="relative w-2xs" ref={ref}>
             <Field
-                className="h-full border-transparent dark:border-border"
+                iconColor={iconColor}
+                className={cn('h-full border-transparent dark:border-border', className)}
                 type="search"
                 placeholder="Search Players"
                 onFocus={() => setIsFocused(true)}
@@ -79,7 +84,7 @@ export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResult
                 autoCorrect={false}
                 autoComplete="off"
                 onKeyPress={(e) => {
-                    if (e.nativeEvent.key === 'Enter') {
+                    if (e.nativeEvent.key === 'Enter' && showViewAll) {
                         viewAll();
                         router.navigate(`/players/search?query=${text}`);
                     }
@@ -87,16 +92,22 @@ export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResult
             />
 
             {(isFocused || text) && (
-                <View className="absolute -top-3 -right-3 -left-3 bg-white dark:bg-black rounded-lg shadow-md dark:shadow-black">
+                <View
+                    className={cn(
+                        'absolute -right-3 -left-3 bg-white dark:bg-black rounded-lg shadow-md dark:shadow-black',
+                        position === 'top' ? '-bottom-3 flex-col-reverse' : '-top-3'
+                    )}
+                >
                     <View className="h-18 rounded-md" />
 
                     {debouncedText !== text || isFetching ? (
-                        <View className="pb-3">
+                        <View className={position === 'top' ? 'pt-3' : 'pb-3'}>
                             <ActivityIndicator animating size="large" color="#999" />
                         </View>
                     ) : debouncedText ? (
-                        <View>
+                        <View className={cn(position === 'top' && 'pt-3')}>
                             <PlayerList
+                                inverted
                                 list={list.slice(0, 5)}
                                 selectedUser={onSelectUser}
                                 shouldLink={!onSelect}
@@ -115,11 +126,11 @@ export const InlinePlayerSearch: React.FC<{ onSelect?: (profile: IProfilesResult
                             )}
                         </View>
                     ) : data.length > 0 ? (
-                        <View className="pb-2.5">
+                        <View className={position === 'top' ? 'pt-2.5' : 'pb-2.5'}>
                             <RecentSearches onSelect={onSelectUser} limit={5} shouldLink={!onSelect} />
                         </View>
                     ) : (
-                        <Text variant="label" align="center" className="pb-4">
+                        <Text variant="label" align="center" className={position === 'top' ? 'pt-4' : 'pb-4'}>
                             {getTranslation('search.minlength')}
                         </Text>
                     )}

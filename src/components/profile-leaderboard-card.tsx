@@ -38,13 +38,25 @@ export const ProfileLeaderboardCard: React.FC<{
                 direction="vertical"
                 onPress={canOpenModal ? () => setIsVisible(true) : undefined}
             >
-                <View className="flex-row items-center justify-between">
+                <View className="flex-row items-center gap-1 lg:gap-5">
                     <TextComponent variant="header-lg" numberOfLines={1} color="subtle">
                         {leaderboard?.leaderboardName}
                     </TextComponent>
 
+                    <View className="w-px bg-border self-stretch hidden lg:flex" />
+
+                    <Text variant="label-lg" color="subtle" className="hidden lg:flex">
+                        {leaderboard?.games} Games
+                    </Text>
+
+                    <View className="flex-1" />
+
                     {canOpenModal && <Icon icon="angle-right" size={24} color="brand" />}
                 </View>
+
+                <Text variant="label-lg" color="subtle" className="flex lg:hidden -my-2">
+                    {leaderboard?.games} Games
+                </Text>
 
                 <View className="flex-row gap-4 items-center">
                     <View className="gap-2 items-center lg:flex-1">

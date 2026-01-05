@@ -1,13 +1,11 @@
 import { ILeaderboardPlayer, ILobbiesMatch } from '@app/api/helper/api.types';
 import { Status, statuses } from '../statuses';
 import { SpringValue, animated } from 'react-spring';
-import { useState } from 'react';
 import { isAfter, subMinutes } from 'date-fns';
 import { formatStreak, LastFiveMatches } from './last-five-matches';
 import { Cell } from './table';
 import { RatingDiff } from './rating-diff';
 import { MatchCard } from './match-card';
-import { PlayerModal } from './player-modal';
 import { formatAgo } from '@nex/data';
 import { Icon } from '@app/components/icon';
 import Countdown from 'react-countdown';
@@ -23,8 +21,8 @@ export const PlayerRow = ({
     status = 'none',
     style,
     isPastDeadline,
-    leaderboardId,
     hideCols,
+    selectPlayer,
 }: {
     player: ILeaderboardPlayer & { winrates: number };
     playerNames: Record<string, { name: string; icon?: string }>;
@@ -39,14 +37,12 @@ export const PlayerRow = ({
         position: SpringValue<React.CSSProperties['position']>;
         opacity: SpringValue<number>;
     } & Omit<React.CSSProperties, 'position' | 'opacity'>;
-    leaderboardId: string;
     hideCols: Array<keyof ILeaderboardPlayer | 'winrates'>;
+    selectPlayer: (player: ILeaderboardPlayer) => void;
 }) => {
     const opponent = match?.players.find((p) => p.profileId !== player.profileId);
     const opponentName = playerNames[opponent?.profileId ?? '']?.name ?? opponent?.name;
     const { ratingDiff } = match?.players.find((p) => p.profileId === player.profileId) ?? {};
-
-    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <animated.tr
@@ -89,19 +85,11 @@ export const PlayerRow = ({
                             )}
                         </div>
                     )}
-                    <PlayerModal
-                        leaderboardId={leaderboardId}
-                        playerNames={playerNames}
-                        player={{ ...player, rank }}
-                        onClose={() => setIsOpen(false)}
-                        isVisible={isOpen}
-                        minRatingToQualify={minRatingToQualify}
-                    />
                 </Cell>
             )}
             <Cell className="font-bold w-36 flex-1 border-l-4 md:border-l-0" style={{ borderColor: statuses[status].color }}>
                 <span className="text-2xl mr-2 align-middle font-flag">{player.countryIcon}</span>
-                <span className="text-ellipsis overflow-hidden cursor-pointer hover:text-[#EAC65E] transition-colors" onClick={() => setIsOpen(true)}>
+                <span className="text-ellipsis overflow-hidden cursor-pointer hover:text-[#EAC65E] transition-colors" onClick={() => selectPlayer(player)}>
                     {player.name}
                 </span>
             </Cell>

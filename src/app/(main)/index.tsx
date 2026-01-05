@@ -265,7 +265,7 @@ export default function IndexPage() {
                 </View>
             )}
 
-            <FeaturedVideos />
+            {appConfig.game === 'aoe2' && <FeaturedVideos />}
         </ScrollView>
     );
 }

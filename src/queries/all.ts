@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { appConfig } from '@nex/dataset';
 import { supabaseClient } from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IFetchProfilesParams } from '@app/api/helper/api.types';
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
 
@@ -144,6 +145,18 @@ export const useProfilesBySteamId = (steamId?: string, enabled: boolean = true) 
             return (await fetchProfiles({ language: language!, steamId, extend })).profiles;
         },
         enabled: !!language && !!steamId && steamId.length > 10 && enabled,
+    });
+};
+
+export const useProfilesByClan = (clan?: string, enabled: boolean = true, params?: Partial<IFetchProfilesParams>) => {
+    const language = useLanguage();
+    const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
+    return useQuery({
+        queryKey: ['profiles-by-clan', clan, params],
+        queryFn: async () => {
+            return (await fetchProfiles({ language: language!, clan, extend, ...params })).profiles;
+        },
+        enabled: !!language && !!clan && enabled,
     });
 };
 

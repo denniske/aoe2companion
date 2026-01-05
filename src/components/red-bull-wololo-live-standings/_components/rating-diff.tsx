@@ -1,8 +1,9 @@
 import { Icon } from '@app/components/icon';
 import React from 'react';
+import cn from 'classnames';
 
 export const RatingDiff: React.FC<{ ratingDiff: number; suffix?: string }> = ({ ratingDiff, suffix }) => (
-    <span className={ratingDiff > 0 ? 'text-green-500' : 'text-red-500'}>
+    <span className={cn(ratingDiff > 0 ? 'text-green-500' : 'text-red-500')}>
         <Icon
             icon={ratingDiff > 0 ? 'plus' : 'minus'}
             className="inline-block -mt-0.5"

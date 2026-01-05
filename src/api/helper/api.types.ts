@@ -565,7 +565,8 @@ export interface IFetchProfilesParams {
     liquipediaNames?: string[];
     country?: string;
     extend?: string;
-
+    clan?: string;
+    perPage?: number;
     pageParam?: number;
     language: string;
 }
@@ -774,6 +775,7 @@ export interface IFetchLeaderboardParams {
     pageParam?: string;
     language: string;
     extend?: string[];
+    clan?: string;
 }
 
 export interface IFetchLeaderboardsParams {

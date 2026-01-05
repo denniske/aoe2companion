@@ -4,7 +4,7 @@ import { useMapsPoll, useMapsRanked } from '@app/queries/all';
 import { formatDayAndTime } from '@nex/data';
 import { isWithinInterval } from 'date-fns';
 import { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Platform, TouchableOpacity, View } from 'react-native';
 import ButtonPicker from '../view/components/button-picker';
 import { Link as ExpoLink } from 'expo-router';
 import { Image } from '@/src/components/uniwind/image';
@@ -36,7 +36,7 @@ export const RankedMaps: React.FC = () => {
 
             <AnimateIn skipFirstAnimation>
                 {!!mapsPoll && (
-                    <View className="flex-row justify-between items-center mb-3">
+                    <View className="flex-row justify-between items-center mb-4">
                         {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired }) ? (
                             <Text variant="body">New Map Rotation on {formatDayAndTime(mapsPoll.expired)}</Text>
                         ) : (
@@ -61,6 +61,7 @@ export const RankedMaps: React.FC = () => {
                                 flex={true}
                                 value={rankedMapLeaderboard ?? firstValue}
                                 values={values}
+                                image={(value) => (value === 'ew_1v1_redbullwololo' ? require('../../assets/red-bull-wololo.png') : undefined)}
                                 formatter={formatLeaderboard}
                                 onSelect={setRankedMapLeaderboard}
                             />
@@ -74,9 +75,16 @@ export const RankedMaps: React.FC = () => {
 
                             <LeaderboardSnapshot leaderboardId={rankedMapLeaderboard ?? firstValue} />
 
-                            <Button href="/statistics/leaderboard" className="self-center mt-2">
-                                View Full Leaderboard
-                            </Button>
+                            <View className="flex flex-row gap-4 justify-center">
+                                <Button href="/statistics/leaderboard" className="self-center mt-2">
+                                    View Full Leaderboard
+                                </Button>
+                                {Platform.OS === 'web' && rankedMapLeaderboard === 'ew_1v1_redbullwololo' ? (
+                                    <Button href="/red-bull-wololo-live-standings" className="self-center mt-2">
+                                        View Live Standings
+                                    </Button>
+                                ) : null}
+                            </View>
                         </View>
                         <View className="md:flex-1">
                             <Text variant="header-xs" className="pb-2 hidden md:flex">

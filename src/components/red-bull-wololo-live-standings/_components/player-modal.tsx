@@ -12,6 +12,7 @@ import { MatchCard } from './match-card';
 import { reformatTeamMatch } from '../util';
 import { Icon } from '@app/components/icon';
 import cn from 'classnames';
+import { Button } from '@app/components/button';
 
 const formatTick = (tick: any, index: number, ticks: any[]) => {
     const date = ticks[index] as Date;
@@ -42,7 +43,7 @@ export const PlayerModal = ({
     onClose: () => void;
     playerNames: Record<string, { name: string; icon?: string }>;
     minRatingToQualify: number;
-    selectPlayer?: (player: IProfilesResultProfile) => void;
+    selectPlayer?: (player: { name: string; profileId: number }) => void;
 }) => {
     const { data, isLoading } = useQuery({
         queryKey: ['leaderboard-player', player.profileId],
@@ -68,8 +69,7 @@ export const PlayerModal = ({
             const statsData = await fetchProfile({
                 language: 'en',
                 profileId: player.profileId,
-                extend: 'stats',
-                // extend: 'stats,last_10_matches_won',
+                extend: 'stats,last_10_matches_won',
             });
             if (!statsData?.stats || !statsData?.ratings) {
                 throw new Error('Unable to load stats');
@@ -153,6 +153,12 @@ export const PlayerModal = ({
 
     const lastTenMatchesWon = player.last10MatchesWon ?? leaderboardPlayer?.last10MatchesWon?.map((w) => w.won);
     const rank = player.rank ?? leaderboardPlayer?.rank;
+    const rating = player.rating ?? leaderboardPlayer?.rating;
+    const streak = player.streak ?? leaderboardPlayer?.streak;
+    const countryIcon = player.countryIcon ?? profile?.countryIcon;
+    const wins = player.wins ?? leaderboardPlayer?.wins;
+    const losses = player.losses ?? leaderboardPlayer?.losses;
+    const games = player.games ?? leaderboardPlayer?.games;
 
     return (
         <Transition appear show={isVisible} as={Fragment}>
@@ -181,11 +187,17 @@ export const PlayerModal = ({
                             leaveTo="opacity-0 scale-95"
                         >
                             <DialogPanel className="w-full md:max-w-md lg:max-w-6xl transform overflow-hidden rounded-2xl bg-blue-950 p-6 text-left align-middle shadow-xl transition-all text-white">
-                                <div className="flex justify-between">
-                                    <DialogTitle as="h2" className="text-xl font-semibold">
-                                        <span className="text-3xl mr-2 align-middle font-flag">{player.countryIcon ?? profile?.countryIcon}</span>
-                                        {player.name}
-                                    </DialogTitle>
+                                <div className="flex justify-between items-start md:items-center">
+                                    <div className="flex flex-col md:flex-row gap-1 md:gap-4 mb-4 md:mb-0 md:items-center">
+                                        <DialogTitle as="h2" className="text-xl font-semibold pb-2">
+                                            {countryIcon && <span className="text-3xl mr-2 align-middle font-flag">{countryIcon}</span>}
+                                            {player.name}
+                                        </DialogTitle>
+
+                                        <Button className="mb-1" size="small" href={`/players/${player.profileId}`}>
+                                            View Full Profile
+                                        </Button>
+                                    </div>
 
                                     <button onClick={onClose}>
                                         <Icon color="white" icon="times" size={24} />
@@ -210,35 +222,33 @@ export const PlayerModal = ({
                                                     {[
                                                         {
                                                             name: player.rank ? 'Rank' : 'Current Rank',
-                                                            value: `#${rank}`,
+                                                            value: rank ? `#${rank}` : 'Unranked',
                                                             desc: player.rank
                                                                 ? `${rank > 4 ? `${rank - 4} Below Qualifying` : 'Qualified Position'}`
-                                                                : `${
-                                                                      minRatingToQualify - (player.rating ?? leaderboardPlayer?.rating)
-                                                                  } points to be in qualified position`,
+                                                                : rating
+                                                                ? `${minRatingToQualify - rating} points to be in qualified position`
+                                                                : undefined,
                                                         },
                                                         {
                                                             name: 'Highest Rating',
-                                                            value: `${player.maxRating ?? leaderboardPlayer?.maxRating}`,
-                                                            desc: `Current Rating ${player.rating ?? leaderboardPlayer?.rating}`,
+                                                            value: `${player.maxRating ?? leaderboardPlayer?.maxRating ?? 'N/A'}`,
+                                                            desc: rating ? `Current Rating ${rating}` : undefined,
                                                         },
                                                         {
                                                             name: 'Streak',
-                                                            value: formatStreakShort(player.streak ?? leaderboardPlayer?.streak),
-                                                            desc: (
+                                                            value: streak ? formatStreakShort(player.streak ?? leaderboardPlayer?.streak) : 'N/A',
+                                                            desc: lastTenMatchesWon ? (
                                                                 <LastFiveMatches
                                                                     playerNames={playerNames}
                                                                     last10MatchesWon={lastTenMatchesWon}
                                                                     player={player}
                                                                 />
-                                                            ),
+                                                            ) : undefined,
                                                         },
                                                         {
                                                             name: 'Games Played',
-                                                            value: `${player.games ?? leaderboardPlayer?.games}`,
-                                                            desc: `${player.wins ?? leaderboardPlayer?.wins} Wins, ${
-                                                                player.losses ?? leaderboardPlayer?.losses
-                                                            } Losses`,
+                                                            value: `${games ?? 'N/A'}`,
+                                                            desc: games ? `${wins} Wins, ${losses} Losses` : undefined,
                                                         },
                                                     ].map((stat) => (
                                                         <div
@@ -275,7 +285,7 @@ export const PlayerModal = ({
                                                                         `${formatCustom(datum.x, 'Pp')} - ${
                                                                             orderBy(ratingHistory.ratings, 'date', 'desc').find(
                                                                                 (r) => !isAfter(r.date, datum.x)
-                                                                            )?.rating
+                                                                            )?.rating ?? 'No Rating'
                                                                         }`,
                                                                     ];
                                                                     return labels as unknown as number;
@@ -389,25 +399,30 @@ export const PlayerModal = ({
                                                         <div className="w-16 text-right">Won</div>
                                                     </div>
                                                     {tabData.map((row) => (
-                                                        <div
-                                                            key={row.key}
-                                                            className={cn(
-                                                                'flex items-center',
-                                                                tab === 'Opponents' && selectPlayer && 'cursor-pointer hover:underline'
-                                                            )}
-                                                            onClick={
-                                                                tab === 'Opponents' && selectPlayer
-                                                                    ? () => selectPlayer(row as unknown as IProfilesResultProfile)
-                                                                    : undefined
-                                                            }
-                                                        >
-                                                            <div className="flex gap-2 flex-1 items-center">
+                                                        <div key={row.key} className="flex items-center">
+                                                            <div className="flex gap-2 flex-1 items-center overflow-hidden">
                                                                 {row.imageUrl ? (
                                                                     <img src={row.imageUrl} className="w-5 h-5" />
-                                                                ) : (
+                                                                ) : row.icon ? (
                                                                     <span className="text-lg align-middle">{row.icon}</span>
-                                                                )}
-                                                                {row.name}
+                                                                ) : null}
+                                                                <span
+                                                                    className={cn(
+                                                                        'flex-1 whitespace-nowrap overflow-hidden text-ellipsis',
+                                                                        tab === 'Opponents' && selectPlayer && 'cursor-pointer hover:underline'
+                                                                    )}
+                                                                    onClick={
+                                                                        tab === 'Opponents' && selectPlayer
+                                                                            ? () =>
+                                                                                  selectPlayer({
+                                                                                      profileId: Number(row.key),
+                                                                                      name: row.name,
+                                                                                  })
+                                                                            : undefined
+                                                                    }
+                                                                >
+                                                                    {row.name}
+                                                                </span>
                                                             </div>
 
                                                             <div className="w-12 text-right">{row.games}</div>
@@ -441,6 +456,7 @@ export const PlayerModal = ({
                                                         userId={player.profileId}
                                                         match={reformatTeamMatch(match)}
                                                         playerNames={playerNames}
+                                                        selectPlayer={selectPlayer}
                                                     />
                                                 </div>
                                             ))

@@ -10,9 +10,10 @@ type BaseProps = Omit<TextInputProps, 'style'>;
 export interface FieldProps extends BaseProps {
     type?: 'default' | 'search' | 'password' | 'email';
     style?: ViewStyle;
+    iconColor?: string;
 }
 
-export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style, ...props }) => {
+export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style, iconColor, ...props }) => {
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const color = textColors['default'];
     const typeOptions: Record<NonNullable<FieldProps['type']>, TextInputProps> = {
@@ -47,7 +48,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
         <View className="relative h-[45px]" style={style}>
             {inputType === 'search' ? (
                 <View className="absolute left-3 top-0 h-full justify-center z-10">
-                    <Icon icon="search" color="subtle" />
+                    <Icon icon="search" color={iconColor ?? 'subtle'} />
                 </View>
             ) : null}
             <TextInput

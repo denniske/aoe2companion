@@ -4,6 +4,7 @@ import { RatingDiff } from './rating-diff';
 import Countdown from 'react-countdown';
 import { formatAgo } from '@nex/data';
 import { Icon } from '@app/components/icon';
+import cn from 'classnames';
 
 const formatDuration = (durationInSeconds: number) => {
     const duration = intervalToDuration({
@@ -25,11 +26,13 @@ export const MatchCard = ({
     playerNames,
     userId,
     index = 0,
+    selectPlayer,
 }: {
     userId?: number;
     match: ILobbiesMatch;
     playerNames: Record<string, { name: string; icon?: string }>;
     index?: number;
+    selectPlayer?: (player: { name: string; profileId: number }) => void;
 }) => {
     return (
         <div className="relative flex flex-row gap-3 items-center text-sm w-full">
@@ -49,7 +52,7 @@ export const MatchCard = ({
                 ))}
 
             <img src={match.mapImageUrl} className="w-16 h-16" />
-            <div className="flex-1 flex flex-col gap-1">
+            <div className="flex-1 flex flex-col gap-1 overflow-hidden">
                 <div className="flex justify-between">
                     <b className="text-base font-semibold">{match.mapName}</b>
                     {match.started && (
@@ -73,13 +76,30 @@ export const MatchCard = ({
                     )}
                 </div>
                 {match.players.map((p) => (
-                    <div className="flex justify-between" key={p.profileId}>
-                        <div className="flex gap-1.5">
+                    <div className="flex overflow-hidden gap-1" key={p.profileId}>
+                        <div className="flex gap-1.5 flex-1 overflow-hidden">
                             <img src={p.civImageUrl} className="w-5 h-5" />
-                            <span className={p.won ? 'font-bold' : ''}>{playerNames[p.profileId]?.name ?? p.name}</span>
+                            <span
+                                className={cn(
+                                    'whitespace-nowrap overflow-hidden text-ellipsis flex-1',
+                                    p.won ? 'font-bold' : '',
+                                    userId !== p.profileId && selectPlayer && 'cursor-pointer hover:underline'
+                                )}
+                                onClick={
+                                    userId !== p.profileId && selectPlayer
+                                        ? () =>
+                                              selectPlayer({
+                                                  profileId: p.profileId,
+                                                  name: p.name ?? '',
+                                              })
+                                        : undefined
+                                }
+                            >
+                                {playerNames[p.profileId]?.name ?? p.name}
+                            </span>
                         </div>
 
-                        <span className="flex gap-2">
+                        <span className="flex gap-2 whitespace-nowrap shrink-0">
                             {p.ratingDiff ? <RatingDiff ratingDiff={p.ratingDiff} /> : null}
                             {p.rating || 'Unranked'}
                         </span>

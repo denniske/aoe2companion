@@ -1,11 +1,12 @@
 import { TextColor, TextVariant } from '@app/utils/text.util';
 import { Href, Link, router } from 'expo-router';
-import { Pressable, TouchableOpacityProps } from 'react-native';
+import { ImageSourcePropType, Pressable, TouchableOpacityProps } from 'react-native';
 
 import { Icon, IconProps } from './icon';
 import { Text, TextProps } from './text';
 import { Fragment } from 'react';
 import { CustomFragment } from './custom-fragment';
+import { Image } from './uniwind/image';
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
     children?: string;
@@ -15,6 +16,7 @@ export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
     size?: 'small' | 'medium' | 'large';
     align?: TextProps['align'];
     color?: TextColor;
+    image?: ImageSourcePropType;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -28,6 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
     disabled,
     align,
     color,
+    image,
     ...props
 }) => {
     const Wrapper = href ? Link : CustomFragment;
@@ -49,6 +52,7 @@ export const Button: React.FC<ButtonProps> = ({
     return (
         <Wrapper asChild href={href!}>
             <Pressable className={`flex-row rounded items-center ${spacingSizes[size]} ${backgroundColor} ${className ?? ''}`} onPress={onPress}>
+                {image && <Image source={image} className='w-4 h-4' />}
                 {icon && <Icon color="white" icon={icon} prefix={iconPrefix} size={14} />}
                 {children && (
                     <Text

@@ -24,6 +24,7 @@ import { ParamListBase, TabNavigationState } from '@react-navigation/native';
 import { useTournamentPlayer } from '@app/api/tournaments';
 import { TournamentPlayerPopup } from '@app/view/tournaments/player-popup';
 import { MyText } from '@app/view/components/my-text';
+import { Link as StyledLink } from '@app/components/link';
 import { Image } from '@/src/components/uniwind/image';
 import { getCountryName } from '@app/helper/flags';
 import { MenuNew } from '@app/components/menu';
@@ -264,7 +265,13 @@ export function UserTitle({ profile }: UserMenuProps) {
                 <>
                     <CountryImage style={{ fontSize: 14 }} country={profile?.country} />
                     <Text> {getCountryName(profile?.country as Country)}</Text>
-                    <Text>{profile?.clan ? ', ' + getTranslation('main.profile.clan') + ' ' + profile.clan : ''}</Text>
+                    {profile?.clan ? (
+                        <Text>
+                            , <StyledLink href={`/clans/${profile.clan}`} variant="body">
+                                {getTranslation('main.profile.clan')} {profile.clan}
+                            </StyledLink>
+                        </Text>
+                    ) : null}
                 </>
             }
         />

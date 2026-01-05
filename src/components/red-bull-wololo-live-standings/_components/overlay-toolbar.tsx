@@ -14,7 +14,7 @@ export const OverlayToolbar: React.FC = () => {
 
     return (
         <div
-            className="fixed left-4 right-4 bg-blue-800 py-4 px-6 flex gap-8 items-start rounded"
+            className="fixed left-4 right-4 bg-blue-800 py-4 px-6 flex gap-8 items-start rounded text-white"
             style={{ top: vertical === 'bottom' ? 16 : undefined, bottom: vertical !== 'bottom' ? 16 : undefined }}
         >
             <AlignmentSelector

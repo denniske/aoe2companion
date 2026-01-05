@@ -15,7 +15,7 @@ const replaceParamsInPath = (segment: string, params: Record<string, string | un
 export const Breadcrumbs: React.FC<{ title: string }> = ({ title }) => {
     const params = useLocalSearchParams<Record<string, string>>();
     const segments = useSegments();
-    const screenNames = segments.filter((segment) => segment !== 'more').map((segment) => replaceParamsInPath(segment, params));
+    const screenNames = segments.filter((segment) => segment !== 'more' && segment !== '(main)').map((segment) => replaceParamsInPath(segment, params));
     const TextComponent = title ? Text : SkeletonText;
 
     return (

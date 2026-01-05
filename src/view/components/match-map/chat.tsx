@@ -61,7 +61,7 @@ export default function Chat({ time, chat }: Props) {
         [currentMessages]
     );
 
-        const { isMedium, isLarge } = useBreakpoints();
+    const { isMedium, isLarge } = useBreakpoints();
 
     return (
         <View

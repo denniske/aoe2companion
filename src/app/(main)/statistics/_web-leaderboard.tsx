@@ -47,6 +47,7 @@ export const WebLeaderboard: React.FC<{ leaderboards: ILeaderboardDef[] | undefi
                             flex={true}
                             value={leaderboard?.leaderboardId}
                             values={leaderboardIds ?? []}
+                            image={(value) => (value === 'ew_1v1_redbullwololo' ? require('../../../../assets/red-bull-wololo.png') : undefined)}
                             formatter={(value) => leaderboards?.find((l) => l.leaderboardId === value)?.abbreviation ?? ''}
                             onSelect={(value) => {
                                 const newLeaderboard = leaderboards?.find((l) => l.leaderboardId === value);

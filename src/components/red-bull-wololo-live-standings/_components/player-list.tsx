@@ -1,4 +1,4 @@
-import { ILeaderboard, ILeaderboardPlayer, ILobbiesMatch, IMatchNew, IProfilesResultProfile } from '@app/api/helper/api.types';
+import { ILeaderboard, ILeaderboardPlayer, ILobbiesMatch, IMatchNew } from '@app/api/helper/api.types';
 import { useQuery } from '@tanstack/react-query';
 import { isEmpty, orderBy } from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -12,8 +12,8 @@ import { reformatTeamMatch } from '../util';
 import { initMatchSubscription } from '@app/api/socket/ongoing';
 import { dateReviver } from '@nex/data';
 import { Icon } from '@app/components/icon';
-// import { InlinePlayerSearch } from '@app/components/inline-player-search';
-// import { PlayerModal } from './player-modal';
+import { InlinePlayerSearch } from '@app/components/inline-player-search';
+import { PlayerModal } from './player-modal';
 
 const leaderboardId = 'ew_1v1_redbullwololo';
 const maxRatingOverrides: Record<number, number> = {};
@@ -37,6 +37,16 @@ export function PlayerList({
     const [isConnecting, setIsConnecting] = useState(false);
     const [connected, setConnected] = useState(false);
     const ref = useRef(null);
+
+    useEffect(() => {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+          document.documentElement.classList.remove('light');
+          document.documentElement.classList.add('dark');
+        });
+    }, []);
 
     const updateMatches = (newMatches: ILobbiesMatch[], clearMatches = false) => {
         setMatches((prev) => {
@@ -121,7 +131,7 @@ export function PlayerList({
         refetchOnWindowFocus: true,
     });
 
-    // const [selectedPlayer, setSelectedPlayer] = useState<ILeaderboardPlayer | null>(null);
+    const [selectedPlayer, setSelectedPlayer] = useState<ILeaderboardPlayer | null>(null);
 
     useEffect(() => {
         if (isSuccess) {
@@ -264,19 +274,18 @@ export function PlayerList({
         }
     }, [isPastDeadline]);
 
-    // const selectPlayer = (player: ILeaderboardPlayer | IProfilesResultProfile) => {
-    //     const topPlayer = players.find((p) => p.profileId === player.profileId);
-    //     setSelectedPlayer(topPlayer ?? (player as unknown as ILeaderboardPlayer));
-    //     console.log('select player', player);
-    // };
+    const selectPlayer = (player: ILeaderboardPlayer | { name: string; profileId: number }) => {
+        const topPlayer = players.find((p) => p.profileId === player.profileId);
+        setSelectedPlayer(
+            topPlayer ? { ...topPlayer, rank: sortedPlayerIds.findIndex((pid) => topPlayer.profileId === pid) + 1 } : (player as ILeaderboardPlayer)
+        );
+    };
 
     return (
         <div>
             {hideHeader ? null : (
                 <div className="pb-2 mb-8 border-b-2 border-[#EAC65E] flex flex-col md:flex-row justify-between items-center select-text relative z-50">
                     <h2 className="text-xl md:text-5xl uppercase font-bold">{isPastDeadline ? '' : 'Current '}Top Players</h2>
-
-                    {/* <InlinePlayerSearch onSelect={selectPlayer} />
 
                     {selectedPlayer && (
                         <PlayerModal
@@ -288,7 +297,7 @@ export function PlayerList({
                             minRatingToQualify={minRatingToQualify}
                             selectPlayer={selectPlayer}
                         />
-                    )} */}
+                    )}
 
                     <div className="flex gap-4">
                         {time && !isFetching ? (
@@ -395,7 +404,6 @@ export function PlayerList({
                             return (
                                 <PlayerRow
                                     hideCols={hideCols}
-                                    leaderboardId={leaderboardId}
                                     isPastDeadline={isPastDeadline}
                                     style={{
                                         ...style,
@@ -412,12 +420,20 @@ export function PlayerList({
                                     playerNames={playerNames}
                                     match={match}
                                     status={status}
+                                    selectPlayer={selectPlayer}
                                 />
                             );
                         })
                     )}
                 </tbody>
             </table>
+
+            {hideHeader ? null : (
+                <div className="flex flex-col md:flex-row gap-4 justify-center py-6 items-center relative z-50">
+                    <p className="text-lg">Looking for a specific player?</p>
+                    <InlinePlayerSearch iconColor="accent-white" onSelect={selectPlayer} position="top" showViewAll={false} />
+                </div>
+            )}
         </div>
     );
 }
