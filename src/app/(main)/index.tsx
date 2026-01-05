@@ -31,6 +31,7 @@ import { Icon, IconName } from '@app/components/icon';
 import { Image } from '@app/components/uniwind/image';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { RedBullSnippet } from '@app/components/red-bull-snippet';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -218,6 +219,12 @@ export default function IndexPage() {
                         <FavoritedBuilds favoriteIds={favoriteIds} />
                     </View>
                 </AnimateIn>
+            )}
+
+            {Platform.OS === 'web' && appConfig.game === 'aoe2' && (
+                <View className="pb-5 lg:pb-8">
+                    <RedBullSnippet />
+                </View>
             )}
 
             {tournamentsEnabled ? (

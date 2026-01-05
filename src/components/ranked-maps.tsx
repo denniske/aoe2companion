@@ -80,9 +80,11 @@ export const RankedMaps: React.FC = () => {
                                     View Full Leaderboard
                                 </Button>
                                 {Platform.OS === 'web' && rankedMapLeaderboard === 'ew_1v1_redbullwololo' ? (
-                                    <Button href="/red-bull-wololo-live-standings" className="self-center mt-2">
-                                        View Live Standings
-                                    </Button>
+                                    <ExpoLink className="flex rounded self-center mt-2" href="/red-bull-wololo-live-standings" target="_blank">
+                                        <Button>
+                                            View Live Standings
+                                        </Button>
+                                    </ExpoLink>
                                 ) : null}
                             </View>
                         </View>
