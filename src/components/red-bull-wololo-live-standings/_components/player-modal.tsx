@@ -397,8 +397,8 @@ export const PlayerModal = ({
                                                     ))}
                                                 </div>
 
-                                                <div className={`flex flex-col ${tab === 'Opponents' ? 'gap-0' : 'gap-3'}`}>
-                                                    <div className={`flex text-xs font-bold  ${tab === 'Opponents' ? 'mb-2' : ''}`}>
+                                                <div className="flex flex-col gap-1">
+                                                    <div className="flex text-xs font-bold">
                                                         <div className="flex-1">{tab.replace(/(s)$/, '')}</div>
                                                         <div className="w-12 text-right">Games</div>
                                                         <div className="w-16 text-right">Won</div>
@@ -407,12 +407,12 @@ export const PlayerModal = ({
                                                     {tabData.length === 0 && <p className='text-center'>No {tab.toLowerCase()} found</p>}
 
                                                     {tabData.map((row) => (
-                                                        <div key={row.key} className="flex items-center">
+                                                        <div key={row.key} className="flex items-center h-7">
                                                             <div className="flex gap-2 flex-1 items-center overflow-hidden">
                                                                 {row.imageUrl ? (
                                                                     <img src={row.imageUrl} className="w-5 h-5" />
                                                                 ) : row.icon ? (
-                                                                    <span className="text-lg align-middle">{row.icon}</span>
+                                                                    <span className="text-lg align-middle font-flag">{row.icon}</span>
                                                                 ) : null}
                                                                 <span
                                                                     className={cn(

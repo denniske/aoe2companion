@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import { Card } from '@app/components/card';
 import { ILeaderboardDef } from '@app/api/helper/api.types';
 import ButtonPicker from '@app/view/components/button-picker';
+import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 
 const MAX_CLAN_PLAYERS = 100;
 
@@ -53,16 +54,16 @@ export default function SearchPage() {
             </View>
 
             <View className="gap-2">
-                <View className="flex-row justify-between items-center gap-8">
+                <View className="flex-row justify-between items-center gap-4 lg:gap-8">
                     <Text variant="header-lg">Rankings</Text>
 
                     {leaderboards && leaderboard && (
-                        <View className="w-full lg:flex-1">
+                        <View className="w-full flex-1 hidden lg:flex">
                             <ButtonPicker
                                 flex={true}
                                 value={leaderboard?.leaderboardId}
                                 values={leaderboardIds ?? []}
-                                image={(value) => value === 'ew_1v1_redbullwololo' ? require('../../../../assets/red-bull-wololo.png') : undefined}
+                                image={(value) => (value === 'ew_1v1_redbullwololo' ? require('../../../../assets/red-bull-wololo.png') : undefined)}
                                 formatter={(value) => leaderboards?.find((l) => l.leaderboardId === value)?.abbreviation ?? ''}
                                 onSelect={(value) => {
                                     const newLeaderboard = leaderboards?.find((l) => l.leaderboardId === value);
@@ -73,6 +74,18 @@ export default function SearchPage() {
                             />
                         </View>
                     )}
+
+                    <View className="flex lg:hidden">
+                        <LeaderboardSelect
+                            leaderboardId={leaderboard?.leaderboardId}
+                            onLeaderboardIdChange={(value) => {
+                                const newLeaderboard = leaderboards?.find((l) => l.leaderboardId === value);
+                                if (newLeaderboard) {
+                                    setLeaderboard(newLeaderboard);
+                                }
+                            }}
+                        />
+                    </View>
                 </View>
 
                 <LeaderboardSnapshot clan={clan} leaderboardId={leaderboard?.leaderboardId} perPage={MAX_CLAN_PLAYERS} />
