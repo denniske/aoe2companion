@@ -153,12 +153,15 @@ export const PlayerModal = ({
 
     const lastTenMatchesWon = player.last10MatchesWon ?? leaderboardPlayer?.last10MatchesWon?.map((w) => w.won);
     const rank = player.rank ?? leaderboardPlayer?.rank;
-    const rating = player.rating ?? leaderboardPlayer?.rating;
+    const rating = player.rating ?? leaderboardPlayer?.rating ?? data?.find((m) => m.finished)?.teams.flatMap(t => t.players).find(p => p.profileId === player.profileId)?.rating;
     const streak = player.streak ?? leaderboardPlayer?.streak;
     const countryIcon = player.countryIcon ?? profile?.countryIcon;
-    const wins = player.wins ?? leaderboardPlayer?.wins;
-    const losses = player.losses ?? leaderboardPlayer?.losses;
-    const games = player.games ?? leaderboardPlayer?.games;
+    const wins = player.wins ?? leaderboardPlayer?.wins ?? data?.filter(m => m.teams.flatMap(t => t.players).find(p => p.profileId === player.profileId && p.won === true) && m.finished).length;
+    const losses =
+        player.losses ??
+        leaderboardPlayer?.losses ??
+        data?.filter((m) => m.teams.flatMap((t) => t.players).find((p) => p.profileId === player.profileId && p.won === false) && m.finished).length;
+    const games = player.games ?? leaderboardPlayer?.games ?? data?.filter(m => m.finished).length;
 
     return (
         <Transition appear show={isVisible} as={Fragment}>
@@ -225,8 +228,10 @@ export const PlayerModal = ({
                                                             value: rank ? `#${rank}` : 'Unranked',
                                                             desc: player.rank
                                                                 ? `${rank > 4 ? `${rank - 4} Below Qualifying` : 'Qualified Position'}`
-                                                                : rating
+                                                                : rating && rank
                                                                 ? `${minRatingToQualify - rating} points to be in qualified position`
+                                                                : games && rating
+                                                                ? '10 match minimum'
                                                                 : undefined,
                                                         },
                                                         {
@@ -398,6 +403,9 @@ export const PlayerModal = ({
                                                         <div className="w-12 text-right">Games</div>
                                                         <div className="w-16 text-right">Won</div>
                                                     </div>
+
+                                                    {tabData.length === 0 && <p className='text-center'>No {tab.toLowerCase()} found</p>}
+
                                                     {tabData.map((row) => (
                                                         <div key={row.key} className="flex items-center">
                                                             <div className="flex gap-2 flex-1 items-center overflow-hidden">
@@ -444,8 +452,10 @@ export const PlayerModal = ({
                                                         color="white"
                                                         size={32}
                                                     />
-                                                ) : (
+                                                ) : !data ? (
                                                     <p>Unable to fetch recent games</p>
+                                                ) : (
+                                                    <p>No recent games</p>
                                                 )}
                                             </div>
                                         ) : (

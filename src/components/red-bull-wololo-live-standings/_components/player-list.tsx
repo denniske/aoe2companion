@@ -36,6 +36,8 @@ export function PlayerList({
     const [matches, setMatches] = useState<ILobbiesMatch[]>([]);
     const [isConnecting, setIsConnecting] = useState(false);
     const [connected, setConnected] = useState(false);
+    const [showPlayerModal, setShowPlayerModal] = useState(false);
+    const [selectedPlayer, setSelectedPlayer] = useState<ILeaderboardPlayer | null>(null);
     const ref = useRef(null);
 
     useEffect(() => {
@@ -43,8 +45,8 @@ export function PlayerList({
         document.documentElement.classList.add('dark');
 
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-          document.documentElement.classList.remove('light');
-          document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+            document.documentElement.classList.add('dark');
         });
     }, []);
 
@@ -130,8 +132,6 @@ export function PlayerList({
         refetchInterval,
         refetchOnWindowFocus: true,
     });
-
-    const [selectedPlayer, setSelectedPlayer] = useState<ILeaderboardPlayer | null>(null);
 
     useEffect(() => {
         if (isSuccess) {
@@ -274,11 +274,14 @@ export function PlayerList({
         }
     }, [isPastDeadline]);
 
-    const selectPlayer = (player: ILeaderboardPlayer | { name: string; profileId: number }) => {
+    const selectPlayer = (player: { name: string; profileId: number }) => {
         const topPlayer = players.find((p) => p.profileId === player.profileId);
         setSelectedPlayer(
-            topPlayer ? { ...topPlayer, rank: sortedPlayerIds.findIndex((pid) => topPlayer.profileId === pid) + 1 } : (player as ILeaderboardPlayer)
+            topPlayer
+                ? { ...topPlayer, rank: sortedPlayerIds.findIndex((pid) => topPlayer.profileId === pid) + 1 }
+                : ({ name: player.name, profileId: player.profileId } as ILeaderboardPlayer)
         );
+        setShowPlayerModal(true);
     };
 
     return (
@@ -292,8 +295,8 @@ export function PlayerList({
                             leaderboardId={leaderboardId}
                             playerNames={playerNames}
                             player={selectedPlayer}
-                            onClose={() => setSelectedPlayer(null)}
-                            isVisible={!!selectedPlayer}
+                            onClose={() => setShowPlayerModal(false)}
+                            isVisible={showPlayerModal}
                             minRatingToQualify={minRatingToQualify}
                             selectPlayer={selectPlayer}
                         />
