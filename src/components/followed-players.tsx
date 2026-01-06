@@ -37,7 +37,7 @@ export const FollowedPlayers = () => {
         <View className="gap-2">
             <View className={cn('flex-row justify-between items-center', containerClassName)}>
                 <Text variant="header-lg">{getTranslation('home.followedplayers')}</Text>
-                <UserLoginWrapper Component={Link}>Open Following Dashboard</UserLoginWrapper>
+                <UserLoginWrapper Component={Link} href="/matches/live/following">Open Following Dashboard</UserLoginWrapper>
             </View>
             <PlayerList variant="horizontal" showsHorizontalScrollIndicator={false} list={profileIdList as any} />
         </View>
