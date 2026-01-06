@@ -310,6 +310,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '180.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Analyze Match Crash',
+        },
+    ],
     '179.0.0': [
         {
             type: 'bugfix',
