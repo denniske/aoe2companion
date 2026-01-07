@@ -45,20 +45,25 @@ export const OverlayToolbar: React.FC = () => {
                 <Button className="bg-transparent! hover:underline" onPress={() => setProps(defaultOverlayToolbarProps)}>
                     Reset
                 </Button>
-                <Button icon="clipboard" onPress={() => {
-                     const currentUrl = new URL(window.location.href);
-                     const searchParams = new URLSearchParams({ ...params, hideToolbar: 'true' });
-                     currentUrl.search = searchParams.toString();
+                <Button
+                    icon="clipboard"
+                    onPress={() => {
+                        const currentUrl = new URL(window.location.href);
+                        const searchParams = new URLSearchParams({ ...params, hideToolbar: 'true' });
+                        currentUrl.search = searchParams.toString();
 
-                    navigator.clipboard.writeText(currentUrl.toString()).then(
-                        function () {
-                            console.log('Async: Copying to clipboard was successful!');
-                        },
-                        function (err) {
-                            console.error('Async: Could not copy text: ', err);
-                        }
-                    );
-                }}>Copy Link</Button>
+                        navigator.clipboard.writeText(currentUrl.toString()).then(
+                            function () {
+                                console.log('Async: Copying to clipboard was successful!');
+                            },
+                            function (err) {
+                                console.error('Async: Could not copy text: ', err);
+                            }
+                        );
+                    }}
+                >
+                    Copy Link
+                </Button>
             </div>
         </div>
     );
