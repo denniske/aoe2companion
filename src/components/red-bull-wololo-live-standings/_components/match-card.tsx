@@ -1,5 +1,5 @@
 import { ILobbiesMatch } from '@app/api/helper/api.types';
-import { formatISO, intervalToDuration } from 'date-fns';
+import { differenceInSeconds, formatISO, intervalToDuration } from 'date-fns';
 import { RatingDiff } from './rating-diff';
 import Countdown from 'react-countdown';
 import { formatAgo } from '@nex/data';
@@ -56,7 +56,13 @@ export const MatchCard = ({
                 <div className="flex justify-between">
                     <b className="text-base font-semibold">{match.mapName}</b>
                     {match.started && (
-                        <time dateTime={formatISO(match.started)} className="flex gap-2 items-center">
+                        <time
+                            dateTime={formatISO(match.started)}
+                            className={cn(
+                                'flex gap-2 items-center relative group/time',
+                                match.started && match.finished && selectPlayer && 'cursor-pointer'
+                            )}
+                        >
                             <Countdown
                                 date={match.started}
                                 overtime
@@ -72,6 +78,13 @@ export const MatchCard = ({
                                     return formatDuration((Math.abs(total) / 1000) * match.speedFactor);
                                 }}
                             />
+
+                            {match.started && match.finished && selectPlayer && (
+                                <div className="absolute top-8 right-0 mx-auto scale-0 bg-black border-gray-800 px-3 py-2 group-hover/time:scale-100 z-10 text-sm shadow-2xl transition-transform text-center whitespace-nowrap">
+                                    <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-black absolute -top-2 mx-auto left-0 right-0"></div>
+                                    Lasted {formatDuration(differenceInSeconds(match.finished, match.started) * match.speedFactor)}
+                                </div>
+                            )}
                         </time>
                     )}
                 </div>

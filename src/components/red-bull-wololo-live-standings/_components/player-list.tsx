@@ -29,6 +29,7 @@ export function PlayerList({
     hideHeader?: boolean;
     hideCols?: Array<keyof ILeaderboardPlayer | 'winrates'>;
 }) {
+    const [connectionsCount, setConnectionsCount] = useState(0);
     const [refetchInterval, setRefetchInterval] = useState(60 * 1000);
     const [time, setTime] = useState<Date>();
     const [initialRankings, setInitialRankings] = useState<Record<string, number>>({});
@@ -89,6 +90,13 @@ export function PlayerList({
                     console.log('on match removed', match);
                     if (match && match.leaderboardId === leaderboardId) {
                         updateMatches([match]);
+                    }
+                },
+                onMessage: (events: Array<{ type: 'connections'; data: { count: number } }>) => {
+                    const connectionsEvent = events.find((event) => event.type === 'connections');
+
+                    if (connectionsEvent) {
+                        setConnectionsCount(connectionsEvent.data.count);
                     }
                 },
             },
@@ -304,19 +312,34 @@ export function PlayerList({
 
                     <div className="flex gap-4">
                         {time && !isFetching ? (
-                            <time dateTime={formatISO(time)} className="text-center md:text-right">
-                                Last updated {format(time, 'pp')}
-                                <br />
+                            <div className="flex flex-col gap-1">
+                                <time dateTime={formatISO(time)} className="text-center md:text-right">
+                                    Last updated {format(time, 'pp')}
+                                </time>
+
                                 {!isPastDeadline && (
-                                    <p className="text-xs italic text-right">
-                                        {isConnecting
-                                            ? 'Connecting to live updates server...'
-                                            : connected
-                                            ? 'Live updates are enabled (no need to manually refresh)'
-                                            : 'Live updates are disabled (refresh to enable)'}
-                                    </p>
+                                    <div className="flex flex-row items-center gap-2 justify-end h-5">
+                                        {!isConnecting && connected && connectionsCount ? (
+                                            <div className="flex items-center gap-1 rounded px-2 py-0.5 text-xs group relative cursor-pointer">
+                                                <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                Live Updates Enabled
+                                                <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center whitespace-nowrap">
+                                                    <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-blue-800 absolute -top-2 mx-auto left-0 right-0"></div>
+                                                    {connectionsCount} users are currently connected and receiving live updates.
+                                                    <br />
+                                                    Updates are pushed automatically - no refresh required.
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <p className="text-xs italic text-right">
+                                                {isConnecting
+                                                    ? 'Connecting to live updates server...'
+                                                    : 'Live updates are disabled (refresh to enable)'}
+                                            </p>
+                                        )}
+                                    </div>
                                 )}
-                            </time>
+                            </div>
                         ) : (
                             <p className="text-center md:text-right">Updating leaderboard</p>
                         )}
