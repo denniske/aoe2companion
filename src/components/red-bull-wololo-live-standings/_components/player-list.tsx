@@ -294,21 +294,21 @@ export function PlayerList({
 
     return (
         <div>
+            {selectedPlayer && (
+                <PlayerModal
+                    leaderboardId={leaderboardId}
+                    playerNames={playerNames}
+                    player={selectedPlayer}
+                    onClose={() => setShowPlayerModal(false)}
+                    isVisible={showPlayerModal}
+                    minRatingToQualify={minRatingToQualify}
+                    selectPlayer={selectPlayer}
+                />
+            )}
+
             {hideHeader ? null : (
                 <div className="pb-2 mb-8 border-b-2 border-[#EAC65E] flex flex-col md:flex-row justify-between items-center select-text relative z-50">
                     <h2 className="text-xl md:text-5xl uppercase font-bold">{isPastDeadline ? '' : 'Current '}Top Players</h2>
-
-                    {selectedPlayer && (
-                        <PlayerModal
-                            leaderboardId={leaderboardId}
-                            playerNames={playerNames}
-                            player={selectedPlayer}
-                            onClose={() => setShowPlayerModal(false)}
-                            isVisible={showPlayerModal}
-                            minRatingToQualify={minRatingToQualify}
-                            selectPlayer={selectPlayer}
-                        />
-                    )}
 
                     <div className="flex gap-4">
                         {time && !isFetching ? (
@@ -321,7 +321,7 @@ export function PlayerList({
                                     <div className="flex flex-row items-center gap-2 justify-end h-5">
                                         {!isConnecting && connected && connectionsCount ? (
                                             <div className="flex items-center gap-1 rounded px-2 py-0.5 text-xs group relative cursor-pointer">
-                                                <div className='bg-red-500 w-3 h-3 rounded-full'></div>
+                                                <div className="bg-red-500 w-3 h-3 rounded-full"></div>
                                                 Live Updates Enabled
                                                 <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center whitespace-nowrap">
                                                     <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-blue-800 absolute -top-2 mx-auto left-0 right-0"></div>

@@ -29,7 +29,14 @@ export function useCurrentTabName() {
 
     if (name === '__root') {
         const childIndex = rootNavigationState?.routes[rootNavigationState.index || 0].state?.index;
-        return rootNavigationState?.routes[rootNavigationState.index || 0].state?.routes[childIndex || 0].name;
+        const child = rootNavigationState?.routes[rootNavigationState.index || 0].state?.routes[childIndex || 0];
+        const childName = child?.name;
+
+        if (childName === '(main)' && child) {
+            return child.state?.routes[child.state.index || 0].name;
+        }
+
+        return child?.name;
     }
 
     return name;
@@ -139,7 +146,7 @@ export const TabBar: React.FC = () => {
                         // console.log('ROUTE', route.key, route.path);
 
                         const label = route.label;
-                        const isFocused = routeName?.startsWith(route.key) || route.additionalRoutes.some(r => routeName?.startsWith(r));
+                        const isFocused = routeName?.startsWith(route.key) || route.additionalRoutes.some((r) => routeName?.startsWith(r));
 
                         const onPress = () => {
                             if (router.canDismiss()) {

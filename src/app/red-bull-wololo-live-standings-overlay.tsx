@@ -3,12 +3,15 @@ import { useToolbarStyles } from '@app/components/red-bull-wololo-live-standings
 import { OverlayToolbarProvider } from '@app/components/red-bull-wololo-live-standings/_providers/overlay-toolbar-provider';
 
 function RedBullWololoLiveStandingsOverlay() {
-    const { container, content } = useToolbarStyles();
+    const { container, content, count } = useToolbarStyles();
 
     return (
-        <main className="gap-12 text-white relative selection:bg-blue-600/90 select-none flex min-h-full" style={{ ...container, colorScheme: 'dark' }}>
+        <main
+            className="gap-12 text-white relative selection:bg-blue-600/90 select-none flex min-h-full"
+            style={{ ...container, colorScheme: 'dark' }}
+        >
             <div style={content} className="w-[1075px]">
-                <PlayerList isPastDeadline={false} limit={12} hideHeader hideCols={['winrates', 'games']} />
+                <PlayerList isPastDeadline={false} limit={count} hideHeader hideCols={['winrates', 'games']} />
             </div>
         </main>
     );

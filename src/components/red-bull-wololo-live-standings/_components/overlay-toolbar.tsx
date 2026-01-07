@@ -39,6 +39,7 @@ export const OverlayToolbar: React.FC = () => {
 
             <RangeSelector label="Scale" value="scale" min={0.25} max={5} step={0.25} />
             <RangeSelector label="Padding" value="padding" min={0} max={100} step={1} />
+            <RangeSelector label="Count" value="count" min={4} max={50} step={1} />
 
             <div className="flex flex-row items-center justify-end flex-1 gap-8 self-stretch">
                 <Button className="bg-transparent! hover:underline" onPress={() => setProps(defaultOverlayToolbarProps)}>
@@ -93,7 +94,7 @@ const AlignmentSelector: React.FC<{
 
 const RangeSelector: React.FC<{
     label: string;
-    value: 'scale' | 'padding';
+    value: 'scale' | 'padding' | 'count';
     min: number;
     max: number;
     step?: number;
