@@ -5,8 +5,7 @@ import { PlayerList } from './_components/player-list';
 import { statuses } from './statuses';
 import { Image } from '../uniwind/image';
 import { EndDateCountdown } from './_components/end-date-countdown';
-
-const END_DATE = new Date(1768755600000);
+import { END_DATE } from './dates';
 
 export default function Page() {
     const [isPastDeadline, setIsPastDeadline] = useState(isPast(END_DATE));

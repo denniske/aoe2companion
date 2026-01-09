@@ -31,7 +31,7 @@ export const LastFiveMatches = ({
                     key={index}
                     className={`group w-4 h-4 relative flex items-center justify-center rounded-full text-md ${
                         won === null
-                            ? `bg-gold-500 animate-pulse ${!!match ? 'hover:animate-none cursor-pointer' : ''}`
+                            ? `bg-gold-500 animate-pulse ${!!match ? '2xl:hover:animate-none 2xl:cursor-pointer' : ''}`
                             : won
                             ? 'bg-green-500'
                             : 'bg-red-500'
@@ -40,7 +40,7 @@ export const LastFiveMatches = ({
                     {won ? <Icon icon="check" color="white" size={10} /> : won === false && <Icon icon="times" color="white" size={10} />}
 
                     {!!match && won === null && (
-                        <div className="absolute top-12 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 flex flex-row w-96 gap-3 items-center text-sm shadow-2xl transition-transform">
+                        <div className="absolute top-12 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 2xl:group-hover:scale-100 z-10 flex flex-row w-96 gap-3 items-center text-sm shadow-2xl transition-transform">
                             <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-blue-800 absolute -top-2 mx-auto left-0 right-0"></div>
                             <MatchCard userId={player.profileId} match={match} playerNames={playerNames} />
                         </div>

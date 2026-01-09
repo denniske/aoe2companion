@@ -1,10 +1,10 @@
 import { fetchMatches, fetchProfile } from '@app/api/helper/api';
-import { ILeaderboardPlayer, IProfilesResultProfile, IStatOpponent } from '@app/api/helper/api.types';
+import { ILeaderboardPlayer } from '@app/api/helper/api.types';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
-import { useQuery } from '@tanstack/react-query';
-import { isAfter, subWeeks } from 'date-fns';
-import { merge, orderBy } from 'lodash';
-import { Fragment, useState } from 'react';
+import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { isAfter, isToday, subDays, subWeeks } from 'date-fns';
+import { maxBy, merge, minBy, orderBy } from 'lodash';
+import { Fragment, useEffect, useState } from 'react';
 import { LineSegment, VictoryAxis, VictoryChart, VictoryCursorContainer, VictoryLabel, VictoryLine, VictoryScatter, VictoryTheme } from 'victory';
 import { formatStreakShort, LastFiveMatches } from './last-five-matches';
 import { formatCustom, formatDateShort, formatMonth, formatTime, formatYear } from '@nex/data';
@@ -13,6 +13,11 @@ import { reformatTeamMatch } from '../util';
 import { Icon } from '@app/components/icon';
 import cn from 'classnames';
 import { Button } from '@app/components/button';
+import useDebounce from '@app/hooks/use-debounce';
+import { Field } from '@app/components/field';
+import { Link } from 'expo-router';
+import { START_DATE } from '../dates';
+import { RatingDiff } from './rating-diff';
 
 const formatTick = (tick: any, index: number, ticks: any[]) => {
     const date = ticks[index] as Date;
@@ -45,24 +50,25 @@ export const PlayerModal = ({
     minRatingToQualify: number;
     selectPlayer?: (player: { name: string; profileId: number }) => void;
 }) => {
-    const { data, isLoading } = useQuery({
-        queryKey: ['leaderboard-player', player.profileId],
-        queryFn: async () => {
-            const matchData = await fetchMatches({
+    const [text, setText] = useState('');
+    const debouncedSearch = useDebounce(text, 600);
+    const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } = useInfiniteQuery({
+        queryKey: ['matches', player.profileId, debouncedSearch],
+        queryFn: (context) =>
+            fetchMatches({
+                ...context,
+                profileIds: [player.profileId],
+                search: debouncedSearch,
                 leaderboardIds: [leaderboardId],
                 language: 'en',
-                profileIds: [player.profileId],
-            });
-
-            if (!matchData?.matches) {
-                throw new Error('Unable to load stats');
-            }
-
-            return matchData.matches;
-        },
-        enabled: isVisible,
+            }),
         staleTime: 30 * 1000,
+        enabled: isVisible,
+        initialPageParam: 1,
+        getNextPageParam: (lastPage, pages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
+        placeholderData: keepPreviousData,
     });
+
     const { data: profile, isLoading: isProfileLoading } = useQuery({
         queryKey: ['leaderboard-player-stats', player.profileId],
         queryFn: async () => {
@@ -81,10 +87,22 @@ export const PlayerModal = ({
         staleTime: 5 * 60 * 1000,
     });
 
+    useEffect(() => {
+        setText('');
+    }, [isVisible]);
+
     const leaderboardPlayer = profile?.leaderboards.find((l) => l.leaderboardId === leaderboardId);
 
     let ratingHistory = profile?.ratings?.find((r) => r.leaderboardId === leaderboardId);
-    const since = subWeeks(new Date(), 1);
+
+    const recentRatings = ratingHistory?.ratings.filter((rating) => isToday(rating.date));
+    const recentDiff = recentRatings?.map((rating) => rating.ratingDiff ?? 0).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    const recentWins = recentRatings?.filter((r) => (r.ratingDiff ?? 0) > 0);
+    const recentLosses = recentRatings?.filter((r) => (r.ratingDiff ?? 0) < 0);
+    const biggestWin = maxBy(recentWins, 'ratingDiff');
+    const biggestLoss = minBy(recentLosses, 'ratingDiff');
+
+    const since = START_DATE;
 
     ratingHistory = ratingHistory
         ? {
@@ -151,17 +169,30 @@ export const PlayerModal = ({
 
     tabData = orderBy(tabData, ['games', 'wins'], ['desc', 'desc']);
 
+    const recentMatches = data?.pages?.[0].matches;
+
     const lastTenMatchesWon = player.last10MatchesWon ?? leaderboardPlayer?.last10MatchesWon?.map((w) => w.won);
     const rank = player.rank ?? leaderboardPlayer?.rank;
-    const rating = player.rating ?? leaderboardPlayer?.rating ?? data?.find((m) => m.finished)?.teams.flatMap(t => t.players).find(p => p.profileId === player.profileId)?.rating;
+    const rating =
+        player.rating ??
+        leaderboardPlayer?.rating ??
+        recentMatches
+            ?.find((m) => m.finished)
+            ?.teams.flatMap((t) => t.players)
+            .find((p) => p.profileId === player.profileId)?.rating;
     const streak = player.streak ?? leaderboardPlayer?.streak;
     const countryIcon = player.countryIcon ?? profile?.countryIcon;
-    const wins = player.wins ?? leaderboardPlayer?.wins ?? data?.filter(m => m.teams.flatMap(t => t.players).find(p => p.profileId === player.profileId && p.won === true) && m.finished).length;
+    const wins =
+        player.wins ??
+        leaderboardPlayer?.wins ??
+        recentMatches?.filter((m) => m.teams.flatMap((t) => t.players).find((p) => p.profileId === player.profileId && p.won === true) && m.finished)
+            .length;
     const losses =
         player.losses ??
         leaderboardPlayer?.losses ??
-        data?.filter((m) => m.teams.flatMap((t) => t.players).find((p) => p.profileId === player.profileId && p.won === false) && m.finished).length;
-    const games = player.games ?? leaderboardPlayer?.games ?? data?.filter(m => m.finished).length;
+        recentMatches?.filter((m) => m.teams.flatMap((t) => t.players).find((p) => p.profileId === player.profileId && p.won === false) && m.finished)
+            .length;
+    const games = player.games ?? leaderboardPlayer?.games ?? recentMatches?.filter((m) => m.finished).length;
 
     return (
         <Transition appear show={isVisible} as={Fragment}>
@@ -197,9 +228,9 @@ export const PlayerModal = ({
                                             {player.name}
                                         </DialogTitle>
 
-                                        <Button className="mb-1" size="small" href={`/players/${player.profileId}`}>
-                                            View Full Profile
-                                        </Button>
+                                        <Link className="flex rounded mb-1" href={`/players/${player.profileId}`} target="_blank">
+                                            <Button size="small">View Full Profile</Button>
+                                        </Link>
                                     </div>
 
                                     <button onClick={onClose}>
@@ -207,7 +238,7 @@ export const PlayerModal = ({
                                     </button>
                                 </div>
 
-                                <div className="flex flex-col lg:flex-row gap-4 items-center lg:items-stretch">
+                                <div className="flex flex-col lg:flex-row gap-4 items-center lg:items-stretch px-px">
                                     <div className="flex-1 flex flex-col gap-3">
                                         <h3 className="text-lg font-bold -mb-2">Statistics</h3>
 
@@ -267,6 +298,46 @@ export const PlayerModal = ({
                                                             <div className={typeof stat.value === 'string' ? 'text-xs' : undefined}>{stat.desc}</div>
                                                         </div>
                                                     ))}
+
+                                                    {recentRatings ? (
+                                                        <div className="flex bg-blue-800 rounded-lg border border-gray-800 px-3 py-2 items-center w-75 justify-between">
+                                                            <div className="text-xl font-medium">Today's Activity</div>
+                                                            <div className="flex flex-col items-center group relative cursor-pointer">
+                                                                <div className="text-2xl -mt-1">{recentRatings.length}</div>
+                                                                <div className="text-xs">{recentRatings.length === 1 ? 'Game' : 'Games'}</div>
+
+                                                                <div className="absolute top-12 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-black rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center 2xl:whitespace-nowrap w-56 2xl:w-auto">
+                                                                    <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-black absolute -top-2 mx-auto left-0 right-0"></div>
+                                                                    {recentWins?.length} {recentWins?.length === 1 ? 'win' : 'wins'}
+                                                                    <br />
+                                                                    {recentLosses?.length} {recentLosses?.length === 1 ? 'loss' : 'losses'}
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex flex-col items-center group relative cursor-pointer">
+                                                                <div className="text-2xl -mt-1">
+                                                                    <RatingDiff ratingDiff={recentDiff ?? 0} />
+                                                                </div>
+                                                                <div className="text-xs">Points</div>
+
+                                                                <div className="absolute top-12 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-black rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center 2xl:whitespace-nowrap w-56 2xl:w-auto">
+                                                                    <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-black absolute -top-2 mx-auto left-0 right-0"></div>
+                                                                    Biggest Win:{' '}
+                                                                    {biggestWin?.ratingDiff ? (
+                                                                        <RatingDiff ratingDiff={biggestWin.ratingDiff} />
+                                                                    ) : (
+                                                                        'N/A'
+                                                                    )}
+                                                                    <br />
+                                                                    Biggest Loss:{' '}
+                                                                    {biggestLoss?.ratingDiff ? (
+                                                                        <RatingDiff ratingDiff={biggestLoss.ratingDiff} />
+                                                                    ) : (
+                                                                        'N/A'
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ) : null}
                                                 </div>
 
                                                 {ratingHistory && (
@@ -371,7 +442,7 @@ export const PlayerModal = ({
                                             </>
                                         )}
                                     </div>
-                                    <div className="flex-1 flex flex-col gap-3 h-[500px] lg:overflow-y-scroll">
+                                    <div className="flex-1 flex flex-col gap-3 h-[564px] lg:overflow-y-scroll px-px">
                                         <h3 className="text-lg font-bold -mb-2">Winrates</h3>
                                         {isProfileLoading || !stats ? (
                                             <div className="flex items-center justify-center py-4">
@@ -404,7 +475,7 @@ export const PlayerModal = ({
                                                         <div className="w-16 text-right">Won</div>
                                                     </div>
 
-                                                    {tabData.length === 0 && <p className='text-center'>No {tab.toLowerCase()} found</p>}
+                                                    {tabData.length === 0 && <p className="text-center">No {tab.toLowerCase()} found</p>}
 
                                                     {tabData.map((row) => (
                                                         <div key={row.key} className="flex items-center h-7">
@@ -441,9 +512,12 @@ export const PlayerModal = ({
                                             </>
                                         )}
                                     </div>
-                                    <div className="flex-1 flex flex-col gap-3 h-[500px] lg:overflow-y-scroll">
+                                    <div className="flex-1 flex flex-col gap-3 h-[564px] lg:overflow-y-scroll px-px">
                                         <h3 className="text-lg font-bold -mb-2">Recent Games</h3>
-                                        {isLoading || !data?.length ? (
+
+                                        <Field value={text} onChangeText={setText} placeholder="Search by opponent" />
+
+                                        {isLoading || !data?.pages.length ? (
                                             <div className="flex items-center justify-center py-4">
                                                 {isLoading ? (
                                                     <Icon
@@ -459,17 +533,46 @@ export const PlayerModal = ({
                                                 )}
                                             </div>
                                         ) : (
-                                            data?.map((match, index) => (
-                                                <div key={match.matchId} className="bg-blue-800 rounded-lg border border-gray-800 px-3 py-2">
-                                                    <MatchCard
-                                                        index={index}
-                                                        userId={player.profileId}
-                                                        match={reformatTeamMatch(match)}
-                                                        playerNames={playerNames}
-                                                        selectPlayer={selectPlayer}
-                                                    />
-                                                </div>
-                                            ))
+                                            <>
+                                                {data.pages
+                                                    .flatMap((p) => p.matches)
+                                                    ?.map((match, index) => (
+                                                        <Link
+                                                            key={match.matchId}
+                                                            className="block bg-blue-800 rounded-lg border border-gray-800 px-3 py-2"
+                                                            href={`/matches/${match.matchId}`}
+                                                            target="_blank"
+                                                        >
+                                                            <MatchCard
+                                                                index={index}
+                                                                userId={player.profileId}
+                                                                match={reformatTeamMatch(match)}
+                                                                playerNames={playerNames}
+                                                                selectPlayer={selectPlayer}
+                                                            />
+                                                        </Link>
+                                                    ))}
+                                                {isFetchingNextPage ? (
+                                                    <div className="mt-1 min-h-6 relative overflow-hidden">
+                                                        <div className="absolute inset-0 flex flex-row justify-center">
+                                                            <Icon
+                                                                className="animate-spin [animation-duration:1s]"
+                                                                icon="spinner"
+                                                                color="white"
+                                                                size={24}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    hasNextPage && (
+                                                        <div className="flex flex-row justify-center">
+                                                            <Button className="mt-1" size="small" onPress={() => fetchNextPage()}>
+                                                                Load More
+                                                            </Button>
+                                                        </div>
+                                                    )
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 </div>

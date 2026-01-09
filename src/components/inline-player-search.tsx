@@ -105,9 +105,9 @@ export const InlinePlayerSearch: React.FC<{
                             <ActivityIndicator animating size="large" color="#999" />
                         </View>
                     ) : debouncedText ? (
-                        <View className={cn(position === 'top' && 'pt-3')}>
+                        <View className={cn(position === 'top' ? 'pt-3' : 'pb-3')}>
                             <PlayerList
-                                inverted
+                                inverted={position === 'top'}
                                 list={list.slice(0, 5)}
                                 selectedUser={onSelectUser}
                                 shouldLink={!onSelect}

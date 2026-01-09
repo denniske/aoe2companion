@@ -323,10 +323,11 @@ export function PlayerList({
                                             <div className="flex items-center gap-1 rounded px-2 py-0.5 text-xs group relative cursor-pointer">
                                                 <div className="bg-red-500 w-3 h-3 rounded-full mt-0.5"></div>
                                                 <p>Live Updates Enabled</p>
-                                                <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center whitespace-nowrap">
+                                                <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center 2xl:whitespace-nowrap w-56 2xl:w-auto">
                                                     <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-blue-800 absolute -top-2 mx-auto left-0 right-0"></div>
                                                     {connectionsCount} users are currently connected and receiving live updates.
                                                     <br />
+                                                    <br className="2xl:hidden" />
                                                     Updates are pushed automatically - no refresh required.
                                                 </div>
                                             </div>

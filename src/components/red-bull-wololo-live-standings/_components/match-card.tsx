@@ -96,16 +96,18 @@ export const MatchCard = ({
                                 className={cn(
                                     'whitespace-nowrap overflow-hidden text-ellipsis flex-1',
                                     p.won ? 'font-bold' : '',
-                                    userId !== p.profileId && selectPlayer && 'cursor-pointer hover:underline'
+                                    userId !== p.profileId && selectPlayer ? 'cursor-pointer hover:underline' : 'cursor-default'
                                 )}
                                 onClick={
                                     userId !== p.profileId && selectPlayer
-                                        ? () =>
+                                        ? (e) => {
+                                              e.preventDefault();
                                               selectPlayer({
                                                   profileId: p.profileId,
                                                   name: p.name ?? '',
-                                              })
-                                        : undefined
+                                              });
+                                          }
+                                        : (e) => e.preventDefault()
                                 }
                             >
                                 {playerNames[p.profileId]?.name ?? p.name}
