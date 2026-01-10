@@ -1,25 +1,10 @@
 import { ILobbiesMatch } from '@app/api/helper/api.types';
-import { differenceInSeconds, formatISO, intervalToDuration } from 'date-fns';
+import { differenceInMilliseconds, differenceInSeconds, formatISO, intervalToDuration } from 'date-fns';
 import { RatingDiff } from './rating-diff';
 import Countdown from 'react-countdown';
-import { formatAgo } from '@nex/data';
+import { formatAgo, getDuration } from '@nex/data';
 import { Icon } from '@app/components/icon';
 import cn from 'classnames';
-
-const formatDuration = (durationInSeconds: number) => {
-    const duration = intervalToDuration({
-        start: 0,
-        end: durationInSeconds * 1000,
-    });
-
-    const { hours = 0, minutes = 0, seconds = 0 } = duration;
-
-    if (hours > 0) {
-        return `${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    return `${minutes}m ${seconds}s`;
-};
 
 export const MatchCard = ({
     match,
@@ -75,14 +60,14 @@ export const MatchCard = ({
                                         return formatAgo(match.started);
                                     }
 
-                                    return formatDuration((Math.abs(total) / 1000) * match.speedFactor);
+                                    return getDuration(total, match.speedFactor);
                                 }}
                             />
 
                             {match.started && match.finished && selectPlayer && (
                                 <div className="absolute top-8 right-0 mx-auto scale-0 bg-black border-gray-800 px-3 py-2 group-hover/time:scale-100 z-10 text-sm shadow-2xl transition-transform text-center whitespace-nowrap">
                                     <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-black absolute -top-2 mx-auto left-0 right-0"></div>
-                                    Lasted {formatDuration(differenceInSeconds(match.finished, match.started) * match.speedFactor)}
+                                    Lasted {getDuration(differenceInMilliseconds(match.finished, match.started), match.speedFactor)}
                                 </div>
                             )}
                         </time>

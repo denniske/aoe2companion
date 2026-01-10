@@ -10,20 +10,15 @@ import { ScrollView } from '@app/components/scroll-view';
 import { Icon } from '@app/components/icon';
 import { appConfig } from '@nex/dataset';
 import { tournamentsEnabled, useUpcomingTournamentMatches } from '@app/api/tournaments';
-import { differenceInMinutes, differenceInSeconds } from 'date-fns';
+import { differenceInMilliseconds, differenceInMinutes } from 'date-fns';
 import { useRouter } from 'expo-router';
 import { matchTimedOut } from '@app/components/elapsed-time-or-duration';
+import { getDuration } from '@nex/data';
+import Countdown from 'react-countdown';
 
 interface Props {
     match: IMatchNew;
 }
-
-const formatDuration = (durationInSeconds: number) => {
-    if (!durationInSeconds) return '00:00'; // divide by 0 protection
-    const minutes = Math.abs(Math.floor(durationInSeconds / 60) % 60).toString();
-    const hours = Math.abs(Math.floor(durationInSeconds / 60 / 60)).toString();
-    return `${hours.length < 2 ? hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} h`;
-};
 
 export default function MatchInfo(props: Props) {
     const { match } = props;
@@ -50,12 +45,16 @@ export default function MatchInfo(props: Props) {
                 // console.log('tournamentMatch.startTime', tournamentMatch.startTime);
                 // console.log('diff minutes', differenceInMinutes(match.started, tournamentMatch.startTime));
 
-                return tournamentMatch.startTime &&
-                Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 300 &&
-                 players.every((player) =>
-                    player.socialLiquipedia && tournamentMatch.participants
-                        .map((tournamentParticipant) => tournamentParticipant.name?.toLowerCase())
-                        .includes(player.socialLiquipedia?.toLowerCase()?.replaceAll('_', '') ?? '')
+                return (
+                    tournamentMatch.startTime &&
+                    Math.abs(differenceInMinutes(match.started, tournamentMatch.startTime)) < 300 &&
+                    players.every(
+                        (player) =>
+                            player.socialLiquipedia &&
+                            tournamentMatch.participants
+                                .map((tournamentParticipant) => tournamentParticipant.name?.toLowerCase())
+                                .includes(player.socialLiquipedia?.toLowerCase()?.replaceAll('_', '') ?? '')
+                    )
                 );
             }),
         [players, tournamentMatches]
@@ -66,7 +65,7 @@ export default function MatchInfo(props: Props) {
     let duration: string = '';
     if (match.started) {
         const finished = match.finished || new Date();
-        duration = formatDuration(differenceInSeconds(finished, match.started) * match.speedFactor);
+        duration = getDuration(differenceInMilliseconds(finished, match.started), match.speedFactor);
     }
     if (matchTimedOut(match)) {
         duration = getTranslation('match.unknown');
@@ -79,7 +78,7 @@ export default function MatchInfo(props: Props) {
                     <Pressable
                         className="flex-row items-center gap-1"
                         onPress={() =>
-                            (Platform.OS === 'web' && !tournamentsEnabled)
+                            Platform.OS === 'web' && !tournamentsEnabled
                                 ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
                                 : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
                         }
@@ -92,7 +91,13 @@ export default function MatchInfo(props: Props) {
                 )}
                 <View className="flex-row items-center gap-1">
                     <Icon icon="clock" size={14} color="subtle" />
-                    <Text color="subtle">{duration}</Text>
+                    <Text color="subtle">
+                        {match.finished ? (
+                            duration
+                        ) : (
+                            <Countdown date={match.started} renderer={({ total }) => getDuration(total, match.speedFactor)} overtime />
+                        )}
+                    </Text>
                 </View>
                 {appConfig.game === 'aoe2' && (
                     <View className="flex-row items-center gap-1">

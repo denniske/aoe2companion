@@ -1,5 +1,7 @@
-import { format, formatDistanceToNowStrict, fromUnixTime, parseISO } from 'date-fns';
+import { format, formatDistanceToNowStrict, fromUnixTime, intervalToDuration, parseISO } from 'date-fns';
 import { getLanguage } from './aoe-data';
+
+import { appConfig } from '@nex/dataset';
 
 // Explicitly importing the languages here so that they are tree shaked.
 import { ms } from 'date-fns/locale/ms';
@@ -140,6 +142,26 @@ export function formatCustom(date: Date, dateFormat: string) {
 export function formatAgo(date: Date) {
     return formatDistanceToNowStrict(date, { locale: getLocale(), addSuffix: true });
 }
+
+export const getDuration = (ms: number, speedFactor: number) => {
+    const CORRECTION_FACTOR = appConfig.game === 'aoe2' ? 1.05416666667 : 1;
+    return formatDuration(((Math.abs(ms) / 1000) * speedFactor) / CORRECTION_FACTOR);
+};
+
+export const formatDuration = (durationInSeconds: number) => {
+    const duration = intervalToDuration({
+        start: 0,
+        end: durationInSeconds * 1000,
+    });
+
+    const { hours = 0, minutes = 0, seconds = 0 } = duration;
+
+    if (hours > 0) {
+        return `${hours}h ${minutes}m`;
+    }
+
+    return `${minutes}m ${seconds}s`;
+};
 
 interface IParams {
     [key: string]: any;

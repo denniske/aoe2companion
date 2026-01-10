@@ -111,7 +111,7 @@ export function MatchCard(props: MatchCardProps) {
 
             {isLarge && (
                 <View className="flex-1 px-4">
-                    <MatchTeams match={match} wrap={false} />
+                    <MatchTeams match={match} wrap={false} canDownloadRecs={!clickable && !!match.finished} />
                 </View>
             )}
         </Card>

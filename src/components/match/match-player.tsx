@@ -15,7 +15,6 @@ import TwitchBadge from '@app/view/components/badge/twitch-badge';
 import React from 'react';
 import { aoe2PlayerColors } from '@app/helper/colors';
 import cn from 'classnames';
-import { useResolveClassNames } from 'uniwind';
 
 interface MatchPlayerProps {
     match: IMatchNew;
@@ -24,11 +23,12 @@ interface MatchPlayerProps {
     freeForAll?: boolean;
     canDownloadRec?: boolean;
     onClose?: BottomSheetProps['onClose'];
-    className?: string
-    colorClassName?: string
+    className?: string;
+    colorClassName?: string;
+    reverse?: boolean;
 }
 
-export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlight, freeForAll, canDownloadRec, onClose, className, colorClassName }) => {
+export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlight, freeForAll, canDownloadRec, onClose, className, colorClassName, reverse }) => {
     const downloadRec = async () => {
         const url = `https://aoe.ms/replay/?gameId=${match.matchId}&profileId=${player.profileId}`;
         await openLink(url);
@@ -36,10 +36,12 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
     const playerColor = aoe2PlayerColors[player.colorHex] ?? player.colorHex;
     const { liveTwitchAccounts } = useLiveTwitchAccounts();
     const twitch = player.socialTwitchChannel && liveTwitchAccounts?.find((twitch) => twitch.user_login === player.socialTwitchChannel);
-    const styles = useResolveClassNames(className ?? '');
 
     return (
-        <View className={cn('flex-row items-center gap-2', className)} style={appConfig.game === 'aoe2' && { borderColor: playerColor }}>
+        <View
+            className={cn('items-center gap-2', reverse ? 'pl-4 flex-row-reverse text-right' : 'pr-4 flex-row', className)}
+            style={appConfig.game === 'aoe2' && { borderColor: playerColor }}
+        >
             {appConfig.game === 'aoe2' && (
                 <View className={cn('w-5 h-5 items-center justify-center', colorClassName)} style={{ backgroundColor: playerColor }}>
                     <Text variant="header-xs" className="text-sm" color="text-white">
@@ -49,16 +51,16 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
             )}
 
             <Link href={player.civ ? `/explore/civilizations/${getLocalCivEnum(player.civ)}` : '/'} disabled={!player.civ} asChild>
-                <TouchableOpacity className={'flex-row flex-1 gap-1'} style={styles.flexDirection && { flexDirection: styles.flexDirection }} onPress={onClose}>
+                <TouchableOpacity className={cn('flex-1 gap-1', reverse ? 'flex-row-reverse' : 'flex-row')} onPress={onClose}>
                     <Image className={appConfig.game === 'aoe2' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="cover" />
-                    <Text numberOfLines={1} variant={highlight ? 'label' : 'body'} className="flex-1">
+                    <Text numberOfLines={1} variant={highlight ? 'label' : 'body'} className="flex-1" align={reverse ? 'right' : 'left'}>
                         {player.civName}
                     </Text>
                 </TouchableOpacity>
             </Link>
 
             <Link href={`/players/${player.profileId}`} asChild disabled={player.profileId === -1}>
-                <TouchableOpacity className="flex-1 flex-row gap-1 items-center" onPress={onClose}>
+                <TouchableOpacity className={cn('flex-1 gap-1 items-center', reverse ? 'flex-row-reverse' : 'flex-row')} onPress={onClose}>
                     <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1}>
                         {player.name}
                     </Text>

@@ -15,6 +15,7 @@ import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { FlatList } from '@app/components/flat-list';
 import { Field } from '@app/components/field';
 import useDebounce from '@app/hooks/use-debounce';
+import { orderBy } from 'lodash';
 
 export default function LiveAllPage() {
     const getTranslation = useTranslation();
@@ -31,7 +32,7 @@ export default function LiveAllPage() {
 
     const filteredMatches = useMemo(() => {
         const parts = debouncedSearch.toLowerCase().split(' ');
-        const filtered = matches.filter((match) => {
+        const filtered = orderBy(matches, 'started', 'desc').filter((match) => {
             if (debouncedSearch === '') return true;
             return parts.every((part) => {
                 return (

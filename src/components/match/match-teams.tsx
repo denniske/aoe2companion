@@ -10,16 +10,18 @@ import { isMatchFreeForAll } from '@nex/data';
 import { Card } from '@app/components/card';
 import cn from 'classnames';
 import { appConfig } from '@nex/dataset';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
 
 interface Props {
     match: IMatchNew;
     wrap?: boolean;
+    canDownloadRecs?: boolean;
 }
 
-export default function MatchTeams(props: Props) {
-    const { match, wrap = true } = props;
+export default function MatchTeams({ match, wrap = true, canDownloadRecs }: Props) {
     const getTranslation = useTranslation();
     const theme = useAppTheme();
+    const { isMedium } = useBreakpoints();
 
     const freeForAll = isMatchFreeForAll(match);
     const Component = wrap ? Card : View;
@@ -42,13 +44,10 @@ export default function MatchTeams(props: Props) {
                                             match={match}
                                             player={player}
                                             freeForAll={freeForAll}
-                                            canDownloadRec={player.replay}
-                                            className={cn(
-                                                'border-border rounded pr-4 border overflow-hidden',
-                                                appConfig.game === 'aoe2' && 'border-2',
-                                                teamIndex === 1 && 'md:flex-row-reverse md:pl-4 md:pr-0'
-                                            )}
+                                            canDownloadRec={canDownloadRecs}
+                                            className={cn('border-border rounded border overflow-hidden', appConfig.game === 'aoe2' && 'border-2')}
                                             colorClassName={cn('w-8 h-8 pr-0.5', teamIndex === 1 && 'md:pl-0.5 md:pr-0')}
+                                            reverse={isMedium && teamIndex === 1}
                                             // onClose={onClose}
                                         />
                                     ))}
