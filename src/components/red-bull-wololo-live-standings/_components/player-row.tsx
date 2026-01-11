@@ -23,6 +23,7 @@ export const PlayerRow = ({
     isPastDeadline,
     hideCols,
     selectPlayer,
+    showCurrentRank,
 }: {
     player: ILeaderboardPlayer & { winrates: number };
     playerNames: Record<string, { name: string; icon?: string }>;
@@ -39,6 +40,7 @@ export const PlayerRow = ({
     } & Omit<React.CSSProperties, 'position' | 'opacity'>;
     hideCols: Array<keyof ILeaderboardPlayer | 'winrates'>;
     selectPlayer: (player: ILeaderboardPlayer) => void;
+    showCurrentRank: boolean;
 }) => {
     const opponent = match?.players.find((p) => p.profileId !== player.profileId);
     const opponentName = playerNames[opponent?.profileId ?? '']?.name ?? opponent?.name;
@@ -53,7 +55,7 @@ export const PlayerRow = ({
         >
             {hideCols.includes('maxRating') ? null : (
                 <Cell
-                    className={`w-20 border-l-4 hidden md:flex group ${hasDuplicateRank ? 'cursor-pointer' : ''}`}
+                    className={`w-20 border-l-4 hidden md:flex group flex-col py-0! justify-center ${hasDuplicateRank ? 'cursor-pointer' : ''}`}
                     style={{ borderColor: statuses[status].color }}
                 >
                     {rank && (
@@ -85,11 +87,20 @@ export const PlayerRow = ({
                             )}
                         </div>
                     )}
+
+                    {showCurrentRank && (
+                        <span className="text-xs text-gray-300 -mt-1">
+                            Now <span className="text-sm">#{player.rank}</span>
+                        </span>
+                    )}
                 </Cell>
             )}
             <Cell className="font-bold w-36 flex-1 border-l-4 md:border-l-0" style={{ borderColor: statuses[status].color }}>
                 <span className="text-2xl mr-2 align-middle font-flag">{player.countryIcon}</span>
-                <span className="text-ellipsis overflow-hidden cursor-pointer hover:text-[#EAC65E] transition-colors" onClick={() => selectPlayer(player)}>
+                <span
+                    className="text-ellipsis overflow-hidden cursor-pointer hover:text-[#EAC65E] transition-colors"
+                    onClick={() => selectPlayer(player)}
+                >
                     {player.name}
                 </span>
             </Cell>

@@ -487,6 +487,7 @@ export function PlayerList({
                                     match={match}
                                     status={status}
                                     selectPlayer={selectPlayer}
+                                    showCurrentRank={sort[0] === 'rating'}
                                 />
                             );
                         })
