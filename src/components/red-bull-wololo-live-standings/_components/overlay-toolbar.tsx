@@ -4,7 +4,9 @@ import { Icon, IconName } from '@app/components/icon';
 import cn from 'classnames';
 import { Button } from '@app/components/button';
 
-export const OverlayToolbar: React.FC = () => {
+export type OverlayToolbarOptions = Array<'horizontal' | 'vertical' | 'scale' | 'padding' | 'count' | 'speed'>;
+
+export const OverlayToolbar: React.FC<{ options: OverlayToolbarOptions }> = ({ options }) => {
     const { hideToolbar, setProps, ...params } = useToolbarProps();
     const { vertical } = params;
 
@@ -17,29 +19,34 @@ export const OverlayToolbar: React.FC = () => {
             className="fixed left-4 right-4 bg-blue-800 py-4 px-6 flex gap-8 items-start rounded text-white"
             style={{ top: vertical === 'bottom' ? 16 : undefined, bottom: vertical !== 'bottom' ? 16 : undefined }}
         >
-            <AlignmentSelector
-                value="horizontal"
-                label="Horizontal Align"
-                options={[
-                    { icon: 'border-left', label: 'Left', value: 'left' },
-                    { icon: 'border-center-v', label: 'Center', value: 'center' },
-                    { icon: 'border-right', label: 'Right', value: 'right' },
-                ]}
-            />
+            {options.includes('horizontal') && (
+                <AlignmentSelector
+                    value="horizontal"
+                    label="Horizontal Align"
+                    options={[
+                        { icon: 'border-left', label: 'Left', value: 'left' },
+                        { icon: 'border-center-v', label: 'Center', value: 'center' },
+                        { icon: 'border-right', label: 'Right', value: 'right' },
+                    ]}
+                />
+            )}
 
-            <AlignmentSelector
-                value="vertical"
-                label="Vertical Align"
-                options={[
-                    { icon: 'border-top', label: 'Top', value: 'top' },
-                    { icon: 'border-center-h', label: 'Center', value: 'center' },
-                    { icon: 'border-bottom', label: 'Bottom', value: 'bottom' },
-                ]}
-            />
+            {options.includes('vertical') && (
+                <AlignmentSelector
+                    value="vertical"
+                    label="Vertical Align"
+                    options={[
+                        { icon: 'border-top', label: 'Top', value: 'top' },
+                        { icon: 'border-center-h', label: 'Center', value: 'center' },
+                        { icon: 'border-bottom', label: 'Bottom', value: 'bottom' },
+                    ]}
+                />
+            )}
 
-            <RangeSelector label="Scale" value="scale" min={0.25} max={5} step={0.25} />
-            <RangeSelector label="Padding" value="padding" min={0} max={100} step={1} />
-            <RangeSelector label="Count" value="count" min={4} max={50} step={1} />
+            {options.includes('scale') && <RangeSelector label="Scale" value="scale" min={0.25} max={5} step={0.25} />}
+            {options.includes('padding') && <RangeSelector label="Padding" value="padding" min={0} max={100} step={1} />}
+            {options.includes('count') && <RangeSelector label="Count" value="count" min={4} max={50} step={1} />}
+            {options.includes('speed') && <RangeSelector label="Speed" value="speed" min={0.25} max={4.75} step={0.25} />}
 
             <div className="flex flex-row items-center justify-end flex-1 gap-8 self-stretch">
                 <Button className="bg-transparent! hover:underline" onPress={() => setProps(defaultOverlayToolbarProps)}>
@@ -99,7 +106,7 @@ const AlignmentSelector: React.FC<{
 
 const RangeSelector: React.FC<{
     label: string;
-    value: 'scale' | 'padding' | 'count';
+    value: 'scale' | 'padding' | 'count' | 'speed';
     min: number;
     max: number;
     step?: number;

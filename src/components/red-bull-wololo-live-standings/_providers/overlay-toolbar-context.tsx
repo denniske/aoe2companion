@@ -6,10 +6,11 @@ export type OverlayToolbarProps = {
     padding: string;
     scale: string;
     count: string;
+    speed: string;
     hideToolbar?: string;
 };
 
-export const defaultOverlayToolbarProps: OverlayToolbarProps = { horizontal: 'left', vertical: 'top', padding: '0', scale: '1.5', count: '12' };
+export const defaultOverlayToolbarProps: OverlayToolbarProps = { horizontal: 'left', vertical: 'top', padding: '0', scale: '1.5', count: '12', speed: '2' };
 
 interface OverlayToolbarContextProps extends OverlayToolbarProps {
     setProps: (props: Partial<OverlayToolbarProps>) => void;
@@ -20,7 +21,7 @@ export const OverlayToolbarContext = createContext<OverlayToolbarContextProps>({
 export const useToolbarProps = () => useContext(OverlayToolbarContext);
 
 export const useToolbarStyles = () => {
-    const { horizontal, vertical, padding, scale, count } = useToolbarProps();
+    const { horizontal, vertical, padding, scale, count, speed } = useToolbarProps();
 
     const sanitizedPadding = padding && !isNaN(Number(padding)) ? Number(padding) : 0;
     const sanitizedScale = scale && !isNaN(Number(scale)) ? Number(scale) : 0;
@@ -48,5 +49,6 @@ export const useToolbarStyles = () => {
             padding: sanitizedPadding,
         },
         count: Number(count),
+        speed: Number(speed),
     };
 };

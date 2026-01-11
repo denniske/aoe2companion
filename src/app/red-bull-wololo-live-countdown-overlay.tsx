@@ -17,7 +17,7 @@ function RedBullWololoLiveCountdownOverlay() {
 
 export default function Page() {
     return (
-        <OverlayToolbarProvider>
+        <OverlayToolbarProvider options={['vertical', 'horizontal', 'padding', 'scale',]}>
             <RedBullWololoLiveCountdownOverlay />
         </OverlayToolbarProvider>
     );

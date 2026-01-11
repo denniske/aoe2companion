@@ -23,11 +23,15 @@ export function PlayerList({
     limit = 50,
     hideHeader,
     hideCols = [],
+    rotatingBar = false,
+    animationSpeed = 1,
 }: {
     isPastDeadline: boolean;
     limit?: number;
     hideHeader?: boolean;
     hideCols?: Array<keyof ILeaderboardPlayer | 'winrates'>;
+    rotatingBar?: boolean;
+    animationSpeed?: number;
 }) {
     const [connectionsCount, setConnectionsCount] = useState(0);
     const [refetchInterval, setRefetchInterval] = useState(60 * 1000);
@@ -291,6 +295,41 @@ export function PlayerList({
         );
         setShowPlayerModal(true);
     };
+
+    if (rotatingBar) {
+        return (
+            <div className="overflow-hidden relative">
+                <div className="overflow-hidden w-full box-border flex">
+                    <div
+                        className="animate-ticker will-change-transform animate flex"
+                        style={{ animationDuration: `${limit * 2 * animationSpeed}s`, animationDelay: '1.5s' }}
+                    >
+                        {[...players, ...players].map((player, index) => {
+                            const rank = sortedPlayerIds.findIndex((pid) => player.profileId === pid) + 1;
+                            const match = matches.find((m) => m.players.some((p) => p.profileId === player.profileId));
+
+                            return (
+                                <div key={`${player.profileId}-${index}`} className="flex flex-col border-r border-white/50 whitespace-nowrap">
+                                    <div className="flex flex-row items-center gap-1.5 bg-white/5 justify-center px-3 h-7">
+                                        {match && !match?.finished && <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />}
+                                        <div className="text-lg font-bold">#{rank}</div>
+                                        <div className="font-flag text-2xl">{player.countryIcon}</div>
+                                        <div className="text-lg font-medium">{player.name}</div>
+                                    </div>
+                                    <div className="h-px bg-linear-to-r from-white/0 via-white/50 to-white/0 from-10% to-90%" />
+                                    <div className="flex flex-row gap-1.5 justify-center px-3">
+                                        <div className="text-sm font-bold">Max {player.maxRating}</div>
+                                        <div className="w-px bg-white/50" />
+                                        <div className="text-sm text-gray-50">Current {player.rating}</div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div>

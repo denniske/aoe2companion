@@ -40,6 +40,18 @@
     --color-gold-950: #453802;
 
     --font-flag: "Twemoji Country Flags", sans-serif;
+
+    --animate-ticker: ticker 5s linear infinite;
+
+    @keyframes ticker {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
 }
 
 /*

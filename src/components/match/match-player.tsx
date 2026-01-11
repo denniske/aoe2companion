@@ -78,7 +78,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
 
             {Platform.OS === 'web' && appConfig.game === 'aoe2' && canDownloadRec && (
                 <Pressable onPress={downloadRec}>
-                    <Icon icon="cloud-download-alt" color="text-gray-500" />
+                    <Icon icon="cloud-download-alt" color="accent-gray-500" />
                 </Pressable>
             )}
 

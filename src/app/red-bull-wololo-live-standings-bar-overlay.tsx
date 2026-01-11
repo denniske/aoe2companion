@@ -2,16 +2,16 @@ import { PlayerList } from '@app/components/red-bull-wololo-live-standings/_comp
 import { useToolbarStyles } from '@app/components/red-bull-wololo-live-standings/_providers/overlay-toolbar-context';
 import { OverlayToolbarProvider } from '@app/components/red-bull-wololo-live-standings/_providers/overlay-toolbar-provider';
 
-function RedBullWololoLiveStandingsOverlay() {
-    const { container, content, count } = useToolbarStyles();
+function RedBullWololoLiveStandingsBarOverlay() {
+    const { container, content, count, speed } = useToolbarStyles();
 
     return (
         <main
             className="gap-12 text-white relative selection:bg-blue-600/90 select-none flex min-h-full"
             style={{ ...container, colorScheme: 'dark' }}
         >
-            <div style={content} className="w-[1075px]">
-                <PlayerList isPastDeadline={false} limit={count} hideHeader hideCols={['winrates', 'games']} />
+            <div style={content} className="w-[1600px]">
+                <PlayerList rotatingBar isPastDeadline={false} limit={count} hideHeader hideCols={['winrates', 'games']} animationSpeed={Math.abs(5 - speed)} />
             </div>
         </main>
     );
@@ -19,8 +19,8 @@ function RedBullWololoLiveStandingsOverlay() {
 
 export default function Page() {
     return (
-        <OverlayToolbarProvider options={['count', 'horizontal', 'padding', 'scale', 'vertical']}>
-            <RedBullWololoLiveStandingsOverlay />
+        <OverlayToolbarProvider options={['count', 'horizontal', 'padding', 'scale', 'vertical', 'speed']}>
+            <RedBullWololoLiveStandingsBarOverlay />
         </OverlayToolbarProvider>
     );
 }

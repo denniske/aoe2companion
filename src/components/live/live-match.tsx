@@ -18,14 +18,6 @@ interface IGameProps {
     expanded?: boolean;
 }
 
-const formatDuration = (start: Date, finish: Date) => {
-    const diffTime = differenceInSeconds(finish, start);
-    if (!diffTime) return '00:00'; // divide by 0 protection
-    const minutes = Math.abs(Math.floor(diffTime / 60) % 60).toString();
-    const hours = Math.abs(Math.floor(diffTime / 60 / 60)).toString();
-    return `${hours.length < 2 ? 0 + hours : hours}:${minutes.length < 2 ? 0 + minutes : minutes} min`;
-};
-
 export function LiveMatch({ data, expanded = false, clickable }: IGameProps) {
     const styles = useStyles();
 

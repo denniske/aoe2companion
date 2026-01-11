@@ -1,8 +1,8 @@
-import { OverlayToolbar } from '../_components/overlay-toolbar';
+import { OverlayToolbar, OverlayToolbarOptions } from '../_components/overlay-toolbar';
 import { defaultOverlayToolbarProps, OverlayToolbarContext, OverlayToolbarProps } from './overlay-toolbar-context';
 import { router, useLocalSearchParams } from 'expo-router';
 
-export const OverlayToolbarProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+export const OverlayToolbarProvider: React.FC<React.PropsWithChildren<{ options: OverlayToolbarOptions }>> = ({ children, options }) => {
     const props = useLocalSearchParams<Partial<OverlayToolbarProps>>();
 
     const setProps = (newProps: Partial<OverlayToolbarProps>) => {
@@ -12,7 +12,7 @@ export const OverlayToolbarProvider: React.FC<React.PropsWithChildren> = ({ chil
     return (
         <OverlayToolbarContext.Provider value={{ ...defaultOverlayToolbarProps, ...props, setProps }}>
             {children}
-            <OverlayToolbar />
+            <OverlayToolbar options={options} />
         </OverlayToolbarContext.Provider>
     );
 };
