@@ -5,6 +5,7 @@ import Countdown from 'react-countdown';
 import { formatAgo, getDuration } from '@nex/data';
 import { Icon } from '@app/components/icon';
 import cn from 'classnames';
+import { sortTeamByCurrentPlayer } from '../../../utils/match';
 
 export const MatchCard = ({
     match,
@@ -73,14 +74,13 @@ export const MatchCard = ({
                         </time>
                     )}
                 </div>
-                {match.players.map((p) => (
+                {sortTeamByCurrentPlayer(match.players, userId).map((p) => (
                     <div className="flex overflow-hidden gap-1" key={p.profileId}>
                         <div className="flex gap-1.5 flex-1 overflow-hidden">
                             <img src={p.civImageUrl} className="w-5 h-5" />
                             <span
                                 className={cn(
                                     'whitespace-nowrap overflow-hidden text-ellipsis flex-1',
-                                    p.won ? 'font-bold' : '',
                                     userId !== p.profileId && selectPlayer ? 'cursor-pointer hover:underline' : 'cursor-default'
                                 )}
                                 onClick={

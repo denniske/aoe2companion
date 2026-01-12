@@ -413,43 +413,43 @@ export interface IMatchNew {
     gameVariant: string;
     speedName: string;
 
-    matchId: number
-    started: Date
-    finished?: Date
-    leaderboardId?: string
-    leaderboardName?: string
-    name: string
-    server?: string
-    internalLeaderboardId?: number
-    difficulty: number
-    startingAge: string
-    fullTechTree: boolean
-    allowCheats: boolean
-    empireWarsMode: boolean
-    endingAge: string
-    gameMode: string
-    lockSpeed: boolean
-    lockTeams: boolean
-    mapSize: number
-    map: string
-    mapName: string
-    mapImageUrl: string
-    population: number
-    recordGame: boolean
-    regicideMode: boolean
-    resources: number
-    sharedExploration: boolean
-    speed: number
-    speedFactor: number
-    suddenDeathMode: boolean
-    teamPositions: boolean
-    teamTogether: boolean
-    treatyLength: number
-    turboMode: boolean
-    victory: number
-    revealMap: number
-    privacy: number
-    teams: ITeamNew[]
+    matchId: number;
+    started: Date;
+    finished?: Date;
+    leaderboardId?: string;
+    leaderboardName?: string;
+    name: string;
+    server?: string;
+    internalLeaderboardId?: number;
+    difficulty: number;
+    startingAge: string;
+    fullTechTree: boolean;
+    allowCheats: boolean;
+    empireWarsMode: boolean;
+    endingAge: string;
+    gameMode: string;
+    lockSpeed: boolean;
+    lockTeams: boolean;
+    mapSize: number;
+    map: string;
+    mapName: string;
+    mapImageUrl: string;
+    population: number;
+    recordGame: boolean;
+    regicideMode: boolean;
+    resources: number;
+    sharedExploration: boolean;
+    speed: number;
+    speedFactor: number;
+    suddenDeathMode: boolean;
+    teamPositions: boolean;
+    teamTogether: boolean;
+    treatyLength: number;
+    turboMode: boolean;
+    victory: number;
+    revealMap: number;
+    privacy: number;
+    teams: ITeamNew[];
 
     difficultyName?: string;
     startingAgeName?: string;
@@ -475,6 +475,12 @@ export interface IMatchNew {
     totalSlotCount?: number;
     blockedSlotCount?: number;
     averageRating?: number;
+
+    pup: boolean;
+    modMap: string;
+    modTuningPack: string;
+    modGameMode: string;
+    modScenario: string;
 }
 
 export interface ITeamNew {

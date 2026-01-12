@@ -15,6 +15,7 @@ import { Image } from '@/src/components/uniwind/image';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import MatchTeams from './match-teams';
 import { CustomFragment } from '../custom-fragment';
+import { getProfileIdFromHighlightedUsers } from '@app/utils/match';
 
 export interface MatchCardProps extends MatchProps {
     clickable?: boolean;
@@ -23,10 +24,12 @@ export interface MatchCardProps extends MatchProps {
 }
 
 export function MatchCard(props: MatchCardProps) {
-    const { flat, match, user, highlightedUsers, expanded = false, showLiveActivity = false, linkMap = false, clickable } = props;
+    const { flat, match, highlightedUsers, linkMap = false, clickable } = props;
     const players = flatten(match?.teams.map((t) => t.players));
     const freeForAll = isMatchFreeForAll(match);
     let attributes = [teamRatio(match)];
+
+    const user = props.user ?? getProfileIdFromHighlightedUsers(match, highlightedUsers);
 
     const consoleAffix = match.leaderboardId?.includes('console') ? '🎮 ' : '';
     if (match.leaderboardName?.includes('Unranked')) {
@@ -59,7 +62,7 @@ export function MatchCard(props: MatchCardProps) {
     return (
         <Card
             flat={flat}
-            href={clickable ? `/matches/${match.matchId}` : undefined}
+            href={clickable ? user ?  `/players/${user}/matches/${match.matchId}` : `/matches/${match.matchId}` : undefined}
             header={
                 <View className="relative">
                     <MapLinkComponent asChild href={`/explore/maps/${match.map}`}>
@@ -111,7 +114,7 @@ export function MatchCard(props: MatchCardProps) {
 
             {isLarge && (
                 <View className="flex-1 px-4">
-                    <MatchTeams match={match} wrap={false} canDownloadRecs={!clickable && !!match.finished} />
+                    <MatchTeams match={match} wrap={false} canDownloadRecs={!clickable && !!match.finished} highlightedUsers={user ? [user] : highlightedUsers} />
                 </View>
             )}
         </Card>

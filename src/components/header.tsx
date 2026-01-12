@@ -11,7 +11,9 @@ import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { Breadcrumbs } from './breadcrumbs';
 import { SkeletonText } from './skeleton';
 
-export const Header: React.FC<NativeStackHeaderProps | (BottomTabHeaderProps & { back?: boolean })> = ({ options, route, navigation, back }) => {
+export const Header: React.FC<
+    (NativeStackHeaderProps | (BottomTabHeaderProps & { back?: boolean })) & { paramReplacements?: Record<string, string | null> }
+> = ({ options, route, navigation, back, paramReplacements }) => {
     const title = options.title || '';
     const headerRight = options.headerRight?.({ canGoBack: !!back });
     const showTabBar = useShowTabBar();
@@ -21,7 +23,7 @@ export const Header: React.FC<NativeStackHeaderProps | (BottomTabHeaderProps & {
         <>
             {!showTabBar && (
                 <View className="bg-gold-50 dark:bg-blue-950 z-10">
-                    <Breadcrumbs title={title} />
+                    <Breadcrumbs title={title} paramReplacements={paramReplacements} />
                 </View>
             )}
             <View

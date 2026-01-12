@@ -24,11 +24,10 @@ interface MatchPlayerProps {
     canDownloadRec?: boolean;
     onClose?: BottomSheetProps['onClose'];
     className?: string;
-    colorClassName?: string;
     reverse?: boolean;
 }
 
-export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlight, freeForAll, canDownloadRec, onClose, className, colorClassName, reverse }) => {
+export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlight, freeForAll, canDownloadRec, onClose, className, reverse }) => {
     const downloadRec = async () => {
         const url = `https://aoe.ms/replay/?gameId=${match.matchId}&profileId=${player.profileId}`;
         await openLink(url);
@@ -39,17 +38,14 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
 
     return (
         <View
-            className={cn('items-center gap-2', reverse ? 'pl-4 flex-row-reverse text-right' : 'pr-4 flex-row', className)}
-            style={appConfig.game === 'aoe2' && { borderColor: playerColor }}
+            className={cn('items-center gap-2 py-1.5 px-2 bg-clip-padding', reverse ? 'flex-row-reverse text-right' : 'flex-row', className)}
+            style={
+                appConfig.game === 'aoe2' && {
+                    backgroundImage: `linear-gradient(to ${reverse ? 'left' : 'right'}, ${playerColor}33, #00000000, #00000000)`,
+                    borderColor: `${playerColor}${highlight ? 'FF' : '33'}`,
+                }
+            }
         >
-            {appConfig.game === 'aoe2' && (
-                <View className={cn('w-5 h-5 items-center justify-center', colorClassName)} style={{ backgroundColor: playerColor }}>
-                    <Text variant="header-xs" className="text-sm" color="text-white">
-                        {player.color}
-                    </Text>
-                </View>
-            )}
-
             <Link href={player.civ ? `/explore/civilizations/${getLocalCivEnum(player.civ)}` : '/'} disabled={!player.civ} asChild>
                 <TouchableOpacity className={cn('flex-1 gap-1', reverse ? 'flex-row-reverse' : 'flex-row')} onPress={onClose}>
                     <Image className={appConfig.game === 'aoe2' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="cover" />
@@ -66,7 +62,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                     </Text>
                     {player.status === 'player' && player.verified && <Icon icon="check-circle" color="brand" size={12} style={{ width: 23 }} />}
                     {twitch && (
-                        <View className="ml-2">
+                        <View className={reverse ? 'mr-2' : 'ml-2'}>
                             <TwitchBadge channelUrl={player?.socialTwitchChannelUrl} channel={player?.socialTwitchChannel} condensed />
                         </View>
                     )}

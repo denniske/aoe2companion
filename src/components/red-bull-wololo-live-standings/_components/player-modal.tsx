@@ -2,7 +2,7 @@ import { fetchMatches, fetchProfile } from '@app/api/helper/api';
 import { ILeaderboardPlayer } from '@app/api/helper/api.types';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { isAfter, isToday, subDays, subWeeks } from 'date-fns';
+import { isAfter, isToday, isWithinInterval, isYesterday, subDays, subHours } from 'date-fns';
 import { maxBy, merge, minBy, orderBy } from 'lodash';
 import { Fragment, useEffect, useState } from 'react';
 import { LineSegment, VictoryAxis, VictoryChart, VictoryCursorContainer, VictoryLabel, VictoryLine, VictoryScatter, VictoryTheme } from 'victory';
@@ -50,6 +50,7 @@ export const PlayerModal = ({
     minRatingToQualify: number;
     selectPlayer?: (player: { name: string; profileId: number }) => void;
 }) => {
+    const [activityValue, setActivityValue] = useState(localStorage.getItem('activityValue') ?? 'today');
     const [text, setText] = useState('');
     const debouncedSearch = useDebounce(text, 600);
     const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } = useInfiniteQuery({
@@ -95,7 +96,33 @@ export const PlayerModal = ({
 
     let ratingHistory = profile?.ratings?.find((r) => r.leaderboardId === leaderboardId);
 
-    const recentRatings = ratingHistory?.ratings.filter((rating) => isToday(rating.date));
+    const recentRatings = ratingHistory?.ratings.filter((rating) => {
+        const now = new Date();
+
+        switch (activityValue) {
+            case 'today':
+                return isToday(rating.date);
+            case 'yesterday':
+                return isYesterday(rating.date);
+            case '24':
+                return isWithinInterval(rating.date, {
+                    start: subHours(now, 24),
+                    end: now,
+                });
+            case '48':
+                return isWithinInterval(rating.date, {
+                    start: subHours(now, 48),
+                    end: now,
+                });
+            case 'week':
+                return isWithinInterval(rating.date, {
+                    start: subDays(now, 7),
+                    end: now,
+                });
+            default:
+                false;
+        }
+    });
     const recentDiff = recentRatings?.map((rating) => rating.ratingDiff ?? 0).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     const recentWins = recentRatings?.filter((r) => (r.ratingDiff ?? 0) > 0);
     const recentLosses = recentRatings?.filter((r) => (r.ratingDiff ?? 0) < 0);
@@ -301,7 +328,24 @@ export const PlayerModal = ({
 
                                                     {recentRatings ? (
                                                         <div className="flex bg-blue-800 rounded-lg border border-gray-800 px-3 py-2 items-center w-75 justify-between">
-                                                            <div className="text-xl font-medium">Today's Activity</div>
+                                                            <div className="text-sm font-medium">
+                                                                Activity from
+                                                                <br />
+                                                                <select
+                                                                    className="p-0 appearance-none underline"
+                                                                    onChange={(e) => {
+                                                                        localStorage.setItem('activityValue', e.target.value);
+                                                                        setActivityValue(e.target.value);
+                                                                    }}
+                                                                    value={activityValue}
+                                                                >
+                                                                    <option value="today">Today</option>
+                                                                    <option value="yesterday">Yesterday</option>
+                                                                    <option value="24">Past 24 hours</option>
+                                                                    <option value="48">Past 48 hours</option>
+                                                                    <option value="week">Past Week</option>
+                                                                </select>
+                                                            </div>
                                                             <div className="flex flex-col items-center group relative cursor-pointer">
                                                                 <div className="text-2xl -mt-1">{recentRatings.length}</div>
                                                                 <div className="text-xs">{recentRatings.length === 1 ? 'Game' : 'Games'}</div>

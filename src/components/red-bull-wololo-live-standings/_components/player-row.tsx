@@ -89,8 +89,8 @@ export const PlayerRow = ({
                     )}
 
                     {showCurrentRank && (
-                        <span className="text-xs text-gray-300 -mt-1">
-                            Now <span className="text-sm">#{player.rank}</span>
+                        <span className="text-xs text-gray-300 -mt-0.5 pl-1">
+                            Current <span className="text-sm">#{player.rank}</span>
                         </span>
                     )}
                 </Cell>

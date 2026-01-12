@@ -15,6 +15,7 @@ import { useRouter } from 'expo-router';
 import { matchTimedOut } from '@app/components/elapsed-time-or-duration';
 import { getDuration } from '@nex/data';
 import Countdown from 'react-countdown';
+import { getModName } from '@app/utils/match';
 
 interface Props {
     match: IMatchNew;
@@ -117,6 +118,34 @@ export default function MatchInfo(props: Props) {
                     <Text color="subtle" numberOfLines={1}>
                         {match.name}
                     </Text>
+                )}
+
+                {match.pup && <div className="rounded-sm bg-gray-100 p-1 inline-block text-xs mr-1">PUP</div>}
+
+                <View className="flex-row items-center gap-1">
+                    {match.modGameMode && <Icon icon="wrench" size={14} color="subtle" />}
+                    <Text color="subtle" numberOfLines={1}>
+                        {getModName(match.modGameMode) ?? match.gameModeName}
+                    </Text>
+                </View>
+
+                {match.modTuningPack && (
+                    <View className="flex-row items-center gap-1">
+                        <Icon icon="wrench" size={14} color="subtle" />
+
+                        <Text color="subtle" numberOfLines={1}>
+                            {getModName(match.modTuningPack) ?? '???'}
+                        </Text>
+                    </View>
+                )}
+                {match.modDataset && (
+                    <View className="flex-row items-center gap-1">
+                        <Icon icon="wrench" size={14} color="subtle" />
+
+                        <Text color="subtle" numberOfLines={1}>
+                            {getModName(match.modDataset) ?? '???'}
+                        </Text>
+                    </View>
                 )}
             </ScrollView>
         </Card>

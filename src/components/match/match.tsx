@@ -3,10 +3,8 @@ import { MarchCardSkeleton, MatchCard } from './match-card';
 
 export interface MatchProps {
     match: IMatchNew;
-    expanded?: boolean;
     user?: number;
     highlightedUsers?: number[];
-    showLiveActivity?: boolean;
 }
 
 interface Props extends Omit<MatchProps, 'match'> {

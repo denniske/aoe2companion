@@ -204,16 +204,12 @@ export default function MatchesPage() {
                                 }
                             }
 
-                            const allFilteredPlayersSameResult =
-                                filteredPlayers.every((p) => p.won === true) || filteredPlayers.every((p) => p.won === false);
                             const highlightedUsers = filteredPlayers?.map((p) => p.profileId);
 
                             let relevantUser = undefined;
 
                             if (authProfileId && highlightedUsers.includes(authProfileId)) {
                                 relevantUser = { profileId: authProfileId };
-                            } else if (allFilteredPlayersSameResult || !match.finished) {
-                                relevantUser = filteredPlayers[0];
                             }
 
                             return (
@@ -274,8 +270,7 @@ export default function MatchesPage() {
                                     <Match
                                         match={item as IMatchNew}
                                         highlightedUsers={highlightedUsers}
-                                        user={relevantUser?.profileId ?? filteredPlayers[0]?.profileId}
-                                        showLiveActivity={!match.finished}
+                                        user={relevantUser?.profileId}
                                     />
                                 </View>
                             );
