@@ -14,6 +14,8 @@ import { dateReviver } from '@nex/data';
 import { Icon } from '@app/components/icon';
 import { InlinePlayerSearch } from '@app/components/inline-player-search';
 import { PlayerModal } from './player-modal';
+import { StatsModal } from './stats-modal';
+import { Button } from '@app/components/button';
 
 const leaderboardId = 'ew_1v1_redbullwololo';
 const maxRatingOverrides: Record<number, number> = {};
@@ -42,6 +44,7 @@ export function PlayerList({
     const [isConnecting, setIsConnecting] = useState(false);
     const [connected, setConnected] = useState(false);
     const [showPlayerModal, setShowPlayerModal] = useState(false);
+    const [showStats, setShowStats] = useState(false);
     const [selectedPlayer, setSelectedPlayer] = useState<ILeaderboardPlayer | null>(null);
     const ref = useRef(null);
 
@@ -342,6 +345,7 @@ export function PlayerList({
                     isVisible={showPlayerModal}
                     minRatingToQualify={minRatingToQualify}
                     selectPlayer={selectPlayer}
+                    onViewStats={() => setShowStats(true)}
                 />
             )}
 
@@ -362,7 +366,7 @@ export function PlayerList({
                                             <div className="flex items-center gap-1 rounded px-2 py-0.5 text-xs group relative cursor-pointer">
                                                 <div className="bg-red-500 w-3 h-3 rounded-full mt-0.5"></div>
                                                 <p>Live Updates Enabled</p>
-                                                <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center 2xl:whitespace-nowrap w-56 2xl:w-auto">
+                                                <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center 2xl:whitespace-nowrap w-56 2xl:w-auto  invisible group-hover:visible">
                                                     <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-blue-800 absolute -top-2 mx-auto left-0 right-0"></div>
                                                     {connectionsCount} users are currently connected and receiving live updates.
                                                     <br />
@@ -393,6 +397,8 @@ export function PlayerList({
                             />
                         </button>
                     </div>
+
+                    <StatsModal isVisible={showStats} onClose={() => setShowStats(false)} profileIds={sortedPlayerIds} />
                 </div>
             )}
             <table className={`w-full text-sm text-left relative z-20`}>
@@ -425,7 +431,7 @@ export function PlayerList({
                             Current<span className="hidden md:inline"> Rating</span>
                         </HeadCell>
                         <HeadCell sort={sort} setSort={setSort} className="w-64 hidden lg:block" columnName="lastMatchTime" hideCols={hideCols}>
-                            Last Match
+                            Last Game
                         </HeadCell>
                         <HeadCell sort={sort} setSort={setSort} className="w-36 hidden md:block" columnName="streak" hideCols={hideCols}>
                             Last 5
@@ -496,9 +502,18 @@ export function PlayerList({
             </table>
 
             {hideHeader ? null : (
-                <div className="flex flex-col md:flex-row gap-4 justify-center py-6 items-center relative z-50">
-                    <p className="text-lg">Looking for a specific player?</p>
-                    <InlinePlayerSearch iconColor="accent-white" onSelect={selectPlayer} position="top" showViewAll={false} />
+                <div className="flex flex-col lg:flex-row gap-6 justify-center py-6">
+                    <div className="flex flex-col md:flex-row gap-4 justify-center items-center relative z-50">
+                        <p className="text-lg">Looking for a specific player?</p>
+                        <InlinePlayerSearch iconColor="accent-white" onSelect={selectPlayer} position="top" showViewAll={false} />
+                    </div>
+
+                    <div className="w-px self-stretch bg-white hidden lg:block" />
+
+                    <div className="flex flex-col md:flex-row gap-4 justify-center items-center relative z-50">
+                        <p className="text-lg">Want to see statistics for the ladder?</p>
+                        <Button onPress={() => setShowStats(true)}>View Statistics</Button>
+                    </div>
                 </div>
             )}
         </div>

@@ -4,9 +4,9 @@ import { FlatList, FlatListProps, FlatListRef } from '@app/components/flat-list'
 import { Icon } from '@app/components/icon';
 import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
-import { Href, Link, router } from 'expo-router';
-import React, { Fragment, useMemo } from 'react';
-import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { Href, Link } from 'expo-router';
+import React, { useMemo } from 'react';
+import { TouchableOpacity, View, ViewStyle } from 'react-native';
 import { Image } from '@/src/components/uniwind/image';
 import { useCavy } from '../testing/tester';
 import { useAuthProfileId } from '@app/queries/all';

@@ -17,13 +17,13 @@ export default function WinratesPage() {
     const sortedPlayrates = winrates ? sortBy(winrates?.civs, 'play_rate') : Array(5).fill(null);
 
     return (
-        <ScrollView className="flex-1" contentContainerClassName="pt-4 gap-5">
+        <ScrollView className="flex-1" contentContainerClassName="gap-5">
             <Stack.Screen
                 options={{
                     title: getTranslation('winrates.title'),
                 }}
             />
-            <View className="gap-2">
+            <View className="gap-2 py-4">
                 <View className="flex-row justify-between items-center px-4">
                     <Text variant="header-lg">{getTranslation('winrates.highestwinrates')}</Text>
                 </View>

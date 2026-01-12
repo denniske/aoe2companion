@@ -41,6 +41,7 @@ export const PlayerModal = ({
     playerNames,
     minRatingToQualify,
     selectPlayer,
+    onViewStats,
 }: {
     leaderboardId: string;
     player: ILeaderboardPlayer;
@@ -49,6 +50,7 @@ export const PlayerModal = ({
     playerNames: Record<string, { name: string; icon?: string }>;
     minRatingToQualify: number;
     selectPlayer?: (player: { name: string; profileId: number }) => void;
+    onViewStats?: () => void;
 }) => {
     const [activityValue, setActivityValue] = useState(localStorage.getItem('activityValue') ?? 'today');
     const [text, setText] = useState('');
@@ -332,7 +334,7 @@ export const PlayerModal = ({
                                                                 Activity from
                                                                 <br />
                                                                 <select
-                                                                    className="p-0 appearance-none underline"
+                                                                    className="p-0 appearance-none underline bg-blue-800"
                                                                     onChange={(e) => {
                                                                         localStorage.setItem('activityValue', e.target.value);
                                                                         setActivityValue(e.target.value);
@@ -350,7 +352,7 @@ export const PlayerModal = ({
                                                                 <div className="text-2xl -mt-1">{recentRatings.length}</div>
                                                                 <div className="text-xs">{recentRatings.length === 1 ? 'Game' : 'Games'}</div>
 
-                                                                <div className="absolute top-12 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-black rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center 2xl:whitespace-nowrap w-56 2xl:w-auto">
+                                                                <div className="absolute top-12 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-black rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center 2xl:whitespace-nowrap w-56 2xl:w-auto invisible group-hover:visible">
                                                                     <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-black absolute -top-2 mx-auto left-0 right-0"></div>
                                                                     {recentWins?.length} {recentWins?.length === 1 ? 'win' : 'wins'}
                                                                     <br />
@@ -363,7 +365,7 @@ export const PlayerModal = ({
                                                                 </div>
                                                                 <div className="text-xs">Points</div>
 
-                                                                <div className="absolute top-12 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-black rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center 2xl:whitespace-nowrap w-56 2xl:w-auto">
+                                                                <div className="absolute top-12 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-black rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center 2xl:whitespace-nowrap w-56 2xl:w-auto invisible group-hover:visible">
                                                                     <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-black absolute -top-2 mx-auto left-0 right-0"></div>
                                                                     Biggest Win:{' '}
                                                                     {biggestWin?.ratingDiff ? (
@@ -487,13 +489,21 @@ export const PlayerModal = ({
                                         )}
                                     </div>
                                     <div className="flex-1 flex flex-col gap-3 h-[564px] lg:overflow-y-scroll px-px">
-                                        <h3 className="text-lg font-bold -mb-2">Winrates</h3>
+                                        <div className="flex flex-row items-center justify-between -mb-2">
+                                            <h3 className="text-lg font-bold">Statistics</h3>
+
+                                            {onViewStats && (
+                                                <Button size="small" onPress={onViewStats}>
+                                                    View All
+                                                </Button>
+                                            )}
+                                        </div>
                                         {isProfileLoading || !stats ? (
                                             <div className="flex items-center justify-center py-4">
                                                 {isProfileLoading ? (
                                                     <Icon className="animate-spin [animation-duration:1s]" icon="spinner" color="white" size={32} />
                                                 ) : (
-                                                    <p>Unable to fetch winrates</p>
+                                                    <p>Unable to fetch Statistics</p>
                                                 )}
                                             </div>
                                         ) : (

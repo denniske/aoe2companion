@@ -48,7 +48,7 @@ export const Slider2: React.FC<SliderProps> = ({
                 ) : (
                     <View style={[styles.pagination, paginationStyle]}>
                         {slides.map((_, index) => (
-                            <TouchableOpacity hitSlop={15} key={index} style={styles.page} onPress={() => scrollToIndex(index)}>
+                            <TouchableOpacity hitSlop={15} key={index} style={styles.page} onPress={() => scrollToIndex(index)} className="rounded-full w-4 h-4 p-px border">
                                 {activeIndex === index && <View style={styles.activePage} />}
                             </TouchableOpacity>
                         ))}
@@ -93,12 +93,7 @@ const styles = StyleSheet.create({
         zIndex: 10,
     },
     page: {
-        borderRadius: 15,
-        width: 15,
-        height: 15,
         borderColor: '#b8862d',
-        borderWidth: 1,
-        padding: 1,
     },
     activePage: {
         backgroundColor: '#b8862d',

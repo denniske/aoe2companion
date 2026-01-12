@@ -66,7 +66,7 @@ export const MatchCard = ({
                             />
 
                             {match.started && match.finished && selectPlayer && (
-                                <div className="absolute top-8 right-0 mx-auto scale-0 bg-black border-gray-800 px-3 py-2 group-hover/time:scale-100 z-10 text-sm shadow-2xl transition-transform text-center whitespace-nowrap">
+                                <div className="absolute top-8 right-0 mx-auto scale-0 bg-black border-gray-800 px-3 py-2 group-hover/time:scale-100 z-10 text-sm shadow-2xl transition-transform text-center whitespace-nowrap invisible group-hover/time:visible">
                                     <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-black absolute -top-2 mx-auto left-0 right-0"></div>
                                     Lasted {getDuration(differenceInMilliseconds(match.finished, match.started), match.speedFactor)}
                                 </div>

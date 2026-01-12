@@ -78,7 +78,7 @@ export const PlayerRow = ({
                                 />
                             )}
                             {hasDuplicateRank && (
-                                <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-1.5 py-1.5 group-hover:scale-100 z-10 flex flex-row text-xs shadow-2xl transition-transform text-center italic w-36 whitespace-normal">
+                                <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-1.5 py-1.5 group-hover:scale-100 z-10 flex flex-row text-xs shadow-2xl transition-transform text-center italic w-36 whitespace-normal invisible group-hover:visible">
                                     In case of a tie between players, the player with the highest current rating will take precedence. <br />
                                     <br />
                                     In the rare case that there&apos;s still a tie, Red Bull will organise an additional matchup between these
@@ -115,7 +115,7 @@ export const PlayerRow = ({
                         {player.rating}
                         {player.rating === player.maxRating && <Icon icon="chart-line" color="white" size={14} />}
                         {(player.rating === player.maxRating || (status !== 'qualified' && !isPastDeadline)) && (
-                            <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center">
+                            <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center invisible group-hover:visible">
                                 <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-blue-800 absolute -top-2 mx-auto left-0 right-0"></div>
                                 {player.rating === player.maxRating && <p className="text-xs">At Highest Rating</p>}
                                 {status !== 'qualified' && !isPastDeadline && (
@@ -152,7 +152,7 @@ export const PlayerRow = ({
                                             'vs '
                                         )}
                                         {opponentName}
-                                        {!ratingDiff ? <span className="text-xs italic text-gray-200"> - fetching match result...</span> : ''}
+                                        {!ratingDiff ? <span className="text-xs italic text-gray-200"> - fetching result...</span> : ''}
                                     </p>
                                 </div>
                             ) : (
@@ -170,7 +170,7 @@ export const PlayerRow = ({
                                     <p className="text-sm">vs {opponentName}</p>
                                 </div>
                             )}
-                            <div className="absolute top-12 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 flex flex-row w-96 gap-3 items-center text-sm shadow-2xl transition-transform">
+                            <div className="absolute top-12 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 flex flex-row w-96 gap-3 items-center text-sm shadow-2xl transition-transform invisible group-hover:visible">
                                 <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-blue-800 absolute -top-2 mx-auto left-0 right-0"></div>
                                 <MatchCard userId={player.profileId} match={match} playerNames={playerNames} />
                             </div>

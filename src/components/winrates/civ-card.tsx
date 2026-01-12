@@ -12,8 +12,9 @@ import { Skeleton, SkeletonText } from '../skeleton';
 import { Text } from '../text';
 import { useAccountData } from '@app/queries/all';
 
-export const CivWinrateCard = ({ civ }: { civ?: WinrateCiv }) => {
+export const CivWinrateCard = ({ civ, maxPlayrate = 8, clickable = true }: { civ?: WinrateCiv, maxPlayrate?: number, clickable?: boolean }) => {
     const language = useAccountData(data => data.language);
+
 
     if (!civ) {
         return (
@@ -43,13 +44,13 @@ export const CivWinrateCard = ({ civ }: { civ?: WinrateCiv }) => {
     }
 
     return (
-        <Card direction="vertical" className="px-4 gap-2 mx-4" href={`/statistics/winrates/${capitalize(civ.civ_name)}`}>
+        <Card direction="vertical" className="px-4 gap-2 mx-4" href={clickable ? `/statistics/winrates/${capitalize(civ.civ_name)}` : undefined}>
             <View className="flex-row gap-4">
                 <Image className="w-12 h-12" source={getCivIconLocal(capitalize(civ.civ_name) as Civ)} contentFit="contain" />
 
                 <View className="flex-1 gap-2">
                     <ProgressBar label="Win Rate" percent={civ.win_rate * 100} status={civ.win_rate >= 0.5 ? 'positive' : 'negative'} />
-                    <ProgressBar label="Play Rate" percent={civ.play_rate * 100} max={8} />
+                    <ProgressBar label="Play Rate" percent={civ.play_rate * 100} max={maxPlayrate} />
                 </View>
             </View>
 
@@ -57,7 +58,7 @@ export const CivWinrateCard = ({ civ }: { civ?: WinrateCiv }) => {
                 <Text variant="label-lg" numberOfLines={1}>
                     {getCivNameById(capitalize(civ.civ_name) as Civ)}
                 </Text>
-                <Text>Picks: {civ.num_games.toLocaleString(language)}</Text>
+                <Text>{civ.num_games.toLocaleString(language)} Games</Text>
             </View>
         </Card>
     );
