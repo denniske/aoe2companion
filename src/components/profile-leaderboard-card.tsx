@@ -40,30 +40,30 @@ export const ProfileLeaderboardCard: React.FC<{
                 direction="vertical"
                 onPress={canOpenModal ? () => setIsVisible(true) : undefined}
             >
-                <View className="flex-row items-center gap-1 lg:gap-5">
+                <View className={cn('flex-row items-center gap-1 lg:gap-5', !leaderboard && 'min-w-24')}>
                     <TextComponent variant="header-lg" numberOfLines={1} color="subtle">
                         {leaderboard?.leaderboardName}
                     </TextComponent>
 
                     <View className="w-px bg-border self-stretch hidden lg:flex" />
 
-                    <Text variant="label-lg" color="subtle" className="hidden lg:flex">
+                    <TextComponent variant="label-lg" color="subtle" className="hidden lg:flex">
                         {leaderboard?.games?.toLocaleString(language)} Games
-                    </Text>
+                    </TextComponent>
 
                     <View className="flex-1" />
 
                     {canOpenModal && <Icon icon="angle-right" size={24} color="brand" />}
                 </View>
 
-                <Text variant="label-lg" color="subtle" className="flex lg:hidden -my-2">
+                <TextComponent variant="label-lg" color="subtle" className={cn('flex lg:hidden -my-2', !leaderboard && 'max-w-24')}>
                     {leaderboard?.games?.toLocaleString(language)} Games
-                </Text>
+                </TextComponent>
 
                 <View className="flex-row gap-4 items-center">
                     <View className="gap-2 items-center lg:flex-1">
                         <View className="items-center">
-                            <TextComponent variant="title" color="brand" className={leaderboard ? 'min-w-24' : undefined}>
+                            <TextComponent variant="title" color="brand">
                                 #{leaderboard?.rank}
                             </TextComponent>
                             <TextComponent variant="body-xs" className="min-w-24 -mt-0.5 whitespace-nowrap" color="subtle">

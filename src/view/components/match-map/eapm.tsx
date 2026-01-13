@@ -1,14 +1,12 @@
-import { Dimensions, Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React, { Fragment, useMemo } from 'react';
 import { orderBy } from 'lodash';
 import { CartesianChart, Line, Scatter } from 'victory-native-current';
-import { matchFont } from '@shopify/react-native-skia';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
 import { ILegendInfo } from '@app/view/components/match-map/match-map';
 import { useAppTheme } from '@app/theming';
 import { Text } from '@app/components/text';
-import { chartFontStyle } from '@app/view/components/match-map/map-utils';
-
+import { useChartFont } from '@app/view/components/match-map/map-utils';
 
 interface Props {
     teams: ILegendInfo;
@@ -16,8 +14,7 @@ interface Props {
 
 export default function Eapm({ teams }: Props) {
     const theme = useAppTheme();
-
-    const font = Platform.OS === 'web' ? undefined : matchFont(chartFontStyle);
+    const font = useChartFont();
 
     const dataset = useMemo(() => {
         const start = new Date();
@@ -46,6 +43,10 @@ export default function Eapm({ teams }: Props) {
             data,
         };
     }, [teams]);
+
+    if (font === null) {
+        return null;
+    }
 
     return (
         <View style={styles.container}>

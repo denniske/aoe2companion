@@ -1,14 +1,12 @@
-import { Dimensions, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { Fragment, useMemo } from 'react';
 import { orderBy } from 'lodash';
 import { CartesianChart, Line, Scatter } from 'victory-native-current';
-import { matchFont } from '@shopify/react-native-skia';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
 import { getTimestampMs, ILegendInfo } from '@app/view/components/match-map/match-map';
 import { useAppTheme } from '@app/theming';
 import { Text } from '@app/components/text';
-import { chartFontStyle } from '@app/view/components/match-map/map-utils';
-import { description } from '@eva-design/eva/package';
+import { useChartFont } from '@app/view/components/match-map/map-utils';
 import { Icon } from '@app/components/icon';
 import { showAlert } from '@app/helper/alert';
 
@@ -22,10 +20,9 @@ interface Props {
 
 export default function Timeseries({ teams, metric, title, description, explanation }: Props) {
     const theme = useAppTheme();
+    const font = useChartFont();
 
     console.log('Timeseries', 'metric', metric, 'teams', teams?.length);
-
-    const font = Platform.OS === 'web' ? undefined : matchFont(chartFontStyle);
 
     const dataset = useMemo(() => {
         const start = new Date();
@@ -56,10 +53,11 @@ export default function Timeseries({ teams, metric, title, description, explanat
     }, [teams]);
 
     const showExplanation = () => {
-        showAlert(
-            title,
-            explanation || 'No additional explanation available.'
-        );
+        showAlert(title, explanation || 'No additional explanation available.');
+    };
+
+    if (font === null) {
+        return null;
     }
 
     return (
@@ -72,13 +70,11 @@ export default function Timeseries({ teams, metric, title, description, explanat
                     <Text className="" variant="body">
                         {description}
                     </Text>
-                    {
-                        explanation && (
-                            <TouchableOpacity onPress={showExplanation}>
-                                <Icon icon="info-circle" color="subtle"></Icon>
-                            </TouchableOpacity>
-                        )
-                    }
+                    {explanation && (
+                        <TouchableOpacity onPress={showExplanation}>
+                            <Icon icon="info-circle" color="subtle"></Icon>
+                        </TouchableOpacity>
+                    )}
                 </View>
                 <View style={{ height: 160, marginVertical: 12 }}>
                     {dataset.data?.length > 0 && (

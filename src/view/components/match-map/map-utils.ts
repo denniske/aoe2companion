@@ -1,5 +1,3 @@
-
-
 // const units = analysis.players.flatMap((p) => {
 //     return p.objects?.filter(o => o.name === 'Villager').map(o => ({
 //         x: o.position.x,
@@ -15,8 +13,6 @@
 // Sheep are sometimes gaia and when game starts become player sheep
 // Gurjaras start with two Forage Bushes
 
-
-
 // useEffect(() => {
 //     const interval = setInterval(() => {
 //         console.log('Time:', time.value);
@@ -25,24 +21,23 @@
 //     return () => clearInterval(interval);
 // }, []);
 
-
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { useFont } from '@shopify/react-native-skia';
 import { Platform } from 'react-native';
 
-export const chartFontStyle = {
-    fontFamily: Platform.select({ ios: 'Helvetica', default: 'serif' }),
-    fontSize: 11,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-} as const;
+export const useChartFont = () => {
+    const { isMedium } = useBreakpoints();
+    const font = useFont(require('../../../../assets/font/Roboto.ttf'), isMedium ? 12 : 11);
 
-
+    return font;
+};
 
 export function isBuilding(name: string) {
     const building = Object.values(buildingSizes).find((b) => b.names.includes(name));
     return !!building;
 }
 
-export function getBuildingSize(name: string): { width: number, height: number } {
+export function getBuildingSize(name: string): { width: number; height: number } {
     const building = Object.values(buildingSizes).find((b) => b.names.includes(name));
     return building?.size ?? { width: 1, height: 1 };
 }
@@ -50,29 +45,16 @@ export function getBuildingSize(name: string): { width: number, height: number }
 // building_id for palisade gates 4x
 // normal gates
 
-export const buildingSizes: Record<string, { names: string[]; objectIds?: number[]; size: { width: number, height: number } }> = {
+export const buildingSizes: Record<string, { names: string[]; objectIds?: number[]; size: { width: number; height: number } }> = {
     '1x1': {
-        names: [
-            'Bombard Tower',
-            'Fish Trap',
-            'Guard Tower',
-            'Keep',
-            'Outpost',
-            'Watch Tower',
-        ],
+        names: ['Bombard Tower', 'Fish Trap', 'Guard Tower', 'Keep', 'Outpost', 'Watch Tower'],
         size: {
             width: 1,
             height: 1,
         },
     },
     '2x2': {
-        names: [
-            'Donjon',
-            'House',
-            'Mill',
-            'Lumber Camp',
-            'Mining Camp',
-        ],
+        names: ['Donjon', 'House', 'Mill', 'Lumber Camp', 'Mining Camp'],
         size: {
             width: 2,
             height: 2,
@@ -101,35 +83,21 @@ export const buildingSizes: Record<string, { names: string[]; objectIds?: number
         },
     },
     '4x4': {
-        names: [
-            'Castle',
-            'Caravanserai',
-            'Dock',
-            'Market',
-            'Port',
-            'Siege Workshop',
-            'Town Center',
-            'University',
-        ],
+        names: ['Castle', 'Caravanserai', 'Dock', 'Market', 'Port', 'Siege Workshop', 'Town Center', 'University'],
         size: {
             width: 4,
             height: 4,
         },
     },
     '5x5': {
-        names: [
-            'Feitoria',
-            'Wonder',
-        ],
+        names: ['Feitoria', 'Wonder'],
         size: {
             width: 5,
             height: 5,
         },
     },
     '8x8': {
-        names: [
-            'Cathedral',
-        ],
+        names: ['Cathedral'],
         size: {
             width: 8,
             height: 8,
@@ -139,21 +107,15 @@ export const buildingSizes: Record<string, { names: string[]; objectIds?: number
 
 export const gaiaObjects: Record<string, { names: string[]; objectIds?: number[]; color: string }> = {
     bush: {
-        names: [
-            'Forage Bush', 'Fruit Bush',
-        ],
+        names: ['Forage Bush', 'Fruit Bush'],
         color: '#A5C56C',
     },
     gold: {
-        names: [
-            'Gold Mine',
-        ],
+        names: ['Gold Mine'],
         color: '#FFC700',
     },
     stone: {
-        names: [
-            'Stone Mine',
-        ],
+        names: ['Stone Mine'],
         color: '#919191',
     },
     animal: {
@@ -228,9 +190,7 @@ export const gaiaObjects: Record<string, { names: string[]; objectIds?: number[]
         color: '#A5C56C',
     },
     relic: {
-        names: [
-            'Relic',
-        ],
+        names: ['Relic'],
         color: '#FFF',
     },
     oysters: {
