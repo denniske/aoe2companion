@@ -455,6 +455,7 @@ export default function LeaderboardPage() {
             <Stack.Screen
                 options={{
                     title: getTranslation('leaderboard.title'),
+                    headerRight: () => null,
                 }}
             />
 

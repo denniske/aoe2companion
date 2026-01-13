@@ -16,7 +16,7 @@ export default function Layout() {
             </View>
             <Stack
                 screenOptions={{ header: (props) => <Header {...props} /> }}
-                layout={showTabBar ? undefined : ({ children }) => <View className="grow">{children}</View>}
+                layout={({ children }) => <View className={showTabBar ? 'flex-1' : 'grow'}>{children}</View>}
             />
             <View className="md:web:hidden">
                 <TabBar />

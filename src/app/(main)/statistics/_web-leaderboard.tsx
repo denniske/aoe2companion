@@ -2,11 +2,13 @@ import { fetchLeaderboard } from '@app/api/helper/api';
 import { ILeaderboardDef } from '@app/api/helper/api.types';
 import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
+import { countryEarth, CountrySelect } from '@app/components/select/country-select';
 import { Text } from '@app/components/text';
 import { Image } from '@app/components/uniwind/image';
 import { useTranslation } from '@app/helper/translate';
 import useDebounce from '@app/hooks/use-debounce';
-import { useLanguage } from '@app/queries/all';
+import { useFollowedAndMeProfileIds, useLanguage } from '@app/queries/all';
+import { useSelector } from '@app/redux/reducer';
 import { containerClassName } from '@app/styles';
 import ButtonPicker from '@app/view/components/button-picker';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
@@ -15,7 +17,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import cn from 'classnames';
 import { Link, Stack } from 'expo-router';
 import { flatten } from 'lodash';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 
 export const WebLeaderboard: React.FC<{ leaderboards: ILeaderboardDef[] | undefined }> = ({ leaderboards }) => {
@@ -35,11 +37,14 @@ export const WebLeaderboard: React.FC<{ leaderboards: ILeaderboardDef[] | undefi
             <Stack.Screen
                 options={{
                     title: getTranslation('leaderboard.title'),
+                    headerRight: () => <CountrySelect />,
                 }}
             />
 
-            <View className="flex lg:flex-row items-center gap-6">
-                <Field value={search} onChangeText={setSearch} placeholder="Search for player" type="search" />
+            <View className="flex xl:flex-row items-center gap-6">
+                <View className="flex-row">
+                    <Field value={search} onChangeText={setSearch} placeholder="Search for player" type="search" />
+                </View>
 
                 {leaderboards && leaderboard && (
                     <View className="w-full lg:flex-1">
@@ -70,11 +75,28 @@ function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; sea
     const debouncedSearch = useDebounce(search, 600);
     const language = useLanguage();
 
+    const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
+    const followingIds = useFollowedAndMeProfileIds();
+
+    const params = useMemo(() => {
+        if (leaderboardCountry == 'following') {
+            return { profileIds: followingIds };
+        }
+        if (leaderboardCountry?.startsWith('Clan ')) {
+            return { clan: leaderboardCountry?.replace('Clan ', '') };
+        }
+        if (leaderboardCountry == countryEarth) {
+            return {};
+        }
+        return { country: leaderboardCountry };
+    }, [followingIds, leaderboardCountry]);
+
     const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery({
-        queryKey: ['leaderboard-players', debouncedSearch, leaderboard.leaderboardId],
+        queryKey: ['leaderboard-players', debouncedSearch, leaderboard.leaderboardId, params],
         queryFn: (context) => {
             return fetchLeaderboard({
                 ...context,
+                ...params,
                 pageParam: `${context.pageParam}`,
                 search: context.queryKey[1] as string,
                 leaderboardId: context.queryKey[2] as string,

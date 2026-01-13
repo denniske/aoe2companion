@@ -28,8 +28,10 @@ import { openLinkWithCheck } from '@app/helper/url';
 import { showAlert } from '@app/helper/alert';
 import { Button } from '@app/components/button';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { getUnixTime } from 'date-fns';
 
 export default function Competitive() {
+    const player = useRef<any>(null);
     const { isMedium } = useBreakpoints();
     const getTranslation = useTranslation();
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -118,28 +120,33 @@ export default function Competitive() {
     };
 
     const embedRef = useRef<HTMLDivElement>(null);
+    const [embedId, setEmbedId] = useState(`twitch-embed-${getUnixTime(new Date())}`);
 
-    useEffect(() => {
-        if (Platform.OS === 'web' && liveTwitch) {
-            const script = document.createElement('script');
-            script.src = 'https://embed.twitch.tv/embed/v1.js';
-            script.async = true;
-            script.onload = () => {
-                if (embedRef.current) {
-                    new (window as any).Twitch.Embed(embedRef.current!.id, {
-                        width: '100%',
-                        height: isMedium ? 540 : 320,
-                        channel: liveTwitch.user_login,
-                    });
-                }
-            };
-            document.body.appendChild(script);
+    useFocusEffect(
+        useCallback(() => {
+            setEmbedId(`twitch-embed-${getUnixTime(new Date())}`);
+            if (Platform.OS === 'web' && liveTwitch) {
+                const script = document.createElement('script');
+                script.src = 'https://embed.twitch.tv/embed/v1.js';
+                script.async = true;
+                script.onload = () => {
+                    if (embedRef.current) {
+                        player.current = new (window as any).Twitch.Embed(embedRef.current!.id, {
+                            width: '100%',
+                            height: isMedium ? 540 : 320,
+                            channel: liveTwitch.user_login,
+                        });
+                    }
+                };
+                document.body.appendChild(script);
 
-            return () => {
-                document.body.removeChild(script);
-            };
-        }
-    }, [liveTwitch]);
+                return () => {
+                    document.body.removeChild(script);
+                    player.current?.getPlayer().pause();
+                };
+            }
+        }, [liveTwitch])
+    );
 
     return (
         <ScrollView className="flex-1" contentContainerClassName="pb-4">
@@ -279,7 +286,7 @@ export default function Competitive() {
                         </View>
 
                         {Platform.OS === 'web' ? (
-                            <div id="twitch-embed" ref={embedRef} />
+                            <div id={embedId} ref={embedRef} />
                         ) : isVideoPlaying ? (
                             <WebView allowsFullscreenVideo source={{ uri: liveTwitchUrl! }} style={{ width: '100%', aspectRatio: 800 / 450 }} />
                         ) : (

@@ -14,12 +14,14 @@ import { ProfileLeaderboardModal } from './profile-leaderboard-modal';
 import { useState } from 'react';
 import cn from 'classnames';
 import { appConfig } from '@nex/dataset';
+import { useLanguage } from '@app/queries/all';
 
 export const ProfileLeaderboardCard: React.FC<{
     leaderboard: IProfileLeaderboardResult | null | undefined;
     stats: IStatNew | undefined;
     ratings: IProfileRatingsLeaderboard | undefined;
 }> = ({ leaderboard, stats, ratings }) => {
+    const language = useLanguage();
     const topCiv = first(orderBy(stats?.civ, 'games', 'desc'));
     const topMap = first(orderBy(stats?.map, 'games', 'desc'));
     const [isVisible, setIsVisible] = useState(false);
@@ -46,7 +48,7 @@ export const ProfileLeaderboardCard: React.FC<{
                     <View className="w-px bg-border self-stretch hidden lg:flex" />
 
                     <Text variant="label-lg" color="subtle" className="hidden lg:flex">
-                        {leaderboard?.games} Games
+                        {leaderboard?.games?.toLocaleString(language)} Games
                     </Text>
 
                     <View className="flex-1" />
@@ -55,14 +57,20 @@ export const ProfileLeaderboardCard: React.FC<{
                 </View>
 
                 <Text variant="label-lg" color="subtle" className="flex lg:hidden -my-2">
-                    {leaderboard?.games} Games
+                    {leaderboard?.games?.toLocaleString(language)} Games
                 </Text>
 
                 <View className="flex-row gap-4 items-center">
                     <View className="gap-2 items-center lg:flex-1">
-                        <TextComponent variant="title" color="brand">
-                            #{leaderboard?.rank}
-                        </TextComponent>
+                        <View className="items-center">
+                            <TextComponent variant="title" color="brand" className={leaderboard ? 'min-w-24' : undefined}>
+                                #{leaderboard?.rank}
+                            </TextComponent>
+                            <TextComponent variant="body-xs" className="min-w-24 -mt-0.5 whitespace-nowrap" color="subtle">
+                                Top {(leaderboard && leaderboard.total ? Math.max(1, (leaderboard.rank / leaderboard.total) * 100) : 0).toFixed()}%
+                                <span className=""> (of {leaderboard?.total.toLocaleString(language)} players)</span>
+                            </TextComponent>
+                        </View>
 
                         <View className="items-center">
                             <TextComponent variant="label-sm">Rating</TextComponent>

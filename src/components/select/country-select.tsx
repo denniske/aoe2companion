@@ -4,7 +4,7 @@ import { getCountryName } from '@app/helper/flags';
 import { countriesDistinct, Country } from '@nex/data';
 import { CountryImageForDropDown, SpecialImageForDropDown } from '@app/view/components/country-image';
 import { appConfig } from '@nex/dataset';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import Picker from '@app/view/components/picker';
 import React from 'react';
 import { createStylesheet } from '@app/theming-new';
@@ -28,7 +28,7 @@ export function CountrySelect() {
 
     const formatCountry = (x: string | null, inList?: boolean) => {
         if (x == countryEarth) {
-            return getTranslation('country.earth');
+            return Platform.OS === 'web' ? getTranslation('country.all') : getTranslation('country.earth');
         }
         if (x == 'following') {
             return getTranslation('country.following');

@@ -57,7 +57,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
 
             <Link href={`/players/${player.profileId}`} asChild disabled={player.profileId === -1}>
                 <TouchableOpacity className={cn('flex-1 gap-1 items-center', reverse ? 'flex-row-reverse' : 'flex-row')} onPress={onClose}>
-                    <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1}>
+                    <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1} className="shrink">
                         {player.name}
                     </Text>
                     {player.status === 'player' && player.verified && <Icon icon="check-circle" color="brand" size={12} style={{ width: 23 }} />}
