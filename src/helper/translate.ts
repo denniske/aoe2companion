@@ -107,6 +107,7 @@ export async function loadTranslatonStringsAsync(language: string): Promise<any>
                 return await response.json();
             }
         }
+        return {};
     }
 }
 

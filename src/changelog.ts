@@ -310,6 +310,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '181.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix data loading on the player profile page',
+        },
+    ],
     '180.0.0': [
         {
             type: 'bugfix',
