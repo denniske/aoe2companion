@@ -558,7 +558,7 @@ export interface IFetchProfileParams {
     profileId?: number | string;
     country?: string;
     extend?: string;
-
+    stats_player_limit?: number;
     pageParam?: number;
     language: string;
 }

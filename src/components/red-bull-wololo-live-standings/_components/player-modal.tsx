@@ -41,7 +41,6 @@ export const PlayerModal = ({
     playerNames,
     minRatingToQualify,
     selectPlayer,
-    onViewStats,
 }: {
     leaderboardId: string;
     player: ILeaderboardPlayer;
@@ -55,7 +54,7 @@ export const PlayerModal = ({
     const [activityValue, setActivityValue] = useState(localStorage.getItem('activityValue') ?? 'today');
     const [text, setText] = useState('');
     const debouncedSearch = useDebounce(text, 600);
-    const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } = useInfiniteQuery({
+    const { data, fetchNextPage, hasNextPage, isLoading: isLoadingMatches, isFetchingNextPage } = useInfiniteQuery({
         queryKey: ['matches', player.profileId, debouncedSearch],
         queryFn: (context) =>
             fetchMatches({
@@ -69,8 +68,9 @@ export const PlayerModal = ({
         enabled: isVisible,
         initialPageParam: 1,
         getNextPageParam: (lastPage, pages) => (lastPage.matches.length === lastPage.perPage ? lastPage.page + 1 : null),
-        placeholderData: keepPreviousData,
     });
+
+    const isLoading = debouncedSearch !== text || isLoadingMatches;
 
     const { data: profile, isLoading: isProfileLoading } = useQuery({
         queryKey: ['leaderboard-player-stats', player.profileId],
@@ -79,6 +79,7 @@ export const PlayerModal = ({
                 language: 'en',
                 profileId: player.profileId,
                 extend: 'stats,last_10_matches_won',
+                stats_player_limit: 250,
             });
             if (!statsData?.stats || !statsData?.ratings) {
                 throw new Error('Unable to load stats');
@@ -491,12 +492,6 @@ export const PlayerModal = ({
                                     <div className="flex-1 flex flex-col gap-3 h-[564px] lg:overflow-y-scroll px-px">
                                         <div className="flex flex-row items-center justify-between -mb-2">
                                             <h3 className="text-lg font-bold">Statistics</h3>
-
-                                            {onViewStats && (
-                                                <Button size="small" onPress={onViewStats}>
-                                                    View All
-                                                </Button>
-                                            )}
                                         </div>
                                         {isProfileLoading || !stats ? (
                                             <div className="flex items-center justify-center py-4">

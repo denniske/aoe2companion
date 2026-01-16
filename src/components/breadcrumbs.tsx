@@ -29,7 +29,7 @@ export const Breadcrumbs: React.FC<{ title: string; paramReplacements?: Record<s
 
             {screenNames.map(({ key, value: segment }, index) => {
                 const isLast = index === screenNames.length - 1;
-                const allSegments = [...screenNames.slice(0, index), segment];
+                const allSegments = [...screenNames.slice(0, index).map(s => s.value), segment];
                 const fullPath = `/${allSegments.join('/')}`;
                 const replacement = paramReplacements?.[key] === undefined ? undefined : paramReplacements[key];
                 const LinkComponent = replacement === null ? SkeletonText : Link;
