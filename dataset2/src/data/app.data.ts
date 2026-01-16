@@ -42,7 +42,7 @@ export const appConfig = {
         discordClientId: '1311364669465956442',
         xboxClientId: '3dbfbf8a-884a-482c-92a2-718557a8905e',
         xboxPublicKey: 'a1f4b913-4e04-23a3-69cf-bfc1a870e0cf',
-        xboxClientIdWeb: '3dbfbf8a-884a-482c-92a2-718557a8905e',
+        xboxClientIdWeb: '91184501-2bc8-4acd-9476-dd44927ceb6c',
         xboxPublicKeyWeb: 'db0628be-068d-d916-290c-731619a64b92',
     },
     ms: {
