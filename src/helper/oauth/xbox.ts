@@ -25,11 +25,11 @@ export function useXboxAuth() {
         }
     );
 
-    // console.log();
-    // console.log('xbox request');
-    // console.log(request);
-    // console.log('xbox response');
-    // console.log(response);
+    console.log();
+    console.log('xbox request');
+    console.log(request);
+    console.log('xbox response');
+    console.log(response);
 
     const link = async (params: any) => {
         try {
