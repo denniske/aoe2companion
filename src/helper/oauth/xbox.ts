@@ -52,6 +52,9 @@ export function useXboxAuth() {
         }
     };
 
+    // Note: Web version will log the following error in console. but that can be ignored:
+    // Cross-Site request verification failed. Cached state and returned state do not match.
+
     useEffect(() => {
         if (Platform.OS === 'android') return;
         if ((response as any)?.params?.state.startsWith('xbox?code=')) {
