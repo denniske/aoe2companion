@@ -49,7 +49,7 @@ export function useDiscordAuth() {
     };
 
     useEffect(() => {
-        if (Platform.OS !== 'ios') return;
+        if (Platform.OS === 'android') return;
         if (response?.type === 'success') {
             link(response.params)
         }
