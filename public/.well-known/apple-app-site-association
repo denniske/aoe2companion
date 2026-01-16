@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "HAFGZBHF9M.com.aoe2companion",
+        "paths": ["/auth/*", "/more/*"]
+      }
+    ]
+  },
+  "activitycontinuation": {
+    "apps": ["HAFGZBHF9M.com.aoe2companion"]
+  },
+  "webcredentials": {
+    "apps": ["HAFGZBHF9M.com.aoe2companion"]
+  }
+}
