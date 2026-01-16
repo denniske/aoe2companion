@@ -10,7 +10,7 @@ import { appConfig } from '@nex/dataset';
 export function useXboxAuth() {
     const [request, response, promptAsync] = useAuthRequest(
         {
-            clientId: appConfig.oauth.xboxClientId,
+            clientId: Platform.OS === 'web' ? appConfig.oauth.xboxClientIdWeb : appConfig.oauth.xboxClientId,
             responseType: 'code',
             usePKCE: false,
             redirectUri: oAuthRedirectUri,
@@ -21,7 +21,7 @@ export function useXboxAuth() {
             scopes: [],
         },
         {
-            authorizationEndpoint: `https://xbl.io/app/auth/${appConfig.oauth.xboxPublicKey}`,
+            authorizationEndpoint: `https://xbl.io/app/auth/${Platform.OS === 'web' ? appConfig.oauth.xboxPublicKeyWeb : appConfig.oauth.xboxPublicKey}`,
         }
     );
 
