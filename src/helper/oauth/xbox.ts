@@ -53,7 +53,7 @@ export function useXboxAuth() {
     };
 
     useEffect(() => {
-        if (Platform.OS !== 'ios') return;
+        if (Platform.OS === 'android') return;
         if ((response as any)?.params?.state.startsWith('xbox?code=')) {
             const code = (response as any)?.params.state.replace('xbox?code=', '');
             link({
