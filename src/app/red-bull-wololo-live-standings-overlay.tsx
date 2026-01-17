@@ -1,6 +1,8 @@
 import { PlayerList } from '@app/components/red-bull-wololo-live-standings/_components/player-list';
 import { useToolbarStyles } from '@app/components/red-bull-wololo-live-standings/_providers/overlay-toolbar-context';
 import { OverlayToolbarProvider } from '@app/components/red-bull-wololo-live-standings/_providers/overlay-toolbar-provider';
+import { END_DATE } from '@app/components/red-bull-wololo-live-standings/dates';
+import { isPast } from 'date-fns';
 
 function RedBullWololoLiveStandingsOverlay() {
     const { container, content, count } = useToolbarStyles();
@@ -11,7 +13,7 @@ function RedBullWololoLiveStandingsOverlay() {
             style={{ ...container, colorScheme: 'dark' }}
         >
             <div style={content} className="w-[1075px]">
-                <PlayerList isPastDeadline={false} limit={count} hideHeader hideCols={['winrates', 'games']} />
+                <PlayerList isPastDeadline={isPast(END_DATE)} limit={count} hideHeader hideCols={['winrates', 'games']} />
             </div>
         </main>
     );

@@ -93,7 +93,7 @@ export default function Page() {
                         </a>
 
                         {isPastDeadline && (
-                            <p className="text-xs italic">
+                            <p className="text-xs italic text-center max-w-64">
                                 Please verify the qualified players from the{' '}
                                 <a href="https://www.ageofempires.com/stats/ageiidewololo/" target="_blank" rel="noreferrer" className="underline">
                                     official standings

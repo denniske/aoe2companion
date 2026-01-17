@@ -314,7 +314,7 @@ export function PlayerList({
                             return (
                                 <div key={`${player.profileId}-${index}`} className="flex flex-col border-r border-white/50 whitespace-nowrap">
                                     <div className="flex flex-row items-center gap-1.5 bg-white/5 justify-center px-3 h-7">
-                                        {match && !match?.finished && <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />}
+                                        {match && !match?.finished && !isPastDeadline && <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />}
                                         <div className="text-lg font-bold">#{rank}</div>
                                         <div className="font-flag text-2xl">{player.countryIcon}</div>
                                         <div className="text-lg font-medium">{player.name}</div>
