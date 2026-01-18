@@ -16,6 +16,7 @@ import { InlinePlayerSearch } from '@app/components/inline-player-search';
 import { PlayerModal } from './player-modal';
 import { StatsModal } from './stats-modal';
 import { Button } from '@app/components/button';
+import { END_DATE } from '../dates';
 
 const leaderboardId = 'ew_1v1_redbullwololo';
 const maxRatingOverrides: Record<number, number> = {};
@@ -138,7 +139,7 @@ export function PlayerList({
 
             updateMatches(leaderboardData.matches.map(reformatTeamMatch), true);
 
-            setTime(new Date());
+            setTime(new Date(END_DATE));
 
             return leaderboardData.leaderboard;
         },
@@ -388,14 +389,14 @@ export function PlayerList({
                             <p className="text-center md:text-right">Updating leaderboard</p>
                         )}
 
-                        <button onClick={() => refetch()} disabled={isFetching} className="cursor-pointer">
+                        {!isPastDeadline && <button onClick={() => refetch()} disabled={isFetching} className="cursor-pointer">
                             <Icon
                                 icon="arrows-rotate"
                                 color="accent-[#EAC65E]"
                                 className={isFetching ? 'animate-spin [animation-duration:1s]' : undefined}
                                 size={20}
                             />
-                        </button>
+                        </button>}
                     </div>
 
                     <StatsModal isVisible={showStats} onClose={() => setShowStats(false)} profileIds={sortedPlayerIds} />

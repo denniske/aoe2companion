@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import { Text } from './text';
-import { Href, useLocalSearchParams, useSegments } from 'expo-router';
+import { Href, useGlobalSearchParams, useLocalSearchParams, useSegments } from 'expo-router';
 import startCase from 'lodash/startCase';
 import { Link } from './link';
 import { Icon } from './icon';
@@ -13,7 +13,7 @@ const replaceParamsInPath = (segment: string, params: Record<string, string | nu
     Object.entries(params).reduce((acc, [key, value]) => acc.replace(`[${key}]`, value?.toString() ?? ''), segment.toString());
 
 export const Breadcrumbs: React.FC<{ title: string; paramReplacements?: Record<string, string | null> }> = ({ title, paramReplacements }) => {
-    const params = useLocalSearchParams<Record<string, string>>();
+    const params = useGlobalSearchParams<Record<string, string>>();
     const segments = useSegments();
     const screenNames = segments
         .filter((segment) => segment !== 'more' && segment !== '(main)')
