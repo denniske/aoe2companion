@@ -55,9 +55,18 @@ export const PlayerRow = ({
         >
             {hideCols.includes('maxRating') ? null : (
                 <Cell
-                    className={`w-20 border-l-4 hidden md:flex group flex-col py-0! justify-center ${hasDuplicateRank ? 'cursor-pointer' : ''}`}
+                    className={`w-20 border-l-4 hidden md:flex group flex-col py-0! justify-center relative ${hasDuplicateRank ? 'cursor-pointer' : ''}`}
                     style={{ borderColor: statuses[status].color }}
                 >
+                    {(player.profileId === 271202 || player.profileId === 582058) && (
+                        <>
+                            <div className="w-1 h-8 bg-red-500 absolute top-0 -left-1" style={{ backgroundColor: statuses['major-advantage'].color }}></div>
+                            <div
+                                className="w-1 h-8 bg-red-500 absolute bottom-0 -left-1"
+                                style={{ backgroundColor: statuses['qualified'].color }}
+                            ></div>
+                        </>
+                    )}
                     {rank && (
                         <div className="flex gap-2 items-center relative">
                             <span>
@@ -108,13 +117,16 @@ export const PlayerRow = ({
             {hideCols.includes('rating') ? null : (
                 <Cell
                     className={`w-24 md:w-44 group py-0! px-2! md:py-3! md:px-6! ${
-                        player.rating === player.maxRating || (status !== 'qualified' && !isPastDeadline) ? 'cursor-pointer' : ''
+                        player.rating === player.maxRating || (status !== 'qualified' && !isPastDeadline) || player.profileId === 197964
+                            ? 'cursor-pointer'
+                            : ''
                     }`}
                 >
                     <div className="relative hidden md:flex items-center gap-2">
                         {player.rating}
+                        {player.profileId === 197964 ? '*' : ''}
                         {player.rating === player.maxRating && <Icon icon="chart-line" color="white" size={14} />}
-                        {(player.rating === player.maxRating || (status !== 'qualified' && !isPastDeadline)) && (
+                        {(player.rating === player.maxRating || (status !== 'qualified' && !isPastDeadline) || player.profileId === 197964) && (
                             <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 group-hover:scale-100 z-10 text-sm shadow-2xl transition-transform text-center invisible group-hover:visible">
                                 <div className="h-0 w-0 border-x-8 border-x-transparent border-b-8 border-b-blue-800 absolute -top-2 mx-auto left-0 right-0"></div>
                                 {player.rating === player.maxRating && <p className="text-xs">At Highest Rating</p>}
@@ -123,6 +135,8 @@ export const PlayerRow = ({
                                         <b>{minRatingToQualify - player.rating}</b> Points To Be in Qualified Position
                                     </p>
                                 )}
+
+                                {player.profileId === 197964 && <p className="text-xs">Due to a rule violation, Yo's final points were reduced.</p>}
                             </div>
                         )}
                     </div>
