@@ -21,6 +21,7 @@ import { END_DATE } from '../dates';
 const leaderboardId = 'ew_1v1_redbullwololo';
 const maxRatingOverrides: Record<number, number> = {
     197964: 1769,
+    10710012: 1652,
 };
 
 export function PlayerList({
