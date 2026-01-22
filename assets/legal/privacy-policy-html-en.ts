@@ -71,6 +71,57 @@ export const privacyHtmlEn = `
     <li><strong>Security Cookies.</strong> We use Security Cookies for security purposes.</li>
 </ul>
 
+<h4>Google OAuth / YouTube Account</h4>
+<p>
+    The Service allows users to optionally connect their Google account using Google OAuth 2.0 in order to access
+    limited YouTube account information via the YouTube Data API. This information is used solely to display a
+    YouTube badge and a link to the user's YouTube channel on their public profile.
+</p>
+
+<h4>Data Accessed from Google</h4>
+<p>
+    When a user connects their Google account, the Service accesses the following YouTube data:
+</p>
+<ul>
+    <li>YouTube channel ID</li>
+    <li>YouTube channel name</li>
+    <li>Public YouTube channel URL</li>
+</ul>
+<p>
+    The Service does not access private videos, playlists, subscriptions, comments, email addresses, or any other
+    Google account data.
+</p>
+
+<h4>Use of Google / YouTube Data</h4>
+<p>
+    The YouTube data collected via Google OAuth is used exclusively for the following purpose:
+</p>
+<ul>
+    <li>Displaying a YouTube badge and link on the user's profile</li>
+</ul>
+
+<h4>Data Retention</h4>
+<p>
+    YouTube channel information is stored only while the user's account is active and the Google account connection
+    is enabled. The Service does not retain Google OAuth access tokens beyond what is technically required for
+    authentication.
+</p>
+
+<h4>Data Deletion</h4>
+<p>
+    Users may request the deletion of their Google / YouTube data at any time by disconnecting their Google account
+    in the Service settings or by contacting the Service operator. Upon such request, all associated YouTube data
+    will be permanently deleted within a reasonable timeframe.
+</p>
+
+<h4>Google API Services User Data Policy</h4>
+<p>
+    The Service's use of information received from Google APIs adheres to the
+    Google API Services User Data Policy, including the Limited Use requirements.
+    Google user data is not sold, shared, or used for advertising purposes.
+</p>
+
+
 <h4>Google Account</h4>
 <p>Android application of the Service collects Google Account information to keep count of the trial usage and the
     subscriptions made with the Service application. The Google Account information is stored in the Google Firebase
