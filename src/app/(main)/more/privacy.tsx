@@ -19,7 +19,7 @@ const LinkText = ({ url, children }: { url: string; children: string }) => (
 export default function PrivacyPage() {
     const getTranslation = useTranslation();
     return (
-        <ScrollView className="flex-1 bg-white px-4 py-6">
+        <ScrollView className="flex-1 px-4 py-6">
             <Stack.Screen options={{ title: getTranslation('privacy.title') }} />
 
             <Text className="text-sm text-gray-600 mb-4">
