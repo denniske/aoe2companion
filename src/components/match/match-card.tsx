@@ -87,7 +87,7 @@ export function MatchCard(props: MatchCardProps) {
                             <Icon size={isMedium ? 20 : 12} icon="skull" color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
                         )}
 
-                        {Platform.OS === 'web' && !match.finished && (
+                        {Platform.OS === 'web' && !match.finished && appConfig.game === 'aoe2' && (
                             <Link className="pl-1" href={`aoe2de://1/${match.matchId}`} target="_blank">
                                 <Icon size={isMedium ? 20 : 12} icon="eye" color="brand" />
                             </Link>

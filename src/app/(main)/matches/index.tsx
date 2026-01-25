@@ -23,6 +23,7 @@ import cn from 'classnames';
 import { containerClassName, containerScrollClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { UserLoginWrapper } from '../../../components/user-login-wrapper';
+import { appConfig } from '@nex/dataset';
 
 export default function MatchesPage() {
     const showTabBar = useShowTabBar();
@@ -260,7 +261,7 @@ export default function MatchesPage() {
                                                         : getTranslation('feed.following.2playingnow')}
                                                 </MyText>
                                             )}
-                                            {Platform.OS === 'web' && !match.finished && (
+                                            {Platform.OS === 'web' && !match.finished && appConfig.game === 'aoe2' && (
                                                 <Link className="pl-1" onPress={() => spectate(match.matchId)}>
                                                     Spectate
                                                 </Link>
