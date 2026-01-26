@@ -154,6 +154,11 @@ export default function PrivacyPage() {
                 We do not transfer or disclose your information to third parties for purposes other than the ones provided.
             </Text>
 
+            <Text className="font-semibold mb-1">Protection of your information</Text>
+            <Text className="text-gray-700 mb-4">
+                Security procedures are in place to protect the confidentiality of your data
+            </Text>
+
             {/* Use of Data */}
             <Text className="text-xl font-bold mb-3">Use of Data</Text>
             <Text className="ml-2 text-gray-700">• Provide and maintain the Service</Text>
