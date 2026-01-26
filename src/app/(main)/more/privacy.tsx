@@ -149,6 +149,11 @@ export default function PrivacyPage() {
                 Users may delete their Google / YouTube data at any time by clicking the "Unlink Youtube Account" button in the Account Page.
             </Text>
 
+            <Text className="font-semibold mb-1">Sharing and Disclosure of Google User Data</Text>
+            <Text className="text-gray-700 mb-4">
+                We do not transfer or disclose your information to third parties for purposes other than the ones provided.
+            </Text>
+
             {/* Use of Data */}
             <Text className="text-xl font-bold mb-3">Use of Data</Text>
             <Text className="ml-2 text-gray-700">• Provide and maintain the Service</Text>
