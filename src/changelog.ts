@@ -15,6 +15,10 @@ export const changelog4: IChangelog = {
             type: 'feature',
             title: 'Add linking of youtube channel (More > Account)',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix back button (Android)',
+        },
     ],
     '31.0.0': [
         {
@@ -320,6 +324,10 @@ export const changelog: IChangelog = {
         {
             type: 'feature',
             title: 'Add linking of youtube channel (More > Account)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix back button (Android)',
         },
     ],
     '181.0.0': [

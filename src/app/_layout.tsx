@@ -492,14 +492,18 @@ function HomeLayout() {
 
     useEffect(() => {
         const backAction = () => {
-            const stackLength = routes[0]?.state?.routes.length;
-            // console.log('back stackLength', stackLength);
+            // There is root node > main node > ...route info
+            const stackLength = routes[0]?.state?.routes?.[0]?.state?.routes.length;
+            console.log('back routes', routes);
+            console.log('back stackLength', stackLength);
 
             if (!stackLength || stackLength <= 1) {
                 // You're at the root — override default back to prevent exit
+                console.log('You\'re at the root — override default back to prevent exit');
                 router.replace('/');
             } else {
                 // You're at a nested route — override default back to prevent it to navigate through tabs
+                console.log('You\'re at a nested route — override default back to prevent it to navigate through tabs');
                 router.dismiss();
             }
 
