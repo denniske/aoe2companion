@@ -310,7 +310,7 @@
     "account.discord.channel": "Discord channel",
     "account.discord.unlink": "Unlink Discord Account",
     "account.discord.link": "Link Discord",
-    "account.discord.placeholder.invitation": "Your Server Invitation Link",
+    "account.discord.placeholder.invitation": "https://discord.gg/...",
     "account.discord.save": "Save",
 
     "account.patreon.title": "Patreon",

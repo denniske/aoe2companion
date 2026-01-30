@@ -50,7 +50,7 @@ export default function AccountPage() {
     const saveAccountMutation = useSaveAccountMutation();
 
     const [relicVerification, setRelicVerification] = useState(false);
-    const [discordInvitation, setDiscordInvitation] = useState('https://discord.gg/gCunWKx');
+    const [discordInvitation, setDiscordInvitation] = useState('');
     const [discordInvitationError, setDiscordInvitationError] = useState('');
 
     const authProfileId = useAuthProfileId();
