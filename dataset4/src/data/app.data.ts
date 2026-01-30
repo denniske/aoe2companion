@@ -40,7 +40,7 @@ export const appConfig = {
     },
     oauth: {
         patreonClientId: '8XdrybGNipnVbCsNeXFoQLmMvpcqSRZEOBVR2idusfpgiMNAQUjqYrmnC22qF_8f',
-        youtubeClientId: '488773703040-894cl8823vjasguo1i8cin0vv5tsqosv.apps.googleusercontent.com',
+        youtubeClientId: '33910465739-ra9373kllq6espu9khdea9930s7qmf16.apps.googleusercontent.com',
         twitchClientId: '9l7clqgetb63e7sfkk28l6ar1jbrrk',
         discordClientId: '1437582633033924781',
         xboxClientId: 'e24261f0-48b4-4920-a541-448ae6e2c0a1',

@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
+    '32.0.0': [
+        {
+            type: 'feature',
+            title: 'Add linking of youtube channel (More > Account)',
+        },
+    ],
     '31.0.0': [
         {
             type: 'bugfix',
@@ -310,6 +316,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '182.0.0': [
+        {
+            type: 'feature',
+            title: 'Add linking of youtube channel (More > Account)',
+        },
+    ],
     '181.0.0': [
         {
             type: 'bugfix',

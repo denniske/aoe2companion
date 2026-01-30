@@ -279,31 +279,31 @@ export default function AccountPage() {
                         </View>
                     </View>
 
-                    {/*<View className="gap-2">*/}
-                    {/*    <Text variant="header-sm">{getTranslation('account.youtube.title')}</Text>*/}
-                    {/*    <Text variant="body">{getTranslation('account.youtube.description')}</Text>*/}
-                    {/*    {account.data?.youtubeChannelName && (*/}
-                    {/*        <>*/}
-                    {/*            <Text variant="label">{getTranslation('account.youtube.channel')}</Text>*/}
-                    {/*            <View className="flex-row gap-2 items-center">*/}
-                    {/*                <FontAwesome5 name="youtube" size={14} color={theme.textNoteColor} />*/}
-                    {/*                <Text variant="body">{account.data.youtubeChannelName}</Text>*/}
-                    {/*            </View>*/}
-                    {/*            <Button onPress={() => unlinkYoutube()} className={'self-start mt-2'}>*/}
-                    {/*                {getTranslation('account.youtube.unlink')}*/}
-                    {/*            </Button>*/}
-                    {/*        </>*/}
-                    {/*    )}*/}
-                    {/*    {!account.data?.youtubeChannelName && (*/}
-                    {/*        <Button*/}
-                    {/*            onPress={() => youtubePromptAsync()}*/}
-                    {/*            // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}*/}
-                    {/*            className={'self-start'}*/}
-                    {/*        >*/}
-                    {/*            {getTranslation('account.youtube.link')}*/}
-                    {/*        </Button>*/}
-                    {/*    )}*/}
-                    {/*</View>*/}
+                    <View className="gap-2">
+                        <Text variant="header-sm">{getTranslation('account.youtube.title')}</Text>
+                        <Text variant="body">{getTranslation('account.youtube.description')}</Text>
+                        {account.data?.youtubeChannelName && (
+                            <>
+                                <Text variant="label">{getTranslation('account.youtube.channel')}</Text>
+                                <View className="flex-row gap-2 items-center">
+                                    <FontAwesome5 name="youtube" size={14} color={theme.textNoteColor} />
+                                    <Text variant="body">{account.data.youtubeChannelName}</Text>
+                                </View>
+                                <Button onPress={() => unlinkYoutube()} className={'self-start mt-2'}>
+                                    {getTranslation('account.youtube.unlink')}
+                                </Button>
+                            </>
+                        )}
+                        {!account.data?.youtubeChannelName && (
+                            <Button
+                                onPress={() => youtubePromptAsync()}
+                                // icon={()=><FontAwesome5 name="steam" size={14} color={theme.backgroundColor} />}
+                                className={'self-start'}
+                            >
+                                {getTranslation('account.youtube.link')}
+                            </Button>
+                        )}
+                    </View>
 
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.discord.title')}</Text>
