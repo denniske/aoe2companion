@@ -21,7 +21,7 @@ import { appVariants } from '@app/styles';
 import { BuildCard, BuildSkeletonCard } from '@app/view/components/build-order/build-card';
 import { compact } from 'lodash';
 import { useFavoritedBuilds } from '@app/service/favorite-builds';
-import { appConfig, appIconData } from '@nex/dataset';
+import { appConfig, dataset } from '@nex/dataset';
 import { RankedMaps } from '@app/components/ranked-maps';
 import { AnimateIn } from '@app/components/animate-in';
 import { Card } from '@app/components/card';
@@ -32,6 +32,8 @@ import { Image } from '@app/components/uniwind/image';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { RedBullSnippet } from '@app/components/red-bull-snippet';
+import { getHost } from '@nex/data';
+import Constants from 'expo-constants';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -58,6 +60,8 @@ const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) =
         </View>
     );
 };
+
+console.log('name', appConfig.app.name)
 
 export default function IndexPage() {
     const { shouldPromptLogin } = useLoginPopup();
@@ -110,7 +114,7 @@ export default function IndexPage() {
                         Platform.OS === 'web'
                             ? () => (
                                   <View className="flex flex-row items-center gap-4">
-                                      <Image source={appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
+                                      <Image source={dataset.appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
 
                                       <Text variant="header-lg" color="subtle">
                                           {appConfig.app.name}
@@ -192,6 +196,12 @@ export default function IndexPage() {
                     </View>
                 )}
             </AnimateIn>
+
+            <Text>GAME: {appConfig.game}</Text>
+            <Text>HOST: {appConfig.hostAoeCompanion}</Text>
+            <Text>URL: {getHost('aoe2companion')}</Text>
+            <Text>NAME: {Constants.expoConfig?.slug}</Text>
+            <Text>GAME: {Constants.expoConfig?.slug === 'aoe2companion' ? 'aoe2' : 'aoe4'}</Text>
 
             {authProfileId && (
                 <AnimateIn>

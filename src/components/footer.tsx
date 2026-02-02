@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { containerClassName } from '@app/styles';
 import { Text } from './text';
 import { Href, Link as ExpoLink, router } from 'expo-router';
-import { appConfig, appIconData } from '@nex/dataset';
+import { appConfig, dataset } from '@nex/dataset';
 import { Link } from './link';
 import { useTranslation } from '@app/helper/translate';
 import { Image } from './uniwind/image';
@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
                     className="flex-row items-center gap-4 lg:pr-4 xl:pr-8 hidden lg:flex"
                     href="/"
                 >
-                    <Image source={appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
+                    <Image source={dataset.appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
 
                     <Text variant="header-lg" color="subtle">
                         {appConfig.app.name}

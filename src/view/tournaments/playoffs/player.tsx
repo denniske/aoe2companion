@@ -5,7 +5,7 @@ import { MyText } from '../../components/my-text';
 import { createStylesheet } from '../../../theming-new';
 import { CountryImage } from '../../components/country-image';
 import { getCivIconLocal } from '../../../helper/civs';
-import { civAbbrEnumListData } from '@nex/dataset';
+import { dataset } from '@nex/dataset';
 import { capitalize } from 'lodash';
 import { FC } from 'react';
 
@@ -18,7 +18,7 @@ export const PlayoffPlayer: FC<{ player: EventPlayerWithCiv; reverse?: boolean }
 
     // console.log('==============> PlayoffPlayer', player.civ, player.civilization);
 
-    const civ = player.civ ? capitalize(player.civ) : player.civilization ? civAbbrEnumListData[player.civilization] : undefined;
+    const civ = player.civ ? capitalize(player.civ) : player.civilization ? dataset.civAbbrEnumListData[player.civilization] : undefined;
 
     return (
         <View style={[styles.player, reverse && { flexDirection: 'row-reverse' }]}>

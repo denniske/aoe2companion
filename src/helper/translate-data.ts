@@ -1,8 +1,8 @@
 import { getLanguage } from '@nex/data';
 import { getInternalAoeStrings } from '../redux/statecache';
-import { translateStringsSourceData } from '@nex/dataset';
+import { dataset } from '@nex/dataset';
 
-const stringsSource = translateStringsSourceData;
+const stringsSource = dataset.translateStringsSourceData;
 
 let strings: IStringCollection = getInternalAoeStrings();
 

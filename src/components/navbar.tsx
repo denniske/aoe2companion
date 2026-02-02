@@ -6,7 +6,7 @@ import { Icon, IconName } from './icon';
 import { Image } from './uniwind/image';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
-import { appConfig, appIconData } from '@nex/dataset';
+import { appConfig, dataset } from '@nex/dataset';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { InlinePlayerSearch } from './inline-player-search';
 import { useEffect } from 'react';
@@ -57,7 +57,7 @@ export const NavBar: React.FC = () => {
         <View className="bg-[#F3EFE6] dark:bg-blue-900 relative z-50">
             <View className={cn('flex flex-row py-4 justify-between', containerClassName)}>
                 <Link className="flex flex-row items-center gap-4 lg:pr-4 xl:pr-8" href="/">
-                    <Image source={appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
+                    <Image source={dataset.appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
 
                     <Text variant="header-lg" color="subtle" className="hidden xl:flex">
                         {appConfig.app.name}

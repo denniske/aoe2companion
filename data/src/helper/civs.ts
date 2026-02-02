@@ -4,11 +4,11 @@ import {aoeData} from "../data/data";
 import {removeAccentsAndCase, sanitizeGameDescription, unwrap} from "../lib/util";
 import {getAoeString} from '../lib/aoe-data';
 import {orderBy} from 'lodash';
-import {appConfig, civsAoeNetData, civsData, civEnumListData} from "@nex/dataset";
+import {appConfig, dataset } from "@nex/dataset";
 
-export const civs = civsData;
-export const civsAoeNet = civsAoeNetData;
-export const civEnumList = civEnumListData;
+export const civs = dataset.civsData;
+export const civsAoeNet = dataset.civsAoeNetData;
+export const civEnumList = dataset.civEnumListData;
 
 export interface ICivEntry {
     name: Civ;

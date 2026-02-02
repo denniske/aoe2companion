@@ -102,159 +102,162 @@ const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
 const sentryConfigPlugins = isProdBuild ? [sentryConfigPlugin] : [];
 const appConfigPlugins = process.env.GAME === 'aoe2' ? [appPlugin] : [];
 
-export default ({ config }: ConfigContext): ExpoConfig => ({
-    ...config,
-    newArchEnabled: true,
-    experiments: {
-        typedRoutes: true,
-        reactCompiler: true,  // 2025-Nov-8 maybe v1 of compiler breaks main nav bar highlighting on HMR
-    },
-    name: app.name,
-    description: app.description,
-    slug: app.slug,
-    scheme: app.scheme,
-    owner: "aoecompanion",
-    platforms: [
-        "ios",
-        "android",
-        "web"
-    ],
-    extra: {
-        website: app.website,
-        experienceId: app.experienceId,
-        eas: {
-            projectId: app.projectId,
-            build: process.env.GAME === 'aoe2' ? {
-                experimental: {
-                    ios: {
-                        appExtensions: [
-                            {
-                                targetName: "widget",
-                                bundleIdentifier: "com.aoe2companion.widget",
-                                entitlements: {
-                                    "com.apple.security.application-groups": [
-                                        "group.com.aoe2companion.widget"
-                                    ]
+export default ({ config }: ConfigContext): ExpoConfig =>{
+    console.log('APP NAME', app.name)
+    return ({
+        ...config,
+        newArchEnabled: true,
+        experiments: {
+            typedRoutes: true,
+            reactCompiler: true,  // 2025-Nov-8 maybe v1 of compiler breaks main nav bar highlighting on HMR
+        },
+        name: app.name,
+        description: app.description,
+        slug: app.slug,
+        scheme: app.scheme,
+        owner: "aoecompanion",
+        platforms: [
+            "ios",
+            "android",
+            "web"
+        ],
+        extra: {
+            website: app.website,
+            experienceId: app.experienceId,
+            eas: {
+                projectId: app.projectId,
+                build: process.env.GAME === 'aoe2' ? {
+                    experimental: {
+                        ios: {
+                            appExtensions: [
+                                {
+                                    targetName: "widget",
+                                    bundleIdentifier: "com.aoe2companion.widget",
+                                    entitlements: {
+                                        "com.apple.security.application-groups": [
+                                            "group.com.aoe2companion.widget"
+                                        ]
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
-                }
-            } : {}
-        },
-    },
-    userInterfaceStyle: "automatic",
-    runtimeVersion: runtimeVersion,
-    version: version,
-    orientation: "portrait",
-    githubUrl: "https://github.com/denniske/aoe2companion",
-    icon: `./${app.assetsFolder}/icon.png`,
-
-    // The custom update server does not work with local builds because
-    // npx expo run:<platform> has no --private-key-path
-    updates: process.env.GAME === 'aoe2' && isProdBuild && false ? {
-        fallbackToCacheTimeout: 0,
-        url: "https://update.aoe2companion.com/api/manifest",
-        codeSigningCertificate: "./update/certificate.pem",
-        codeSigningMetadata: {
-            keyid: "main",
-            alg: "rsa-v1_5-sha256"
-        }
-    } : {
-        fallbackToCacheTimeout: 0,
-        url: app.updateUrl,
-    },
-    assetBundlePatterns: app.assetBundlePatterns,
-    plugins: [
-        [
-            "expo-router",
-            {
-                sitemap: !isProdBuild,
-                redirects: [
-                    { source: '/leaderboard', destination: '/statistics/leaderboard' },
-                    { source: '/lobby', destination: '/matches/lobbies' },
-                    { source: '/ongoing', destination: '/matches/live' },
-                    { source: '/privacy', destination: '/more/privacy' }
-                ]
-            }
-        ],
-        [
-            "expo-notifications",
-            {
-                "icon": `./${app.assetsFolder}/notification.png`
+                } : {}
             },
-        ],
-        ...sentryConfigPlugins,
-        ...appConfigPlugins,
-        // [
-        //     "expo-build-properties",
-        //     {
-        //         "ios": {
-        //             "deploymentTarget": "15.1"
-        //         }
-        //     }
-        // ],
-        [
-            "expo-splash-screen",
-            {
-                "image": `./${app.assetsFolder}/icon-adaptive.png`,
-                "backgroundColor": app.splashBackgroundColor,
-                "dark": {
-                    "image": `./${app.assetsFolder}/icon-adaptive.png`,
-                    "backgroundColor": app.splashBackgroundColorDark,
-                },
-                "imageWidth": 200
+        },
+        userInterfaceStyle: "automatic",
+        runtimeVersion: runtimeVersion,
+        version: version,
+        orientation: "portrait",
+        githubUrl: "https://github.com/denniske/aoe2companion",
+        icon: `./${app.assetsFolder}/icon.png`,
+
+        // The custom update server does not work with local builds because
+        // npx expo run:<platform> has no --private-key-path
+        updates: process.env.GAME === 'aoe2' && isProdBuild && false ? {
+            fallbackToCacheTimeout: 0,
+            url: "https://update.aoe2companion.com/api/manifest",
+            codeSigningCertificate: "./update/certificate.pem",
+            codeSigningMetadata: {
+                keyid: "main",
+                alg: "rsa-v1_5-sha256"
             }
+        } : {
+            fallbackToCacheTimeout: 0,
+            url: app.updateUrl,
+        },
+        assetBundlePatterns: app.assetBundlePatterns,
+        plugins: [
+            [
+                "expo-router",
+                {
+                    sitemap: !isProdBuild,
+                    redirects: [
+                        { source: '/leaderboard', destination: '/statistics/leaderboard' },
+                        { source: '/lobby', destination: '/matches/lobbies' },
+                        { source: '/ongoing', destination: '/matches/live' },
+                        { source: '/privacy', destination: '/more/privacy' }
+                    ]
+                }
+            ],
+            [
+                "expo-notifications",
+                {
+                    "icon": `./${app.assetsFolder}/notification.png`
+                },
+            ],
+            ...sentryConfigPlugins,
+            ...appConfigPlugins,
+            // [
+            //     "expo-build-properties",
+            //     {
+            //         "ios": {
+            //             "deploymentTarget": "15.1"
+            //         }
+            //     }
+            // ],
+            [
+                "expo-splash-screen",
+                {
+                    "image": `./${app.assetsFolder}/icon-adaptive.png`,
+                    "backgroundColor": app.splashBackgroundColor,
+                    "dark": {
+                        "image": `./${app.assetsFolder}/icon-adaptive.png`,
+                        "backgroundColor": app.splashBackgroundColorDark,
+                    },
+                    "imageWidth": 200
+                }
+            ],
+            "expo-video",
+            "expo-font",
+            "expo-localization",
+            "expo-web-browser",
         ],
-        "expo-video",
-        "expo-font",
-        "expo-localization",
-        "expo-web-browser",
-    ],
-    android: {
-        userInterfaceStyle: "automatic",
-        // "adaptiveIcon": {
-        //     "foregroundImage": "./assets/icon-adaptive.png",
-        //     "backgroundColor": "#FFFFFF"
-        // },
-        adaptiveIcon: {
-            foregroundImage: `${app.assetsFolder}/icon-adaptive.png`,
-            backgroundColor: app.adaptiveIconBackgroundColor
+        android: {
+            userInterfaceStyle: "automatic",
+            // "adaptiveIcon": {
+            //     "foregroundImage": "./assets/icon-adaptive.png",
+            //     "backgroundColor": "#FFFFFF"
+            // },
+            adaptiveIcon: {
+                foregroundImage: `${app.assetsFolder}/icon-adaptive.png`,
+                backgroundColor: app.adaptiveIconBackgroundColor
+            },
+            package: app.package,
+            versionCode: runtimeVersionCode as any as number,
+            permissions: [],
+            googleServicesFile: app.googleServicesFile,
         },
-        package: app.package,
-        versionCode: runtimeVersionCode as any as number,
-        permissions: [],
-        googleServicesFile: app.googleServicesFile,
-    },
-    ios: {
-        userInterfaceStyle: "automatic",
-        icon: {
-            light: `./${app.assetsFolder}/icon-adaptive-no-alpha.png`,
-            dark: `./${app.assetsFolder}/icon-adaptive.png`,
-            tinted: `./${app.assetsFolder}/icon-tinted.png`
+        ios: {
+            userInterfaceStyle: "automatic",
+            icon: {
+                light: `./${app.assetsFolder}/icon-adaptive-no-alpha.png`,
+                dark: `./${app.assetsFolder}/icon-adaptive.png`,
+                tinted: `./${app.assetsFolder}/icon-tinted.png`
+            },
+            bundleIdentifier: app.bundleIdentifier,
+            buildNumber: runtimeVersion,
+            supportsTablet: true,
+            config: {
+                usesNonExemptEncryption: false
+            },
+            infoPlist: {
+                LSApplicationQueriesSchemes: ["itms-apps", "twitch"],
+                NSSupportsLiveActivities: true,
+                NSUserActivityTypes: ["BuildsConfigurationIntent"],
+                UIBackgroundModes: ["remote-notification"]
+            },
+            entitlements: process.env.GAME === 'aoe2' ? {
+                "com.apple.security.application-groups": [
+                    "group.com.aoe2companion.widget"
+                ]
+            } : {},
+            associatedDomains: app.associatedDomains,
+            appleTeamId: "HAFGZBHF9M",
         },
-        bundleIdentifier: app.bundleIdentifier,
-        buildNumber: runtimeVersion,
-        supportsTablet: true,
-        config: {
-            usesNonExemptEncryption: false
+        web: {
+            "output": "single",
+            favicon: `./${app.assetsFolder}/favicon-96x96.png`
         },
-        infoPlist: {
-            LSApplicationQueriesSchemes: ["itms-apps", "twitch"],
-            NSSupportsLiveActivities: true,
-            NSUserActivityTypes: ["BuildsConfigurationIntent"],
-            UIBackgroundModes: ["remote-notification"]
-        },
-        entitlements: process.env.GAME === 'aoe2' ? {
-            "com.apple.security.application-groups": [
-                "group.com.aoe2companion.widget"
-            ]
-        } : {},
-        associatedDomains: app.associatedDomains,
-        appleTeamId: "HAFGZBHF9M",
-    },
-    web: {
-        "output": "single",
-        favicon: `./${app.assetsFolder}/favicon-96x96.png`
-    },
-});
+    });
+};

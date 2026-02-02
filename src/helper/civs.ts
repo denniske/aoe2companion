@@ -1,8 +1,8 @@
 import {Civ, civs} from "@nex/data";
-import {civIconListData} from "@nex/dataset";
+import {dataset} from "@nex/dataset";
 
 
-export const civIconList = civIconListData;
+export const civIconList = dataset.civIconListData;
 
 export const civHistoryList = [
     require('../../assets/history/civs2/history_armenians.png'),
