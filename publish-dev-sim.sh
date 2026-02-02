@@ -25,6 +25,8 @@ echo "Game: ${GAME}"
 echo "Platform: ${PLATFORM}"
 echo "Filename: ${NAME}"
 
+export TMPDIR=/tmp/metro-cache-$GAME
+mkdir -p $TMPDIR
 
 echo "📦 Building ${PLATFORM} app for ${GAME}..."
 #eas build --profile "development-simulator-${GAME}" --platform $PLATFORM --local --output "$NAME"

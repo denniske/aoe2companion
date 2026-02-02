@@ -27,6 +27,8 @@ echo "Filename: ${NAME}"
 
 # https://github.com/expo/expo/issues/39782
 export EAS_SKIP_AUTO_FINGERPRINT=1
+export TMPDIR=/tmp/metro-cache-$GAME
+mkdir -p $TMPDIR
 
 echo "📦 Building ${PLATFORM} app for ${GAME}..."
 eas build --profile "development-${GAME}" --platform $PLATFORM --local --non-interactive --output "$NAME"
