@@ -10,6 +10,8 @@ export IP=23.88.13.76
 
 export COMMIT_SHA1=$(git rev-parse HEAD)
 
+npx expo export -p web --clear
+
 docker buildx build --platform $PLATFORM -f ./Dockerfile -t denniske/aoe2companion-$SERVICE_NAME:$COMMIT_SHA1 .
 
 export DOCKERHUB_USERNAME=$(doppler secrets get DOCKERHUB_USERNAME -c dev_${GAME} --plain)
