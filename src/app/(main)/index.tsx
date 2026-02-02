@@ -197,11 +197,11 @@ export default function IndexPage() {
                 )}
             </AnimateIn>
 
-            <Text>GAME: {appConfig.game}</Text>
-            <Text>HOST: {appConfig.hostAoeCompanion}</Text>
-            <Text>URL: {getHost('aoe2companion')}</Text>
-            <Text>NAME: {Constants.expoConfig?.slug}</Text>
-            <Text>GAME: {Constants.expoConfig?.slug === 'aoe2companion' ? 'aoe2' : 'aoe4'}</Text>
+            {/*<Text>GAME: {appConfig.game}</Text>*/}
+            {/*<Text>HOST: {appConfig.hostAoeCompanion}</Text>*/}
+            {/*<Text>URL: {getHost('aoe2companion')}</Text>*/}
+            {/*<Text>NAME: {Constants.expoConfig?.slug}</Text>*/}
+            {/*<Text>GAME: {Constants.expoConfig?.slug === 'aoe2companion' ? 'aoe2' : 'aoe4'}</Text>*/}
 
             {authProfileId && (
                 <AnimateIn>
