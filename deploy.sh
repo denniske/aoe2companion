@@ -3,11 +3,10 @@
 # yarn deploy api aoe2
 
 export SERVICE_NAME=web
-export APP_NAME=aoe4-${SERVICE_NAME}
-export DOMAIN=aoe4companion.com
+export APP_NAME=${GAME}-${SERVICE_NAME}
+export DOMAIN=${GAME}companion.com
 export PLATFORM=linux/amd64
 export IP=23.88.13.76
-export GAME=aoe4
 
 export COMMIT_SHA1=$(git rev-parse HEAD)
 
