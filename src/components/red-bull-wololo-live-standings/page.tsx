@@ -85,7 +85,7 @@ export default function Page() {
                         })}
 
                         <a
-                            href="https://aoe2frontend.vercel.app/red-bull-wololo-ladder-format.jpg"
+                            href="https://aoe2companion.com/red-bull-wololo-ladder-format.jpg"
                             target="_blank"
                             className="uppercase font-bold text-xs px-4 py-2 rounded bg-gold-700 hover:bg-gold-800 self-center"
                         >

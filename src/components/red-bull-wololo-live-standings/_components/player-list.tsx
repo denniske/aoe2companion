@@ -118,7 +118,7 @@ export function PlayerList({
     const { data, isFetching, refetch, isLoading, isError, isSuccess } = useQuery<ILeaderboard, Error, ILeaderboard>({
         queryKey: ['leaderboard-players', leaderboardId],
         queryFn: async () => {
-            const response = await fetch(`https://aoe2frontend.vercel.app/api/leaderboard/${leaderboardId}`);
+            const response = await fetch(`https://data.aoe2companion.com/api/red-bull-wololo/leaderboard/${leaderboardId}`);
             const text = await response.text();
             const leaderboardData = JSON.parse(text, dateReviver) as {
                 leaderboard: ILeaderboard;
