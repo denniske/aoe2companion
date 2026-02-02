@@ -34,7 +34,7 @@ doppler run -c dev_${GAME} --command 'ssh -o StrictHostKeyChecking=no root@$IP d
                                                 SERVICE_NAME=$SERVICE_NAME \
                                                 GAME=$GAME'
 
-ssh -o StrictHostKeyChecking=no root@$IP dokku domains:set $APP_NAME $SERVICE_NAME.$DOMAIN
+ssh -o StrictHostKeyChecking=no root@$IP dokku domains:set $APP_NAME $DOMAIN www.$DOMAIN app.$DOMAIN
 
 ssh -o StrictHostKeyChecking=no root@$IP dokku resource:limit --cpu 3 --memory 5000 $APP_NAME
 ssh -o StrictHostKeyChecking=no root@$IP dokku git:from-image $APP_NAME $IMAGE_NAME
