@@ -45,7 +45,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
     const padding = paddingMap[inputType];
 
     return (
-        <View className="relative h-[45px]" style={style}>
+        <View className="relative" style={style}>
             {inputType === 'search' ? (
                 <View className="absolute left-3 top-0 h-full justify-center z-10">
                     <Icon icon="search" color={iconColor ?? 'subtle'} />
@@ -54,8 +54,9 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
             <TextInput
                 {...typeOptions[inputType]}
                 {...props}
+                // Note: Do not set font size here with text-sm because that would lead to text jumping on Android/iOS
                 className={cn(
-                    `bg-white dark:bg-blue-900 text-sm rounded-lg border border-gray-200 dark:border-gray-800 py-3 ${color} ${padding} shadow-xs`,
+                    `bg-white dark:bg-blue-900 rounded-lg border border-gray-200 dark:border-gray-800 py-3 ${color} ${padding} shadow-xs`,
                     props.className
                 )}
             />

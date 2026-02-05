@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
+    '35.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix text jumping vertically in search boxes',
+        },
+    ],
     '34.0.0': [
         {
             type: 'feature',
@@ -320,6 +326,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '183.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix text jumping vertically in search boxes',
+        },
+    ],
     '182.0.0': [
         {
             type: 'feature',
