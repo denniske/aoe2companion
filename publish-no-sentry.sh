@@ -49,8 +49,16 @@ echo "Filename: ${NAME}"
 
 # https://github.com/expo/expo/issues/39782
 export EAS_SKIP_AUTO_FINGERPRINT=1
-export TMPDIR=/tmp/metro-cache-$GAME
-mkdir -p $TMPDIR
+
+# rm -rf node_modules && yarn cache clean && yarn && watchman watch-del-all && rm -fr $TMPDIR/haste-map-* || rm -rf $TMPDIR/metro-cache
+
+rm -rf $TMPDIR/haste-map-*
+rm -rf $TMPDIR/metro-cache
+
+#export GRADLE_USER_HOME=~/.gradle-$GAME
+#export ANDROID_BUILD_CACHE_DIR=~/.android-build-cache-$GAME
+#export TMPDIR=/tmp/metro-cache-$GAME
+#mkdir -p $TMPDIR
 
 echo "📦 Building ${PLATFORM} app for ${GAME}..."
 eas build --profile "production-${GAME}" --platform $PLATFORM --local --non-interactive --output "$NAME"

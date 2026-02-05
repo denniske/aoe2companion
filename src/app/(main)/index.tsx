@@ -61,7 +61,7 @@ const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) =
     );
 };
 
-console.log('name', appConfig.app.name)
+// console.log('name', appConfig.app.name)
 
 export default function IndexPage() {
     const { shouldPromptLogin } = useLoginPopup();

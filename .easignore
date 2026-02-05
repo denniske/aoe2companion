@@ -4,6 +4,8 @@
 /widget
 /index.js
 
+/output
+
 node_modules/**/*
 .expo/*
 npm-debug.*
