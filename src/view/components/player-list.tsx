@@ -8,7 +8,6 @@ import { Href, Link } from 'expo-router';
 import React, { useMemo } from 'react';
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
 import { Image } from '@/src/components/uniwind/image';
-import { useCavy } from '../testing/tester';
 import { useAuthProfileId } from '@app/queries/all';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { UserLoginWrapper } from '@app/components/user-login-wrapper';
@@ -50,7 +49,6 @@ function Player<PlayerType extends IPlayerListPlayer>({
     shouldLink,
 }: IPlayerProps<PlayerType>) {
     const { isMedium } = useBreakpoints();
-    const generateTestHook = useCavy();
     const authProfileId = useAuthProfileId();
 
     const FullSkeleton = useMemo(
@@ -164,7 +162,6 @@ function Player<PlayerType extends IPlayerListPlayer>({
         <Wrapper href={href!} asChild>
             <TouchableOpacity
                 className="flex-row items-center w-full gap-2"
-                ref={(ref) => generateTestHook('Search.Player.' + player.profileId)({ props: { onPress: () => selectedUser?.(player) } }) as any}
                 onPress={selectedUser ? () => selectedUser?.(player) : undefined}
                 style={playerStyle}
             >

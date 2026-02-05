@@ -4,7 +4,6 @@ import { getTranslationInternal, mmkvDefaultInstance, useMMKWTranslationCache } 
 import { getInternalAoeString } from '@app/helper/translate-data';
 import store from '@app/redux/store';
 import { cacheLiveActivityAssets } from '@app/service/storage';
-import { ConditionalTester } from '@app/view/testing/tester';
 import {
     Roboto_400Regular,
     Roboto_500Medium,
@@ -325,8 +324,6 @@ function AppWrapper() {
         }
     }, [fontsLoaded]);
 
-    const showTabBar = useShowTabBar();
-
     // if (!fontsLoaded || (cachedLanguage && !languageLoaded)) {
     if (!fontsLoaded) {
         return null;
@@ -334,87 +331,85 @@ function AppWrapper() {
 
     return (
         <GestureHandlerRootView className="flex-1">
-            <ConditionalTester>
-                <ThemeProvider value={customTheme}>
+            <ThemeProvider value={customTheme}>
+                <View
+                    className={`flex-1 ${Platform.OS === 'web' ? '' : 'bg-gold-50 dark:bg-blue-950'}`}
+                    style={{ paddingTop: insets.top }}
+                    onLayout={onLayoutRootView}
+                >
+                    <StatusBar barStyle={contentTheme} backgroundColor="transparent" translucent />
+
+                    {/*<FloatingDevTools*/}
+                    {/*    apps={[*/}
+                    {/*        {*/}
+                    {/*            id: "network",*/}
+                    {/*            name: "NETWORK",*/}
+                    {/*            description: "Network request logger",*/}
+                    {/*            slot: "both",*/}
+                    {/*            icon: ({ size }) => <Globe size={size} color="#38bdf8" />,*/}
+                    {/*            component: NetworkModal,*/}
+                    {/*            props: {},*/}
+                    {/*        },*/}
+                    {/*        // {*/}
+                    {/*        //     id: "console",*/}
+                    {/*        //     name: "CONSOLE",*/}
+                    {/*        //     description: "Console logger",*/}
+                    {/*        //     slot: "both",*/}
+                    {/*        //     icon: ({ size }) => <Activity size={size} />,*/}
+                    {/*        //     component: ConsoleModal,*/}
+                    {/*        //     props: {},*/}
+                    {/*        // },*/}
+                    {/*        // {*/}
+                    {/*        //     id: "storage",*/}
+                    {/*        //     name: "STORAGE",*/}
+                    {/*        //     description: "AsyncStorage browser",*/}
+                    {/*        //     slot: "both",*/}
+                    {/*        //     icon: ({ size }) => <StorageStackIcon size={size} color="#38f8a7" />,*/}
+                    {/*        //     component: StorageModalWithTabs,*/}
+                    {/*        //     props: {*/}
+                    {/*        //         requiredStorageKeys: [*/}
+                    {/*        //             {*/}
+                    {/*        //                 key: "favoritedBuilds",*/}
+                    {/*        //                 description: "Favorited Builds",*/}
+                    {/*        //                 expectedType: "array",*/}
+                    {/*        //                 storageType: "async",*/}
+                    {/*        //             },*/}
+                    {/*        //         ],*/}
+                    {/*        //     },*/}
+                    {/*        // },*/}
+                    {/*    ]}*/}
+                    {/*    actions={{}}*/}
+                    {/*    environment="local"*/}
+                    {/*    userRole="admin"*/}
+                    {/*/>*/}
+
+                    <StartupNavigationController />
+                    <AccountController />
+                    <LanguageController />
+                    <LiveActivityController />
+                    {Platform.OS === 'web' && <PostMessageTranslationsController />}
+                    {Platform.OS === 'web' && <TranslationModeOverlay />}
+
                     <View
-                        className={`flex-1 ${Platform.OS === 'web' ? '' : 'bg-gold-50 dark:bg-blue-950'}`}
-                        style={{ paddingTop: insets.top }}
-                        onLayout={onLayoutRootView}
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            width: '100%',
+                            zIndex: 9999,
+                        }}
                     >
-                        <StatusBar barStyle={contentTheme} backgroundColor="transparent" translucent />
-
-                        {/*<FloatingDevTools*/}
-                        {/*    apps={[*/}
-                        {/*        {*/}
-                        {/*            id: "network",*/}
-                        {/*            name: "NETWORK",*/}
-                        {/*            description: "Network request logger",*/}
-                        {/*            slot: "both",*/}
-                        {/*            icon: ({ size }) => <Globe size={size} color="#38bdf8" />,*/}
-                        {/*            component: NetworkModal,*/}
-                        {/*            props: {},*/}
-                        {/*        },*/}
-                        {/*        // {*/}
-                        {/*        //     id: "console",*/}
-                        {/*        //     name: "CONSOLE",*/}
-                        {/*        //     description: "Console logger",*/}
-                        {/*        //     slot: "both",*/}
-                        {/*        //     icon: ({ size }) => <Activity size={size} />,*/}
-                        {/*        //     component: ConsoleModal,*/}
-                        {/*        //     props: {},*/}
-                        {/*        // },*/}
-                        {/*        // {*/}
-                        {/*        //     id: "storage",*/}
-                        {/*        //     name: "STORAGE",*/}
-                        {/*        //     description: "AsyncStorage browser",*/}
-                        {/*        //     slot: "both",*/}
-                        {/*        //     icon: ({ size }) => <StorageStackIcon size={size} color="#38f8a7" />,*/}
-                        {/*        //     component: StorageModalWithTabs,*/}
-                        {/*        //     props: {*/}
-                        {/*        //         requiredStorageKeys: [*/}
-                        {/*        //             {*/}
-                        {/*        //                 key: "favoritedBuilds",*/}
-                        {/*        //                 description: "Favorited Builds",*/}
-                        {/*        //                 expectedType: "array",*/}
-                        {/*        //                 storageType: "async",*/}
-                        {/*        //             },*/}
-                        {/*        //         ],*/}
-                        {/*        //     },*/}
-                        {/*        // },*/}
-                        {/*    ]}*/}
-                        {/*    actions={{}}*/}
-                        {/*    environment="local"*/}
-                        {/*    userRole="admin"*/}
-                        {/*/>*/}
-
-                        <StartupNavigationController />
-                        <AccountController />
-                        <LanguageController />
-                        <LiveActivityController />
-                        {Platform.OS === 'web' && <PostMessageTranslationsController />}
-                        {Platform.OS === 'web' && <TranslationModeOverlay />}
-
-                        <View
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                width: '100%',
-                                zIndex: 9999,
-                            }}
-                        >
-                            {Platform.OS !== 'web' && <UpdateSnackbar />}
-                            {Platform.OS !== 'web' && <ChangelogSnackbar />}
-                            {/*<ErrorSnackbar />*/}
-                        </View>
-
-                        <PortalProvider>
-                            <LoginPopupProvider>
-                                <Slot />
-                            </LoginPopupProvider>
-                        </PortalProvider>
+                        {Platform.OS !== 'web' && <UpdateSnackbar />}
+                        {Platform.OS !== 'web' && <ChangelogSnackbar />}
+                        {/*<ErrorSnackbar />*/}
                     </View>
-                </ThemeProvider>
-            </ConditionalTester>
+
+                    <PortalProvider>
+                        <LoginPopupProvider>
+                            <Slot />
+                        </LoginPopupProvider>
+                    </PortalProvider>
+                </View>
+            </ThemeProvider>
         </GestureHandlerRootView>
     );
 }
@@ -515,6 +510,8 @@ function HomeLayout() {
 
         return () => subscription.remove();
     }, [routes]);
+
+    console.log('ReduxProvider', ReduxProvider)
 
     return (
         <ReduxProvider store={store}>
