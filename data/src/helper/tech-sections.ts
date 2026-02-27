@@ -76,6 +76,9 @@ export const techSections: ITechSection[] = [
     {
         building: 'Dock',
         data: [
+            'MediumWarships',
+            'HeavyWarships',
+            'FishingLines',
             "Gillnets",
             "Shipwright",
             "Careening",

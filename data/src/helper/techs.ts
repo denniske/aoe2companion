@@ -1,7 +1,7 @@
 import {Civ} from "./civs";
 import { getUnitData, getUnitLineIdForUnit, ICostDict, sortedUnitLines, Unit, UnitLine, unitLines } from './units';
 import {aoeData, aoeTechDataId} from "../data/data";
-import {keysOf, sanitizeGameDescription, strRemoveTo, unwrap} from "../lib/util";
+import {keysOf, sanitizeGameDescription, sanitizeGameName, strRemoveTo, unwrap} from "../lib/util";
 import {getAoeString} from '../lib/aoe-data';
 import {flatMap} from 'lodash';
 import {Building, BuildingLine, buildingLineIds, buildingLines, getBuildingLineIdForBuilding} from "./buildings";
@@ -949,11 +949,11 @@ const techEffectDictInternal = {
             range: '+1',
         },
     },
-    'Carrack': {
-        tech: 'Carrack',
+    'Circumnavigation': {
+        tech: 'Circumnavigation',
         civ: 'Portuguese',
         effect: {
-            armor: '+1/+1',
+            creationSpeed: '+33%',
         },
     },
     'Shipwright': {
@@ -2278,8 +2278,8 @@ export const techList: ITech[] = [
         "age": 'CastleAge',
     },
     {
-        "dataId": "572",
-        "name": "Carrack",
+        "dataId": "1404",
+        "name": "Circumnavigation",
         "civ": "Portuguese",
         "age": 'CastleAge',
     },
@@ -2712,7 +2712,60 @@ export const techList: ITech[] = [
     {
         "dataId": "315",
         "name": "Conscription"
-    }
+    },
+
+    {
+        "dataId": "34",
+        "name": "MediumWarships",
+    },
+    {
+        "dataId": "35",
+        "name": "HeavyWarships",
+    },
+    {
+        "dataId": "906",
+        "name": "FishingLines",
+    },
+    {
+        "dataId": "907",
+        "name": "CarvelHull",
+    },
+    {
+        "dataId": "908",
+        "name": "ClinkerConstruction",
+    },
+    {
+        "dataId": "909",
+        "name": "Siphons",
+    },
+    {
+        "dataId": "910",
+        "name": "Incendiaries",
+    },
+    {
+        "dataId": "1379",
+        "name": "Malon",
+    },
+    {
+        "dataId": "1380",
+        "name": "Butalmapu",
+    },
+    {
+        "dataId": "1365",
+        "name": "Herbalism",
+    },
+    {
+        "dataId": "1366",
+        "name": "Huaracas",
+    },
+    {
+        "dataId": "1392",
+        "name": "Caciques",
+    },
+    {
+        "dataId": "1393",
+        "name": "Curare"
+    },
 ];
 
 
@@ -2942,7 +2995,7 @@ const techIds = [
     'HulcheJavelineers',
     'Nomads',
     'Kamandaran',
-    'Carrack',
+    'Circumnavigation',
     'Detinets',
     'Inquisition',
     'SilkArmor',
@@ -3005,6 +3058,20 @@ const techIds = [
     'MingGuangArmor',
     'RedCliffsTactics',
     'SittingTiger',
+
+    'MediumWarships',
+    'HeavyWarships',
+    'FishingLines',
+    'CarvelHull',
+    'ClinkerConstruction',
+    'Siphons',
+    'Incendiaries',
+    'Malon',
+    'Butalmapu',
+    'Herbalism',
+    'Huaracas',
+    'Caciques',
+    'Curare',
 ] as const;
 
 const TechUnion = unwrap(techIds);
@@ -3028,7 +3095,7 @@ export function getTechData(tech: Tech) {
     if (dataId == null) {
         throw Error(`getTechData ${tech} - no dataId`);
     }
-    const data = aoeData.data.techs[dataId] as ITechInfo;
+    const data = aoeData.data.Tech[dataId] as ITechInfo;
     if (data == null) {
         throw Error(`getTechData ${tech} - no data`);
     }
@@ -3046,12 +3113,12 @@ export const hasTechData = (tech: Tech) => {
 
 export function getTechName(tech: Tech) {
     const data = getTechData(tech);
-    return getAoeString(data.LanguageNameId.toString());
+    return sanitizeGameName(getAoeString((data.LanguageNameId+10000).toString()));
 }
 
 export function getTechDescription(tech: Tech) {
     const data = getTechData(tech);
-    let description = sanitizeGameDescription(getAoeString(data.LanguageHelpId.toString()));
+    let description = sanitizeGameDescription(getAoeString((data.LanguageNameId + 21000).toString()));
 
     description = strRemoveTo(description, '\n');
 

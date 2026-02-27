@@ -16,13 +16,14 @@ import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
-    Environment,
+    aoeData, buildings,
+    Environment, getAoeString, ICivEntry,
     IHostService,
     IHttpService,
     ITranslationService,
     OS,
-    registerService,
-    SERVICE_NAME,
+    registerService, sanitizeGameName,
+    SERVICE_NAME, techs, units,
 } from '@nex/data';
 import { DarkTheme, DefaultTheme, ThemeProvider, useNavigationState } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
@@ -151,6 +152,92 @@ class HostService implements IHostService {
 registerService(SERVICE_NAME.TRANSLATION_SERVICE, new AoeDataService(), true);
 registerService(SERVICE_NAME.HOST_SERVICE, new HostService(), true);
 registerService(SERVICE_NAME.HTTP_SERVICE, new HttpService(), true);
+
+
+// const newUnits = [];
+// const newTechs = [];
+// const newBuildings = [];
+//
+// Object.entries(aoeData.civs)
+//     .filter(([civ, civData], i) => !['Athenians', 'Spartans', 'Achaemenids', 'Macedonians', 'Thracians', 'Puru'].includes(civ))
+//     .forEach(([civ, civData]) => {
+//         // console.log('civ', civ);
+//         // console.log('units');
+//
+//         // civData.Unit.forEach(dataId => {
+//         //     const data = aoeData.data.Unit[dataId as any];
+//         //     if (!data) {
+//         //         console.warn(`Unit with data ID ${dataId} not found in aoeData`);
+//         //         return;
+//         //     }
+//         //     const name1 = sanitizeGameName(getAoeString((data.LanguageNameId).toString()));
+//         //     const name2 = sanitizeGameName(getAoeString((data.LanguageNameId+9000).toString()));
+//         //     const name = name1 !== '???' ? name1 : name2;
+//         //     if (name === '???') {
+//         //         console.log(`Missing translation for ${data.LanguageNameId} ${data.LanguageNameId+9000}`);
+//         //     }
+//         //     const existing = Object.values(units).find(u => u.dataId === dataId.toString());
+//         //     if (existing) return;
+//         //     // console.log(`- ${name} ${data.LanguageNameId+9000} (${dataId}) ${existing ? 'exists' : 'new'}`);
+//         //     newUnits.push(name.replace(/\s/, '') + ' ' +  dataId);
+//         // });
+//
+//         // civData.Tech.forEach(dataId => {
+//         //     const data = aoeData.data.Tech[dataId as any];
+//         //     if (!data) {
+//         //         console.warn(`Tech with data ID ${dataId} not found in aoeData`);
+//         //         return;
+//         //     }
+//         //     const name1 = sanitizeGameName(getAoeString((data.LanguageNameId).toString()));
+//         //     const name2 = sanitizeGameName(getAoeString((data.LanguageNameId+10000).toString()));
+//         //     const name = name1 !== '???' ? name1 : name2;
+//         //     if (name === '???') {
+//         //         console.log(`Missing translation for ${data.LanguageNameId} ${data.LanguageNameId+10000}`);
+//         //     }
+//         //     const existing = Object.values(techs).find(u => u.dataId === dataId.toString());
+//         //     if (existing) return;
+//         //     // console.log(`- ${name} ${data.LanguageNameId+9000} (${dataId}) ${existing ? 'exists' : 'new'}`);
+//         //     newTechs.push(name.replace(/\s/, '') + ' ' +  dataId);
+//         // });
+//
+//         // civData.Building.forEach(dataId => {
+//         //     const data = aoeData.data.Building[dataId as any];
+//         //     if (!data) {
+//         //         console.warn(`Building with data ID ${dataId} not found in aoeData`);
+//         //         return;
+//         //     }
+//         //     const name1 = sanitizeGameName(getAoeString((data.LanguageNameId).toString()));
+//         //     const name2 = sanitizeGameName(getAoeString((data.LanguageNameId+9000).toString()));
+//         //     const name = name1 !== '???' ? name1 : name2;
+//         //     if (name === '???') {
+//         //         console.log(`Missing translation for ${data.LanguageNameId} ${data.LanguageNameId+9000}`);
+//         //     }
+//         //     const existing = Object.values(buildings).find(u => u.dataId === dataId.toString());
+//         //     if (existing) return;
+//         //     // console.log(`- ${name} ${data.LanguageNameId+9000} (${dataId}) ${existing ? 'exists' : 'new'}`);
+//         //     newBuildings.push(name.replace(/\s/, '') + ' ' +  dataId);
+//         // });
+// });
+
+// console.log(new Set(newUnits));
+// console.log(new Set(newTechs));
+// console.log(new Set(newBuildings));
+
+// Object.entries(aoeTreeInternal).forEach(([civ, civData]) => {
+//     console.log('civ', civ);
+//     console.log('units');
+//     civData.civ_techs_units.forEach(techUnit => {
+//         const dataId = techUnit['Building ID'];
+//         const data = aoeData.data.Unit[dataId as any];
+//         if (!data) {
+//             console.warn(`Unit with data ID ${dataId} not found in aoeData`);
+//             return;
+//         }
+//         const name = sanitizeGameName(getAoeString((data.LanguageNameId+9000).toString()));
+//         const existing = Object.values(units).find(u => u.dataId === dataId);
+//         console.log(`- ${name} (${dataId}) ${existing ? 'exists' : 'new'}`);
+//     });
+// });
 
 const isMobile = ['Android', 'iOS'].includes(Device.osName!);
 
@@ -510,8 +597,6 @@ function HomeLayout() {
 
         return () => subscription.remove();
     }, [routes]);
-
-    console.log('ReduxProvider', ReduxProvider)
 
     return (
         <ReduxProvider store={store}>

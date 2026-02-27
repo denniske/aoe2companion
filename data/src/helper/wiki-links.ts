@@ -305,7 +305,7 @@ const wikiLinks: Record<string, Record<string, string>> = {
         'HulcheJavelineers': 'https://ageofempires.fandom.com/wiki/Hul%27che_Javelineers',
         'Nomads': 'https://ageofempires.fandom.com/wiki/Nomads',
         'Kamandaran': 'https://ageofempires.fandom.com/wiki/Kamandaran',
-        'Carrack': 'https://ageofempires.fandom.com/wiki/Carrack',
+        'Circumnavigation': 'https://ageofempires.fandom.com/wiki/Circumnavigation',
         'Detinets': 'https://ageofempires.fandom.com/wiki/Detinets',
         'Inquisition': 'https://ageofempires.fandom.com/wiki/Inquisition',
         'SilkArmor': 'https://ageofempires.fandom.com/wiki/Silk_Armor',

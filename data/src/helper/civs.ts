@@ -1,7 +1,7 @@
 import {Tech} from "./techs";
-import {Unit} from "./units";
+import {Unit, units } from "./units";
 import {aoeData} from "../data/data";
-import {removeAccentsAndCase, sanitizeGameDescription, unwrap} from "../lib/util";
+import {removeAccentsAndCase, sanitizeGameDescription, sanitizeGameName, unwrap} from "../lib/util";
 import {getAoeString} from '../lib/aoe-data';
 import {orderBy} from 'lodash';
 import {appConfig, dataset } from "@nex/dataset";
@@ -17,6 +17,21 @@ export interface ICivEntry {
 }
 
 export const civList: ICivEntry[] = [
+    {
+        name: 'Mapuche',
+        uniqueUnits: ['BolasRider', 'Kona'],
+        uniqueTechs: ['Malon', 'Butalmapu'],
+    },
+    {
+        name: 'Muisca',
+        uniqueUnits: ['GuechaWarrior', 'TempleGuard'],
+        uniqueTechs: ['Herbalism', 'Huaracas'],
+    },
+    {
+        name: 'Tupi',
+        uniqueUnits: ['BlackwoodArcher', 'IbirapemaWarrior'],
+        uniqueTechs: ['Caciques', 'Curare'],
+    },
     {
         name: 'Armenians',
         uniqueUnits: ['CompositeBowman', 'WarriorPriest'],
@@ -215,7 +230,7 @@ export const civList: ICivEntry[] = [
     {
         name: 'Portuguese',
         uniqueUnits: ['OrganGun', 'Caravel'],
-        uniqueTechs: ['Carrack', 'Arquebus'],
+        uniqueTechs: ['Circumnavigation', 'Arquebus'],
     },
     {
         name: 'Romans',
@@ -329,8 +344,8 @@ const aoe4CivNameDict = {
 
 export function getCivNameById(civ: Civ) {
     if (appConfig.game === 'aoe2') {
-        const civNameKey = aoeData.civ_names[civ as any as keyof typeof aoeData.civ_names];
-        return getAoeString(civNameKey);
+        const civNameKey = aoeData.civs[civ as any as keyof typeof aoeData.civs]?.name_string_id;
+        return getAoeString(civNameKey?.toString());
     }
     return aoe4CivNameDict[civs.indexOf(civ) as any as keyof typeof aoe4CivNameDict];
 }
@@ -351,8 +366,8 @@ export function getLocalCivEnum(serverCivEnum: string): string {
 }
 
 export function getCivDescription(civ: Civ) {
-    const civStringKey = aoeData.civ_helptexts[civ as any as keyof typeof aoeData.civ_helptexts];
-    return sanitizeGameDescription(getAoeString(civStringKey));
+    const civStringKey = aoeData.civs[civ as any as keyof typeof aoeData.civs]?.help_string_id;
+    return sanitizeGameDescription(getAoeString(civStringKey?.toString()));
 }
 
 export function parseCivDescription(civ: Civ) {

@@ -33,7 +33,7 @@ class DummyTranslationService implements ITranslationService {
         return '???';
     }
     getAoeString(str: string): string {
-        // console.trace('DUMMY getAoeString', str);
+        console.log('DUMMY getAoeString', str);
         return '???';
     }
     getLanguage(): string {
@@ -41,4 +41,4 @@ class DummyTranslationService implements ITranslationService {
     }
 }
 
-registerService(SERVICE_NAME.TRANSLATION_SERVICE, new DummyTranslationService(), true);
+// registerService(SERVICE_NAME.TRANSLATION_SERVICE, new DummyTranslationService(), true);

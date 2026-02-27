@@ -1,6 +1,6 @@
 import {ICostDict, IUnitClassPair, Unit, UnitLine, unitLineIds, unitLines, unitList} from "./units";
 import {aoeBuildingDataId, aoeData} from "../data/data";
-import {sanitizeGameDescription, strRemoveFrom, strRemoveTo, unwrap} from "../lib/util";
+import {sanitizeGameDescription, sanitizeGameName, strRemoveFrom, strRemoveTo, unwrap} from "../lib/util";
 import {getAoeString} from '../lib/aoe-data';
 import {Civ} from "./civs";
 import {TechEffect} from "./techs";
@@ -711,6 +711,16 @@ export const buildingDefList: IBuilding[] = [
         "dataId": "276",
         "name": "Wonder",
     },
+
+    // why?
+    {
+        "dataId": "621",
+        "name": "TownCenter",
+    },
+    {
+        "dataId": "2556",
+        "name": "Settlement",
+    },
 ];
 
 
@@ -758,6 +768,7 @@ const buildingIds = [
     'FortifiedChurch',
     'MuleCart',
     'Pasture',
+    'Settlement',
 ] as const;
 
 const BuildingUnion = unwrap(buildingIds);
@@ -786,26 +797,36 @@ export function getBuildingData(building: Building) {
         throw Error(`getBuildingName ${building} - no dataId`);
     }
     const dataId = buildingEntry.dataId;
-    if (aoeData.data.buildings[dataId] == null) {
+    if (aoeData.data.Building[dataId] == null) {
         throw Error(`getUnitData ${building} - no data`);
     }
-    return aoeData.data.buildings[dataId] as IBuildingInfo;
+    return aoeData.data.Building[dataId] as IBuildingInfo;
 }
 
 export function getBuildingName(building: Building) {
     const data = getBuildingData(building);
-    return getAoeString(data.LanguageNameId.toString());
+    return sanitizeGameName(getAoeString((data.LanguageNameId+9000).toString()));
 }
+
+// function countOcc(haystack: string, needle: string): number {
+//     if (!needle) return 0;
+//     return haystack.split(needle).length - 1;
+// }
 
 export function getBuildingDescription(building: Building) {
     const data = getBuildingData(building);
-    let description = sanitizeGameDescription(getAoeString(data.LanguageHelpId.toString()));
+    let description = getAoeString((data.LanguageNameId + 21000).toString());
+
+    // console.log('description', building, countOcc(description, '\n'));
 
     description = strRemoveTo(description, '\n');
-    if (description.indexOf('Upgrades:') >= 0)
-        description = strRemoveFrom(description, 'Upgrades:');
-    if (description.indexOf('‹hp›') >= 0)
-        description = strRemoveFrom(description, '‹hp›');
+    description = strRemoveFrom(description, '\n'); // <i>Upgrades:
+
+    // description = strRemoveTo(description, '\n');
+    // if (description.indexOf('Upgrades:') >= 0)
+    //     description = strRemoveFrom(description, 'Upgrades:');
+    // if (description.indexOf('‹hp›') >= 0)
+    //     description = strRemoveFrom(description, '‹hp›');
 
     description = description.replace(/\n/g, ' ');
     description = description.replace(/  /g, ' ');
@@ -813,5 +834,5 @@ export function getBuildingDescription(building: Building) {
 
     // console.log("new desc", JSON.stringify(description));
 
-    return description;
+    return sanitizeGameDescription(description);
 }

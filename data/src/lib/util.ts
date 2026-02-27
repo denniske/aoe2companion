@@ -196,6 +196,13 @@ export function makeQueryStringRaw(params: IParams) {
 }
 
 export function strRemoveTo(str: string, find: string) {
+    // console.log('strRemoveTo', str, find, str.indexOf(find), find.length);
+
+    if (str.indexOf(find) === -1) {
+        console.log('strRemoveTo not found', find);
+        return str;
+    }
+
     return str.substring(str.indexOf(find) + find.length);
 }
 
@@ -216,7 +223,20 @@ export function unwrapWithMapper<X, Y>(arg: readonly X[], mapper: (x: X) => Y): 
 }
 
 export function sanitizeGameDescription(description: string) {
-    return description.replace(/<b>/g, '').replace(/<\/b>/g, '').replace(/<i>/g, '').replace(/<\/i>/g, '').replace(/<br>/g, '');
+    return description
+        .replace(/<b>/g, '')
+        .replace(/<\/b>/g, '')
+        .replace(/<i>/g, '')
+        .replace(/<\/i>/g, '')
+        .replace(/<br>/g, '')
+        .replace(/‹DEFAULT›/g, '');
+}
+
+export function sanitizeGameName(name: string) {
+    return name
+        .replace(/<br>/g, '')
+        .replace(/-\n/g, '')
+        .replace(/\n/g, ' ');
 }
 
 export function removeAccentsAndCase(str: string) {

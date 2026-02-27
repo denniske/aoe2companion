@@ -1,7 +1,7 @@
 import {TechEffect} from "./techs";
 import {difference, sortBy} from 'lodash';
 import {Civ} from "./civs";
-import {strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib/util";
+import { sanitizeGameName, strRemoveFrom, strRemoveTo, unwrap, ValueOf} from "../lib/util";
 import {aoeData, aoeUnitDataId} from "../data/data";
 import {getAoeString, getUiTranslation} from '../lib/aoe-data';
 
@@ -24,6 +24,15 @@ interface IUnitLineDict {
 }
 
 export const unitLineIds = [
+    'Hulk',
+    'CatapultGalleon',
+    'ChampiScout',
+    'Kona',
+    'BolasRider',
+    'GuechaWarrior',
+    'TempleGuard',
+    'BlackwoodArcher',
+    'IbirapemaWarrior',
     'FireLancer',
     'RocketCart',
     'LouChuan',
@@ -138,6 +147,84 @@ export const unitLineIds = [
 ] as const;
 
 export const unitLines: IUnitLineDict = {
+    'Hulk': {
+        units: ['Hulk', 'WarHulk', 'Carrack'],
+        counteredBy: [
+        ],
+        upgrades: [
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'CilicianFleet-Range',
+            'Ballistas',
+            'Chemistry',
+            'Ballistics',
+            'Careening',
+            'Circumnavigation',
+            'DryDock',
+            'Devotion',
+            'Faith',
+            'Heresy',
+            'Shipwright',
+        ],
+    },
+    'CatapultGalleon': {
+        units: ['CatapultGalleon'],
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'ChampiScout': {
+        units: ['ChampiScout', 'ChampiRunner', 'ChampiWarrior', 'EliteChampiWarrior'],
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'Kona': {
+        units: ['Kona', 'EliteKona'],
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'BolasRider': {
+        units: ['BolasRider', 'EliteBolasRider'],
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'GuechaWarrior': {
+        units: ['GuechaWarrior', 'EliteGuechaWarrior'],
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'TempleGuard': {
+        units: ['TempleGuard', 'EliteTempleGuard'],
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'BlackwoodArcher': {
+        units: ['BlackwoodArcher', 'EliteBlackwoodArcher'],
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+    'IbirapemaWarrior': {
+        units: ['IbirapemaWarrior', 'EliteIbirapemaWarrior'],
+        counteredBy: [
+        ],
+        upgrades: [
+        ],
+    },
+
     'Ghulam': {
         units: ['Ghulam', 'EliteGhulam'],
         unique: true,
@@ -431,7 +518,7 @@ export const unitLines: IUnitLineDict = {
         upgrades: [
             'GrandTrunkRoad',
             'Careening',
-            'Carrack',
+            'Circumnavigation',
             'DryDock',
             'Caravan',
             'Devotion',
@@ -446,7 +533,7 @@ export const unitLines: IUnitLineDict = {
         upgrades: [
             'Gillnets',
             'Careening',
-            'Carrack',
+            'Circumnavigation',
             'DryDock',
             'Devotion',
             'Faith',
@@ -457,7 +544,7 @@ export const unitLines: IUnitLineDict = {
     'TransportShip': {
         units: ['TransportShip'],
         upgrades: [
-            'Carrack',
+            'Circumnavigation',
             'Devotion',
             'Faith',
             'Heresy',
@@ -581,7 +668,7 @@ export const unitLines: IUnitLineDict = {
             'SiegeEngineers-40',
             'CilicianFleet-BlastRadius',
             'Careening',
-            'Carrack',
+            'Circumnavigation',
             'DryDock',
             'Devotion',
             'Faith',
@@ -603,7 +690,7 @@ export const unitLines: IUnitLineDict = {
         upgrades: [
             'GreekFire',
             'Careening',
-            'Carrack',
+            'Circumnavigation',
             'DryDock',
             'Devotion',
             'Faith',
@@ -628,7 +715,7 @@ export const unitLines: IUnitLineDict = {
             'Chemistry',
             'Ballistics',
             'Careening',
-            'Carrack',
+            'Circumnavigation',
             'DryDock',
             'Devotion',
             'Faith',
@@ -651,7 +738,7 @@ export const unitLines: IUnitLineDict = {
             'Artillery',
             'Arquebus',
             'Careening',
-            'Carrack',
+            'Circumnavigation',
             'DryDock',
             'Devotion',
             'Faith',
@@ -736,7 +823,7 @@ export const unitLines: IUnitLineDict = {
             'Chemistry',
             'Ballistics',
             'Careening',
-            'Carrack',
+            'Circumnavigation',
             'DryDock',
             'Devotion',
             'Faith',
@@ -3848,323 +3935,108 @@ const unitsInternal = {
     'EliteKamayuk': {
         dataId: '881',
     },
-};
 
-export const unitUpgradeCosts = {
-    "HussiteWagon":{
-        "Wood":800,
-        "Gold":600
-    },
-    "Obuch":{
-        "Food":800,
-        "Gold":600
-    },
-    "BombardCannon":{
-        "Food":950,
-        "Gold":750
-    },
-    "Coustillier":{
-        "Food":1000,
-        "Gold":800
-    },
-    "Serjeant":{
-        "Food":1100,
-        "Gold":800
-    },
-    "CannonGalleon":{
-        "Wood":525,
-        "Gold":500
-    },
-    "DemolitionRaft":{
-        "Food":230,
-        "Gold":100
-    },
-    "DemolitionShip":{
-        "Wood":200,
-        "Gold":300
-    },
-    "FireGalley":{
-        "Food":230,
-        "Gold":100
-    },
-    "FireShip":{
-        "Wood":280,
-        "Gold":250
-    },
-    "Galley":{
-        "Food":230,
-        "Gold":100
-    },
-    "WarGalley":{
-        "Food":400,
-        "Wood":315
-    },
-    "Arambai":{
-        "Food":1100,
-        "Gold":675
-    },
-    "OrganGun":{
-        "Food":1200,
-        "Gold":500
-    },
-    "Caravel":{
-        "Food":750,
-        "Gold":475
-    },
-    "Conquistador":{
-        "Food":1200,
-        "Gold":600
-    },
-    "TurtleShip":{
-        "Food":1000,
-        "Gold":800
-    },
-    "Longboat":{
-        "Food":750,
-        "Gold":475
-    },
-    "Janissary":{
-        "Food":850,
-        "Gold":750
-    },
-    "BallistaElephant":{
-        "Food":1000,
-        "Gold":500
-    },
-    "Mangonel":{
-        "Food":800,
-        "Gold":500
-    },
-    "Onager":{
-        "Food":1450,
-        "Gold":1000
-    },
-    "BatteringRam":{
-        "Food":300
-    },
-    "CappedRam":{
-        "Food":1000
-    },
-    "Scorpion":{
-        "Food":1000,
-        "Wood":1100
-    },
-    "KarambitWarrior":{
-        "Food":900,
-        "Gold":600
-    },
-    "Gbeto":{
-        "Food":900,
-        "Gold":600
-    },
-    "ShotelWarrior":{
-        "Food":1200,
-        "Gold":550
-    },
-    "JaguarWarrior":{
-        "Food":1000,
-        "Gold":500
-    },
-    "Berserk":{
-        "Food":1300,
-        "Gold":550
-    },
-    "TeutonicKnight":{
-        "Food":1200,
-        "Gold":600
-    },
-    "Samurai":{
-        "Food":950,
-        "Gold":875
-    },
-    "Huskarl":{
-        "Food":1200,
-        "Gold":550
-    },
-    "ThrowingAxeman":{
-        "Food":1000,
-        "Gold":750
-    },
-    "WoadRaider":{
-        "Food":1000,
-        "Gold":800
-    },
-    "EagleScout":{
-        "Food":200,
-        "Gold":200
-    },
-    "EagleWarrior":{
-        "Food":800,
-        "Gold":500
-    },
-    "Spearman":{
-        "Food":215,
-        "Gold":90
-    },
-    "Pikeman":{
-        "Food":300,
-        "Gold":600
-    },
-    "Militia":{
-        "Food":100,
-        "Gold":40
-    },
-    "ManAtArms":{
-        "Food":150,
-        "Gold":65
-    },
-    "LongSwordsman":{
-        "Food":300,
-        "Gold":100
-    },
-    "TwoHandedSwordsman":{
-        "Food":750,
-        "Gold":350
-    },
-    "Keshik":{
-        "Food":700,
-        "Gold":900
-    },
-    "Leitis":{
-        "Food":750,
-        "Gold":750
-    },
-    "Konnik":{
-        "Food":1000,
-        "Gold":750
-    },
-    "KonnikDismounted":{
-        "Food":1000,
-        "Gold":750
-    },
-    "Boyar":{
-        "Food":1000,
-        "Gold":600
-    },
-    "MagyarHuszar":{
-        "Food":800,
-        "Gold":600
-    },
-    "Tarkan":{
-        "Food":1000,
-        "Gold":500
-    },
-    "Mameluke":{
-        "Food":600,
-        "Gold":500
-    },
-    "WarElephant":{
-        "Food":1600,
-        "Gold":1200
-    },
-    "Cataphract":{
-        "Food":1200,
-        "Gold":800
-    },
-    "SteppeLancer":{
-        "Food":900,
-        "Gold":550
-    },
-    "BattleElephant":{
-        "Food":1200,
-        "Gold":900
-    },
-    "CamelRider":{
-        "Food":325,
-        "Gold":360
-    },
-    "HeavyCamelRider":{
-        "Food":1200,
-        "Gold":600
-    },
-    "Knight":{
-        "Food":300,
-        "Gold":300
-    },
-    "Cavalier":{
-        "Food":1300,
-        "Gold":750
-    },
-    "ScoutCavalry":{
-        "Food":150,
-        "Gold":50
-    },
-    "LightCavalry-Hussar":{
-        "Food":500,
-        "Gold":600
-    },
-    "LightCavalry-WingedHussar":{
-        "Food":600,
-        "Gold":800
-    },
-    "Kipchak":{
-        "Food":1100,
-        "Wood":1000
-    },
-    "RattanArcher":{
-        "Food":1000,
-        "Gold":750
-    },
-    "Genitour":{
-        "Food":500,
-        "Wood":450
-    },
-    "CamelArcher":{
-        "Wood":1000,
-        "Gold":500
-    },
-    "GenoeseCrossbowman":{
-        "Food":1000,
-        "Gold":800
-    },
-    "ElephantArcher":{
-        "Food":1000,
-        "Gold":800
-    },
-    "WarWagon":{
-        "Wood":1000,
-        "Gold":800
-    },
-    "Mangudai":{
-        "Food":1100,
-        "Gold":675
-    },
-    "ChuKoNu":{
-        "Food":760,
-        "Gold":760
-    },
-    "Longbowman":{
-        "Food":850,
-        "Gold":850
-    },
-    "CavalryArcher":{
-        "Food":900,
-        "Gold":500
-    },
-    "Skirmisher":{
-        "Wood":230,
-        "Gold":130
-    },
-    "EliteSkirmisher":{
-        "Wood":300,
-        "Gold":450
-    },
-    "Archer":{
-        "Food":125,
-        "Gold":75
-    },
-    "Crossbowman":{
-        "Food":350,
-        "Gold":300
-    },
-    "PlumedArcher":{
-        "Food":700,
-        "Wood":1000
-    },
-    "Kamayuk":{
-        "Food":900,
-        "Gold":500
-    }
+    'Hulk': {
+        dataId: '2626',
+    },
+    'WarHulk': {
+        dataId: '2627',
+    },
+    'Carrack': {
+        dataId: '2628',
+    },
+    'CatapultGalleon': {
+        dataId: '2633',
+    },
+    'ChampiScout': {
+        dataId: '2550',
+    },
+    'ChampiWarrior': {
+        dataId: '2552',
+    },
+    'EliteChampiWarrior': {
+        dataId: '2554',
+    },
+    'ChampiRunner': {
+        dataId: '2588',
+    },
+    'Kona': {
+        dataId: '2566',
+    },
+    'EliteKona': {
+        dataId: '2568',
+    },
+    'BolasRider': {
+        dataId: '2569',
+    },
+    'EliteBolasRider': {
+        dataId: '2571',
+    },
+    'GuechaWarrior': {
+        dataId: '2562',
+    },
+    'EliteGuechaWarrior': {
+        dataId: '2564',
+    },
+    'TempleGuard': {
+        dataId: '2586',
+    },
+    'EliteTempleGuard': {
+        dataId: '2587',
+    },
+    'BlackwoodArcher': {
+        dataId: '2579',
+    },
+    'EliteBlackwoodArcher': {
+        dataId: '2581',
+    },
+    'IbirapemaWarrior': {
+        dataId: '2582',
+    },
+    'EliteIbirapemaWarrior': {
+        dataId: '2584'
+    },
+
+    // Tarkan and EliteTarkan doubled because they can be trained at stable and castle
+    // Spearman line can be trained at barracks and the donjon, so they are also doubled
+    // etc.
+
+    // 'Konnik': {
+    //     dataId: '1225',
+    // },
+    // 'EliteKonnik': {
+    //     dataId: '1227',
+    // },
+    // 'EliteKipchak': {
+    //     dataId: '1260',
+    // },
+    // 'Huskarl': {
+    //     dataId: '759',
+    // },
+    // 'EliteHuskarl': {
+    //     dataId: '761',
+    // },
+    // 'Tarkan': {
+    //     dataId: '886',
+    // },
+    // 'EliteTarkan': {
+    //     dataId: '887',
+    // },
+    // 'Serjeant': {
+    //     dataId: '1660',
+    // },
+    // 'EliteSerjeant': {
+    //     dataId: '1661',
+    // },
+    // 'Spearman': {
+    //     dataId: '1786',
+    // },
+    // 'Pikeman': {
+    //     dataId: '1787',
+    // },
+    // 'Halberdier': {
+    //     dataId: '1788',
+    // },
 };
 
 const UnitLineUnion = unwrap(unitLineIds);
@@ -4200,7 +4072,6 @@ export interface IUnitInfo {
     ID: number;
     ChargeEvent: number;
     ChargeType: number;
-    LanguageHelpId: number;
     LanguageNameId: number;
     LineOfSight: number;
     MaxCharge: number;
@@ -4310,7 +4181,7 @@ export function getUnitLineName(unitLine: UnitLine) {
 
 export function getUnitName(unit: Unit) {
     const data = getUnitData(unit);
-    return getAoeString(data.LanguageNameId.toString()).replace(' (Male)', '');
+    return sanitizeGameName(getAoeString((data.LanguageNameId+9000).toString()).replace(' (Male)', ''));
 }
 
 export function getUnitData(unit: Unit) {
@@ -4319,15 +4190,15 @@ export function getUnitData(unit: Unit) {
         throw Error(`getUnitData ${unit} - no dataId`);
     }
     const dataId = units[unit].dataId;
-    if (aoeData.data.units[dataId] == null) {
-        throw Error(`getUnitData ${unit} - no data`);
+    if (aoeData.data.Unit[dataId] == null) {
+        throw Error(`getUnitData ${unit} ${dataId} - no data`);
     }
-    return aoeData.data.units[dataId] as IUnitInfo;
+    return aoeData.data.Unit[dataId] as IUnitInfo;
 }
 
 export function getUnitDescription(unit: Unit) {
     const data = getUnitData(unit);
-    let description = getAoeString(data.LanguageHelpId.toString()) as string;
+    let description = getAoeString((data.LanguageNameId + 21000).toString()) as string;
 
     // console.log('description', description);
 

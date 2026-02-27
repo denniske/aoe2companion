@@ -65,6 +65,7 @@ export const buildingSections: IBuildingSection[] = [
         icon: 'flask',
         data: [
             "TownCenter",
+            "Settlement",
             "House",
             "Blacksmith",
             "Market",

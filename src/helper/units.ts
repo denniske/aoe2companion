@@ -37,6 +37,28 @@ interface UnitIconDict {
 
 // Use .webp for smaller files later
 const unitIcons: UnitIconDict = {
+    'Hulk': require('../../assets/units/Hulk.png'),
+    'WarHulk': require('../../assets/units/WarHulk.png'),
+    'Carrack': require('../../assets/units/Carrack.png'),
+    'CatapultGalleon': require('../../assets/units/CatapultGalleon.png'),
+    'ChampiScout': require('../../assets/units/ChampiScout.png'),
+    'ChampiWarrior': require('../../assets/units/ChampiWarrior.png'),
+    'EliteChampiWarrior': require('../../assets/units/EliteChampiWarrior.png'),
+    'ChampiRunner': require('../../assets/units/ChampiRunner.png'),
+    'Kona': require('../../assets/units/Kona.png'),
+    'BolasRider': require('../../assets/units/BolasRider.png'),
+    'GuechaWarrior': require('../../assets/units/GuechaWarrior.png'),
+    'TempleGuard': require('../../assets/units/TempleGuard.png'),
+    'BlackwoodArcher': require('../../assets/units/BlackwoodArcher.png'),
+    'IbirapemaWarrior': require('../../assets/units/IbirapemaWarrior.png'),
+
+    'EliteKona': require('../../assets/units/EliteKona.png'),
+    'EliteBolasRider': require('../../assets/units/EliteBolasRider.png'),
+    'EliteGuechaWarrior': require('../../assets/units/EliteGuechaWarrior.png'),
+    'EliteTempleGuard': require('../../assets/units/EliteTempleGuard.png'),
+    'EliteBlackwoodArcher': require('../../assets/units/EliteBlackwoodArcher.png'),
+    'EliteIbirapemaWarrior': require('../../assets/units/EliteIbirapemaWarrior.png'),
+
     'Centurion': require('../../assets/units/Centurion.png'),
     'Legionary': require('../../assets/units/Legionary.png'),
     'Dromon': require('../../assets/units/Dromon.png'),

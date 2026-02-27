@@ -292,7 +292,7 @@ const techIds = [
     'HulcheJavelineers',
     'Nomads',
     'Kamandaran',
-    'Carrack',
+    'Circumnavigation',
     'Detinets',
     'Inquisition',
     'SilkArmor',

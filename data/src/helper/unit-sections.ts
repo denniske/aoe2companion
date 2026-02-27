@@ -17,6 +17,7 @@ const unitSections: IUnitSection[] = [
         data:
             [
                 'Militia',
+                'ChampiScout',
                 'Spearman',
                 'EagleScout',
                 'FireLancer',
@@ -97,8 +98,10 @@ const unitSections: IUnitSection[] = [
                 'FishingShip',
                 'TransportShip',
                 'Galley',
+                'Hulk',
                 'FireGalley',
                 'DemolitionRaft',
+                'CatapultGalleon',
                 'CannonGalleon',
                 'LouChuan',
                 'Caravel',
