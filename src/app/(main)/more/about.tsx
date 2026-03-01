@@ -171,6 +171,7 @@ export default function AboutPage() {
                 <MyText>Aftermath</MyText>
                 <MyText>Enver Arco</MyText>
                 <MyText>FifthSense</MyText>
+                <MyText>Hagbardur</MyText>
                 <MyText>Jeremy Keeler</MyText>
                 <MyText>Johannes Berger</MyText>
                 <MyText>Noah Brandyberry</MyText>
@@ -186,12 +187,17 @@ export default function AboutPage() {
                 <MyText>Andreas Teppe</MyText>
                 <MyText>axør</MyText>
                 <MyText>BananaBenito</MyText>
+                <MyText>Babou08</MyText>
+                <MyText>Bytcniko</MyText>
                 <MyText>Chillingsith</MyText>
                 <MyText>Christian Jimenez</MyText>
                 <MyText>Colin</MyText>
+                <MyText>colonelotto</MyText>
+                <MyText>crosser4711</MyText>
                 <MyText>Darkwest</MyText>
                 <MyText>ddk_deepak</MyText>
                 <MyText>Dr. Bounty</MyText>
+                <MyText>duct_ape</MyText>
                 <MyText>Dumb Ian</MyText>
                 <MyText>edvorg</MyText>
                 <MyText>EhBahSuper</MyText>
@@ -199,10 +205,14 @@ export default function AboutPage() {
                 <MyText>elite4seth</MyText>
                 <MyText>eltrevador</MyText>
                 <MyText>Fabian Riebe</MyText>
+                <MyText>Firestormhand</MyText>
                 <MyText>Freddy Rayes</MyText>
                 <MyText>Gareth Deacon'</MyText>
+                <MyText>Ghost of 6am</MyText>
+                <MyText>GWig</MyText>
                 <MyText>|GZ| tAMe</MyText>
                 <MyText>Hans</MyText>
+                <MyText>Hellequinn</MyText>
                 <MyText>Hestia</MyText>
                 <MyText>Jannis V</MyText>
                 <MyText>John</MyText>
@@ -211,6 +221,7 @@ export default function AboutPage() {
                 <MyText>JJ_Ronda</MyText>
                 <MyText>Kloakan</MyText>
                 <MyText>kobukguille</MyText>
+                <MyText>Laurens</MyText>
                 <MyText>leo</MyText>
                 <MyText>LiterallyPicasso</MyText>
                 <MyText>Lorenz Wimmer</MyText>
@@ -243,6 +254,8 @@ export default function AboutPage() {
                 <MyText>Spirit Airlinez</MyText>
                 <MyText>Stormtrooper</MyText>
                 <MyText>The Lag Monster</MyText>
+                <MyText>TheLochster</MyText>
+                <MyText>Toby Bates</MyText>
                 <MyText>Tom B</MyText>
                 <MyText>Triftransbar</MyText>
                 <MyText>Ultima Gaina</MyText>
@@ -334,6 +347,10 @@ export default function AboutPage() {
                             <Text>Game data from </Text>
                             <Link alt href="https://github.com/SiegeEngineers/aoe2techtree" target="_blank">
                                 aoe2techtree
+                            </Link>
+                            <Text> and </Text>
+                            <Link alt href="https://github.com/SiegeEngineers/genieutils-py" target="_blank">
+                                genieutils-py
                             </Link>
                         </View>
 

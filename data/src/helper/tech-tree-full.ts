@@ -26,6 +26,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
     // - Mule cart vs Lumber/Mining Camp
 
     const hasMuleCart = civInfo.name === 'Armenians' || civInfo.name === 'Georgians';
+    const hasSettlement = civInfo.name === 'Incas' || civInfo.name === 'Mapuche' || civInfo.name === 'Muisca' || civInfo.name === 'Tupi';
 
     const rows: ITechTreeRow[] = [];
 
@@ -373,16 +374,9 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         },
         {
             items: [
-                {age: 'DarkAge'},
-                {age: 'DarkAge', unit: 'FishingShip'},
-                {age: 'DarkAge', unit: 'TransportShip'},
-            ],
-        },
-        {
-            items: [
                 {age: 'FeudalAge'},
                 {age: 'FeudalAge', unit: 'FireGalley'},
-                {age: 'FeudalAge', unit: 'TradeCog'},
+                {},
                 {age: 'FeudalAge', unit: 'DemolitionRaft'},
                 {age: 'FeudalAge', unit: 'Galley'},
             ],
@@ -391,10 +385,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'CastleAge'},
                 {age: 'CastleAge', unit: 'FireShip'},
-                {age: 'CastleAge', tech: 'Gillnets'},
+                {},
                 {age: 'CastleAge', unit: 'DemolitionShip'},
                 {age: 'CastleAge', unit: 'WarGalley'},
-                {age: 'CastleAge', tech: 'Careening'},
+                {age: 'CastleAge', tech: 'MediumWarships'},
                 {},
                 ...(civInfo.uniqueUnits.includes('Caravel') ? [{age: 'CastleAge', unit: 'Caravel', unique: true}] : []),
                 ...(civInfo.uniqueUnits.includes('Longboat') ? [{age: 'CastleAge', unit: 'Longboat', unique: true}] : []),
@@ -408,8 +402,8 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {age: 'ImperialAge', unit: 'CannonGalleon'},
                 {age: 'ImperialAge', unit: 'HeavyDemolitionShip'},
                 {age: 'ImperialAge', unit: 'Galleon'},
-                {age: 'ImperialAge', tech: 'DryDock'},
-                {age: 'ImperialAge', tech: 'Shipwright'},
+                {age: 'ImperialAge', tech: 'HeavyWarships'},
+                {age: 'ImperialAge', unit: 'Dromon'},
                 ...(civInfo.uniqueUnits.includes('Caravel') ? [{age: 'ImperialAge', unit: 'EliteCaravel', unique: true}] : []),
                 ...(civInfo.uniqueUnits.includes('Longboat') ? [{age: 'ImperialAge', unit: 'EliteLongboat', unique: true}] : []),
                 ...(civInfo.uniqueUnits.includes('TurtleShip') ? [{
@@ -429,17 +423,30 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             ],
         } as ITechTreeRow,
 
-
         {
             title: ''
         },
         {
             items: [
-                {age: 'ImperialAge'},
-                {age: 'ImperialAge', unit: 'Dromon'},
+                {age: 'DarkAge'},
+                {age: 'DarkAge', unit: 'FishingShip'},
+                {age: 'DarkAge', unit: 'TransportShip'},
             ],
         },
-
+        {
+            items: [
+                {age: 'FeudalAge'},
+                {age: 'CastleAge', tech: 'FishingLines'},
+                {},
+                {age: 'FeudalAge', unit: 'TradeCog'},
+            ],
+        },
+        {
+            items: [
+                {age: 'CastleAge'},
+                {age: 'CastleAge', tech: 'Gillnets'},
+            ],
+        },
 
         {
             title: ''
@@ -607,6 +614,26 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {age: 'ImperialAge', tech: 'BombardTower'},
             ],
         },
+        {
+            title: ''
+        },
+        {
+            items: [
+                {age: 'CastleAge'},
+                {age: 'CastleAge', tech: 'Careening'},
+                {age: 'CastleAge', tech: 'ClinkerConstruction'},
+                {age: 'CastleAge', tech: 'Siphons'},
+            ],
+        },
+        {
+            items: [
+                {age: 'ImperialAge'},
+                {age: 'ImperialAge', tech: 'DryDock'},
+                {age: 'ImperialAge', tech: 'CarvelHull'},
+                {age: 'ImperialAge', tech: 'Incendiaries'},
+                {age: 'ImperialAge', tech: 'Shipwright'},
+            ],
+        },
     );
 
     rows.push(
@@ -620,8 +647,8 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {},
                 {},
                 {},
+                {},
                 {age: 'DarkAge', building: 'Folwark'},
-                {age: 'DarkAge', building: 'Mill'},
                 {age: 'DarkAge', building: 'Pasture'},
             ],
         },
@@ -633,7 +660,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {},
                 {},
                 {},
-                {age: 'FeudalAge', tech: 'HorseCollar'},
+                {},
                 {age: 'FeudalAge', tech: 'Domestication'},
             ],
         },
@@ -645,7 +672,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {age: 'CastleAge', tech: 'Coinage'},
                 {},
                 {},
-                {age: 'CastleAge', tech: 'HeavyPlow'},
+                {},
                 {age: 'CastleAge', tech: 'Pastoralism'},
             ],
         },
@@ -657,11 +684,13 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {age: 'ImperialAge', tech: 'Banking'},
                 {},
                 {},
-                {age: 'ImperialAge', tech: 'CropRotation'},
+                {},
                 {age: 'ImperialAge', tech: 'Transhumance'},
             ],
         },
     );
+
+
     rows.push(
         {
             title: ''
@@ -669,10 +698,11 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {},
+                {age: 'DarkAge', building: 'Mill'},
+                {},
                 {age: 'DarkAge', building: hasMuleCart ? 'MuleCart' : 'LumberCamp'},
                 ...(hasMuleCart ? [] : [{}]),
                 ...(hasMuleCart ? [{}] : [{age: 'DarkAge', building: 'MiningCamp'}]),
-                {},
                 {},
                 ...(hasMuleCart ? [{age: 'DarkAge', building: 'LumberCamp'}] : [{age: 'DarkAge', building: 'MuleCart'}]),
                 ...(hasMuleCart ? [{age: 'DarkAge', building: 'MiningCamp'}] : [{}]),
@@ -681,8 +711,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'FeudalAge'},
+                {age: 'FeudalAge', tech: 'HorseCollar'},
+                ...(hasSettlement ? [] : [{}]),
                 {age: 'FeudalAge', tech: 'DoubleBitAxe'},
-                ...(hasMuleCart ? [] : [{}]),
+                ...(hasSettlement || hasMuleCart ? [] : [{}]),
                 {age: 'FeudalAge', tech: 'GoldMining'},
                 {age: 'FeudalAge', tech: 'StoneMining'},
             ],
@@ -690,8 +722,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'CastleAge'},
+                {age: 'CastleAge', tech: 'HeavyPlow'},
+                ...(hasSettlement ? [] : [{}]),
                 {age: 'CastleAge', tech: 'BowSaw'},
-                ...(hasMuleCart ? [] : [{}]),
+                ...(hasSettlement || hasMuleCart ? [] : [{}]),
                 {age: 'CastleAge', tech: 'GoldShaftMining'},
                 {age: 'CastleAge', tech: 'StoneShaftMining'},
             ],
@@ -699,10 +733,14 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'ImperialAge'},
+                {age: 'ImperialAge', tech: 'CropRotation'},
+                ...(hasSettlement ? [] : [{}]),
                 {age: 'ImperialAge', tech: 'TwoManSaw'},
             ],
         },
     );
+
+
     rows.push(
         {
             title: ''

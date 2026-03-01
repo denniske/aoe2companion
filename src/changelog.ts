@@ -328,6 +328,11 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '183.0.0': [
         {
+            type: 'minor',
+            title: 'Implemented [AoE II DE The Last Chieftains](https://www.ageofempires.com/news/new-dlc-available-now-the-last-chieftains/), [AoE II DE Update 169123](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-169123/) and [AoE II DE New Naval Warfare Update](https://www.ageofempires.com/news/a-new-naval-warfare-in-age-of-empires-ii-definitive-edition/)',
+            content: 'Note: There are some missing unit upgrades that will be added later. Unit/Buildings Images still need to be reworked.',
+        },
+        {
             type: 'bugfix',
             title: 'Fix text jumping vertically in search boxes',
         },

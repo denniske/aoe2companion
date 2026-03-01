@@ -379,6 +379,62 @@ const techEffectDictInternal = {
             attack: '+125% attack against ships',
         },
     },
+    'CarvelHull': {
+        tech: 'CarvelHull',
+        effect: {
+            speed: '+10%',
+        },
+    },
+    'ClinkerConstruction': {
+        tech: 'ClinkerConstruction',
+        effect: {
+            speed: '+10%',
+        },
+    },
+    'Siphons': {
+        tech: 'Siphons',
+        effect: {
+            speed: 'deals an explosive charge attack every 25 seconds',
+        },
+    },
+    'Incendiaries': {
+        tech: 'Incendiaries',
+        effect: {
+            attack: 'detonates upon death',
+        },
+    },
+
+
+    'Caciques': {
+        tech: 'Caciques',
+        civ: 'Tupi',
+        effect: {
+            firingRate: '+25%',
+        },
+    },
+    'Curare': {
+        tech: 'Curare',
+        civ: 'Tupi',
+        effect: {
+            attack: 'deal 3 damage over 15 seconds',
+        },
+    },
+
+    'Malon': {
+        tech: 'Malon',
+        civ: 'Mapuche',
+        effect: {
+            other: 'deal 30% pass-through damage',
+        },
+    },
+
+    'Herbalism': {
+        tech: 'Herbalism',
+        civ: 'Muisca',
+        effect: {
+            speed: '+15%',
+        },
+    },
 
     'Yeomen-Tower': {
         tech: 'Yeomen',
@@ -763,7 +819,8 @@ const techEffectDictInternal = {
     'Gillnets': {
         tech: 'Gillnets',
         effect: {
-            other: '+25% working speed',
+            gatheringSpeed: '+25%',
+            carryCapacity: '+5',
         },
     },
     'Caravan': {
@@ -978,7 +1035,7 @@ const techEffectDictInternal = {
     'DryDock': {
         tech: 'DryDock',
         effect: {
-            speed: '+15%',
+            armor: '+0/+1',
         },
     },
     'Warwolf': {
@@ -1292,6 +1349,13 @@ const techEffectDictInternal = {
         },
     },
 
+    'Butalmapu': {
+        tech: 'Butalmapu',
+        civ: 'Mapuche',
+        effect: {
+            other: '-15% resource cost',
+        },
+    },
     'Kasbah': {
         tech: 'Kasbah',
         civ: 'Berbers',
@@ -1698,7 +1762,7 @@ const techEffectDictInternal = {
         tech: 'FabricShields',
         civ: 'Incas',
         effect: {
-            armor: '+1/+2',
+            armor: '+1/+1',
         },
     },
     'Squires': {

@@ -63,6 +63,7 @@ export const buildingLineIds = [
     'FortifiedChurch',
     'MuleCart',
     'Pasture',
+    'Settlement',
 ];
 
 const BuildingLineUnion = unwrap(buildingLineIds);
@@ -70,6 +71,20 @@ export type BuildingLine = typeof BuildingLineUnion;
 
 export const buildingLines: IBuildingLineDict = {
 
+    'Settlement': {
+        buildings: ['Settlement'],
+        upgrades: [
+            'Masonry',
+            'Architecture',
+            'Devotion',
+            'Faith',
+            'Heresy',
+            'TownWatch',
+            'TownPatrol',
+            'TreadmillCrane',
+            'HerbalMedicine',
+        ],
+    },
     'Pasture': {
         buildings: ['Pasture'],
         upgrades: [
