@@ -2745,26 +2745,38 @@ export const techList: ITech[] = [
     {
         "dataId": "1379",
         "name": "Malon",
+        "civ": "Mapuche",
+        "age": "CastleAge",
     },
     {
         "dataId": "1380",
         "name": "Butalmapu",
+        "civ": "Mapuche",
+        "age": "ImperialAge",
     },
     {
         "dataId": "1365",
         "name": "Herbalism",
+        "civ": "Muisca",
+        "age": "CastleAge",
     },
     {
         "dataId": "1366",
         "name": "Huaracas",
+        "civ": "Muisca",
+        "age": "ImperialAge",
     },
     {
         "dataId": "1392",
         "name": "Caciques",
+        "civ": "Tupi",
+        "age": "CastleAge",
     },
     {
         "dataId": "1393",
-        "name": "Curare"
+        "name": "Curare",
+        "civ": "Tupi",
+        "age": "ImperialAge",
     },
 ];
 
