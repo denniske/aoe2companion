@@ -145,12 +145,14 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'DarkAge'},
                 {age: 'DarkAge', unit: 'Militia'},
+                {age: 'DarkAge', unit: 'ChampiScout'},
             ],
         },
         {
             items: [
                 {age: 'FeudalAge'},
                 {age: 'FeudalAge', unit: 'ManAtArms'},
+                {age: 'FeudalAge', unit: 'ChampiRunner'},
                 {age: 'FeudalAge', unit: 'Spearman'},
                 {age: 'FeudalAge', unit: 'EagleScout'},
 
@@ -169,6 +171,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'CastleAge'},
                 {age: 'CastleAge', unit: 'LongSwordsman'},
+                {age: 'CastleAge', unit: 'ChampiWarrior'},
                 {age: 'CastleAge', unit: 'Pikeman'},
                 {age: 'CastleAge', unit: 'EagleWarrior'},
 
@@ -200,6 +203,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     unit: 'Legionary',
                     unique: true
                 }]),
+                {age: 'ImperialAge', unit: 'EliteChampiWarrior'},
                 {age: 'ImperialAge', unit: 'Halberdier'},
                 {age: 'ImperialAge', unit: 'EliteEagleWarrior'},
 
@@ -376,7 +380,6 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'FeudalAge'},
                 {age: 'FeudalAge', unit: 'FireGalley'},
-                {},
                 {age: 'FeudalAge', unit: 'DemolitionRaft'},
                 {age: 'FeudalAge', unit: 'Galley'},
             ],
@@ -385,11 +388,9 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'CastleAge'},
                 {age: 'CastleAge', unit: 'FireShip'},
-                {},
                 {age: 'CastleAge', unit: 'DemolitionShip'},
                 {age: 'CastleAge', unit: 'WarGalley'},
                 {age: 'CastleAge', tech: 'MediumWarships'},
-                {},
                 ...(civInfo.uniqueUnits.includes('Caravel') ? [{age: 'CastleAge', unit: 'Caravel', unique: true}] : []),
                 ...(civInfo.uniqueUnits.includes('Longboat') ? [{age: 'CastleAge', unit: 'Longboat', unique: true}] : []),
                 ...(civInfo.uniqueUnits.includes('TurtleShip') ? [{age: 'CastleAge', unit: 'TurtleShip', unique: true}] : []),
@@ -399,11 +400,9 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
             items: [
                 {age: 'ImperialAge'},
                 ...(civInfo.uniqueUnits.includes('DragonShip') ? [{age: 'ImperialAge', unit: 'DragonShip', unique: true}] : [{age: 'ImperialAge', unit: 'FastFireShip'}]),
-                {age: 'ImperialAge', unit: 'CannonGalleon'},
                 {age: 'ImperialAge', unit: 'HeavyDemolitionShip'},
                 {age: 'ImperialAge', unit: 'Galleon'},
                 {age: 'ImperialAge', tech: 'HeavyWarships'},
-                {age: 'ImperialAge', unit: 'Dromon'},
                 ...(civInfo.uniqueUnits.includes('Caravel') ? [{age: 'ImperialAge', unit: 'EliteCaravel', unique: true}] : []),
                 ...(civInfo.uniqueUnits.includes('Longboat') ? [{age: 'ImperialAge', unit: 'EliteLongboat', unique: true}] : []),
                 ...(civInfo.uniqueUnits.includes('TurtleShip') ? [{
@@ -414,14 +413,27 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 ...(civInfo.uniqueUnits.includes('Thirisadai') ? [{age: 'ImperialAge', unit: 'Thirisadai', unique: true}] : []),
             ],
         } as ITechTreeRow,
+
+
+        {
+            title: ''
+        },
         {
             items: [
-                {},
-                {},
-                {age: 'ImperialAge', unit: 'EliteCannonGalleon'},
+                {age: 'ImperialAge'},
+                {age: 'ImperialAge', unit: 'CannonGalleon'},
+                {age: 'ImperialAge', unit: 'CatapultGalleon'},
+                {age: 'ImperialAge', unit: 'Dromon'},
                 ...(getCivHasUnit(civInfo.name, 'LouChuan') ? [{age: 'ImperialAge', unit: 'LouChuan', unique: true}] : [{}]),
             ],
         } as ITechTreeRow,
+        {
+            items: [
+                {},
+                {age: 'ImperialAge', unit: 'EliteCannonGalleon'},
+                {},
+            ],
+        },
 
         {
             title: ''
@@ -436,7 +448,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'FeudalAge'},
-                {age: 'CastleAge', tech: 'FishingLines'},
+                {age: 'FeudalAge', tech: 'FishingLines'},
                 {},
                 {age: 'FeudalAge', unit: 'TradeCog'},
             ],
@@ -846,7 +858,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {},
-                {age: 'DarkAge', building: 'TownCenter'},
+                {age: 'CastleAge', building: 'TownCenter'},
                 {},
                 {},
                 {},
@@ -888,41 +900,41 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {},
-                {building: 'Outpost'},
+                {age: 'DarkAge', building: 'Outpost'},
                 {},
-                {building: 'PalisadeWall'},
+                {age: 'DarkAge', building: 'PalisadeWall'},
                 {},
-                {building: 'PalisadeGate'},
+                {age: 'DarkAge', building: 'PalisadeGate'},
             ],
         },
         {
             items: [
                 {age: 'FeudalAge'},
-                {building: 'WatchTower'},
+                {age: 'FeudalAge', building: 'WatchTower'},
                 {},
-                {building: 'StoneWall'},
+                {age: 'FeudalAge', building: 'StoneWall'},
                 {},
-                {building: 'Gate'},
+                {age: 'FeudalAge', building: 'Gate'},
             ],
         },
         {
             items: [
                 {age: 'CastleAge'},
-                {building: 'GuardTower'},
+                {age: 'CastleAge', building: 'GuardTower'},
                 {},
-                {building: 'FortifiedWall'},
+                {age: 'CastleAge', building: 'FortifiedWall'},
             ],
         },
         {
             items: [
                 {age: 'ImperialAge'},
-                {building: 'Keep'},
+                {age: 'ImperialAge', building: 'Keep'},
             ],
         },
         {
             items: [
                 {age: 'ImperialAge'},
-                {building: 'BombardTower'},
+                {age: 'ImperialAge', building: 'BombardTower'},
             ],
         },
     );
@@ -934,11 +946,11 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {},
-                {building: 'Wonder'},
+                {age: 'ImperialAge', building: 'Wonder'},
                 {},
-                {building: 'Feitoria'},
+                {age: 'ImperialAge', building: 'Feitoria'},
                 {},
-                {building: 'Caravanserai'},
+                {age: 'ImperialAge', building: 'Caravanserai'},
             ],
         },
     );

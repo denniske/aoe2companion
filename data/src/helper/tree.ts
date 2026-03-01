@@ -130,8 +130,22 @@ export function getCivTechAge(civ: Civ, tech: Tech) {
     const entry = techs[tech];
 
     const civTechTree = aoeTreeInternal[civ as any as keyof typeof aoeTreeInternal];
+    const info = civTechTree.civ_techs_units.find(u =>
+            u['Node Type'] === 'Research' &&
+            u['Node ID'] === parseInt(entry.dataId)
+    );
 
-    return undefined;
+    console.log(civTechTree)
+    console.log('getCivTechAge', civ, tech, parseInt(entry.dataId), info);
+
+    if (!info?.['Age ID']) {
+        return undefined;
+    }
+
+    return ageIdToEnumMapping[info['Age ID']];
+
+    // const civTechTree = aoeTreeInternal[civ as any as keyof typeof aoeTreeInternal];
+    // return undefined;
 
     // const info = civTechTree.techs.find(u => u.id === parseInt(entry.dataId));
     //

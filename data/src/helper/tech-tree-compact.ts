@@ -103,6 +103,7 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
         {
             items: [
                 {age: 'CastleAge', unit: 'LongSwordsman'},
+                {age: 'FeudalAge', unit: 'ChampiRunner'},
                 {age: 'FeudalAge', unit: 'Spearman'},
                 {age: 'FeudalAge', unit: 'EagleScout'},
 
@@ -116,6 +117,7 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
         {
             items: [
                 ...(civInfo.name !== 'Romans' ? [{age: 'ImperialAge' as any, unit: 'TwoHandedSwordsman' as Unit}] : [{age: 'ImperialAge' as any, unit: 'Legionary' as Unit, unique: true}]),
+                {age: 'CastleAge', unit: 'ChampiWarrior'},
                 {age: 'CastleAge', unit: 'Pikeman'},
                 {age: 'CastleAge', unit: 'EagleWarrior'},
 
@@ -134,6 +136,7 @@ export function getCompactTechTree(civInfo: ICivEntry): ITechTreeRow[] {
         {
             items: [
                 ...(civInfo.name !== 'Romans' ? [{age: 'ImperialAge' as any, unit: 'Champion' as Unit}] : [{}]),
+                {age: 'ImperialAge', unit: 'EliteChampiWarrior'},
                 {age: 'ImperialAge', unit: 'Halberdier'},
                 {age: 'ImperialAge', unit: 'EliteEagleWarrior'},
 
