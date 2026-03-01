@@ -6,6 +6,14 @@ type TechIconDict = {
 }
 
 const techIcons: TechIconDict = {
+    'MediumWarships': require('../../assets/other/MediumWarships.png'),
+    'HeavyWarships': require('../../assets/other/HeavyWarships.png'),
+    'FishingLines': require('../../assets/other/FishingLines.png'),
+    'CarvelHull': require('../../assets/other/CarvelHull.png'),
+    'ClinkerConstruction': require('../../assets/other/ClinkerConstruction.png'),
+    'Siphons': require('../../assets/other/Siphons.png'),
+    'Incendiaries': require('../../assets/other/Incendiaries.png'),
+
     'FeudalAge': require('../../assets/other/FeudalAgeFull.png'),
     'CastleAge': require('../../assets/other/CastleAge.png'),
     'ImperialAge': require('../../assets/other/ImperialAge.png'),

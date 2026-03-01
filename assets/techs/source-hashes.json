@@ -74,5 +74,15 @@
     "LeatherArcherArmor": "17630ed4cccc3a887de4152738dc4f0721ac49064146fb056f2ded0eacb1ca61",
     "Fletching": "9082d078907168d37d9cd557b92f9bddb67cfcde3b791bcc94cb3a9af7746d3b",
     "Bracer": "9960b07f70d0373d5c95cd22a8163e1f26f66df06222e5ed5cec06b106359b49",
-    "Squires": "70d47e3aee4aa2ebe2afd15a52dbb50528ad52fb24a4cd25c13656a454e63ca5"
+    "Squires": "70d47e3aee4aa2ebe2afd15a52dbb50528ad52fb24a4cd25c13656a454e63ca5",
+    "FeudalAge": "bcbabfcdacedce1ad5996b92a490437cd2285b350a9771806651f1c263345ce5",
+    "CastleAge": "2daa82e99efc3987aa96f415c457d9c54cf586c5f190a23aafd9b921d9c24fdb",
+    "ImperialAge": "dfa45c2eb7360d280ff54c6d50844690e6068c9e019a2aef6c9d1f55844c63ff",
+    "MediumWarships": "872593249d930bce6f05e2bc74a956129bc21abbe9a6ca4674274aa5911587c9",
+    "HeavyWarships": "8e107a4850287b73e93ce339288f9ccbaadf028d3ff5fefef7eef8b2e1b4a6b9",
+    "FishingLines": "dfb51baf2f64f4c409f40926a71ba83f99dea961b86ce0dbb11eb6eb20a86271",
+    "CarvelHull": "877d0cd6f20cc5f18ba19db8fb9b61a0ce26dca9a5bbe6694a057e6f67676fc6",
+    "ClinkerConstruction": "d6309a454659ce525a905426e74708288951793735f97139da4baf60ce05791a",
+    "Siphons": "877d0cd6f20cc5f18ba19db8fb9b61a0ce26dca9a5bbe6694a057e6f67676fc6",
+    "Incendiaries": "a5ce0cc007862c980c2b161e541a1afe87f0a0c9b4bf8e12ac2d97612a704fd8"
 }

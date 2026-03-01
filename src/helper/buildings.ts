@@ -39,6 +39,7 @@ const buildingIcons = {
     'FortifiedChurch': require('../../assets/buildings/FortifiedChurch.png'),
     'MuleCart': require('../../assets/buildings/MuleCart.png'),
     'Pasture': require('../../assets/buildings/Pasture.png'),
+    'Settlement': require('../../assets/buildings/Settlement.png'),
 };
 
 export function getBuildingIcon(building: Building) {
