@@ -690,55 +690,153 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         },
     );
 
+    if (hasSettlement) {
+        rows.push(
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {age: 'DarkAge', building: 'Settlement'},
+                ],
+            } as ITechTreeRow,
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {age: 'FeudalAge', tech: 'HorseCollar'},
+                    {age: 'FeudalAge', tech: 'DoubleBitAxe'},
+                    {age: 'FeudalAge', tech: 'GoldMining'},
+                    {age: 'FeudalAge', tech: 'StoneMining'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {age: 'CastleAge', tech: 'HeavyPlow'},
+                    {age: 'CastleAge', tech: 'BowSaw'},
+                    {age: 'CastleAge', tech: 'GoldShaftMining'},
+                    {age: 'CastleAge', tech: 'StoneShaftMining'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'ImperialAge'},
+                    {age: 'ImperialAge', tech: 'CropRotation'},
+                    {age: 'ImperialAge', tech: 'TwoManSaw'},
+                ],
+            },
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {age: 'DarkAge', building: 'Mill'},
+                    {},
+                    {age: 'DarkAge', building: 'LumberCamp'},
+                    {age: 'DarkAge', building: 'MiningCamp'},
+                    {},
+                    {age: 'DarkAge', building: 'MuleCart'},
+                ],
+            },
+        );
+    } else if (hasMuleCart) {
+        rows.push(
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {age: 'DarkAge', building: 'Mill'},
+                    {},
+                    {age: 'DarkAge', building: 'MuleCart'},
+                    {},
+                    {},
+                    {age: 'DarkAge', building: 'LumberCamp'},
+                    {age: 'DarkAge', building: 'MiningCamp'},
+                ],
+            } as ITechTreeRow,
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {age: 'FeudalAge', tech: 'HorseCollar'},
+                    {},
+                    {age: 'FeudalAge', tech: 'DoubleBitAxe'},
+                    {age: 'FeudalAge', tech: 'GoldMining'},
+                    {age: 'FeudalAge', tech: 'StoneMining'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {age: 'CastleAge', tech: 'HeavyPlow'},
+                    {},
+                    {age: 'CastleAge', tech: 'BowSaw'},
+                    {age: 'CastleAge', tech: 'GoldShaftMining'},
+                    {age: 'CastleAge', tech: 'StoneShaftMining'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'ImperialAge'},
+                    {age: 'ImperialAge', tech: 'CropRotation'},
+                    {},
+                    {age: 'ImperialAge', tech: 'TwoManSaw'},
+                ],
+            },
+        );
+    } else {
+        rows.push(
+            {
+                title: ''
+            },
+            {
+                items: [
+                    {},
+                    {age: 'DarkAge', building: 'Mill'},
+                    {},
+                    {age: 'DarkAge', building: 'LumberCamp'},
+                    {},
+                    {age: 'DarkAge', building: 'MiningCamp'},
+                    {},
+                    {age: 'DarkAge', building: 'MuleCart'},
+                ],
+            } as ITechTreeRow,
+            {
+                items: [
+                    {age: 'FeudalAge'},
+                    {age: 'FeudalAge', tech: 'HorseCollar'},
+                    {},
+                    {age: 'FeudalAge', tech: 'DoubleBitAxe'},
+                    {},
+                    {age: 'FeudalAge', tech: 'GoldMining'},
+                    {age: 'FeudalAge', tech: 'StoneMining'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'CastleAge'},
+                    {age: 'CastleAge', tech: 'HeavyPlow'},
+                    {},
+                    {age: 'CastleAge', tech: 'BowSaw'},
+                    {},
+                    {age: 'CastleAge', tech: 'GoldShaftMining'},
+                    {age: 'CastleAge', tech: 'StoneShaftMining'},
+                ],
+            },
+            {
+                items: [
+                    {age: 'ImperialAge'},
+                    {age: 'ImperialAge', tech: 'CropRotation'},
+                    {},
+                    {age: 'ImperialAge', tech: 'TwoManSaw'},
+                ],
+            },
+        );
+    }
 
-    rows.push(
-        {
-            title: ''
-        },
-        {
-            items: [
-                {},
-                {age: 'DarkAge', building: 'Mill'},
-                {},
-                {age: 'DarkAge', building: hasMuleCart ? 'MuleCart' : 'LumberCamp'},
-                ...(hasMuleCart ? [] : [{}]),
-                ...(hasMuleCart ? [{}] : [{age: 'DarkAge', building: 'MiningCamp'}]),
-                {},
-                ...(hasMuleCart ? [{age: 'DarkAge', building: 'LumberCamp'}] : [{age: 'DarkAge', building: 'MuleCart'}]),
-                ...(hasMuleCart ? [{age: 'DarkAge', building: 'MiningCamp'}] : [{}]),
-            ],
-        } as ITechTreeRow,
-        {
-            items: [
-                {age: 'FeudalAge'},
-                {age: 'FeudalAge', tech: 'HorseCollar'},
-                ...(hasSettlement ? [] : [{}]),
-                {age: 'FeudalAge', tech: 'DoubleBitAxe'},
-                ...(hasSettlement || hasMuleCart ? [] : [{}]),
-                {age: 'FeudalAge', tech: 'GoldMining'},
-                {age: 'FeudalAge', tech: 'StoneMining'},
-            ],
-        },
-        {
-            items: [
-                {age: 'CastleAge'},
-                {age: 'CastleAge', tech: 'HeavyPlow'},
-                ...(hasSettlement ? [] : [{}]),
-                {age: 'CastleAge', tech: 'BowSaw'},
-                ...(hasSettlement || hasMuleCart ? [] : [{}]),
-                {age: 'CastleAge', tech: 'GoldShaftMining'},
-                {age: 'CastleAge', tech: 'StoneShaftMining'},
-            ],
-        },
-        {
-            items: [
-                {age: 'ImperialAge'},
-                {age: 'ImperialAge', tech: 'CropRotation'},
-                ...(hasSettlement ? [] : [{}]),
-                {age: 'ImperialAge', tech: 'TwoManSaw'},
-            ],
-        },
-    );
 
 
     rows.push(
