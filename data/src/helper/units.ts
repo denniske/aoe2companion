@@ -150,6 +150,7 @@ export const unitLines: IUnitLineDict = {
     'Hulk': {
         units: ['Hulk', 'WarHulk', 'Carrack'],
         counteredBy: [
+            'Galley',
         ],
         upgrades: [
             'Forging',
@@ -170,6 +171,14 @@ export const unitLines: IUnitLineDict = {
     'CatapultGalleon': {
         units: ['CatapultGalleon'],
         counteredBy: [
+            'Galley',
+            'FireGalley',
+            'Hulk',
+            'DemolitionRaft',
+            'Longboat',
+            'Caravel',
+            'Monk',
+            'BombardCannon'
         ],
         upgrades: [
             'SiegeEngineers-20-1',
@@ -187,6 +196,19 @@ export const unitLines: IUnitLineDict = {
     'ChampiScout': {
         units: ['ChampiScout', 'ChampiRunner', 'ChampiWarrior', 'EliteChampiWarrior'],
         counteredBy: [
+            'Militia',
+            'HandCannoneer',
+            'KarambitWarrior',
+            'Berserk',
+            'Samurai',
+            'Huskarl',
+            'WoadRaider',
+            'ThrowingAxeman',
+            'Slinger',
+            'Janissary',
+            'OrganGun',
+            'Boyar',
+            'Cataphract'
         ],
         upgrades: [
             'Forging',
@@ -726,6 +748,7 @@ export const unitLines: IUnitLineDict = {
             'Monk',
             'ScoutCavalry',
             'ShotelWarrior',
+            'ChampiScout',
             'EagleScout',
             'Arambai'
         ],
@@ -784,6 +807,7 @@ export const unitLines: IUnitLineDict = {
         units: ['FireGalley', 'FireShip', 'FastFireShip'],
         counteredBy: [
             'DemolitionRaft',
+            'Hulk',
             'TurtleShip',
             'BombardCannon',
             'Mangonel',
@@ -837,6 +861,7 @@ export const unitLines: IUnitLineDict = {
         counteredBy: [
           'Galley',
           'FireGalley',
+          'Hulk',
           'DemolitionRaft',
           'Longboat',
           'Caravel',
@@ -950,6 +975,7 @@ export const unitLines: IUnitLineDict = {
             'Knight',
             'CamelRider',
             'SteppeLancer',
+            'ChampiScout',
             'EagleScout',
             'ShotelWarrior',
             'Condottiero',
@@ -985,6 +1011,7 @@ export const unitLines: IUnitLineDict = {
             'Huskarl',
             'Berserk',
             'Kamayuk',
+            'ChampiScout',
             'EagleScout',
             'GenoeseCrossbowman',
             'Mameluke'
@@ -1086,6 +1113,7 @@ export const unitLines: IUnitLineDict = {
             'BatteringRam',
             'Scorpion',
             'Samurai',
+            'ChampiScout',
             'EagleScout',
             'Kamayuk',
             'Huskarl',
@@ -1130,6 +1158,7 @@ export const unitLines: IUnitLineDict = {
             'Archer',
             'CavalryArcher',
             'Scorpion',
+            'ChampiScout',
             'EagleScout',
             'MagyarHuszar',
             'Coustillier',
@@ -1155,6 +1184,7 @@ export const unitLines: IUnitLineDict = {
             'Trebuchet',
             'Petard',
             'BatteringRam',
+            'ChampiScout',
             'EagleScout',
             'WoadRaider',
             'ThrowingAxeman',
@@ -1191,6 +1221,7 @@ export const unitLines: IUnitLineDict = {
             'CamelRider',
             'BombardCannon',
             'Petard',
+            'ChampiScout',
             'EagleScout',
             'Huskarl',
             'Cataphract',
@@ -1231,6 +1262,7 @@ export const unitLines: IUnitLineDict = {
             'WoadRaider',
             'Condottiero',
             'Huskarl',
+            'ChampiScout',
             'EagleScout',
             'Longbowman',
             'Tarkan',
@@ -1267,6 +1299,7 @@ export const unitLines: IUnitLineDict = {
             'Gbeto',
             'ShotelWarrior',
             'Condottiero',
+            'ChampiScout',
             'EagleScout',
             'Conquistador',
             'WoadRaider',
@@ -1299,6 +1332,7 @@ export const unitLines: IUnitLineDict = {
             'BombardCannon',
             'Petard',
             'ShotelWarrior',
+            'ChampiScout',
             'EagleScout',
             'Condottiero',
             'WoadRaider',
@@ -2080,6 +2114,7 @@ export const unitLines: IUnitLineDict = {
             'Spearman',
             'FlemishMilitia',
             'CamelRider',
+            'ChampiScout',
             'EagleScout',
             'Berserk',
             'TeutonicKnight',
@@ -2382,6 +2417,7 @@ export const unitLines: IUnitLineDict = {
             'Skirmisher',
             'CamelRider',
             'Knight',
+            'ChampiScout',
             'EagleScout',
             'WoadRaider',
             'Berserk',
@@ -2436,6 +2472,7 @@ export const unitLines: IUnitLineDict = {
             'Scorpion',
             'Kamayuk',
             'Huskarl',
+            'ChampiScout',
             'EagleScout',
             'RattanArcher',
             'GenoeseCrossbowman',
@@ -2475,6 +2512,7 @@ export const unitLines: IUnitLineDict = {
             'Mangonel',
             'Scorpion',
             'Huskarl',
+            'ChampiScout',
             'EagleScout',
             'Boyar',
             'MagyarHuszar',
@@ -2508,6 +2546,7 @@ export const unitLines: IUnitLineDict = {
             'Mangonel',
             'Scorpion',
             'Huskarl',
+            'ChampiScout',
             'EagleScout',
             'GenoeseCrossbowman'
         ],
@@ -2544,6 +2583,7 @@ export const unitLines: IUnitLineDict = {
             'Skirmisher',
             'CamelRider',
             'Mangonel',
+            'ChampiScout',
             'EagleScout',
             'Huskarl'
         ],
@@ -2576,6 +2616,7 @@ export const unitLines: IUnitLineDict = {
             'Skirmisher',
             'Mangonel',
             'Scorpion',
+            'ChampiScout',
             'EagleScout',
             'Huskarl',
             'PlumedArcher',
@@ -2608,6 +2649,7 @@ export const unitLines: IUnitLineDict = {
             'Kamayuk',
             'Berserk',
             'Huskarl',
+            'ChampiScout',
             'EagleScout',
             'GenoeseCrossbowman',
             'Mameluke'
@@ -2648,6 +2690,7 @@ export const unitLines: IUnitLineDict = {
             'Mangonel',
             'Kamayuk',
             'Huskarl',
+            'ChampiScout',
             'EagleScout',
             'GenoeseCrossbowman',
             'Mameluke'
@@ -2678,6 +2721,7 @@ export const unitLines: IUnitLineDict = {
             'Skirmisher',
             'CamelRider',
             'Knight',
+            'ChampiScout',
             'EagleScout',
             'Kamayuk',
             'Huskarl',
@@ -2712,6 +2756,7 @@ export const unitLines: IUnitLineDict = {
             'Knight',
             'Mangonel',
             'Scorpion',
+            'ChampiScout',
             'EagleScout',
             'Huskarl',
             'Boyar',
@@ -2741,6 +2786,7 @@ export const unitLines: IUnitLineDict = {
             'Skirmisher',
             'Knight',
             'Scorpion',
+            'ChampiScout',
             'EagleScout',
             'Huskarl',
             'Boyar',
@@ -2773,6 +2819,7 @@ export const unitLines: IUnitLineDict = {
             'CamelRider',
             'Mangonel',
             'BatteringRam',
+            'ChampiScout',
             'EagleScout',
             'Kamayuk',
             'Huskarl',
@@ -2813,6 +2860,7 @@ export const unitLines: IUnitLineDict = {
             'Mangonel',
             'Scorpion',
             'BatteringRam',
+            'ChampiScout',
             'EagleScout',
             'BattleElephant',
             'WarElephant',
@@ -2893,6 +2941,7 @@ export const unitLines: IUnitLineDict = {
             'Mangonel',
             'Scorpion',
             'Huskarl',
+            'ChampiScout',
             'EagleScout',
             'RattanArcher',
             'Genitour'
@@ -4304,7 +4353,9 @@ export function getUnitLineName(unitLine: UnitLine) {
 
 export function getUnitName(unit: Unit) {
     const data = getUnitData(unit);
-    return sanitizeGameName(getAoeString((data.LanguageNameId+9000).toString()).replace(' (Male)', ''));
+    const name1 = getAoeString((data.LanguageNameId+9000).toString());
+    const name =  name1 != '???' ? name1 : getAoeString(data.LanguageNameId.toString());
+    return sanitizeGameName(name.replace(' (Male)', ''));
 }
 
 export function getUnitData(unit: Unit) {
@@ -4337,6 +4388,7 @@ export function getUnitUpgradeCost(unitTo: Unit): ICostDict | null {
     if (unitTo === 'EliteKonnikDismounted') unitTo = 'EliteKonnik';
     const data = getUnitData(unitTo as any);
     const upgradeInfo = aoeData.data.unit_upgrades[data.ID as any as keyof typeof aoeData.data.unit_upgrades];
+    console.log('upgradeInfo', upgradeInfo);
     return upgradeInfo?.Cost;
 }
 

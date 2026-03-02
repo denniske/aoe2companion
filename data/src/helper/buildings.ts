@@ -820,7 +820,9 @@ export function getBuildingData(building: Building) {
 
 export function getBuildingName(building: Building) {
     const data = getBuildingData(building);
-    return sanitizeGameName(getAoeString((data.LanguageNameId+9000).toString()));
+    const name1 = getAoeString((data.LanguageNameId+9000).toString());
+    const name =  name1 != '???' ? name1 : getAoeString(data.LanguageNameId.toString());
+    return sanitizeGameName(name);
 }
 
 // function countOcc(haystack: string, needle: string): number {
