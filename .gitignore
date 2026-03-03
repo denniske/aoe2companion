@@ -8,6 +8,9 @@
 !.yarn/sdks
 !.yarn/versions
 
+.agents
+skills-lock.json
+
 /modules/widget/android/build
 /android
 /ios
