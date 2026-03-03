@@ -28,7 +28,7 @@ import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useTranslation } from '@app/helper/translate';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 
-function TechTreeRow({ civ, row }: { civ: aoeCivKey; row: ITechTreeRow }) {
+function TechTreeRow({ civ, row }: { civ: Civ; row: ITechTreeRow }) {
     const getTranslation = useTranslation();
     return (
         <View style={styles.row}>
@@ -46,7 +46,7 @@ function TechTreeRow({ civ, row }: { civ: aoeCivKey; row: ITechTreeRow }) {
     );
 }
 
-export function TechTree({civ}: {civ: aoeCivKey}) {
+export function TechTree({civ}: {civ: Civ }) {
     const getTranslation = useTranslation();
     const techTreeSize = useTechTreeSize() || 'full';
     const savePrefsMutation = useSavePrefsMutation();

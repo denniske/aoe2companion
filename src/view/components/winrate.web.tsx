@@ -25,7 +25,7 @@ import {
     VictoryTheme,
 } from 'victory-native';
 import { Slider } from '@app/view/components/slider';
-import { aoeCivKey, formatCustom, getCivNameById } from '@nex/data';
+import { aoeCivKey, Civ, formatCustom, getCivNameById } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { format } from 'date-fns';
 import { ImageBackground } from '@/src/components/uniwind/image';
@@ -38,7 +38,7 @@ import { useCSSVariable, useResolveClassNames, useUniwind } from 'uniwind';
 
 
 export default function CivDetails() {
-    const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
+    const { name } = useLocalSearchParams<{ name: Civ }>();
     const nameLower = name?.toLowerCase() ?? '';
     const { theme } = useUniwind()
     const { winrates } = useWinrates();

@@ -1,6 +1,6 @@
 import {Building, buildings} from "./buildings";
 import {Unit, units} from "./units";
-import {Tech, techs} from "./techs";
+import { Age, Tech, techs} from "./techs";
 import {Civ, civDict, civs} from "./civs";
 import {aoeData} from '../data/data';
 import { aoeTreeInternal } from '@/data/src/data/aoe-trees';
@@ -93,7 +93,7 @@ export function getCivHasUnit(civ: Civ, unit: Unit) {
         // || civTechTree.unique.imperialAgeUniqueUnit === parseInt(entry.dataId) as any;
 }
 
-const ageIdToEnumMapping = {
+const ageIdToEnumMapping: Record<number, Age> = {
     1: 'DarkAge',
     2: 'FeudalAge',
     3: 'CastleAge',

@@ -1,6 +1,6 @@
 import { HeaderTitle } from '@app/components/header-title';
 import { ScrollView } from '@app/components/scroll-view';
-import { aoeCivKey, civDict, getCivNameById, parseCivDescription } from '@nex/data';
+import { aoeCivKey, Civ, civDict, getCivNameById, parseCivDescription } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image, ImageBackground } from '@/src/components/uniwind/image';
 import { Link, Stack, useLocalSearchParams } from 'expo-router';
@@ -20,14 +20,14 @@ import { useCivVideo } from '@app/utils/video';
 import { Text } from '@app/components/text';
 
 export default function CivDetails() {
-    const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
+    const { name } = useLocalSearchParams<{ name: Civ }>();
     const civ = name!;
     const { theme } = useUniwind();
     const { isMedium } = useBreakpoints();
     const { data: video } = useCivVideo(appConfig.game === 'aoe2' ? civ.toLowerCase() : '');
 
     if (appConfig.game !== 'aoe2') {
-        return <Civ4Details civ={civ} />;
+        return <Civ4Details civ={civ as any} />;
     }
 
     const civDescription = parseCivDescription(civ);
@@ -123,7 +123,7 @@ interface ICivInfoItem {
     list?: string[];
 }
 
-export function Civ4Details({ civ }: { civ: aoeCivKey }) {
+export function Civ4Details({ civ }: { civ: Civ }) {
     const civDataFileMapping = {
         AbbasidDynasty: 'abbasid',
         Chinese: 'chinese',

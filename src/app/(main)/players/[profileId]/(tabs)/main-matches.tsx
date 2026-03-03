@@ -163,7 +163,7 @@ export default function MainMatches(props: MainMatchesProps) {
                     windowSize={2}
                     data={list}
                     renderItem={({ item }) => (
-                        <Match match={item as any} expanded={false} highlightedUsers={[Number(profileId)]} user={Number(profileId)} />
+                        <Match match={item as any} highlightedUsers={[Number(profileId)]} user={Number(profileId)} />
                     )}
                     ListFooterComponent={_renderFooter}
                     onEndReached={Platform.OS === 'web' ? undefined : onEndReached}

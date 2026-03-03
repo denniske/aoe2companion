@@ -27,7 +27,7 @@ export const civsData = [
 
 export const civsAoeNetData = civsData;
 
-export const civIconListData = {
+export const civIconListData: Record<string, any> = {
     'AbbasidDynasty': require('../../../../assets4/civilizations/abbasid_dynasty.png'),
     'Chinese': require('../../../../assets4/civilizations/chinese.png'),
     'DelhiSultanate': require('../../../../assets4/civilizations/delhi_sultanate.png'),

@@ -3157,7 +3157,7 @@ export type TechEffect = keyof typeof techEffectDictInternal;
 export interface ITechInfo {
     Cost: ICostDict;
     ID: number;
-    LanguageHelpId: number;
+    // LanguageHelpId: number;
     LanguageNameId: number;
     ResearchTime: number;
 }

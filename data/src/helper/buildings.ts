@@ -792,7 +792,7 @@ export type Building = typeof BuildingUnion;
 export interface IBuildingInfo {
     Cost: ICostDict;
     ID: number;
-    LanguageHelpId: number;
+    // LanguageHelpId: number;
     LanguageNameId: number;
     Attack: number;
     Attacks: ReadonlyArray<IUnitClassPair>;
@@ -804,6 +804,7 @@ export interface IBuildingInfo {
     Armours: ReadonlyArray<IUnitClassPair>;
     Range: number;
     TrainTime: number;
+    MinRange: number; // does this exist?
 }
 
 export function getBuildingData(building: Building) {

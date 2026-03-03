@@ -1,5 +1,5 @@
 
-export const translateStringsSourceData: Record<string, string> = {
+export const translateStringsSourceData: Record<string, Record<string, string>> = {
     // 'ms': require('../../../../app4/assets/data/ms/strings.json'),
     // 'fr': require('../../../../app4/assets/data/fr/strings.json'),
     // 'es-mx': require('../../../../app4/assets/data/es-mx/strings.json'),

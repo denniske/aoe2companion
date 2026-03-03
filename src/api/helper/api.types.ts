@@ -21,11 +21,11 @@ export interface ILobbiesMatch {
     server?: string;
     internalLeaderboardId?: number;
     difficulty: number;
-    startingAge: number;
+    startingAge: string;
     fullTechTree: boolean;
     allowCheats: boolean;
     empireWarsMode: boolean;
-    endingAge: number;
+    endingAge: string;
     gameMode?: string;
     lockSpeed: boolean;
     lockTeams: boolean;
@@ -65,7 +65,7 @@ export interface ILobbiesMatch {
     modDataset?: string;
     speedName?: string;
     speedFactor: number;
-    gameVariant?: number;
+    gameVariant?: string;
 }
 
 

@@ -16,7 +16,7 @@ import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getCivHistoryImage, getCivIconLocal } from '@app/helper/civs';
 import { Slider2 } from '@app/view/components/slider2';
-import { aoeCivKey, formatCustom, getCivNameById } from '@nex/data';
+import { aoeCivKey, Civ, formatCustom, getCivNameById } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { format } from 'date-fns';
 import { ImageBackground } from '@/src/components/uniwind/image';
@@ -30,7 +30,7 @@ import { useAppTheme } from '@app/theming';
 import { useCSSVariable, useUniwind } from 'uniwind';
 
 export default function CivDetails() {
-    const { name } = useLocalSearchParams<{ name: aoeCivKey }>();
+    const { name } = useLocalSearchParams<{ name: Civ }>();
     const nameLower = name?.toLowerCase() ?? '';
     const { theme } = useUniwind();
     const { winrates } = useWinrates();

@@ -104,7 +104,6 @@ const appConfigPlugins = process.env.GAME === 'aoe2' ? [appPlugin] : [];
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
-    newArchEnabled: true,
     experiments: {
         typedRoutes: true,
         reactCompiler: true,  // 2025-Nov-8 maybe v1 of compiler breaks main nav bar highlighting on HMR

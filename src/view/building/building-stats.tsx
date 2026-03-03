@@ -1,7 +1,8 @@
 import {Image, StyleSheet, View} from "react-native";
 import {MyText} from "../components/my-text";
 import {
-    Building, buildingSections, getBuildingData, getBuildingName, getUnitClassName, IUnitInfo, keysOf, Other,
+    Building, buildingSections, getBuildingData, getBuildingName, getUnitClassName,
+    IBuildingInfo, IUnitInfo, keysOf, Other,
     sortResources, UnitClassNumber
 } from "@nex/data";
 import React, {useState} from "react";
@@ -26,7 +27,7 @@ export function BuildingStats({ buildingId }: Props) {
 
     const [comparisonUnit, setComparisonUnit] = useState<Building>();
 
-    const baseData = getBuildingData(buildingId) as IUnitInfo;
+    const baseData = getBuildingData(buildingId) as IBuildingInfo;
     const baseData2 = comparisonUnit ? getBuildingData(comparisonUnit) : null;
 
     const unitNone = null;

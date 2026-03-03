@@ -347,7 +347,7 @@ export function getCivNameById(civ: Civ) {
         const civNameKey = aoeData.civs[civ as any as keyof typeof aoeData.civs]?.name_string_id;
         return getAoeString(civNameKey?.toString());
     }
-    return aoe4CivNameDict[civs.indexOf(civ) as any as keyof typeof aoe4CivNameDict];
+    return aoe4CivNameDict[civs.indexOf(civ as any) as any as keyof typeof aoe4CivNameDict];
 }
 
 // export function getCivEnumById(civ: Civ) {
