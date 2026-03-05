@@ -163,7 +163,6 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 }] : [{}]),
 
                 {},
-                {},
                 {age: 'FeudalAge', tech: 'Arson'},
             ],
         } as ITechTreeRow,
@@ -187,7 +186,6 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 }] : []),
                 ...(!['Wu', 'Chinese', 'Jurchens', 'Khitans', 'Koreans', 'Vietnamese'].includes(civInfo.name) ? [{}] : []),
 
-                {},
                 {age: 'CastleAge', tech: 'Gambesons'},
                 {age: 'CastleAge', tech: 'Squires'},
             ],
