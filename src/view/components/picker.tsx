@@ -132,9 +132,10 @@ export default function Picker<T>(props: IPickerProps<T>) {
 
     const contentStyleForAlign = popupAlign === 'left' ? { right: 'auto' } : { left: 'auto' };
 
-    const valuesHeight = values ? values.length * (itemHeight || 40) : 100;
-    const sectionsHeight = sections ? sections.filter((s) => s.title != null).length * (itemHeight || 40) : 0;
-    const valuesAndSectionsHeight = valuesHeight + sectionsHeight;
+    const sectionCount = sections ? sections.length : 0;
+    const sectionWithTitleCount = sections ? sections.filter((s) => s.title != null).length : 0;
+    const valuesCount = sections ? sections.flatMap(s => s.data).length : values ? values.length : 3;
+    const valuesAndSectionsHeight = (sectionWithTitleCount + valuesCount) * (itemHeight || 40) + (sectionCount > 0 ? (sectionCount-1)*5 : 0);
     const [isFocused, setIsFocused] = useState(false);
 
     const valueIndex = useMemo(() => {

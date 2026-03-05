@@ -93,7 +93,6 @@ export function LeaderboardSelect(props: Props) {
             icon={icon}
             disabled={loadingLeaderboard}
             value={selectedLeaderboard}
-            values={leaderboards}
             formatter={formatLeaderboard}
             onSelect={(leaderboard) => {
                 savePrefsMutation.mutate({ selectedLeaderboards: leaderboard.leaderboardId });
