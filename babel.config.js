@@ -1,7 +1,8 @@
 
 
 module.exports = function(api) {
-  console.log('BABEL ROOT');
+  // Printing this will lead to an error in android build because it will be in autolinking.json
+  // console.log('BABEL ROOT');
 
   api.cache(true);
   return {

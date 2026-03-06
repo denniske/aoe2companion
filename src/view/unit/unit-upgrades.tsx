@@ -51,7 +51,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
     const unitIndex = unitLine.units.indexOf(unitId);
 
     let upgradedFrom = unitIndex > 0 ? unitLine.units[unitIndex - 1] : null;
-    console.log('unitLineUpgrades', unitLineUpgrades, unitId, upgradedFrom);
+    // console.log('unitLineUpgrades', unitLineUpgrades, unitId, upgradedFrom);
     if (unitId === 'Savar') {
         upgradedFrom = 'Cavalier' as Unit;
     }
