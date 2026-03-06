@@ -148,7 +148,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                     <Link asChild href={`/explore/units/${upgradedFrom}`}>
                         <TouchableOpacity>
                             <View style={styles.row}>
-                                <Image style={styles.unitIcon} source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedFrom)} />
+                                <Image style={styles.unitIcon} source={getUnitIcon(upgradedFrom)} />
                                 <MyText style={styles.unitDesc}>{getUnitName(upgradedFrom)}</MyText>
                             </View>
                         </TouchableOpacity>
@@ -167,7 +167,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                                 <View style={styles.row}>
                                     <Image
                                         style={styles.unitIcon}
-                                        source={unitLine.unique ? getEliteUniqueResearchIcon() : getUnitIcon(upgradedTo)}
+                                        source={getUnitIcon(upgradedTo)}
                                     />
                                     <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>
                                     {getUnitUpgradeCost(upgradedTo) && <Costs costDict={getUnitUpgradeCost(upgradedTo)!} />}

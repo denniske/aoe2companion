@@ -230,6 +230,7 @@ export const unitLines: IUnitLineDict = {
     },
     'Kona': {
         units: ['Kona', 'EliteKona'],
+        unique: true,
         counteredBy: [
         ],
         upgrades: [
@@ -245,6 +246,7 @@ export const unitLines: IUnitLineDict = {
     },
     'BolasRider': {
         units: ['BolasRider', 'EliteBolasRider'],
+        unique: true,
         counteredBy: [
         ],
         upgrades: [
@@ -265,6 +267,7 @@ export const unitLines: IUnitLineDict = {
     },
     'GuechaWarrior': {
         units: ['GuechaWarrior', 'EliteGuechaWarrior'],
+        unique: true,
         counteredBy: [
         ],
         upgrades: [
@@ -286,6 +289,7 @@ export const unitLines: IUnitLineDict = {
     },
     'TempleGuard': {
         units: ['TempleGuard', 'EliteTempleGuard'],
+        unique: true,
         counteredBy: [
         ],
         upgrades: [
@@ -303,6 +307,7 @@ export const unitLines: IUnitLineDict = {
     },
     'BlackwoodArcher': {
         units: ['BlackwoodArcher', 'EliteBlackwoodArcher'],
+        unique: true,
         counteredBy: [
         ],
         upgrades: [
@@ -323,6 +328,7 @@ export const unitLines: IUnitLineDict = {
     },
     'IbirapemaWarrior': {
         units: ['IbirapemaWarrior', 'EliteIbirapemaWarrior'],
+        unique: true,
         counteredBy: [
         ],
         upgrades: [

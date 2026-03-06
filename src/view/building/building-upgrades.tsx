@@ -126,7 +126,7 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                             <View style={styles.row}>
                                 <Image
                                     style={styles.buildingIcon}
-                                    source={buildingLine.unique ? getEliteUniqueResearchIcon() : getBuildingIcon(upgradedFrom)}
+                                    source={getBuildingIcon(upgradedFrom)}
                                 />
                                 <MyText style={styles.buildingDesc}>{getBuildingName(upgradedFrom)}</MyText>
                             </View>
@@ -146,7 +146,7 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                                 <View style={styles.row}>
                                     <Image
                                         style={styles.buildingIcon}
-                                        source={buildingLine.unique ? getEliteUniqueResearchIcon() : getBuildingIcon(upgradedTo)}
+                                        source={getBuildingIcon(upgradedTo)}
                                     />
                                     <MyText style={styles.buildingDesc}>{getBuildingName(upgradedTo)}</MyText>
                                 </View>
