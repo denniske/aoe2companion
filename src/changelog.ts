@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
+    // '36.0.0': [
+    //     {
+    //         type: 'minor',
+    //         title: 'Internal Framework Update (SDK 55)',
+    //     },
+    // ],
     '35.0.0': [
         {
             type: 'bugfix',
@@ -326,11 +332,33 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '184.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 55)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fixed unit/building/tech images',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fixed Hindustanis civ page',
+        },
+    ],
     '183.0.0': [
         {
             type: 'minor',
-            title: 'Implemented [AoE II DE The Last Chieftains](https://www.ageofempires.com/news/new-dlc-available-now-the-last-chieftains/), [AoE II DE Update 169123](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-169123/) and [AoE II DE New Naval Warfare Update](https://www.ageofempires.com/news/a-new-naval-warfare-in-age-of-empires-ii-definitive-edition/)',
-            content: '3 new civilizations and naval warfare upgrades. Note: There are some missing unit upgrades that will be added later. Unit/Buildings Images still need to be reworked.',
+            title: 'Implemented [AoE II DE The Last Chieftains](https://www.ageofempires.com/news/new-dlc-available-now-the-last-chieftains/)',
+            content: 'Note: There are some missing unit upgrades that will be added later.',
+        },
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE New Naval Warfare Update](https://www.ageofempires.com/news/a-new-naval-warfare-in-age-of-empires-ii-definitive-edition/)',
+        },
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 169123](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-169123/)',
         },
         {
             type: 'bugfix',
