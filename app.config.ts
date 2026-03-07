@@ -166,6 +166,16 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     assetBundlePatterns: app.assetBundlePatterns,
     plugins: [
         [
+            "expo-build-properties",
+            {
+                "android": {
+                    "gradleProperties": {
+                        "org.gradle.jvmargs": "-Xmx8g -XX:MaxMetaspaceSize=2g"
+                    }
+                }
+            }
+        ],
+        [
             "expo-router",
             {
                 sitemap: !isProdBuild,

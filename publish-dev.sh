@@ -31,7 +31,7 @@ export TMPDIR=/tmp/metro-cache-$GAME
 mkdir -p $TMPDIR
 
 echo "📦 Building ${PLATFORM} app for ${GAME}..."
-eas build --profile "development-${GAME}" --platform $PLATFORM --local --output "$NAME"
-#eas build --profile "development-${GAME}" --platform $PLATFORM --local --non-interactive --output "$NAME"
-getCivTechAge
+#eas build --profile "development-${GAME}" --platform $PLATFORM --local --output "$NAME"
+eas build --profile "development-${GAME}" --platform $PLATFORM --local --non-interactive --output "$NAME"
+
 echo "✅ ${PLATFORM} app for ${GAME} built successfully!"
