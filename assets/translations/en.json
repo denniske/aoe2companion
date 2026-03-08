@@ -135,6 +135,7 @@
     "enum.unitclass.skirmishers": "Skirmishers",
     "enum.unitclass.cavalryresistance": "Cavalry Resistance",
     "enum.unitclass.houses": "Houses",
+    "enum.unitclass.fireships": "Fire Ships",
     "enum.unitclass.longrangewarship": "Long-range warship",
     "enum.unitclass.unknown": "Unknown",
     "enum.leaderboardid.unranked": "Unranked",

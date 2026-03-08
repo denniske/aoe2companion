@@ -4308,6 +4308,7 @@ const unitClasses = {
     38: 'skirmishers',
     39: 'cavalryresistance',
     40: 'houses',
+    41: 'fireships',
     60: 'longrangewarship',
 } as const;
 
