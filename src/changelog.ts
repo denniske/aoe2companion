@@ -337,6 +337,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fixed missing units in tech tree for Mapuche/Muisca/Tupi',
         },
+        {
+            type: 'bugfix',
+            title: 'Fixed missing upgrades for units/buildings',
+        },
     ],
     '184.0.0': [
         {

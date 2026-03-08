@@ -342,6 +342,7 @@ export const buildingLines: IBuildingLineDict = {
             'TreadmillCrane',
             'HerbalMedicine',
             'FirstCrusade-TownCenter',
+            'FortifiedBastions',
         ],
     },
     'University': {
@@ -384,6 +385,8 @@ export const buildingLines: IBuildingLineDict = {
             'HerbalMedicine',
             'Detinets', // Except for Keep because Slavs don't have it, but not sure how to implement that
             'Crenellations',
+            'Curare',
+            'FortifiedBastions',
         ],
     },
     'StoneWall': {
@@ -391,6 +394,7 @@ export const buildingLines: IBuildingLineDict = {
         upgrades: [
             'GreatWall',
             'TreadmillCrane',
+            'FortifiedBastions',
         ],
     },
     'BombardTower': {
@@ -442,6 +446,7 @@ export const buildingLines: IBuildingLineDict = {
             'Detinets',
             'TimuridSiegecraft-Castle',
             'Citadels',
+            'FortifiedBastions',
         ],
     },
     'Donjon': {
@@ -489,6 +494,7 @@ export const buildingLines: IBuildingLineDict = {
         upgrades: [
             'GreatWall',
             'TreadmillCrane',
+            'FortifiedBastions',
         ],
     },
     'PalisadeGate': {
@@ -496,6 +502,7 @@ export const buildingLines: IBuildingLineDict = {
         upgrades: [
             'GreatWall',
             'TreadmillCrane',
+            'FortifiedBastions',
         ],
     },
     'Gate': {
@@ -503,6 +510,7 @@ export const buildingLines: IBuildingLineDict = {
         upgrades: [
             'GreatWall',
             'TreadmillCrane',
+            'FortifiedBastions',
         ],
     },
     'Outpost': {

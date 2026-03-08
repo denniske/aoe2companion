@@ -1520,6 +1520,8 @@ export const unitLines: IUnitLineDict = {
             'Conscription',
             'Perfusion',
             'Stronghold-Infantry',
+            'LamellarArmor',
+            'Tuntian',
         ],
     },
     'JaguarWarrior': {
@@ -1833,6 +1835,8 @@ export const unitLines: IUnitLineDict = {
             'Kshatriyas',
             'Stronghold-Infantry',
             'CoiledSerpentArray',
+            'LamellarArmor',
+            'Tuntian',
         ],
     },
     'Militia': {
@@ -1881,6 +1885,8 @@ export const unitLines: IUnitLineDict = {
             'Comitatenses',
             'WootzSteel',
             'Kshatriyas',
+            'LamellarArmor',
+            'Tuntian',
         ],
     },
     'Legionary': {
@@ -2280,6 +2286,7 @@ export const unitLines: IUnitLineDict = {
             'Heresy',
             'Conscription',
             'SteppeHusbandry',
+            'OrdoCavalry',
         ],
     },
     'BattleElephant': {
@@ -2347,6 +2354,7 @@ export const unitLines: IUnitLineDict = {
             'Kshatriyas',
             'MaghrebiCamels',
             'RoyalHeirs',
+            'OrdoCavalry',
         ],
     },
     'Knight': {
@@ -2465,6 +2473,9 @@ export const unitLines: IUnitLineDict = {
             'WootzSteel',
             'Kshatriyas',
             'AznauriCavalry',
+            'Tuntian',
+            'OrdoCavalry',
+            'MingGuangArmor',
         ],
     },
     'Kipchak': {
@@ -2579,6 +2590,8 @@ export const unitLines: IUnitLineDict = {
             'Heresy',
             'Conscription',
             'HulcheJavelineers',
+            'LamellarArmor',
+            'Tuntian',
         ],
     },
     'CamelArcher': {
@@ -2902,6 +2915,9 @@ export const unitLines: IUnitLineDict = {
             'Conscription',
             'HulcheJavelineers',
             'Kshatriyas',
+            'Malon',
+            'LamellarArmor',
+            'Tuntian',
         ],
     },
     'Archer': {
@@ -2931,9 +2947,12 @@ export const unitLines: IUnitLineDict = {
             'Devotion',
             'Faith',
             'Heresy',
+            'Herbalism',
             'Kamandaran',
             'Conscription',
+            'Curare',
             'Bogsveigar',
+            'Tuntian',
         ],
     },
     'PlumedArcher': {
@@ -3004,7 +3023,10 @@ export const unitLines: IUnitLineDict = {
             'Devotion',
             'Faith',
             'Heresy',
+            'Caciques',
             'Conscription',
+            'Huaracas',
+            'Malon',
         ],
     },
     'Kamayuk': {
@@ -3369,6 +3391,7 @@ export const unitLines: IUnitLineDict = {
             'Heresy',
             'Husbandry',
             'Conscription',
+            'Tuntian',
         ],
     },
 
@@ -3421,6 +3444,7 @@ export const unitLines: IUnitLineDict = {
             'Heresy',
             'Squires',
             'Conscription',
+            'LamellarArmor',
         ],
     },
     'RocketCart': {

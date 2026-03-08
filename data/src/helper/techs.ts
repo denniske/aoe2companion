@@ -143,7 +143,15 @@ const techEffectDictInternal = {
         tech: 'Tuntian',
         civ: 'Wei',
         effect: {
-            other: 'generates 1.2 food per minute',
+            other: 'generates 1.8 food per minute',
+        },
+    },
+
+    'LamellarArmor': {
+        tech: 'LamellarArmor',
+        civ: 'Khitans',
+        effect: {
+            other: '25% non-projectile damage reflection',
         },
     },
 
@@ -416,7 +424,14 @@ const techEffectDictInternal = {
         tech: 'Curare',
         civ: 'Tupi',
         effect: {
-            attack: 'deal 3 damage over 15 seconds',
+            attack: 'deal poision damage over 15 seconds',
+        },
+    },
+    'FortifiedBastions': {
+        tech: 'FortifiedBastions',
+        civ: 'Jurchens',
+        effect: {
+            other: 'regenerate 500 HP/min',
         },
     },
 
@@ -428,6 +443,14 @@ const techEffectDictInternal = {
         },
     },
 
+    'Huaracas': {
+        tech: 'Huaracas',
+        civ: 'Muisca',
+        effect: {
+            range: '+1',
+            creationSpeed: '+25%',
+        },
+    },
     'Herbalism': {
         tech: 'Herbalism',
         civ: 'Muisca',
@@ -640,7 +663,7 @@ const techEffectDictInternal = {
         tech: 'MedicalCorps',
         civ: 'Dravidians',
         effect: {
-            other: 'regenerate 30 HP per minute',
+            other: 'regenerate 30 HP/min',
         },
     },
     'WootzSteel': {
@@ -1438,6 +1461,13 @@ const techEffectDictInternal = {
         effect: {
             attack: '+1',
             range: '+1',
+        },
+    },
+    'OrdoCavalry': {
+        tech: 'OrdoCavalry',
+        civ: 'Khitans',
+        effect: {
+            other: 'regenerate 150% HP/min in combat',
         },
     },
     'SilkArmor': {
