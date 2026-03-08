@@ -19,7 +19,7 @@ export interface ICivEntry {
 export const civList: ICivEntry[] = [
     {
         name: 'Mapuche',
-        uniqueUnits: ['BolasRider', 'Kona'],
+        uniqueUnits: ['Kona', 'BolasRider'],
         uniqueTechs: ['Malon', 'Butalmapu'],
     },
     {

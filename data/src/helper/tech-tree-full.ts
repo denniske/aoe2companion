@@ -179,6 +179,16 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     unit: 'JianSwordsman',
                     unique: true
                 }] : []),
+                ...(['Muisca'].includes(civInfo.name) ? [{
+                    age: 'CastleAge',
+                    unit: 'TempleGuard',
+                    unique: true
+                }] : []),
+                ...(['Tupi'].includes(civInfo.name) ? [{
+                    age: 'CastleAge',
+                    unit: 'IbirapemaWarrior',
+                    unique: true
+                }] : []),
                 ...(['Chinese', 'Jurchens', 'Khitans', 'Koreans', 'Vietnamese'].includes(civInfo.name) ? [{
                     age: 'CastleAge',
                     unit: 'FireLancer',
@@ -205,6 +215,16 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {age: 'ImperialAge', unit: 'Halberdier'},
                 {age: 'ImperialAge', unit: 'EliteEagleWarrior'},
 
+                ...(['Muisca'].includes(civInfo.name) ? [{
+                    age: 'CastleAge',
+                    unit: 'EliteTempleGuard',
+                    unique: true
+                }] : []),
+                ...(['Tupi'].includes(civInfo.name) ? [{
+                    age: 'CastleAge',
+                    unit: 'EliteIbirapemaWarrior',
+                    unique: true
+                }] : []),
                 ...(['Chinese', 'Jurchens', 'Khitans', 'Koreans', 'Vietnamese'].includes(civInfo.name) ? [{
                     age: 'ImperialAge',
                     unit: 'EliteFireLancer',
@@ -334,7 +354,8 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {age: 'CastleAge', unit: 'Crossbowman'},
                 {age: 'CastleAge', unit: 'EliteSkirmisher'},
                 {age: 'CastleAge', unit: 'CavalryArcher'},
-                {age: 'CastleAge', unit: 'ElephantArcher'},
+                ...(getCivHasUnit(civInfo.name, 'BolasRider') ? [{age: 'CastleAge', unit: 'BolasRider', unique: true}] : []),
+                ...(getCivHasUnit(civInfo.name, 'ElephantArcher') ? [{age: 'CastleAge', unit: 'ElephantArcher'}] : []),
                 {},
 
                 ...(getCivHasUnit(civInfo.name, 'Genitour') ? [{age: 'CastleAge', unit: 'Genitour', unique: true}] : []),
@@ -351,7 +372,8 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                 {age: 'ImperialAge', unit: 'Arbalester'},
                 {age: 'ImperialAge', unit: 'ImperialSkirmisher', unique: true},
                 {age: 'ImperialAge', unit: 'HeavyCavalryArcher'},
-                {age: 'ImperialAge', unit: 'EliteElephantArcher'},
+                ...(getCivHasUnit(civInfo.name, 'BolasRider') ? [{age: 'ImperialAge', unit: 'EliteBolasRider', unique: true}] : []),
+                ...(getCivHasUnit(civInfo.name, 'ElephantArcher') ? [{age: 'ImperialAge', unit: 'EliteElephantArcher'}] : []),
                 {age: 'ImperialAge', unit: 'HandCannoneer'},
 
                 ...(getCivHasUnit(civInfo.name, 'Genitour') ? [{age: 'ImperialAge', unit: 'EliteGenitour', unique: true}] : []),
