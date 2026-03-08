@@ -1,4 +1,11 @@
 
+Sun Jian and other hero images create glow in affinity photo
+- 20% magic wand
+- invert
+- grow 10px
+- refine border radius 10% feather 30px
+- fill #FFE376
+
 vmware fusion update
 https://knowledge.broadcom.com/external/article?articleNumber=368734
 
