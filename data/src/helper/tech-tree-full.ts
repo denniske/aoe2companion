@@ -194,7 +194,7 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
                     unit: 'FireLancer',
                     unique: true
                 }] : []),
-                ...(!['Wu', 'Chinese', 'Jurchens', 'Khitans', 'Koreans', 'Vietnamese'].includes(civInfo.name) ? [{}] : []),
+                ...(!['Wu', 'Muisca', 'Tupi', 'Chinese', 'Jurchens', 'Khitans', 'Koreans', 'Vietnamese'].includes(civInfo.name) ? [{}] : []),
 
                 {age: 'CastleAge', tech: 'Gambesons'},
                 {age: 'CastleAge', tech: 'Squires'},
