@@ -115,7 +115,7 @@
     "source-map-support": "^0.5.10",
     "tslib": "^2.0.0",
     "twrnc": "4.9.1",
-    "uniwind": "^1.3.0",
+    "uniwind": "^1.5.0",
     "uuid": "^3.4.0",
     "victory-native": "^37.3.1",
     "victory-native-current": "npm:victory-native@^41.19.3",
