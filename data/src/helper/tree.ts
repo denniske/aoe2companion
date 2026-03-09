@@ -135,8 +135,8 @@ export function getCivTechAge(civ: Civ, tech: Tech) {
             u['Node ID'] === parseInt(entry.dataId)
     );
 
-    console.log(civTechTree)
-    console.log('getCivTechAge', civ, tech, parseInt(entry.dataId), info);
+    // console.log(civTechTree)
+    // console.log('getCivTechAge', civ, tech, parseInt(entry.dataId), info);
 
     if (!info?.['Age ID']) {
         return undefined;
