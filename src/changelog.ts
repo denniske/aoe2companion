@@ -332,6 +332,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '187.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fixed tech tree swapped units/buildings/techs',
+        },
+    ],
     '186.0.0': [
         {
             type: 'bugfix',

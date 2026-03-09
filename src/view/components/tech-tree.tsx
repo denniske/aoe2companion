@@ -81,7 +81,7 @@ export function TechTree({civ}: {civ: Civ }) {
                                 <TechTreeRow civ={civ} row={row} />
                             </Delayed>
                         ) : (
-                            <TechTreeRow civ={civ} row={row} />
+                            <TechTreeRow key={i} civ={civ} row={row} />
                         )
                     )}
                 </View>
@@ -94,7 +94,7 @@ export function TechTree({civ}: {civ: Civ }) {
                                 <TechTreeRow civ={civ} row={row} />
                             </Delayed>
                         ) : (
-                            <TechTreeRow civ={civ} row={row} />
+                            <TechTreeRow key={i} civ={civ} row={row} />
                         )
                     )}
                 </View>
@@ -187,7 +187,6 @@ function Ability2({civ, age, tech, unit, building, unique, dependsOn}: AbilityPr
             <TouchableOpacity>
                 <ImageBackground
                     source={getAbilityIcon({ civ, tech, unit, building })}
-                    imageStyle={styles.imageInner2}
                     contentFit="cover"
                     style={styles.image2}
                 >
@@ -195,14 +194,7 @@ function Ability2({civ, age, tech, unit, building, unique, dependsOn}: AbilityPr
                     {age !== availableAge && (
                         <Image
                             source={getAgeIcon(availableAge as any)}
-                            style={{
-                                position: 'absolute',
-                                top: -8,
-                                right: -8,
-                                width: 16,
-                                height: 16,
-                            }}
-                            className="absolute -top-2 -right-2 w-4 h-4 md:-top-4 md:-right-4 md:w-8 md:h-8"
+                            className="absolute -top-3 -right-3 w-6 h-6 md:-top-4 md:-right-4 md:w-8 md:h-8"
                         />
                     )}
                 </ImageBackground>
@@ -214,7 +206,7 @@ function Ability2({civ, age, tech, unit, building, unique, dependsOn}: AbilityPr
 function Ability3({age}: Ability3Props) {
     return (
         <TouchableOpacity style={[styles.imageContainer3]}>
-            <ImageBackground source={getAgeIcon(age)} imageStyle={styles.imageInner2} contentFit="cover" style={styles.image2}/>
+            <ImageBackground source={getAgeIcon(age)} contentFit="cover" style={styles.image2}/>
         </TouchableOpacity>
     );
 }
@@ -223,17 +215,6 @@ const styles = StyleSheet.create({
     sectionHeader: {
         fontSize: 15,
         fontWeight: '500',
-    },
-    imageInner2: {
-        // alignSelf: 'flex-end',
-    },
-    imageText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#F00',
-        textShadowColor: 'black',
-        textShadowOffset: {width: 2, height: 2},
-        textShadowRadius: 3,
     },
     image2: {
         alignItems: 'center',
@@ -271,19 +252,11 @@ const styles = StyleSheet.create({
         height: colSize,
         margin: 2,
     },
-    spacing: {
-        marginTop: 5,
-    },
     heading: {
         marginTop: 10,
         fontWeight: 'bold',
         marginBottom: 5,
         // backgroundColor: 'red',
-    },
-    heading2: {
-        marginVertical: 10,
-        lineHeight: 20,
-        fontWeight: 'bold',
     },
     content: {
         marginBottom: 5,
