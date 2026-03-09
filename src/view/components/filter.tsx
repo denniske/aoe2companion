@@ -71,6 +71,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
                     <FlatList
                         keyboardShouldPersistTaps="handled"
                         style={styles.results}
+                        className="shadow-md"
                         scrollEnabled
                         data={filteredOptions}
                         keyExtractor={(item) => String(item.value)}
@@ -114,13 +115,6 @@ const useStyles = createStylesheet((theme, darkMode) =>
         resultsContainer: {
             marginVertical: 10,
             elevation: 4,
-            shadowColor: '#000000',
-            shadowOffset: {
-                width: 0,
-                height: 3,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
             position: 'absolute',
             top: 30,
             zIndex: 100,
