@@ -74,9 +74,6 @@ export default function LeaderboardPage() {
     //     </View>
     // );
 
-
-
-
     const getTranslation = useTranslation();
 
     const { data: leaderboards } = useLeaderboards();
@@ -448,7 +445,6 @@ export default function LeaderboardPage() {
     if (!leaderboards || !leaderboardId) {
         return <View />;
     }
-
 
     return (
         <View style={styles.container2}>
