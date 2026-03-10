@@ -4847,7 +4847,7 @@ __metadata:
     html-entities: "npm:^2.4.0"
     humps: "npm:^2.0.1"
     immer: "npm:^7.0.0"
-    liquipedia: "npm:^1.2.0"
+    liquipedia: "npm:^1.2.1"
     lodash: "npm:^4.17.19"
     patch-package: "npm:^8.0.0"
     postcss-loader: "npm:^4.3.0"
@@ -9699,16 +9699,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"liquipedia@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "liquipedia@npm:1.2.0"
+"liquipedia@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "liquipedia@npm:1.2.1"
   dependencies:
     axios: "npm:^1.6.2"
     date-fns: "npm:^2.30.0"
     lodash: "npm:^4.17.21"
     node-html-markdown: "npm:^1.3.0"
     node-html-parser: "npm:^6.1.11"
-  checksum: 10/bfc39b5ba84d1e587c3701ed825e811262ca0dcf08d5d0a4dd17d9b6578f52478921b7f9ea8e91eb46779d664ad7f9597f2f6bb61c1efd4589f91f672eab100b
+  checksum: 10/07873592f915864a28b53e4382571c8ac4a501de0da01181684f0778ed8a3abe008d3e0fd8f9a873a5dd816938c822f3366594dea98788050b9b33878670abff
   languageName: node
   linkType: hard
 
