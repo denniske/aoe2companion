@@ -324,7 +324,7 @@ export default function Explore() {
                                         href={`/explore/technologies?section=${building ?? civ ?? title}`}
                                     />
                                 )}
-                                keyExtractor={(item) => item.building || item.civ!}
+                                keyExtractor={(item) => item.building || item.civ || item.title!}
                             />
                         </View>
 

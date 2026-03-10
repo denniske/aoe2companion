@@ -147,8 +147,8 @@ export default function IndexPage() {
 
                         <View className="gap-4">
                             <View className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {welcomeCards.map((card) => (
-                                    <Card className="flex-1 items-center gap-2" href={card.href} direction="vertical">
+                                {welcomeCards.map((card, i) => (
+                                    <Card key={i} className="flex-1 items-center gap-2" href={card.href} direction="vertical">
                                         <View className="p-4 bg-blue-800 dark:bg-blue-700 rounded-full mb-1">
                                             <Icon icon={card.icon} size={24} color="white" />
                                         </View>
