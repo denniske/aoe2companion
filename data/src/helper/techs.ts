@@ -1214,7 +1214,7 @@ const techEffectDictInternal = {
         tech: 'BeardedAxe',
         civ: 'Franks',
         effect: {
-            range: '+1',
+            range: '+2',
         },
     },
     'ElDorado': {
