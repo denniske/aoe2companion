@@ -34,7 +34,7 @@ export default function MatchTeams({ match, wrap = true, canDownloadRecs, highli
     return (
         <Component direction="vertical" className="gap-2">
             {teamChunks.map((teams, chunkIndex) => (
-                <>
+                <Fragment key={chunkIndex}>
                     <View className="md:flex-row gap-2">
                         {teams.map(({ teamId, players }, teamIndex) => (
                             <Fragment key={teamId}>
@@ -75,7 +75,7 @@ export default function MatchTeams({ match, wrap = true, canDownloadRecs, highli
                             <View className="bg-gray-200 dark:bg-gray-800 h-px flex-1 hidden md:flex" />
                         </View>
                     )}
-                </>
+                </Fragment>
             ))}
         </Component>
     );
