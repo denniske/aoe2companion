@@ -14,11 +14,11 @@ export const ProfileLeaderboards: React.FC<{ profile: IProfileResult | undefined
 
     return (
         <View className="p-4 gap-4 grid grid-cols-2">
-            {leaderboards.map((leaderboard) => {
+            {leaderboards.map((leaderboard, i) => {
                 const stats = profile?.stats.find((s) => s.leaderboardId === leaderboard?.leaderboardId);
                 const ratings = profile?.ratings.find((r) => r.leaderboardId === leaderboard?.leaderboardId);
 
-                return <ProfileLeaderboardCard leaderboard={leaderboard} stats={stats} ratings={ratings} />;
+                return <ProfileLeaderboardCard key={leaderboard?.leaderboardId ?? i} leaderboard={leaderboard} stats={stats} ratings={ratings} />;
             })}
         </View>
     );

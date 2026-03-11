@@ -99,11 +99,12 @@ export const ProfileLeaderboardCard: React.FC<{
                             {Math.abs(streak)} Match {streak < 0 ? 'Losing' : 'Winning'} Streak
                         </TextComponent>
                         <View className="flex-row gap-2">
-                            {last5MatchesWon?.map((match) =>
+                            {last5MatchesWon?.map((match, i) =>
                                 match === null ? (
-                                    <Skeleton className="rounded-full w-4 h-4" />
+                                    <Skeleton key={i} className="rounded-full w-4 h-4" />
                                 ) : (
                                     <View
+                                        key={i}
                                         className={`${
                                             match.won === null ? 'bg-red-500 animate-pulse' : match.won ? 'bg-blue-700' : 'bg-gray-200'
                                         } rounded-full w-4 h-4 justify-center items-center`}
