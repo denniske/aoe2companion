@@ -78,8 +78,8 @@ export const NavBar: React.FC = () => {
                                     : 'text-subtle fill-subtle hocus:bg-gold-50 dark:hocus:bg-blue-700'
                             )}
                         >
-                            <Icon fill="inherit" size={20} icon={route.icon as IconName} />
-                            <Text variant="label-lg" color="text-inherit" className="uppercase mt-0.5">
+                            <Icon size={20} icon={route.icon as IconName} />
+                            <Text variant="label-lg" className="uppercase mt-0.5">
                                 {route.label}
                             </Text>
                         </Link>
@@ -95,7 +95,7 @@ export const NavBar: React.FC = () => {
                             'flex flex-row justify-center items-center gap-2.5 rounded-lg px-4 fill-subtle hocus:bg-gold-50 dark:hocus:bg-blue-700'
                         )}
                     >
-                        <Icon fill="inherit" size={20} icon="search" />
+                        <Icon size={20} icon="search" />
                     </Link>
                 )}
 
