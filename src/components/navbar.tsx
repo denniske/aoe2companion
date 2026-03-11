@@ -78,8 +78,8 @@ export const NavBar: React.FC = () => {
                                     : 'text-subtle fill-subtle hocus:bg-gold-50 dark:hocus:bg-blue-700'
                             )}
                         >
-                            <Icon size={20} icon={route.icon as IconName} />
-                            <Text variant="label-lg" className="uppercase mt-0.5">
+                            <Icon size={20} icon={route.icon as IconName} color={isFocused ? 'white' : 'subtle'}/>
+                            <Text variant="label-lg" className="uppercase mt-0.5" color={isFocused ? 'white' : 'subtle'}>
                                 {route.label}
                             </Text>
                         </Link>
