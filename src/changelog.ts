@@ -332,6 +332,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '189.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Add hulk to tech tree',
+        },
+    ],
     '188.0.0': [
         {
             type: 'bugfix',

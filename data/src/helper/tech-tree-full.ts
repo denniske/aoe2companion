@@ -399,17 +399,19 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'FeudalAge'},
-                {age: 'FeudalAge', unit: 'FireGalley'},
-                {age: 'FeudalAge', unit: 'DemolitionRaft'},
                 {age: 'FeudalAge', unit: 'Galley'},
+                {age: 'FeudalAge', unit: 'Hulk'},
+                {age: 'FeudalAge', unit: 'DemolitionRaft'},
+                {age: 'FeudalAge', unit: 'FireGalley'},
             ],
         },
         {
             items: [
                 {age: 'CastleAge'},
-                {age: 'CastleAge', unit: 'FireShip'},
-                {age: 'CastleAge', unit: 'DemolitionShip'},
                 {age: 'CastleAge', unit: 'WarGalley'},
+                {age: 'CastleAge', unit: 'WarHulk'},
+                {age: 'CastleAge', unit: 'DemolitionShip'},
+                {age: 'CastleAge', unit: 'FireShip'},
                 {age: 'CastleAge', tech: 'MediumWarships'},
                 ...(civInfo.uniqueUnits.includes('Caravel') ? [{age: 'CastleAge', unit: 'Caravel', unique: true}] : []),
                 ...(civInfo.uniqueUnits.includes('Longboat') ? [{age: 'CastleAge', unit: 'Longboat', unique: true}] : []),
@@ -419,9 +421,10 @@ export function getFullTechTree(civInfo: ICivEntry, uniqueLine?: IUnitLine): ITe
         {
             items: [
                 {age: 'ImperialAge'},
-                ...(civInfo.uniqueUnits.includes('DragonShip') ? [{age: 'ImperialAge', unit: 'DragonShip', unique: true}] : [{age: 'ImperialAge', unit: 'FastFireShip'}]),
-                {age: 'ImperialAge', unit: 'HeavyDemolitionShip'},
                 {age: 'ImperialAge', unit: 'Galleon'},
+                {age: 'ImperialAge', unit: 'Carrack'},
+                {age: 'ImperialAge', unit: 'HeavyDemolitionShip'},
+                ...(civInfo.uniqueUnits.includes('DragonShip') ? [{age: 'ImperialAge', unit: 'DragonShip', unique: true}] : [{age: 'ImperialAge', unit: 'FastFireShip'}]),
                 {age: 'ImperialAge', tech: 'HeavyWarships'},
                 ...(civInfo.uniqueUnits.includes('Caravel') ? [{age: 'ImperialAge', unit: 'EliteCaravel', unique: true}] : []),
                 ...(civInfo.uniqueUnits.includes('Longboat') ? [{age: 'ImperialAge', unit: 'EliteLongboat', unique: true}] : []),
