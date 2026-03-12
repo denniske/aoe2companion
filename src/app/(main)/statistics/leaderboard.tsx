@@ -36,7 +36,7 @@ import cn from 'classnames';
 import { containerClassName, containerScrollClassName } from '@app/styles';
 import { formatAgo } from '@nex/data';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
-import { WebLeaderboard } from './_web-leaderboard';
+import { WebLeaderboard } from '../../../components/leaderboard/web-leaderboard';
 
 const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
