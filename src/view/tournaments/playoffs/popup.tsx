@@ -39,14 +39,14 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
     const liveOrUpcomingMatch = getLiveOrUpcomingMatch(match, tournamentMatches);
     const isLive = liveOrUpcomingMatch?.startTime && isPast(liveOrUpcomingMatch?.startTime);
 
-    if (visible) {
-        console.log('==============> PlayoffPopup');
-        console.log('visible', visible);
-        console.log('selectedMatch', selectedMatch);
-        console.log('match', match);
-        console.log('tournamentPath', tournamentPath);
-        console.log('tournament.path', tournament?.path);
-    }
+    // if (visible) {
+    //     console.log('==============> PlayoffPopup');
+    //     console.log('visible', visible);
+    //     console.log('selectedMatch', selectedMatch);
+    //     console.log('match', match);
+    //     console.log('tournamentPath', tournamentPath);
+    //     console.log('tournament.path', tournament?.path);
+    // }
 
     useEffect(() => {
         if (visible && tournamentPath && tournament && !match) {
