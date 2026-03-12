@@ -65,6 +65,13 @@ initSentry();
 
 if (Platform.OS === 'web') {
     polyfillCountryFlagEmojis();
+
+    // Ignore pointer events deprecation warning probably from react-native-navigation on web
+    const originalWarn = console.warn;
+    console.warn = (...args) => {
+        if (args[0]?.includes('props.pointerEvents is deprecated')) return;
+        originalWarn(...args);
+    };
 }
 
 console.error = (function (error) {
