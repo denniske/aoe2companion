@@ -60,6 +60,7 @@ export function BottomSheet({
 
     const animatedStyle = useAnimatedStyle(() => {
         return {
+            pointerEvents: Platform.OS === 'web' ? 'box-none' : undefined,
             flex: isFullHeight ? 1 : undefined,
             marginBottom: interpolate(bottom.value, [-1, 0, 1], [0, 0, -1]),
             paddingBottom: interpolate(bottom.value, [-1, 0, 1], [1, 0, 0]),
@@ -106,7 +107,6 @@ export function BottomSheet({
                                 Platform.OS === 'web' && 'border border-gray-200 dark:border-gray-800 rounded-lg max-w-4xl! my-12'
                             )}
                             style={animatedStyle}
-                            pointerEvents={Platform.OS === 'web' ? 'box-none' : undefined}
                         >
                             <SafeAreaView
                                 edges={extendBottom ? [] : ['bottom']}
