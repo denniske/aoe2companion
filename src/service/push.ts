@@ -1,4 +1,4 @@
-import * as Notifications from "expo-notifications";
+import * as Notifications from '@app/service/notifications';
 import Constants from "expo-constants";
 import * as Device from 'expo-device';
 

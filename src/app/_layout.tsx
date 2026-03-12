@@ -49,13 +49,12 @@ import { TranslationModeOverlay } from '@app/components/translation/translation-
 import { PostMessageTranslationsController } from '@app/components/translation/post-message-translation';
 import { setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
 import { useMMKV } from 'react-native-mmkv';
-import { useLastNotificationResponse } from '@app/service/notifications';
+import { useLastNotificationResponse, clearLastNotificationResponse } from '@app/service/notifications';
 import * as WebBrowser from 'expo-web-browser';
 import { getInternalLanguage } from '@app/queries/direct';
 import { useDarkMode } from '@app/hooks/use-dark-mode';
 import { LiveActivity } from '@/modules/widget';
 import { AvailableMainPage } from '@app/helper/routing';
-import { clearLastNotificationResponse } from 'expo-notifications';
 import { useCSSVariable } from 'uniwind';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { LoginPopupProvider } from '@app/providers/login-popup-provider';

@@ -1,4 +1,6 @@
 
+// console.log('NOTIFICATION WEB');
+
 export function useLastNotificationResponse() {
     return null;
 }
@@ -8,6 +10,10 @@ export function addNotificationReceivedListener() {
 }
 
 export function removeNotificationSubscription() {
+    return null;
+}
+
+export function clearLastNotificationResponse() {
     return null;
 }
 
