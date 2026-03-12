@@ -104,7 +104,10 @@ export function getCivBuildingAge(civ: Civ, building: Building) {
     const entry = buildings[building];
 
     const civTechTree = aoeTreeInternal[civ as any as keyof typeof aoeTreeInternal];
-    const info = civTechTree.civ_techs_buildings.find(u => u['Building ID'] === parseInt(entry.dataId));
+    const info = civTechTree.civ_techs_buildings.find(u =>
+        u['Node Type'] === 'BuildingTech' &&
+        u['Node ID'] === parseInt(entry.dataId)
+    );
 
     if (!info?.['Age ID']) {
         return undefined;
@@ -117,7 +120,10 @@ export function getCivUnitAge(civ: Civ, unit: Unit) {
     const entry = units[unit];
 
     const civTechTree = aoeTreeInternal[civ as any as keyof typeof aoeTreeInternal];
-    const info = civTechTree.civ_techs_units.find(u => u['Building ID'] === parseInt(entry.dataId));
+    const info = civTechTree.civ_techs_units.find(u =>
+        (u['Node Type'] === 'Unit' || u['Node Type'] === 'UnitUpgrade') &&
+        u['Node ID'] === parseInt(entry.dataId)
+    );
 
     if (!info?.['Age ID']) {
         return undefined;

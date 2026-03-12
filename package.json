@@ -131,6 +131,7 @@
     "@types/websocket": "^1.0.10",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~55.0.0",
+    "expo-atlas": "^0.4.0",
     "tailwindcss": "^4.1.16",
     "typescript": "~5.9.2"
   },
