@@ -32,22 +32,32 @@ export const Breadcrumbs: React.FC<{ title: string; paramReplacements?: Record<s
                 const allSegments = [...screenNames.slice(0, index).map(s => s.value), segment];
                 const fullPath = `/${allSegments.join('/')}`;
                 const replacement = paramReplacements?.[key] === undefined ? undefined : paramReplacements[key];
-                const LinkComponent = replacement === null ? SkeletonText : Link;
 
-                return isLast ? (
-                    <TextComponent key={fullPath} color="subtle" variant="label" className={!title ? 'w-10!' : undefined} alt>
-                        {title}
-                    </TextComponent>
-                ) : (
+                if (isLast) {
+                    return (
+                        <TextComponent key={fullPath} color="subtle" variant="label" className={!title ? 'w-10!' : undefined} alt>
+                            {title}
+                        </TextComponent>
+                    );
+                }
+
+                if (replacement === null) {
+                    return (
+                        <Fragment key={fullPath}>
+                            <SkeletonText className="w-10!" />
+                            <Icon icon="chevron-right" size={12} color="subtle" />
+                        </Fragment>
+                    )
+                }
+
+                return (
                     <Fragment key={fullPath}>
-                        <LinkComponent
+                        <Link
                             href={fullPath as Href}
                             color="subtle"
-                            className={replacement === null ? 'w-10!' : undefined}
-                            alt={replacement === null}
                         >
                             {replacement ?? startCase(segment)}
-                        </LinkComponent>
+                        </Link>
                         <Icon icon="chevron-right" size={12} color="subtle" />
                     </Fragment>
                 );
