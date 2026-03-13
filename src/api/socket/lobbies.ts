@@ -45,7 +45,7 @@ function initConnection(handler: IConnectionHandler, profileIds?: number[], veri
             })
         );
         const url = `${getHost('aoe2companion-socket')}listen?${queryString}`;
-        console.log('WebSocket URL', url);
+        // console.log('WebSocket URL', url);
         const client = new w3cwebsocket(url);
 
         client.onopen = () => {

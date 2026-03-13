@@ -337,6 +337,10 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Add hulk to tech tree',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix names in map list',
+        },
     ],
     '188.0.0': [
         {
