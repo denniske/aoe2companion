@@ -496,7 +496,7 @@ export default function LeaderboardPage() {
                     }
                 />
             </View>
-            <View className={cn(containerScrollClassName, 'absolute inset-0')} style={{ pointerEvents: 'box-none'}}>
+            <View className={cn(containerScrollClassName, 'absolute inset-0')} style={{ pointerEvents: Platform.OS === 'web' ? 'none' : 'box-none'}}>
                 <View style={[styles.handleContainer, { bottom }]}>
                     <GestureDetector gesture={panGesture}>
                         <Animated.View style={[{ right: 0, opacity: handleVisible ? 1 : 0 }, styles.handle, handleAnimatedStyle]}>
