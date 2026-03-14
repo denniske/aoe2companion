@@ -29,6 +29,10 @@ export function useSteamAuth() {
     // console.log();
     // console.log('steam request');
     // console.log(request);
+    // console.log();
+    // console.log('steam response');
+    // console.log(response);
+
     // console.log({
     //     authorizationEndpoint: getHost('aoe2companion-api') + `authorize`,
     // });

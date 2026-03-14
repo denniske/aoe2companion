@@ -8,7 +8,7 @@ import Space from '@app/view/components/space';
 import { createStylesheet } from '../../../theming-new';
 import { sendTestPushNotificationWeb } from '../../../api/following';
 import { initPusher } from '../../../helper/pusher';
-import { router, Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import * as Device from 'expo-device';
 import { useAccountData } from '@app/queries/all';
@@ -56,6 +56,7 @@ export default function PushPage() {
     const notificationListener = useRef<EventSubscription>(undefined);
     const lastNotificationResponse = useLastNotificationResponse();
     const accountId = useAccountData((state) => state.accountId);
+    const router = useRouter();
 
     const log = (...message: any) => {
         console.log('push', ...message);

@@ -178,6 +178,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         [
             "expo-router",
             {
+                "unstable_useServerRendering": true,
                 sitemap: !isProdBuild,
                 redirects: [
                     { source: '/leaderboard', destination: '/statistics/leaderboard' },
@@ -263,7 +264,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         appleTeamId: "HAFGZBHF9M",
     },
     web: {
-        "output": "single",
+        "output": "server",
         favicon: `./${app.assetsFolder}/favicon-96x96.png`
     },
 });

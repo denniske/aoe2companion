@@ -39,7 +39,7 @@ export function getTranslationInternal(key: keyof typeof local001, params?: Reco
 }
 
 export const mmkvDefaultInstance = new MMKV();
-const mmkvLanguage = mmkvDefaultInstance.getString('language');
+const mmkvLanguage = typeof window !== "undefined" ? mmkvDefaultInstance.getString('language') : undefined;
 // console.log('mmkvLanguage', mmkvLanguage);
 
 if (mmkvLanguage) {

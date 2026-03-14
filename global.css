@@ -123,6 +123,49 @@ export const dark: ITheme = {
 
 @custom-variant hocus (&:hover, &:focus-visible);
 
+/* Makes scrolling the page possible on desktop screens */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    background-color: #fffcf5;
+    color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        color: white;
+        background-color: #0e1017;
+    }
+}
+
+/* These styles make the root element full-height */
+#root {
+    display: flex;
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    #root {
+        height: auto;
+        min-height: 100dvh;
+    }
+
+    body {
+        overflow: visible;
+    }
+
+    html,
+    body {
+        height: auto;
+        height: 100dvh;
+    }
+}
+
 /* Scrollbar styling */
 * {
     scrollbar-width: thin;

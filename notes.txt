@@ -1,4 +1,13 @@
 
+- server rendering
+  npx expo install expo-server
+  https://docs.expo.dev/router/web/api-routes/#express
+  yarn add -D express compression morgan
+  npx expo export -p web
+
+- bundle size
+  EXPO_ATLAS=true npx expo export && npx expo-atlas .expo/atlas.jsonl
+
 Sun Jian and other hero images create glow in affinity photo
 - 20% magic wand
 - invert

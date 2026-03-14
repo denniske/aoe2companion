@@ -515,7 +515,7 @@ function useIsNavigationReady() {
     return rootNavigationState?.key != null;
 }
 
-const mmkvConfigMainPage = mmkvDefaultInstance.getString('configMainPage') as AvailableMainPage;
+const mmkvConfigMainPage = typeof window !== "undefined" ? mmkvDefaultInstance.getString('configMainPage') as AvailableMainPage : undefined;
 // console.log('mmkvConfigMainPage', mmkvConfigMainPage);
 
 export function useMMKWAccountCache() {
