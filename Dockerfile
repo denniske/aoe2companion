@@ -1,13 +1,18 @@
-FROM nginx:alpine
+FROM node:20-alpine
+WORKDIR /app
 
-# Remove default nginx config
-RUN rm /etc/nginx/conf.d/default.conf
+ENV NODE_ENV=production
 
-# Copy Expo web export
-COPY dist /usr/share/nginx/html
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn/releases .yarn/releases
+COPY .yarn/cache .yarn/cache
 
-# Copy custom nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN corepack enable && corepack prepare yarn --activate
+RUN --mount=type=secret,id=FONTAWESOME_NPM_AUTH_TOKEN \
+    export FONTAWESOME_NPM_AUTH_TOKEN=$(cat /run/secrets/FONTAWESOME_NPM_AUTH_TOKEN) && \
+    yarn
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+COPY dist ./dist
+COPY server.ts ./server.ts
+
+CMD ["node", "server.ts"]
