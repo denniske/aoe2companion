@@ -18,10 +18,6 @@ export COMMIT_SHA1=$(git rev-parse HEAD)
 
 npx expo export -p web --clear
 
-#echo $(grep FONTAWESOME_NPM_AUTH_TOKEN .env | cut -d '=' -f2 | tr -d '"' | tr -d "'" | xargs)
-
-#docker buildx build --no-cache --progress=plain \
-
 docker buildx build \
   --secret id=FONTAWESOME_NPM_AUTH_TOKEN,src=<(grep FONTAWESOME_NPM_AUTH_TOKEN .env | cut -d '=' -f2 | tr -d '"' | tr -d "'" | xargs) \
   --platform $PLATFORM -f ./Dockerfile -t denniske/${GAME}companion-$SERVICE_NAME:$COMMIT_SHA1 .

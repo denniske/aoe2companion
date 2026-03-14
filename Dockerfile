@@ -3,14 +3,14 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-COPY package.json yarn.lock .yarnrc.yml ./
+COPY yarn.lock ./
+COPY .yarnrc.docker.yml ./.yarnrc.yml
 COPY .yarn/releases .yarn/releases
-COPY .yarn/cache .yarn/cache
+
+RUN echo '{"name":"app","version":"1.0.0"}' > package.json
 
 RUN corepack enable && corepack prepare yarn --activate
-RUN --mount=type=secret,id=FONTAWESOME_NPM_AUTH_TOKEN \
-    export FONTAWESOME_NPM_AUTH_TOKEN=$(cat /run/secrets/FONTAWESOME_NPM_AUTH_TOKEN) && \
-    yarn
+RUN yarn add expo-server express compression morgan
 
 COPY dist ./dist
 COPY server.ts ./server.ts

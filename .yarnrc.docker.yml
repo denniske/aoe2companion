@@ -1,0 +1,9 @@
+httpTimeout: 500000
+httpRetry: 3
+compressionLevel: mixed
+
+enableGlobalCache: false
+
+nodeLinker: node-modules
+
+yarnPath: .yarn/releases/yarn-4.8.1.cjs

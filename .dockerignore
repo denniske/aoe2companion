@@ -21,9 +21,14 @@
 **/node_modules
 
 node_modules
+
 # 👇 EXCEPTION: keep prisma
 !node_modules/.prisma
-# 👇 EXCEPTION: keep Expo web export fonts
+
+# 👇 EXCEPTION: keep Expo single web export fonts
 !dist/assets/node_modules/**
+
+# 👇 EXCEPTION: keep Expo serverweb export fonts
+!dist/client/assets/node_modules/**
 
 private-key.pem
