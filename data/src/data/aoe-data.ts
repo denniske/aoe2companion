@@ -1721,6 +1721,7 @@ export const aoeDataInternal = {
                 201,
                 202,
                 203,
+                211,
                 213,
                 215,
                 221,
@@ -26415,7 +26416,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0.04,
                 "ReloadTime": 0.25,
                 "Speed": 1.56,
-                "TrainTime": 36,
+                "TrainTime": 27,
                 "Trait": 2,
                 "TraitPiece": 0,
                 "internal_name": "DRAGS"
@@ -35292,11 +35293,11 @@ export const aoeDataInternal = {
                         "Class": 31
                     }
                 ],
-                "Attack": 4,
+                "Attack": 3,
                 "AttackDelaySeconds": 0,
                 "Attacks": [
                     {
-                        "Amount": 1,
+                        "Amount": 3,
                         "Class": 29
                     },
                     {
@@ -35304,15 +35305,15 @@ export const aoeDataInternal = {
                         "Class": 21
                     },
                     {
-                        "Amount": 4,
+                        "Amount": 3,
                         "Class": 4
                     },
                     {
-                        "Amount": 0,
+                        "Amount": 1,
                         "Class": 8
                     },
                     {
-                        "Amount": 0,
+                        "Amount": 1,
                         "Class": 30
                     },
                     {
@@ -35328,7 +35329,7 @@ export const aoeDataInternal = {
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 45,
+                    "Food": 50,
                     "Gold": 25
                 },
                 "FrameDelay": 0,
@@ -35344,8 +35345,8 @@ export const aoeDataInternal = {
                 "Range": 0,
                 "RechargeRate": 0,
                 "ReloadTime": 2,
-                "Speed": 1.1,
-                "TrainTime": 30,
+                "Speed": 1,
+                "TrainTime": 45,
                 "Trait": 20,
                 "TraitPiece": 598,
                 "internal_name": "CHAMPIR"
@@ -35406,7 +35407,7 @@ export const aoeDataInternal = {
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 45,
+                    "Food": 50,
                     "Gold": 25
                 },
                 "FrameDelay": 0,
@@ -35423,7 +35424,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1.1,
-                "TrainTime": 21,
+                "TrainTime": 26,
                 "Trait": 20,
                 "TraitPiece": 598,
                 "internal_name": "CHAMPIW"
@@ -35484,7 +35485,7 @@ export const aoeDataInternal = {
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 45,
+                    "Food": 50,
                     "Gold": 25
                 },
                 "FrameDelay": 0,
@@ -36552,7 +36553,7 @@ export const aoeDataInternal = {
                         "Class": 29
                     },
                     {
-                        "Amount": 1,
+                        "Amount": 0,
                         "Class": 21
                     },
                     {
@@ -36580,7 +36581,7 @@ export const aoeDataInternal = {
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 45,
+                    "Food": 50,
                     "Gold": 25
                 },
                 "FrameDelay": 0,
@@ -36597,7 +36598,7 @@ export const aoeDataInternal = {
                 "RechargeRate": 0,
                 "ReloadTime": 2,
                 "Speed": 1.1,
-                "TrainTime": 30,
+                "TrainTime": 40,
                 "Trait": 20,
                 "TraitPiece": 598,
                 "internal_name": "CHAMPIS"
@@ -36643,7 +36644,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "BlastWidth": 0,
-                "ChargeEvent": 1,
+                "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
                     "Gold": 35,
@@ -36655,13 +36656,12 @@ export const aoeDataInternal = {
                 "ID": 2626,
                 "LanguageNameId": 5523,
                 "LineOfSight": 5,
-                "MaxCharge": 5,
+                "MaxCharge": 0,
                 "MeleeArmor": 4,
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 1,
-                "RechargeDuration": 0.00005000050000500005,
-                "RechargeRate": 99999,
+                "RechargeRate": 0,
                 "ReloadTime": 1.75,
                 "Speed": 1.42,
                 "TrainTime": 42,
@@ -36710,7 +36710,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "BlastWidth": 0,
-                "ChargeEvent": 1,
+                "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
                     "Gold": 35,
@@ -36722,13 +36722,12 @@ export const aoeDataInternal = {
                 "ID": 2627,
                 "LanguageNameId": 5524,
                 "LineOfSight": 5,
-                "MaxCharge": 6,
+                "MaxCharge": 0,
                 "MeleeArmor": 5,
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 1,
-                "RechargeDuration": 0.00006000060000600006,
-                "RechargeRate": 99999,
+                "RechargeRate": 0,
                 "ReloadTime": 1.5,
                 "Speed": 1.42,
                 "TrainTime": 27,
@@ -36777,7 +36776,7 @@ export const aoeDataInternal = {
                     }
                 ],
                 "BlastWidth": 0,
-                "ChargeEvent": 1,
+                "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
                     "Gold": 35,
@@ -36789,13 +36788,12 @@ export const aoeDataInternal = {
                 "ID": 2628,
                 "LanguageNameId": 5525,
                 "LineOfSight": 6,
-                "MaxCharge": 7,
+                "MaxCharge": 0,
                 "MeleeArmor": 6,
                 "MinRange": 0,
                 "PierceArmor": 1,
                 "Range": 1,
-                "RechargeDuration": 0.00007000070000700007,
-                "RechargeRate": 99999,
+                "RechargeRate": 0,
                 "ReloadTime": 1.5,
                 "Speed": 1.52,
                 "TrainTime": 27,
@@ -38000,8 +37998,8 @@ export const aoeDataInternal = {
             },
             "2552": {
                 "Cost": {
-                    "Food": 125,
-                    "Gold": 100
+                    "Food": 200,
+                    "Gold": 175
                 },
                 "ID": 1351,
                 "ResearchTime": 50,
@@ -38072,11 +38070,11 @@ export const aoeDataInternal = {
             },
             "2588": {
                 "Cost": {
-                    "Food": 100,
+                    "Food": 120,
                     "Gold": 60
                 },
                 "ID": 1402,
-                "ResearchTime": 40,
+                "ResearchTime": 50,
                 "internal_name": "Champi Runner"
             },
             "2627": {
