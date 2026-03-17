@@ -332,7 +332,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '189.0.0': [
+    '190.0.0': [
         {
             type: 'minor',
             title: 'Implemented [AoE II DE Update 170934](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-170934/)',
