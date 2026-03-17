@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { runOnJS, SharedValue, useAnimatedReaction } from 'react-native-reanimated';
 import { isEqual, last } from 'lodash';
-import { formatTimeFromMs, getTimestampMs, ILegendInfo } from '@app/view/components/match-map/match-map';
+import { getTimestampMs, ILegendInfo } from '@app/view/components/match-map/match-map';
 import { appConfig } from '@nex/dataset';
 import { getCivIcon } from '@app/helper/civs';
 import { Image } from '@/src/components/uniwind/image';
@@ -10,6 +10,7 @@ import { getAgeIcon } from '@app/helper/units';
 import startCase from 'lodash/startCase';
 import { Age } from '@nex/data';
 import { Text } from '@app/components/text';
+import { formatTimeFromMs } from '@app/view/components/match-map/map-util';
 
 interface Props {
     time: SharedValue<number>;

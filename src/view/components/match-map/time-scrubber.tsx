@@ -13,8 +13,8 @@ import {
 } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useAppTheme } from '@app/theming';
-import { formatTimeFromMs } from '@app/view/components/match-map/match-map';
 import {scheduleOnRN} from "react-native-worklets";
+import { formatTimeFromMs } from '@app/view/components/match-map/map-util';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 

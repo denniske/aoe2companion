@@ -1,3 +1,5 @@
+'use client';
+
 import { Text } from 'react-native';
 import React, { ComponentType, useEffect, useState } from 'react';
 import { WithSkiaWeb } from '@shopify/react-native-skia/lib/module/web';
@@ -14,6 +16,16 @@ export default function SkiaLoader({
                                        componentProps = {},
                                        fallback = <Text>Loading...</Text>,
                                    }: SkiaLoaderProps) {
+
+    // Probably not needed because the map is only rendered after the user clicks the button, but just in case to avoid hydration error.
+    // const [mounted, setMounted] = useState(false);
+    //
+    // useEffect(() => {
+    //     setMounted(true);
+    // }, []);
+    //
+    // if (!mounted) return <>{fallback}</>;
+
       return (
           <WithSkiaWeb
               opts={{ locateFile: (file) => `https://cdn.jsdelivr.net/npm/canvaskit-wasm@${version}/bin/full/${file}` }}
