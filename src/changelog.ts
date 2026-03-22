@@ -337,6 +337,10 @@ export const changelog: IChangelog = {
             type: 'feature',
             title: 'Add refresh avatar button in account settings',
         },
+        {
+            type: 'minor',
+            title: 'Sort players in match by player color',
+        },
     ],
     '190.0.0': [
         {

@@ -2,7 +2,7 @@ import React, { Fragment, useMemo } from 'react';
 import { View } from 'react-native';
 import { IMatchNew } from '@app/api/helper/api.types';
 import { Text } from '@app/components/text';
-import { chunk } from 'lodash';
+import { chunk, orderBy } from 'lodash';
 import { useTranslation } from '@app/helper/translate';
 import { MatchPlayer } from '@app/components/match/match-player';
 import { isMatchFreeForAll } from '@nex/data';
@@ -39,7 +39,7 @@ export default function MatchTeams({ match, wrap = true, canDownloadRecs, highli
                         {teams.map(({ teamId, players }, teamIndex) => (
                             <Fragment key={teamId}>
                                 <View className="gap-2 md:flex-1">
-                                    {sortTeamByCurrentPlayer(players, user).map((player, playerIndex) => (
+                                    {orderBy(players, p => p.color).map((player, playerIndex) => (
                                         <MatchPlayer
                                             key={playerIndex}
                                             highlight={highlightedUsers?.includes(player.profileId)}

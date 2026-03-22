@@ -47,7 +47,7 @@ export default function MatchPage() {
                 <MatchCard match={match} linkMap={true} user={player.profileId} />
                 <MatchInfo match={match} />
                 <View className="lg:hidden">
-                    <MatchTeams match={match} highlightedUsers={[player.profileId]} />
+                    <MatchTeams match={match} highlightedUsers={[player.profileId]} canDownloadRecs={true} />
                 </View>
                 <MatchAnalysis match={match} matchError={matchError} matchLoading={matchLoading} />
                 <MatchOptions match={match} />
