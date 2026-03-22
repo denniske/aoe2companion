@@ -10,7 +10,7 @@ import { openLink } from '@app/helper/url';
 import { useAppTheme } from '@app/theming';
 import {
     accountDelete,
-    accountDiscordInvitation,
+    accountDiscordInvitation, accountRefreshAvatar,
     accountRelicVerify,
     accountUnlinkDiscord,
     accountUnlinkPatreon,
@@ -36,7 +36,7 @@ import { useDiscordAuth } from '@app/helper/oauth/discord';
 import { usePatreonAuth } from '@app/helper/oauth/patreon';
 import { useSteamAuth } from '@app/helper/oauth/steam';
 import { useXboxAuth } from '@app/helper/oauth/xbox';
-import { LinkedAoEAccount, LinkedPlatformAccount } from '@app/components/linked-account';
+import { LinkedAoEAccount, LinkedAoECompanionAccount, LinkedAvatarAccount, LinkedPlatformAccount } from '@app/components/linked-account';
 
 export default function AccountPage() {
     const getTranslation = useTranslation();
@@ -54,7 +54,8 @@ export default function AccountPage() {
     const [discordInvitationError, setDiscordInvitationError] = useState('');
 
     const authProfileId = useAuthProfileId();
-    const { data: authProfile } = useProfileFast(authProfileId);
+    const authProfileQuery = useProfileFast(authProfileId);
+    const authProfile = authProfileQuery.data;
 
     const {
         data: relicVerificationData,
@@ -88,6 +89,11 @@ export default function AccountPage() {
         saveAccountMutation.mutate({
             sharedHistory: !account?.data?.sharedHistory, // React compiler bug workaround https://github.com/facebook/react/issues/31205
         });
+    };
+
+    const refreshAvatar = async () => {
+        await accountRefreshAvatar();
+        await authProfileQuery.refetch();
     };
 
     const unlinkSteam = async () => {
@@ -146,6 +152,7 @@ export default function AccountPage() {
     };
 
     const linkedGameAccount = Boolean(account.data?.steamId || account.data?.authRelicId);
+    const linkedProfile = linkedGameAccount ? authProfile : null;
 
     return (
         <ScrollView contentContainerClassName="min-h-full p-5">
@@ -246,15 +253,29 @@ export default function AccountPage() {
                             </Button>
                         )}
 
-                        {account.data?.steamId && authProfile?.platform && (
-                            <LinkedPlatformAccount steamId={account.data.steamId} platform={authProfile.platform} />
+                        {/*{account.data?.steamId && authProfile?.platform && (*/}
+                        {/*    <LinkedPlatformAccount steamId={account.data.steamId} platform={authProfile.platform} />*/}
+                        {/*)}*/}
+                        {/*{account.data?.authRelicId && <LinkedAoEAccount profileId={account.data.authRelicId} />}*/}
+
+                        {linkedProfile && <LinkedAvatarAccount profileId={linkedProfile.profileId} avatarUrl={linkedProfile.avatarFullUrl!} name={linkedProfile.name} games={linkedProfile.games} />}
+
+                        {(account.data?.steamId || account.data?.authRelicId) && (
+                            <>
+                                <Button onPress={() => refreshAvatar()} className={'self-start mt-2'}>
+                                    {getTranslation('account.refreshAvatar')}
+                                </Button>
+                            </>
                         )}
-                        {account.data?.authRelicId && <LinkedAoEAccount profileId={account.data.authRelicId} />}
+
+                        {linkedProfile?.steamId && linkedProfile?.platform && <LinkedPlatformAccount steamId={linkedProfile.steamId} platform={linkedProfile.platform} />}
+                        {linkedProfile && <LinkedAoEAccount profileId={linkedProfile.profileId} />}
+                        {linkedProfile && <LinkedAoECompanionAccount profileId={linkedProfile.profileId} />}
 
                         {(account.data?.steamId || account.data?.authRelicId) && (
                             <>
                                 <Button onPress={() => unlinkSteam()} className={'self-start mt-2'}>
-                                    {getTranslation('account.steam.unlink')}
+                                    {getTranslation('account.unlink')}
                                 </Button>
                             </>
                         )}

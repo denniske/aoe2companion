@@ -64,3 +64,17 @@ export function LinkedAoECompanionAccount({profileId}: {profileId: number}) {
         </View>
     );
 }
+
+export function LinkedAvatarAccount({profileId, avatarUrl, name, games}: {profileId: number, avatarUrl: string, name: string, games: number}) {
+    const getTranslation = useTranslation();
+    const aoecompanionProfileUrl = `https://${appConfig.hostAoeCompanion}/profile/${profileId}`;
+    return (
+        <View className="flex flex-row gap-2 items-center">
+            <Image source={{ uri: avatarUrl }} className="w-8 h-8 rounded-md" />
+            <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(aoecompanionProfileUrl)}>
+                <Text variant="header-xs">{name}</Text>
+                <Text variant="body">{getTranslation('leaderboard.games', { games })}</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}

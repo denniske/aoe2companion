@@ -268,6 +268,14 @@ export async function accountMigrateFromAnonymous(fromAccountId: string, fromAcc
     });
 }
 
+export async function accountRefreshAvatar(): Promise<any> {
+    const url = getHost('aoe2companion-api') + `v2/account/refresh_avatar`;
+
+    return await fetchJson(url, {
+        method: 'POST',
+    });
+}
+
 export async function accountUnlinkSteam(): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/unlink/steam`;
 
