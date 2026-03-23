@@ -332,7 +332,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '191.0.0': [
+    '192.0.0': [
         {
             type: 'feature',
             title: 'Add refresh avatar button in account settings',

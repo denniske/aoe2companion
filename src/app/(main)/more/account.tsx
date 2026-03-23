@@ -92,7 +92,11 @@ export default function AccountPage() {
     };
 
     const refreshAvatar = async () => {
-        await accountRefreshAvatar();
+        try {
+            await accountRefreshAvatar();
+        } catch (error: any) {
+            showAlert('Error refreshing avatar', error.message);
+        }
         await authProfileQuery.refetch();
     };
 
