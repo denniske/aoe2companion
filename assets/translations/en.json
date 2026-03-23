@@ -341,6 +341,7 @@
     "account.psn.unlink": "Unlink Account",
     "account.psn.link": "Link PSN",
     "account.action.logout": "Logout",
+    "account.management.title": "Account Management",
     "account.action.delete": "Delete Account",
     "account.delete.title": "Delete Account?",
     "account.delete.note": "Do you really want to unlink your account?",

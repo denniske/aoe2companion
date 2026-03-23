@@ -412,7 +412,7 @@ export default function AccountPage() {
                     </View>
 
                     <View className="gap-2">
-                        <Text variant="header-sm"></Text>
+                        <Text variant="header-sm">{getTranslation('account.management.title')}</Text>
                         <Button onPress={() => showDeleteDialog()} className={'self-start'}>
                             {getTranslation('account.action.delete')}
                         </Button>
