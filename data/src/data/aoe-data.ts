@@ -37059,11 +37059,12 @@ export const aoeDataInternal = {
             },
             "532": {
                 "Cost": {
-                    "Food": 0
+                    "Gold": 315,
+                    "Wood": 400
                 },
-                "ID": 246,
-                "ResearchTime": -1,
-                "internal_name": "Fast Fire Ship"
+                "ID": 35,
+                "ResearchTime": 65,
+                "internal_name": "Galleon"
             },
             "533": {
                 "Cost": {
@@ -37469,12 +37470,6 @@ export const aoeDataInternal = {
                 "ResearchTime": 45,
                 "internal_name": "Elite Rattan Archer"
             },
-            "1132": {
-                "Cost": {},
-                "ID": 630,
-                "ResearchTime": 0,
-                "internal_name": "Battle Elephant (make avail)"
-            },
             "1134": {
                 "Cost": {
                     "Food": 1100,
@@ -37539,10 +37534,13 @@ export const aoeDataInternal = {
                 "internal_name": "Elite Konnik"
             },
             "1302": {
-                "Cost": {},
-                "ID": 1010,
-                "ResearchTime": 0,
-                "internal_name": "Dragon Ship"
+                "Cost": {
+                    "Gold": 315,
+                    "Wood": 400
+                },
+                "ID": 35,
+                "ResearchTime": 65,
+                "internal_name": "Galleon"
             },
             "1372": {
                 "Cost": {
@@ -37804,12 +37802,6 @@ export const aoeDataInternal = {
                 "ResearchTime": 45,
                 "internal_name": "Elite Fire Archer"
             },
-            "1974": {
-                "Cost": {},
-                "ID": 1156,
-                "ResearchTime": 0,
-                "internal_name": ""
-            },
             "2102": {
                 "Cost": {
                     "Food": 850,
@@ -37990,12 +37982,6 @@ export const aoeDataInternal = {
                 "ResearchTime": 70,
                 "internal_name": "Elite Sannahya"
             },
-            "2550": {
-                "Cost": {},
-                "ID": 1350,
-                "ResearchTime": 0,
-                "internal_name": "Champi Scout (Make avail)"
-            },
             "2552": {
                 "Cost": {
                     "Food": 200,
@@ -38087,10 +38073,13 @@ export const aoeDataInternal = {
                 "internal_name": "War Galley"
             },
             "2628": {
-                "Cost": {},
-                "ID": 904,
-                "ResearchTime": -1,
-                "internal_name": "Carrack"
+                "Cost": {
+                    "Gold": 315,
+                    "Wood": 400
+                },
+                "ID": 35,
+                "ResearchTime": 65,
+                "internal_name": "Galleon"
             }
         }
     },
