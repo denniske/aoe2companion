@@ -14,7 +14,7 @@ const app = process.env.GAME === 'aoe2' ? {
     scheme: "aoe2companion",
     sentryProject: "aoe2companion",
     website: "aoe2companion.com",
-    associatedDomains: ["applinks:www.aoe2companion.com"],
+    associatedDomains: ["applinks:www.aoe2companion.com", "activitycontinuation:www.aoe2companion.com", "webcredentials:www.aoe2companion.com"],
     package: "com.aoe2companion",
     bundleIdentifier: "com.aoe2companion",
     experienceId: "@denniske1001/aoe2companion",
@@ -47,7 +47,7 @@ const app = process.env.GAME === 'aoe2' ? {
     scheme: "aoe4companion",
     sentryProject: "aoe4companion",
     website: "aoe4companion.com",
-    associatedDomains: ["applinks:www.aoe4companion.com"],
+    associatedDomains: ["applinks:www.aoe4companion.com", "activitycontinuation:www.aoe4companion.com", "webcredentials:www.aoe4companion.com"],
     package: "com.aoe4companion",
     bundleIdentifier: "com.aoe4companion",
     experienceId: "@denniske1001/aoe4companion",
@@ -185,7 +185,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
                     { source: '/lobby', destination: '/matches/lobbies' },
                     { source: '/ongoing', destination: '/matches/live' },
                     { source: '/privacy', destination: '/more/privacy' }
-                ]
+                ],
+                headOrigin: process.env.GAME === 'aoe2' ? "https://www.aoe2companion.com/" : "https://www.aoe4companion.com/"
             }
         ],
         [
