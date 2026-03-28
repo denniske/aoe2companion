@@ -34,6 +34,7 @@ import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { RedBullSnippet } from '@app/components/red-bull-snippet';
 import { getHost } from '@nex/data';
 import Constants from 'expo-constants';
+import Head from 'expo-router/head';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -106,6 +107,9 @@ export default function IndexPage() {
 
     return (
         <ScrollView contentContainerClassName="p-4 md:py-6">
+            <Head>
+                <title>{appConfig.app.name} - Stats, Matches, and Leaderboards</title>
+            </Head>
             <Stack.Screen
                 options={{
                     headerShown: showTabBar,

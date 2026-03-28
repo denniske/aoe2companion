@@ -53,7 +53,7 @@ export function LinkedAoEAccount({profileId}: {profileId: number}) {
 }
 
 export function LinkedAoECompanionAccount({profileId}: {profileId: number}) {
-    const aoecompanionProfileUrl = `https://${appConfig.hostAoeCompanion}/profile/${profileId}`;
+    const aoecompanionProfileUrl = `https://${appConfig.hostAoeCompanion}/players/${profileId}`;
     return (
         <View className="flex flex-row gap-2 items-center">
             <Image source={appConfig.game === 'aoe2' ? require('../../assets/icon/aoe2companion.png') :  require('../../assets/icon/aoe4companion.png')} className="w-8 h-8 rounded-md" />
@@ -67,7 +67,7 @@ export function LinkedAoECompanionAccount({profileId}: {profileId: number}) {
 
 export function LinkedAvatarAccount({profileId, avatarUrl, name, games}: {profileId: number, avatarUrl: string, name: string, games: number}) {
     const getTranslation = useTranslation();
-    const aoecompanionProfileUrl = `https://${appConfig.hostAoeCompanion}/profile/${profileId}`;
+    const aoecompanionProfileUrl = `https://${appConfig.hostAoeCompanion}/players/${profileId}`;
     return (
         <View className="flex flex-row gap-2 items-center">
             <Image source={{ uri: avatarUrl }} className="w-8 h-8 rounded-md" />

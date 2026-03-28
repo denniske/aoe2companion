@@ -10,6 +10,8 @@ import { containerClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { Breadcrumbs } from './breadcrumbs';
 import { SkeletonText } from './skeleton';
+import Head from 'expo-router/head';
+import { appConfig } from '@nex/dataset';
 
 export const Header: React.FC<
     (NativeStackHeaderProps | (BottomTabHeaderProps & { back?: boolean })) & { paramReplacements?: Record<string, string | null> }
@@ -21,6 +23,9 @@ export const Header: React.FC<
 
     return (
         <>
+            <Head>
+                <title>{title ? `${title} | ${appConfig.app.name}` : appConfig.app.name}</title>
+            </Head>
             {!showTabBar && (
                 <View className="bg-gold-50 dark:bg-blue-950 z-10">
                     <Breadcrumbs title={title} paramReplacements={paramReplacements} />
