@@ -735,6 +735,7 @@ export interface ILeaderboardDef {
     abbreviationTitle: string
     abbreviationSubtitle: string
     active: boolean
+    official: boolean
 }
 
 export interface ILeaderboard {

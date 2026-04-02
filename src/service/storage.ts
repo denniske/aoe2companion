@@ -81,6 +81,7 @@ export interface IPrefs {
     ratingHistoryHiddenLeaderboardIds?: string[];
     buildFilter?: BuildFilters;
     selectedLeaderboards?: string;
+    selectedOfficialLeaderboards?: string;
 }
 
 export const loadAccountFromStorage = async () => {

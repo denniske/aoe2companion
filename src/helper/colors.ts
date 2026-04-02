@@ -13,6 +13,8 @@ const leaderboardTextColorsAoe2: Record<string, string> = {
     'rm_team': '#8560be',
     'ew_1v1': '#c52026',
     'ew_team': '#ff943d',
+    'qp_rm_1v1': '#328f18',
+    'qp_rm_team': '#86d06d',
 };
 
 const leaderboardTextColorsAoe4: Record<string, string> = {

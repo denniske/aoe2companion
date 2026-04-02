@@ -332,6 +332,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '194.0.0': [
+        {
+            type: 'minor',
+            title: 'Add Quick Play matches filter and rating graph',
+        },
+    ],
     '193.0.0': [
         {
             type: 'bugfix',

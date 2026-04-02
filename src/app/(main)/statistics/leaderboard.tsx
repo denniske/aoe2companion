@@ -37,6 +37,7 @@ import { containerClassName, containerScrollClassName } from '@app/styles';
 import { formatAgo } from '@nex/data';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { WebLeaderboard } from '../../../components/leaderboard/web-leaderboard';
+import { LeaderboardOfficialSelect } from '@app/components/select/leaderboard-official-select';
 
 const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
@@ -76,7 +77,8 @@ export default function LeaderboardPage() {
 
     const getTranslation = useTranslation();
 
-    const { data: leaderboards } = useLeaderboards();
+    const { data: allLeaderboards } = useLeaderboards();
+    const leaderboards = allLeaderboards?.filter(l => l.official);
 
     const [leaderboardId, setLeaderboardId] = useState<string | null>(null);
 
@@ -421,7 +423,7 @@ export default function LeaderboardPage() {
     const updateTimer = () => {
         setHandleVisible(false);
         if (inactivityTimeout.current) clearTimeout(inactivityTimeout.current);
-        inactivityTimeout.current = setTimeout(() => setHandleVisible(true), 1000);
+        inactivityTimeout.current = setTimeout(() => setHandleVisible(true), 1000) as any;
     };
 
     const getEmptyListStr = () => {
@@ -456,7 +458,7 @@ export default function LeaderboardPage() {
             />
 
             <View className={cn('items-center flex-row py-4 gap-2.5', containerClassName)}>
-                <LeaderboardSelect leaderboardId={leaderboardId} onLeaderboardIdChange={setLeaderboardId} />
+                <LeaderboardOfficialSelect leaderboardId={leaderboardId} onLeaderboardIdChange={setLeaderboardId} />
                 <CountrySelect />
             </View>
 
