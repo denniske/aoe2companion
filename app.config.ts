@@ -1,6 +1,6 @@
 import { ConfigContext, ExpoConfig } from 'expo/config';
 
-const versionAoe2 = '194.0.0';
+const versionAoe2 = '195.0.0';
 const versionAoe4 = '34.0.0';
 
 console.log('Building for', process.env.GAME, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);
@@ -14,7 +14,14 @@ const app = process.env.GAME === 'aoe2' ? {
     scheme: "aoe2companion",
     sentryProject: "aoe2companion",
     website: "aoe2companion.com",
-    associatedDomains: ["applinks:www.aoe2companion.com", "activitycontinuation:www.aoe2companion.com", "webcredentials:www.aoe2companion.com"],
+    associatedDomains: [
+        "applinks:www.aoe2companion.com",
+        "activitycontinuation:www.aoe2companion.com",
+        "webcredentials:www.aoe2companion.com",
+        "applinks:api.aoe2companion.com",
+        "activitycontinuation:api.aoe2companion.com",
+        "webcredentials:api.aoe2companion.com",
+    ],
     package: "com.aoe2companion",
     bundleIdentifier: "com.aoe2companion",
     experienceId: "@denniske1001/aoe2companion",
@@ -47,7 +54,14 @@ const app = process.env.GAME === 'aoe2' ? {
     scheme: "aoe4companion",
     sentryProject: "aoe4companion",
     website: "aoe4companion.com",
-    associatedDomains: ["applinks:www.aoe4companion.com", "activitycontinuation:www.aoe4companion.com", "webcredentials:www.aoe4companion.com"],
+    associatedDomains: [
+        "applinks:www.aoe4companion.com",
+        "activitycontinuation:www.aoe4companion.com",
+        "webcredentials:www.aoe4companion.com",
+        "applinks:api.aoe4companion.com",
+        "activitycontinuation:api.aoe4companion.com",
+        "webcredentials:api.aoe4companion.com",
+    ],
     package: "com.aoe4companion",
     bundleIdentifier: "com.aoe4companion",
     experienceId: "@denniske1001/aoe4companion",

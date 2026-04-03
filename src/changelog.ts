@@ -332,6 +332,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '195.0.0': [
+        {
+            type: 'minor',
+            title: 'Fix account linking for steam, discord, twitch, youtube (iOS)',
+        },
+    ],
     '194.0.0': [
         {
             type: 'minor',
