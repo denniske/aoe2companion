@@ -539,6 +539,7 @@ export interface IFetchMatchesParams {
 
     page?: number;
     pageParam?: number;
+    signal?: AbortSignal;
     language: string;
 }
 
@@ -783,6 +784,8 @@ export interface IFetchLeaderboardParams {
     language: string;
     extend?: string[];
     clan?: string;
+
+    signal?: AbortSignal;
 }
 
 export interface IFetchLeaderboardsParams {

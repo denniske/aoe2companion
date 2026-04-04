@@ -16,7 +16,7 @@ export class FetchNotOkError extends Error {
     }
 }
 
-export async function fetchJson(input: RequestInfo, init?: RequestInit, reviver?: any) {
+export async function fetchJson(input: RequestInfo, init?: RequestInit, reviver?: any, signal?: AbortSignal) {
 
     const { data: session } = await supabaseClient.auth.getSession();
 
@@ -31,6 +31,7 @@ export async function fetchJson(input: RequestInfo, init?: RequestInit, reviver?
                 'Content-Type': 'application/json',
                 ...init?.headers,
             },
+            signal,
         }
     );
 

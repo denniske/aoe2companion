@@ -15,9 +15,15 @@ export function useLazyAppendApi<A extends (...args: any) => any>(options: ILazy
     const [lastParams, setLastParams] = useState(null as any);
     const mountedRef = useRef(true);
     const requestRef = useRef(0);
+    const abortControllerRef = useRef<AbortController | null>(null); // 👈
 
     const load = async (append: boolean, ...args: Parameters<A>) => {
         if (!mountedRef.current) return null;
+
+        // Cancel previous in-flight request
+        abortControllerRef.current?.abort();                      // 👈
+        const controller = new AbortController();                 // 👈
+        abortControllerRef.current = controller;                  // 👈
 
         // Save current request ref
         requestRef.current++;
@@ -26,16 +32,14 @@ export function useLazyAppendApi<A extends (...args: any) => any>(options: ILazy
         setLoading(true);
         setLastParams(args);
 
-        // console.log('LOAD', append, args);
-
         // If load is called in useEffect() it may be run synchronously if action is an synchronous function.
         // So we call an async function to force running asynchronously.
         await sleep(0);
 
         try {
-            let newData = await action(...(args as any)) as UnPromisify<ReturnType<A>>;
+            // let newData = await action(...(args as any), controller.signal) as UnPromisify<ReturnType<A>>; // 👈
+            let newData = await action({ ...args[0], signal: controller.signal }) as UnPromisify<ReturnType<A>>; // 👈
 
-            // console.log('num', num, 'numref', requestRef.current);
             // Ignore result if component unmounted OR a more recent request has been started
             if (!mountedRef.current || num < requestRef.current) return null;
 
@@ -54,6 +58,8 @@ export function useLazyAppendApi<A extends (...args: any) => any>(options: ILazy
 
             return newData;
         } catch (e) {
+            if (e instanceof DOMException && e.name === 'AbortError') return null; // 👈
+
             console.warn(e);
             setError(true);
             return null;
@@ -81,6 +87,7 @@ export function useLazyAppendApi<A extends (...args: any) => any>(options: ILazy
         mountedRef.current = true;
         return () => {
             mountedRef.current = false;
+            abortControllerRef.current?.abort(); // 👈 Cancel on unmount
         };
     }, []);
 

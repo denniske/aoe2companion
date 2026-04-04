@@ -91,7 +91,7 @@ export async function fetchMatches(params: IFetchMatchesParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/matches?${queryString}`;
-    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IMatchesResult;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver, params.signal)) as IMatchesResult;
 }
 
 export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
@@ -104,7 +104,7 @@ export async function fetchLeaderboard(params: IFetchLeaderboardParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/leaderboards/${leaderboardId}?${queryString}`;
-    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as ILeaderboard;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver, params.signal)) as ILeaderboard;
 }
 
 export async function fetchLeaderboards(params: IFetchLeaderboardsParams) {
