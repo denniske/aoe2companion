@@ -35,6 +35,10 @@ export function useLazyAppendApi<A extends (...args: any) => any>(options: ILazy
         try {
             let newData = await action(...(args as any)) as UnPromisify<ReturnType<A>>;
 
+            // console.log('num', num, 'numref', requestRef.current);
+            // Ignore result if component unmounted OR a more recent request has been started
+            if (!mountedRef.current || num < requestRef.current) return null;
+
             if (append) {
                 if (!options.append) {
                     console.log('options.append not defined');
@@ -42,10 +46,6 @@ export function useLazyAppendApi<A extends (...args: any) => any>(options: ILazy
                 }
                 newData = options.append(data, newData, args);
             }
-
-            // console.log('num', num, 'numref', requestRef.current);
-            // Ignore result if component unmounted OR a more recent request has been started
-            if (!mountedRef.current || num < requestRef.current) return null;
 
             setData(newData);
             setLoading(false);

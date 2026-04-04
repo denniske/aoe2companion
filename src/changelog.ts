@@ -332,7 +332,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '196.0.0': [
+    '197.0.0': [
         {
             type: 'bugfix',
             title: 'Fix switching leaderboards on the leaderboard page',
