@@ -6,7 +6,7 @@ import { FontAwesome6 } from '@expo/vector-icons';
 import { leaderboardIdsByType, leaderboardsByType } from '@app/helper/leaderboard';
 import { View } from 'react-native';
 import Picker from '@app/view/components/picker';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useAppTheme } from '@app/theming';
 import { useLeaderboards } from '@app/queries/all';
 import { usePrefData } from '@app/queries/prefs';
@@ -25,7 +25,7 @@ export function LeaderboardOfficialSelect(props: Props) {
     const theme = useAppTheme();
 
     const { data: allLeaderboards } = useLeaderboards();
-    const leaderboards = allLeaderboards?.filter(l => l.official);
+    const leaderboards = useMemo(() => allLeaderboards?.filter(l => l.official), [allLeaderboards]);
 
     useEffect(() => {
         if (savedLeaderboards && leaderboards) {

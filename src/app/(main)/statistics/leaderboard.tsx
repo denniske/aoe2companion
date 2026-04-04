@@ -78,7 +78,7 @@ export default function LeaderboardPage() {
     const getTranslation = useTranslation();
 
     const { data: allLeaderboards } = useLeaderboards();
-    const leaderboards = allLeaderboards?.filter(l => l.official);
+    const leaderboards = useMemo(() => allLeaderboards?.filter(l => l.official), [allLeaderboards]);
 
     const [leaderboardId, setLeaderboardId] = useState<string | null>(null);
 
@@ -225,7 +225,7 @@ export default function LeaderboardPage() {
         // if (auth) {
         //     myRank.reload();
         // }
-        console.log('RELOADING LEADERBOARD', leaderboardCountry);
+        console.log('RELOADING LEADERBOARD', leaderboardId, 'country:', leaderboardCountry);
         flatListRef.current?.scrollToOffset({ animated: false, offset: 0 });
         total2.current = 1000;
     }, [isFocused, leaderboardCountry, leaderboardId]);
