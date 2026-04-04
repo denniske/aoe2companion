@@ -81,9 +81,10 @@ export const useMatch = (matchId: number) => {
 export const useLeaderboards = (enabled = true) => {
     const language = useLanguage();
     return useQuery({
-        queryKey: ['leaderboards'],
+        queryKey: ['leaderboards', language],
         queryFn: () => fetchLeaderboards({ language: language! }),
         enabled: !!language && enabled,
+        staleTime: Infinity,
     });
 };
 

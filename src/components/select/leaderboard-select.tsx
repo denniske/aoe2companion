@@ -1,10 +1,6 @@
-import { setLeaderboardId, useMutate, useSelector } from '@app/redux/reducer';
-import { useQuery } from '@tanstack/react-query';
-import { fetchLeaderboards } from '@app/api/helper/api';
 import { ILeaderboardDef } from '@app/api/helper/api.types';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { leaderboardIdsByType, leaderboardsByType } from '@app/helper/leaderboard';
-import { View } from 'react-native';
 import Picker from '@app/view/components/picker';
 import React, { useEffect } from 'react';
 import { useAppTheme } from '@app/theming';
