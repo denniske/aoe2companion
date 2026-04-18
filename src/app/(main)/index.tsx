@@ -31,9 +31,6 @@ import { Icon, IconName } from '@app/components/icon';
 import { Image } from '@app/components/uniwind/image';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
-import { RedBullSnippet } from '@app/components/red-bull-snippet';
-import { getHost } from '@nex/data';
-import Constants from 'expo-constants';
 import Head from 'expo-router/head';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
@@ -235,11 +232,11 @@ export default function IndexPage() {
                 </AnimateIn>
             )}
 
-            {Platform.OS === 'web' && appConfig.game === 'aoe2' && (
-                <View className="pb-5 lg:pb-8">
-                    <RedBullSnippet />
-                </View>
-            )}
+            {/*{Platform.OS === 'web' && appConfig.game === 'aoe2' && (*/}
+            {/*    <View className="pb-5 lg:pb-8">*/}
+            {/*        <RedBullSnippet />*/}
+            {/*    </View>*/}
+            {/*)}*/}
 
             {tournamentsEnabled ? (
                 <View className="gap-2 pb-5 lg:pb-8">
