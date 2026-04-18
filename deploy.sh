@@ -16,6 +16,9 @@ export IP=23.88.13.76
 
 export COMMIT_SHA1=$(git rev-parse HEAD)
 
+rm -rf $TMPDIR/haste-map-*
+rm -rf $TMPDIR/metro-cache
+
 npx expo export -p web --clear
 
 docker buildx build \
