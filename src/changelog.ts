@@ -16,6 +16,16 @@ export const changelog4: IChangelog = {
     //         title: 'Internal Framework Update (SDK 55)',
     //     },
     // ],
+    '36.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 55)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix leaderboard selector height on profile stats page',
+        },
+    ],
     '35.0.0': [
         {
             type: 'bugfix',
