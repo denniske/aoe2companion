@@ -16,6 +16,12 @@ export const changelog4: IChangelog = {
     //         title: 'Internal Framework Update (SDK 55)',
     //     },
     // ],
+    '37.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix account linking for xbox',
+        },
+    ],
     '36.0.0': [
         {
             type: 'minor',
@@ -342,6 +348,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '198.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix account linking for xbox',
+        },
+    ],
     '197.0.0': [
         {
             type: 'bugfix',

@@ -1,7 +1,7 @@
 import { ConfigContext, ExpoConfig } from 'expo/config';
 
-const versionAoe2 = '197.0.0';
-const versionAoe4 = '36.0.0';
+const versionAoe2 = '198.0.0';
+const versionAoe4 = '37.0.0';
 
 console.log('Building for', process.env.GAME, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);
 
