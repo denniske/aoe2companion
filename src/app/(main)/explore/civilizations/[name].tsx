@@ -147,6 +147,7 @@ export function Civ4Details({ civ }: { civ: Civ }) {
         TughlaqDynasty: 'tughlaq',
         GoldenHorde: 'goldenhorde',
         MacedonianDynasty: 'macedonian',
+        JinDynasty: 'jindynasty',
     } as any;
 
     const { data: civData } = useQuery({

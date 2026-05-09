@@ -10,12 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
-    // '36.0.0': [
-    //     {
-    //         type: 'minor',
-    //         title: 'Internal Framework Update (SDK 55)',
-    //     },
-    // ],
+    '38.0.0': [
+        {
+            type: 'minor',
+            title: 'Added new civs of [Yue Fei\'s Legacy](https://www.ageofempires.com/news/age-of-empires-iv-yue-feis-legacy-pre-order-now/)',
+        },
+    ],
     '37.0.0': [
         {
             type: 'bugfix',

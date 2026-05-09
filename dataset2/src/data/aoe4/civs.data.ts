@@ -23,6 +23,7 @@ export const civsData = [
     'TughlaqDynasty',
     'GoldenHorde',
     'MacedonianDynasty',
+    'JinDynasty',
 ] as const;
 
 export const civsAoeNetData = civsData;
@@ -50,6 +51,7 @@ export const civIconListData: Record<string, any> = {
     'TughlaqDynasty': require('../../../../assets4/civilizations/tughlaq_dynasty.png'),
     'GoldenHorde': require('../../../../assets4/civilizations/golden_horde.png'),
     'MacedonianDynasty': require('../../../../assets4/civilizations/macedonian_dynasty.png'),
+    'JinDynasty': require('../../../../assets4/civilizations/jin_dynasty.png'),
 };
 
 export const civEnumListData: Record<string, any> = {
@@ -75,6 +77,7 @@ export const civEnumListData: Record<string, any> = {
     'tughlaq_dynasty': 'TughlaqDynasty',
     'golden_horde': 'GoldenHorde',
     'macedonian_dynasty': 'MacedonianDynasty',
+    'jin_dynasty': 'JinDynasty',
 };
 
 export const civAbbrEnumListData: Record<string, any> = {

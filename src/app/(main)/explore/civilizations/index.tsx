@@ -39,6 +39,9 @@ export default function CivList() {
 
     const aoe4CivInfo = useAoe4CivData();
 
+    console.log('v', list);
+    console.log('aoe4CivInfo', aoe4CivInfo);
+
     const renderItem = (civ: Civ, index: number) => (
         <Link asChild href={`/explore/civilizations/${civ}`} key={civ}>
             <TouchableOpacity>

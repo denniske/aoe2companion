@@ -295,6 +295,7 @@ const civDataFileMapping = {
     TughlaqDynasty: 'tughlaq',
     GoldenHorde: 'goldenhorde',
     MacedonianDynasty: 'macedonian',
+    JinDynasty: 'jindynasty',
 } as const;
 
 export const useAoe4CivData = () =>

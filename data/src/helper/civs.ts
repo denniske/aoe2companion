@@ -340,6 +340,7 @@ const aoe4CivNameDict = {
     19: 'Tughlaq Dynasty',
     20: 'Golden Horde',
     21: 'Macedonian Dynasty',
+    22: 'Jin Dynasty',
 }
 
 export function getCivNameById(civ: Civ) {
