@@ -82,7 +82,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 {player.rating}
             </Text>
 
-            {player.ratingDiff && (
+            {!!player.ratingDiff && (
                 <Text variant="body" color={player.ratingDiff! > 0 ? 'text-green-500' : 'text-red-500'} className="text-center w-8">
                     {signed(player.ratingDiff!)}
                 </Text>
@@ -92,6 +92,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 <View className="w-5">
                     {player.won === true && (freeForAll || player.team != -1) && <Icon icon="crown" color="brand" />}
                     {player.won === false && (freeForAll || player.team != -1) && <Icon icon="skull" color="subtle" />}
+                    {player.won == null && (freeForAll || player.team != -1) && <Icon icon="ban" color="subtle" />}
                 </View>
             )}
         </View>
