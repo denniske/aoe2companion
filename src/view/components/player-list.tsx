@@ -149,7 +149,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                     footer(player)
                 ) : (
                     <Text color="subtle" variant={isMedium ? 'body-sm' : 'body-xs'} numberOfLines={1} allowFontScaling={false}>
-                        {player.games || '<10'} Games
+                        {player.games || '<10'} matches
                     </Text>
                 )}
             </Card>
@@ -178,7 +178,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                         footer(player)
                     ) : (
                         <Text variant="body-sm" color="subtle">
-                            {player.games || '<10'} Games
+                            {player.games || '<10'} matches
                         </Text>
                     )}
                 </View>
