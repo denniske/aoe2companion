@@ -481,6 +481,8 @@ export interface IMatchNew {
     modTuningPack: string;
     modGameMode: string;
     modScenario: string;
+
+    abandoned: boolean;
 }
 
 export interface ITeamNew {

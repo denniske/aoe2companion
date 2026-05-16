@@ -6,17 +6,6 @@ import { formatAgo, getDuration } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import Countdown from 'react-countdown';
 
-export function matchIsFinishedOrTimedOut(match: IMatchNew) {
-    if (match.finished) {
-        return true;
-    }
-    if (match.started) {
-        const finished = match.finished || new Date();
-        const duration = differenceInSeconds(finished, match.started) * match.speedFactor;
-        return duration > 60 * 60 * 24; // 24 hours
-    }
-    return false;
-}
 
 export function matchTimedOut(match: IMatchNew) {
     if (match.finished) {
@@ -42,12 +31,32 @@ export const ElapsedTimeOrDuration: React.FC<ElapsedTimeOrDurationProps> = ({ ma
     }
     if (appConfig.game !== 'aoe2') duration = '';
 
+    let matchState = 'none';
+    if (match.started) {
+        matchState = 'running';
+    }
+    if (match.finished) {
+        matchState = 'finished';
+    }
+    if (match.abandoned) {
+        matchState = 'abandoned';
+    }
+    if (matchTimedOut(match)) {
+        matchState = 'timedout';
+    }
+
+    console.log('matchState', match.matchId, matchState);
+
     return (
         <Text numberOfLines={1}>
-            {!matchIsFinishedOrTimedOut(match) && match.started && (
-                <Countdown date={match.started} renderer={({ total }) => getDuration(total, match.speedFactor)} overtime />
-            )}
-            {matchIsFinishedOrTimedOut(match) ? `${match.started ? formatAgo(match.started) : 'none'} - ${duration}` : null}
+            {
+                matchState === 'running' ? (
+                    <Countdown date={match.started} renderer={({ total }) => getDuration(total, match.speedFactor)} overtime />
+                ) : null
+            }
+            {matchState === 'finished' ? `${match.started ? formatAgo(match.started) : 'none'} - ${duration}` : null}
+            {matchState === 'abandoned' ? `${match.started ? formatAgo(match.started) : 'none'} - Abandoned` : null}
+            {matchState === 'timedout' ? `${match.started ? formatAgo(match.started) : 'none'} - Timed Out` : null}
         </Text>
     );
 };

@@ -42,6 +42,7 @@ export const textColors: Record<TextColor, string | undefined> = {
 
     foreground: 'text-foreground',
     white: 'text-white',
+    black: 'text-black',
     brand: 'text-brand',
 
     subtle: 'text-subtle',
@@ -53,6 +54,7 @@ export const accentColors: Record<TextColor, string | undefined> = {
 
     foreground: 'accent-foreground',
     white: 'accent-white',
+    black: 'accent-black',
     brand: 'accent-brand',
 
     subtle: 'accent-subtle',
