@@ -47,7 +47,7 @@ export const PortalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
             {/* Portal content */}
             {portals.map(({ key, node }) => (
-                <View key={key} style={[StyleSheet.absoluteFillObject, { pointerEvents: 'box-none'}]}>
+                <View key={key} style={[StyleSheet.absoluteFill, { pointerEvents: 'box-none'}]}>
                     {node}
                 </View>
             ))}

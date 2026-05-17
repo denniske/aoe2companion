@@ -67,7 +67,7 @@ export const Slider2: React.FC<SliderProps> = ({
                 data={slides}
                 renderItem={({ item: slide, index }) => (
                     <View key={index} style={{ width: slideWidth }}>
-                        <View className="flex-1" style={activeIndex === index || equalizeHeights ? undefined : StyleSheet.absoluteFillObject}>
+                        <View className="flex-1" style={activeIndex === index || equalizeHeights ? undefined : StyleSheet.absoluteFill}>
                             {slide}
                         </View>
                     </View>
