@@ -27,6 +27,7 @@ echo "Filename: ${NAME}"
 
 # https://github.com/expo/expo/issues/39782
 export EAS_SKIP_AUTO_FINGERPRINT=1
+export EAS_GRADLE_CACHE=1
 export TMPDIR=/tmp/metro-cache-$GAME
 mkdir -p $TMPDIR
 

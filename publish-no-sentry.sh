@@ -49,6 +49,7 @@ echo "Filename: ${NAME}"
 
 # https://github.com/expo/expo/issues/39782
 export EAS_SKIP_AUTO_FINGERPRINT=1
+export EAS_GRADLE_CACHE=1
 
 # rm -rf node_modules && yarn cache clean && yarn && watchman watch-del-all && rm -fr $TMPDIR/haste-map-* || rm -rf $TMPDIR/metro-cache
 
