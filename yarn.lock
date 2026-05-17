@@ -5021,7 +5021,6 @@ __metadata:
     expo-crypto: "npm:~55.0.8"
     expo-dev-client: "npm:~55.0.16"
     expo-device: "npm:~55.0.9"
-    expo-file-system: "npm:~55.0.10"
     expo-font: "npm:~55.0.4"
     expo-haptics: "npm:~55.0.8"
     expo-image: "npm:~55.0.5"
@@ -5032,7 +5031,6 @@ __metadata:
     expo-router: "npm:~55.0.5"
     expo-server: "npm:~55.0.6"
     expo-splash-screen: "npm:~55.0.10"
-    expo-status-bar: "npm:~55.0.4"
     expo-symbols: "npm:~55.0.4"
     expo-system-ui: "npm:~55.0.9"
     expo-task-manager: "npm:~55.0.9"
@@ -7967,18 +7965,6 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 10/9966837daff34d5d0a0b0701b7183cbfac3aafbc4149a2d09fce8d9f0c0271d2c1919ab6de826e81d6a090cba3f347c7ebbec06138995cb8552dcd8464fb5dc5
-  languageName: node
-  linkType: hard
-
-"expo-status-bar@npm:~55.0.4":
-  version: 55.0.4
-  resolution: "expo-status-bar@npm:55.0.4"
-  dependencies:
-    react-native-is-edge-to-edge: "npm:^1.2.1"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 10/2f53930386ede3c46c78cb678d1ef7d66a330a703e3c24afd835e8a301477dba697c00e1deae25c1dd8406f17742e3a94e33d57a8c1b1f4365bcfe0084b0567c
   languageName: node
   linkType: hard
 
