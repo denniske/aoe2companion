@@ -45,8 +45,6 @@ export const ElapsedTimeOrDuration: React.FC<ElapsedTimeOrDurationProps> = ({ ma
         matchState = 'timedout';
     }
 
-    console.log('matchState', match.matchId, matchState);
-
     return (
         <Text numberOfLines={1}>
             {

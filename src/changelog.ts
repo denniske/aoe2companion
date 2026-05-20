@@ -348,6 +348,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '199.0.0': [ // Not released yet
+        {
+            type: 'minor',
+            title: 'The server refetches long running matches to find out whether they have been finished or abandoned',
+        },
+    ],
     '198.0.0': [
         {
             type: 'bugfix',

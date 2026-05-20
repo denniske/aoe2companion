@@ -45,6 +45,9 @@ export default function ProfilePage() {
 
     const leaderboards = fullProfile?.leaderboards.filter((l) => leaderboardIds.length === 0 || leaderboardIds.includes(l.leaderboardId));
 
+    console.log('leaderboardIds', leaderboardIds);
+    console.log(leaderboards);
+
     const games = sumBy(leaderboards, (x) => x.games);
     const drops = sumBy(leaderboards, (x) => x.drops);
 
