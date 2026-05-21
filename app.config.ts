@@ -211,14 +211,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         ],
         ...sentryConfigPlugins,
         ...appConfigPlugins,
-        // [
-        //     "expo-build-properties",
-        //     {
-        //         "ios": {
-        //             "deploymentTarget": "15.1"
-        //         }
-        //     }
-        // ],
         [
             "expo-splash-screen",
             {
@@ -232,6 +224,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             }
         ],
         "expo-video",
+        "expo-image",
         "expo-font",
         "expo-localization",
         "expo-web-browser",
