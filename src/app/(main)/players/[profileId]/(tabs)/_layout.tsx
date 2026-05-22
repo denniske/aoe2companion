@@ -14,13 +14,6 @@ import Constants from 'expo-constants';
 import { TabBarLabel } from '@app/view/components/tab-bar-label';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useUnlinkSteamMutation } from '@app/mutations/unlink-steam';
-import {
-    createMaterialTopTabNavigator,
-    MaterialTopTabBar,
-    MaterialTopTabNavigationEventMap,
-    MaterialTopTabNavigationOptions,
-} from '@react-navigation/material-top-tabs';
-import { ParamListBase, TabNavigationState } from '@react-navigation/native';
 import { useTournamentPlayer } from '@app/api/tournaments';
 import { TournamentPlayerPopup } from '@app/view/tournaments/player-popup';
 import { MyText } from '@app/view/components/my-text';
@@ -38,14 +31,9 @@ import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 import { Skeleton } from '@app/components/skeleton';
 
-const { Navigator } = createMaterialTopTabNavigator();
-
-export const MaterialTopTabs = withLayoutContext<
-    MaterialTopTabNavigationOptions,
-    typeof Navigator,
-    TabNavigationState<ParamListBase>,
-    MaterialTopTabNavigationEventMap
->(Navigator);
+import {
+    TopTabs
+} from 'expo-router/js-top-tabs';
 
 interface UserMenuProps {
     profile?: IProfilesResultProfile;
@@ -314,19 +302,19 @@ export default function UserPage() {
     }
 
     return (
-        <MaterialTopTabs
-            tabBar={(props) => (
-                <View className={cn('bg-white dark:bg-blue-900', containerScrollClassName)}>
-                    <MaterialTopTabBar {...props} />
-                </View>
-            )}
+        <TopTabs
+            // tabBar={(props) => (
+            //     <View className={cn('bg-white dark:bg-blue-900', containerScrollClassName)}>
+            //         <MaterialTopTabBar {...props} />
+            //     </View>
+            // )}
             screenOptions={{
                 swipeEnabled: true,
                 tabBarInactiveTintColor: theme === 'dark' ? 'white' : 'black',
                 tabBarActiveTintColor: theme === 'dark' ? 'white' : 'black',
             }}
         >
-            <MaterialTopTabs.Screen
+            <TopTabs.Screen
                 name="main-profile"
                 initialParams={{ profileId }}
                 options={{
@@ -334,7 +322,7 @@ export default function UserPage() {
                     tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')} />,
                 }}
             />
-            <MaterialTopTabs.Screen
+            <TopTabs.Screen
                 name="main-stats"
                 initialParams={{ profileId }}
                 options={{
@@ -342,7 +330,7 @@ export default function UserPage() {
                     tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')} />,
                 }}
             />
-            <MaterialTopTabs.Screen
+            <TopTabs.Screen
                 name="main-matches"
                 initialParams={{ profileId }}
                 options={{
@@ -350,6 +338,6 @@ export default function UserPage() {
                     tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')} />,
                 }}
             />
-        </MaterialTopTabs>
+        </TopTabs>
     );
 }

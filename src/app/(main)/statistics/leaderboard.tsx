@@ -8,7 +8,7 @@ import { ImageLoader } from '@app/view/components/loader/image-loader';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import { MyText } from '@app/view/components/my-text';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { useIsFocused } from '@react-navigation/core';
+import { useIsFocused } from "expo-router/react-navigation";
 import { router, Stack } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {

@@ -1,6 +1,6 @@
 import { FlatList } from '@app/components/flat-list';
 import { leaderboardIdsByType } from '@app/helper/leaderboard';
-import { useIsFocused, useNavigationState, useRoute } from '@react-navigation/native';
+import { useIsFocused, useNavigationState, useRoute } from "expo-router/react-navigation";
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { useLeaderboards, useProfileWithStats, useWithRefetching } from '@app/queries/all';

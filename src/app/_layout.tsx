@@ -25,7 +25,7 @@ import {
     registerService, sanitizeGameName,
     SERVICE_NAME, techs, units,
 } from '@nex/data';
-import { DarkTheme, DefaultTheme, ThemeProvider, useNavigationState } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider, useNavigationState } from "expo-router/react-navigation";
 import * as Sentry from '@sentry/react-native';
 import { focusManager, QueryClientProvider } from '@tanstack/react-query';
 import * as Device from 'expo-device';

@@ -6,7 +6,7 @@ import { ICloseEvent, w3cwebsocket } from 'websocket';
 import { IMatchesMatch } from '../helper/api.types';
 import { makeQueryString } from '@app/api/helper/util';
 import { decamelizeKeys } from 'humps';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from "expo-router/react-navigation";
 import { cloneDeep } from 'lodash';
 
 interface IConnectionHandler {

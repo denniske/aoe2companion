@@ -1,7 +1,7 @@
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { Match } from '@app/components/match/match';
-import { useNavigationState, useRoute } from '@react-navigation/native';
+import { useNavigationState, useRoute } from "expo-router/react-navigation";
 import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { flatten } from 'lodash';
 import React, { useState } from 'react';

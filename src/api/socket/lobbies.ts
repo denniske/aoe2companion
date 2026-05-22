@@ -5,7 +5,7 @@ import { ICloseEvent, w3cwebsocket } from 'websocket';
 import { decamelizeKeys } from 'humps';
 import { getHost, makeQueryString } from '@nex/data';
 import produce from 'immer';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from "expo-router/react-navigation";
 
 export interface IMatchesMatchPlayer2 {
     matchId: number;

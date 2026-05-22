@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Linking, Platform, TouchableOpacity, View } from 'react-native';
 import Constants from 'expo-constants';
-import { useLinkTo } from '@react-navigation/native';
+import { useLinkTo } from "expo-router/react-navigation";
 import { Button } from '@app/components/button';
 import { MyText } from '@app/view/components/my-text';
 import { setUpdateManifest, setUpdateStoreManifest, useMutate } from '../../../redux/reducer';

@@ -1,4 +1,4 @@
-import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
+import { BottomTabHeaderProps } from "expo-router/js-tabs";
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import { Platform, TouchableOpacity, View } from 'react-native';
 

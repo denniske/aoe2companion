@@ -1,5 +1,5 @@
 import { FlatList } from '@app/components/flat-list';
-import { useNavigation, useNavigationState, useRoute } from '@react-navigation/native';
+import { useNavigation, useNavigationState, useRoute } from "expo-router/react-navigation";
 import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { useProfile, useWithRefetching } from '@app/queries/all';

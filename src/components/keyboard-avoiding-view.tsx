@@ -1,4 +1,4 @@
-import { useHeaderHeight } from '@react-navigation/elements';
+import { useHeaderHeight } from "expo-router/react-navigation";
 import { KeyboardAvoidingView as KeyboardAvoidingViewRN, Platform, KeyboardAvoidingViewProps } from 'react-native';
 import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 
