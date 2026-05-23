@@ -1867,7 +1867,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/ui@npm:^56.0.11":
+"@expo/ui@npm:^56.0.11, @expo/ui@npm:~56.0.12":
   version: 56.0.12
   resolution: "@expo/ui@npm:56.0.12"
   dependencies:
@@ -4861,6 +4861,7 @@ __metadata:
     expo-updates: "npm:~56.0.15"
     expo-video: "npm:~56.1.2"
     expo-web-browser: "npm:~56.0.5"
+    expo-widgets: "npm:~56.0.13"
     express: "npm:^5.2.1"
     html-entities: "npm:^2.4.0"
     humps: "npm:^2.0.1"
@@ -4884,7 +4885,7 @@ __metadata:
     react-native-safe-area-context: "npm:~5.7.0"
     react-native-screens: "npm:4.25.1"
     react-native-svg: "npm:15.15.4"
-    react-native-tab-view: "npm:^3.5.2"
+    react-native-tab-view: "npm:^4.3.0"
     react-native-view-shot: "npm:~4.0.3"
     react-native-web: "npm:^0.21.2"
     react-native-webview: "npm:13.16.1"
@@ -7813,6 +7814,20 @@ __metadata:
     expo: "*"
     react-native: "*"
   checksum: 10/94d378cdda743c953e76bc0cb17e6f0c1f38cd2c1581941cc691a97fe16e424a0ae88b34736589ed30df3ba6eb83eab47c67215bc75df8f76ea4ae0e43a6e606
+  languageName: node
+  linkType: hard
+
+"expo-widgets@npm:~56.0.13":
+  version: 56.0.13
+  resolution: "expo-widgets@npm:56.0.13"
+  dependencies:
+    "@expo/plist": "npm:^0.7.0"
+    "@expo/ui": "npm:~56.0.12"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10/5b06e4fe2251af79d478e34307e96265774051313e23eae0b60d01fc199b3cc560f152408d377af5408f5715a6c45d6db51ddad707fe8b717b97458d98bb302f
   languageName: node
   linkType: hard
 
@@ -11889,16 +11904,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-tab-view@npm:^3.5.2":
-  version: 3.5.2
-  resolution: "react-native-tab-view@npm:3.5.2"
+"react-native-tab-view@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "react-native-tab-view@npm:4.3.0"
   dependencies:
-    use-latest-callback: "npm:^0.1.5"
+    use-latest-callback: "npm:^0.2.4"
   peerDependencies:
-    react: "*"
+    react: ">= 18.2.0"
     react-native: "*"
-    react-native-pager-view: "*"
-  checksum: 10/417e608dab14c23277e48e583e0573e90b136fa87ccf3907d104da3717e7b2d0889d699b2341f35e2bbaad9dea89255398ac60f4380d84a042ba77759409a550
+    react-native-pager-view: ">= 6.0.0"
+  checksum: 10/f843be2fbcebd3303ef1330f03d5c0c2bae022b94a6de13d96b5b4d4b8b56a574cec5d89f8e8ead71176d591e2f994797044eba7d34a5fad031b9d087292022c
   languageName: node
   linkType: hard
 
@@ -13898,15 +13913,6 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10/adf06a7b6a27d3651c325ac9b66d2b82ccacaed7450b85b211d123e91d9a23cb5a587fcc6db5b4fd07ac7233e5abf024d30cf02ddc2ec46bca712151c0836151
-  languageName: node
-  linkType: hard
-
-"use-latest-callback@npm:^0.1.5":
-  version: 0.1.11
-  resolution: "use-latest-callback@npm:0.1.11"
-  peerDependencies:
-    react: ">=16.8"
-  checksum: 10/cc6df404a4ed3a39d0eb014a815c2e568a6abbe8c5ff09f9205a08bf68e86201826ed633865a6056ca0fd9581e0e7e70f18ca26c592a9eaccea5d244cf283b1f
   languageName: node
   linkType: hard
 
