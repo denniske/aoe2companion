@@ -3,7 +3,7 @@ import { camelCase, compact } from 'lodash';
 import { useEffect } from 'react';
 import { useAccount } from '@app/queries/all';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
-import { Widget } from '@/modules/widget';
+// import { Widget } from '@/modules/widget';
 import { Platform, Image } from 'react-native';
 import { fetchBuilds } from '@app/api/helper/api';
 import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
@@ -59,27 +59,27 @@ export const useFavoritedBuilds = () => {
         const favoriteBuildsResult = await fetchBuilds({ build_ids: favoriteBuildIds });
         const favoriteBuilds = favoriteBuildsResult.builds;
 
-        if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
-            const newWidgetData = JSON.stringify(
-                favoriteBuilds
-                    .map((build) => ({
-                        id: build.id.toString(),
-                        title: build.title,
-                        civilization: build.civilization,
-                        image:
-                            Widget.getImagePathIfExists(`${camelCase(build.civilization)}.png`) ??
-                            Widget.setImage(
-                                Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri,
-                                `${camelCase(build.civilization)}.png`
-                            ),
-                        icon:
-                            Widget.getImagePathIfExists(`${camelCase(build.image.toString())}.png`) ??
-                            Widget.setImage(Image.resolveAssetSource(getBuildIcon(build.image)).uri, `${camelCase(build.image.toString())}.png`),
-                    }))
-            );
-            Widget.setItem('savedData', newWidgetData);
-            Widget.reloadAll();
-        }
+        // if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
+        //     const newWidgetData = JSON.stringify(
+        //         favoriteBuilds
+        //             .map((build) => ({
+        //                 id: build.id.toString(),
+        //                 title: build.title,
+        //                 civilization: build.civilization,
+        //                 image:
+        //                     Widget.getImagePathIfExists(`${camelCase(build.civilization)}.png`) ??
+        //                     Widget.setImage(
+        //                         Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri,
+        //                         `${camelCase(build.civilization)}.png`
+        //                     ),
+        //                 icon:
+        //                     Widget.getImagePathIfExists(`${camelCase(build.image.toString())}.png`) ??
+        //                     Widget.setImage(Image.resolveAssetSource(getBuildIcon(build.image)).uri, `${camelCase(build.image.toString())}.png`),
+        //             }))
+        //     );
+        //     Widget.setItem('savedData', newWidgetData);
+        //     Widget.reloadAll();
+        // }
     };
 
     return {

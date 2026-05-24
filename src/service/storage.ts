@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
-import { Widget } from '../../modules/widget';
+// import { Widget } from '../../modules/widget';
 import { DarkMode } from '../redux/reducer';
 import { fetchAssets } from '@app/api/helper/api';
 import * as Crypto from 'expo-crypto';
@@ -148,10 +148,10 @@ export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
     await AsyncStorage.setItem('following', JSON.stringify(following));
 };
 
-if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
-    Widget.setAppGroup(`group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
-    // console.log('setAppGroup', `group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
-}
+// if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
+//     Widget.setAppGroup(`group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
+//     // console.log('setAppGroup', `group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
+// }
 
 async function md5(contents: string) {
     return await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.MD5, contents);
@@ -161,15 +161,15 @@ export const cacheLiveActivityAssets = async () => {
     try {
         const assets = await fetchAssets();
         // console.log('cacheLiveActivityAssets', new Date());
-        for (const asset of assets) {
-            // console.log('hasImage', asset.imageUrl, new Date());
-            if (!Widget.hasImage(await md5(asset.imageUrl))) {
-                const url = Widget.setImage(asset.imageUrl, await md5(asset.imageUrl));
-                // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
-            } else {
-                // console.log('cacheLiveActivityAssets already cached', await md5(asset.imageUrl));
-            }
-        }
+        // for (const asset of assets) {
+        //     // console.log('hasImage', asset.imageUrl, new Date());
+        //     if (!Widget.hasImage(await md5(asset.imageUrl))) {
+        //         const url = Widget.setImage(asset.imageUrl, await md5(asset.imageUrl));
+        //         // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
+        //     } else {
+        //         // console.log('cacheLiveActivityAssets already cached', await md5(asset.imageUrl));
+        //     }
+        // }
         // console.log('cacheLiveActivityAssets finish', new Date());
     } catch (error) {
         if (__DEV__) {

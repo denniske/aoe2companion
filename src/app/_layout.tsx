@@ -41,7 +41,7 @@ import { appConfig } from '@nex/dataset';
 import UpdateSnackbar from '@app/view/components/snackbar/update-snackbar';
 import ChangelogSnackbar from '@app/view/components/snackbar/changelog-snackbar';
 import { useEventListener } from 'expo';
-import { useAccountData } from '@app/queries/all';
+import { useAccount, useAccountData, useInfiniteBuilds } from '@app/queries/all';
 import { PortalProvider } from '@app/components/portal/portal-host';
 import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/account';
 import { queryClient } from '@app/service/query-client';
@@ -53,7 +53,7 @@ import { useLastNotificationResponse, clearLastNotificationResponse } from '@app
 import * as WebBrowser from 'expo-web-browser';
 import { getInternalLanguage } from '@app/queries/direct';
 import { useDarkMode } from '@app/hooks/use-dark-mode';
-import { LiveActivity } from '@/modules/widget';
+// import { LiveActivity } from '@/modules/widget';
 import { AvailableMainPage } from '@app/helper/routing';
 import { useCSSVariable } from 'uniwind';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
@@ -61,6 +61,10 @@ import { LoginPopupProvider } from '@app/providers/login-popup-provider';
 import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
 
 initSentry();
+
+import AABuilds from '@app/widgets/AABuilds.widget';
+import { fetchBuilds } from '@app/api/helper/api';
+import compact from 'lodash/compact';
 
 
 if (Platform.OS === 'web') {
@@ -274,28 +278,28 @@ function AccountController() {
 function LiveActivityController() {
     const accountId = useAccountData((state) => state.accountId);
 
-    useEventListener(LiveActivity, 'onTokenChanged', async ({ token }) => {
-        console.log('onTokenChanged', accountId, token);
-        if (token) {
-            await setAccountLiveActivityToken(token);
-        }
-    });
-
-    useEventListener(LiveActivity, 'onActivityStarted', async ({ token, data, type }) => {
-        const { match } = JSON.parse(data);
-        console.log('onActivityStarted', accountId, token, type, match.matchId);
-        if (token && type && match) {
-            await storeLiveActivityStarted(token, type, match.matchId);
-        }
-    });
-
-    useEffect(() => {
-        if (Platform.OS === 'ios' && appConfig.game === 'aoe2' && accountId) {
-            console.log('Registering LiveActivity for', accountId);
-            LiveActivity.enable();
-            cacheLiveActivityAssets();
-        }
-    }, [accountId]);
+    // useEventListener(LiveActivity, 'onTokenChanged', async ({ token }) => {
+    //     console.log('onTokenChanged', accountId, token);
+    //     if (token) {
+    //         await setAccountLiveActivityToken(token);
+    //     }
+    // });
+    //
+    // useEventListener(LiveActivity, 'onActivityStarted', async ({ token, data, type }) => {
+    //     const { match } = JSON.parse(data);
+    //     console.log('onActivityStarted', accountId, token, type, match.matchId);
+    //     if (token && type && match) {
+    //         await storeLiveActivityStarted(token, type, match.matchId);
+    //     }
+    // });
+    //
+    // useEffect(() => {
+    //     if (Platform.OS === 'ios' && appConfig.game === 'aoe2' && accountId) {
+    //         console.log('Registering LiveActivity for', accountId);
+    //         LiveActivity.enable();
+    //         cacheLiveActivityAssets();
+    //     }
+    // }, [accountId]);
 
     return <View />;
 }
@@ -314,6 +318,34 @@ function useColorSchemes() {
 
     const colorGold50 = useCSSVariable('--color-gold-50') as string;
     const colorBlue950 = useCSSVariable('--color-blue-950') as string;
+
+    const { data: account, isLoading: isLoadingAccount } = useAccount();
+    const favoriteIds = compact(account?.favoriteBuildIds);
+
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBuilds({
+        build_ids: favoriteIds,
+    });
+    const builds = data?.pages?.flatMap((p) => p.builds);
+
+    // const favoriteBuildsResult = await fetchBuilds({ build_ids: favoriteIds });
+    // const favoriteBuilds = favoriteBuildsResult.builds;
+
+    AABuilds.updateSnapshot({
+        count: 5,
+        style: {
+            light: {
+                backgroundColor: colorGold50,
+                foregroundColor: '#000000',
+                foregroundNoteColor: '#888888',
+            },
+            dark: {
+                backgroundColor: colorBlue950,
+                foregroundColor: '#ffffff',
+                foregroundNoteColor: '#888888',
+            }
+        },
+        builds,
+    });
 
     const customLightTheme = {
         ...DefaultTheme,

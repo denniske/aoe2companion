@@ -1,8 +1,19 @@
 import Constants from 'expo-constants';
 import { sleep } from '@nex/data';
 import { checkForUpdateAsync, fetchUpdateAsync } from 'expo-updates';
-import { doAppUpdate, getAppUpdateInfo, UpdateAvailability } from 'expo-app-update';
+// import { doAppUpdate, getAppUpdateInfo, UpdateAvailability } from 'expo-app-update';
 import { Platform } from 'react-native';
+import { requireNativeModule } from 'expo';
+
+// const { Hello } = Platform.OS !== 'web' ? requireNativeModule('AppUpdateModule') : {
+//     Hello: 'WEB Hello',
+// };
+
+const { Hello } = false ? requireNativeModule('AppUpdateModule') : {
+    Hello: 'WEB Hello',
+};
+
+// const { Hello, getAppUpdateInfo } = requireNativeModule('AppUpdateModule');
 
 const packageName = Constants.expoConfig?.android?.package;
 
@@ -37,21 +48,26 @@ function androidVersionCodeToSemver(versionCode: number) {
 }
 
 export async function doStoreUpdate() {
-    await doAppUpdate();
+    // await doAppUpdate();
 }
 
 export async function doCheckForStoreUpdate() {
     if (Constants.expoConfig == null) return null;
     try {
-        const appUpdateInfo = await getAppUpdateInfo();
-        // console.log('appUpdateInfo', appUpdateInfo);
 
-        return {
-            isAvailable: appUpdateInfo.updateAvailable,
-            version: Platform.OS === 'android' ?
-                androidVersionCodeToSemver(appUpdateInfo.android!.availableVersionCode)
-                : appUpdateInfo.ios?.version,
-        };
+        console.log('INLINE', Hello);
+
+        return null;
+
+        // const appUpdateInfo = await getAppUpdateInfo();
+        // console.log('appUpdateInfo', appUpdateInfo);
+        //
+        // return {
+        //     isAvailable: appUpdateInfo.updateAvailable,
+        //     version: Platform.OS === 'android' ?
+        //         androidVersionCodeToSemver(appUpdateInfo.android!.availableVersionCode)
+        //         : appUpdateInfo.ios?.version,
+        // };
     } catch (e) {
         console.log('doCheckForStoreUpdate', 'error', e);
         return null;

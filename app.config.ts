@@ -1,4 +1,6 @@
 import { ConfigContext, ExpoConfig } from 'expo/config';
+import widgetPluginConfig from 'expo-widgets/plugin';
+import { WidgetFamily } from 'expo-widgets/plugin/build/types/WidgetFamily.type';
 
 const versionAoe2 = '198.0.0';
 const versionAoe4 = '38.0.0';
@@ -103,6 +105,73 @@ const appPlugin = [
     }
 ] as [string, any];
 
+
+// const widgetPlugin = [
+//     "expo-widgets",
+//     {
+//         "bundleIdentifier": "com.aoe2companion.widgets",
+//         "groupIdentifier": "group.com.aoe2companion.widget",
+//         "enablePushNotifications": true,
+//         "widgets": [
+//             // {
+//             //     "name": "StatusWidget",
+//             //     "displayName": "Status",
+//             //     "description": "Shows your current status at a glance",
+//             //     "contentMarginsDisabled": true,
+//             //     "supportedFamilies": ["systemSmall", "systemMedium"]
+//             // },
+//             {
+//                 "name": "AABuilds",
+//                 "displayName": "AA Build Orders",
+//                 "description": "AA Quick access to your favorite build order",
+//                 "supportedFamilies": ["systemMedium", "systemLarge"]
+//             },
+//             // {
+//             //     "name": "LockScreenWidget",
+//             //     "displayName": "Quick View",
+//             //     "description": "View info on your Lock Screen",
+//             //     "supportedFamilies": ["accessoryCircular", "accessoryRectangular", "accessoryInline"]
+//             // }
+//         ]
+//     }
+// ] as [string, any];
+
+
+// bundleIdentifier?: string;
+// groupIdentifier?: string;
+// enablePushNotifications?: boolean;
+// frequentUpdates?: boolean;
+// widgets?: WidgetConfig[];
+
+const widgetPlugin = widgetPluginConfig(
+    {
+        // bundleIdentifier: "com.aoe2companion.widgets",
+        // groupIdentifier: "group.com.aoe2companion.widget",
+        enablePushNotifications: true,
+        widgets: [
+            // {
+            //     "name": "StatusWidget",
+            //     "displayName": "Status",
+            //     "description": "Shows your current status at a glance",
+            //     "contentMarginsDisabled": true,
+            //     "supportedFamilies": ["systemSmall", "systemMedium"]
+            // },
+            {
+                name: "AABuilds",
+                displayName: "AA Build Orders",
+                description: "AA Quick access to your favorite build order",
+                contentMarginsDisabled: true,
+                supportedFamilies: [WidgetFamily.systemMedium, WidgetFamily.systemLarge]
+            },
+            // {
+            //     "name": "LockScreenWidget",
+            //     "displayName": "Quick View",
+            //     "description": "View info on your Lock Screen",
+            //     "supportedFamilies": ["accessoryCircular", "accessoryRectangular", "accessoryInline"]
+            // }
+        ]
+    });
+
 const version = app.version;
 const versionParts = version.split('.');
 
@@ -114,13 +183,18 @@ const runtimeVersionCode = runtimeVersionParts[0] + runtimeVersionParts[1].padSt
 const isProdBuild = process.env.EAS_BUILD_PROFILE?.includes('production');
 const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
 const sentryConfigPlugins = isProdBuild ? [sentryConfigPlugin] : [];
-const appConfigPlugins = process.env.GAME === 'aoe2' ? [appPlugin] : [];
+// const appConfigPlugins = process.env.GAME === 'aoe2' ? [appPlugin, widgetPlugin] : [];
+// const appConfigPlugins = process.env.GAME === 'aoe2' ? [widgetPlugin] : [];
+const appConfigPlugins = process.env.GAME === 'aoe2' ? [] : [];
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
     experiments: {
         typedRoutes: true,
         reactCompiler: true,  // 2025-Nov-8 maybe v1 of compiler breaks main nav bar highlighting on HMR
+        // inlineModules: {
+        //     watchedDirectories: ['src/modules']
+        // },
     },
     name: app.name,
     description: app.description,
@@ -211,6 +285,34 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         ],
         ...sentryConfigPlugins,
         ...appConfigPlugins,
+        [
+            "expo-widgets",
+            {
+                // "bundleIdentifier": "com.aoe2companion.widgets",
+                // "groupIdentifier": "group.com.aoe2companion.widget",
+
+
+                // Note: 2026-05-23
+                // I think this version works. But inline modules has to be disabled.
+                "enablePushNotifications": true,
+                "widgets": [
+                    {
+                        "name": "AABuilds",
+                        "displayName": "AA Build Orders",
+                        "description": "AA Quick access to your favorite build order",
+                        "supportedFamilies": ["systemMedium", "systemLarge"]
+                    },
+                ]
+            }
+        ],
+        // [
+        //     "expo-build-properties",
+        //     {
+        //         "ios": {
+        //             "deploymentTarget": "16.4"
+        //         }
+        //     }
+        // ],
         [
             "expo-splash-screen",
             {

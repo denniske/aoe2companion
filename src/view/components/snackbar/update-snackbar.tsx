@@ -18,7 +18,7 @@ import {
     doStoreUpdate,
 } from '@app/service/update';
 import Constants from 'expo-constants';
-import { openAppInStore } from 'expo-app-update';
+// import { openAppInStore } from 'expo-app-update';
 import { useTranslation } from '@app/helper/translate';
 import { ExpoUpdatesManifest } from 'expo-manifests';
 
@@ -45,10 +45,10 @@ export default function UpdateSnackbar() {
         }
 
         const storeUpdate = await doCheckForStoreUpdate();
-        if (storeUpdate?.isAvailable) {
-            mutate(setUpdateStoreManifest(storeUpdate));
-            return;
-        }
+        // if (storeUpdate?.isAvailable) {
+        //     mutate(setUpdateStoreManifest(storeUpdate));
+        //     return;
+        // }
 
         close();
     };
@@ -102,10 +102,10 @@ export default function UpdateSnackbar() {
                                 onPress: doStoreUpdate,
                             },
                         ] : [
-                            {
-                                label: 'Open',
-                                onPress: openAppInStore,
-                            },
+                            // {
+                            //     label: 'Open',
+                            //     onPress: openAppInStore,
+                            // },
                         ]
                 ),
                 {
