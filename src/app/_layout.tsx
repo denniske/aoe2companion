@@ -3,7 +3,6 @@ import initSentry from '@app/helper/sentry';
 import { getTranslationInternal, mmkvDefaultInstance, useMMKWTranslationCache } from '@app/helper/translate';
 import { getInternalAoeString } from '@app/helper/translate-data';
 import store from '@app/redux/store';
-import { cacheLiveActivityAssets } from '@app/service/storage';
 import {
     Roboto_400Regular,
     Roboto_500Medium,
@@ -16,55 +15,46 @@ import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
-    aoeData, buildings,
-    Environment, getAoeString, ICivEntry,
+    Environment,
     IHostService,
     IHttpService,
     ITranslationService,
     OS,
-    registerService, sanitizeGameName,
-    SERVICE_NAME, techs, units,
+    registerService,
+    SERVICE_NAME,
 } from '@nex/data';
-import { DarkTheme, DefaultTheme, ThemeProvider, useNavigationState } from "expo-router/react-navigation";
+import { DarkTheme, DefaultTheme, ThemeProvider, useNavigationState } from 'expo-router/react-navigation';
 import * as Sentry from '@sentry/react-native';
 import { focusManager, QueryClientProvider } from '@tanstack/react-query';
 import * as Device from 'expo-device';
 import * as Notifications from '../service/notifications';
-import {  Slot, SplashScreen, Stack, usePathname, useRootNavigationState, useRouter } from 'expo-router';
+import { Slot, SplashScreen, usePathname, useRootNavigationState, useRouter } from 'expo-router';
 import { useCallback, useEffect } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { Provider as ReduxProvider } from 'react-redux';
 import '../../global.css';
-import { appConfig } from '@nex/dataset';
 import UpdateSnackbar from '@app/view/components/snackbar/update-snackbar';
 import ChangelogSnackbar from '@app/view/components/snackbar/changelog-snackbar';
-import { useEventListener } from 'expo';
-import { useAccount, useAccountData, useInfiniteBuilds } from '@app/queries/all';
+import { useAccountData } from '@app/queries/all';
 import { PortalProvider } from '@app/components/portal/portal-host';
-import { setAccountLiveActivityToken, storeLiveActivityStarted } from '@app/api/account';
 import { queryClient } from '@app/service/query-client';
 import { TranslationModeOverlay } from '@app/components/translation/translation-mode-overlay';
 import { PostMessageTranslationsController } from '@app/components/translation/post-message-translation';
 import { setMainPageShown, useMutate, useSelector } from '@app/redux/reducer';
 import { useMMKV } from 'react-native-mmkv';
-import { useLastNotificationResponse, clearLastNotificationResponse } from '@app/service/notifications';
+import { clearLastNotificationResponse, useLastNotificationResponse } from '@app/service/notifications';
 import * as WebBrowser from 'expo-web-browser';
 import { getInternalLanguage } from '@app/queries/direct';
 import { useDarkMode } from '@app/hooks/use-dark-mode';
 // import { LiveActivity } from '@/modules/widget';
 import { AvailableMainPage } from '@app/helper/routing';
 import { useCSSVariable } from 'uniwind';
-import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { LoginPopupProvider } from '@app/providers/login-popup-provider';
 import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
 
 initSentry();
-
-import AABuilds from '@app/widgets/AABuilds.widget';
-import { fetchBuilds } from '@app/api/helper/api';
-import compact from 'lodash/compact';
 
 
 if (Platform.OS === 'web') {
@@ -316,36 +306,71 @@ function useColorSchemes() {
         // setTailwindReactNativeColorScheme(darkMode);
     }, [darkMode]);
 
+
+    // const { data: account, isLoading: isLoadingAccount } = useAccount();
+    // const favoriteIds = compact(account?.favoriteBuildIds);
+    //
+    // const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBuilds({
+    //     build_ids: favoriteIds,
+    // });
+    // const builds = data?.pages?.flatMap((p) => p.builds) ?? [];
+    //
+    // const colorGold50 = Uniwind.getCSSVariable('--color-gold-50') as string;
+    // const colorBlue950 = Uniwind.getCSSVariable('--color-blue-950') as string;
+    //
+    // const colorWhite = Uniwind.getCSSVariable('--color-white') as string;
+    // const colorBlue900 = Uniwind.getCSSVariable('--color-blue-900') as string;
+    //
+    // const colorGray200 = Uniwind.getCSSVariable('--color-gray-200') as string;
+    // const colorGray800 = Uniwind.getCSSVariable('--color-gray-800') as string;
+    //
+    // const groupDir = Paths.appleSharedContainers['group.com.aoe2companion'];
+    //
+    // (async () => {
+    //     const favoriteBuilds = [];
+    //
+    //     for (const build of builds) {
+    //         const imagePath = Paths.join(groupDir, `${await md5(build.imageURL)}.png`);
+    //         const imageSource = () => build.imageURL;
+    //
+    //         // The path actually can also be any string like an md5 of the actual path
+    //         const civilizationPath = Paths.join(groupDir, `${camelCase(build.civilization)}.png`);
+    //         const civilizationSource = () => Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri;
+    //
+    //         favoriteBuilds.push({
+    //             ...build,
+    //             imageUrl: await widgetSetFileIfNotExists(imagePath, imageSource),
+    //             civilizationImageUrl: await widgetSetFileIfNotExists(civilizationPath, civilizationSource),
+    //         });
+    //     }
+    //
+    //     AABuilds.updateSnapshot({
+    //         count: 5,
+    //         style: {
+    //             light: {
+    //                 backgroundColor: colorGold50,
+    //                 foregroundColor: '#000000',
+    //                 foregroundNoteColor: '#888888',
+    //                 cardBackgroundColor: colorWhite,
+    //                 cardBorderColor: colorGray200,
+    //             },
+    //             dark: {
+    //                 backgroundColor: colorBlue950,
+    //                 foregroundColor: '#ffffff',
+    //                 foregroundNoteColor: '#888888',
+    //                 cardBackgroundColor: colorBlue900,
+    //                 cardBorderColor: colorGray800,
+    //             }
+    //         },
+    //         builds: favoriteBuilds,
+    //     });
+    //
+    //     console.log('favoriteBuilds', favoriteBuilds?.length);
+    //     console.log('favoriteBuilds', favoriteBuilds);
+    // })();
+
     const colorGold50 = useCSSVariable('--color-gold-50') as string;
     const colorBlue950 = useCSSVariable('--color-blue-950') as string;
-
-    const { data: account, isLoading: isLoadingAccount } = useAccount();
-    const favoriteIds = compact(account?.favoriteBuildIds);
-
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBuilds({
-        build_ids: favoriteIds,
-    });
-    const builds = data?.pages?.flatMap((p) => p.builds);
-
-    // const favoriteBuildsResult = await fetchBuilds({ build_ids: favoriteIds });
-    // const favoriteBuilds = favoriteBuildsResult.builds;
-
-    AABuilds.updateSnapshot({
-        count: 5,
-        style: {
-            light: {
-                backgroundColor: colorGold50,
-                foregroundColor: '#000000',
-                foregroundNoteColor: '#888888',
-            },
-            dark: {
-                backgroundColor: colorBlue950,
-                foregroundColor: '#ffffff',
-                foregroundNoteColor: '#888888',
-            }
-        },
-        builds,
-    });
 
     const customLightTheme = {
         ...DefaultTheme,

@@ -49,7 +49,7 @@ export const BuildCard: React.FC<
 
     return (
         <Card href={`/explore/build-orders/${build.id}`} className={className}>
-            <Image source={icon} className="w-12 h-12" />
+            {build.imageURL && <Image source={{uri: build.imageURL}} className="w-12 h-12" />}
 
             <View className="flex-1 gap-0.5">
                 <View className="flex-row justify-between items-center gap-2">

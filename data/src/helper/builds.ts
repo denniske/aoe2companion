@@ -45,7 +45,13 @@ export const getBuildIcon = (image?: string) => {
         iconName = 'CastleAge';
     }
 
-    return getIcon(iconName);
+    const icon = getIcon(iconName);
+
+    if (icon === undefined) {
+        console.log(`Icon not found for name: ${image} - ${iconName}`);
+    }
+
+    return icon;
 };
 
 export interface IBuildOrderBuilding {
@@ -126,7 +132,7 @@ export interface AgeData {
 export interface IBuildOrder {
     build: IBuildOrderStep[];
     description: string;
-    imageURL: string;
+    imageURL: string; // The image url from buildorderguide.com
     avgRating?: number;
     status: string;
     publisher: string;
@@ -142,4 +148,9 @@ export interface IBuildOrder {
     civilization: string;
     title: string;
     game?: string;
+}
+
+export interface IExtendedBuildOrder extends IBuildOrder {
+    imageUrl?: string;
+    civilizationImageUrl?: string;
 }

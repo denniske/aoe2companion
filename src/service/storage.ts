@@ -3,14 +3,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
-// import { Widget } from '../../modules/widget';
+import { Widget } from '../../modules/widget';
 import { DarkMode } from '../redux/reducer';
 import { fetchAssets } from '@app/api/helper/api';
 import * as Crypto from 'expo-crypto';
 import { appConfig } from '@nex/dataset';
 import * as Localization from 'expo-localization';
 import { AvailableMainPage } from '@app/helper/routing';
-import { useFavoritedBuilds } from '@app/service/favorite-builds';
+import { Directory, File, Paths } from 'expo-file-system';
 
 const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
@@ -148,29 +148,24 @@ export const saveFollowingToStorage = async (following: IFollowingEntry[]) => {
     await AsyncStorage.setItem('following', JSON.stringify(following));
 };
 
-// if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
-//     Widget.setAppGroup(`group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
-//     // console.log('setAppGroup', `group.${Constants.expoConfig?.ios?.bundleIdentifier}.widget`);
-// }
-
-async function md5(contents: string) {
+export async function md5(contents: string) {
     return await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.MD5, contents);
 }
 
 export const cacheLiveActivityAssets = async () => {
     try {
         const assets = await fetchAssets();
-        // console.log('cacheLiveActivityAssets', new Date());
-        // for (const asset of assets) {
-        //     // console.log('hasImage', asset.imageUrl, new Date());
-        //     if (!Widget.hasImage(await md5(asset.imageUrl))) {
-        //         const url = Widget.setImage(asset.imageUrl, await md5(asset.imageUrl));
-        //         // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
-        //     } else {
-        //         // console.log('cacheLiveActivityAssets already cached', await md5(asset.imageUrl));
-        //     }
-        // }
-        // console.log('cacheLiveActivityAssets finish', new Date());
+        console.log('cacheLiveActivityAssets', new Date());
+        for (const asset of assets) {
+            // console.log('hasImage', asset.imageUrl, new Date());
+            if (!Widget.hasImage(await md5(asset.imageUrl))) {
+                const url = Widget.setImage(asset.imageUrl, await md5(asset.imageUrl));
+                // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
+            } else {
+                // console.log('cacheLiveActivityAssets already cached', await md5(asset.imageUrl));
+            }
+        }
+        console.log('cacheLiveActivityAssets finish', new Date());
     } catch (error) {
         if (__DEV__) {
             console.error('cacheLiveActivityAssets error', error);
@@ -196,3 +191,45 @@ export type BuildFilters = {
     buildType?: string | 'favorites';
     difficulty?: 1 | 2 | 3;
 };
+
+
+
+// async function widgetSetFileIfNotExists(destPath: string, getSourcePath: () => string) {
+//     const destFile = new File(destPath);
+//     if (!destFile.exists) {
+//         await new File(getSourcePath()).copy(destFile);
+//     }
+//     return destFile.uri;
+// }
+
+export async function widgetSetFileIfNotExists(destPath: string, getSourcePath: () => string) {
+    const destFile = new File(destPath);
+    if (!destFile.exists) {
+        const sourcePath = getSourcePath();
+
+        if (!sourcePath) {
+            console.log('widgetSetFileIfNotExists no SourcePath');
+            return undefined;
+        }
+
+        // console.log('TRY TO COPY FROM', sourcePath)
+
+        if (sourcePath.startsWith('file:')) {
+            await new File(getSourcePath()).copy(destFile);
+        } else {
+            await File.downloadFileAsync(sourcePath, destFile, {
+                idempotent: true,
+            });
+        }
+    }
+    // console.log(destFile.uri, destFile.exists);
+    return destFile.uri;
+}
+
+// async function widgetSetFileIfNotExists(destPath: string, sourcePath: string) {
+//     const destFile = new File(destPath);
+//     if (!destFile.exists) {
+//         new File(sourcePath).copy(destFile);
+//     }
+//     return destFile.uri;
+// }

@@ -9,6 +9,11 @@ import { fetchBuilds } from '@app/api/helper/api';
 import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
 import { appConfig } from '@nex/dataset';
 import { getBuildIcon } from '@/data/src/helper/builds';
+import { Uniwind } from 'uniwind';
+import { Paths } from 'expo-file-system';
+import { md5, widgetSetFileIfNotExists } from '@app/service/storage';
+import AABuilds from '@app/widgets/AABuilds.widget';
+import Constants from 'expo-constants';
 
 export const useFavoritedBuilds = () => {
     const { getItem, removeItem } = useAsyncStorage('favoritedBuilds');
@@ -49,7 +54,7 @@ export const useFavoritedBuilds = () => {
             favoriteBuildIds = [...favoriteIds, id];
         }
 
-        await saveAccountMutation.mutate({
+        saveAccountMutation.mutate({
             favoriteBuildIds,
         });
 
@@ -57,29 +62,62 @@ export const useFavoritedBuilds = () => {
 
         // Store favorite builds for widget (just first page should be enough)
         const favoriteBuildsResult = await fetchBuilds({ build_ids: favoriteBuildIds });
-        const favoriteBuilds = favoriteBuildsResult.builds;
+        const builds = favoriteBuildsResult.builds;
 
-        // if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
-        //     const newWidgetData = JSON.stringify(
-        //         favoriteBuilds
-        //             .map((build) => ({
-        //                 id: build.id.toString(),
-        //                 title: build.title,
-        //                 civilization: build.civilization,
-        //                 image:
-        //                     Widget.getImagePathIfExists(`${camelCase(build.civilization)}.png`) ??
-        //                     Widget.setImage(
-        //                         Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri,
-        //                         `${camelCase(build.civilization)}.png`
-        //                     ),
-        //                 icon:
-        //                     Widget.getImagePathIfExists(`${camelCase(build.image.toString())}.png`) ??
-        //                     Widget.setImage(Image.resolveAssetSource(getBuildIcon(build.image)).uri, `${camelCase(build.image.toString())}.png`),
-        //             }))
-        //     );
-        //     Widget.setItem('savedData', newWidgetData);
-        //     Widget.reloadAll();
-        // }
+        if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
+            const colorGold50 = Uniwind.getCSSVariable('--color-gold-50') as string;
+            const colorBlue950 = Uniwind.getCSSVariable('--color-blue-950') as string;
+
+            const colorWhite = Uniwind.getCSSVariable('--color-white') as string;
+            const colorBlue900 = Uniwind.getCSSVariable('--color-blue-900') as string;
+
+            const colorGray200 = Uniwind.getCSSVariable('--color-gray-200') as string;
+            const colorGray800 = Uniwind.getCSSVariable('--color-gray-800') as string;
+
+            const groupDir = Paths.appleSharedContainers[`group.${Constants.expoConfig?.ios?.bundleIdentifier}`];
+
+            await (async () => {
+                const favoriteBuilds = [];
+
+                for (const build of builds) {
+                    const imagePath = Paths.join(groupDir, `${await md5(build.imageURL)}.png`);
+                    const imageSource = () => build.imageURL;
+
+                    // The path actually can also be any string like an md5 of the actual path
+                    const civilizationPath = Paths.join(groupDir, `${camelCase(build.civilization)}.png`);
+                    const civilizationSource = () => Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri;
+
+                    favoriteBuilds.push({
+                        ...build,
+                        imageUrl: await widgetSetFileIfNotExists(imagePath, imageSource),
+                        civilizationImageUrl: await widgetSetFileIfNotExists(civilizationPath, civilizationSource),
+                    });
+                }
+
+                AABuilds.updateSnapshot({
+                    style: {
+                        light: {
+                            backgroundColor: colorGold50,
+                            foregroundColor: '#000000',
+                            foregroundNoteColor: '#888888',
+                            cardBackgroundColor: colorWhite,
+                            cardBorderColor: colorGray200,
+                        },
+                        dark: {
+                            backgroundColor: colorBlue950,
+                            foregroundColor: '#ffffff',
+                            foregroundNoteColor: '#888888',
+                            cardBackgroundColor: colorBlue900,
+                            cardBorderColor: colorGray800,
+                        }
+                    },
+                    builds: favoriteBuilds,
+                });
+
+                console.log('favoriteBuilds', favoriteBuilds?.length);
+                console.log('favoriteBuilds', favoriteBuilds);
+            })();
+        }
     };
 
     return {

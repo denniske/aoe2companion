@@ -1,52 +1,29 @@
-import { HStack, Text, VStack, Image, List} from '@expo/ui/swift-ui';
-import {containerBackground, font, foregroundStyle, background, cornerRadius, padding, clipShape, foregroundColor, frame} from '@expo/ui/swift-ui/modifiers';
-import {createWidget, type WidgetEnvironment} from 'expo-widgets';
-import { IBuildOrder } from '@/data/src/helper/builds';
+import { HStack, Image, Text, VStack, ZStack, Link, Button } from '@expo/ui/swift-ui';
+import {
+    background,
+    containerBackground,
+    cornerRadius,
+    font,
+    foregroundColor,
+    frame,
+    padding,
+    resizable
+} from '@expo/ui/swift-ui/modifiers';
+import { createWidget, type WidgetEnvironment } from 'expo-widgets';
+import { IExtendedBuildOrder } from '@/data/src/helper/builds';
 
 type IWidgetStyle = {
     backgroundColor: string;
     foregroundColor: string;
     foregroundNoteColor: string;
+    cardBackgroundColor: string;
+    cardBorderColor: string;
 }
 
 type AABuildsProps = {
-    count: number;
     style: Record<'light' | 'dark', IWidgetStyle>;
-    builds: IBuildOrder[] | undefined
+    builds: IExtendedBuildOrder[] | undefined
 };
-
-
-// const AABuildsComp = (prop: {props: AABuildsProps, environment: WidgetEnvironment}) => {
-//     // 'widget';
-//     const {props, environment} = prop;
-//     const style = props.style[environment.colorScheme ?? 'light'];
-//     return (
-//         <HStack
-//             modifiers={[
-//                 containerBackground(style.backgroundColor, 'widget'),
-//                 background(environment.colorScheme === 'light' ? '#FFFFFF' : '#2C2C2E'),
-//                 cornerRadius(12),
-//                 padding({ horizontal: 12, vertical: 10 })
-//             ]}
-//             spacing={10}
-//         >
-//             <Image
-//                 systemName="figure.equestrian.sports"
-//                 modifiers={[frame({ width: 36, height: 36 }), clipShape('circle')]}
-//             />
-//             <VStack alignment="leading" spacing={2}>
-//                 <HStack spacing={4}>
-//                     <Text modifiers={[font({ size: 11 }), foregroundColor('#8E8E93')]}>
-//                         🏆 kkk
-//                     </Text>
-//                 </HStack>
-//                 <Text modifiers={[font({ weight: 'bold', size: 15 }), foregroundColor(environment.colorScheme === 'light' ? '#1C1C1E' : '#FFFFFF')]}>
-//                     Fast Scouts
-//                 </Text>
-//             </VStack>
-//         </HStack>
-//     );
-// };
 
 const AABuilds = (props: AABuildsProps, environment: WidgetEnvironment) => {
     'widget';
@@ -54,147 +31,100 @@ const AABuilds = (props: AABuildsProps, environment: WidgetEnvironment) => {
 
     const { builds } = props;
 
-    // const buildRows = props.builds?.map((build) => (
-    //     <HStack
-    //         modifiers={[
-    //             background(environment.colorScheme === 'light' ? '#FFFFFF' : '#2C2C2E'),
-    //             cornerRadius(12),
-    //             padding({ horizontal: 12, vertical: 10 })
-    //         ]}
-    //         spacing={10}
-    //     >
-    //         <Image
-    //             systemName="figure.equestrian.sports"
-    //             modifiers={[frame({ width: 36, height: 36 }), clipShape('circle')]}
-    //         />
-    //         <VStack alignment="leading" spacing={2}>
-    //             <HStack spacing={4}>
-    //                 <Text modifiers={[font({ size: 11 }), foregroundColor('#8E8E93')]}>
-    //                     🏆 {build.civilization}
-    //                 </Text>
-    //             </HStack>
-    //             <Text modifiers={[font({ weight: 'bold', size: 15 }), foregroundColor(environment.colorScheme === 'light' ? '#1C1C1E' : '#FFFFFF')]}>
-    //                 Fast Scouts
-    //             </Text>
-    //         </VStack>
-    //     </HStack>
-    // ));
+    const Build = (x: number) =>{
+        const build = builds?.[x];
+        if (!build) return null;
 
-    const HH = (x : number) =>{
         return (
-            <Text modifiers={[font({ size: 11 }), foregroundColor('#8E8E93')]}>
-                🏆 civ
-            </Text>
-        );
-    };
-
-    // prop: {props: AABuildsProps, environment: WidgetEnvironment}
-    const AABuildsComp = (x: number) =>{
-        // const {props, environment} = prop;
-        // const style = props.style[environment.colorScheme ?? 'light'];
-        return (
-            // <Text modifiers={[font({ size: 11 }), foregroundColor('#8E8E93')]}>
-            //     🏆 civ
-            // </Text>
-            <HStack
-                modifiers={[
-                    containerBackground(style.backgroundColor, 'widget'),
-                    background(environment.colorScheme === 'light' ? '#FFFFFF' : '#2C2C2E'),
-                    cornerRadius(12),
-                    padding({ horizontal: 12, vertical: 10 })
-                ]}
-                spacing={10}
-            >
-                <Image
-                    systemName="figure.equestrian.sports"
-                    modifiers={[frame({ width: 36, height: 36 }), clipShape('circle')]}
-                />
-                <VStack alignment="leading" spacing={2}>
-                    <HStack spacing={4}>
-                        <Text modifiers={[font({ size: 11 }), foregroundColor('#8E8E93')]}>
-                            🏆 {builds?.[x]?.civilization}
-                        </Text>
+            <Link destination={`aoe2companion://explore/build-orders/${build.id}`}>
+                <ZStack
+                    modifiers={[
+                        frame({ maxWidth: Infinity, alignment: 'leading' }),
+                        padding({ horizontal: 1, vertical: 1 }),
+                        background(style.cardBorderColor),
+                        cornerRadius(12),
+                    ]}
+                >
+                    <HStack
+                        modifiers={[
+                            frame({ maxWidth: Infinity, alignment: 'leading' }),
+                            padding({ horizontal: 10, vertical: 6 }),
+                            background(style.cardBackgroundColor),
+                            cornerRadius(11),
+                        ]}
+                        spacing={10}
+                    >
+                        <Image
+                            uiImage={build.imageUrl}
+                            modifiers={[resizable(), frame({ width: 36, height: 36 })]}
+                        />
+                        <VStack alignment="leading" spacing={2}>
+                            <HStack spacing={4}>
+                                <Image
+                                    uiImage={build.civilizationImageUrl}
+                                    modifiers={[resizable(), frame({ width: 11, height: 11 })]}
+                                />
+                                <Text modifiers={[font({ size: 11 }), foregroundColor('#8E8E93')]}>
+                                    {build.civilization}
+                                </Text>
+                            </HStack>
+                            <Text modifiers={[font({ weight: 'bold', size: 15 }), foregroundColor(environment.colorScheme === 'light' ? '#1C1C1E' : '#FFFFFF')]}>
+                                {build.title}
+                            </Text>
+                        </VStack>
                     </HStack>
-                    <Text modifiers={[font({ weight: 'bold', size: 15 }), foregroundColor(environment.colorScheme === 'light' ? '#1C1C1E' : '#FFFFFF')]}>
-                        Fast Scouts
-                    </Text>
-                </VStack>
-            </HStack>
+                </ZStack>
+            </Link>
         );
     };
 
     return (
-        <VStack modifiers={[containerBackground(style.backgroundColor, 'widget')]}>
-            <Text modifiers={[font({weight: 'bold', size: 16})]}>
-                Build Orders {props.builds?.length ?? 0}
-            </Text>
-
-            {/*<AABuildsComp props={props} environment={environment} />*/}
-
-            {/*{AABuildsComp({props, environment})}*/}
-            {AABuildsComp(0)}
-            {AABuildsComp(1)}
-            {/*{HH(1)}*/}
-
-            {/*{(props.builds?.length ?? 0) >= 1 &&*/}
-            {/*    <HStack*/}
-            {/*        modifiers={[*/}
-            {/*            background(environment.colorScheme === 'light' ? '#FFFFFF' : '#2C2C2E'),*/}
-            {/*            cornerRadius(12),*/}
-            {/*            padding({ horizontal: 12, vertical: 10 })*/}
-            {/*        ]}*/}
-            {/*        spacing={10}*/}
-            {/*    >*/}
-            {/*        <Image*/}
-            {/*            systemName="figure.equestrian.sports"*/}
-            {/*            modifiers={[frame({ width: 36, height: 36 }), clipShape('circle')]}*/}
-            {/*        />*/}
-            {/*        <VStack alignment="leading" spacing={2}>*/}
-            {/*            <HStack spacing={4}>*/}
-            {/*                {HH(1)}*/}
-            {/*            </HStack>*/}
-            {/*            <Text modifiers={[font({ weight: 'bold', size: 15 }), foregroundColor(environment.colorScheme === 'light' ? '#1C1C1E' : '#FFFFFF')]}>*/}
-            {/*                Fast Scouts*/}
-            {/*            </Text>*/}
-            {/*        </VStack>*/}
-            {/*    </HStack>*/}
-            {/*}*/}
-
-            {/*{(props.builds?.length ?? 0) >= 2 &&*/}
-            {/*    <HStack*/}
-            {/*        modifiers={[*/}
-            {/*            background(environment.colorScheme === 'light' ? '#FFFFFF' : '#2C2C2E'),*/}
-            {/*            cornerRadius(12),*/}
-            {/*            padding({ horizontal: 12, vertical: 10 })*/}
-            {/*        ]}*/}
-            {/*        spacing={10}*/}
-            {/*    >*/}
-            {/*        <Image*/}
-            {/*            systemName="figure.equestrian.sports"*/}
-            {/*            modifiers={[frame({ width: 36, height: 36 }), clipShape('circle')]}*/}
-            {/*        />*/}
-            {/*        <VStack alignment="leading" spacing={2}>*/}
-            {/*            <HStack spacing={4}>*/}
-            {/*                <Text modifiers={[font({ size: 11 }), foregroundColor('#8E8E93')]}>*/}
-            {/*                    🏆 civ*/}
-            {/*                </Text>*/}
-            {/*            </HStack>*/}
-            {/*            <Text modifiers={[font({ weight: 'bold', size: 15 }), foregroundColor(environment.colorScheme === 'light' ? '#1C1C1E' : '#FFFFFF')]}>*/}
-            {/*                Fast Scouts*/}
-            {/*            </Text>*/}
-            {/*        </VStack>*/}
-            {/*    </HStack>*/}
-            {/*}*/}
-
-            {/*<Text>Family: {environment.widgetFamily}</Text>*/}
-            {/*<Text modifiers={[font({weight: 'bold', size: 16})]}>*/}
-            {/*    Count: {props.count}*/}
-            {/*</Text>*/}
-        </VStack>
+        <Link destination={`aoe2companion://explore/build-orders`}>
+            <VStack
+                spacing={8}
+                modifiers={[
+                    frame({ maxHeight: Infinity, alignment: 'top' }),
+                    containerBackground(style.backgroundColor, 'widget'),
+                ]}
+            >
+                <Text modifiers={[font({weight: 'bold', size: 16})]}>
+                    {/*Build Orders*/}
+                    Build Orders {props.builds?.length ?? 0}
+                </Text>
+                {Build(0)}
+                {Build(1)}
+                {Build(2)}
+                {Build(3)}
+                {Build(4)}
+                {Build(5)}
+            </VStack>
+        </Link>
     );
 };
 
 export default createWidget('AABuilds', AABuilds);
 
+// This might work but is very slow. Don't use it.
+// <Image
+//     uiImage={'https://firebasestorage.googleapis.com/v0/b/build-order-guide.appspot.com/o/Images%2FCastle.png?alt=media&token=16a7511e-6ce2-49e4-a198-3020b18c6871'}
+//     modifiers={[resizable(), frame({ width: 11, height: 11 })]}
+// />
+
+// <Button target="YOLO" onPress={() => { Linking.openURL(`aoe2companion://explore/build-orders/${build.id}`) }}>
+
 // Text modifiers foregroundStyle('#000000')
 // <VStack modifiers={[containerBackground(environment.colorScheme === 'light' ? '#ffffff' : '#000000', 'widget')]}>
+
+// background(environment.colorScheme === 'light' ? '#FF0000' : '#2C2C2E',
+//     shapes.roundedRectangle({
+//         cornerRadius: 12,
+//         roundedCornerStyle: 'circular',
+//         cornerSize: { width: 12, height: 12}
+//     })
+// ),
+// border({ color: '#E0E0E0', width: 1 }),
+
+// <Image
+//     systemName="figure.equestrian.sports"
+//     modifiers={[frame({ width: 36, height: 36 }), clipShape('circle')]}
+// />
