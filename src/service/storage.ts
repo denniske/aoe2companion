@@ -1,7 +1,7 @@
 import { Civ, Flag, LeaderboardId } from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
-import { Platform } from 'react-native';
+import { Image, Platform } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
 import { Widget } from '../../modules/widget';
 import { DarkMode } from '../redux/reducer';
@@ -11,6 +11,8 @@ import { appConfig } from '@nex/dataset';
 import * as Localization from 'expo-localization';
 import { AvailableMainPage } from '@app/helper/routing';
 import { Directory, File, Paths } from 'expo-file-system';
+import { camelCase } from 'lodash';
+import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
 
 const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
@@ -152,18 +154,27 @@ export async function md5(contents: string) {
     return await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.MD5, contents);
 }
 
+export const widgetGroupDir = Paths.appleSharedContainers[`group.${Constants.expoConfig?.ios?.bundleIdentifier}`];
+
 export const cacheLiveActivityAssets = async () => {
     try {
         const assets = await fetchAssets();
         console.log('cacheLiveActivityAssets', new Date());
         for (const asset of assets) {
             // console.log('hasImage', asset.imageUrl, new Date());
-            if (!Widget.hasImage(await md5(asset.imageUrl))) {
-                const url = Widget.setImage(asset.imageUrl, await md5(asset.imageUrl));
-                // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
-            } else {
-                // console.log('cacheLiveActivityAssets already cached', await md5(asset.imageUrl));
-            }
+
+            const imagePath = Paths.join(widgetGroupDir, await md5(asset.imageUrl));
+            const imageSource = () => asset.imageUrl;
+
+            const url = await widgetSetFileIfNotExists(imagePath, imageSource);
+            console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
+
+            // if (!Widget.hasImage(await md5(asset.imageUrl))) {
+            //     const url = Widget.setImage(asset.imageUrl, await md5(asset.imageUrl));
+            //     // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
+            // } else {
+            //     // console.log('cacheLiveActivityAssets already cached', await md5(asset.imageUrl));
+            // }
         }
         console.log('cacheLiveActivityAssets finish', new Date());
     } catch (error) {

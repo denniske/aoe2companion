@@ -11,7 +11,7 @@ import { appConfig } from '@nex/dataset';
 import { getBuildIcon } from '@/data/src/helper/builds';
 import { Uniwind } from 'uniwind';
 import { Paths } from 'expo-file-system';
-import { md5, widgetSetFileIfNotExists } from '@app/service/storage';
+import { md5, widgetGroupDir, widgetSetFileIfNotExists } from '@app/service/storage';
 import AABuilds from '@app/widgets/AABuilds.widget';
 import Constants from 'expo-constants';
 
@@ -74,17 +74,15 @@ export const useFavoritedBuilds = () => {
             const colorGray200 = Uniwind.getCSSVariable('--color-gray-200') as string;
             const colorGray800 = Uniwind.getCSSVariable('--color-gray-800') as string;
 
-            const groupDir = Paths.appleSharedContainers[`group.${Constants.expoConfig?.ios?.bundleIdentifier}`];
-
             await (async () => {
                 const favoriteBuilds = [];
 
                 for (const build of builds) {
-                    const imagePath = Paths.join(groupDir, `${await md5(build.imageURL)}.png`);
+                    const imagePath = Paths.join(widgetGroupDir, `${await md5(build.imageURL)}.png`);
                     const imageSource = () => build.imageURL;
 
                     // The path actually can also be any string like an md5 of the actual path
-                    const civilizationPath = Paths.join(groupDir, `${camelCase(build.civilization)}.png`);
+                    const civilizationPath = Paths.join(widgetGroupDir, `${camelCase(build.civilization)}.png`);
                     const civilizationSource = () => Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri;
 
                     favoriteBuilds.push({

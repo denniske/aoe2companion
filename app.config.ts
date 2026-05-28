@@ -3,7 +3,7 @@ import widgetPluginConfig from 'expo-widgets/plugin';
 import { WidgetFamily } from 'expo-widgets/plugin/build/types/WidgetFamily.type';
 
 const versionAoe2 = '198.0.0';
-const versionAoe4 = '38.0.0';
+const versionAoe4 = '39.0.0';
 
 console.log('Building for', process.env.GAME, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);
 
@@ -137,39 +137,23 @@ const appPlugin = [
 // ] as [string, any];
 
 
-// bundleIdentifier?: string;
-// groupIdentifier?: string;
-// enablePushNotifications?: boolean;
-// frequentUpdates?: boolean;
-// widgets?: WidgetConfig[];
-
 const widgetPlugin = widgetPluginConfig(
     {
-        // bundleIdentifier: "com.aoe2companion.widgets",
-        // groupIdentifier: "group.com.aoe2companion.widget",
+        // "bundleIdentifier": "com.aoe2companion.widgets",
+        // "groupIdentifier": "group.com.aoe2companion.widget",
+
+        // Note: 2026-05-23
+        // I think this version works. But inline modules has to be disabled.
         enablePushNotifications: true,
-        widgets: [
-            // {
-            //     "name": "StatusWidget",
-            //     "displayName": "Status",
-            //     "description": "Shows your current status at a glance",
-            //     "contentMarginsDisabled": true,
-            //     "supportedFamilies": ["systemSmall", "systemMedium"]
-            // },
+        widgets: process.env.GAME === 'aoe2' ? [
             {
-                name: "AABuilds",
-                displayName: "AA Build Orders",
-                description: "AA Quick access to your favorite build order",
-                contentMarginsDisabled: true,
-                supportedFamilies: [WidgetFamily.systemMedium, WidgetFamily.systemLarge]
+                name: 'AABuilds',
+                displayName: 'AA Build Orders',
+                description: 'AA Quick access to your favorite build order',
+                contentMarginsDisabled: true, // true?
+                supportedFamilies: [WidgetFamily.systemMedium, WidgetFamily.systemLarge],
             },
-            // {
-            //     "name": "LockScreenWidget",
-            //     "displayName": "Quick View",
-            //     "description": "View info on your Lock Screen",
-            //     "supportedFamilies": ["accessoryCircular", "accessoryRectangular", "accessoryInline"]
-            // }
-        ]
+        ] : [],
     });
 
 const version = app.version;
@@ -184,14 +168,15 @@ const isProdBuild = process.env.EAS_BUILD_PROFILE?.includes('production');
 const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
 const sentryConfigPlugins = isProdBuild ? [sentryConfigPlugin] : [];
 // const appConfigPlugins = process.env.GAME === 'aoe2' ? [appPlugin, widgetPlugin] : [];
-// const appConfigPlugins = process.env.GAME === 'aoe2' ? [widgetPlugin] : [];
-const appConfigPlugins = process.env.GAME === 'aoe2' ? [] : [];
+const appConfigPlugins = [widgetPlugin];
+// const appConfigPlugins = process.env.GAME === 'aoe2' ? [] : [];
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
     experiments: {
         typedRoutes: true,
-        reactCompiler: true,  // 2025-Nov-8 maybe v1 of compiler breaks main nav bar highlighting on HMR
+        reactCompiler: true,
+        // Not working yet: https://github.com/expo/expo/issues/46219#issuecomment-4528046988
         // inlineModules: {
         //     watchedDirectories: ['src/modules']
         // },
@@ -200,111 +185,91 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     description: app.description,
     slug: app.slug,
     scheme: app.scheme,
-    owner: "aoecompanion",
-    platforms: [
-        "ios",
-        "android",
-        "web"
-    ],
+    owner: 'aoecompanion',
+    platforms: ['ios', 'android', 'web'],
     extra: {
         website: app.website,
         experienceId: app.experienceId,
         eas: {
             projectId: app.projectId,
-            build: process.env.GAME === 'aoe2' ? {
-                experimental: {
-                    ios: {
-                        appExtensions: [
-                            {
-                                targetName: "widget",
-                                bundleIdentifier: "com.aoe2companion.widget",
-                                entitlements: {
-                                    "com.apple.security.application-groups": [
-                                        "group.com.aoe2companion.widget"
-                                    ]
-                                }
-                            }
-                        ]
-                    }
-                }
-            } : {}
+            build:
+                process.env.GAME === 'aoe2'
+                    ? {
+                          experimental: {
+                              ios: {
+                                  appExtensions: [
+                                      {
+                                          targetName: 'widget',
+                                          bundleIdentifier: 'com.aoe2companion.widget',
+                                          entitlements: {
+                                              'com.apple.security.application-groups': ['group.com.aoe2companion.widget'],
+                                          },
+                                      },
+                                  ],
+                              },
+                          },
+                      }
+                    : {},
         },
     },
-    userInterfaceStyle: "automatic",
+    userInterfaceStyle: 'automatic',
     runtimeVersion: runtimeVersion,
     version: version,
-    orientation: "portrait",
-    githubUrl: "https://github.com/denniske/aoe2companion",
+    orientation: 'portrait',
+    githubUrl: 'https://github.com/denniske/aoe2companion',
     icon: `./${app.assetsFolder}/icon.png`,
 
     // The custom update server does not work with local builds because
     // npx expo run:<platform> has no --private-key-path
-    updates: process.env.GAME === 'aoe2' && isProdBuild && false ? {
-        fallbackToCacheTimeout: 0,
-        url: "https://update.aoe2companion.com/api/manifest",
-        codeSigningCertificate: "./update/certificate.pem",
-        codeSigningMetadata: {
-            keyid: "main",
-            alg: "rsa-v1_5-sha256"
-        }
-    } : {
-        fallbackToCacheTimeout: 0,
-        url: app.updateUrl,
-    },
+    updates:
+        process.env.GAME === 'aoe2' && isProdBuild && false
+            ? {
+                  fallbackToCacheTimeout: 0,
+                  url: 'https://update.aoe2companion.com/api/manifest',
+                  codeSigningCertificate: './update/certificate.pem',
+                  codeSigningMetadata: {
+                      keyid: 'main',
+                      alg: 'rsa-v1_5-sha256',
+                  },
+              }
+            : {
+                  fallbackToCacheTimeout: 0,
+                  url: app.updateUrl,
+              },
     assetBundlePatterns: app.assetBundlePatterns,
     plugins: [
         [
-            "expo-build-properties",
+            'expo-build-properties',
             {
-                "android": {
-                    "gradleProperties": {
-                        "org.gradle.jvmargs": "-Xmx8g -XX:MaxMetaspaceSize=2g"
-                    }
-                }
-            }
+                android: {
+                    gradleProperties: {
+                        'org.gradle.jvmargs': '-Xmx8g -XX:MaxMetaspaceSize=2g',
+                    },
+                },
+            },
         ],
         [
-            "expo-router",
+            'expo-router',
             {
-                "unstable_useServerRendering": true,
+                unstable_useServerRendering: true,
                 sitemap: !isProdBuild,
                 redirects: [
                     { source: '/leaderboard', destination: '/statistics/leaderboard' },
                     { source: '/lobby', destination: '/matches/lobbies' },
                     { source: '/ongoing', destination: '/matches/live' },
-                    { source: '/privacy', destination: '/more/privacy' }
+                    { source: '/privacy', destination: '/more/privacy' },
                 ],
-                headOrigin: process.env.GAME === 'aoe2' ? "https://www.aoe2companion.com/" : "https://www.aoe4companion.com/"
-            }
+                headOrigin: process.env.GAME === 'aoe2' ? 'https://www.aoe2companion.com/' : 'https://www.aoe4companion.com/',
+            },
         ],
         [
-            "expo-notifications",
+            'expo-notifications',
             {
-                "icon": `./${app.assetsFolder}/notification.png`
+                icon: `./${app.assetsFolder}/notification.png`,
             },
         ],
         ...sentryConfigPlugins,
         ...appConfigPlugins,
-        [
-            "expo-widgets",
-            {
-                // "bundleIdentifier": "com.aoe2companion.widgets",
-                // "groupIdentifier": "group.com.aoe2companion.widget",
-
-
-                // Note: 2026-05-23
-                // I think this version works. But inline modules has to be disabled.
-                "enablePushNotifications": true,
-                "widgets": [
-                    {
-                        "name": "AABuilds",
-                        "displayName": "AA Build Orders",
-                        "description": "AA Quick access to your favorite build order",
-                        "supportedFamilies": ["systemMedium", "systemLarge"]
-                    },
-                ]
-            }
-        ],
         // [
         //     "expo-build-properties",
         //     {
@@ -314,32 +279,32 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         //     }
         // ],
         [
-            "expo-splash-screen",
+            'expo-splash-screen',
             {
-                "image": `./${app.assetsFolder}/icon-adaptive.png`,
-                "backgroundColor": app.splashBackgroundColor,
-                "dark": {
-                    "image": `./${app.assetsFolder}/icon-adaptive.png`,
-                    "backgroundColor": app.splashBackgroundColorDark,
+                image: `./${app.assetsFolder}/icon-adaptive.png`,
+                backgroundColor: app.splashBackgroundColor,
+                dark: {
+                    image: `./${app.assetsFolder}/icon-adaptive.png`,
+                    backgroundColor: app.splashBackgroundColorDark,
                 },
-                "imageWidth": 200
-            }
+                imageWidth: 200,
+            },
         ],
-        "expo-video",
-        "expo-image",
-        "expo-font",
-        "expo-localization",
-        "expo-web-browser",
+        'expo-video',
+        'expo-image',
+        'expo-font',
+        'expo-localization',
+        'expo-web-browser',
     ],
     android: {
-        userInterfaceStyle: "automatic",
+        userInterfaceStyle: 'automatic',
         // "adaptiveIcon": {
         //     "foregroundImage": "./assets/icon-adaptive.png",
         //     "backgroundColor": "#FFFFFF"
         // },
         adaptiveIcon: {
             foregroundImage: `${app.assetsFolder}/icon-adaptive.png`,
-            backgroundColor: app.adaptiveIconBackgroundColor
+            backgroundColor: app.adaptiveIconBackgroundColor,
         },
         package: app.package,
         versionCode: runtimeVersionCode as any as number,
@@ -347,34 +312,35 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         googleServicesFile: app.googleServicesFile,
     },
     ios: {
-        userInterfaceStyle: "automatic",
+        userInterfaceStyle: 'automatic',
         icon: {
             light: `./${app.assetsFolder}/icon-adaptive-no-alpha.png`,
             dark: `./${app.assetsFolder}/icon-adaptive.png`,
-            tinted: `./${app.assetsFolder}/icon-tinted.png`
+            tinted: `./${app.assetsFolder}/icon-tinted.png`,
         },
         bundleIdentifier: app.bundleIdentifier,
         buildNumber: runtimeVersion,
         supportsTablet: true,
         config: {
-            usesNonExemptEncryption: false
+            usesNonExemptEncryption: false,
         },
         infoPlist: {
-            LSApplicationQueriesSchemes: ["itms-apps", "twitch"],
+            LSApplicationQueriesSchemes: ['itms-apps', 'twitch'],
             NSSupportsLiveActivities: true,
-            NSUserActivityTypes: ["BuildsConfigurationIntent"],
-            UIBackgroundModes: ["remote-notification"]
+            NSUserActivityTypes: ['BuildsConfigurationIntent'],
+            UIBackgroundModes: ['remote-notification'],
         },
-        entitlements: process.env.GAME === 'aoe2' ? {
-            "com.apple.security.application-groups": [
-                "group.com.aoe2companion.widget"
-            ]
-        } : {},
+        entitlements:
+            process.env.GAME === 'aoe2'
+                ? {
+                      'com.apple.security.application-groups': ['group.com.aoe2companion.widget'],
+                  }
+                : {},
         associatedDomains: app.associatedDomains,
-        appleTeamId: "HAFGZBHF9M",
+        appleTeamId: 'HAFGZBHF9M',
     },
     web: {
-        "output": "server",
-        favicon: `./${app.assetsFolder}/favicon-96x96.png`
+        output: 'server',
+        favicon: `./${app.assetsFolder}/favicon-96x96.png`,
     },
 });

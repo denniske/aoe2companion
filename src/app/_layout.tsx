@@ -53,6 +53,8 @@ import { AvailableMainPage } from '@app/helper/routing';
 import { useCSSVariable } from 'uniwind';
 import { LoginPopupProvider } from '@app/providers/login-popup-provider';
 import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
+import { appConfig } from '@nex/dataset';
+import { cacheLiveActivityAssets } from '@app/service/storage';
 
 initSentry();
 
@@ -282,14 +284,14 @@ function LiveActivityController() {
     //         await storeLiveActivityStarted(token, type, match.matchId);
     //     }
     // });
-    //
-    // useEffect(() => {
-    //     if (Platform.OS === 'ios' && appConfig.game === 'aoe2' && accountId) {
-    //         console.log('Registering LiveActivity for', accountId);
-    //         LiveActivity.enable();
-    //         cacheLiveActivityAssets();
-    //     }
-    // }, [accountId]);
+
+    useEffect(() => {
+        if (Platform.OS === 'ios' && appConfig.game === 'aoe2' && accountId) {
+            console.log('Registering LiveActivity for', accountId);
+            // LiveActivity.enable();
+            cacheLiveActivityAssets();
+        }
+    }, [accountId]);
 
     return <View />;
 }

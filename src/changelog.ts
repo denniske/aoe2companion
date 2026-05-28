@@ -10,10 +10,25 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
+    '39.0.0': [
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 56)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix some app crashes',
+        },
+        // Need to actually do this for aoe4
+        // {
+        //     type: 'minor',
+        //     title: 'The server refetches long running matches to find out whether they have been finished or abandoned',
+        // },
+    ],
     '38.0.0': [
         {
             type: 'minor',
-            title: 'Added new civs of [Yue Fei\'s Legacy](https://www.ageofempires.com/news/age-of-empires-iv-yue-feis-legacy-pre-order-now/)',
+            title: "Added new civs of [Yue Fei's Legacy](https://www.ageofempires.com/news/age-of-empires-iv-yue-feis-legacy-pre-order-now/)",
         },
     ],
     '37.0.0': [
@@ -91,12 +106,14 @@ export const changelog4: IChangelog = {
         {
             type: 'feature',
             title: 'Account creation',
-            content: 'You can now create an account to save your settings and followed players across devices. You can also link your game account to prove ownership of your profile. You can also link your Patreon account to access exclusive benefits.',
+            content:
+                'You can now create an account to save your settings and followed players across devices. You can also link your game account to prove ownership of your profile. You can also link your Patreon account to access exclusive benefits.',
         },
         {
             type: 'feature',
             title: 'Dashboards',
-            content: 'New dashboards that will auto refresh and show your current lobby/match or the lobbies/matches of the players that you are following.',
+            content:
+                'New dashboards that will auto refresh and show your current lobby/match or the lobbies/matches of the players that you are following.',
         },
         {
             type: 'minor',
@@ -348,7 +365,16 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '199.0.0': [ // Not released yet
+    '199.0.0': [
+        // Not released yet
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 56)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix some app crashes',
+        },
         {
             type: 'minor',
             title: 'The server refetches long running matches to find out whether they have been finished or abandoned',
@@ -607,7 +633,8 @@ export const changelog: IChangelog = {
         {
             type: 'minor',
             title: 'Various match analysis improvements',
-            content: 'Better handling of Empire Wars matches. Showing starting walls for e.g. Arena/Hideout maps. Better formatting of chat messages.',
+            content:
+                'Better handling of Empire Wars matches. Showing starting walls for e.g. Arena/Hideout maps. Better formatting of chat messages.',
         },
         {
             type: 'bugfix',
@@ -622,12 +649,14 @@ export const changelog: IChangelog = {
         {
             type: 'feature',
             title: 'Map List',
-            content: '"Ever dreamed of an endlessly unpredictable map where anything is possible and nothing is guaranteed? Multiply it by ten and you have... MegaRandom."',
+            content:
+                '"Ever dreamed of an endlessly unpredictable map where anything is possible and nothing is guaranteed? Multiply it by ten and you have... MegaRandom."',
         },
         {
             type: 'feature',
             title: 'Map Pool',
-            content: 'See which maps are currently in the ranked map pool. As there is no official endpoint for map pool, this is calculated from the played maps in ranked leaderboards and might be inaccurate when a new patch is released.',
+            content:
+                'See which maps are currently in the ranked map pool. As there is no official endpoint for map pool, this is calculated from the played maps in ranked leaderboards and might be inaccurate when a new patch is released.',
         },
         {
             type: 'minor',
@@ -739,7 +768,8 @@ export const changelog: IChangelog = {
         {
             type: 'feature',
             title: 'Account creation',
-            content: 'You can now create an account to save your settings and followed players across devices. You can also link your game account to prove ownership of your profile. You can also link your Patreon account.',
+            content:
+                'You can now create an account to save your settings and followed players across devices. You can also link your game account to prove ownership of your profile. You can also link your Patreon account.',
         },
         {
             type: 'feature',
@@ -749,7 +779,8 @@ export const changelog: IChangelog = {
         {
             type: 'feature',
             title: 'Dashboards',
-            content: 'New dashboards that will auto refresh and show your current lobby/match or the lobbies/matches of the players that you are following.',
+            content:
+                'New dashboards that will auto refresh and show your current lobby/match or the lobbies/matches of the players that you are following.',
         },
         {
             type: 'minor',
@@ -996,7 +1027,7 @@ export const changelog: IChangelog = {
         },
         {
             type: 'bugfix',
-            title: 'Fix \'Find Player\' button on home page (web)',
+            title: "Fix 'Find Player' button on home page (web)",
         },
     ],
     '111.0.0': [

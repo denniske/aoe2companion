@@ -58,7 +58,9 @@ export function useLazyAppendApi<A extends (...args: any) => any>(options: ILazy
 
             return newData;
         } catch (e) {
-            if (e instanceof DOMException && e.name === 'AbortError') return null; // 👈
+            // Cannot use the following because on Android ReferenceError Property 'DOMException' doesn't exist
+            // e instanceof DOMException &&
+            if ((e as any).name === 'AbortError') return null; // 👈
 
             console.warn(e);
             setError(true);
