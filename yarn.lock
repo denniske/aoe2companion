@@ -4842,7 +4842,7 @@ __metadata:
     expo-blur: "npm:~56.0.3"
     expo-build-properties: "npm:~56.0.15"
     expo-constants: "npm:~56.0.16"
-    expo-crypto: "npm:~56.0.4"
+    expo-crypto: "npm:56.0.3"
     expo-dev-client: "npm:~56.0.16"
     expo-device: "npm:~56.0.4"
     expo-file-system: "npm:~56.0.7"
@@ -7358,6 +7358,15 @@ __metadata:
     expo: "*"
     react-native: "*"
   checksum: 10/d13b86c1b0f18ff657686d75f0a3bd4a8e253cc5ae362ec38477322809f191cdcb9f3ae05446ac1b432d9726f2dda2c466ef093d47e542eed76dd0c714e9ad80
+  languageName: node
+  linkType: hard
+
+"expo-crypto@npm:56.0.3":
+  version: 56.0.3
+  resolution: "expo-crypto@npm:56.0.3"
+  peerDependencies:
+    expo: "*"
+  checksum: 10/d7657e1ffc4dfd8b91580f0a8153aa915074b68f4dbbac45f6730d4dfe324f580fe4dd0a4e7af7b73a04dcafeb778c426ae5fdbd778cab4acb18d3deb757cd84
   languageName: node
   linkType: hard
 

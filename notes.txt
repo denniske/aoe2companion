@@ -1,4 +1,7 @@
 
+- expo crypto issue sdk 56
+  https://github.com/expo/expo/issues/46301
+
 - server rendering
   npx expo install expo-server
   https://docs.expo.dev/router/web/api-routes/#express
