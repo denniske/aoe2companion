@@ -1686,7 +1686,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/metro-runtime@npm:^56.0.13, @expo/metro-runtime@npm:~56.0.11":
+"@expo/metro-runtime@npm:^56.0.13, @expo/metro-runtime@npm:~56.0.13":
   version: 56.0.13
   resolution: "@expo/metro-runtime@npm:56.0.13"
   dependencies:
@@ -4795,7 +4795,7 @@ __metadata:
     "@babel/plugin-proposal-export-namespace-from": "npm:^7.18.9"
     "@eva-design/eva": "npm:^2.2.0"
     "@expo-google-fonts/roboto": "npm:^0.1.0"
-    "@expo/metro-runtime": "npm:~56.0.11"
+    "@expo/metro-runtime": "npm:~56.0.13"
     "@expo/vector-icons": "npm:^15.1.1"
     "@fortawesome/fontawesome-svg-core": "npm:^6.5.2"
     "@fortawesome/free-brands-svg-icons": "npm:^6.5.2"
@@ -4835,34 +4835,35 @@ __metadata:
     dotenv: "npm:10.0.0"
     eslint: "npm:^9.25.0"
     eslint-config-expo: "npm:~56.0.4"
-    expo: "npm:~56.0.3"
+    expo: "npm:~56.0.5"
     expo-application: "npm:~56.0.3"
     expo-atlas: "npm:^0.4.0"
-    expo-auth-session: "npm:~56.0.11"
+    expo-auth-session: "npm:~56.0.12"
     expo-blur: "npm:~56.0.3"
-    expo-build-properties: "npm:~56.0.13"
-    expo-constants: "npm:~56.0.14"
-    expo-crypto: "npm:~56.0.3"
-    expo-dev-client: "npm:~56.0.14"
+    expo-build-properties: "npm:~56.0.15"
+    expo-constants: "npm:~56.0.16"
+    expo-crypto: "npm:~56.0.4"
+    expo-dev-client: "npm:~56.0.16"
     expo-device: "npm:~56.0.4"
     expo-file-system: "npm:~56.0.7"
     expo-font: "npm:~56.0.5"
     expo-haptics: "npm:~56.0.3"
-    expo-image: "npm:~56.0.8"
+    expo-image: "npm:~56.0.9"
     expo-keep-awake: "npm:~56.0.3"
-    expo-linking: "npm:~56.0.11"
+    expo-linking: "npm:~56.0.12"
     expo-localization: "npm:~56.0.6"
-    expo-notifications: "npm:~56.0.12"
-    expo-router: "npm:~56.2.5"
+    expo-notifications: "npm:~56.0.14"
+    expo-router: "npm:~56.2.7"
     expo-server: "npm:~56.0.4"
-    expo-splash-screen: "npm:~56.0.9"
+    expo-splash-screen: "npm:~56.0.10"
     expo-symbols: "npm:~56.0.5"
     expo-system-ui: "npm:~56.0.5"
-    expo-task-manager: "npm:~56.0.13"
-    expo-updates: "npm:~56.0.15"
+    expo-task-manager: "npm:~56.0.15"
+    expo-type-information: "npm:^0.0.5"
+    expo-updates: "npm:~56.0.17"
     expo-video: "npm:~56.1.2"
     expo-web-browser: "npm:~56.0.5"
-    expo-widgets: "npm:~56.0.13"
+    expo-widgets: "npm:~56.0.15"
     express: "npm:^5.2.1"
     html-entities: "npm:^2.4.0"
     humps: "npm:^2.0.1"
@@ -4884,7 +4885,7 @@ __metadata:
     react-native-reanimated: "npm:4.3.1"
     react-native-render-html: "npm:^6.3.4"
     react-native-safe-area-context: "npm:~5.7.0"
-    react-native-screens: "npm:4.25.1"
+    react-native-screens: "npm:4.25.2"
     react-native-svg: "npm:15.15.4"
     react-native-tab-view: "npm:^4.3.0"
     react-native-view-shot: "npm:^5.1.0"
@@ -5836,7 +5837,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^12.0.0":
+"commander@npm:^12.0.0, commander@npm:^12.1.0":
   version: 12.1.0
   resolution: "commander@npm:12.1.0"
   checksum: 10/cdaeb672d979816853a4eed7f1310a9319e8b976172485c2a6b437ed0db0a389a44cfb222bfbde772781efa9f215bdd1b936f80d6b249485b465c6cb906e1f93
@@ -7307,7 +7308,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-auth-session@npm:~56.0.11":
+"expo-auth-session@npm:~56.0.12":
   version: 56.0.12
   resolution: "expo-auth-session@npm:56.0.12"
   dependencies:
@@ -7335,7 +7336,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-build-properties@npm:~56.0.13":
+"expo-build-properties@npm:~56.0.15":
   version: 56.0.15
   resolution: "expo-build-properties@npm:56.0.15"
   dependencies:
@@ -7348,7 +7349,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-constants@npm:~56.0.14, expo-constants@npm:~56.0.16":
+"expo-constants@npm:~56.0.16":
   version: 56.0.16
   resolution: "expo-constants@npm:56.0.16"
   dependencies:
@@ -7360,7 +7361,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-crypto@npm:~56.0.3, expo-crypto@npm:~56.0.4":
+"expo-crypto@npm:~56.0.4":
   version: 56.0.4
   resolution: "expo-crypto@npm:56.0.4"
   peerDependencies:
@@ -7369,7 +7370,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-dev-client@npm:~56.0.14":
+"expo-dev-client@npm:~56.0.16":
   version: 56.0.16
   resolution: "expo-dev-client@npm:56.0.16"
   dependencies:
@@ -7480,7 +7481,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-image@npm:~56.0.8":
+"expo-image@npm:~56.0.9":
   version: 56.0.9
   resolution: "expo-image@npm:56.0.9"
   dependencies:
@@ -7514,7 +7515,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-linking@npm:~56.0.11, expo-linking@npm:~56.0.12":
+"expo-linking@npm:~56.0.12":
   version: 56.0.12
   resolution: "expo-linking@npm:56.0.12"
   dependencies:
@@ -7591,7 +7592,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-notifications@npm:~56.0.12":
+"expo-notifications@npm:~56.0.14":
   version: 56.0.14
   resolution: "expo-notifications@npm:56.0.14"
   dependencies:
@@ -7608,7 +7609,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-router@npm:~56.2.5":
+"expo-router@npm:~56.2.7":
   version: 56.2.7
   resolution: "expo-router@npm:56.2.7"
   dependencies:
@@ -7680,7 +7681,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-splash-screen@npm:~56.0.9":
+"expo-splash-screen@npm:~56.0.10":
   version: 56.0.10
   resolution: "expo-splash-screen@npm:56.0.10"
   dependencies:
@@ -7732,7 +7733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-task-manager@npm:~56.0.13":
+"expo-task-manager@npm:~56.0.15":
   version: 56.0.15
   resolution: "expo-task-manager@npm:56.0.15"
   dependencies:
@@ -7741,6 +7742,21 @@ __metadata:
     expo: "*"
     react-native: "*"
   checksum: 10/d62f79846a2477435a06bd3ebc9bb18a4ffa84130b81afaed77d93cdcd9a16fe5467c3aa5422071a65fa99427ce89a6c5b6e4fa7cdff03b51d57b9132aa656b9
+  languageName: node
+  linkType: hard
+
+"expo-type-information@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "expo-type-information@npm:0.0.5"
+  dependencies:
+    chalk: "npm:^4.1.0"
+    commander: "npm:^12.1.0"
+    prettier: "npm:^3.8.3"
+    typescript: "npm:~6.0.3"
+    yaml: "npm:^2.3.2"
+  bin:
+    expo-type-information: bin/cli.js
+  checksum: 10/3589900817a5ba64c8ecd6970bf599c8fd03d35fcf437c24ab363fc14c14c27ba017258538b6d55cb2acff171ecbdcd22e896be6099c3fad843e69a87ae64e60
   languageName: node
   linkType: hard
 
@@ -7753,7 +7769,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-updates@npm:~56.0.15":
+"expo-updates@npm:~56.0.17":
   version: 56.0.17
   resolution: "expo-updates@npm:56.0.17"
   dependencies:
@@ -7807,7 +7823,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-widgets@npm:~56.0.13":
+"expo-widgets@npm:~56.0.15":
   version: 56.0.15
   resolution: "expo-widgets@npm:56.0.15"
   dependencies:
@@ -7821,7 +7837,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo@npm:~56.0.3":
+"expo@npm:~56.0.5":
   version: 56.0.5
   resolution: "expo@npm:56.0.5"
   dependencies:
@@ -11445,6 +11461,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier@npm:^3.8.3":
+  version: 3.8.3
+  resolution: "prettier@npm:3.8.3"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 10/4b3b12cbb29e4c96bed936e5d070167552500c18d37676fb3e0caae6199c42860662608e4dc116230698f6e2bb0267ef2548158224c92d40f188d309d72fdd6f
+  languageName: node
+  linkType: hard
+
 "pretty-format@npm:^29.7.0":
   version: 29.7.0
   resolution: "pretty-format@npm:29.7.0"
@@ -11839,20 +11864,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:4.25.1":
-  version: 4.25.1
-  resolution: "react-native-screens@npm:4.25.1"
-  dependencies:
-    react-freeze: "npm:^1.0.0"
-    warn-once: "npm:^0.1.0"
-  peerDependencies:
-    react: "*"
-    react-native: ">=0.82.0"
-  checksum: 10/b5ffdbf2a39407220564fdc41c7165f91defc51459ee1cce08a19e972a7a9af9608a18d93ffc6f04b3e969fc278ccaf3011175d1087d0a64dbe8e81d0bd5564d
-  languageName: node
-  linkType: hard
-
-"react-native-screens@npm:^4.25.2":
+"react-native-screens@npm:4.25.2, react-native-screens@npm:^4.25.2":
   version: 4.25.2
   resolution: "react-native-screens@npm:4.25.2"
   dependencies:
@@ -14844,6 +14856,15 @@ __metadata:
   bin:
     yaml: bin.mjs
   checksum: 10/eae07b3947d405012672ec17ce27348aea7d1fa0534143355d24a43a58f5e05652157ea2182c4fe0604f0540be71f99f1173f9d61018379404507790dff17665
+  languageName: node
+  linkType: hard
+
+"yaml@npm:^2.3.2":
+  version: 2.9.0
+  resolution: "yaml@npm:2.9.0"
+  bin:
+    yaml: bin.mjs
+  checksum: 10/9a95e8e08651c3d292ab6a5befeb5f57b76801caa097c75bb45c9a70ce19c1b11f57e87a6ef84a579ea070ed2c2c8ac541c88c0ae684d544d5f42c7e77d11b7b
   languageName: node
   linkType: hard
 
