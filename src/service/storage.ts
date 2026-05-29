@@ -16,6 +16,9 @@ import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
 
 const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
+// console.log('WIDGET', `group.${Constants.expoConfig?.ios?.bundleIdentifier}`);
+// console.log('WIDGET', Widget.getAppGroupPath(`group.${Constants.expoConfig?.ios?.bundleIdentifier}`));
+
 function getLanguageFromSystemLocale(locale: string) {
     locale = locale.toLowerCase();
 
@@ -156,6 +159,21 @@ export async function md5(contents: string) {
 
 export const widgetGroupDir = Paths.appleSharedContainers[`group.${Constants.expoConfig?.ios?.bundleIdentifier}`];
 
+const slugifyFilename = (url?: string) => {
+    if (!url) return '';
+
+    url = url.replace('https://backend.cdn.aoe2companion.com/', '');
+
+    const dotIndex = url.lastIndexOf('.');
+
+    const name = dotIndex !== -1 ? url.slice(0, dotIndex) : url;
+    const ext = dotIndex !== -1 ? url.slice(dotIndex) : '';
+
+    const slugged = name.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
+
+    return slugged + ext;
+};
+
 export const cacheLiveActivityAssets = async () => {
     try {
         const assets = await fetchAssets();
@@ -163,11 +181,11 @@ export const cacheLiveActivityAssets = async () => {
         for (const asset of assets) {
             // console.log('hasImage', asset.imageUrl, new Date());
 
-            const imagePath = Paths.join(widgetGroupDir, await md5(asset.imageUrl));
+            const imagePath = Paths.join(widgetGroupDir, slugifyFilename(asset.imageUrl));
             const imageSource = () => asset.imageUrl;
 
             const url = await widgetSetFileIfNotExists(imagePath, imageSource);
-            console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
+            // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
 
             // if (!Widget.hasImage(await md5(asset.imageUrl))) {
             //     const url = Widget.setImage(asset.imageUrl, await md5(asset.imageUrl));
@@ -176,7 +194,7 @@ export const cacheLiveActivityAssets = async () => {
             //     // console.log('cacheLiveActivityAssets already cached', await md5(asset.imageUrl));
             // }
         }
-        console.log('cacheLiveActivityAssets finish', new Date());
+        // console.log('cacheLiveActivityAssets finish', new Date());
     } catch (error) {
         if (__DEV__) {
             console.error('cacheLiveActivityAssets error', error);

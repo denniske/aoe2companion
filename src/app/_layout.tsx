@@ -54,7 +54,9 @@ import { useCSSVariable } from 'uniwind';
 import { LoginPopupProvider } from '@app/providers/login-popup-provider';
 import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
 import { appConfig } from '@nex/dataset';
-import { cacheLiveActivityAssets } from '@app/service/storage';
+import { cacheLiveActivityAssets, widgetGroupDir } from '@app/service/storage';
+import { addPushToStartTokenListener } from 'expo-widgets';
+import { setAccountLiveActivityToken } from '@app/api/account';
 
 initSentry();
 
@@ -270,13 +272,6 @@ function AccountController() {
 function LiveActivityController() {
     const accountId = useAccountData((state) => state.accountId);
 
-    // useEventListener(LiveActivity, 'onTokenChanged', async ({ token }) => {
-    //     console.log('onTokenChanged', accountId, token);
-    //     if (token) {
-    //         await setAccountLiveActivityToken(token);
-    //     }
-    // });
-    //
     // useEventListener(LiveActivity, 'onActivityStarted', async ({ token, data, type }) => {
     //     const { match } = JSON.parse(data);
     //     console.log('onActivityStarted', accountId, token, type, match.matchId);
@@ -284,6 +279,26 @@ function LiveActivityController() {
     //         await storeLiveActivityStarted(token, type, match.matchId);
     //     }
     // });
+
+    // const pushToStartSubscription = addPushToStartTokenListener((event) => {
+    //     console.log('Push-to-start token:', event.activityPushToStartToken);
+    // });
+
+    useEffect(() => {
+        const pushToStartSubscription = addPushToStartTokenListener(async (event) => {
+            // console.log('widgetGroupDir', widgetGroupDir.uri);
+            const iosAppGroupFolder = widgetGroupDir.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', '');
+            const token = event.activityPushToStartToken;
+            console.log(`onTokenChanged account: ${accountId} token: ${token} folder: ${iosAppGroupFolder}`);
+            if (token) {
+                await setAccountLiveActivityToken(token, iosAppGroupFolder);
+            }
+        });
+
+        return () => {
+            pushToStartSubscription.remove();
+        };
+    }, [accountId]);
 
     useEffect(() => {
         if (Platform.OS === 'ios' && appConfig.game === 'aoe2' && accountId) {

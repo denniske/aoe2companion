@@ -9,7 +9,6 @@ import { fetchBuilds } from '@app/api/helper/api';
 import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
 import { appConfig } from '@nex/dataset';
 import { getBuildIcon } from '@/data/src/helper/builds';
-import { Uniwind } from 'uniwind';
 import { Paths } from 'expo-file-system';
 import { md5, widgetGroupDir, widgetSetFileIfNotExists } from '@app/service/storage';
 import AABuilds from '@app/widgets/AABuilds.widget';
@@ -65,15 +64,6 @@ export const useFavoritedBuilds = () => {
         const builds = favoriteBuildsResult.builds;
 
         if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
-            const colorGold50 = Uniwind.getCSSVariable('--color-gold-50') as string;
-            const colorBlue950 = Uniwind.getCSSVariable('--color-blue-950') as string;
-
-            const colorWhite = Uniwind.getCSSVariable('--color-white') as string;
-            const colorBlue900 = Uniwind.getCSSVariable('--color-blue-900') as string;
-
-            const colorGray200 = Uniwind.getCSSVariable('--color-gray-200') as string;
-            const colorGray800 = Uniwind.getCSSVariable('--color-gray-800') as string;
-
             await (async () => {
                 const favoriteBuilds = [];
 
@@ -93,22 +83,6 @@ export const useFavoritedBuilds = () => {
                 }
 
                 AABuilds.updateSnapshot({
-                    style: {
-                        light: {
-                            backgroundColor: colorGold50,
-                            foregroundColor: '#000000',
-                            foregroundNoteColor: '#888888',
-                            cardBackgroundColor: colorWhite,
-                            cardBorderColor: colorGray200,
-                        },
-                        dark: {
-                            backgroundColor: colorBlue950,
-                            foregroundColor: '#ffffff',
-                            foregroundNoteColor: '#888888',
-                            cardBackgroundColor: colorBlue900,
-                            cardBorderColor: colorGray800,
-                        }
-                    },
                     builds: favoriteBuilds,
                 });
 

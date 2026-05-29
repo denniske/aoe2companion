@@ -94,6 +94,14 @@ public class WidgetModule: Module {
             }
         }
 
+        Function("getAppGroupPath") { (appGroup: String) -> String? in
+            guard let containerURL = FileManager.default.containerURL(
+                forSecurityApplicationGroupIdentifier: appGroup) else {
+                throw GenericWidgetException(_reason: "App group container URL not found")
+            }
+            return containerURL.path
+        }
+
         Function("setImage") { (path: String, filename: String) -> String in
             guard let appGroup = self.appGroup else {
                 throw AppGroupNotSetException()

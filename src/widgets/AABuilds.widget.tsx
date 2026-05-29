@@ -6,28 +6,21 @@ import {
     font,
     foregroundColor,
     frame,
+    lineLimit,
     padding,
-    resizable
+    resizable,
 } from '@expo/ui/swift-ui/modifiers';
 import { createWidget, type WidgetEnvironment } from 'expo-widgets';
 import { IExtendedBuildOrder } from '@/data/src/helper/builds';
-
-type IWidgetStyle = {
-    backgroundColor: string;
-    foregroundColor: string;
-    foregroundNoteColor: string;
-    cardBackgroundColor: string;
-    cardBorderColor: string;
-}
+import { widgetStyle } from '@app/widgets/widget-style';
 
 type AABuildsProps = {
-    style: Record<'light' | 'dark', IWidgetStyle>;
     builds: IExtendedBuildOrder[] | undefined
 };
 
 const AABuilds = (props: AABuildsProps, environment: WidgetEnvironment) => {
     'widget';
-    const style = props.style[environment.colorScheme ?? 'light'];
+    const style = widgetStyle[environment.colorScheme ?? 'light'];
 
     const { builds } = props;
 
@@ -54,21 +47,19 @@ const AABuilds = (props: AABuildsProps, environment: WidgetEnvironment) => {
                         ]}
                         spacing={10}
                     >
-                        <Image
-                            uiImage={build.imageUrl}
-                            modifiers={[resizable(), frame({ width: 36, height: 36 })]}
-                        />
+                        <Image uiImage={build.imageUrl} modifiers={[resizable(), frame({ width: 36, height: 36 })]} />
                         <VStack alignment="leading" spacing={2}>
                             <HStack spacing={4}>
-                                <Image
-                                    uiImage={build.civilizationImageUrl}
-                                    modifiers={[resizable(), frame({ width: 11, height: 11 })]}
-                                />
-                                <Text modifiers={[font({ size: 11 }), foregroundColor('#8E8E93')]}>
-                                    {build.civilization}
-                                </Text>
+                                <Image uiImage={build.civilizationImageUrl} modifiers={[resizable(), frame({ width: 11, height: 11 })]} />
+                                <Text modifiers={[font({ size: 11 }), foregroundColor('#8E8E93')]}>{build.civilization}</Text>
                             </HStack>
-                            <Text modifiers={[font({ weight: 'bold', size: 15 }), foregroundColor(environment.colorScheme === 'light' ? '#1C1C1E' : '#FFFFFF')]}>
+                            <Text
+                                modifiers={[
+                                    font({ weight: 'bold', size: 15 }),
+                                    foregroundColor(environment.colorScheme === 'light' ? '#1C1C1E' : '#FFFFFF'),
+                                    lineLimit(1),
+                                ]}
+                            >
                                 {build.title}
                             </Text>
                         </VStack>

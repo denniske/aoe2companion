@@ -33,6 +33,10 @@ class WidgetModule : Module() {
         Function("getItem") {
             "Hello world! 👋"
         }
+
+        Function("getAppGroupPath") {
+            "Hello world! 👋"
+        }
     }
 }
 

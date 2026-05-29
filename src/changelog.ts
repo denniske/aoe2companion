@@ -10,6 +10,17 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
+    '40.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix app crash on match page for Public Update Preview (PUP) matches',
+        },
+        // Need to actually do this for aoe4
+        // {
+        //     type: 'minor',
+        //     title: 'The server refetches long running matches to find out whether they have been finished or abandoned',
+        // },
+    ],
     '39.0.0': [
         {
             type: 'minor',
@@ -19,11 +30,6 @@ export const changelog4: IChangelog = {
             type: 'bugfix',
             title: 'Fix some app crashes',
         },
-        // Need to actually do this for aoe4
-        // {
-        //     type: 'minor',
-        //     title: 'The server refetches long running matches to find out whether they have been finished or abandoned',
-        // },
     ],
     '38.0.0': [
         {
@@ -366,7 +372,10 @@ export const changelog4: IChangelog = {
 
 export const changelog: IChangelog = {
     '199.0.0': [
-        // Not released yet
+        {
+            type: 'minor',
+            title: 'Note: Live activities are currently disabled. Will be fixed in the next update.',
+        },
         {
             type: 'minor',
             title: 'Internal Framework Update (SDK 56)',
@@ -376,7 +385,7 @@ export const changelog: IChangelog = {
             title: 'Fix some app crashes',
         },
         {
-            type: 'minor',
+            type: 'bugfix',
             title: 'The server refetches long running matches to find out whether they have been finished or abandoned',
         },
     ],

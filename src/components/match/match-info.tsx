@@ -120,7 +120,11 @@ export default function MatchInfo(props: Props) {
                     </Text>
                 )}
 
-                {match.pup && <div className="rounded-sm bg-gray-100 p-1 inline-block text-xs mr-1">PUP</div>}
+                {match.pup && (
+                    <View className="rounded-sm bg-gray-100 p-1 px-2 inline-block text-xs mr-1">
+                        <Text>PUP</Text>
+                    </View>
+                )}
 
                 <View className="flex-row items-center gap-1">
                     {match.modGameMode && <Icon icon="wrench" size={14} color="subtle" />}

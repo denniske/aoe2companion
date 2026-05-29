@@ -2,8 +2,8 @@ import { ConfigContext, ExpoConfig } from 'expo/config';
 import widgetPluginConfig from 'expo-widgets/plugin';
 import { WidgetFamily } from 'expo-widgets/plugin/build/types/WidgetFamily.type';
 
-const versionAoe2 = '198.0.0';
-const versionAoe4 = '39.0.0';
+const versionAoe2 = '199.0.0';
+const versionAoe4 = '40.0.0';
 
 console.log('Building for', process.env.GAME, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);
 
@@ -167,8 +167,8 @@ const runtimeVersionCode = runtimeVersionParts[0] + runtimeVersionParts[1].padSt
 const isProdBuild = process.env.EAS_BUILD_PROFILE?.includes('production');
 const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
 const sentryConfigPlugins = isProdBuild ? [sentryConfigPlugin] : [];
-// const appConfigPlugins = process.env.GAME === 'aoe2' ? [appPlugin, widgetPlugin] : [];
-const appConfigPlugins = [widgetPlugin];
+const appConfigPlugins = process.env.GAME === 'aoe2' ? [widgetPlugin] : [];
+// const appConfigPlugins = [widgetPlugin];
 // const appConfigPlugins = process.env.GAME === 'aoe2' ? [] : [];
 
 export default ({ config }: ConfigContext): ExpoConfig => ({

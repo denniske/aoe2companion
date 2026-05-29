@@ -393,11 +393,12 @@ export async function authConfirm(params: any): Promise<any> {
     });
 }
 
-export async function setAccountLiveActivityToken(liveActivityToken: string): Promise<any> {
+export async function setAccountLiveActivityToken(liveActivityToken: string, iosAppGroupFolder: string): Promise<any> {
     const url = getHost('aoe2companion-api') + `v2/account/live_activity_token`;
 
     const data = {
         liveActivityToken,
+        iosAppGroupFolder,
     };
 
     return await fetchJson(url, {

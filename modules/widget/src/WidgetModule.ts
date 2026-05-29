@@ -2,6 +2,7 @@ import { NativeModule, requireNativeModule } from 'expo';
 import { WidgetModuleEvents } from './Widget.types';
 
 declare class WidgetModule extends NativeModule<WidgetModuleEvents> {
+    getAppGroupPath: (...args: string[]) => '';
     getItem: (...args: string[]) => '';
     setItem: (...args: string[]) => {};
     setImage: (...args: string[]) => '';

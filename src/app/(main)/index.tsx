@@ -11,7 +11,7 @@ import { useAccountMostRecentMatches } from '@app/utils/match';
 import { useNews } from '@app/utils/news';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
 import { Href, Stack } from 'expo-router';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
 import { useAuthProfileId, useInfiniteBuilds } from '@app/queries/all';
@@ -32,6 +32,10 @@ import { Image } from '@app/components/uniwind/image';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import Head from 'expo-router/head';
+// import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
+// import { after, type LiveActivity } from 'expo-widgets';
+// import { match1v1 } from '@app/widgets/demo-matches/match-1v1';
+// import { widgetGroupDir } from '@app/service/storage';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -101,6 +105,55 @@ export default function IndexPage() {
 
         return 1;
     }, [isLarge, isMedium, isSmall]);
+
+    // const [matchActivity, setMatchActivity] = useState<LiveActivity<MatchActivityProps>>();
+    //
+    // const testMatch = {
+    //     ...match1v1,
+    //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+    // };
+    //
+    // const startDeliveryTracking = () => {
+    //     // Start the Live Activity
+    //     const instance = MatchActivity.start(
+    //         testMatch,
+    //         'myapp://deliveries/12345'
+    //     );
+    //     setMatchActivity(instance);
+    // };
+    //
+    // const updateDeliveryTracking = () => {
+    //     matchActivity?.update(
+    //         testMatch,
+    //     );
+    // };
+    //
+    // const updateDeliveryTrackingSingle = (activity: LiveActivity<MatchActivityProps>) => {
+    //     activity?.update(
+    //         testMatch,
+    //     );
+    // };
+    //
+    // const endDeliveryTracking = async () => {
+    //     // await matchActivity?.end(
+    //     //     after(new Date(Date.now() + 15 * 60 * 1000)),
+    //     //     {
+    //     //         etaMinutes: 0,
+    //     //         status: 'Delivered',
+    //     //     },
+    //     //     new Date()
+    //     // );
+    // };
+    //
+    // useEffect(() => {
+    //     const existingMatchActivity = MatchActivity.getInstances()[0];
+    //     console.log('EFFECT', MatchActivity.getInstances().length);
+    //     if (existingMatchActivity == null) {
+    //         startDeliveryTracking();
+    //     } else {
+    //         updateDeliveryTrackingSingle(existingMatchActivity);
+    //     }
+    // }, [matchActivity]);
 
     return (
         <ScrollView contentContainerClassName="p-4 md:py-6">
@@ -203,6 +256,18 @@ export default function IndexPage() {
             {/*<Text>URL: {getHost('aoe2companion')}</Text>*/}
             {/*<Text>NAME: {Constants.expoConfig?.slug}</Text>*/}
             {/*<Text>GAME: {Constants.expoConfig?.slug === 'aoe2companion' ? 'aoe2' : 'aoe4'}</Text>*/}
+
+            {/*<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>*/}
+            {/*    <Button onPress={startDeliveryTracking}>Start Delivery Tracking</Button>*/}
+            {/*</View>*/}
+
+            {/*<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>*/}
+            {/*    <Button onPress={updateDeliveryTracking}>Update Delivery Tracking</Button>*/}
+            {/*</View>*/}
+
+            {/*<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>*/}
+            {/*    <Button onPress={endDeliveryTracking}>End Delivery Tracking</Button>*/}
+            {/*</View>*/}
 
             {authProfileId && (
                 <AnimateIn>
