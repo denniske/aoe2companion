@@ -32,10 +32,10 @@ import { Image } from '@app/components/uniwind/image';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import Head from 'expo-router/head';
-// import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
-// import { after, type LiveActivity } from 'expo-widgets';
-// import { match1v1 } from '@app/widgets/demo-matches/match-1v1';
-// import { widgetGroupDir } from '@app/service/storage';
+import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
+import { after, type LiveActivity } from 'expo-widgets';
+import { match1v1 } from '@app/widgets/demo-matches/match-1v1';
+import { widgetGroupDir } from '@app/service/storage';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -106,54 +106,56 @@ export default function IndexPage() {
         return 1;
     }, [isLarge, isMedium, isSmall]);
 
-    // const [matchActivity, setMatchActivity] = useState<LiveActivity<MatchActivityProps>>();
-    //
-    // const testMatch = {
-    //     ...match1v1,
-    //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
-    // };
-    //
-    // const startDeliveryTracking = () => {
-    //     // Start the Live Activity
-    //     const instance = MatchActivity.start(
-    //         testMatch,
-    //         'myapp://deliveries/12345'
-    //     );
-    //     setMatchActivity(instance);
-    // };
-    //
-    // const updateDeliveryTracking = () => {
-    //     matchActivity?.update(
-    //         testMatch,
-    //     );
-    // };
-    //
-    // const updateDeliveryTrackingSingle = (activity: LiveActivity<MatchActivityProps>) => {
-    //     activity?.update(
-    //         testMatch,
-    //     );
-    // };
-    //
-    // const endDeliveryTracking = async () => {
-    //     // await matchActivity?.end(
-    //     //     after(new Date(Date.now() + 15 * 60 * 1000)),
-    //     //     {
-    //     //         etaMinutes: 0,
-    //     //         status: 'Delivered',
-    //     //     },
-    //     //     new Date()
-    //     // );
-    // };
-    //
-    // useEffect(() => {
-    //     const existingMatchActivity = MatchActivity.getInstances()[0];
-    //     console.log('EFFECT', MatchActivity.getInstances().length);
-    //     if (existingMatchActivity == null) {
-    //         startDeliveryTracking();
-    //     } else {
-    //         updateDeliveryTrackingSingle(existingMatchActivity);
-    //     }
-    // }, [matchActivity]);
+    const [matchActivity, setMatchActivity] = useState<LiveActivity<MatchActivityProps>>();
+
+    console.log('folder', widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''));
+
+    const testMatch = {
+        ...match1v1,
+        iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+    };
+
+    const startDeliveryTracking = () => {
+        // Start the Live Activity
+        const instance = MatchActivity.start(
+            testMatch,
+            'myapp://deliveries/12345'
+        );
+        setMatchActivity(instance);
+    };
+
+    const updateDeliveryTracking = () => {
+        matchActivity?.update(
+            testMatch,
+        );
+    };
+
+    const updateDeliveryTrackingSingle = (activity: LiveActivity<MatchActivityProps>) => {
+        activity?.update(
+            testMatch,
+        );
+    };
+
+    const endDeliveryTracking = async () => {
+        // await matchActivity?.end(
+        //     after(new Date(Date.now() + 15 * 60 * 1000)),
+        //     {
+        //         etaMinutes: 0,
+        //         status: 'Delivered',
+        //     },
+        //     new Date()
+        // );
+    };
+
+    useEffect(() => {
+        const existingMatchActivity = MatchActivity.getInstances()[0];
+        console.log('EFFECT', MatchActivity.getInstances().length);
+        if (existingMatchActivity == null) {
+            startDeliveryTracking();
+        } else {
+            updateDeliveryTrackingSingle(existingMatchActivity);
+        }
+    }, [matchActivity]);
 
     return (
         <ScrollView contentContainerClassName="p-4 md:py-6">

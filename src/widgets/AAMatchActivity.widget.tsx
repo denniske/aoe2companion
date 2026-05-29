@@ -45,20 +45,29 @@ interface Team {
 interface Player {
     profileId: number;
     name: string;
-    rating?: number;
+    rating?: number | null;
     civ?: string;
     civName?: string;
     civImageUrl?: string;
-    won?: boolean;
+    won?: boolean | null;
+}
+
+interface PlayerRow {
+    player: Player;
+    showRating?: boolean;
+    size?: number;
+    bold?: boolean;
 }
 
 
 const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvironment) => {
     'widget';
 
+    const widgetStyle = {"dark": {"backgroundColor": "#0e1017", "cardBackgroundColor": "#181c29", "cardBorderColor": "#1e2939", "foregroundColor": "#ffffff", "foregroundNoteColor": "#888888"}, "light": {"backgroundColor": "#fffcf5", "cardBackgroundColor": "#ffffff", "cardBorderColor": "#e5e7eb", "foregroundColor": "#000000", "foregroundNoteColor": "#888888"}};
+
     const style = widgetStyle[environment.colorScheme ?? 'light'];
 
-    const slugifyFilename = (url?: string) => {
+    const slugifyFilename = (url?: string, size?: number) => {
         if (!url) return '';
 
         url = url.replace('https://backend.cdn.aoe2companion.com/', '');
@@ -70,42 +79,35 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
 
         const slugged = name.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
 
-        return slugged + ext;
-    }
+        const sizeStr = size ? `-${size}` : '';
+
+        return slugged + sizeStr + ext;
+    };
 
     const accentColor = environment.colorScheme === 'dark' ? '#FFFFFF' : '#007AFF';
 
     // const imagePath = slugifyFilename(props.match.mapImageUrl); //Paths.join(widgetGroupDir, slugifyFilename(props.match.mapImageUrl));
-    const imagePathInAppGroup = (url?: string) => `file:///var/mobile/Containers/Shared/AppGroup/${props.iosAppGroupFolder}/` + slugifyFilename(url);
+    const imagePathInAppGroup = (url?: string, size?: number) => `file:///var/mobile/Containers/Shared/AppGroup/${props.iosAppGroupFolder}/` + slugifyFilename(url, size);
 
+    // const gg = 'file:///var/mobile/Containers/Shared/AppGroup/29719642-DEE8-4A07-BD84-D066CEADDB16/public-aoe2-de-maps-rm-coastal-192.png';
 
     const opponents = props.match.teams.map((t) => String(t.players.length));
     const opponentsCount = opponents.join('v');
-    const startTime = parseISO(props.match.started);
+    const startTime = new Date(props.match.started);
 
     const currentPlayer = props.match.teams.find((t) => t.players[0].profileId === props.playerId)?.players[0] ?? props.match.teams[0].players[0];
 
     const opponent = props.match.teams.find((t) => t.players[0].profileId !== props.playerId)?.players[0] ?? props.match.teams[0].players[0];
 
-    const PlayerRow = ({
-        player,
-        showRating = true,
-        size = 16,
-        bold = false,
-    }: {
-        player: Player;
-        showRating?: boolean;
-        size?: number;
-        bold?: boolean;
-    }) => {
+    const PlayerRow = (json: string) => {
+        const playerRow = JSON.parse(json) as PlayerRow;
+        const { size = 16, bold = false, showRating = true, player } = playerRow;
         const imgSize = size >= 16 ? 20 : 15;
 
         return (
             <HStack spacing={4}>
                 <Image uiImage={imagePathInAppGroup(player.civImageUrl)} modifiers={[resizable(), frame({ width: imgSize, height: imgSize })]} />
-
                 <Text modifiers={[font({ size, weight: bold ? 'semibold' : 'regular' }), lineLimit(1)]}>{player.name}</Text>
-
                 {showRating && player.rating != null && <Text modifiers={[font({ size })]}>{`(${player.rating})`}</Text>}
             </HStack>
         );
@@ -114,6 +116,7 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
     return {
         banner: (
             <HStack modifiers={[padding({ all: 15 }), containerBackground(style.backgroundColor, 'widget')]}>
+                {/*<Image uiImage={gg} modifiers={[resizable(), frame({ width: 64, height: 64 })]} />*/}
                 <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl)} modifiers={[resizable(), frame({ width: 64, height: 64 })]} />
 
                 <VStack modifiers={[padding({ leading: 12 }), frame({ maxWidth: Infinity, alignment: 'topLeading' })]} spacing={12}>
@@ -126,7 +129,11 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
 
                     {/* Row 2: Opponent row + result/timer */}
                     <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={4}>
-                        <PlayerRow player={opponent} />
+                        {PlayerRow(JSON.stringify({ player: opponent }))}
+
+                        {/*<Text>{JSON.stringify(opponent)}</Text>*/}
+                        {/*<Text modifiers={[font({ size: 8 }), frame({ width: 80 })]}>{gg}</Text>*/}
+                        {/*<Text modifiers={[font({ size: 8 }), frame({ width: 80 })]}>{imagePathInAppGroup(props.match.mapImageUrl)}</Text>*/}
 
                         <Spacer />
 
@@ -150,16 +157,22 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
             </HStack>
         ),
 
-        // banner: (
-        //     <VStack modifiers={[padding({ all: 12 })]}>
-        //         <Image uiImage={imagePath(props.match.mapImageUrl)} modifiers={[resizable(), frame({ width: 20, height: 20 })]} />
-        //         <Text modifiers={[font({ weight: 'bold' }), foregroundStyle(accentColor)]}>{props.match.matchId}</Text>
-        //         <Text>Estimated arrival5: {props.playerId} minutes</Text>
-        //     </VStack>
-        // ),
+        compactLeading: (
+            <Image
+                // uiImage={'file:///var/mobile/Containers/Shared/AppGroup/29719642-DEE8-4A07-BD84-D066CEADDB16/public-aoe2-de-maps-rm-coastal-192.png'}
+                uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)}
+                modifiers={[resizable(), frame({ width: 25, height: 25 })]}
+            />
+        ),
 
-        compactLeading: <Image systemName="box.truck.fill" color={accentColor} />,
-        compactTrailing: <Text>X min</Text>,
+        compactTrailing: (
+            <Text
+                modifiers={[font({ size: 16 }), monospacedDigit(), multilineTextAlignment('trailing'), frame({ width: 60 })]}
+                date={startTime}
+                dateStyle={'timer'}
+            />
+        ),
+
         minimal: <Image systemName="box.truck.fill" color={accentColor} />,
         expandedLeading: (
             <VStack modifiers={[padding({ all: 12 })]}>

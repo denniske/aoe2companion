@@ -26,6 +26,8 @@ export const widgetStyle = {
     }
 };
 
+console.log('widgetStyle', widgetStyle);
+
 // type IWidgetStyle = {
 //     backgroundColor: string;
 //     foregroundColor: string;

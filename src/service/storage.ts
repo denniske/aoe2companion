@@ -159,7 +159,7 @@ export async function md5(contents: string) {
 
 export const widgetGroupDir = Paths.appleSharedContainers[`group.${Constants.expoConfig?.ios?.bundleIdentifier}`];
 
-const slugifyFilename = (url?: string) => {
+const slugifyFilename = (url?: string, size?: number) => {
     if (!url) return '';
 
     url = url.replace('https://backend.cdn.aoe2companion.com/', '');
@@ -171,22 +171,82 @@ const slugifyFilename = (url?: string) => {
 
     const slugged = name.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
 
-    return slugged + ext;
+    const sizeStr = size ? `-${size}` : '';
+
+    return slugged + sizeStr + ext;
+};
+
+import { SaveFormat, ImageManipulator } from 'expo-image-manipulator';
+
+const processImageFast = async (uri: string) => {
+    try {
+        const start = new Date();
+
+        const manipResult = await ImageManipulator.manipulate(uri).resize({ width: 75 }).renderAsync();
+        const result = await manipResult.saveAsync({ format: SaveFormat.WEBP }); // compress: 0.7
+
+        const end = new Date();
+        console.log('MANIP', end.getTime() - start.getTime(), 'ms');
+
+        return result.uri;
+    } catch (error) {
+        console.error('Image manipulation failed:', error);
+    }
 };
 
 export const cacheLiveActivityAssets = async () => {
     try {
         const assets = await fetchAssets();
         console.log('cacheLiveActivityAssets', new Date());
-        for (const asset of assets) {
-            // console.log('hasImage', asset.imageUrl, new Date());
 
+        // const imagePath = Paths.join(widgetGroupDir, slugifyFilename('https://backend.cdn.aoe2companion.com/public/aoe2/de/maps/rm_coastal.png'));
+        // const imageSource = () => 'https://backend.cdn.aoe2companion.com/public/aoe2/de/maps/rm_coastal.png';
+        // const url = await widgetSetFileIfNotExists(imagePath, imageSource);
+        // console.log('cacheLiveActivityAssets', imageSource(), url, new Date());
+        //
+        // if (url) {
+        //     const smallImage = await processImageFast(url);
+        //     if (smallImage) {
+        //         const smallImageFile = new File(smallImage);
+        //         const smallImagePath = Paths.join(
+        //             widgetGroupDir,
+        //             slugifyFilename('https://backend.cdn.aoe2companion.com/public/aoe2/de/maps/rm_coastal_75.png')
+        //         );
+        //         smallImageFile.copySync(new File(smallImagePath), { overwrite: true });
+        //         console.log('cacheLiveActivityAssets small', smallImagePath, new Date());
+        //     }
+        // }
+
+        // const imagePath2 = Paths.join(widgetGroupDir, slugifyFilename('https://backend.cdn.aoe2companion.com/public/aoe2/de/maps/rm_coastal_75.png'));
+        // const imageSource2 = () => processImageFast('https://backend.cdn.aoe2companion.com/public/aoe2/de/maps/rm_coastal.png');
+        // const url2 = await widgetSetFileIfNotExists(imagePath2, imageSource2);
+        // console.log('cacheLiveActivityAssets', url2, new Date());
+
+        for (const asset of assets) {
+            console.log('hasImage', asset.imageUrl, new Date());
             const imagePath = Paths.join(widgetGroupDir, slugifyFilename(asset.imageUrl));
             const imageSource = () => asset.imageUrl;
-
             const url = await widgetSetFileIfNotExists(imagePath, imageSource);
-            // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
+            console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
 
+            // 75px (3 times 25px) for dynamic island icon
+            if (asset.imageUrl.includes('/maps')) {
+                const smallImagePath = Paths.join(widgetGroupDir, slugifyFilename(asset.imageUrl, 75));
+                const smallImageFile = new File(smallImagePath);
+                if (url && !smallImageFile.exists) {
+                    const tempImage = await processImageFast(url);
+                    if (tempImage) {
+                        const tempImageFile = new File(tempImage);
+                        tempImageFile.copySync(smallImageFile, { overwrite: true });
+                        console.log('cacheLiveActivityAssets small', smallImagePath, new Date());
+                    }
+                }
+            }
+
+            // const imagePathDI = Paths.join(widgetGroupDir, slugifyFilename(asset.imageUrl, 25));
+            // const imageSourceDI = () => asset.imageUrl;
+            // const urlDI = await widgetSetFileIfNotExists(imagePathDI, imageSourceDI);
+            // console.log('cacheLiveActivityAssets-25', asset.imageUrl, urlDI, new Date());
             // if (!Widget.hasImage(await md5(asset.imageUrl))) {
             //     const url = Widget.setImage(asset.imageUrl, await md5(asset.imageUrl));
             //     // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
@@ -194,7 +254,7 @@ export const cacheLiveActivityAssets = async () => {
             //     // console.log('cacheLiveActivityAssets already cached', await md5(asset.imageUrl));
             // }
         }
-        // console.log('cacheLiveActivityAssets finish', new Date());
+        console.log('cacheLiveActivityAssets finish', new Date());
     } catch (error) {
         if (__DEV__) {
             console.error('cacheLiveActivityAssets error', error);
@@ -231,9 +291,9 @@ export type BuildFilters = {
 //     return destFile.uri;
 // }
 
-export async function widgetSetFileIfNotExists(destPath: string, getSourcePath: () => string) {
+export async function widgetSetFileIfNotExists(destPath: string, getSourcePath: () => string | undefined) {
     const destFile = new File(destPath);
-    if (!destFile.exists) {
+    // if (!destFile.exists || destPath.includes('coastal')) {
         const sourcePath = getSourcePath();
 
         if (!sourcePath) {
@@ -244,13 +304,13 @@ export async function widgetSetFileIfNotExists(destPath: string, getSourcePath: 
         // console.log('TRY TO COPY FROM', sourcePath)
 
         if (sourcePath.startsWith('file:')) {
-            await new File(getSourcePath()).copy(destFile);
+            await new File(sourcePath).copy(destFile);
         } else {
             await File.downloadFileAsync(sourcePath, destFile, {
                 idempotent: true,
             });
         }
-    }
+    // }
     // console.log(destFile.uri, destFile.exists);
     return destFile.uri;
 }
