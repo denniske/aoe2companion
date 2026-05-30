@@ -16,6 +16,8 @@ import {
 import { createLiveActivity, type LiveActivityEnvironment } from 'expo-widgets';
 import { parseISO } from 'date-fns';
 import { widgetStyle } from '@app/widgets/widget-style';
+import { components } from '@eva-design/eva/mapping';
+import alignment = components.TopNavigation.meta_32.variantGroups_39.alignment;
 
 
 export type MatchActivityProps = {
@@ -86,10 +88,7 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
 
     const accentColor = environment.colorScheme === 'dark' ? '#FFFFFF' : '#007AFF';
 
-    // const imagePath = slugifyFilename(props.match.mapImageUrl); //Paths.join(widgetGroupDir, slugifyFilename(props.match.mapImageUrl));
     const imagePathInAppGroup = (url?: string, size?: number) => `file:///var/mobile/Containers/Shared/AppGroup/${props.iosAppGroupFolder}/` + slugifyFilename(url, size);
-
-    // const gg = 'file:///var/mobile/Containers/Shared/AppGroup/29719642-DEE8-4A07-BD84-D066CEADDB16/public-aoe2-de-maps-rm-coastal-192.png';
 
     const opponents = props.match.teams.map((t) => String(t.players.length));
     const opponentsCount = opponents.join('v');
@@ -113,85 +112,102 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
         );
     };
 
+    const banner = (
+        <HStack modifiers={[padding({ all: 15 }), containerBackground(style.backgroundColor, 'widget')]}>
+            <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl)} modifiers={[resizable(), frame({ width: 64, height: 64 })]} />
+
+            <VStack modifiers={[padding({ leading: 12 }), frame({ maxWidth: Infinity, alignment: 'topLeading' })]} spacing={12}>
+                {/* Row 1: Map name + leaderboard/format */}
+                <HStack modifiers={[frame({ maxWidth: Infinity })]}>
+                    <Text modifiers={[font({ size: 18, weight: 'semibold' }), lineLimit(1)]}>{props.match.mapName}</Text>
+                    <Spacer />
+                    <Text modifiers={[font({ size: 16 })]}>{`${props.match.leaderboardName ?? ''} ${opponentsCount}`}</Text>
+                </HStack>
+
+                {/* Row 2: Opponent row + result/timer */}
+                <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={4}>
+                    {PlayerRow(JSON.stringify({ player: opponent }))}
+
+                    {/*<Text>{JSON.stringify(opponent)}</Text>*/}
+                    {/*<Text modifiers={[font({ size: 8 }), frame({ width: 80 })]}>{gg}</Text>*/}
+                    {/*<Text modifiers={[font({ size: 8 }), frame({ width: 80 })]}>{imagePathInAppGroup(props.match.mapImageUrl)}</Text>*/}
+
+                    <Spacer />
+
+                    {props.match.finished != null ? (
+                        <Text modifiers={[font({ size: 16, weight: 'semibold' })]}>{currentPlayer.won === true ? 'Nice win!' : 'Game over'}</Text>
+                    ) : (
+                        <Text
+                            modifiers={[
+                                font({ size: 16 }),
+                                monospacedDigit(),
+                                multilineTextAlignment('trailing'),
+                                lineLimit(1),
+                                frame({ width: 80 }),
+                            ]}
+                            date={startTime}
+                            dateStyle={'timer'}
+                        />
+                    )}
+                </HStack>
+            </VStack>
+        </HStack>
+    );
+
     return {
-        banner: (
-            <HStack modifiers={[padding({ all: 15 }), containerBackground(style.backgroundColor, 'widget')]}>
-                {/*<Image uiImage={gg} modifiers={[resizable(), frame({ width: 64, height: 64 })]} />*/}
-                <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl)} modifiers={[resizable(), frame({ width: 64, height: 64 })]} />
-
-                <VStack modifiers={[padding({ leading: 12 }), frame({ maxWidth: Infinity, alignment: 'topLeading' })]} spacing={12}>
-                    {/* Row 1: Map name + leaderboard/format */}
-                    <HStack modifiers={[frame({ maxWidth: Infinity })]}>
-                        <Text modifiers={[font({ size: 18, weight: 'semibold' }), lineLimit(1)]}>{props.match.mapName}</Text>
-                        <Spacer />
-                        <Text modifiers={[font({ size: 16 })]}>{`${props.match.leaderboardName ?? ''} ${opponentsCount}`}</Text>
-                    </HStack>
-
-                    {/* Row 2: Opponent row + result/timer */}
-                    <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={4}>
-                        {PlayerRow(JSON.stringify({ player: opponent }))}
-
-                        {/*<Text>{JSON.stringify(opponent)}</Text>*/}
-                        {/*<Text modifiers={[font({ size: 8 }), frame({ width: 80 })]}>{gg}</Text>*/}
-                        {/*<Text modifiers={[font({ size: 8 }), frame({ width: 80 })]}>{imagePathInAppGroup(props.match.mapImageUrl)}</Text>*/}
-
-                        <Spacer />
-
-                        {props.match.finished != null ? (
-                            <Text modifiers={[font({ size: 16, weight: 'semibold' })]}>{currentPlayer.won === true ? 'Nice win!' : 'Game over'}</Text>
-                        ) : (
-                            <Text
-                                modifiers={[
-                                    font({ size: 16 }),
-                                    monospacedDigit(),
-                                    multilineTextAlignment('trailing'),
-                                    lineLimit(1),
-                                    frame({ width: 80 }),
-                                ]}
-                                date={startTime}
-                                dateStyle={'timer'}
-                            />
-                        )}
-                    </HStack>
-                </VStack>
-            </HStack>
-        ),
+        banner,
 
         compactLeading: (
-            <Image
-                // uiImage={'file:///var/mobile/Containers/Shared/AppGroup/29719642-DEE8-4A07-BD84-D066CEADDB16/public-aoe2-de-maps-rm-coastal-192.png'}
-                uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)}
-                modifiers={[resizable(), frame({ width: 25, height: 25 })]}
-            />
+            <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)} modifiers={[resizable(), frame({ width: 25, height: 25 })]} />
         ),
 
         compactTrailing: (
-            <Text
-                modifiers={[font({ size: 16 }), monospacedDigit(), multilineTextAlignment('trailing'), frame({ width: 60 })]}
-                date={startTime}
-                dateStyle={'timer'}
-            />
+            <>
+                {props.match.finished == null && (
+                    <Text
+                        modifiers={[font({ size: 16 }), monospacedDigit(), multilineTextAlignment('trailing'), frame({ width: 60 })]}
+                        date={startTime}
+                        dateStyle={'timer'}
+                    />
+                )}
+                {props.match.finished != null && (
+                    <Text modifiers={[font({ size: 14, weight: 'semibold' }), multilineTextAlignment('center')]}>
+                        {currentPlayer.won == true ? 'Nice win!' : 'Game over'}
+                    </Text>
+                )}
+            </>
         ),
 
-        minimal: <Image systemName="box.truck.fill" color={accentColor} />,
-        expandedLeading: (
-            <VStack modifiers={[padding({ all: 12 })]}>
-                <Image systemName="box.truck.fill" color={accentColor} />
-                <Text modifiers={[font({ size: 12 })]}>Delivering</Text>
-            </VStack>
-        ),
-        expandedTrailing: (
-            <VStack modifiers={[padding({ all: 12 })]}>
-                <Text modifiers={[font({ weight: 'bold', size: 20 })]}>{props.match.map}</Text>
-                <Text modifiers={[font({ size: 12 })]}>minutes</Text>
-            </VStack>
-        ),
-        expandedBottom: (
-            <VStack modifiers={[padding({ all: 12 })]}>
-                <Text>Driver: John Smith</Text>
-                <Text>Order #12345</Text>
-            </VStack>
-        ),
+        minimal: <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)} modifiers={[resizable(), frame({ width: 25, height: 25 })]} />,
+
+        expandedBottom: banner,
+
+        // expandedLeading: (
+        //     <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)} modifiers={[resizable(), frame({ width: 25, height: 25 })]} />
+        // ),
+        //
+        // expandedTrailing: (
+        //     <>
+        //         {props.match.finished == null && (
+        //             <Text
+        //                 modifiers={[font({ size: 16 }), monospacedDigit(), multilineTextAlignment('trailing'), frame({ width: 60 })]}
+        //                 date={startTime}
+        //                 dateStyle={'timer'}
+        //             />
+        //         )}
+        //         {props.match.finished != null && (
+        //             <Text
+        //                 modifiers={[
+        //                     font({ size: 14, weight: 'semibold' }),
+        //                     multilineTextAlignment('trailing'),
+        //                     padding({ trailing: 5 /* Otherwise cutoff */ }),
+        //                 ]}
+        //             >
+        //                 {currentPlayer.won == true ? 'Nice win!' : 'Game over'}
+        //             </Text>
+        //         )}
+        //     </>
+        // ),
     };
 };
 

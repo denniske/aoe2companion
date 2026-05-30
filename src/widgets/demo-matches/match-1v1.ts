@@ -3,8 +3,8 @@ export const match1v1 = {
     match: {
         matchId: 326119835,
         started: '2026-05-29T08:41:00.000Z',
-        finished: null,
-        // "finished": "2024-07-14T00:42:33.000Z",
+        // finished: undefined,
+        "finished": "2024-07-14T00:42:33.000Z",
         leaderboardId: 'unranked',
         leaderboardName: 'Unranked',
         name: 'Test',
