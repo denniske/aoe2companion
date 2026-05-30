@@ -8,7 +8,6 @@ import { Platform, Image } from 'react-native';
 import { fetchBuilds } from '@app/api/helper/api';
 import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
 import { appConfig } from '@nex/dataset';
-import { getBuildIcon } from '@/data/src/helper/builds';
 import { Paths } from 'expo-file-system';
 import { md5, widgetGroupDir, widgetSetFileIfNotExists } from '@app/service/storage';
 import AABuilds from '@app/widgets/AABuilds.widget';

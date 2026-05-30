@@ -6,7 +6,7 @@ import { startCase } from 'lodash';
 import { TouchableOpacity, View } from 'react-native';
 import { BuildRating } from './build-rating';
 import { getAgeIcon } from '../../../helper/units';
-import { getBuildIcon, IBuildOrder, sortBuildAges } from '@/data/src/helper/builds';
+import { IBuildOrder, sortBuildAges } from '@/data/src/helper/builds';
 import { genericCivIcon, getCivIconLocal } from '../../../helper/civs';
 import { getDifficultyIcon } from '../../../helper/difficulties';
 import { Tag } from '../tag';
@@ -22,7 +22,6 @@ export const BuildCard: React.FC<
     const civIcon = getCivIconLocal(build.civilization) ?? genericCivIcon;
     const difficultyIcon = getDifficultyIcon(build.difficulty);
     const ages = sortBuildAges(Object.entries(build.pop ?? {}));
-    const icon = getBuildIcon(build.image);
 
     if (size === 'small') {
         return (
@@ -32,7 +31,7 @@ export const BuildCard: React.FC<
                 className={cn('w-24 md:w-36 items-center justify-between gap-1', className)}
             >
                 <View className="w-full items-center justify-center">
-                    {icon && <Image source={icon} className="w-8 h-8 md:w-12 md:h-12" />}
+                    {build.imageURL && <Image source={{ uri: build.imageURL }} className="w-8 h-8 md:w-12 md:h-12" />}
                     {civIcon ? <Image className="w-5 h-5 md:w-8 md:h-8 absolute top-0 left-0" source={civIcon} /> : null}
                 </View>
 
@@ -49,7 +48,7 @@ export const BuildCard: React.FC<
 
     return (
         <Card href={`/explore/build-orders/${build.id}`} className={className}>
-            {build.imageURL && <Image source={{uri: build.imageURL}} className="w-12 h-12" />}
+            {build.imageURL && <Image source={{ uri: build.imageURL }} className="w-12 h-12" />}
 
             <View className="flex-1 gap-0.5">
                 <View className="flex-row justify-between items-center gap-2">

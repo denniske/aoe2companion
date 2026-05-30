@@ -137,24 +137,33 @@ const appPlugin = [
 // ] as [string, any];
 
 
-const widgetPlugin = widgetPluginConfig(
-    {
-        // "bundleIdentifier": "com.aoe2companion.widgets",
-        // "groupIdentifier": "group.com.aoe2companion.widget",
+const widgetPlugin = widgetPluginConfig({
+    // "bundleIdentifier": "com.aoe2companion.widgets",
+    // "groupIdentifier": "group.com.aoe2companion.widget",
 
-        // Note: 2026-05-23
-        // I think this version works. But inline modules has to be disabled.
-        enablePushNotifications: true,
-        widgets: process.env.GAME === 'aoe2' ? [
-            {
-                name: 'AABuilds',
-                displayName: 'AA Build Orders',
-                description: 'AA Quick access to your favorite build order',
-                contentMarginsDisabled: true, // true?
-                supportedFamilies: [WidgetFamily.systemMedium, WidgetFamily.systemLarge],
-            },
-        ] : [],
-    });
+    // Note: 2026-05-23
+    // I think this version works. But inline modules has to be disabled.
+    enablePushNotifications: true,
+    widgets:
+        process.env.GAME === 'aoe2'
+            ? [
+                  {
+                      name: 'AABuilds',
+                      displayName: 'AA Build Orders',
+                      description: 'AA Quick access to your favorite build order',
+                      contentMarginsDisabled: false, // false!
+                      supportedFamilies: [WidgetFamily.systemMedium, WidgetFamily.systemLarge],
+                  },
+                  // {
+                  //     name: 'MatchActivity',
+                  //     displayName: 'Match Live Activity',
+                  //     description: 'Shows live match info',
+                  //     contentMarginsDisabled: true, // true?
+                  //     supportedFamilies: [WidgetFamily.systemMedium, WidgetFamily.systemLarge],
+                  // },
+              ]
+            : [],
+});
 
 const version = app.version;
 const versionParts = version.split('.');

@@ -197,7 +197,7 @@ const processImageFast = async (uri: string) => {
 export const cacheLiveActivityAssets = async () => {
     try {
         const assets = await fetchAssets();
-        console.log('cacheLiveActivityAssets', new Date());
+        // console.log('cacheLiveActivityAssets', new Date());
 
         // const imagePath = Paths.join(widgetGroupDir, slugifyFilename('https://backend.cdn.aoe2companion.com/public/aoe2/de/maps/rm_coastal.png'));
         // const imageSource = () => 'https://backend.cdn.aoe2companion.com/public/aoe2/de/maps/rm_coastal.png';
@@ -223,11 +223,11 @@ export const cacheLiveActivityAssets = async () => {
         // console.log('cacheLiveActivityAssets', url2, new Date());
 
         for (const asset of assets) {
-            console.log('hasImage', asset.imageUrl, new Date());
+            // console.log('hasImage', asset.imageUrl, new Date());
             const imagePath = Paths.join(widgetGroupDir, slugifyFilename(asset.imageUrl));
             const imageSource = () => asset.imageUrl;
             const url = await widgetSetFileIfNotExists(imagePath, imageSource);
-            console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
+            // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
 
             // 75px (3 times 25px) for dynamic island icon
             if (asset.imageUrl.includes('/maps')) {
@@ -254,7 +254,7 @@ export const cacheLiveActivityAssets = async () => {
             //     // console.log('cacheLiveActivityAssets already cached', await md5(asset.imageUrl));
             // }
         }
-        console.log('cacheLiveActivityAssets finish', new Date());
+        // console.log('cacheLiveActivityAssets finish', new Date());
     } catch (error) {
         if (__DEV__) {
             console.error('cacheLiveActivityAssets error', error);
@@ -293,7 +293,7 @@ export type BuildFilters = {
 
 export async function widgetSetFileIfNotExists(destPath: string, getSourcePath: () => string | undefined) {
     const destFile = new File(destPath);
-    // if (!destFile.exists || destPath.includes('coastal')) {
+    if (!destFile.exists) {
         const sourcePath = getSourcePath();
 
         if (!sourcePath) {
@@ -310,7 +310,7 @@ export async function widgetSetFileIfNotExists(destPath: string, getSourcePath: 
                 idempotent: true,
             });
         }
-    // }
+    }
     // console.log(destFile.uri, destFile.exists);
     return destFile.uri;
 }

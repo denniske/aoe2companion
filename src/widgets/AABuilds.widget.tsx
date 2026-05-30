@@ -12,7 +12,6 @@ import {
 } from '@expo/ui/swift-ui/modifiers';
 import { createWidget, type WidgetEnvironment } from 'expo-widgets';
 import { IExtendedBuildOrder } from '@/data/src/helper/builds';
-import { widgetStyle } from '@app/widgets/widget-style';
 
 type AABuildsProps = {
     builds: IExtendedBuildOrder[] | undefined
@@ -20,6 +19,23 @@ type AABuildsProps = {
 
 const AABuilds = (props: AABuildsProps, environment: WidgetEnvironment) => {
     'widget';
+    const widgetStyle = {
+        dark: {
+            backgroundColor: '#0e1017',
+            cardBackgroundColor: '#181c29',
+            cardBorderColor: '#1e2939',
+            foregroundColor: '#ffffff',
+            foregroundNoteColor: '#888888',
+        },
+        light: {
+            backgroundColor: '#fffcf5',
+            cardBackgroundColor: '#ffffff',
+            cardBorderColor: '#e5e7eb',
+            foregroundColor: '#000000',
+            foregroundNoteColor: '#888888',
+        },
+    };
+
     const style = widgetStyle[environment.colorScheme ?? 'light'];
 
     const { builds } = props;

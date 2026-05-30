@@ -55,8 +55,10 @@ import { LoginPopupProvider } from '@app/providers/login-popup-provider';
 import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
 import { appConfig } from '@nex/dataset';
 import { cacheLiveActivityAssets, widgetGroupDir } from '@app/service/storage';
-import { addPushToStartTokenListener } from 'expo-widgets';
+import { addPushToStartTokenListener, ExpoWidgetsEvents } from 'expo-widgets';
 import { setAccountLiveActivityToken } from '@app/api/account';
+import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
+import { useEventListener } from 'expo';
 
 initSentry();
 
@@ -280,8 +282,14 @@ function LiveActivityController() {
     //     }
     // });
 
-    // const pushToStartSubscription = addPushToStartTokenListener((event) => {
-    //     console.log('Push-to-start token:', event.activityPushToStartToken);
+    console.log('instances', MatchActivity.getInstances());
+
+    // useEventListener(ExpoWidgetsEvents, 'onExpoWidgetsPushToStartTokenReceived', async ({ token, data, type }) => {
+    //     const { match } = JSON.parse(data);
+    //     console.log('onActivityStarted', accountId, token, type, match.matchId);
+    //     if (token && type && match) {
+    //         await storeLiveActivityStarted(token, type, match.matchId);
+    //     }
     // });
 
     useEffect(() => {
