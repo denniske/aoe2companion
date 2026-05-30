@@ -154,13 +154,6 @@ const widgetPlugin = widgetPluginConfig({
                       contentMarginsDisabled: false, // false!
                       supportedFamilies: [WidgetFamily.systemMedium, WidgetFamily.systemLarge],
                   },
-                  // {
-                  //     name: 'MatchActivity',
-                  //     displayName: 'Match Live Activity',
-                  //     description: 'Shows live match info',
-                  //     contentMarginsDisabled: true, // true?
-                  //     supportedFamilies: [WidgetFamily.systemMedium, WidgetFamily.systemLarge],
-                  // },
               ]
             : [],
 });
