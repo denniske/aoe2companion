@@ -57,8 +57,8 @@ import { appConfig } from '@nex/dataset';
 import { cacheLiveActivityAssets, widgetGroupDir } from '@app/service/storage';
 import { addPushToStartTokenListener, ExpoWidgetsEvents } from 'expo-widgets';
 import { setAccountLiveActivityToken } from '@app/api/account';
-import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
-import { useEventListener } from 'expo';
+// import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
+// import { useEventListener } from 'expo';
 
 initSentry();
 

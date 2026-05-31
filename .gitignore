@@ -12,6 +12,8 @@
 skills-lock.json
 .ai
 
+modules/app-update/android/build
+
 /modules/widget/android/build
 /android
 /ios

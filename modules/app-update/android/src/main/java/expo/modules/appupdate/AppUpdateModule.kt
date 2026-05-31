@@ -3,9 +3,9 @@ package expo.modules.appupdate
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContracts
+//import androidx.activity.result.ActivityResultLauncher
+//import androidx.activity.result.IntentSenderRequest
+//import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.NonNull
 import com.google.android.gms.tasks.Task
 import com.google.android.play.core.appupdate.AppUpdateInfo
@@ -15,7 +15,7 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import expo.modules.core.interfaces.ActivityEventListener
 import expo.modules.kotlin.Promise
-import expo.modules.kotlin.activityresult.AppContextActivityResultLauncher
+//import expo.modules.kotlin.activityresult.AppContextActivityResultLauncher
 import expo.modules.kotlin.exception.Exceptions
 import expo.modules.kotlin.functions.Coroutine
 import expo.modules.kotlin.modules.Module
@@ -41,51 +41,51 @@ suspend fun getAppUpdateInfo(appUpdateInfoTask: Task<AppUpdateInfo>): AppUpdateI
 
 const val UPDATE_REQUEST_CODE: Int = 1
 
-class AppUpdateModule : Module(), ActivityEventListener {
+class AppUpdateModule : Module() {
 
     val context: Context
         get() = appContext.reactContext ?: throw Exceptions.ReactContextLost()
 
-    override fun onActivityResult(activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?) {
-
-        println("onActivityResult")
-        println("requestCode: $requestCode")
-        println("resultCode: $resultCode")
-        println("data: $data")
-
-        this@ExpoAppUpdateModule.sendEvent(
-            "onChange", mapOf(
-                "onActivityResult" to "test"
-            )
-        )
-
-        sendEvent(
-            "onChange", mapOf(
-                "onActivityResult" to "test"
-            )
-        )
-
-        if (requestCode == UPDATE_REQUEST_CODE) {
-            when (resultCode) {
-                Activity.RESULT_OK -> {
-                    // Handle success
-                }
-
-                Activity.RESULT_CANCELED -> {
-                    // Handle cancellation
-                }
-
-                Activity.RESULT_FIRST_USER -> {
-                    // Handle any other custom results
-                }
-            }
-        }
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        println("onNewIntent")
-        TODO("Not yet implemented")
-    }
+//    override fun onActivityResult(activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?) {
+//
+//        println("onActivityResult")
+//        println("requestCode: $requestCode")
+//        println("resultCode: $resultCode")
+//        println("data: $data")
+//
+//        this@ExpoAppUpdateModule.sendEvent(
+//            "onChange", mapOf(
+//                "onActivityResult" to "test"
+//            )
+//        )
+//
+//        sendEvent(
+//            "onChange", mapOf(
+//                "onActivityResult" to "test"
+//            )
+//        )
+//
+//        if (requestCode == UPDATE_REQUEST_CODE) {
+//            when (resultCode) {
+//                Activity.RESULT_OK -> {
+//                    // Handle success
+//                }
+//
+//                Activity.RESULT_CANCELED -> {
+//                    // Handle cancellation
+//                }
+//
+//                Activity.RESULT_FIRST_USER -> {
+//                    // Handle any other custom results
+//                }
+//            }
+//        }
+//    }
+//
+//    override fun onNewIntent(intent: Intent?) {
+//        println("onNewIntent")
+//        TODO("Not yet implemented")
+//    }
 
     // Each module class must implement the definition function. The definition consists of components
     // that describes the module's functionality and behavior.

@@ -1861,7 +1861,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/ui@npm:^56.0.15, @expo/ui@npm:~56.0.15":
+"@expo/ui@npm:^56.0.15, @expo/ui@npm:~56.0.13":
   version: 56.0.15
   resolution: "@expo/ui@npm:56.0.15"
   dependencies:
@@ -4840,7 +4840,7 @@ __metadata:
     expo-updates: "npm:~56.0.17"
     expo-video: "npm:~56.1.2"
     expo-web-browser: "npm:~56.0.5"
-    expo-widgets: "npm:~56.0.16"
+    expo-widgets: "npm:56.0.14"
     express: "npm:^5.2.1"
     html-entities: "npm:^2.4.0"
     humps: "npm:^2.0.1"
@@ -7756,17 +7756,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-widgets@npm:~56.0.16":
-  version: 56.0.16
-  resolution: "expo-widgets@npm:56.0.16"
+"expo-widgets@npm:56.0.14":
+  version: 56.0.14
+  resolution: "expo-widgets@npm:56.0.14"
   dependencies:
     "@expo/plist": "npm:^0.7.0"
-    "@expo/ui": "npm:~56.0.15"
+    "@expo/ui": "npm:~56.0.13"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 10/5126cc5d614c54da8e33dd04f70cea4874b3b245e2f9fb3ac5c97db9ffd516b3150553edd5bd31144553cc4c283d5ad8ac116e8b1e89063af0c537f3c7f8565d
+  checksum: 10/91536e66638c6e4d0a7ab739e01903f23343d1d74a6cd7fc33501e83a98d27d94021ff9df85a9a17f156cd627c526bda7de146f63342b0c633dc16f7a3f86ea7
   languageName: node
   linkType: hard
 
