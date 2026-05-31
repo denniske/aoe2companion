@@ -2,7 +2,7 @@ export const matchUneven = {
     "playerId": 407363, "match": {
         "matchId": 326274782,
         "started": "2024-07-14T16:58:24.000Z",
-        "finished": null,
+        "finished": undefined,
         "leaderboardId": "unranked",
         "leaderboardName": "Unranked",
         "name": "[重賽] 弦月 的遊戲",

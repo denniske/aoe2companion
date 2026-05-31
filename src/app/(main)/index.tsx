@@ -36,6 +36,13 @@ import { after, type LiveActivity } from 'expo-widgets';
 import { match1v1 } from '@app/widgets/demo-matches/match-1v1';
 import { widgetGroupDir } from '@app/service/storage';
 import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
+import { match2v2 } from '@app/widgets/demo-matches/match-2v2';
+import { match4v4 } from '@app/widgets/demo-matches/match-4v4';
+import { reducePayload } from '@app/widgets/demo-matches/demo-helper';
+import { matchUneven } from '@app/widgets/demo-matches/match-uneven';
+import { matchFFA } from '@app/widgets/demo-matches/match-ffa';
+import { match2v2v2v2 } from '@app/widgets/demo-matches/match-2v2v2v2';
+import { match2v2v1v1v1v1 } from '@app/widgets/demo-matches/match-2v2v1v1v1v1';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -106,56 +113,88 @@ export default function IndexPage() {
         return 1;
     }, [isLarge, isMedium, isSmall]);
 
-    const [matchActivity, setMatchActivity] = useState<LiveActivity<MatchActivityProps>>();
-
-    console.log('folder', widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''));
-
-    const testMatch = {
-        ...match1v1,
-        iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
-    };
-
-    const startDeliveryTracking = () => {
-        // Start the Live Activity
-        const instance = MatchActivity.start(
-            testMatch,
-            'myapp://deliveries/12345'
-        );
-        setMatchActivity(instance);
-    };
-
-    const updateDeliveryTracking = () => {
-        matchActivity?.update(
-            testMatch,
-        );
-    };
-
-    const updateDeliveryTrackingSingle = (activity: LiveActivity<MatchActivityProps>) => {
-        activity?.update(
-            testMatch,
-        );
-    };
-
-    const endDeliveryTracking = async () => {
-        // await matchActivity?.end(
-        //     after(new Date(Date.now() + 15 * 60 * 1000)),
-        //     {
-        //         etaMinutes: 0,
-        //         status: 'Delivered',
-        //     },
-        //     new Date()
-        // );
-    };
-
-    useEffect(() => {
-        const existingMatchActivity = MatchActivity.getInstances()[0];
-        console.log('EFFECT', MatchActivity.getInstances().length);
-        if (existingMatchActivity == null) {
-            startDeliveryTracking();
-        } else {
-            updateDeliveryTrackingSingle(existingMatchActivity);
-        }
-    }, [matchActivity]);
+    // const [matchActivity, setMatchActivity] = useState<LiveActivity<MatchActivityProps>>();
+    //
+    // console.log('folder', widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''));
+    //
+    // const testMatches = [
+    //     {
+    //         ...match2v2,
+    //         iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+    //     },
+    //     // {
+    //     //     ...match4v4,
+    //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+    //     // },
+    //     {
+    //         ...matchUneven,
+    //         iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+    //     },
+    //     // {
+    //     //     ...matchFFA,
+    //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+    //     // },
+    //
+    //     {
+    //         ...match2v2v2v2,
+    //         iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+    //     },
+    //     {
+    //         ...match2v2v1v1v1v1,
+    //         iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+    //     },
+    // ].map(reducePayload);
+    //
+    // const startDeliveryTracking = (i: number) => {
+    //     // Start the Live Activity
+    //     const instance = MatchActivity.start(
+    //         testMatches[i],
+    //         'myapp://deliveries/12345'
+    //     );
+    //     setMatchActivity(instance);
+    // };
+    //
+    // // const updateDeliveryTracking = () => {
+    // //     matchActivity?.update(
+    // //         testMatch,
+    // //     );
+    // // };
+    //
+    // const updateDeliveryTrackingSingle = (activity: LiveActivity<MatchActivityProps>, i: number) => {
+    //     activity?.update(testMatches[i]);
+    // };
+    //
+    // const endDeliveryTracking = async () => {
+    //     // await matchActivity?.end(
+    //     //     after(new Date(Date.now() + 15 * 60 * 1000)),
+    //     //     {
+    //     //         etaMinutes: 0,
+    //     //         status: 'Delivered',
+    //     //     },
+    //     //     new Date()
+    //     // );
+    // };
+    //
+    // useEffect(() => {
+    //     console.log('EFFECT', MatchActivity.getInstances().length);
+    //
+    //     // const existingMatchActivity = MatchActivity.getInstances()[0];
+    //     // if (existingMatchActivity == null) {
+    //     //     startDeliveryTracking();
+    //     // } else {
+    //     //     updateDeliveryTrackingSingle(existingMatchActivity);
+    //     // }
+    //
+    //     for (let i = 0; i < testMatches.length; i++) {
+    //         const existingMatchActivity = MatchActivity.getInstances()[i];
+    //         if (existingMatchActivity == null) {
+    //             startDeliveryTracking(i);
+    //         } else {
+    //             updateDeliveryTrackingSingle(existingMatchActivity, i);
+    //         }
+    //     }
+    //
+    // }, [matchActivity]);
 
     return (
         <ScrollView contentContainerClassName="p-4 md:py-6">
