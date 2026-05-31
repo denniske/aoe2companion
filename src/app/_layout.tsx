@@ -272,9 +272,8 @@ function AccountController() {
 // }
 
 
-import AppUpdateModule from '@/modules/app-update/src/AppUpdateModule';
-
-console.log('HELLO', AppUpdateModule.Hello);
+// import { AppUpdate } from '@/modules/app-update/src';
+// console.log('HELLO', AppUpdate.Hello);
 
 function LiveActivityController() {
     const accountId = useAccountData((state) => state.accountId);
@@ -287,7 +286,7 @@ function LiveActivityController() {
     //     }
     // });
 
-    console.log('instances', MatchActivity.getInstances());
+    // console.log('instances', MatchActivity.getInstances());
 
     // useEventListener(ExpoWidgetsEvents, 'onExpoWidgetsPushToStartTokenReceived', async ({ token, data, type }) => {
     //     const { match } = JSON.parse(data);
@@ -316,7 +315,6 @@ function LiveActivityController() {
     useEffect(() => {
         if (Platform.OS === 'ios' && appConfig.game === 'aoe2' && accountId) {
             console.log('Registering LiveActivity for', accountId);
-            // LiveActivity.enable();
             cacheLiveActivityAssets();
         }
     }, [accountId]);

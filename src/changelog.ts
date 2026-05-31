@@ -372,10 +372,10 @@ export const changelog4: IChangelog = {
 
 export const changelog: IChangelog = {
     '199.0.0': [
-        {
-            type: 'minor',
-            title: 'Note: Live activities are currently disabled. Will be fixed in the next update.',
-        },
+        // {
+        //     type: 'minor',
+        //     title: 'Note: Live activities are currently disabled. Will be fixed in the next update.',
+        // },
         {
             type: 'minor',
             title: 'Internal Framework Update (SDK 56)',
