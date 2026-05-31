@@ -1,7 +1,9 @@
-internal import ExpoModulesCore
+import ExpoModulesCore
 
-class AppUpdateModule: Module {
+public class AppUpdateModule: Module {
   public func definition() -> ModuleDefinition {
+    Name("AppUpdate")
+
     Constant("Hello") {
       return "Hello iOS inline modules2!"
     }

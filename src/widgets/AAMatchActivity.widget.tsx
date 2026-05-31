@@ -152,27 +152,56 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
     };
 
     const banner = (
-        <VStack modifiers={[padding({ all: 15 }), containerBackground(style.backgroundColor, 'widget')]}>
-            {opponentsCount === '1v1' ? (
-                <HStack modifiers={[padding({ all: 0 })]}>
-                    <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl)} modifiers={[resizable(), frame({ width: 64, height: 64 })]} />
+        <Link destination={`aoe2companion://players/${props.playerId}/matches/${props.match.matchId}`}>
+            <VStack modifiers={[padding({ all: 15 }), containerBackground(style.backgroundColor, 'widget')]}>
+                {opponentsCount === '1v1' ? (
+                    <HStack modifiers={[padding({ all: 0 })]}>
+                        <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl)} modifiers={[resizable(), frame({ width: 64, height: 64 })]} />
 
-                    <VStack modifiers={[padding({ leading: 12 }), frame({ maxWidth: Infinity, alignment: 'topLeading' })]} spacing={12}>
+                        <VStack modifiers={[padding({ leading: 12 }), frame({ maxWidth: Infinity, alignment: 'topLeading' })]} spacing={12}>
+                            {/* Row 1: Map name + leaderboard/format */}
+                            <HStack modifiers={[frame({ maxWidth: Infinity })]}>
+                                <Text modifiers={[font({ size: 18, weight: 'semibold' }), lineLimit(1)]}>{props.match.mapName}</Text>
+                                <Spacer />
+                                <Text modifiers={[font({ size: 16 })]}>{`${props.match.leaderboardName ?? ''} ${opponentsCount}`}</Text>
+                            </HStack>
+
+                            {/* Row 2: Opponent row + result/timer */}
+                            <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={4}>
+                                {PlayerRow(JSON.stringify({ player: opponent }))}
+                                <Spacer />
+                                {props.match.finished != null ? (
+                                    <Text modifiers={[font({ size: 16, weight: 'semibold' })]}>
+                                        {currentPlayer.won === true ? 'Nice win!' : 'Game over'}
+                                    </Text>
+                                ) : (
+                                    <Text
+                                        modifiers={[
+                                            font({ size: 16 }),
+                                            monospacedDigit(),
+                                            multilineTextAlignment('trailing'),
+                                            lineLimit(1),
+                                            frame({ width: 80 }),
+                                        ]}
+                                        date={startTime}
+                                        dateStyle={'timer'}
+                                    />
+                                )}
+                            </HStack>
+                        </VStack>
+                    </HStack>
+                ) : (
+                    <VStack modifiers={[padding({ leading: 0 }), frame({ maxWidth: Infinity, alignment: 'topLeading' })]} spacing={12}>
                         {/* Row 1: Map name + leaderboard/format */}
-                        <HStack modifiers={[frame({ maxWidth: Infinity })]}>
+                        <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
+                            <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl)} modifiers={[resizable(), frame({ width: 20, height: 20 })]} />
                             <Text modifiers={[font({ size: 18, weight: 'semibold' }), lineLimit(1)]}>{props.match.mapName}</Text>
                             <Spacer />
-                            <Text modifiers={[font({ size: 16 })]}>{`${props.match.leaderboardName ?? ''} ${opponentsCount}`}</Text>
-                        </HStack>
-
-                        {/* Row 2: Opponent row + result/timer */}
-                        <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={4}>
-                            {PlayerRow(JSON.stringify({ player: opponent }))}
-                            <Spacer />
+                            <Text modifiers={[font({ size: 14 })]}>{`${props.match.leaderboardName ?? ''}`}</Text>
+                            <Text modifiers={[font({ size: 14 })]}>{`${opponentsCount}`}</Text>
+                            {/*<Text modifiers={[font({ size: 14 })]}>{`${props.match.leaderboardName ?? ''} ${opponentsCount}`}</Text>*/}
                             {props.match.finished != null ? (
-                                <Text modifiers={[font({ size: 16, weight: 'semibold' })]}>
-                                    {currentPlayer.won === true ? 'Nice win!' : 'Game over'}
-                                </Text>
+                                <Text modifiers={[font({ size: 16, weight: 'semibold' })]}>{currentPlayer.won === true ? 'Nice win!' : 'Game over'}</Text>
                             ) : (
                                 <Text
                                     modifiers={[
@@ -187,82 +216,55 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
                                 />
                             )}
                         </HStack>
-                    </VStack>
-                </HStack>
-            ) : (
-                <VStack modifiers={[padding({ leading: 0 }), frame({ maxWidth: Infinity, alignment: 'topLeading' })]} spacing={12}>
-                    {/* Row 1: Map name + leaderboard/format */}
-                    <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
-                        <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl)} modifiers={[resizable(), frame({ width: 20, height: 20 })]} />
-                        <Text modifiers={[font({ size: 18, weight: 'semibold' }), lineLimit(1)]}>{props.match.mapName}</Text>
-                        <Spacer />
-                        <Text modifiers={[font({ size: 14 })]}>{`${props.match.leaderboardName ?? ''}`}</Text>
-                        <Text modifiers={[font({ size: 14 })]}>{`${opponentsCount}`}</Text>
-                        {/*<Text modifiers={[font({ size: 14 })]}>{`${props.match.leaderboardName ?? ''} ${opponentsCount}`}</Text>*/}
-                        {props.match.finished != null ? (
-                            <Text modifiers={[font({ size: 16, weight: 'semibold' })]}>{currentPlayer.won === true ? 'Nice win!' : 'Game over'}</Text>
-                        ) : (
-                            <Text
-                                modifiers={[
-                                    font({ size: 16 }),
-                                    monospacedDigit(),
-                                    multilineTextAlignment('trailing'),
-                                    lineLimit(1),
-                                    frame({ width: 80 }),
-                                ]}
-                                date={startTime}
-                                dateStyle={'timer'}
-                            />
+
+                        {/* Row 2: Opponent row + result/timer */}
+
+                        {props.match.teams.length <= 4 && (
+                            <>
+                                <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[0] }))}
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[1] }))}
+                                </HStack>
+                                <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[2] }))}
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[3] }))}
+                                </HStack>
+                                {props.match.teams.length > 4 && (
+                                    <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
+                                        {TeamRow(JSON.stringify({ team: props.match.teams[4] }))}
+                                        {TeamRow(JSON.stringify({ team: props.match.teams[5] }))}
+                                    </HStack>
+                                )}
+                                {props.match.teams.length > 6 && (
+                                    <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
+                                        {TeamRow(JSON.stringify({ team: props.match.teams[6] }))}
+                                        {TeamRow(JSON.stringify({ team: props.match.teams[7] }))}
+                                    </HStack>
+                                )}
+                            </>
                         )}
-                    </HStack>
-
-                    {/* Row 2: Opponent row + result/timer */}
-
-                    {props.match.teams.length <= 4 && (
-                        <>
-                            <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
-                                {TeamRow(JSON.stringify({ team: props.match.teams[0] }))}
-                                {TeamRow(JSON.stringify({ team: props.match.teams[1] }))}
-                            </HStack>
-                            <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
-                                {TeamRow(JSON.stringify({ team: props.match.teams[2] }))}
-                                {TeamRow(JSON.stringify({ team: props.match.teams[3] }))}
-                            </HStack>
-                            {props.match.teams.length > 4 && (
+                        {props.match.teams.length > 4 && (
+                            <>
                                 <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
-                                    {TeamRow(JSON.stringify({ team: props.match.teams[4] }))}
-                                    {TeamRow(JSON.stringify({ team: props.match.teams[5] }))}
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[0], showRating: false }))}
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[1], showRating: false }))}
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[2], showRating: false }))}
                                 </HStack>
-                            )}
-                            {props.match.teams.length > 6 && (
                                 <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
-                                    {TeamRow(JSON.stringify({ team: props.match.teams[6] }))}
-                                    {TeamRow(JSON.stringify({ team: props.match.teams[7] }))}
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[3], showRating: false }))}
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[4], showRating: false }))}
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[5], showRating: false }))}
                                 </HStack>
-                            )}
-                        </>
-                    )}
-                    {props.match.teams.length > 4 && (
-                        <>
-                            <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
-                                {TeamRow(JSON.stringify({ team: props.match.teams[0], showRating: false }))}
-                                {TeamRow(JSON.stringify({ team: props.match.teams[1], showRating: false }))}
-                                {TeamRow(JSON.stringify({ team: props.match.teams[2], showRating: false }))}
-                            </HStack>
-                            <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
-                                {TeamRow(JSON.stringify({ team: props.match.teams[3], showRating: false }))}
-                                {TeamRow(JSON.stringify({ team: props.match.teams[4], showRating: false }))}
-                                {TeamRow(JSON.stringify({ team: props.match.teams[5], showRating: false }))}
-                            </HStack>
-                            <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
-                                {TeamRow(JSON.stringify({ team: props.match.teams[6], showRating: false }))}
-                                {TeamRow(JSON.stringify({ team: props.match.teams[7], showRating: false }))}
-                            </HStack>
-                        </>
-                    )}
-                </VStack>
-            )}
-        </VStack>
+                                <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[6], showRating: false }))}
+                                    {TeamRow(JSON.stringify({ team: props.match.teams[7], showRating: false }))}
+                                </HStack>
+                            </>
+                        )}
+                    </VStack>
+                )}
+            </VStack>
+        </Link>
     );
 
     return {

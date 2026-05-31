@@ -271,6 +271,11 @@ function AccountController() {
 //     return <View />;
 // }
 
+
+import AppUpdateModule from '@/modules/app-update/src/AppUpdateModule';
+
+console.log('HELLO', AppUpdateModule.Hello);
+
 function LiveActivityController() {
     const accountId = useAccountData((state) => state.accountId);
 
