@@ -194,24 +194,24 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         experienceId: app.experienceId,
         eas: {
             projectId: app.projectId,
-            build:
-                process.env.GAME === 'aoe2'
-                    ? {
-                          experimental: {
-                              ios: {
-                                  appExtensions: [
-                                      {
-                                          targetName: 'widget',
-                                          bundleIdentifier: 'com.aoe2companion.widget',
-                                          entitlements: {
-                                              'com.apple.security.application-groups': ['group.com.aoe2companion.widget'],
-                                          },
-                                      },
-                                  ],
-                              },
-                          },
-                      }
-                    : {},
+            // build:
+            //     process.env.GAME === 'aoe2'
+            //         ? {
+            //               experimental: {
+            //                   ios: {
+            //                       appExtensions: [
+            //                           {
+            //                               targetName: 'widget',
+            //                               bundleIdentifier: 'com.aoe2companion.widget',
+            //                               entitlements: {
+            //                                   'com.apple.security.application-groups': ['group.com.aoe2companion.widget'],
+            //                               },
+            //                           },
+            //                       ],
+            //                   },
+            //               },
+            //           }
+            //         : {},
         },
     },
     userInterfaceStyle: 'automatic',

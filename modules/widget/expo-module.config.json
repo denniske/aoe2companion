@@ -1,9 +1,0 @@
-{
-    "platforms": ["ios", "android", "web"],
-    "ios": {
-        "modules": ["WidgetModule", "LiveActivityModule"]
-    },
-    "android": {
-        "modules": ["com.aoe2companion.widget.WidgetModule", "com.aoe2companion.widget.LiveActivityModule"]
-    }
-}
