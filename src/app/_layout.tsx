@@ -57,6 +57,8 @@ import { appConfig } from '@nex/dataset';
 import { cacheLiveActivityAssets, widgetGroupDir } from '@app/service/storage';
 import { addPushToStartTokenListener, ExpoWidgetsEvents } from 'expo-widgets';
 import { setAccountLiveActivityToken } from '@app/api/account';
+import { addUserInteractionListener } from 'expo-widgets/src/Widgets';
+import MatchActivity from '@app/widgets/AAMatchActivity.widget';
 // import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
 // import { useEventListener } from 'expo';
 
@@ -278,6 +280,8 @@ function AccountController() {
 function LiveActivityController() {
     const accountId = useAccountData((state) => state.accountId);
 
+
+
     // useEventListener(LiveActivity, 'onActivityStarted', async ({ token, data, type }) => {
     //     const { match } = JSON.parse(data);
     //     console.log('onActivityStarted', accountId, token, type, match.matchId);
@@ -302,13 +306,28 @@ function LiveActivityController() {
             const iosAppGroupFolder = widgetGroupDir.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', '');
             const token = event.activityPushToStartToken;
             console.log(`onTokenChanged account: ${accountId} token: ${token} folder: ${iosAppGroupFolder}`);
-            if (token) {
+            if (accountId && token) {
                 await setAccountLiveActivityToken(token, iosAppGroupFolder);
             }
         });
 
+        // MatchActivity.getInstances()[0].addPushTokenListener()
+
         return () => {
             pushToStartSubscription.remove();
+        };
+    }, [accountId]);
+
+    useEffect(() => {
+        const eventSubscription = addUserInteractionListener(async (event) => {
+            // console.log('widgetGroupDir', widgetGroupDir.uri);
+            console.log(`onUserInteractionLive account: ${accountId}`, event);
+        });
+
+        console.log('CREATED onUserInteractionLive');
+
+        return () => {
+            eventSubscription.remove();
         };
     }, [accountId]);
 
