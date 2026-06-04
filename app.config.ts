@@ -2,7 +2,7 @@ import { ConfigContext, ExpoConfig } from 'expo/config';
 import widgetPluginConfig from 'expo-widgets/plugin';
 import { WidgetFamily } from 'expo-widgets/plugin/build/types/WidgetFamily.type';
 
-const versionAoe2 = '199.0.0';
+const versionAoe2 = '200.0.0';
 const versionAoe4 = '40.0.0';
 
 console.log('Building for', process.env.GAME, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);

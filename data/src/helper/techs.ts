@@ -448,7 +448,7 @@ const techEffectDictInternal = {
         civ: 'Muisca',
         effect: {
             range: '+1',
-            creationSpeed: '+25%',
+            creationSpeed: '+50%',
         },
     },
     'Herbalism': {
@@ -1217,8 +1217,8 @@ const techEffectDictInternal = {
             range: '+2',
         },
     },
-    'ElDorado': {
-        tech: 'ElDorado',
+    'Holcans': {
+        tech: 'Holcans',
         civ: 'Mayans',
         effect: {
             hitPoints: '+40',
@@ -2497,7 +2497,7 @@ export const techList: ITech[] = [
     },
     {
         "dataId": "4",
-        "name": "ElDorado",
+        "name": "Holcans",
         "civ": "Mayans",
         "age": 'ImperialAge',
     },
@@ -3142,7 +3142,7 @@ const techIds = [
     'RecurveBow',
     'ForcedLevy',
     'Farimba',
-    'ElDorado',
+    'Holcans',
     'Drill',
     'Citadels',
     'Arquebus',

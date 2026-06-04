@@ -332,7 +332,7 @@ const techIds = [
     'RecurveBow',
     'ForcedLevy',
     'Farimba',
-    'ElDorado',
+    'Holcans',
     'Drill',
     'Citadels',
     'Arquebus',

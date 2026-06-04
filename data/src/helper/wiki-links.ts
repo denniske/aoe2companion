@@ -345,7 +345,7 @@ const wikiLinks: Record<string, Record<string, string>> = {
         'RecurveBow': 'https://ageofempires.fandom.com/wiki/Recurve_Bow',
         'ForcedLevy': 'https://ageofempires.fandom.com/wiki/Forced_Levy',
         'Farimba': 'https://ageofempires.fandom.com/wiki/Farimba',
-        'ElDorado': 'https://ageofempires.fandom.com/wiki/El_Dorado_(technology)',
+        'Holcans': 'https://ageofempires.fandom.com/wiki/El_Dorado_(technology)',
         'Drill': 'https://ageofempires.fandom.com/wiki/Drill',
         'Citadels': 'https://ageofempires.fandom.com/wiki/Citadels',
         'Arquebus': 'https://ageofempires.fandom.com/wiki/Arquebus',

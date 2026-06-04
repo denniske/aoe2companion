@@ -180,7 +180,7 @@ const techIcons: TechIconDict = {
     'RecurveBow': require('../../assets/techs/UniqueTechImperial.png'),
     'ForcedLevy': require('../../assets/techs/UniqueTechImperial.png'),
     'Farimba': require('../../assets/techs/UniqueTechImperial.png'),
-    'ElDorado': require('../../assets/techs/UniqueTechImperial.png'),
+    'Holcans': require('../../assets/techs/UniqueTechImperial.png'),
     'Drill': require('../../assets/techs/UniqueTechImperial.png'),
     'Citadels': require('../../assets/techs/UniqueTechImperial.png'),
     'Arquebus': require('../../assets/techs/UniqueTechImperial.png'),
