@@ -3,7 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import { Image, Platform } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
-import { Widget } from '../../modules/widget';
 import { DarkMode } from '../redux/reducer';
 import { fetchAssets } from '@app/api/helper/api';
 import * as Crypto from 'expo-crypto';
