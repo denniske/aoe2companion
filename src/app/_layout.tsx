@@ -59,6 +59,7 @@ import { addPushToStartTokenListener, ExpoWidgetsEvents } from 'expo-widgets';
 import { setAccountLiveActivityToken } from '@app/api/account';
 import { addUserInteractionListener } from 'expo-widgets/src/Widgets';
 import MatchActivity from '@app/widgets/AAMatchActivity.widget';
+import { ObserveRoot, useObserve } from 'expo-observe';
 // import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
 // import { useEventListener } from 'expo';
 
@@ -450,6 +451,7 @@ function AppWrapper() {
     // const [appIsReady, setAppIsReady] = useState(false);
     const insets = useSafeAreaInsets();
     const { customTheme, contentTheme } = useColorSchemes();
+    const { markInteractive } = useObserve();
 
     // const [rerender] = useMMKVString('rerender');
     // const [cachedLanguage, setCachedLanguage] = useMMKVString('language');
@@ -518,6 +520,7 @@ function AppWrapper() {
     const onLayoutRootView = useCallback(async () => {
         if (fontsLoaded) {
             SplashScreen.hide();
+            markInteractive();
         }
     }, [fontsLoaded]);
 
@@ -717,4 +720,4 @@ function HomeLayout() {
     );
 }
 
-export default Sentry.wrap(HomeLayout);
+export default Sentry.wrap(ObserveRoot.wrap(HomeLayout));

@@ -4830,6 +4830,7 @@ __metadata:
     expo-linking: "npm:~56.0.13"
     expo-localization: "npm:~56.0.6"
     expo-notifications: "npm:~56.0.15"
+    expo-observe: "npm:~56.0.18"
     expo-router: "npm:~56.2.8"
     expo-server: "npm:~56.0.4"
     expo-splash-screen: "npm:~56.0.10"
@@ -7174,6 +7175,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-app-metrics@npm:~56.0.16":
+  version: 56.0.16
+  resolution: "expo-app-metrics@npm:56.0.16"
+  dependencies:
+    expo-updates-interface: "npm:~56.0.1"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10/f1e9859f9905f316b2c4e88a6e93412717275736f5424f96efa3322cf56c24315153f7d2c170ef7a4233ccca6b95e9760f6ef1054485dfe4d59e6e2d8475decd
+  languageName: node
+  linkType: hard
+
 "expo-application@npm:~56.0.3":
   version: 56.0.3
   resolution: "expo-application@npm:56.0.3"
@@ -7539,6 +7553,27 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10/34c323a13ca78b635f749a5a41243e4f5727633dd09d543277be0951ae8df517f69270f4c256777f3b45b7e0470a44f3a6818ec929230fed27a12541af2776ca
+  languageName: node
+  linkType: hard
+
+"expo-observe@npm:~56.0.18":
+  version: 56.0.18
+  resolution: "expo-observe@npm:56.0.18"
+  dependencies:
+    expo-app-metrics: "npm:~56.0.16"
+    expo-eas-client: "npm:~56.0.0"
+  peerDependencies:
+    "@react-navigation/native": ^7.0.0
+    expo: "*"
+    expo-router: "*"
+    react: "*"
+    react-native: "*"
+  peerDependenciesMeta:
+    "@react-navigation/native":
+      optional: true
+    expo-router:
+      optional: true
+  checksum: 10/34f45a97d09511e0a19b5dd8cb59e1e4a801cf95a96ace75e2305dbe89a3635ddebba36cf92a16b66e75562c1de8267fda992829d3b7e66f5225d606631d79f5
   languageName: node
   linkType: hard
 
