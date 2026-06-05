@@ -1,6 +1,15 @@
 import { ConfigContext, ExpoConfig } from 'expo/config';
-import widgetPluginConfig from 'expo-widgets/plugin';
 import { WidgetFamily } from 'expo-widgets/plugin/build/types/WidgetFamily.type';
+import { ConfigPlugin, withGradleProperties } from '@expo/config-plugins';
+import expoWidgets from 'expo-widgets/plugin';
+import expoRouter from 'expo-router/plugin';
+import expoNotifications from 'expo-notifications/plugin';
+import expoSplashScreen from 'expo-splash-screen/plugin';
+import expoVideo from 'expo-video/plugin';
+import expoImage from 'expo-image/plugin';
+import expoFont from 'expo-font/plugin';
+import expoLocalization from 'expo-localization/plugin';
+import expoWebBrowser from 'expo-web-browser/plugin';
 
 const versionAoe2 = '200.0.0';
 const versionAoe4 = '40.0.0';
@@ -92,57 +101,7 @@ const sentryConfigPlugin = [
     }
 ] as [string, any];
 
-const appPlugin = [
-    "./app.plugin.js",
-    {
-        "widgetName": "widget",
-        "ios": {
-            "devTeamId": "HAFGZBHF9M",
-            "appGroupIdentifier": "group.com.aoe2companion.widget",
-            "topLevelFiles": ["Assets.xcassets", "WidgetBundle.swift"],
-            "topLevelFolders": ["Widgets", "Helpers"]
-        }
-    }
-] as [string, any];
-
-
-// const widgetPlugin = [
-//     "expo-widgets",
-//     {
-//         "bundleIdentifier": "com.aoe2companion.widgets",
-//         "groupIdentifier": "group.com.aoe2companion.widget",
-//         "enablePushNotifications": true,
-//         "widgets": [
-//             // {
-//             //     "name": "StatusWidget",
-//             //     "displayName": "Status",
-//             //     "description": "Shows your current status at a glance",
-//             //     "contentMarginsDisabled": true,
-//             //     "supportedFamilies": ["systemSmall", "systemMedium"]
-//             // },
-//             {
-//                 "name": "AABuilds",
-//                 "displayName": "AA Build Orders",
-//                 "description": "AA Quick access to your favorite build order",
-//                 "supportedFamilies": ["systemMedium", "systemLarge"]
-//             },
-//             // {
-//             //     "name": "LockScreenWidget",
-//             //     "displayName": "Quick View",
-//             //     "description": "View info on your Lock Screen",
-//             //     "supportedFamilies": ["accessoryCircular", "accessoryRectangular", "accessoryInline"]
-//             // }
-//         ]
-//     }
-// ] as [string, any];
-
-
-const widgetPlugin = widgetPluginConfig({
-    // "bundleIdentifier": "com.aoe2companion.widgets",
-    // "groupIdentifier": "group.com.aoe2companion.widget",
-
-    // Note: 2026-05-23
-    // I think this version works. But inline modules has to be disabled.
+const widgetPlugin = expoWidgets({
     enablePushNotifications: true,
     widgets:
         process.env.GAME === 'aoe2'
@@ -168,10 +127,21 @@ const runtimeVersionCode = runtimeVersionParts[0] + runtimeVersionParts[1].padSt
 
 const isProdBuild = process.env.EAS_BUILD_PROFILE?.includes('production');
 const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
-const sentryConfigPlugins = isProdBuild ? [sentryConfigPlugin] : [];
-const appConfigPlugins = process.env.GAME === 'aoe2' ? [widgetPlugin] : [];
-// const appConfigPlugins = [widgetPlugin];
-// const appConfigPlugins = process.env.GAME === 'aoe2' ? [] : [];
+const sentry = isProdBuild ? [sentryConfigPlugin] : [];
+const widgets = process.env.GAME === 'aoe2' ? [widgetPlugin] : [];
+
+const gradleJvmArgs: ConfigPlugin = (config: ExpoConfig) => {
+    return withGradleProperties(config, (config) => {
+        const existing = config.modResults.findIndex((item) => item.type === 'property' && item.key === 'org.gradle.jvmargs');
+        const entry = { type: 'property' as const, key: 'org.gradle.jvmargs', value: '-Xmx8g -XX:MaxMetaspaceSize=2g' };
+        if (existing >= 0) {
+            config.modResults[existing] = entry;
+        } else {
+            config.modResults.push(entry);
+        }
+        return config;
+    });
+};
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
@@ -194,24 +164,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         experienceId: app.experienceId,
         eas: {
             projectId: app.projectId,
-            // build:
-            //     process.env.GAME === 'aoe2'
-            //         ? {
-            //               experimental: {
-            //                   ios: {
-            //                       appExtensions: [
-            //                           {
-            //                               targetName: 'widget',
-            //                               bundleIdentifier: 'com.aoe2companion.widget',
-            //                               entitlements: {
-            //                                   'com.apple.security.application-groups': ['group.com.aoe2companion.widget'],
-            //                               },
-            //                           },
-            //                       ],
-            //                   },
-            //               },
-            //           }
-            //         : {},
         },
     },
     userInterfaceStyle: 'automatic',
@@ -240,70 +192,40 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
               },
     assetBundlePatterns: app.assetBundlePatterns,
     plugins: [
-        [
-            'expo-build-properties',
-            {
-                android: {
-                    gradleProperties: {
-                        'org.gradle.jvmargs': '-Xmx8g -XX:MaxMetaspaceSize=2g',
-                    },
-                },
-            },
-        ],
-        [
-            'expo-router',
-            {
-                unstable_useServerRendering: true,
-                sitemap: !isProdBuild,
-                redirects: [
-                    { source: '/leaderboard', destination: '/statistics/leaderboard' },
-                    { source: '/lobby', destination: '/matches/lobbies' },
-                    { source: '/ongoing', destination: '/matches/live' },
-                    { source: '/privacy', destination: '/more/privacy' },
-                ],
-                headOrigin: process.env.GAME === 'aoe2' ? 'https://www.aoe2companion.com/' : 'https://www.aoe4companion.com/',
-            },
-        ],
-        [
-            'expo-notifications',
-            {
-                icon: `./${app.assetsFolder}/notification.png`,
-            },
-        ],
-        ...sentryConfigPlugins,
-        ...appConfigPlugins,
-        // [
-        //     "expo-build-properties",
-        //     {
-        //         "ios": {
-        //             "deploymentTarget": "16.4"
-        //         }
-        //     }
-        // ],
-        [
-            'expo-splash-screen',
-            {
+        expoRouter({
+            unstable_useServerRendering: true,
+            sitemap: !isProdBuild,
+            redirects: [
+                { source: '/leaderboard', destination: '/statistics/leaderboard' },
+                { source: '/lobby', destination: '/matches/lobbies' },
+                { source: '/ongoing', destination: '/matches/live' },
+                { source: '/privacy', destination: '/more/privacy' },
+            ],
+            headOrigin: process.env.GAME === 'aoe2' ? 'https://www.aoe2companion.com/' : 'https://www.aoe4companion.com/',
+        } as any),
+        expoNotifications({
+            icon: `./${app.assetsFolder}/notification.png`,
+        }),
+        ...sentry,
+        ...widgets,
+        expoSplashScreen({
+            image: `./${app.assetsFolder}/icon-adaptive.png`,
+            backgroundColor: app.splashBackgroundColor,
+            dark: {
                 image: `./${app.assetsFolder}/icon-adaptive.png`,
-                backgroundColor: app.splashBackgroundColor,
-                dark: {
-                    image: `./${app.assetsFolder}/icon-adaptive.png`,
-                    backgroundColor: app.splashBackgroundColorDark,
-                },
-                imageWidth: 200,
+                backgroundColor: app.splashBackgroundColorDark,
             },
-        ],
-        'expo-video',
-        'expo-image',
-        'expo-font',
-        'expo-localization',
-        'expo-web-browser',
+            imageWidth: 200,
+        }),
+        expoVideo(),
+        expoImage(),
+        expoFont(),
+        expoLocalization(),
+        expoWebBrowser(),
+        gradleJvmArgs as any,
     ],
     android: {
         userInterfaceStyle: 'automatic',
-        // "adaptiveIcon": {
-        //     "foregroundImage": "./assets/icon-adaptive.png",
-        //     "backgroundColor": "#FFFFFF"
-        // },
         adaptiveIcon: {
             foregroundImage: `${app.assetsFolder}/icon-adaptive.png`,
             backgroundColor: app.adaptiveIconBackgroundColor,
@@ -332,12 +254,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             NSUserActivityTypes: ['BuildsConfigurationIntent'],
             UIBackgroundModes: ['remote-notification'],
         },
-        entitlements:
-            process.env.GAME === 'aoe2'
-                ? {
-                      'com.apple.security.application-groups': ['group.com.aoe2companion.widget'],
-                  }
-                : {},
         associatedDomains: app.associatedDomains,
         appleTeamId: 'HAFGZBHF9M',
     },
