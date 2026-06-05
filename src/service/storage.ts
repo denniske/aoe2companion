@@ -193,10 +193,12 @@ const processImageFast = async (uri: string) => {
     }
 };
 
+// The crash of the app happens after the caching
 export const cacheLiveActivityAssets = async () => {
     try {
+        // console.log('cacheLiveActivityAssets1', new Date());
         const assets = await fetchAssets();
-        // console.log('cacheLiveActivityAssets', new Date());
+        // console.log('cacheLiveActivityAssets2', new Date());
 
         // const imagePath = Paths.join(widgetGroupDir, slugifyFilename('https://backend.cdn.aoe2companion.com/public/aoe2/de/maps/rm_coastal.png'));
         // const imageSource = () => 'https://backend.cdn.aoe2companion.com/public/aoe2/de/maps/rm_coastal.png';
