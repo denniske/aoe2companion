@@ -4025,7 +4025,7 @@ export function getUnitUpgradeCost(unitTo: Unit): ICostDict | null {
     if (unitTo === 'EliteKonnikDismounted') unitTo = 'EliteKonnik';
     const data = getUnitData(unitTo as any);
     const upgradeInfo = aoeData.data.unit_upgrades[data.ID as any as keyof typeof aoeData.data.unit_upgrades];
-    console.log('upgradeInfo', upgradeInfo);
+    // console.log('upgradeInfo', upgradeInfo);
     return upgradeInfo?.Cost;
 }
 
