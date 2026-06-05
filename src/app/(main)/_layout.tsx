@@ -16,14 +16,22 @@ export default function Layout() {
             </View>
             <Stack
                 screenOptions={{ header: (props) => <Header {...props} /> }}
-                layout={({ children }) => <View className={showTabBar ? 'flex-1' : 'grow'}>{children}</View>}
+                layout={({ children }) => (
+                    <View className={showTabBar ? 'flex-1' : 'grow'}>
+                        {children}
+                    </View>
+                )}
+                screenLayout={({ children }) => (
+                    <View className={showTabBar ? 'flex-1' : 'grow'}>
+                        {children}
+                        <View className="hidden md:web:block">
+                            <Footer />
+                        </View>
+                    </View>
+                )}
             />
             <View className="md:web:hidden">
                 <TabBar />
-            </View>
-
-            <View className="hidden md:web:block">
-                <Footer />
             </View>
         </>
     );
