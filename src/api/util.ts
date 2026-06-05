@@ -1,7 +1,7 @@
 import store from '../redux/store';
 import { exec, setError } from '../redux/reducer';
 import { sleep } from './helper/util';
-import { supabaseClient } from '@nex/data';
+import { getSupabaseClient } from '@nex/data';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
@@ -18,7 +18,7 @@ export class FetchNotOkError extends Error {
 
 export async function fetchJson(input: RequestInfo, init?: RequestInit, reviver?: any, signal?: AbortSignal) {
 
-    const { data: session } = await supabaseClient.auth.getSession();
+    const { data: session } = await getSupabaseClient().auth.getSession();
 
     const response = await fetch(
         input,

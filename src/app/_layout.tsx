@@ -16,9 +16,11 @@ import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
     Environment,
+    getSupabaseClient,
     IHostService,
     IHttpService,
     ITranslationService,
+    migrateSupabaseStorageToMMKV,
     OS,
     registerService,
     SERVICE_NAME,
@@ -29,7 +31,7 @@ import { focusManager, QueryClientProvider } from '@tanstack/react-query';
 import * as Device from 'expo-device';
 import * as Notifications from '../service/notifications';
 import { Slot, SplashScreen, usePathname, useRootNavigationState, useRouter } from 'expo-router';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
@@ -278,6 +280,29 @@ function AccountController() {
 // import { AppUpdate } from '@/modules/app-update/src';
 // console.log('HELLO', AppUpdate.Hello);
 
+function SupabaseAuthController() {
+
+    // Tells Supabase Auth to continuously refresh the session automatically if
+    // the app is in the foreground. When this is added, you will continue to receive
+    // `onAuthStateChange` events with the `TOKEN_REFRESHED` or `SIGNED_OUT` event
+    // if the user's session is terminated. This should only be registered once.
+    useEffect(() => {
+        console.log('==> APP LISTENER REGISTER');
+        const subscription = AppState.addEventListener('change', (state) => {
+            console.log('==> APP LISTENER CHANGE', state);
+            if (state === 'active') {
+                getSupabaseClient()?.auth.startAutoRefresh();
+            } else {
+                getSupabaseClient()?.auth.stopAutoRefresh();
+            }
+        });
+
+        return () => subscription.remove();
+    }, []);
+
+    return <View />;
+}
+
 function LiveActivityController() {
     const accountId = useAccountData((state) => state.accountId);
 
@@ -325,7 +350,7 @@ function LiveActivityController() {
             console.log(`onUserInteractionLive account: ${accountId}`, event);
         });
 
-        console.log('CREATED onUserInteractionLive');
+        // console.log('CREATED onUserInteractionLive');
 
         return () => {
             eventSubscription.remove();
@@ -447,8 +472,11 @@ let consoleIntercepted = false;
 function AppWrapper() {
     // console.log('AppWrapper...');
 
+    console.log('==> INITIALIZED APPWRAPPER');
+
     // const [languageLoaded, setLanguageLoaded] = useState(false);
     // const [appIsReady, setAppIsReady] = useState(false);
+
     const insets = useSafeAreaInsets();
     const { customTheme, contentTheme } = useColorSchemes();
     const { markInteractive } = useObserve();
@@ -498,6 +526,12 @@ function AppWrapper() {
     //     console.error = intercept('error', originalError);
     // }
 
+    const [supabaseInitialized, setSupabaseInitialized] = useState(false);
+
+    useEffect(() => {
+        migrateSupabaseStorageToMMKV().then(() => setSupabaseInitialized(true));
+    }, []);
+
     const [fontsLoaded] = useFonts({
         Roboto_400Regular,
         Roboto_500Medium,
@@ -510,22 +544,15 @@ function AppWrapper() {
         return () => subscription.remove();
     }, []);
 
-    // useEffect(() => {
-    //     if (fontsLoaded) {
-    //         console.log('Fonts loaded');
-    //         setAppIsReady(true);
-    //     }
-    // }, [fontsLoaded]);
-
     const onLayoutRootView = useCallback(async () => {
-        if (fontsLoaded) {
+        if (fontsLoaded && supabaseInitialized) {
             SplashScreen.hide();
             markInteractive();
         }
-    }, [fontsLoaded]);
+    }, [fontsLoaded, supabaseInitialized]);
 
     // if (!fontsLoaded || (cachedLanguage && !languageLoaded)) {
-    if (!fontsLoaded) {
+    if (!fontsLoaded || !supabaseInitialized) {
         return null;
     }
 
@@ -587,6 +614,7 @@ function AppWrapper() {
                     <AccountController />
                     <LanguageController />
                     <LiveActivityController />
+                    <SupabaseAuthController />
                     {Platform.OS === 'web' && <PostMessageTranslationsController />}
                     {Platform.OS === 'web' && <TranslationModeOverlay />}
 

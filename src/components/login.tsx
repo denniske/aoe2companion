@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View, AppState, TouchableOpacity } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
-import { supabaseClient } from '@/data/src/helper/supabase';
+import { getSupabaseClient } from '@/data/src/helper/supabase';
 import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
 import { useQueryClient } from '@tanstack/react-query';
@@ -10,18 +10,6 @@ import { Text } from '@app/components/text';
 import { showAlert } from '@app/helper/alert';
 import { accountIsEmpty, accountMigrateFromAnonymous } from '@app/api/account';
 import useAuth from '@/data/src/hooks/use-auth';
-
-// Tells Supabase Auth to continuously refresh the session automatically if
-// the app is in the foreground. When this is added, you will continue to receive
-// `onAuthStateChange` events with the `TOKEN_REFRESHED` or `SIGNED_OUT` event
-// if the user's session is terminated. This should only be registered once.
-AppState.addEventListener('change', (state) => {
-    if (state === 'active') {
-        supabaseClient.auth.startAutoRefresh();
-    } else {
-        supabaseClient.auth.stopAutoRefresh();
-    }
-});
 
 export default function Login({ onComplete }: { onComplete?: () => void }) {
     const [email, setEmail] = useState('');
@@ -45,7 +33,7 @@ export default function Login({ onComplete }: { onComplete?: () => void }) {
     async function resetPassword() {
         setLoading(true);
 
-        const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+        const { error } = await getSupabaseClient().auth.resetPasswordForEmail(email, {
             redirectTo: 'https://www.aoe2companion.com',
         });
 
@@ -85,7 +73,7 @@ export default function Login({ onComplete }: { onComplete?: () => void }) {
     async function signInWithEmail() {
         setLoading(true);
 
-        const { data } = await supabaseClient.auth.getSession();
+        const { data } = await getSupabaseClient().auth.getSession();
 
         const existingSessionWasAnonymous = data.session?.user?.is_anonymous;
         const existingSessionAccountId = data.session?.user.id;
@@ -93,7 +81,7 @@ export default function Login({ onComplete }: { onComplete?: () => void }) {
         const existingAccountProfileId = account.data?.profileId;
         const existingAccountFollowedPlayerCount = account.data?.followedPlayers.length ?? 0;
 
-        const { error } = await supabaseClient.auth.signInWithPassword({
+        const { error } = await getSupabaseClient().auth.signInWithPassword({
             email: email,
             password: password,
         });
@@ -117,7 +105,7 @@ export default function Login({ onComplete }: { onComplete?: () => void }) {
                 existingAccountFollowedPlayerCount > 0 &&
                 currentAccountIsEmpty
             ) {
-                await supabaseClient.auth.updateUser({
+                await getSupabaseClient().auth.updateUser({
                     data: {
                         existingSessionAccountId,
                     },
@@ -157,10 +145,10 @@ export default function Login({ onComplete }: { onComplete?: () => void }) {
 
         const {
             data: { session },
-        } = await supabaseClient.auth.getSession();
+        } = await getSupabaseClient().auth.getSession();
 
         let { data, error } = session
-            ? await supabaseClient.auth.updateUser(
+            ? await getSupabaseClient().auth.updateUser(
                   {
                       email,
                       password,
@@ -169,7 +157,7 @@ export default function Login({ onComplete }: { onComplete?: () => void }) {
                       emailRedirectTo: 'https://www.aoe2companion.com',
                   }
               )
-            : await supabaseClient.auth.signUp({
+            : await getSupabaseClient().auth.signUp({
                   email,
                   password,
                   options: { emailRedirectTo: 'https://www.aoe2companion.com' },
@@ -179,7 +167,7 @@ export default function Login({ onComplete }: { onComplete?: () => void }) {
         console.log('signup error', error);
 
         if (error?.message?.includes('New password should be different from the old password.')) {
-            const result = await supabaseClient.auth.updateUser(
+            const result = await getSupabaseClient().auth.updateUser(
                 {
                     email,
                 },

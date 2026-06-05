@@ -18,7 +18,6 @@ import {
     accountUnlinkTwitch,
     accountUnlinkYoutube,
 } from '@app/api/account';
-import { supabaseClient } from '@/data/src/helper/supabase';
 import { useAccount, useAuthProfileId, useProfileFast } from '@app/queries/all';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '@app/components/button';

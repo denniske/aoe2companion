@@ -5,7 +5,7 @@ import { createStylesheet } from '../../../theming-new';
 import { Stack, useRouter } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import useAuth from '@/data/src/hooks/use-auth';
-import { supabaseClient } from '@/data/src/helper/supabase';
+import { getSupabaseClient } from '@/data/src/helper/supabase';
 import { useAccount } from '@app/queries/all';
 import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
@@ -26,7 +26,7 @@ export default function ResetPasswordPage() {
     async function changePassword() {
         setLoading(true);
 
-        const { data, error } = await supabaseClient.auth.updateUser({
+        const { data, error } = await getSupabaseClient().auth.updateUser({
             password,
         });
 

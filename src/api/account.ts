@@ -1,6 +1,6 @@
 import throttle from '@jcoreio/async-throttle';
 import { fetchJson } from './util';
-import { getHost, makeQueryString, supabaseClient } from '@nex/data';
+import { getHost, makeQueryString, getSupabaseClient } from '@nex/data';
 import {
     IFollowingEntry,
     IPrefs,
@@ -74,9 +74,7 @@ export async function fetchAccount(): Promise<IAccount> {
     // console.trace('fetchAccount START');
     const url = getHost('aoe2companion-api') + `v2/account`;
 
-    // await supabaseClient.auth.signOut();
-
-    let { data: session } = await supabaseClient.auth.getSession();
+    let { data: session } = await getSupabaseClient().auth.getSession();
 
     // console.log('url', url);
     // console.log('session', session);
@@ -85,7 +83,7 @@ export async function fetchAccount(): Promise<IAccount> {
         console.log('fetchAccount: no session');
 
         if (Platform.OS !== 'web') {
-            const { error, data } = await supabaseClient.auth.signInAnonymously({
+            const { error, data } = await getSupabaseClient().auth.signInAnonymously({
                 options: {
                     data: {},
                 },
@@ -179,7 +177,7 @@ export type PartialAccountWithPartialPrefs = Omit<Partial<IAccount>, 'preference
 export async function saveAccount(account: PartialAccountWithPartialPrefs): Promise<IResult> {
     const url = getHost('aoe2companion-api') + `v2/account`;
 
-    const { data: session } = await supabaseClient.auth.getSession();
+    const { data: session } = await getSupabaseClient().auth.getSession();
 
     if (!session.session) {
         console.log('saveAccount: no session');

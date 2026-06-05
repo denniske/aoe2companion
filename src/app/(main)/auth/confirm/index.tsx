@@ -5,7 +5,7 @@ import { Header } from '@app/components/header';
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import Space from '@app/view/components/space';
-import { supabaseClient } from '@nex/data';
+import { getSupabaseClient } from '@nex/data';
 import { authConfirm } from '@app/api/account';
 import { useTranslation } from '@app/helper/translate';
 import { usePrevious } from '@nex/data/hooks';
@@ -30,7 +30,7 @@ export default function AuthConfirm() {
             return;
         }
 
-        const authResponse = await supabaseClient.auth.setSession({
+        const authResponse = await getSupabaseClient().auth.setSession({
             access_token: data.session.accessToken,
             refresh_token: data.session.refreshToken,
         });

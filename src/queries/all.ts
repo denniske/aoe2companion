@@ -16,7 +16,7 @@ import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { appConfig } from '@nex/dataset';
-import { supabaseClient } from '@nex/data';
+import { getSupabaseClient } from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IFetchProfilesParams } from '@app/api/helper/api.types';
 
@@ -30,7 +30,7 @@ export const useAccount = () => {
     });
 
     const logout = async () => {
-        await supabaseClient.auth.signOut();
+        await getSupabaseClient().auth.signOut();
 
         await AsyncStorage.removeItem('account');
         await AsyncStorage.removeItem('config');
