@@ -113,8 +113,8 @@ function LeaderboardRow1({ data }: ILeaderboardRowProps) {
                         {formatStreak(leaderboardInfo?.streak)}
                     </Text>
                     <View className="flex-row gap-x-1">
-                        {last5MatchesWon?.map(({ won }) => (
-                            <View className={`${won ? 'bg-blue-500' : 'bg-gray-200'} rounded-full w-1.5 h-1.5`}></View>
+                        {last5MatchesWon?.map(({ won }, i) => (
+                            <View key={i} className={`${won ? 'bg-blue-500' : 'bg-gray-200'} rounded-full w-1.5 h-1.5`}></View>
                         ))}
                     </View>
                 </View>

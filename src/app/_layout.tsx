@@ -287,7 +287,7 @@ function SupabaseAuthController() {
     // `onAuthStateChange` events with the `TOKEN_REFRESHED` or `SIGNED_OUT` event
     // if the user's session is terminated. This should only be registered once.
     useEffect(() => {
-        console.log('==> APP LISTENER REGISTER');
+        // console.log('==> APP LISTENER REGISTER');
         const subscription = AppState.addEventListener('change', (state) => {
             console.log('==> APP LISTENER CHANGE', state);
             if (state === 'active') {
@@ -470,9 +470,7 @@ function useColorSchemes() {
 let consoleIntercepted = false;
 
 function AppWrapper() {
-    // console.log('AppWrapper...');
-
-    console.log('==> INITIALIZED APPWRAPPER');
+    // console.log('==> INITIALIZED APPWRAPPER');
 
     // const [languageLoaded, setLanguageLoaded] = useState(false);
     // const [appIsReady, setAppIsReady] = useState(false);
