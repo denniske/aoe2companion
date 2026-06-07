@@ -40,6 +40,7 @@ import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-ind
 import { containerClassName } from '@app/styles';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 type Item =
     | { name: Civ; title: string; type: 'civ'; image?: any }
@@ -59,7 +60,7 @@ const typeAttributes: Record<
     map: { path: 'maps', labelKey: 'explore.map', title: getTechName, icon: getTechIcon },
 };
 
-const ExploreCard: React.FC<{ text: string; href: Href } & ({ image: ImageSourcePropType } | { icon: IconName })> = ({ text, href, ...props }) => {
+const ExploreCard: React.FC<{ text: string; href: Href } & ({ image: ImageSourcePropType } | { icon: IconDefinition })> = ({ text, href, ...props }) => {
     const { isMedium } = useBreakpoints();
 
     return (

@@ -7,18 +7,17 @@ import { withUniwind } from 'uniwind';
 export { IconName, IconPrefix };
 
 export interface IconProps {
-    icon: IconName | IconDefinition;
+    icon: IconDefinition;
     size?: Props['size'];
     style?: Props['style'];
     color?: TextColor;
-    prefix?: IconPrefix;
     fill?: string | null;
     className?: string;
 }
 
 export const StyledFontAwesomeIcon = withUniwind(FontAwesomeIcon);
 
-export const Icon: React.FC<IconProps> = ({ icon, color = 'default', prefix = 'fass', className, ...rest }) => {
+export const Icon: React.FC<IconProps> = ({ icon, color = 'default', className, ...rest }) => {
     let colorClassName = accentColors[color] ?? color;
 
     return (
@@ -26,7 +25,7 @@ export const Icon: React.FC<IconProps> = ({ icon, color = 'default', prefix = 'f
             {...rest}
             className={cn('focus:outline-none', className)}
             colorClassName={colorClassName}
-            icon={typeof icon === 'string' ? [prefix, icon] : icon}
+            icon={icon}
         />
     );
 };
