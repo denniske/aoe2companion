@@ -8,7 +8,7 @@ import { useResolveClassNames } from 'uniwind';
 interface IPickerProps<T> {
     value?: T;
     values: T[];
-    formatter?: (value: T, inList?: boolean) => string;
+    formatter?: (value: T, props: { color: string }) => string;
     image?: (value: T) => ImageSourcePropType;
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
@@ -34,7 +34,7 @@ export default function ButtonPicker<T>(props: IPickerProps<T>) {
                             color={selected ? 'white' : 'subtle'}
                             disabled={disabled}
                         >
-                            {formatter(val)}
+                            {formatter(val, { color: selected ? 'white' : 'subtle' })}
                         </Button>
                     );
                 }

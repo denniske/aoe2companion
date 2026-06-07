@@ -2006,6 +2006,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/free-solid-svg-icons@npm:^6.5.2":
+  version: 6.7.2
+  resolution: "@fortawesome/free-solid-svg-icons@npm:6.7.2"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10/efcd90cd5d333995ff4012a9d77a8b23523e246fa418524edf08bb6af8b14db2ee0b08ee5f7460a86474d352af06e1a2581cc827ee3706e9c0e92e178b50e27f
+  languageName: node
+  linkType: hard
+
 "@fortawesome/react-native-fontawesome@npm:^0.3.1":
   version: 0.3.2
   resolution: "@fortawesome/react-native-fontawesome@npm:0.3.2"
@@ -4775,6 +4784,7 @@ __metadata:
     "@expo/vector-icons": "npm:^15.1.1"
     "@fortawesome/fontawesome-svg-core": "npm:^6.5.2"
     "@fortawesome/free-brands-svg-icons": "npm:^6.5.2"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.5.2"
     "@fortawesome/react-native-fontawesome": "npm:^0.3.1"
     "@fortawesome/sharp-regular-svg-icons": "npm:^6.5.2"
     "@fortawesome/sharp-solid-svg-icons": "npm:^6.5.2"
