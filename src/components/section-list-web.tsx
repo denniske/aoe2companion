@@ -17,11 +17,7 @@ export function SectionListWeb<ItemT>({
             const section = params.section;
             if (section) {
                 const index = sections.findIndex((s) => s.title === section);
-
-
-    console.log('params', params, sections, index);
                 if (index !== -1 && refs.current[index]) {
-
                     refs.current[index]?.scrollIntoView({ behavior: 'smooth' });
                 }
             }
