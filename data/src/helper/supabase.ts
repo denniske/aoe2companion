@@ -28,12 +28,14 @@ const mmkvStorageAdapter: SupabaseAuthClientOptions['storage'] = {
 };
 
 export async function migrateSupabaseStorageToMMKV() {
+    if (supabaseClient) return;
+
     if (!mmkv.getBoolean(SUPABASE_MIGRATED)) {
         try {
             console.log('MMKV migration started');
 
             const keys = await AsyncStorage.getAllKeys();
-            const supabaseKeys = keys.filter(k => k.startsWith('sb-')); // Supabase uses sb- prefix
+            const supabaseKeys = keys.filter((k) => k.startsWith('sb-')); // Supabase uses sb- prefix
             if (supabaseKeys.length > 0) {
                 const pairs = await AsyncStorage.multiGet(supabaseKeys);
                 for (const [key, value] of pairs) {
