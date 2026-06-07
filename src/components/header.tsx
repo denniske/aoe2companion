@@ -1,5 +1,4 @@
 import { BottomTabHeaderProps } from "expo-router/js-tabs";
-import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import { Platform, TouchableOpacity, View } from 'react-native';
 
 import { HeaderTitle } from './header-title';
@@ -13,6 +12,7 @@ import { Breadcrumbs } from './breadcrumbs';
 import { SkeletonText } from './skeleton';
 import Head from 'expo-router/head';
 import { appConfig } from '@nex/dataset';
+import { NativeStackHeaderProps } from 'expo-router';
 
 export const Header: React.FC<
     (NativeStackHeaderProps | (BottomTabHeaderProps & { back?: boolean })) & { paramReplacements?: Record<string, string | null> }

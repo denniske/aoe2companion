@@ -19,7 +19,7 @@ app.use(compression());
 // http://expressjs.com/en/advanced/best-practice-security.html#at-a-minimum-disable-x-powered-by-header
 app.disable('x-powered-by');
 
-app.use((req, res, next) => {
+app.use((req: any, res: any, next: any) => {
     const host = req.headers.host;
     if (host && !host.startsWith('www.') && !host.includes('app.')) {
         return res.redirect(301, `https://www.${host}${req.url}`);
