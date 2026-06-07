@@ -32,12 +32,6 @@ export default function MyListAccordion(props: Props) {
                     <View style={[styles.item, styles.content]}>{left ? left({}) : null}</View>
                     <View style={styles.item}>
                         <Icon icon={expanded ? faChevronUp : faChevronDown} color={expandable ? 'subtle' : 'subtle'} size={18} />
-                        {/*<MaterialCommunityIcons*/}
-                        {/*    name={expanded ? 'chevron-up' : 'chevron-down'}*/}
-                        {/*    color={expandable ? theme.textColor : theme.skeletonColor}*/}
-                        {/*    style={{ opacity: expandable ? 1 : 1 }}*/}
-                        {/*    size={30}*/}
-                        {/*/>*/}
                     </View>
                 </View>
             </TouchableOpacity>
