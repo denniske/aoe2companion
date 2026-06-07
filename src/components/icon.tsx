@@ -1,5 +1,5 @@
 import { accentColors, TextColor } from '@app/utils/text.util';
-import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
+import { IconDefinition, IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon, Props } from '@fortawesome/react-native-fontawesome';
 import cn from 'classnames';
 import { withUniwind } from 'uniwind';
@@ -7,7 +7,7 @@ import { withUniwind } from 'uniwind';
 export { IconName, IconPrefix };
 
 export interface IconProps {
-    icon: IconName;
+    icon: IconName | IconDefinition;
     size?: Props['size'];
     style?: Props['style'];
     color?: TextColor;
@@ -26,7 +26,7 @@ export const Icon: React.FC<IconProps> = ({ icon, color = 'default', prefix = 'f
             {...rest}
             className={cn('focus:outline-none', className)}
             colorClassName={colorClassName}
-            icon={[prefix, icon]}
+            icon={typeof icon === 'string' ? [prefix, icon] : icon}
         />
     );
 };

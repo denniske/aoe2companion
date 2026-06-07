@@ -289,7 +289,7 @@ function SupabaseAuthController() {
     useEffect(() => {
         // console.log('==> APP LISTENER REGISTER');
         const subscription = AppState.addEventListener('change', (state) => {
-            console.log('==> APP LISTENER CHANGE', state);
+            // console.log('==> APP LISTENER CHANGE', state);
             if (state === 'active') {
                 getSupabaseClient()?.auth.startAutoRefresh();
             } else {

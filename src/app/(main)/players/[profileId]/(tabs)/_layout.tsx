@@ -34,6 +34,7 @@ import { Skeleton } from '@app/components/skeleton';
 import {
     TopTabs
 } from 'expo-router/js-top-tabs';
+import { faFamily } from '@fortawesome/sharp-solid-svg-icons';
 
 interface UserMenuProps {
     profile?: IProfilesResultProfile;
@@ -123,7 +124,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                     onDismiss={() => setLinkedProfilesVisible(false)}
                     anchor={
                         <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setLinkedProfilesVisible(true)}>
-                            <Icon icon="family" color="brand" size={20} />
+                            <Icon icon={faFamily} color="brand" size={20} />
                         </TouchableOpacity>
                     }
                 >
@@ -319,7 +320,7 @@ export default function UserPage() {
                 initialParams={{ profileId }}
                 options={{
                     title: appName,
-                    tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')} />,
+                    tabBarLabel: (x: any) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')} />,
                 }}
             />
             <TopTabs.Screen
@@ -327,7 +328,7 @@ export default function UserPage() {
                 initialParams={{ profileId }}
                 options={{
                     title: appName,
-                    tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')} />,
+                    tabBarLabel: (x: any) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')} />,
                 }}
             />
             <TopTabs.Screen
@@ -335,7 +336,7 @@ export default function UserPage() {
                 initialParams={{ profileId }}
                 options={{
                     title: appName,
-                    tabBarLabel: (x) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')} />,
+                    tabBarLabel: (x: any) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')} />,
                 }}
             />
         </TopTabs>
