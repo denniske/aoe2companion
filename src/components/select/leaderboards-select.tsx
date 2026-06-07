@@ -1,5 +1,4 @@
 import { ILeaderboardDef } from '@app/api/helper/api.types';
-import { FontAwesome6 } from '@expo/vector-icons';
 import { leaderboardIdsByType, leaderboardsByType } from '@app/helper/leaderboard';
 import Picker from '@app/view/components/picker';
 import React, { useEffect, useMemo } from 'react';
@@ -8,6 +7,8 @@ import { useLeaderboards } from '@app/queries/all';
 import { isEqual } from 'lodash';
 import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
+import { faComputerMouse, faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '@app/components/icon';
 
 interface Props {
     leaderboardIdList: string[];
@@ -55,17 +56,17 @@ export function LeaderboardsSelect(props: Props) {
         if (x == null) return null;
         if (typeof x === 'string') {
             if (x === 'PC') {
-                return <FontAwesome6 name="computer-mouse" size={16} style={{ paddingRight: 10, paddingVertical: 8, color: theme.textColor }} />;
+                return <Icon icon={faComputerMouse} size={16} className="mr-2" />;
             } else if (x === 'Console') {
-                return <FontAwesome6 name="gamepad" size={16} style={{ paddingRight: 10, paddingVertical: 8, color: theme.textColor }} />;
+                return <Icon icon={faGamepad} size={20} className="mr-2" />;
             }
 
             return null;
         }
         if (x.abbreviation.includes('🎮')) {
-            return <FontAwesome6 name="gamepad" size={16} style={{ paddingRight: 10, paddingVertical: 8, color: theme.textColor }} />;
+            return <Icon icon={faGamepad} size={20} className="mr-2" />;
         } else {
-            return <FontAwesome6 name="computer-mouse" size={16} style={{ paddingRight: 10, paddingVertical: 8, color: theme.textColor }} />;
+            return <Icon icon={faComputerMouse} size={16} className="mr-2" />;
         }
     };
 

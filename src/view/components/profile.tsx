@@ -1,4 +1,3 @@
-import { FontAwesome6 } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Dimensions, View } from 'react-native';
 import DiscordBadge from './badge/discord-badge';
@@ -20,6 +19,7 @@ import { reverse, sumBy } from 'lodash';
 import useAuth from '@/data/src/hooks/use-auth';
 import { Skeleton } from '@app/view/components/loader/skeleton';
 import { AnimateIn } from '@app/components/animate-in';
+import { faComputerMouse, faGamepad } from '@fortawesome/free-solid-svg-icons';
 
 interface ILeaderboardRowProps {
     data: IProfileLeaderboardResult;
@@ -192,7 +192,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
             {(!!leaderboardsPC?.length || leaderboardsConsole?.length === 0) && (
                 <View className="flex-row items-center py-0.5 mt-2 gap-x-4">
                     <View className="flex-col w-8 items-center">
-                        <FontAwesome6 name="computer-mouse" size={16} style={{ color: theme.textNoteColor }} />
+                        <Icon icon={faComputerMouse} size={16} />
                     </View>
                     <View className="flex-col">
                         <Text variant="body">{pcGames}</Text>
@@ -216,7 +216,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
             {!!leaderboardsConsole?.length && (
                 <View className="flex-row items-center py-0.5 mt-2 gap-x-4">
                     <View className="flex-col w-8 items-center">
-                        <FontAwesome6 name="gamepad" size={16} style={{ color: theme.textNoteColor }} />
+                        <Icon icon={faGamepad} size={20} />
                     </View>
                     <View className="flex-col w-10">
                         <Text variant="body">{consoleGames}</Text>
