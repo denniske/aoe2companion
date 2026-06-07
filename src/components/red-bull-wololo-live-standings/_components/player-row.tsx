@@ -8,7 +8,7 @@ import { RatingDiff } from './rating-diff';
 import { MatchCard } from './match-card';
 import { formatAgo } from '@nex/data';
 import { Icon } from '@app/components/icon';
-import { faChartLine, faEye, faFireAlt } from '@fortawesome/sharp-solid-svg-icons';
+import { faCaretDown, faCaretUp, faChartLine, faEye, faFireAlt } from '@fortawesome/sharp-solid-svg-icons';
 import Countdown from 'react-countdown';
 
 export const PlayerRow = ({
@@ -84,7 +84,7 @@ export const PlayerRow = ({
 
                             {initialRank && initialRank !== rank && (
                                 <Icon
-                                    icon={initialRank > rank ? 'caret-up' : 'caret-down'}
+                                    icon={initialRank > rank ? faCaretUp : faCaretDown}
                                     color={initialRank > rank ? 'accent-[#22C55E]' : 'accent-[#EF4444]'}
                                     className={initialRank > rank ? 'inline-block -mt-0.5' : 'inline-block -mt-1.5'}
                                     size={16}

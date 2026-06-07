@@ -11,6 +11,7 @@ import {
 import { Card } from '@app/components/card';
 import { HeaderTitle } from '@app/components/header-title';
 import { Icon } from '@app/components/icon';
+import { faCaretDown, faCaretUp } from '@fortawesome/sharp-solid-svg-icons';
 import { ProgressBar } from '@app/components/progress-bar';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
@@ -82,7 +83,7 @@ export default function CivDetails() {
                                 <Text variant="label-sm">#{stats.rank}</Text>
                                 {!sameRank && (
                                     <Icon
-                                        icon={stats.rank > stats.prior_rank ? 'caret-down' : 'caret-up'}
+                                        icon={stats.rank > stats.prior_rank ? faCaretDown : faCaretUp}
                                         color={stats.rank > stats.prior_rank ? 'accent-red-500' : 'accent-green-500'}
                                     />
                                 )}

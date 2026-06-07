@@ -2,7 +2,7 @@ import { useTranslation } from '@app/helper/translate';
 import { Platform, Pressable, View } from 'react-native';
 import { Text } from './text';
 import { Href, Link, usePathname, useRouter } from 'expo-router';
-import { Icon, IconName } from './icon';
+import { Icon } from './icon';
 import { Image } from './uniwind/image';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
@@ -11,7 +11,8 @@ import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { InlinePlayerSearch } from './inline-player-search';
 import { useEffect } from 'react';
 import { AccountMenu } from './account-menu';
-import { faSearch } from '@fortawesome/sharp-solid-svg-icons';
+import { faChartSimple, faChess, faLandmark, faRankingStar, faSearch } from '@fortawesome/sharp-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 export const NavBar: React.FC = () => {
     const router = useRouter();
@@ -25,32 +26,32 @@ export const NavBar: React.FC = () => {
 
     const getTranslation = useTranslation();
 
-    const routes: Array<{ key: string; label: string; icon: IconName; path: Href }> = [
+    const routes: Array<{ key: string; label: string; icon: IconDefinition; path: Href }> = [
         {
             key: 'matches',
             label: getTranslation('nav.matches'),
-            icon: 'chess',
+            icon: faChess,
             path: '/matches',
         },
         {
             key: 'explore',
             label: getTranslation('nav.explore'),
-            icon: 'landmark',
+            icon: faLandmark,
             path: '/explore',
         },
         {
             key: 'statistics',
             label: getTranslation('nav.stats'),
-            icon: 'chart-simple',
+            icon: faChartSimple,
             path: '/statistics',
         },
         {
             key: 'competitive',
             label: getTranslation('nav.competitive'),
-            icon: 'ranking-star',
+            icon: faRankingStar,
             path: '/competitive',
         },
-    ] as const;
+    ];
 
     const { isLarge } = useBreakpoints();
 
@@ -79,7 +80,7 @@ export const NavBar: React.FC = () => {
                                     : 'text-subtle fill-subtle hocus:bg-gold-50 dark:hocus:bg-blue-700'
                             )}
                         >
-                            <Icon size={20} icon={route.icon as IconName} color={isFocused ? 'white' : 'subtle'}/>
+                            <Icon size={20} icon={route.icon} color={isFocused ? 'white' : 'subtle'}/>
                             <Text variant="label-lg" className="uppercase mt-0.5" color={isFocused ? 'white' : 'subtle'}>
                                 {route.label}
                             </Text>

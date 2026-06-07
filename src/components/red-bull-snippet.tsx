@@ -4,6 +4,7 @@ import { Image } from './uniwind/image';
 import { Text } from './text';
 import { Button } from './button';
 import { Icon } from './icon';
+import { faSignal, faSignalSlash } from '@fortawesome/sharp-solid-svg-icons';
 import { useLoginPopup } from '@app/hooks/use-login-popup';
 import { useAuthProfileId } from '@app/queries/all';
 import { Link } from './link';
@@ -60,7 +61,7 @@ export const RedBullSnippet: React.FC = () => {
                 )}
 
                 <View className="flex-row gap-1 justify-center md:justify-start">
-                    <Icon icon={isPastDeadline ? 'signal-slash' : 'signal'} color="subtle" size={14} />
+                    <Icon icon={isPastDeadline ? faSignalSlash : faSignal} color="subtle" size={14} />
 
                     <Text variant="body-sm" color="subtle" className="text-center md:text-left italic">
                         {isPastDeadline ? 'Standings are now final.' : 'Standings update automatically during live matches'}

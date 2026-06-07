@@ -1,9 +1,10 @@
-import { IconName } from '@fortawesome/fontawesome-svg-core';
 import React, { useEffect } from 'react';
 import { Pressable, View } from 'react-native';
 import { Icon } from './icon';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faArrowUp, faBars, faChartSimple, faChess, faHome, faLandmark, faRankingStar } from '@fortawesome/sharp-solid-svg-icons';
 import { Text } from './text';
-import { usePathname, useRootNavigationState, useRouter } from 'expo-router';
+import { Href, usePathname, useRootNavigationState, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { useMutateScroll, useScrollPosition } from '@app/redux/reducer';
 import { useTranslation } from '@app/helper/translate';
@@ -71,50 +72,50 @@ export const TabBar: React.FC = () => {
         opacity.value = withTiming(toValue, { duration: 500 });
     }, [showTabBar]);
 
-    const routes = [
+    const routes: Array<{ key: string; additionalRoutes: string[]; label: string; icon: IconDefinition; path: Href }> = [
         {
             key: 'index',
             additionalRoutes: [],
             label: getTranslation('nav.home'),
-            icon: 'home',
+            icon: faHome,
             path: '/',
         },
         {
             key: 'matches',
             additionalRoutes: ['players'],
             label: getTranslation('nav.matches'),
-            icon: 'chess',
+            icon: faChess,
             path: '/matches',
         },
         {
             key: 'explore',
             additionalRoutes: [],
             label: getTranslation('nav.explore'),
-            icon: 'landmark',
+            icon: faLandmark,
             path: '/explore',
         },
         {
             key: 'statistics',
             additionalRoutes: [],
             label: getTranslation('nav.stats'),
-            icon: 'chart-simple',
+            icon: faChartSimple,
             path: '/statistics',
         },
         {
             key: 'competitive',
             additionalRoutes: [],
             label: getTranslation('nav.pros'),
-            icon: 'ranking-star',
+            icon: faRankingStar,
             path: '/competitive',
         },
         {
             key: 'more',
             additionalRoutes: ['auth'],
             label: getTranslation('nav.more'),
-            icon: 'bars',
+            icon: faBars,
             path: '/more',
         },
-    ] as const;
+    ];
     return (
         <>
             <Animated.View className="absolute px-4 pb-2 w-full" style={animatedArrowStyle}>
@@ -122,7 +123,7 @@ export const TabBar: React.FC = () => {
                     <View className={`${!showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`}>
                         <Button
                             className="h-10 w-10 items-center justify-center rounded-full shadow-lg shadow-blue-50 dark:shadow-black"
-                            icon="arrow-up"
+                            icon={faArrowUp}
                             hitSlop={10}
                             onPress={() => {
                                 setScrollPosition(0);
@@ -161,7 +162,7 @@ export const TabBar: React.FC = () => {
                                 key={route.label}
                                 className={`justify-center items-center py-2 flex-1 ${isFocused && 'bg-blue-800 dark:bg-gold-700'} rounded-lg`}
                             >
-                                {route.icon && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon as IconName} />}
+                                {route.icon && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon} />}
                                 <Text allowFontScaling={false} variant="nav" color={isFocused ? 'white' : 'brand'} className={`uppercase mt-2`}>
                                     {label}
                                 </Text>

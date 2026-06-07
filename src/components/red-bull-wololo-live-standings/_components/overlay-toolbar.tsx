@@ -1,6 +1,8 @@
 import React from 'react';
 import { defaultOverlayToolbarProps, useToolbarProps } from '../_providers/overlay-toolbar-context';
-import { Icon, IconName } from '@app/components/icon';
+import { Icon } from '@app/components/icon';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faBorderBottom, faBorderCenterH, faBorderCenterV, faBorderLeft, faBorderRight, faBorderTop, faClipboard } from '@fortawesome/sharp-solid-svg-icons';
 import cn from 'classnames';
 import { Button } from '@app/components/button';
 
@@ -24,9 +26,9 @@ export const OverlayToolbar: React.FC<{ options: OverlayToolbarOptions }> = ({ o
                     value="horizontal"
                     label="Horizontal Align"
                     options={[
-                        { icon: 'border-left', label: 'Left', value: 'left' },
-                        { icon: 'border-center-v', label: 'Center', value: 'center' },
-                        { icon: 'border-right', label: 'Right', value: 'right' },
+                        { icon: faBorderLeft, label: 'Left', value: 'left' },
+                        { icon: faBorderCenterV, label: 'Center', value: 'center' },
+                        { icon: faBorderRight, label: 'Right', value: 'right' },
                     ]}
                 />
             )}
@@ -36,9 +38,9 @@ export const OverlayToolbar: React.FC<{ options: OverlayToolbarOptions }> = ({ o
                     value="vertical"
                     label="Vertical Align"
                     options={[
-                        { icon: 'border-top', label: 'Top', value: 'top' },
-                        { icon: 'border-center-h', label: 'Center', value: 'center' },
-                        { icon: 'border-bottom', label: 'Bottom', value: 'bottom' },
+                        { icon: faBorderTop, label: 'Top', value: 'top' },
+                        { icon: faBorderCenterH, label: 'Center', value: 'center' },
+                        { icon: faBorderBottom, label: 'Bottom', value: 'bottom' },
                     ]}
                 />
             )}
@@ -53,7 +55,7 @@ export const OverlayToolbar: React.FC<{ options: OverlayToolbarOptions }> = ({ o
                     Reset
                 </Button>
                 <Button
-                    icon="clipboard"
+                    icon={faClipboard}
                     onPress={() => {
                         const currentUrl = new URL(window.location.href);
                         const searchParams = new URLSearchParams({ ...params, hideToolbar: 'true' });
@@ -77,7 +79,7 @@ export const OverlayToolbar: React.FC<{ options: OverlayToolbarOptions }> = ({ o
 };
 
 const AlignmentSelector: React.FC<{
-    options: Array<{ icon: IconName; label: string; value: string }>;
+    options: Array<{ icon: IconDefinition; label: string; value: string }>;
     label: string;
     value: 'horizontal' | 'vertical';
 }> = ({ options, label, value }) => {

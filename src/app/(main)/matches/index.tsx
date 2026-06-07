@@ -1,4 +1,5 @@
 import { Button } from '@app/components/button';
+import { faSearch } from '@fortawesome/sharp-solid-svg-icons';
 import { FlatList } from '@app/components/flat-list';
 import { FollowedPlayers } from '@app/components/followed-players';
 import { Match } from '@app/components/match/match';
@@ -121,7 +122,7 @@ export default function MatchesPage() {
                     title: getTranslation('matches.title'),
                     headerRight: () =>
                         showTabBar ? (
-                            <Button href={'/players/search'} icon="search">
+                            <Button href={'/players/search'} icon={faSearch}>
                                 {getTranslation('matches.findPlayer')}
                             </Button>
                         ) : null,

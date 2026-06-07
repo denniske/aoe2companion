@@ -2,7 +2,7 @@ import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
-import { Icon, IconName } from '@app/components/icon';
+import { Icon } from '@app/components/icon';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { Link } from '@app/components/link';
 import { ScrollView } from '@app/components/scroll-view';
@@ -41,6 +41,30 @@ import { containerClassName } from '@app/styles';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import {
+    faBowArrow, faCannon, faDoorOpen, faFlask, faHammer, faHorseHead, faInfoCircle,
+    faLeaf, faPersonPraying, faSailboat, faScaleUnbalanced, faSparkles, faStar,
+    faSword, faSwords, faTowerObservation, faBlockBrick,
+} from '@fortawesome/sharp-solid-svg-icons';
+
+const sectionIconMap: Record<string, IconDefinition> = {
+    'sword': faSword,
+    'bow-arrow': faBowArrow,
+    'horse-head': faHorseHead,
+    'cannon': faCannon,
+    'scale-unbalanced': faScaleUnbalanced,
+    'hammer': faHammer,
+    'sailboat': faSailboat,
+    'person-praying': faPersonPraying,
+    'star': faStar,
+    'swords': faSwords,
+    'leaf': faLeaf,
+    'flask': faFlask,
+    'sparkles': faSparkles,
+    'tower-observation': faTowerObservation,
+    'block-brick': faBlockBrick,
+    'door-open': faDoorOpen,
+};
 
 type Item =
     | { name: Civ; title: string; type: 'civ'; image?: any }
@@ -60,15 +84,15 @@ const typeAttributes: Record<
     map: { path: 'maps', labelKey: 'explore.map', title: getTechName, icon: getTechIcon },
 };
 
-const ExploreCard: React.FC<{ text: string; href: Href } & ({ image: ImageSourcePropType } | { icon: IconDefinition })> = ({ text, href, ...props }) => {
+const ExploreCard: React.FC<{ text: string; href: Href; image?: ImageSourcePropType; icon?: IconDefinition }> = ({ text, href, image, icon }) => {
     const { isMedium } = useBreakpoints();
 
     return (
         <Card direction="vertical" className="w-20 md:w-36 items-center py-2.5 px-1 gap-1 md:py-4 md:px-2 md:gap-2 justify-between" href={href}>
-            {'image' in props && props.image ? (
-                <Image className="w-8 h-8 md:w-12 md:h-12" source={props.image} contentFit="contain" />
-            ) : 'icon' in props ?(
-                <Icon icon={props.icon} size={isMedium ? 36 : 22} color="brand" />
+            {image ? (
+                <Image className="w-8 h-8 md:w-12 md:h-12" source={image} contentFit="contain" />
+            ) : icon ? (
+                <Icon icon={icon} size={isMedium ? 36 : 22} color="brand" />
             ) : null}
             <Text variant={isMedium ? 'label' : 'label-sm'} numberOfLines={1}>
                 {text}
@@ -193,7 +217,7 @@ export default function Explore() {
                         animation: 'none',
                         title: getTranslation('explore.title'),
                         headerRight: () => (
-                            <Button icon="info-circle" href="/explore/tips">
+                            <Button icon={faInfoCircle} href="/explore/tips">
                                 {getTranslation('explore.tips')}
                             </Button>
                         ),
@@ -263,7 +287,7 @@ export default function Explore() {
                                 contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: { title, icon } }) => (
                                     <ExploreCard
-                                        icon={icon as IconName}
+                                        icon={sectionIconMap[icon]}
                                         text={getTranslation(title as any)}
                                         href={`/explore/units?section=${title}`}
                                     />
@@ -288,7 +312,7 @@ export default function Explore() {
                                 contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: { title, icon } }) => (
                                     <ExploreCard
-                                        icon={icon as IconName}
+                                        icon={sectionIconMap[icon]}
                                         text={getTranslation(title as any)}
                                         href={`/explore/buildings?section=${title}`}
                                     />
@@ -314,7 +338,7 @@ export default function Explore() {
                                 renderItem={({ item: { building, civ, title } }) => (
                                     <ExploreCard
                                         image={building ? getBuildingIcon(building) : getCivIconLocal(civ!)}
-                                        icon={title ? 'star' : undefined}
+                                        icon={title ? faStar : undefined}
                                         text={
                                             building
                                                 ? getBuildingName(building).replace('Camp', '').replace('Range', '')
