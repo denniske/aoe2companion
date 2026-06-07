@@ -8,6 +8,7 @@ import { getCivIcon } from '../helper/civs';
 import { Image } from './uniwind/image';
 import { getMapImage } from '@app/helper/maps';
 import { Icon } from './icon';
+import { faAngleRight, faCheck, faTimes } from '@fortawesome/sharp-solid-svg-icons';
 import { IProfileLeaderboardResult } from '@app/api/helper/api.types';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { ProfileLeaderboardModal } from './profile-leaderboard-modal';
@@ -53,7 +54,7 @@ export const ProfileLeaderboardCard: React.FC<{
 
                     <View className="flex-1" />
 
-                    {canOpenModal && <Icon icon="angle-right" size={24} color="brand" />}
+                    {canOpenModal && <Icon icon={faAngleRight} size={24} color="brand" />}
                 </View>
 
                 <TextComponent variant="label-lg" color="subtle" className={cn('flex lg:hidden -my-2', !leaderboard && 'max-w-24')}>
@@ -110,9 +111,9 @@ export const ProfileLeaderboardCard: React.FC<{
                                         } rounded-full w-4 h-4 justify-center items-center`}
                                     >
                                         {match.won ? (
-                                            <Icon icon="check" color="white" size={12} />
+                                            <Icon icon={faCheck} color="white" size={12} />
                                         ) : (
-                                            match.won === false && <Icon icon="times" color="black" size={12} />
+                                            match.won === false && <Icon icon={faTimes} color="black" size={12} />
                                         )}
                                     </View>
                                 )

@@ -8,6 +8,7 @@ import { RatingDiff } from './rating-diff';
 import { MatchCard } from './match-card';
 import { formatAgo } from '@nex/data';
 import { Icon } from '@app/components/icon';
+import { faChartLine, faEye, faFireAlt } from '@fortawesome/sharp-solid-svg-icons';
 import Countdown from 'react-countdown';
 
 export const PlayerRow = ({
@@ -131,7 +132,7 @@ export const PlayerRow = ({
                     <div className="relative hidden md:flex items-center gap-2">
                         {player.rating}
                         {player.profileId === 197964 || player.profileId === 10710012 ? '*' : ''}
-                        {player.rating === player.maxRating && <Icon icon="chart-line" color="white" size={14} />}
+                        {player.rating === player.maxRating && <Icon icon={faChartLine} color="white" size={14} />}
                         {(player.rating === player.maxRating ||
                             (status !== 'qualified' && !isPastDeadline) ||
                             player.profileId === 197964 ||
@@ -188,7 +189,7 @@ export const PlayerRow = ({
                                         className="text-[#EAC65E] font-bold align-middle hover:underline"
                                         rel="noreferrer"
                                     >
-                                        LIVE <Icon icon="eye" color="accent-[#EAC65E]" className="inline-block -mt-1" />
+                                        LIVE <Icon icon={faEye} color="accent-[#EAC65E]" className="inline-block -mt-1" />
                                     </a>{' '}
                                     on {match.mapName}
                                     <br />
@@ -210,7 +211,7 @@ export const PlayerRow = ({
                     <LastFiveMatches player={player} match={match} playerNames={playerNames} isPastDeadline={isPastDeadline} />
                     <p className={`text-sm whitespace-nowrap overflow-hidden text-ellipsis ${player.streak >= 5 ? 'font-bold' : ''}`}>
                         {formatStreak(player.streak)}{' '}
-                        {player.streak >= 5 ? <Icon icon="fire-alt" size={20} color="accent-orange-500" className="inline-block" /> : null}
+                        {player.streak >= 5 ? <Icon icon={faFireAlt} size={20} color="accent-orange-500" className="inline-block" /> : null}
                     </p>
                 </Cell>
             )}

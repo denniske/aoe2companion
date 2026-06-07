@@ -1,5 +1,6 @@
 import { WinrateCiv } from '@app/api/winrates';
 import { Icon } from '@app/components/icon';
+import { faSpinner, faTimes } from '@fortawesome/sharp-solid-svg-icons';
 import { Text } from '@app/components/text';
 import { Image } from '@app/components/uniwind/image';
 import { CivWinrateCard } from '@app/components/winrates/civ-card';
@@ -103,7 +104,7 @@ export const StatsModal = ({ onClose, isVisible, profileIds }: { isVisible: bool
                             <DialogPanel className="w-full md:max-w-md lg:max-w-7xl transform overflow-hidden rounded-2xl bg-blue-950 p-6 text-left align-middle shadow-xl transition-all text-white relative min-h-full">
                                 <div className="flex flex-col gap-4 items-center min-h-full">
                                     <button onClick={onClose} className="absolute top-4 right-4">
-                                        <Icon icon="times" size={24} color="white" />
+                                        <Icon icon={faTimes} size={24} color="white" />
                                     </button>
 
                                     <DialogTitle as="h2" className="text-2xl font-semibold">
@@ -128,7 +129,7 @@ export const StatsModal = ({ onClose, isVisible, profileIds }: { isVisible: bool
                                     <View className="gap-6 flex-1">
                                         {isFetching ? (
                                             <View className="items-center justify-center flex-1">
-                                                <Icon className="animate-spin [animation-duration:1s]" icon="spinner" color="white" size={32} />
+                                                <Icon className="animate-spin [animation-duration:1s]" icon={faSpinner} color="white" size={32} />
                                             </View>
                                         ) : (
                                             convertedStats.map((stat, index) => {

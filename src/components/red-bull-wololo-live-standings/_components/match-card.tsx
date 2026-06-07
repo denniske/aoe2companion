@@ -4,6 +4,7 @@ import { RatingDiff } from './rating-diff';
 import Countdown from 'react-countdown';
 import { formatAgo, getDuration } from '@nex/data';
 import { Icon } from '@app/components/icon';
+import { faCrown, faEye, faSignalAltSlash, faSkull } from '@fortawesome/sharp-solid-svg-icons';
 import cn from 'classnames';
 import { sortTeamByCurrentPlayer } from '../../../utils/match';
 
@@ -23,18 +24,18 @@ export const MatchCard = ({
     return (
         <div className="relative flex flex-row gap-3 items-center text-sm w-full">
             {match.players.some((p) => p.profileId === userId && p.won === true) && (
-                <Icon icon="crown" color="accent-[#f9b806]" className="absolute top-1" />
+                <Icon icon={faCrown} color="accent-[#f9b806]" className="absolute top-1" />
             )}
 
-            {match.players.some((p) => p.profileId === userId && p.won === false) && <Icon icon="skull" className="absolute top-1" color="white" />}
+            {match.players.some((p) => p.profileId === userId && p.won === false) && <Icon icon={faSkull} className="absolute top-1" color="white" />}
 
             {!match.finished &&
                 (index === 0 ? (
                     <a href={`aoe2de://1/${match.matchId}`} target="_blank" className="absolute top-0" rel="noreferrer">
-                        <Icon icon="eye" color="accent-[#EAC65E]" />
+                        <Icon icon={faEye} color="accent-[#EAC65E]" />
                     </a>
                 ) : (
-                    <Icon icon="signal-alt-slash" color="white" className="absolute top-1" />
+                    <Icon icon={faSignalAltSlash} color="white" className="absolute top-1" />
                 ))}
 
             <img src={match.mapImageUrl} className="w-16 h-16" />

@@ -23,6 +23,8 @@ import { isValidUrl } from '@app/api/helper/util';
 import { useBuild } from '@app/queries/all';
 import { useFavoritedBuild } from '@app/service/favorite-builds';
 import { UserLoginWrapper } from '@app/components/user-login-wrapper';
+import { faHeart as faHeartSolid } from '@fortawesome/sharp-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/sharp-regular-svg-icons';
 import NotFound from '@app/app/(main)/+not-found';
 import { LoadingScreen } from '@app/components/loading-screen';
 
@@ -54,7 +56,7 @@ export function FavoriteHeaderButton(props: FavoriteHeaderButtonProps) {
 
     return (
         <UserLoginWrapper Component={TouchableOpacity} hitSlop={10} onPress={toggleFavorite}>
-            <Icon prefix={isFavorited ? 'fass' : 'fasr'} icon="heart" size={20} color="accent-[#ef4444]" />
+            <Icon icon={isFavorited ? faHeartSolid : faHeartRegular} size={20} color="accent-[#ef4444]" />
         </UserLoginWrapper>
     );
 }

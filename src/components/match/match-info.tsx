@@ -8,6 +8,7 @@ import { useTranslation } from '@app/helper/translate';
 import { Card } from '@app/components/card';
 import { ScrollView } from '@app/components/scroll-view';
 import { Icon } from '@app/components/icon';
+import { faClock, faMemoCircleInfo, faRunning, faWrench } from '@fortawesome/sharp-solid-svg-icons';
 import { appConfig } from '@nex/dataset';
 import { tournamentsEnabled, useUpcomingTournamentMatches } from '@app/api/tournaments';
 import { differenceInMilliseconds, differenceInMinutes } from 'date-fns';
@@ -91,7 +92,7 @@ export default function MatchInfo(props: Props) {
                     </Pressable>
                 )}
                 <View className="flex-row items-center gap-1">
-                    <Icon icon="clock" size={14} color="subtle" />
+                    <Icon icon={faClock} size={14} color="subtle" />
                     <Text color="subtle">
                         {match.finished ? (
                             duration
@@ -102,13 +103,13 @@ export default function MatchInfo(props: Props) {
                 </View>
                 {appConfig.game === 'aoe2' && (
                     <View className="flex-row items-center gap-1">
-                        <Icon icon="running" size={14} color="subtle" />
+                        <Icon icon={faRunning} size={14} color="subtle" />
                         <Text color="subtle">{match.speedName}</Text>
                     </View>
                 )}
 
                 <View className="flex-row items-center gap-1">
-                    <Icon icon="memo-circle-info" size={14} color="subtle" />
+                    <Icon icon={faMemoCircleInfo} size={14} color="subtle" />
                     <Text color="subtle" numberOfLines={1} selectable>
                         {match.matchId}
                     </Text>
@@ -127,7 +128,7 @@ export default function MatchInfo(props: Props) {
                 )}
 
                 <View className="flex-row items-center gap-1">
-                    {match.modGameMode && <Icon icon="wrench" size={14} color="subtle" />}
+                    {match.modGameMode && <Icon icon={faWrench} size={14} color="subtle" />}
                     <Text color="subtle" numberOfLines={1}>
                         {getModName(match.modGameMode) ?? match.gameModeName}
                     </Text>
@@ -135,7 +136,7 @@ export default function MatchInfo(props: Props) {
 
                 {match.modTuningPack && (
                     <View className="flex-row items-center gap-1">
-                        <Icon icon="wrench" size={14} color="subtle" />
+                        <Icon icon={faWrench} size={14} color="subtle" />
 
                         <Text color="subtle" numberOfLines={1}>
                             {getModName(match.modTuningPack) ?? '???'}
@@ -144,7 +145,7 @@ export default function MatchInfo(props: Props) {
                 )}
                 {match.modDataset && (
                     <View className="flex-row items-center gap-1">
-                        <Icon icon="wrench" size={14} color="subtle" />
+                        <Icon icon={faWrench} size={14} color="subtle" />
 
                         <Text color="subtle" numberOfLines={1}>
                             {getModName(match.modDataset) ?? '???'}

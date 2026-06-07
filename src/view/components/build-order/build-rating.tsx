@@ -1,4 +1,6 @@
 import { Icon } from '@app/components/icon';
+import { faStar as faStarSolid } from '@fortawesome/sharp-solid-svg-icons';
+import { faStar as faStarRegular } from '@fortawesome/sharp-regular-svg-icons';
 import { Text } from '@app/components/text';
 import { View } from 'react-native';
 
@@ -14,12 +16,12 @@ export const BuildRating: React.FC<IBuildOrder & { showCount?: boolean }> = ({ s
                 {Array(filledStars)
                     .fill(null)
                     .map((_, index) => (
-                        <Icon icon="star" size={14} key={`filled-${index}`} color="brand" />
+                        <Icon icon={faStarSolid} size={14} key={`filled-${index}`} color="brand" />
                     ))}
                 {Array(unfilledStars)
                     .fill(null)
                     .map((_, index) => (
-                        <Icon icon="star" size={14} key={`unfilled-${index}`} color="brand" prefix="fasr" />
+                        <Icon icon={faStarRegular} size={14} key={`unfilled-${index}`} color="brand" />
                     ))}
             </View>
             {showCount && (

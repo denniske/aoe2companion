@@ -2,6 +2,7 @@ import { textColors } from '@app/utils/text.util';
 import { TextInput, TextInputProps, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { Icon } from './icon';
+import { faSearch, faTimesCircle } from '@fortawesome/sharp-solid-svg-icons';
 import { useState } from 'react';
 import cn from 'classnames';
 
@@ -48,7 +49,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
         <View className="relative" style={style}>
             {inputType === 'search' ? (
                 <View className="absolute left-3 top-0 h-full justify-center z-10">
-                    <Icon icon="search" color={iconColor ?? 'subtle'} />
+                    <Icon icon={faSearch} color={iconColor ?? 'subtle'} />
                 </View>
             ) : null}
             <TextInput
@@ -62,7 +63,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
             />
             {inputType === 'search' && props.value ? (
                 <TouchableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => props.onChangeText?.('')}>
-                    <Icon icon="times-circle" />
+                    <Icon icon={faTimesCircle} />
                 </TouchableOpacity>
             ) : null}
             {inputType === 'password' ? (

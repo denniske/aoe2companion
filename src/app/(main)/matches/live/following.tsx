@@ -14,6 +14,7 @@ import { Icon } from '@app/components/icon';
 import { Card } from '@app/components/card';
 import { Button } from '@app/components/button';
 import { useRedirectUnauthenticated } from '@app/hooks/use-redirect-unauthenticated';
+import { faPlus } from '@fortawesome/sharp-regular-svg-icons';
 
 export default function LiveFollowingPage() {
     useRedirectUnauthenticated();
@@ -74,7 +75,7 @@ export default function LiveFollowingPage() {
                         <View className="flex-row items-center flex-wrap" style={{ columnGap: 8 }}>
                             {highlightedUsers.map((player, index) => (
                                 <Fragment key={player.profileId.toString()}>
-                                    {index !== 0 && <Icon prefix="fasr" icon="plus" size={10} />}
+                                    {index !== 0 && <Icon icon={faPlus} size={10} />}
                                     <Text variant="label">{player?.name}</Text>
                                 </Fragment>
                             ))}
@@ -114,7 +115,7 @@ export default function LiveFollowingPage() {
                         <View className="flex-row items-center flex-wrap" style={{ columnGap: 8 }}>
                             {highlightedUsers.map((player, index) => (
                                 <Fragment key={player.profileId.toString()}>
-                                    {index !== 0 && <Icon prefix="fasr" icon="plus" size={10} />}
+                                    {index !== 0 && <Icon icon={faPlus} size={10} />}
                                     <Text variant="label">{player?.name}</Text>
                                 </Fragment>
                             ))}

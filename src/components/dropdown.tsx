@@ -4,6 +4,8 @@ import { Pressable, View, ViewStyle } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
 import { Icon } from './icon';
+import { faAngleDown as faAngleDownSolid } from '@fortawesome/sharp-solid-svg-icons';
+import { faAngleDown as faAngleDownRegular } from '@fortawesome/sharp-regular-svg-icons';
 import { Text } from './text';
 
 interface Item<ValueType extends string> {
@@ -55,7 +57,7 @@ export const Dropdown = <ValueType extends string>({
                     ))}
                 </View>
 
-                <Icon size={isSmall ? 14 : 16} prefix={isSmall ? 'fasr' : 'fass'} icon="angle-down" />
+                <Icon size={isSmall ? 14 : 16} icon={isSmall ? faAngleDownRegular : faAngleDownSolid} />
             </Pressable>
 
             {isOpen && (

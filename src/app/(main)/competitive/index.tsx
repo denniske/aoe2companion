@@ -27,6 +27,7 @@ import { useTranslation } from '@app/helper/translate';
 import { openLinkWithCheck } from '@app/helper/url';
 import { showAlert } from '@app/helper/alert';
 import { Button } from '@app/components/button';
+import { faPlayCircle } from '@fortawesome/sharp-solid-svg-icons';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { getUnixTime } from 'date-fns';
 
@@ -303,7 +304,7 @@ export default function Competitive() {
                                             style={{ width: '100%', aspectRatio: 800 / 450 }}
                                         />
                                         <View className="absolute top-0 left-0 right-0 bottom-0 items-center justify-center">
-                                            <Icon icon="play-circle" size={40} color="subtle" />
+                                            <Icon icon={faPlayCircle} size={40} color="subtle" />
                                         </View>
                                     </TouchableOpacity>
                                 )}

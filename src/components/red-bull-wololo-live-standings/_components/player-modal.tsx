@@ -11,6 +11,7 @@ import { formatCustom, formatDateShort, formatMonth, formatTime, formatYear } fr
 import { MatchCard } from './match-card';
 import { reformatTeamMatch } from '../util';
 import { Icon } from '@app/components/icon';
+import { faSpinner, faTimes } from '@fortawesome/sharp-solid-svg-icons';
 import cn from 'classnames';
 import { Button } from '@app/components/button';
 import useDebounce from '@app/hooks/use-debounce';
@@ -264,7 +265,7 @@ export const PlayerModal = ({
                                     </div>
 
                                     <button onClick={onClose}>
-                                        <Icon color="white" icon="times" size={24} />
+                                        <Icon color="white" icon={faTimes} size={24} />
                                     </button>
                                 </div>
 
@@ -275,7 +276,7 @@ export const PlayerModal = ({
                                         {!player.rank && (isProfileLoading || !profile) ? (
                                             <div className="flex items-center justify-center py-4">
                                                 {isProfileLoading ? (
-                                                    <Icon className="animate-spin [animation-duration:1s]" icon="spinner" color="white" size={32} />
+                                                    <Icon className="animate-spin [animation-duration:1s]" icon={faSpinner} color="white" size={32} />
                                                 ) : (
                                                     <p>Unable to fetch profile</p>
                                                 )}
@@ -496,7 +497,7 @@ export const PlayerModal = ({
                                         {isProfileLoading || !stats ? (
                                             <div className="flex items-center justify-center py-4">
                                                 {isProfileLoading ? (
-                                                    <Icon className="animate-spin [animation-duration:1s]" icon="spinner" color="white" size={32} />
+                                                    <Icon className="animate-spin [animation-duration:1s]" icon={faSpinner} color="white" size={32} />
                                                 ) : (
                                                     <p>Unable to fetch Statistics</p>
                                                 )}
@@ -571,7 +572,7 @@ export const PlayerModal = ({
                                                 {isLoading ? (
                                                     <Icon
                                                         className={isLoading ? 'animate-spin [animation-duration:1s]' : undefined}
-                                                        icon="spinner"
+                                                        icon={faSpinner}
                                                         color="white"
                                                         size={32}
                                                     />
@@ -606,7 +607,7 @@ export const PlayerModal = ({
                                                         <div className="absolute inset-0 flex flex-row justify-center">
                                                             <Icon
                                                                 className="animate-spin [animation-duration:1s]"
-                                                                icon="spinner"
+                                                                icon={faSpinner}
                                                                 color="white"
                                                                 size={24}
                                                             />

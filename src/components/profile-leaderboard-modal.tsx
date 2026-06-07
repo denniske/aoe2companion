@@ -1,6 +1,7 @@
 import React, { Fragment, useMemo, useState } from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { Icon } from './icon';
+import { faTimes } from '@fortawesome/sharp-regular-svg-icons';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { StatsRow } from '@app/view/components/stats-rows';
 import { IProfileRatingsLeaderboard, IStatNew } from '@app/api/helper/api.types';
@@ -98,7 +99,7 @@ export const ProfileLeaderboardModal = ({
                                         </Text>
 
                                         <TouchableOpacity onPress={onClose}>
-                                            <Icon icon="times" size={32} prefix="fasr" />
+                                            <Icon icon={faTimes} size={32} />
                                         </TouchableOpacity>
                                     </View>
 

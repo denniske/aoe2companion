@@ -8,6 +8,7 @@ import { useAppTheme } from '@app/theming';
 import { Text } from '@app/components/text';
 import { useChartFont } from '@app/view/components/match-map/map-utils';
 import { Icon } from '@app/components/icon';
+import { faInfoCircle } from '@fortawesome/sharp-solid-svg-icons';
 import { showAlert } from '@app/helper/alert';
 
 interface Props {
@@ -72,7 +73,7 @@ export default function Timeseries({ teams, metric, title, description, explanat
                     </Text>
                     {explanation && (
                         <TouchableOpacity onPress={showExplanation}>
-                            <Icon icon="info-circle" color="subtle"></Icon>
+                            <Icon icon={faInfoCircle} color="subtle"></Icon>
                         </TouchableOpacity>
                     )}
                 </View>

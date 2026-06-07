@@ -2,6 +2,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Skeleton } from './skeleton';
 import { Image } from './uniwind/image';
 import { Icon } from './icon';
+import { faArrowRightFromBracket, faArrowRightToBracket, faCog, faUser, faUserCircle } from '@fortawesome/sharp-solid-svg-icons';
 import { Pressable, View } from 'react-native';
 import { useAccount, useProfileFast } from '@app/queries/all';
 import cn from 'classnames';
@@ -34,7 +35,7 @@ export const AccountMenu: React.FC = () => {
                             <Image className="w-10 h-10 rounded-full" source={{ uri: profile?.avatarFullUrl }} />
                         ) : (
                             <View className="w-10 h-10 justify-center items-center">
-                                <Icon icon="user" size={24} />
+                                <Icon icon={faUser} size={24} />
                             </View>
                         )}
                     </MenuButton>
@@ -51,7 +52,7 @@ export const AccountMenu: React.FC = () => {
                                     href={`/players/${account.profileId}`}
                                     className="flex flex-row w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-hoverBackground"
                                 >
-                                    <Icon icon="user" />
+                                    <Icon icon={faUser} />
                                     <Text variant="body-lg">Profile</Text>
                                 </Link>
                             </MenuItem>
@@ -65,7 +66,7 @@ export const AccountMenu: React.FC = () => {
                                         href="/more/account"
                                         className="flex flex-row w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-hoverBackground"
                                     >
-                                        <Icon icon="user-circle" />
+                                        <Icon icon={faUserCircle} />
                                         <Text variant="body-lg">Account</Text>
                                     </Link>
                                 </MenuItem>
@@ -76,7 +77,7 @@ export const AccountMenu: React.FC = () => {
                                         href="/more/settings"
                                         className="flex flex-row w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-hoverBackground"
                                     >
-                                        <Icon icon="cog" />
+                                        <Icon icon={faCog} />
                                         <Text variant="body-lg">Settings</Text>
                                     </Link>
                                 </MenuItem>
@@ -91,7 +92,7 @@ export const AccountMenu: React.FC = () => {
                                         }}
                                         className="flex flex-row w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-hoverBackground"
                                     >
-                                        <Icon icon="arrow-right-from-bracket" />
+                                        <Icon icon={faArrowRightFromBracket} />
                                         Logout
                                     </Pressable>
                                 </MenuItem>
@@ -107,7 +108,7 @@ export const AccountMenu: React.FC = () => {
                                     }}
                                     className="flex flex-row w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-hoverBackground"
                                 >
-                                    <Icon icon="arrow-right-to-bracket" />
+                                    <Icon icon={faArrowRightToBracket} />
                                     Login
                                 </Pressable>
                             </MenuItem>
