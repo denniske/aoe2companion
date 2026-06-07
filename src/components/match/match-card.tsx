@@ -62,7 +62,7 @@ export function MatchCard(props: MatchCardProps) {
     const MapLinkComponent = linkMap ? Link : CustomFragment;
 
     return (
-        <PressableLink href={clickable ? user ?  `/players/${user}/matches/${match.matchId}` : `/matches/${match.matchId}` : undefined}>
+        <PressableLink href={clickable ? (user ? `/players/${user}/matches/${match.matchId}` : `/matches/${match.matchId}`) : undefined}>
             <Card
                 className={clickable ? 'hover:bg-gray-50 hover:dark:bg-blue-800 transition-colors' : ''}
                 flat={flat}
@@ -95,8 +95,9 @@ export function MatchCard(props: MatchCardProps) {
                             )}
 
                             {Platform.OS === 'web' && !match.finished && !match.abandoned && appConfig.game === 'aoe2' && (
-                                <Link className="pl-1" href={`aoe2de://1/${match.matchId}`} target="_blank">
+                                <Link href={`aoe2de://1/${match.matchId}`} target="_blank">
                                     <Icon size={isMedium ? 20 : 12} icon={faEye} color="brand" />
+                                    {/*<Icon size={isMedium ? 20 : 12} icon={faSkull} color="brand" />*/}
                                 </Link>
                             )}
                         </View>
@@ -121,7 +122,12 @@ export function MatchCard(props: MatchCardProps) {
 
                 {isLarge && (
                     <View className="flex-1 px-4">
-                        <MatchTeams match={match} wrap={false} canDownloadRecs={!clickable && !!match.finished} highlightedUsers={user ? [user] : highlightedUsers} />
+                        <MatchTeams
+                            match={match}
+                            wrap={false}
+                            canDownloadRecs={!clickable && !!match.finished}
+                            highlightedUsers={user ? [user] : highlightedUsers}
+                        />
                     </View>
                 )}
             </Card>
