@@ -1,5 +1,7 @@
 import { ILeaderboardPlayer, ILobbiesMatch } from '@app/api/helper/api.types';
-import { Icon, IconName } from '@app/components/icon';
+import { Icon } from '@app/components/icon';
+import { faCheck, faPause, faTimes } from '@fortawesome/sharp-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { clone, reverse } from 'lodash';
 import { MatchCard } from './match-card';
 import { useMemo } from 'react';
@@ -31,18 +33,18 @@ export const LastFiveMatches = ({
         <div className="inline-flex gap-1.5">
             {last5MatchesWon.map((won, index) => {
                 let statusClass: string = '';
-                let icon: IconName | null = null
+                let icon: IconDefinition | null = null
 
                 if (isPastDeadline && won === null) {
                     statusClass = 'bg-blue-500';
-                    icon = 'pause';
+                    icon = faPause;
                 } else if (won === null) {
                     statusClass = `bg-gold-500 animate-pulse ${!!match ? '2xl:hover:animate-none 2xl:cursor-pointer' : ''}`;
                 } else if (won) {
-                    icon = 'check'
+                    icon = faCheck
                     statusClass = 'bg-green-500'
                 } else {
-                    icon = 'times';
+                    icon = faTimes;
                     statusClass = 'bg-red-500'
                 }
                 

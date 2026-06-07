@@ -11,7 +11,6 @@ import { Image } from './uniwind/image';
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
     children?: string;
     icon?: IconProps['icon'];
-    iconPrefix?: IconProps['prefix'];
     href?: Href;
     size?: 'small' | 'medium' | 'large';
     align?: TextProps['align'];
@@ -23,7 +22,6 @@ export const Button: React.FC<ButtonProps> = ({
     className,
     children,
     icon,
-    iconPrefix,
     onPress,
     href,
     size = 'medium',
@@ -53,7 +51,7 @@ export const Button: React.FC<ButtonProps> = ({
         <Wrapper asChild href={href!}>
             <Pressable className={`flex-row rounded items-center ${spacingSizes[size]} ${backgroundColor} ${className ?? ''}`} onPress={onPress}>
                 {image && <Image source={image} className='w-4 h-4' />}
-                {icon && <Icon color="white" icon={icon} prefix={iconPrefix} size={14} />}
+                {icon && <Icon color="white" icon={icon} size={14} />}
                 {children && (
                     <Text
                         variant={textSizes[size]}

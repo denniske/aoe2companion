@@ -27,7 +27,10 @@ import { AnimateIn } from '@app/components/animate-in';
 import { Card } from '@app/components/card';
 import { FeaturedVideos } from '@app/components/featured-videos';
 import { useLoginPopup } from '@app/hooks/use-login-popup';
-import { Icon, IconName } from '@app/components/icon';
+import { Icon } from '@app/components/icon';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faBookmark, faDiagramSankey, faRankingStar, faSearch } from '@fortawesome/sharp-solid-svg-icons';
+import { faPlaystation, faSteam, faXbox } from '@fortawesome/free-brands-svg-icons';
 import { Image } from '@app/components/uniwind/image';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
@@ -84,21 +87,21 @@ export default function IndexPage() {
     const { favoriteIds } = useFavoritedBuilds();
     const { followedIds } = useFollowedTournaments();
     const showTabBar = useShowTabBar();
-    const welcomeCards: Array<{ icon: IconName; title: string; description: string; href: Href }> = [
-        { icon: 'search', title: 'Find Players', description: 'Search players and view match history, civs, and ratings', href: '/players/search' },
+    const welcomeCards: Array<{ icon: IconDefinition; title: string; description: string; href: Href }> = [
+        { icon: faSearch, title: 'Find Players', description: 'Search players and view match history, civs, and ratings', href: '/players/search' },
         {
-            icon: 'ranking-star',
+            icon: faRankingStar,
             title: 'Leaderboard',
             description: 'Track top players, rankings, and current competitive ladders',
             href: '/statistics/leaderboard',
         },
         {
-            icon: 'diagram-sankey',
+            icon: faDiagramSankey,
             title: 'Tech Tree',
             description: 'Explore civilizations, units, upgrades, and unique bonuses',
             href: '/explore',
         },
-        { icon: 'bookmark', title: 'Sign in to Save', description: 'Follow players, save favorites, and sync across devices', href: '/more/account' },
+        { icon: faBookmark, title: 'Sign in to Save', description: 'Follow players, save favorites, and sync across devices', href: '/more/account' },
     ];
 
     const { isLarge, isMedium, isSmall } = useBreakpoints();
@@ -219,7 +222,7 @@ export default function IndexPage() {
                             : undefined,
                     headerRight: () =>
                         Platform.OS !== 'web' && (
-                            <Button href={'/players/search'} icon="search">
+                            <Button href={'/players/search'} icon={faSearch}>
                                 {getTranslation('home.findPlayer')}
                             </Button>
                         ),
@@ -265,22 +268,19 @@ export default function IndexPage() {
 
                                 <View className="flex-row gap-4">
                                     <Button
-                                        icon="steam"
-                                        iconPrefix="fab"
+                                        icon={faSteam}
                                         href="https://store.steampowered.com/app/813780/Age_of_Empires_II_Definitive_Edition/"
                                     >
                                         Steam
                                     </Button>
                                     <Button
-                                        icon="xbox"
-                                        iconPrefix="fab"
+                                        icon={faXbox}
                                         href="https://www.xbox.com/en-us/games/store/age-of-empires-ii-definitive-edition/9njdd0jgpp2q"
                                     >
                                         XBox
                                     </Button>
                                     <Button
-                                        icon="playstation"
-                                        iconPrefix="fab"
+                                        icon={faPlaystation}
                                         href="https://store.playstation.com/en-us/product/UP6312-PPSA18654_00-0965895154892062"
                                     >
                                         PS5

@@ -1,6 +1,6 @@
 import { Card, CardProps } from '@app/components/card';
-import { Icon, IconProps } from '@app/components/icon';
-import { faMinus } from '@fortawesome/sharp-solid-svg-icons';
+import { Icon } from '@app/components/icon';
+import { faCircleCheck, faClock, faMinus, faWavePulse } from '@fortawesome/sharp-solid-svg-icons';
 import { Text } from '@app/components/text';
 import { timeStatus } from '@app/helper/tournaments';
 import { format, isSameDay } from 'date-fns';
@@ -14,18 +14,18 @@ export interface StageCardProps extends CardProps {
     title: string;
 }
 
-const statusMap: Record<ReturnType<typeof timeStatus>, { text: string; icon: IconProps['icon'] }> = {
+const statusMap: Record<ReturnType<typeof timeStatus>, { text: string; icon: import('@fortawesome/fontawesome-svg-core').IconDefinition }> = {
     ongoing: {
         text: 'Ongoing',
-        icon: 'wave-pulse',
+        icon: faWavePulse,
     },
     upcoming: {
         text: 'Upcoming',
-        icon: 'clock',
+        icon: faClock,
     },
     past: {
         text: 'Completed',
-        icon: 'circle-check',
+        icon: faCircleCheck,
     },
 };
 

@@ -2,7 +2,7 @@ import { textColors } from '@app/utils/text.util';
 import { TextInput, TextInputProps, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { Icon } from './icon';
-import { faSearch, faTimesCircle } from '@fortawesome/sharp-solid-svg-icons';
+import { faEye, faEyeSlash, faSearch, faTimesCircle } from '@fortawesome/sharp-solid-svg-icons';
 import { useState } from 'react';
 import cn from 'classnames';
 
@@ -68,7 +68,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
             ) : null}
             {inputType === 'password' ? (
                 <TouchableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => setSecureTextEntry((x) => !x)}>
-                    <Icon icon={secureTextEntry ? 'eye' : 'eye-slash'} color="subtle" />
+                    <Icon icon={secureTextEntry ? faEye : faEyeSlash} color="subtle" />
                 </TouchableOpacity>
             ) : null}
         </View>

@@ -14,10 +14,11 @@ import { Button } from '@app/components/button';
 import { useAccount, useAuthProfileId } from '@app/queries/all';
 import { Text } from '@app/components/text';
 import { Icon } from '@app/components/icon';
+import { faChessRook, faSwords } from '@fortawesome/sharp-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { reverse, sumBy } from 'lodash';
 import useAuth from '@/data/src/hooks/use-auth';
 import { Skeleton } from '@app/view/components/loader/skeleton';
-import { IconName } from '@fortawesome/fontawesome-svg-core';
 import { AnimateIn } from '@app/components/animate-in';
 
 interface ILeaderboardRowProps {
@@ -43,12 +44,12 @@ const mappingBadgeStr: Record<string, string> = {
     'qm_4v4': '4v4',
 }
 
-const mappingIconName: Record<string, IconName> = {
-    'rm_1v1': 'swords',
-    'rm_team': 'swords',
-    'ew_1v1': 'chess-rook',
-    'ew_team': 'chess-rook',
-    'unranked': 'swords',
+const mappingIconName: Record<string, IconDefinition> = {
+    'rm_1v1': faSwords,
+    'rm_team': faSwords,
+    'ew_1v1': faChessRook,
+    'ew_team': faChessRook,
+    'unranked': faSwords,
 }
 
 function LeaderboardRow1({ data }: ILeaderboardRowProps) {
@@ -65,7 +66,7 @@ function LeaderboardRow1({ data }: ILeaderboardRowProps) {
     // console.log('leaderboardId', leaderboardId);
     // console.log('mappingIconName[leaderboardId]', mappingIconName[leaderboardId]);
 
-    const mappedIconName = mappingIconName[leaderboardId] ?? 'swords';
+    const mappedIconName = mappingIconName[leaderboardId] ?? faSwords;
     const mappedBadgeStr = mappingBadgeStr[leaderboardId] ?? '?';
 
     return (

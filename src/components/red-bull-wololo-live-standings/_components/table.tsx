@@ -1,5 +1,6 @@
 import { ILeaderboardPlayer } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
+import { faAngleDown, faAngleUp } from '@fortawesome/sharp-solid-svg-icons';
 import { HTMLAttributes } from 'react';
 
 export const HeadCell = ({
@@ -38,7 +39,7 @@ export const HeadCell = ({
                     <>
                         {' '}
                         <Icon
-                            icon={sort[1] === 'asc' ? 'angle-up' : 'angle-down'}
+                            icon={sort[1] === 'asc' ? faAngleUp : faAngleDown}
                             color={sort[0] === columnName ? 'accent-white' : 'accent-transparent'}
                             className={`max-w-4 inline-block ${hideIcon ? 'md:hidden!' : ''}`}
                         />
