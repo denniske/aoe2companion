@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useState } from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { useAppTheme } from '../../theming';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Icon } from '@app/components/icon';
+import { faChevronDown, faChevronUp } from '@fortawesome/sharp-solid-svg-icons';
 
 type Props = {
     left?: (props: object) => React.ReactNode;
@@ -30,12 +31,13 @@ export default function MyListAccordion(props: Props) {
                 <View style={styles.row} className="pointer-events-none">
                     <View style={[styles.item, styles.content]}>{left ? left({}) : null}</View>
                     <View style={styles.item}>
-                        <MaterialCommunityIcons
-                            name={expanded ? 'chevron-up' : 'chevron-down'}
-                            color={expandable ? theme.textColor : theme.skeletonColor}
-                            style={{ opacity: expandable ? 1 : 1 }}
-                            size={30}
-                        />
+                        <Icon icon={expanded ? faChevronUp : faChevronDown} color={expandable ? 'subtle' : 'subtle'} size={18} />
+                        {/*<MaterialCommunityIcons*/}
+                        {/*    name={expanded ? 'chevron-up' : 'chevron-down'}*/}
+                        {/*    color={expandable ? theme.textColor : theme.skeletonColor}*/}
+                        {/*    style={{ opacity: expandable ? 1 : 1 }}*/}
+                        {/*    size={30}*/}
+                        {/*/>*/}
                     </View>
                 </View>
             </TouchableOpacity>

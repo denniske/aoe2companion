@@ -4,7 +4,6 @@ import React from 'react';
 import { LivePlayer } from './live-player';
 import { differenceInSeconds } from 'date-fns';
 import { TextLoader } from '../../view/components/loader/text-loader';
-import MyListAccordion from '../../view/components/accordion';
 import { ImageLoader } from '../../view/components/loader/image-loader';
 import { MyText } from '../../view/components/my-text';
 import { createStylesheet } from '../../theming-new';
@@ -24,22 +23,14 @@ export function LiveMatch({ data, expanded = false, clickable }: IGameProps) {
     if (data == null) {
         return (
             <Card>
-                <MyListAccordion
-                    style={styles.accordion}
-                    expanded={expanded}
-                    left={(props) => (
-                        <View style={styles.row}>
-                            <ImageLoader style={styles.map} />
-                            <View style={styles.header}>
-                                <TextLoader numberOfLines={1} style={[styles.matchTitle, { marginVertical: 2, height: 10 }]} />
-                                <TextLoader numberOfLines={1} style={[styles.matchContent, { marginVertical: 2, height: 10 }]} />
-                                <TextLoader numberOfLines={1} style={[styles.matchContent, { marginVertical: 2, height: 10 }]} />
-                            </View>
-                        </View>
-                    )}
-                >
-                    <View />
-                </MyListAccordion>
+                <View style={styles.row}>
+                    <ImageLoader style={styles.map} />
+                    <View style={styles.header}>
+                        <TextLoader numberOfLines={1} style={[styles.matchTitle, { marginVertical: 2, height: 10 }]} />
+                        <TextLoader numberOfLines={1} style={[styles.matchContent, { marginVertical: 2, height: 10 }]} />
+                        <TextLoader numberOfLines={1} style={[styles.matchContent, { marginVertical: 2, height: 10 }]} />
+                    </View>
+                </View>
             </Card>
         );
     }
