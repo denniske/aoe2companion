@@ -12,6 +12,7 @@ import { reformatTeamMatch } from '../util';
 import { initMatchSubscription } from '@app/api/socket/ongoing';
 import { dateReviver } from '@nex/data';
 import { Icon } from '@app/components/icon';
+import { faArrowsRotate, faSpinner } from '@fortawesome/sharp-solid-svg-icons';
 import { InlinePlayerSearch } from '@app/components/inline-player-search';
 import { PlayerModal } from './player-modal';
 import { StatsModal } from './stats-modal';
@@ -394,7 +395,7 @@ export function PlayerList({
 
                         {!isPastDeadline && <button onClick={() => refetch()} disabled={isFetching} className="cursor-pointer">
                             <Icon
-                                icon="arrows-rotate"
+                                icon={faArrowsRotate}
                                 color="accent-[#EAC65E]"
                                 className={isFetching ? 'animate-spin [animation-duration:1s]' : undefined}
                                 size={20}
@@ -455,7 +456,7 @@ export function PlayerList({
                                 {isError ? (
                                     <p className="text-lg">There was an error loading the leaderboard. Please reload the page.</p>
                                 ) : (
-                                    <Icon className="animate-spin [animation-duration:1s]" color="white" icon="spinner" size={32} />
+                                    <Icon className="animate-spin [animation-duration:1s]" color="white" icon={faSpinner} size={32} />
                                 )}
                             </td>
                         </tr>

@@ -11,6 +11,7 @@ import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { InlinePlayerSearch } from './inline-player-search';
 import { useEffect } from 'react';
 import { AccountMenu } from './account-menu';
+import { faSearch } from '@fortawesome/sharp-solid-svg-icons';
 
 export const NavBar: React.FC = () => {
     const router = useRouter();
@@ -95,7 +96,7 @@ export const NavBar: React.FC = () => {
                             'flex flex-row justify-center items-center gap-2.5 rounded-lg px-4 fill-subtle hocus:bg-gold-50 dark:hocus:bg-blue-700'
                         )}
                     >
-                        <Icon size={20} icon="search" />
+                        <Icon size={20} icon={faSearch} />
                     </Link>
                 )}
 

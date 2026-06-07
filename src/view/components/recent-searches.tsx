@@ -2,6 +2,7 @@ import { Alert, Pressable, View } from 'react-native';
 import { Text } from '@app/components/text';
 import { useTranslation } from '@app/helper/translate';
 import { Icon } from '@app/components/icon';
+import { faSearch } from '@fortawesome/sharp-solid-svg-icons';
 import { useRecentSearches } from '@app/service/recent-searches';
 import PlayerList from './player-list';
 import { IProfilesResultProfile } from '@app/api/helper/api.types';
@@ -24,7 +25,7 @@ export const RecentSearches: React.FC<RecentSearchesProps> = ({ onSelect, action
     if (data.length === 0) {
         return (
             <View className={cn('flex-1 items-center justify-center gap-2 pt-2 pb-40', containerClassName)}>
-                <Icon icon="search" size={36} color="subtle" />
+                <Icon icon={faSearch} size={36} color="subtle" />
                 <View className="items-center">
                     <Text variant="header">{getTranslation('search.recent.empty.title')}</Text>
                     <Text color="subtle">{getTranslation('search.recent.empty.description')}</Text>

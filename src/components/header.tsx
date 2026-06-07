@@ -4,6 +4,7 @@ import { Platform, TouchableOpacity, View } from 'react-native';
 
 import { HeaderTitle } from './header-title';
 import { Icon } from './icon';
+import { faAngleLeft } from '@fortawesome/sharp-solid-svg-icons';
 import { Text } from './text';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
@@ -41,7 +42,7 @@ export const Header: React.FC<
                 {back && Platform.OS !== 'web' && (
                     <View>
                         <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={10}>
-                            <Icon icon="angle-left" size={22} color="foreground" />
+                            <Icon icon={faAngleLeft} size={22} color="foreground" />
                         </TouchableOpacity>
                     </View>
                 )}

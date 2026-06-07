@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { Icon } from './icon';
+import { faTimes } from '@fortawesome/sharp-regular-svg-icons';
 import { TouchableOpacity, View } from 'react-native';
 import { Text } from './text';
 import Login from './login';
@@ -41,7 +42,7 @@ export const LoginModal = ({ onClose, isVisible }: { isVisible: boolean; onClose
                                 </Text>
 
                                 <TouchableOpacity onPress={onClose} className="absolute top-5 right-5">
-                                    <Icon icon="times" size={32} prefix="fasr" />
+                                    <Icon icon={faTimes} size={32} />
                                 </TouchableOpacity>
 
                                 <Text variant="body-lg" align="center">

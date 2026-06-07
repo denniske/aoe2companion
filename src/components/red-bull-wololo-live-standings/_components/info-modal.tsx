@@ -1,4 +1,5 @@
 import { Icon } from '@app/components/icon';
+import { faTimes } from '@fortawesome/sharp-solid-svg-icons';
 import { Image } from '@app/components/uniwind/image';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { Fragment } from 'react';
@@ -34,7 +35,7 @@ export const InfoModal = ({ onClose, isVisible, countdownDate }: { isVisible: bo
                             <DialogPanel className="w-full md:max-w-md lg:max-w-lg transform overflow-hidden rounded-2xl bg-blue-950 pt-2 p-6 text-left align-middle shadow-xl transition-all text-white relative">
                                 <div className="flex flex-col gap-4 mt-4 items-center">
                                     <button onClick={onClose} className="absolute top-4 right-4">
-                                        <Icon icon="times" size={24} color="white" />
+                                        <Icon icon={faTimes} size={24} color="white" />
                                     </button>
 
                                     <Image

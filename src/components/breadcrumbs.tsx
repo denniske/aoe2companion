@@ -4,6 +4,7 @@ import { Href, useGlobalSearchParams, useLocalSearchParams, useSegments } from '
 import startCase from 'lodash/startCase';
 import { Link } from './link';
 import { Icon } from './icon';
+import { faChevronRight } from '@fortawesome/sharp-solid-svg-icons';
 import { Fragment } from 'react';
 import { SkeletonText } from './skeleton';
 import cn from 'classnames';
@@ -25,7 +26,7 @@ export const Breadcrumbs: React.FC<{ title: string; paramReplacements?: Record<s
             <Link href="/" color="subtle">
                 Home
             </Link>
-            <Icon icon="chevron-right" size={12} />
+            <Icon icon={faChevronRight} size={12} />
 
             {screenNames.map(({ key, value: segment }, index) => {
                 const isLast = index === screenNames.length - 1;
@@ -45,7 +46,7 @@ export const Breadcrumbs: React.FC<{ title: string; paramReplacements?: Record<s
                     return (
                         <Fragment key={fullPath}>
                             <SkeletonText className="w-10!" />
-                            <Icon icon="chevron-right" size={12} color="subtle" />
+                            <Icon icon={faChevronRight} size={12} color="subtle" />
                         </Fragment>
                     )
                 }
@@ -58,7 +59,7 @@ export const Breadcrumbs: React.FC<{ title: string; paramReplacements?: Record<s
                         >
                             {replacement ?? startCase(segment)}
                         </Link>
-                        <Icon icon="chevron-right" size={12} color="subtle" />
+                        <Icon icon={faChevronRight} size={12} color="subtle" />
                     </Fragment>
                 );
             })}

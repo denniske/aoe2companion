@@ -2,6 +2,7 @@ import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
 import { FlatList, FlatListProps, FlatListRef } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
+import { faAngleRight, faCircleCheck, faPlus, faUser } from '@fortawesome/sharp-solid-svg-icons';
 import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import { Href, Link } from 'expo-router';
@@ -84,7 +85,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 <View className="opacity-0 gap-1">{FullSkeleton}</View>
 
                 <View className="absolute inset-0 items-center justify-center gap-2">
-                    <Icon icon="user" color="brand" size={isMedium ? 48 : 28} />
+                    <Icon icon={faUser} color="brand" size={isMedium ? 48 : 28} />
                     <Text numberOfLines={1} variant={isMedium ? 'label' : 'body-sm'} allowFontScaling={false}>
                         Find Me
                     </Text>
@@ -105,7 +106,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 <View className="opacity-0 gap-1">{FullSkeleton}</View>
 
                 <View className="absolute inset-0 items-center justify-center gap-2">
-                    <Icon icon="plus" color="brand" size={isMedium ? 48 : 28} />
+                    <Icon icon={faPlus} color="brand" size={isMedium ? 48 : 28} />
                     <Text numberOfLines={1} variant={isMedium ? 'label' : 'body-sm'} allowFontScaling={false}>
                         Add Player
                     </Text>
@@ -137,11 +138,11 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 {image ? image(player) : <Image source={{ uri: player.avatarMediumUrl }} className="w-7 h-7 md:w-12 md:h-12 rounded-full" />}
                 {!!player.name && (
                     <View className="flex-row gap-1 max-w-full items-center">
-                        {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
+                        {isMe && !hideIcons && <Icon color="brand" icon={faUser} size={12} />}
                         <Text numberOfLines={1} variant={isMedium ? 'label' : 'body-sm'} allowFontScaling={false}>
                             {player.name}
                         </Text>
-                        {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon="circle-check" size={12} />}
+                        {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon={faCircleCheck} size={12} />}
                     </View>
                 )}
 
@@ -171,8 +172,8 @@ function Player<PlayerType extends IPlayerListPlayer>({
                         <Text numberOfLines={1} variant="label">
                             {player.name}
                         </Text>
-                        {isMe && !hideIcons && <Icon color="brand" icon="user" size={12} />}
-                        {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon="circle-check" size={12} />}
+                        {isMe && !hideIcons && <Icon color="brand" icon={faUser} size={12} />}
+                        {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon={faCircleCheck} size={12} />}
                     </View>
                     {footer ? (
                         footer(player)
@@ -190,7 +191,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                         </Button>
                     )}
                 </View>
-                <Icon icon="angle-right" color="brand" size={20} />
+                <Icon icon={faAngleRight} color="brand" size={20} />
             </TouchableOpacity>
         </Wrapper>
     );

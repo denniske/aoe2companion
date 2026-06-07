@@ -9,6 +9,7 @@ import groupBy from 'lodash/groupBy';
 import React, { Fragment } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
+import { faPlus } from '@fortawesome/sharp-regular-svg-icons';
 
 export default function OngoingMatchesPage() {
     const getTranslation = useTranslation();
@@ -39,7 +40,7 @@ export default function OngoingMatchesPage() {
                             <View className="flex-row items-center flex-wrap" style={{ columnGap: 8 }}>
                                 {highlightedUsers.map((player, index) => (
                                     <Fragment key={player.profileId.toString()}>
-                                        {index !== 0 && <Icon prefix="fasr" icon="plus" size={10} />}
+                                        {index !== 0 && <Icon icon={faPlus} size={10} />}
                                         <Text variant="label">{player?.name}</Text>
                                     </Fragment>
                                 ))}

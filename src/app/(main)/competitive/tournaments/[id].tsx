@@ -34,6 +34,8 @@ import { uniq } from 'lodash';
 import { BottomSheet } from '@app/view/bottom-sheet';
 import { formatCustom } from '@nex/data';
 import { UserLoginWrapper } from '@app/components/user-login-wrapper';
+import { faHeart as faHeartSolid } from '@fortawesome/sharp-solid-svg-icons';
+import { faHeart as faHeartRegular, faInfoCircle } from '@fortawesome/sharp-regular-svg-icons';
 
 export default function TournamentDetail() {
     const getTranslation = useTranslation();
@@ -183,7 +185,7 @@ export default function TournamentDetail() {
                                     <Text variant="header">{getTranslation('tournaments.participants')}</Text>
                                     {tournament.participantsNote && (
                                         <TouchableOpacity onPress={() => setShowParticipantsNote((val) => !val)}>
-                                            <Icon prefix="fasr" icon="info-circle" color="brand" />
+                                            <Icon icon={faInfoCircle} color="brand" />
                                         </TouchableOpacity>
                                     )}
                                 </View>
@@ -255,7 +257,7 @@ export default function TournamentDetail() {
                                     <Text variant="header">Results</Text>
                                     {tournament.format && hasResults ? (
                                         <TouchableOpacity onPress={() => setShowFormatNote((val) => !val)}>
-                                            <Icon prefix="fasr" icon="info-circle" color="brand" />
+                                            <Icon icon={faInfoCircle} color="brand" />
                                         </TouchableOpacity>
                                     ) : null}
                                 </View>
@@ -559,7 +561,7 @@ function HeaderButtons({ id }: { id: string }) {
                 <Image style={{ width: 28, height: 20 }} source={require('../../../../../assets/icon/liquipedia.png')} />
             </TouchableOpacity>
             <UserLoginWrapper Component={TouchableOpacity} hitSlop={10} onPress={toggleFollow}>
-                <Icon prefix={isFollowed ? 'fass' : 'fasr'} icon="heart" size={20} color="accent-[#ef4444]" />
+                <Icon icon={isFollowed ? faHeartSolid : faHeartRegular} size={20} color="accent-[#ef4444]" />
             </UserLoginWrapper>
         </View>
     );

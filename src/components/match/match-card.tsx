@@ -6,6 +6,7 @@ import React, { Fragment } from 'react';
 import { Platform, Pressable, TouchableOpacity, View } from 'react-native';
 import { Card } from '../card';
 import { Icon } from '../icon';
+import { faBan, faCrown, faEye, faSkull } from '@fortawesome/sharp-solid-svg-icons';
 import { Skeleton, SkeletonText } from '../skeleton';
 import { Text } from '../text';
 import { MatchProps } from '@app/components/match/match';
@@ -78,7 +79,7 @@ export function MatchCard(props: MatchCardProps) {
                         </MapLinkComponent>
                         <View className={`absolute ${appConfig.game === 'aoe2' ? 'top-0 left-0' : 'top-1 left-1'}`}>
                             {players.some((p) => p.profileId === user && p.won === true && (freeForAll || p.team != -1)) && (
-                                <Icon size={isMedium ? 20 : 12} icon="crown" color={appConfig.game === 'aoe2' ? 'brand' : 'brand'} />
+                                <Icon size={isMedium ? 20 : 12} icon={faCrown} color={appConfig.game === 'aoe2' ? 'brand' : 'brand'} />
                             )}
 
                             {user == null && players.some((p) => p.won != null) && appConfig.game !== 'aoe2' && (
@@ -86,16 +87,16 @@ export function MatchCard(props: MatchCardProps) {
                             )}
 
                             {players.some((p) => p.profileId === user && p.won === false && (freeForAll || p.team != -1)) && (
-                                <Icon size={isMedium ? 20 : 12} icon="skull" color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
+                                <Icon size={isMedium ? 20 : 12} icon={faSkull} color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
                             )}
 
                             {match.abandoned && (
-                                <Icon size={isMedium ? 20 : 12} icon="ban" color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
+                                <Icon size={isMedium ? 20 : 12} icon={faBan} color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
                             )}
 
                             {Platform.OS === 'web' && !match.finished && !match.abandoned && appConfig.game === 'aoe2' && (
                                 <Link className="pl-1" href={`aoe2de://1/${match.matchId}`} target="_blank">
-                                    <Icon size={isMedium ? 20 : 12} icon="eye" color="brand" />
+                                    <Icon size={isMedium ? 20 : 12} icon={faEye} color="brand" />
                                 </Link>
                             )}
                         </View>

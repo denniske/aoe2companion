@@ -4,6 +4,7 @@ import { Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle, Platform, To
 import { SafeAreaProvider, SafeAreaView } from '@/src/components/uniwind/safe-area-context';
 import { createStylesheet } from '../theming-new';
 import { Icon } from '@app/components/icon';
+import { faTimes } from '@fortawesome/sharp-regular-svg-icons';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
@@ -145,7 +146,7 @@ export function BottomSheet({
                                                 </Text>
                                                 {closeButton && (
                                                     <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
-                                                        <Icon size={24} prefix="fasr" icon="times" />
+                                                        <Icon size={24} icon={faTimes} />
                                                     </TouchableOpacity>
                                                 )}
                                             </View>
@@ -163,7 +164,7 @@ export function BottomSheet({
                                                 </Text>
                                                 {closeButton && (
                                                     <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
-                                                        <Icon size={24} prefix="fasr" icon="times" />
+                                                        <Icon size={24} icon={faTimes} />
                                                     </TouchableOpacity>
                                                 )}
                                             </View>

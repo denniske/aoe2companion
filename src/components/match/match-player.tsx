@@ -10,6 +10,7 @@ import { Link } from 'expo-router';
 import { Platform, Pressable, TouchableOpacity, View } from 'react-native';
 
 import { Icon } from '../icon';
+import { faBan, faCheckCircle, faCloudDownloadAlt, faCrown, faFamily, faSkull } from '@fortawesome/sharp-solid-svg-icons';
 import { Text } from '../text';
 import TwitchBadge from '@app/view/components/badge/twitch-badge';
 import React from 'react';
@@ -60,21 +61,21 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                     <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1} className="shrink">
                         {player.name}
                     </Text>
-                    {player.status === 'player' && player.verified && <Icon icon="check-circle" color="brand" size={12} className="w-6" />}
+                    {player.status === 'player' && player.verified && <Icon icon={faCheckCircle} color="brand" size={12} className="w-6" />}
                     {twitch && (
                         <View className={reverse ? 'mr-2' : 'ml-2'}>
                             <TwitchBadge channelUrl={player?.socialTwitchChannelUrl} channel={player?.socialTwitchChannel} condensed />
                         </View>
                     )}
                     {player.status === 'player' && !player.verified && player.shared && (
-                        <Icon icon="family" color="brand" size={12} className="w-6" />
+                        <Icon icon={faFamily} color="brand" size={12} className="w-6" />
                     )}
                 </TouchableOpacity>
             </Link>
 
             {Platform.OS === 'web' && appConfig.game === 'aoe2' && canDownloadRec && (
                 <Pressable onPress={downloadRec}>
-                    <Icon icon="cloud-download-alt" color="accent-gray-500" />
+                    <Icon icon={faCloudDownloadAlt} color="accent-gray-500" />
                 </Pressable>
             )}
 
@@ -90,9 +91,9 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
 
             {(match.finished || match.abandoned) && (
                 <View className="w-5">
-                    {player.won === true && (freeForAll || player.team != -1) && <Icon icon="crown" color="brand" />}
-                    {player.won === false && (freeForAll || player.team != -1) && <Icon icon="skull" color="subtle" />}
-                    {player.won == null && (freeForAll || player.team != -1) && <Icon icon="ban" color="subtle" />}
+                    {player.won === true && (freeForAll || player.team != -1) && <Icon icon={faCrown} color="brand" />}
+                    {player.won === false && (freeForAll || player.team != -1) && <Icon icon={faSkull} color="subtle" />}
+                    {player.won == null && (freeForAll || player.team != -1) && <Icon icon={faBan} color="subtle" />}
                 </View>
             )}
         </View>

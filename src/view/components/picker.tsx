@@ -17,6 +17,7 @@ import React, { type CSSProperties, useMemo, useState } from 'react';
 import { useAppTheme } from '../../theming';
 import { MenuNew } from '@app/components/menu';
 import { Icon } from '@app/components/icon';
+import { faAngleDown } from '@fortawesome/sharp-solid-svg-icons';
 
 interface IPickerProps<T> {
     value?: T;
@@ -203,7 +204,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 </select>
 
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <Icon icon="angle-down" />
+                    <Icon icon={faAngleDown} />
                 </div>
             </View>
         );

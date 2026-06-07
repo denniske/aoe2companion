@@ -1,5 +1,6 @@
 import { Card, CardProps } from '@app/components/card';
 import { Icon, IconProps } from '@app/components/icon';
+import { faMinus } from '@fortawesome/sharp-solid-svg-icons';
 import { Text } from '@app/components/text';
 import { timeStatus } from '@app/helper/tournaments';
 import { format, isSameDay } from 'date-fns';
@@ -46,7 +47,7 @@ export const StageCard: React.FC<StageCardProps> = ({ title, matches, ...props }
                     <Text variant="label" color="subtle">
                         {text}
                     </Text>
-                    {start || end ? <Icon icon="minus" size={12} color="subtle" /> : null}
+                    {start || end ? <Icon icon={faMinus} size={12} color="subtle" /> : null}
                     <Text color="subtle">
                         {start && formatCustom(start, 'LLL d')}
                         {start && end && ' - '}

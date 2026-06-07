@@ -34,7 +34,8 @@ import { Skeleton } from '@app/components/skeleton';
 import {
     TopTabs
 } from 'expo-router/js-top-tabs';
-import { faFamily } from '@fortawesome/sharp-solid-svg-icons';
+import { faCheckCircle, faFamily, faHeart as faHeartSolid, faLink, faUserTimes } from '@fortawesome/sharp-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/sharp-regular-svg-icons';
 
 interface UserMenuProps {
     profile?: IProfilesResultProfile;
@@ -141,8 +142,8 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                                         >
                                             <Image source={{ uri: linkedProfile.avatarMediumUrl }} className="w-5 h-5 rounded-full" />
                                             <Text variant="body">{linkedProfile.name}</Text>
-                                            {linkedProfile.verified && <Icon icon="check-circle" color="brand" size={14} />}
-                                            {!linkedProfile.verified && linkedProfile.shared && <Icon icon="family" color="brand" size={14} />}
+                                            {linkedProfile.verified && <Icon icon={faCheckCircle} color="brand" size={14} />}
+                                            {!linkedProfile.verified && linkedProfile.shared && <Icon icon={faFamily} color="brand" size={14} />}
                                             {!!linkedProfile.clan && (
                                                 <MyText>
                                                     {' '}
@@ -156,7 +157,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
 
                             {!fullProfile?.verified && fullProfile?.shared && (
                                 <View className="flex-row items-center gap-x-2">
-                                    <Icon icon="family" color="brand" size={14} />
+                                    <Icon icon={faFamily} color="brand" size={14} />
                                     <MyText>{getTranslation('main.profile.steamfamilysharing')}</MyText>
                                 </View>
                             )}
@@ -177,7 +178,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
             {profile.verified &&
                 (Platform.OS === 'web' ? (
                     <Link href={`https://liquipedia.net/ageofempires/${profile.socialLiquipedia}`} target="_blank">
-                        <Icon icon="check-circle" color="brand" size={20} />
+                        <Icon icon={faCheckCircle} color="brand" size={20} />
                     </Link>
                 ) : (
                     <TouchableOpacity
@@ -185,7 +186,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                         onPress={() => setShowTournamentPlayer(true)}
                         disabled={!liquipediaProfile}
                     >
-                        <Icon icon="check-circle" color="brand" size={20} />
+                        <Icon icon={faCheckCircle} color="brand" size={20} />
                         {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
                     </TouchableOpacity>
                 ))}
@@ -202,7 +203,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                 onDismiss={() => setLinksVisible(false)}
                 anchor={
                     <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setLinksVisible(true)}>
-                        <Icon icon="link" color="brand" size={20} />
+                        <Icon icon={faLink} color="brand" size={20} />
                     </TouchableOpacity>
                 }
             >
@@ -217,7 +218,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
 
             {profileId === authProfileId ? (
                 <TouchableOpacity onPress={showResetOrUnlinkDialog}>
-                    <Icon icon="user-times" size={20} color="subtle" />
+                    <Icon icon={faUserTimes} size={20} color="subtle" />
                 </TouchableOpacity>
             ) : (
                 <UserLoginWrapper
@@ -226,7 +227,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                     hitSlop={10}
                     onPress={followingThisUser ? () => unfollowMutation.mutate([profileId]) : () => followMutation.mutate([profileId])}
                 >
-                    <Icon prefix={followingThisUser ? 'fass' : 'fasr'} icon="heart" size={20} color="accent-[#ef4444]" />
+                    <Icon icon={followingThisUser ? faHeartSolid : faHeartRegular} size={20} color="accent-[#ef4444]" />
                 </UserLoginWrapper>
             )}
         </View>

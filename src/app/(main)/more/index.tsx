@@ -9,6 +9,7 @@ import { useTranslation } from '@app/helper/translate';
 import { appConfig } from '@nex/dataset';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { Image } from '@app/components/uniwind/image';
+import { faAngleRight } from '@fortawesome/sharp-solid-svg-icons';
 
 interface Link {
     icon: IconName;
@@ -59,7 +60,7 @@ export default function More() {
                                 <Text variant="header-sm">{title}</Text>
                             </View>
                             <View className="flex-1" />
-                            <Icon icon="angle-right" color="brand" size={20} />
+                            <Icon icon={faAngleRight} color="brand" size={20} />
                         </TouchableOpacity>
                     </Link>
                 )}
