@@ -1,5 +1,4 @@
 import { countryEarth, CountrySelect, isCountry } from '@app/components/select/country-select';
-import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 import { leaderboardsByType } from '@app/helper/leaderboard';
 import { useTranslation } from '@app/helper/translate';
 import { useAuthProfileId, useFollowedAndMeProfileIds, useLanguage, useLeaderboards } from '@app/queries/all';
@@ -7,8 +6,7 @@ import { AnimatedValueText } from '@app/view/components/animated-value-text';
 import { ImageLoader } from '@app/view/components/loader/image-loader';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import { MyText } from '@app/view/components/my-text';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { useIsFocused } from "expo-router/react-navigation";
+import { useIsFocused } from 'expo-router/react-navigation';
 import { router, Stack } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -34,10 +32,11 @@ import { createStylesheet } from '../../../theming-new';
 import { FlatList } from '@app/components/flat-list';
 import cn from 'classnames';
 import { containerClassName, containerScrollClassName } from '@app/styles';
-import { formatAgo } from '@nex/data';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { WebLeaderboard } from '../../../components/leaderboard/web-leaderboard';
 import { LeaderboardOfficialSelect } from '@app/components/select/leaderboard-official-select';
+import { Icon } from '@app/components/icon';
+import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 
 const ROW_HEIGHT = 45;
 const ROW_HEIGHT_MY_RANK = 52;
@@ -78,7 +77,7 @@ export default function LeaderboardPage() {
     const getTranslation = useTranslation();
 
     const { data: allLeaderboards } = useLeaderboards();
-    const leaderboards = useMemo(() => allLeaderboards?.filter(l => l.official), [allLeaderboards]);
+    const leaderboards = useMemo(() => allLeaderboards?.filter((l) => l.official), [allLeaderboards]);
 
     const [leaderboardId, setLeaderboardId] = useState<string | null>(null);
 
@@ -405,7 +404,16 @@ export default function LeaderboardPage() {
                     const max = scrollRange.value;
                     const next = Math.max(Math.min(handleOffsetY.value + e.translationY, max), min);
                     positionY.value = next;
-                    console.log('onUpdate', next, 'handleOffsetY:', handleOffsetY.value, 'e.translationY:', e.translationY, 'scrollRange:', scrollRange.value);
+                    console.log(
+                        'onUpdate',
+                        next,
+                        'handleOffsetY:',
+                        handleOffsetY.value,
+                        'e.translationY:',
+                        e.translationY,
+                        'scrollRange:',
+                        scrollRange.value
+                    );
                 })
                 .onEnd(() => {
                     const offset = positionY.value;
@@ -498,11 +506,11 @@ export default function LeaderboardPage() {
                     }
                 />
             </View>
-            <View className={cn(containerScrollClassName, 'absolute inset-0')} style={{ pointerEvents: Platform.OS === 'web' ? 'none' : 'box-none'}}>
+            <View className={cn(containerScrollClassName, 'absolute inset-0')} style={{ pointerEvents: Platform.OS === 'web' ? 'none' : 'box-none' }}>
                 <View style={[styles.handleContainer, { bottom }]}>
                     <GestureDetector gesture={panGesture}>
                         <Animated.View style={[{ right: 0, opacity: handleVisible ? 1 : 0 }, styles.handle, handleAnimatedStyle]}>
-                            <FontAwesome5 name="arrows-alt-v" size={26} style={styles.arrows} />
+                            <Icon icon={faArrowsAltV} size={22} className="mx-0 my-4.5" color="subtle" />
                             {baseMoving && (
                                 <View style={styles.textContainer}>
                                     <View style={styles.textBox}>
@@ -567,7 +575,7 @@ function RenderRow(props: RenderRowProps) {
                         {player?.name}
                     </TextLoader>
                 </View>
-                
+
                 {Dimensions.get('window').width >= 360 && (
                     <TextLoader ready={player?.games} style={styles.cellGames}>
                         {getTranslation('leaderboard.games', { games: player?.games })}
@@ -619,11 +627,6 @@ const useStyles = createStylesheet((theme) =>
             width: HANDLE_RADIUS * 2,
             height: HANDLE_RADIUS * 2,
             borderRadius: HANDLE_RADIUS,
-        },
-        arrows: {
-            color: theme.textNoteColor,
-            paddingHorizontal: 7,
-            paddingVertical: 14,
         },
         list: {
             paddingVertical: 20,

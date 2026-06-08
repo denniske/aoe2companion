@@ -7,7 +7,8 @@ import { openLink } from '../../../helper/url';
 import { useQuery } from '@tanstack/react-query';
 import { IPlayerNew } from '@app/api/helper/api.types';
 import { MyText } from '@app/view/components/my-text';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Icon } from '@app/components/icon';
+import { faTwitch } from '@fortawesome/free-brands-svg-icons';
 
 interface Props {
     channel?: string;
@@ -79,7 +80,7 @@ export function ProfileLive({ data }: { data: IPlayerNew }) {
                 <>
                     <MyText style={{ color: '#e91a16' }}> ● </MyText>
                     <MyText>{playerTwitchLive.viewer_count} </MyText>
-                    <FontAwesome5 solid name="twitch" size={14} />
+                    <Icon icon={faTwitch} size={12} />
                     <MyText> </MyText>
                 </>
             )}

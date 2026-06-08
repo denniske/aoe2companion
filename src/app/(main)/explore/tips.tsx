@@ -3,7 +3,6 @@ import { Image, ImageSourcePropType, Platform, StyleSheet, TouchableOpacity, Vie
 import { useAppTheme } from '../../../theming';
 import { MyText } from '@app/view/components/my-text';
 import { Building, iconHeight, iconWidth, Tech, Unit } from '@nex/data';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { getAbilityIcon } from '@app/view/components/tech-tree';
 import { createStylesheet } from '../../../theming-new';
 import { openLink } from '../../../helper/url';
@@ -14,6 +13,8 @@ import { Delayed } from '@app/view/components/delayed';
 import { IGetTranslation, useTranslation } from '@app/helper/translate';
 import { containerScrollClassName } from '@app/styles';
 import cn from 'classnames';
+import { Icon } from '@app/components/icon';
+import { faExternalLinkSquareAlt, faVideo } from '@fortawesome/free-solid-svg-icons';
 
 interface ITip {
     title: string;
@@ -318,7 +319,7 @@ export default function TipsPage() {
                             <View style={styles.rowInner}>
                                 {tip.icon && (
                                     <View style={styles.unitIconBig}>
-                                        <FontAwesome5 name="video" size={14} color={theme.textNoteColor} />
+                                        <Icon icon={faVideo} size={16} />;
                                     </View>
                                 )}
                                 {!tip.icon && <Image style={styles.unitIconBig} source={tip.imageIcon ? tip.imageIcon : getAbilityIcon(tip)} />}
@@ -330,7 +331,7 @@ export default function TipsPage() {
                         </TouchableOpacity>
                         {tip.url && (
                             <TouchableOpacity style={styles.action} onPress={() => onOpen(tip)}>
-                                <FontAwesome5 name="external-link-square-alt" size={14} color={theme.textNoteColor} />
+                                <Icon icon={faExternalLinkSquareAlt} size={16} />;
                             </TouchableOpacity>
                         )}
                     </View>

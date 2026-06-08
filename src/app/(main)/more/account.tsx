@@ -36,6 +36,11 @@ import { usePatreonAuth } from '@app/helper/oauth/patreon';
 import { useSteamAuth } from '@app/helper/oauth/steam';
 import { useXboxAuth } from '@app/helper/oauth/xbox';
 import { LinkedAoEAccount, LinkedAoECompanionAccount, LinkedAvatarAccount, LinkedPlatformAccount } from '@app/components/linked-account';
+import { Icon } from '@app/components/icon';
+import { faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/sharp-regular-svg-icons';
+import { faDiscord, faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faLink } from '@fortawesome/sharp-solid-svg-icons';
 
 export default function AccountPage() {
     const getTranslation = useTranslation();
@@ -185,7 +190,7 @@ export default function AccountPage() {
                             <>
                                 <Text variant="label">{getTranslation('account.patreon.membershipstatus')}</Text>
                                 <View className="flex-row gap-2 items-center">
-                                    <FontAwesome5 name="heart" size={14} color={theme.textNoteColor} />
+                                    <Icon icon={faHeart} size={14} />
                                     <Text variant="body">{getTranslation('account.patreon.freestatus')}</Text>
                                 </View>
                                 <Button onPress={() => unlinkPatreon()} className={'self-start mt-2'}>
@@ -261,7 +266,14 @@ export default function AccountPage() {
                         {/*)}*/}
                         {/*{account.data?.authRelicId && <LinkedAoEAccount profileId={account.data.authRelicId} />}*/}
 
-                        {linkedProfile && <LinkedAvatarAccount profileId={linkedProfile.profileId} avatarUrl={linkedProfile.avatarFullUrl!} name={linkedProfile.name} games={linkedProfile.games} />}
+                        {linkedProfile && (
+                            <LinkedAvatarAccount
+                                profileId={linkedProfile.profileId}
+                                avatarUrl={linkedProfile.avatarFullUrl!}
+                                name={linkedProfile.name}
+                                games={linkedProfile.games}
+                            />
+                        )}
 
                         {(account.data?.steamId || account.data?.authRelicId) && (
                             <>
@@ -271,7 +283,9 @@ export default function AccountPage() {
                             </>
                         )}
 
-                        {linkedProfile?.steamId && linkedProfile?.platform && <LinkedPlatformAccount steamId={linkedProfile.steamId} platform={linkedProfile.platform} />}
+                        {linkedProfile?.steamId && linkedProfile?.platform && (
+                            <LinkedPlatformAccount steamId={linkedProfile.steamId} platform={linkedProfile.platform} />
+                        )}
                         {linkedProfile && <LinkedAoEAccount profileId={linkedProfile.profileId} />}
                         {linkedProfile && <LinkedAoECompanionAccount profileId={linkedProfile.profileId} />}
 
@@ -310,7 +324,7 @@ export default function AccountPage() {
                             <>
                                 <Text variant="label">{getTranslation('account.youtube.channel')}</Text>
                                 <View className="flex-row gap-2 items-center">
-                                    <FontAwesome5 name="youtube" size={14} color={theme.textNoteColor} />
+                                    <Icon icon={faYoutube} size={14} />
                                     <Text variant="body">{account.data.youtubeChannelName}</Text>
                                 </View>
                                 <Button onPress={() => unlinkYoutube()} className={'self-start mt-2'}>
@@ -336,7 +350,7 @@ export default function AccountPage() {
                             <>
                                 <Text variant="label">{getTranslation('account.discord.channel')}</Text>
                                 <View className="flex-row gap-2 items-center">
-                                    <FontAwesome5 name="discord" size={14} color={theme.textNoteColor} />
+                                    <Icon icon={faDiscord} size={14} />
                                     <Text variant="body">{account.data.discordName}</Text>
                                 </View>
 
@@ -346,7 +360,7 @@ export default function AccountPage() {
                                             className="flex-row gap-2 items-center"
                                             onPress={() => openLink(`https://discord.gg/${account.data.discordInvitation}`)}
                                         >
-                                            <FontAwesome5 name="link" size={14} color={theme.textNoteColor} />
+                                            <Icon icon={faLink} size={14} />
                                             <Text variant="body">{`https://discord.gg/${account.data.discordInvitation}`}</Text>
                                         </TouchableOpacity>
                                     </>
@@ -392,7 +406,7 @@ export default function AccountPage() {
                             <>
                                 <Text variant="label">{getTranslation('account.twitch.channel')}</Text>
                                 <View className="flex-row gap-2 items-center">
-                                    <FontAwesome5 name="twitch" size={14} color={theme.textNoteColor} />
+                                    <Icon icon={faTwitch} size={14} />
                                     <Text variant="body">{account.data.twitchChannel}</Text>
                                 </View>
                                 <Button onPress={() => unlinkTwitch()} className={'self-start mt-2'}>

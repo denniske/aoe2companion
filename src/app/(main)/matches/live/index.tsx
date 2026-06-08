@@ -9,13 +9,14 @@ import { MatchCard } from '@app/components/match/match-card';
 import { Card } from '@app/components/card';
 import { Button } from '@app/components/button';
 import { containerClassName, containerPaddingClassName } from '@app/styles';
-import { FontAwesome5 } from '@expo/vector-icons';
 import cn from 'classnames';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { FlatList } from '@app/components/flat-list';
 import { Field } from '@app/components/field';
 import useDebounce from '@app/hooks/use-debounce';
 import { orderBy } from 'lodash';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '@app/components/icon';
 
 export default function LiveAllPage() {
     const getTranslation = useTranslation();
@@ -54,7 +55,7 @@ export default function LiveAllPage() {
 
                 {Platform.OS !== 'web' && (
                     <View className={cn('flex-row items-center justify-center p-4 gap-2', containerClassName)}>
-                        <FontAwesome5 name="exclamation-triangle" size={14} />
+                        <Icon icon={faExclamationTriangle} size={16} />;
                         <Text>{getTranslation('lobbies.datausagewarning')}</Text>
                     </View>
                 )}

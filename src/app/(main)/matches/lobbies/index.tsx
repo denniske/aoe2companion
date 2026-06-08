@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { useAppTheme } from '../../../../theming';
 import { LiveMatch } from '@app/components/live/live-match';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { ILobbiesMatch } from '../../../../api/helper/api.types';
 import { Stack } from 'expo-router';
 import { Field } from '@app/components/field';
@@ -14,6 +13,8 @@ import { Text } from '@app/components/text';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
 import { Button } from '@app/components/button';
+import { Icon } from '@app/components/icon';
+import { faExclamationTriangle, faGamepad } from '@fortawesome/free-solid-svg-icons';
 
 export default function LiveLobbiesPage() {
     const getTranslation = useTranslation();
@@ -72,7 +73,7 @@ export default function LiveLobbiesPage() {
             <View className="flex-1">
                 {Platform.OS !== 'web' && (
                     <View className={cn('flex-row items-center justify-center p-4 gap-2', containerClassName)}>
-                        <FontAwesome5 name="exclamation-triangle" size={14} color={theme.textNoteColor} />
+                        <Icon icon={faExclamationTriangle} size={16} />;
                         <Text>{getTranslation('lobbies.datausagewarning', { usage: (usage / 1000000).toFixed(1) })}</Text>
                     </View>
                 )}
@@ -86,16 +87,16 @@ export default function LiveLobbiesPage() {
                     />
 
                     <Text variant="label">
-                        {isConnecting ? 'Fetching lobbies...' : `There are ${filteredData?.length} open lobbies${search ? ' that match your search ' : ''}`}
+                        {isConnecting
+                            ? 'Fetching lobbies...'
+                            : `There are ${filteredData?.length} open lobbies${search ? ' that match your search ' : ''}`}
                     </Text>
                 </View>
 
                 <FlatList
                     contentContainerClassName="p-4"
                     data={filteredData.slice(0, limit)}
-                    renderItem={({ item, index }) => (
-                        <LiveMatch data={item} expanded={index === -1} clickable />
-                    )}
+                    renderItem={({ item, index }) => <LiveMatch data={item} expanded={index === -1} clickable />}
                     ItemSeparatorComponent={() => <View className="h-4" />}
                     keyExtractor={(item, index) => (typeof item === 'string' ? item : item.matchId?.toString())}
                     ListFooterComponent={() => (
