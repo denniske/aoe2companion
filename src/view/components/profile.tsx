@@ -163,6 +163,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 data?.socialDouyuChannelUrl ||
                 data?.socialTwitchChannelUrl != null) && (
                 <View className="flex-row gap-x-2">
+                    <DouyuBadge channelUrl={'asdasd'} />
                     {data?.socialDiscordInvitationUrl && data?.socialDiscordInvitation && (
                         <DiscordBadge invitationUrl={data?.socialDiscordInvitationUrl} invitation={data?.socialDiscordInvitation} />
                     )}

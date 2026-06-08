@@ -17,7 +17,7 @@ interface Props {
     logoPng?: any;
     logoSvg?: string;
     logoIcon?: IconDefinition;
-    logoColor: string; // e.g. accent-[#FFFFFF]
+    logoColor: string; // e.g. white or for fa icons accent-[#FFFFFF]
     dot?: boolean;
 }
 
@@ -36,28 +36,16 @@ export default function Badge(props: Props) {
                     alignItems: 'center',
                     padding: 6,
                     paddingLeft: 6,
-                    gap: 4
-            }}>
-                {
-                    logoPng &&
-                    <Image style={styles.logo} source={logoPng} />
-                }
-                {
-                    logoSvg && Platform.OS === 'web' &&
-                    <Image style={styles.logo} source={{uri: logoSvg, width: 14, height: 14}} />
-                }
-                {
-                    logoSvg && Platform.OS !== 'web' &&
-                    <SvgUri style={styles.logo} width={14} height={14} fill={logoColor} uri={logoSvg}/>
-                }
-                {
-                    logoIcon &&
-                    <Icon icon={logoIcon} style={styles.logo} color={logoColor} />
-                }
+                    gap: 4,
+                }}
+            >
+                {logoPng && <Image className="w-4 h-4" source={logoPng} />}
+                {logoSvg && Platform.OS === 'web' && <Image tintColor={logoColor} source={{ uri: logoSvg, width: 16, height: 16 }} />}
+                {logoSvg && Platform.OS !== 'web' && <SvgUri width={16} height={16} fill={logoColor} uri={logoSvg} />}
+                {logoIcon && <Icon icon={logoIcon} color={logoColor} />}
                 {label && <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>}
             </View>
-            {
-                (content || dot) &&
+            {(content || dot) && (
                 <View
                     style={{
                         backgroundColor: contentColor,
@@ -67,13 +55,10 @@ export default function Badge(props: Props) {
                         paddingRight: 6,
                     }}
                 >
-                    {
-                        dot &&
-                        <MyText style={{color: '#e91a16', fontSize: 10, lineHeight: 14}}> ● </MyText>
-                    }
+                    {dot && <MyText style={{ color: '#e91a16', fontSize: 10, lineHeight: 14 }}> ● </MyText>}
                     <MyText style={[styles.contentText, { color: contentTextColor }]}>{content}</MyText>
                 </View>
-            }
+            )}
         </View>
     );
 }
@@ -100,9 +85,9 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     },
     logo: {
         paddingTop: 1,
-        width: 14,
-        height: 14,
-        ...(Platform.OS === 'web' ? {filter: 'brightness(0) invert()'} : {}),
+        width: 16,
+        height: 18,
+        // ...(Platform.OS === 'web' ? {filter: 'brightness(0) invert()'} : {}),
     },
     label: {
         flexDirection: 'row',

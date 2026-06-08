@@ -16,7 +16,7 @@ export default function DouyuBadge(props: Props) {
         <TouchableOpacity onPress={() => openLink(channelUrl)}>
             <Badge
                 label="Douyu"
-                labelColor="#FFFFFF"
+                labelColor="#EEEEEE"
                 labelTextColor="#000000"
                 logoPng={require('../../../../assets/icon/douyu.png')}
                 logoColor="accent-[#FFFFFF]"
