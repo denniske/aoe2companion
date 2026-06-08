@@ -17,7 +17,7 @@ interface Props {
     logoPng?: any;
     logoSvg?: string;
     logoIcon?: IconDefinition;
-    logoColor: string;
+    logoColor: string; // e.g. accent-[#FFFFFF]
     dot?: boolean;
 }
 
@@ -52,7 +52,7 @@ export default function Badge(props: Props) {
                 }
                 {
                     logoIcon &&
-                    <Icon icon={logoIcon} style={styles.logo} color={`accent-[${logoColor}]` as any} />
+                    <Icon icon={logoIcon} style={styles.logo} color={logoColor} />
                 }
                 {label && <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>}
             </View>

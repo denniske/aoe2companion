@@ -44,7 +44,7 @@ export default function TwitchBadge(props: Props) {
                 content={content}
                 contentColor="#333638"
                 logoIcon={faTwitch}
-                logoColor="white"
+                logoColor="accent-[#FFFFFF]"
                 dot={!!playerTwitchLive?.viewer_count && !condensed}
             />
         </TouchableOpacity>

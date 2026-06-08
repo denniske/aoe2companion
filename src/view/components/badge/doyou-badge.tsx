@@ -19,7 +19,8 @@ export default function DouyuBadge(props: Props) {
                 labelColor="#FFFFFF"
                 labelTextColor="#000000"
                 logoPng={require('../../../../assets/icon/douyu.png')}
-                logoColor="white" />
+                logoColor="accent-[#FFFFFF]"
+            />
         </TouchableOpacity>
     );
 }

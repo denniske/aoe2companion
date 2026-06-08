@@ -33,7 +33,8 @@ export default function DiscordBadge(props: Props) {
                 content={content}
                 contentColor="#333638"
                 logoSvg="https://raw.githubusercontent.com/badges/shields/fcf6678a127c9679b0d68284b860181c2580fe26/logo/discord.svg"
-                logoColor="white" />
+                logoColor="accent-[#FFFFFF]"
+            />
         </TouchableOpacity>
     );
 }

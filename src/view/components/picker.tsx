@@ -233,7 +233,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                         {!anchor && (
                             <View style={styles.row}>
                                 {cell({ value, formatter: (x: any, i: any) => formatter(x, false), color, icon })}
-                                <Icon icon={faChevronDown} style={styles.handle} color={color ? `accent-[${color}]` as any : undefined} size={12} />
+                                <Icon icon={faChevronDown} style={styles.handle} size={12} />
                             </View>
                         )}
                     </TouchableOpacity>

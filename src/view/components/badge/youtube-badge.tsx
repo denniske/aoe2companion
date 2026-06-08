@@ -20,7 +20,7 @@ export default function YoutubeBadge(props: Props) {
                 // content={'100k subscribers'}
                 // contentColor="#333638"
                 logoIcon={faYoutube}
-                logoColor="white" />
+                logoColor="accent-[#FFFFFF]" />
         </TouchableOpacity>
     );
 }
