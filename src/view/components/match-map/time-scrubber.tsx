@@ -98,7 +98,7 @@ export default function TimeScrubber({time, duration} : Props) {
 
             <View className="flex-row gap-2 items-center border-0 border-gray-700">
                 <TouchableOpacity className="py-5 px-3" onPress={togglePlay}>
-                    <Icon icon={isPlaying ? faPause : faPlay} size={14} style={{ color: theme.textNoteColor }} />
+                    <Icon icon={isPlaying ? faPause : faPlay} size={14} />
                 </TouchableOpacity>
                 <AnimatedTextInput
                     editable={false}

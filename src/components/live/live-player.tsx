@@ -24,13 +24,13 @@ export function LivePlayer({ player }: IPlayerProps) {
                 <View className="flex-1" />
                 <View className="flex-3" />
                 <View className="flex-1 items-end">
-                    <Icon icon={faFistRaised} size={14} style={{ color: theme.textNoteColor }} />
+                    <Icon icon={faFistRaised} size={14} />
                 </View>
                 <View className="flex-1 items-end">
-                    <Icon icon={faCrown} size={14} style={{ color: theme.textNoteColor }} />
+                    <Icon icon={faCrown} size={14} />
                 </View>
                 <View className="flex-1 items-end">
-                    <Icon icon={faPlug} size={14} style={{ color: theme.textNoteColor }} />
+                    <Icon icon={faPlug} size={14} />
                 </View>
             </View>
         );

@@ -29,7 +29,7 @@ export function LinkedPlatformAccount({steamId, platform}: {steamId: string, pla
     return (
         <View className="flex flex-row gap-2 items-center">
             <View className="flex-col items-center w-8">
-                <Icon icon={getPlatformIcon(platform)} size={30} style={{ color: theme.textNoteColor }} />
+                <Icon icon={getPlatformIcon(platform)} size={30} />
             </View>
             <TouchableOpacity
                 className="flex-col gap-0"
