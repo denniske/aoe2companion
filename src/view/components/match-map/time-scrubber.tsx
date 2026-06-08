@@ -11,8 +11,9 @@ import {
     GestureDetector,
     Gesture,
 } from 'react-native-gesture-handler';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { useAppTheme } from '@app/theming';
+import { Icon } from '@app/components/icon';
+import { faPause, faPlay } from '@fortawesome/sharp-solid-svg-icons';
 import {scheduleOnRN} from "react-native-worklets";
 import { formatTimeFromMs } from '@app/view/components/match-map/map-util';
 
@@ -97,7 +98,7 @@ export default function TimeScrubber({time, duration} : Props) {
 
             <View className="flex-row gap-2 items-center border-0 border-gray-700">
                 <TouchableOpacity className="py-5 px-3" onPress={togglePlay}>
-                    <FontAwesome5 name={isPlaying ? 'pause' : 'play'} size={14} color={theme.textNoteColor} />
+                    <Icon icon={isPlaying ? faPause : faPlay} size={14} style={{ color: theme.textNoteColor }} />
                 </TouchableOpacity>
                 <AnimatedTextInput
                     editable={false}

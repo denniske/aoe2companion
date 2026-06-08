@@ -2,7 +2,8 @@ import { createStylesheet } from '../../../theming-new';
 import { ImageSourcePropType, StyleSheet, View } from 'react-native';
 import { getTechIcon } from '../../../helper/techs';
 import {getAgeIcon, getOtherIcon, getUnitIcon} from '../../../helper/units';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Icon } from '@app/components/icon';
+import { faArrowRight, faPlus } from '@fortawesome/sharp-solid-svg-icons';
 import { getBuildingIcon } from '../../../helper/buildings';
 import { MyText } from '../my-text';
 import { startCase } from 'lodash';
@@ -40,7 +41,7 @@ const taskMap: Record<NonNullable<IBuildOrderStep['task']>, ImageSourcePropType>
 const PlusIcon: FC<{ move?: boolean; size: Size }> = ({ move, size }) => {
     const styles = useStyles();
 
-    return <FontAwesome5 name={move ? 'arrow-right' : 'plus'} size={size === 'small' ? 10 : 14} style={styles.plusIcon} />;
+    return <Icon icon={move ? faArrowRight : faPlus} size={size === 'small' ? 10 : 14} style={styles.plusIcon} />;
 };
 
 const TaskIcon: FC<{ item?: string; size: Size }> = ({ item, size }) => {

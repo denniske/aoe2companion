@@ -1,5 +1,6 @@
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Link } from 'expo-router';
+import { Icon } from '@app/components/icon';
+import { faCrown, faFistRaised, faPlug } from '@fortawesome/sharp-solid-svg-icons';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { IMatchesMatchPlayer2 } from '../../api/helper/api.types';
@@ -23,13 +24,13 @@ export function LivePlayer({ player }: IPlayerProps) {
                 <View className="flex-1" />
                 <View className="flex-3" />
                 <View className="flex-1 items-end">
-                    <FontAwesome5 name="fist-raised" size={14} color={theme.textNoteColor} />
+                    <Icon icon={faFistRaised} size={14} style={{ color: theme.textNoteColor }} />
                 </View>
                 <View className="flex-1 items-end">
-                    <FontAwesome5 name="crown" size={14} color={theme.textNoteColor} />
+                    <Icon icon={faCrown} size={14} style={{ color: theme.textNoteColor }} />
                 </View>
                 <View className="flex-1 items-end">
-                    <FontAwesome5 name="plug" size={14} color={theme.textNoteColor} />
+                    <Icon icon={faPlug} size={14} style={{ color: theme.textNoteColor }} />
                 </View>
             </View>
         );

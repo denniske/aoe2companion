@@ -2,7 +2,8 @@ import React, { useRef, useState } from 'react';
 import { FlatList, GestureResponderEvent, Modal, Platform, TouchableOpacity, View, ViewToken } from 'react-native';
 import { Step } from '../components/build-order/step';
 import { SafeAreaProvider, SafeAreaView } from '@/src/components/uniwind/safe-area-context';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Icon } from '@app/components/icon';
+import { faTimes } from '@fortawesome/sharp-solid-svg-icons';
 import { BuildOrderButton } from '../components/build-order-button';
 import { useTranslation } from '@app/helper/translate';
 import { IBuildOrder, IBuildOrderStandardResources } from '@/data/src/helper/builds';
@@ -51,7 +52,7 @@ export const BuildFocus: React.FC<{
                     <View className="flex-row justify-between items-center p-4 pb-2">
                         <Text variant="header-lg">{build.title}</Text>
                         <TouchableOpacity onPress={onClose}>
-                            <FontAwesome5 name="times" size={24} color={theme.textColor} />
+                            <Icon icon={faTimes} size={24} style={{ color: theme.textColor }} />
                         </TouchableOpacity>
                     </View>
 

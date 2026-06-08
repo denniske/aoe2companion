@@ -22,7 +22,6 @@ import { useAccount, useAuthProfileId, useProfileFast } from '@app/queries/all';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '@app/components/button';
 import { Text } from '@app/components/text';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { useTranslation } from '@app/helper/translate';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { useSaveAccountMutation } from '@app/mutations/save-account';

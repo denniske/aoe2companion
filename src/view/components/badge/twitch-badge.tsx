@@ -43,7 +43,7 @@ export default function TwitchBadge(props: Props) {
                 labelColor="#6441a5"
                 content={content}
                 contentColor="#333638"
-                logoIcon="twitch"
+                logoIcon={faTwitch}
                 logoColor="white"
                 dot={!!playerTwitchLive?.viewer_count && !condensed}
             />

@@ -12,12 +12,11 @@ import {
     ViewStyle,
 } from 'react-native';
 import { MyText } from './my-text';
-import { FontAwesome } from '@expo/vector-icons';
 import React, { type CSSProperties, useMemo, useState } from 'react';
 import { useAppTheme } from '../../theming';
 import { MenuNew } from '@app/components/menu';
 import { Icon } from '@app/components/icon';
-import { faAngleDown } from '@fortawesome/sharp-solid-svg-icons';
+import { faAngleDown, faChevronDown } from '@fortawesome/sharp-solid-svg-icons';
 
 interface IPickerProps<T> {
     value?: T;
@@ -234,7 +233,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                         {!anchor && (
                             <View style={styles.row}>
                                 {cell({ value, formatter: (x: any, i: any) => formatter(x, false), color, icon })}
-                                <FontAwesome style={styles.handle} name="chevron-down" color={color} size={12} />
+                                <Icon icon={faChevronDown} style={styles.handle} color={color ? `accent-[${color}]` as any : undefined} size={12} />
                             </View>
                         )}
                     </TouchableOpacity>

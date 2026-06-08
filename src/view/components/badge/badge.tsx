@@ -2,8 +2,9 @@ import { Image, Platform, StyleSheet, View } from 'react-native';
 import { MyText } from '../my-text';
 import React from 'react';
 import { createStylesheet } from '../../../theming-new';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { SvgUri } from 'react-native-svg';
+import { Icon } from '@app/components/icon';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
     contentTextColor?: string;
     logoPng?: any;
     logoSvg?: string;
-    logoIcon?: string;
+    logoIcon?: IconDefinition;
     logoColor: string;
     dot?: boolean;
 }
@@ -51,7 +52,7 @@ export default function Badge(props: Props) {
                 }
                 {
                     logoIcon &&
-                    <FontAwesome5 style={styles.logo} name={logoIcon} color={logoColor} />
+                    <Icon icon={logoIcon} style={styles.logo} color={`accent-[${logoColor}]` as any} />
                 }
                 {label && <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>}
             </View>

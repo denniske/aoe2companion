@@ -2,6 +2,7 @@ import { TouchableOpacity } from 'react-native';
 import React from 'react';
 import Badge from './badge';
 import { openLink } from '../../../helper/url';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 
 interface Props {
@@ -18,7 +19,7 @@ export default function YoutubeBadge(props: Props) {
                 labelColor="#FF0233"
                 // content={'100k subscribers'}
                 // contentColor="#333638"
-                logoIcon="youtube"
+                logoIcon={faYoutube}
                 logoColor="white" />
         </TouchableOpacity>
     );

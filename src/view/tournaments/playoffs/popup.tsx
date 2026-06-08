@@ -1,6 +1,7 @@
 import { Text } from '@app/components/text';
 import TwitchBadge from '@app/view/components/badge/twitch-badge';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Icon } from '@app/components/icon';
+import { faCheck } from '@fortawesome/sharp-solid-svg-icons';
 import { format, isPast } from 'date-fns';
 import { Image } from '@/src/components/uniwind/image';
 import { router } from 'expo-router';
@@ -129,7 +130,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                                                 <PlayoffPlayer key={playerIndex} player={player} />
                                             ))}
                                         </View>
-                                        <FontAwesome5 name="check" size={16} color={game.winner === 0 ? 'green' : 'transparent'} />
+                                        <Icon icon={faCheck} size={16} style={{ color: game.winner === 0 ? 'green' : 'transparent' }} />
                                     </View>
                                     <MyText style={[styles.map, notPlayed && styles.mapNotPlayed]}>{game.map}</MyText>
                                     <View style={[styles.playersContainer, styles.reversed]}>
@@ -138,7 +139,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                                                 <PlayoffPlayer key={playerIndex} player={player} reverse />
                                             ))}
                                         </View>
-                                        <FontAwesome5 name="check" size={16} color={game.winner === 1 ? 'green' : 'transparent'} />
+                                        <Icon icon={faCheck} size={16} style={{ color: game.winner === 1 ? 'green' : 'transparent' }} />
                                     </View>
                                 </View>
                             );

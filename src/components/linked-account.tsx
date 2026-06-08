@@ -1,5 +1,4 @@
 import { TouchableOpacity, View } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { openLink } from '@app/helper/url';
 import { noop } from 'lodash';
 import { Text } from '@app/components/text';
@@ -8,13 +7,18 @@ import { appConfig } from '@nex/dataset';
 import React from 'react';
 import { useAppTheme } from '@app/theming';
 import { useTranslation } from '@app/helper/translate';
+import { Icon } from '@app/components/icon';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faPlaystation, faSteam, faXbox } from '@fortawesome/free-brands-svg-icons';
 
-export function getPlatformIcon(platform: string) {
-    return {
-        'steam': 'steam',
-        'xbox': 'xbox',
-        'psn': 'playstation',
-    }[platform];
+const platformIconMap: Record<string, IconDefinition> = {
+    'steam': faSteam,
+    'xbox': faXbox,
+    'psn': faPlaystation,
+};
+
+export function getPlatformIcon(platform: string): IconDefinition {
+    return platformIconMap[platform] ?? faSteam;
 }
 
 export function LinkedPlatformAccount({steamId, platform}: {steamId: string, platform: 'steam' | 'xbox' | 'psn'}) {
@@ -25,7 +29,7 @@ export function LinkedPlatformAccount({steamId, platform}: {steamId: string, pla
     return (
         <View className="flex flex-row gap-2 items-center">
             <View className="flex-col items-center w-8">
-                <FontAwesome5 name={getPlatformIcon(platform)} size={30} color={theme.textNoteColor} />
+                <Icon icon={getPlatformIcon(platform)} size={30} style={{ color: theme.textNoteColor }} />
             </View>
             <TouchableOpacity
                 className="flex-col gap-0"

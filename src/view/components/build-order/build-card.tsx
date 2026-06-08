@@ -1,6 +1,8 @@
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Icon } from '@app/components/icon';
+import { faHeart as faHeartSolid } from '@fortawesome/sharp-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/sharp-regular-svg-icons';
 import { Image } from '@/src/components/uniwind/image';
 import { startCase } from 'lodash';
 import { TouchableOpacity, View } from 'react-native';
@@ -80,7 +82,7 @@ export const BuildCard: React.FC<
 
                             {toggleFavorite && (
                                 <UserLoginWrapper Component={TouchableOpacity} hitSlop={10} onPress={toggleFavorite}>
-                                    <FontAwesome5 solid={favorited} name="heart" size={20} color="#ef4444" />
+                                    <Icon icon={favorited ? faHeartSolid : faHeartRegular} size={20} color="accent-[#ef4444]" />
                                 </UserLoginWrapper>
                             )}
                         </View>
