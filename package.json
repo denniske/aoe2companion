@@ -26,7 +26,6 @@
         "@eva-design/eva": "^2.2.0",
         "@expo-google-fonts/roboto": "^0.1.0",
         "@expo/metro-runtime": "~56.0.13",
-        "@expo/vector-icons": "^15.1.1",
         "@fortawesome/fontawesome-svg-core": "^6.5.2",
         "@fortawesome/free-brands-svg-icons": "^6.5.2",
         "@fortawesome/free-solid-svg-icons": "^6.5.2",
