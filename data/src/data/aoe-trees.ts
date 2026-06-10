@@ -629,7 +629,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -1638,7 +1637,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -2001,7 +1999,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 287
             },
             {
                 "Node Type": "Research",
@@ -2707,7 +2705,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -3064,7 +3061,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -3758,7 +3755,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -4115,7 +4111,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 289
             },
             {
                 "Node Type": "Research",
@@ -4791,7 +4787,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -6851,7 +6846,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -7902,7 +7896,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -8941,7 +8934,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -9298,7 +9290,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -9980,7 +9972,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -11013,7 +11004,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -12064,7 +12054,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -12427,7 +12416,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -13121,7 +13110,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -14196,7 +14184,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -14559,7 +14546,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -15241,7 +15228,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -15598,7 +15584,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 155
             },
             {
                 "Node Type": "Research",
@@ -16268,7 +16254,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -17301,7 +17286,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -18340,7 +18324,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -19427,7 +19410,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -19784,7 +19766,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 289
             },
             {
                 "Node Type": "Research",
@@ -20490,7 +20472,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -20847,7 +20828,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 289
             },
             {
                 "Node Type": "Research",
@@ -21529,7 +21510,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -22550,7 +22530,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -22871,7 +22850,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 287
             },
             {
                 "Node Type": "Research",
@@ -23589,7 +23568,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -24616,7 +24594,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -24973,7 +24950,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -25685,7 +25662,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -26048,7 +26024,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -26266,7 +26242,7 @@ export const aoeTreeInternal = {
                 "Picture Index": 35
             },
             {
-                "Node Type": "UniqueBuilding",
+                "Node Type": "RegionalBuilding",
                 "Node ID": 1889,
                 "Age ID": 1,
                 "Picture Index": 96
@@ -26778,7 +26754,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -27135,7 +27110,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -27835,7 +27810,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -28192,7 +28166,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -28886,7 +28860,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -29255,7 +29228,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -29925,7 +29898,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -30952,7 +30924,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -31997,7 +31968,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -32354,7 +32324,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -33036,7 +33006,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -33393,7 +33362,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 155
             },
             {
                 "Node Type": "Research",
@@ -34063,7 +34032,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -34384,7 +34352,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 287
             },
             {
                 "Node Type": "Research",
@@ -35096,7 +35064,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -35459,7 +35426,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 287
             },
             {
                 "Node Type": "Research",
@@ -36153,7 +36120,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -36510,7 +36476,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -37180,7 +37146,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -37513,7 +37478,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 287
             },
             {
                 "Node Type": "Research",
@@ -38243,7 +38208,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -38600,7 +38564,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 289
             },
             {
                 "Node Type": "Research",
@@ -39270,7 +39234,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -40303,7 +40266,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -41336,7 +41298,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -42381,7 +42342,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -42738,7 +42698,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 289
             },
             {
                 "Node Type": "Research",
@@ -43432,7 +43392,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -43801,7 +43760,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -44477,7 +44436,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -45534,7 +45492,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -46561,7 +46518,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -47624,7 +47580,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -47981,7 +47936,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 289
             },
             {
                 "Node Type": "Research",
@@ -48651,7 +48606,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -49678,7 +49632,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -49999,7 +49952,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 287
             },
             {
                 "Node Type": "Research",
@@ -50723,7 +50676,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -51080,7 +51032,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 289
             },
             {
                 "Node Type": "Research",
@@ -51780,7 +51732,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -52137,7 +52088,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -52807,7 +52758,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -53870,7 +53820,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -54239,7 +54188,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
@@ -54933,7 +54882,6 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
-                "Node Type": "ResearchedCompleted",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
@@ -55302,7 +55250,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 288
             },
             {
                 "Node Type": "Research",
