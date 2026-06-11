@@ -57,7 +57,7 @@ export function useXboxAuth() {
 
     useEffect(() => {
         if (Platform.OS === 'android') return;
-        if ((response as any)?.params?.state.startsWith('xbox?code=')) {
+        if ((response as any)?.params?.state?.startsWith('xbox?code=')) {
             const code = (response as any)?.params.state.replace('xbox?code=', '');
             link({
                 code,
@@ -78,7 +78,7 @@ export function useXboxAuth() {
                 // xbl.io does not understand oauth state, so we get something like this:
                 // {"state": "xbox?code=M...."}
 
-                if (params?.state.startsWith('xbox?code=')) {
+                if (params?.state?.startsWith('xbox?code=')) {
                     const code = params.state.replace('xbox?code=', '');
                     link({
                         code,
