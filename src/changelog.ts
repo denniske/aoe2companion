@@ -376,6 +376,10 @@ export const changelog: IChangelog = {
             type: 'minor',
             title: 'Internal User Storage Migration',
         },
+        {
+            type: 'minor',
+            title: 'Add regional trade cart icon to tech tree',
+        },
     ],
     '200.0.0': [
         {

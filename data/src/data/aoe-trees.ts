@@ -823,7 +823,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 292
+                "Picture Index": 292,
+                "Picture Name": "MonkOrthodox"
             },
             {
                 "Node Type": "UniqueUnit",
@@ -997,7 +998,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -1831,7 +1833,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 131
+                "Picture Index": 131,
+                "Picture Name": "MonkNative"
             },
             {
                 "Node Type": "Research",
@@ -1999,7 +2002,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 287
+                "Picture Index": 287,
+                "Picture Name": "TradeCartNativeAmerican"
             },
             {
                 "Node Type": "Research",
@@ -2893,7 +2897,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 218
+                "Picture Index": 218,
+                "Picture Name": "MonkBuddhist"
             },
             {
                 "Node Type": "Research",
@@ -3061,7 +3066,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -3943,7 +3949,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 169
+                "Picture Index": 169,
+                "Picture Name": "MonkMuslim"
             },
             {
                 "Node Type": "Research",
@@ -4111,7 +4118,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 289
+                "Picture Index": 289,
+                "Picture Name": "TradeCartMiddleEastern"
             },
             {
                 "Node Type": "Research",
@@ -4975,7 +4983,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -5143,7 +5152,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -6002,7 +6012,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -6170,7 +6181,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -7052,7 +7064,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 292
+                "Picture Index": 292,
+                "Picture Name": "MonkOrthodox"
             },
             {
                 "Node Type": "Research",
@@ -7220,7 +7233,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -8084,7 +8098,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -8252,7 +8267,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -9122,7 +9138,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 218
+                "Picture Index": 218,
+                "Picture Name": "MonkBuddhist"
             },
             {
                 "Node Type": "Research",
@@ -9290,7 +9307,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -10166,7 +10184,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 292
+                "Picture Index": 292,
+                "Picture Name": "MonkOrthodox"
             },
             {
                 "Node Type": "Research",
@@ -10334,7 +10353,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -11192,7 +11212,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -11360,7 +11381,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -12248,7 +12270,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 218
+                "Picture Index": 218,
+                "Picture Name": "MonkBuddhist"
             },
             {
                 "Node Type": "Research",
@@ -12416,7 +12439,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -13310,7 +13334,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 293
+                "Picture Index": 293,
+                "Picture Name": "MonkTengri"
             },
             {
                 "Node Type": "Research",
@@ -13478,7 +13503,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -14378,7 +14404,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 290
+                "Picture Index": 290,
+                "Picture Name": "MonkHindu"
             },
             {
                 "Node Type": "Research",
@@ -14546,7 +14573,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -15416,7 +15444,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 122
+                "Picture Index": 122,
+                "Picture Name": "MonkAfrican"
             },
             {
                 "Node Type": "Research",
@@ -15584,7 +15613,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 155
+                "Picture Index": 155,
+                "Picture Name": "TradeCartAfrican"
             },
             {
                 "Node Type": "Research",
@@ -16442,7 +16472,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -16610,7 +16641,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -17474,7 +17506,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 292
+                "Picture Index": 292,
+                "Picture Name": "MonkOrthodox"
             },
             {
                 "Node Type": "Research",
@@ -17642,7 +17675,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -18518,7 +18552,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -18686,7 +18721,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -19598,7 +19634,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 290
+                "Picture Index": 290,
+                "Picture Name": "MonkHindu"
             },
             {
                 "Node Type": "Research",
@@ -19766,7 +19803,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 289
+                "Picture Index": 289,
+                "Picture Name": "TradeCartMiddleEastern"
             },
             {
                 "Node Type": "Research",
@@ -20660,7 +20698,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 169
+                "Picture Index": 169,
+                "Picture Name": "MonkMuslim"
             },
             {
                 "Node Type": "Research",
@@ -20828,7 +20867,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 289
+                "Picture Index": 289,
+                "Picture Name": "TradeCartMiddleEastern"
             },
             {
                 "Node Type": "Research",
@@ -21704,7 +21744,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 293
+                "Picture Index": 293,
+                "Picture Name": "MonkTengri"
             },
             {
                 "Node Type": "Research",
@@ -21872,7 +21913,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -22850,7 +22892,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 287
+                "Picture Index": 287,
+                "Picture Name": "TradeCartNativeAmerican"
             },
             {
                 "Node Type": "Research",
@@ -23756,7 +23799,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 291
+                "Picture Index": 291,
+                "Picture Name": "MonkCatholic"
             },
             {
                 "Node Type": "Research",
@@ -23924,7 +23968,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -24782,7 +24827,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 218
+                "Picture Index": 218,
+                "Picture Name": "MonkBuddhist"
             },
             {
                 "Node Type": "Research",
@@ -24950,7 +24996,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -25856,7 +25903,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 218
+                "Picture Index": 218,
+                "Picture Name": "MonkBuddhist"
             },
             {
                 "Node Type": "Research",
@@ -26024,7 +26072,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -26942,7 +26991,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 293
+                "Picture Index": 293,
+                "Picture Name": "MonkTengri"
             },
             {
                 "Node Type": "Research",
@@ -27110,7 +27160,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -27998,7 +28049,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 290
+                "Picture Index": 290,
+                "Picture Name": "MonkHindu"
             },
             {
                 "Node Type": "Research",
@@ -28166,7 +28218,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -29060,7 +29113,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 218
+                "Picture Index": 218,
+                "Picture Name": "MonkBuddhist"
             },
             {
                 "Node Type": "Research",
@@ -29228,7 +29282,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -30086,7 +30141,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -30254,7 +30310,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -31112,7 +31169,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -31280,7 +31338,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -32156,7 +32215,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 218
+                "Picture Index": 218,
+                "Picture Name": "MonkBuddhist"
             },
             {
                 "Node Type": "Research",
@@ -32324,7 +32384,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -33194,7 +33255,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 122
+                "Picture Index": 122,
+                "Picture Name": "MonkAfrican"
             },
             {
                 "Node Type": "Research",
@@ -33362,7 +33424,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 155
+                "Picture Index": 155,
+                "Picture Name": "TradeCartAfrican"
             },
             {
                 "Node Type": "Research",
@@ -34352,7 +34415,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 287
+                "Picture Index": 287,
+                "Picture Name": "TradeCartNativeAmerican"
             },
             {
                 "Node Type": "Research",
@@ -35258,7 +35322,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 131
+                "Picture Index": 131,
+                "Picture Name": "MonkNative"
             },
             {
                 "Node Type": "Research",
@@ -35426,7 +35491,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 287
+                "Picture Index": 287,
+                "Picture Name": "TradeCartNativeAmerican"
             },
             {
                 "Node Type": "Research",
@@ -36308,7 +36374,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 293
+                "Picture Index": 293,
+                "Picture Name": "MonkTengri"
             },
             {
                 "Node Type": "Research",
@@ -36476,7 +36543,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -37478,7 +37546,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 287
+                "Picture Index": 287,
+                "Picture Name": "TradeCartNativeAmerican"
             },
             {
                 "Node Type": "Research",
@@ -38396,7 +38465,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 169
+                "Picture Index": 169,
+                "Picture Name": "MonkMuslim"
             },
             {
                 "Node Type": "Research",
@@ -38564,7 +38634,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 289
+                "Picture Index": 289,
+                "Picture Name": "TradeCartMiddleEastern"
             },
             {
                 "Node Type": "Research",
@@ -39422,7 +39493,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -39590,7 +39662,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -40466,7 +40539,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 291
+                "Picture Index": 291,
+                "Picture Name": "MonkCatholic"
             },
             {
                 "Node Type": "Research",
@@ -40634,7 +40708,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -41492,7 +41567,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -41660,7 +41736,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -42530,7 +42607,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 169
+                "Picture Index": 169,
+                "Picture Name": "MonkMuslim"
             },
             {
                 "Node Type": "Research",
@@ -42698,7 +42776,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 289
+                "Picture Index": 289,
+                "Picture Name": "TradeCartMiddleEastern"
             },
             {
                 "Node Type": "Research",
@@ -43592,7 +43671,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 218
+                "Picture Index": 218,
+                "Picture Name": "MonkBuddhist"
             },
             {
                 "Node Type": "Research",
@@ -43760,7 +43840,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -44654,7 +44735,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -44822,7 +44904,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -45680,7 +45763,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 292
+                "Picture Index": 292,
+                "Picture Name": "MonkOrthodox"
             },
             {
                 "Node Type": "Research",
@@ -45848,7 +45932,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -46706,7 +46791,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 291
+                "Picture Index": 291,
+                "Picture Name": "MonkCatholic"
             },
             {
                 "Node Type": "UniqueUnit",
@@ -46880,7 +46966,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -47768,7 +47855,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 169
+                "Picture Index": 169,
+                "Picture Name": "MonkMuslim"
             },
             {
                 "Node Type": "Research",
@@ -47936,7 +48024,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 289
+                "Picture Index": 289,
+                "Picture Name": "TradeCartMiddleEastern"
             },
             {
                 "Node Type": "Research",
@@ -48794,7 +48883,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -48962,7 +49052,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -49952,7 +50043,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 287
+                "Picture Index": 287,
+                "Picture Name": "TradeCartNativeAmerican"
             },
             {
                 "Node Type": "Research",
@@ -50864,7 +50956,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 169
+                "Picture Index": 169,
+                "Picture Name": "MonkMuslim"
             },
             {
                 "Node Type": "Research",
@@ -51032,7 +51125,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 289
+                "Picture Index": 289,
+                "Picture Name": "TradeCartMiddleEastern"
             },
             {
                 "Node Type": "Research",
@@ -51920,7 +52014,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 218
+                "Picture Index": 218,
+                "Picture Name": "MonkBuddhist"
             },
             {
                 "Node Type": "Research",
@@ -52088,7 +52183,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -52958,7 +53054,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
             },
             {
                 "Node Type": "Research",
@@ -53126,7 +53223,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 34
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -54020,7 +54118,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 218
+                "Picture Index": 218,
+                "Picture Name": "MonkBuddhist"
             },
             {
                 "Node Type": "Research",
@@ -54188,7 +54287,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",
@@ -55082,7 +55182,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 218
+                "Picture Index": 218,
+                "Picture Name": "MonkBuddhist"
             },
             {
                 "Node Type": "Research",
@@ -55250,7 +55351,8 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 128,
                 "Age ID": 2,
-                "Picture Index": 288
+                "Picture Index": 288,
+                "Picture Name": "TradeCartEastAsian"
             },
             {
                 "Node Type": "Research",

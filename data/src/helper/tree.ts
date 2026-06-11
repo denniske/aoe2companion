@@ -162,28 +162,10 @@ export function getCivTechAge(civ: Civ, tech: Tech) {
     // return ageIdToEnumMapping[info.age];
 }
 
-export function getCivMonkType(civ: Civ) {
+export function getPictureName(unit: Unit, civ: Civ) {
     const civTechTree = aoeTreeInternal[civ as any as keyof typeof aoeTreeInternal];
-    const info = civTechTree.civ_techs_units.find(u =>
-        u['Node Type'] === 'Unit' &&
-        u['Node ID'] === parseInt(units['Monk'].dataId)
-    );
-
-    const mapping: Record<string, string> = {
-        '33': 'Generic',
-        '122': 'African',
-        '293': 'Tengri',
-        '218': 'Buddhist',
-        '291': 'Catholic',
-        '290': 'Hindu',
-        '169': 'Muslim',
-        '131': 'Native',
-        '292': 'Orthodox',
-    } as const;
-
-    const pictureIndex = info?.['Picture Index']?.toString() ?? '33';
-
-    return mapping[pictureIndex];
+    const info = civTechTree.civ_techs_units.find((u) => u['Node Type'] === 'Unit' && u['Node ID'] === parseInt(units[unit].dataId));
+    return info?.['Picture Name'];
 }
 
 // function getCivHasUnitLegacy(civ: Civ, unit: Unit) {
