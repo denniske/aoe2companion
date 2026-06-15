@@ -19,7 +19,8 @@
         "ios": "expo run:ios",
         "postinstall": "patch-package",
         "deploy": "bash deploy.sh",
-        "app-update-types": "expo-type-information module-interface -m modules/app-update"
+        "app-update-types": "expo-type-information module-interface -m modules/app-update",
+        "log": "bash log.sh"
     },
     "dependencies": {
         "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
