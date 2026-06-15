@@ -5,11 +5,33 @@ module.exports = function(api) {
   // console.log('BABEL ROOT');
 
   api.cache(true);
+
+  // Rewrite FontAwesome barrel imports (e.g. `import { faHeart } from
+  // '@fortawesome/sharp-solid-svg-icons'`) into deep per-icon imports
+  // (`.../faHeart`). Metro does not tree-shake the multi-MB barrel `index.js`,
+  // so without this every imported pack is bundled in full.
+  const fontawesomePackages = [
+    '@fortawesome/free-solid-svg-icons',
+    '@fortawesome/free-brands-svg-icons',
+    '@fortawesome/sharp-solid-svg-icons',
+    '@fortawesome/sharp-regular-svg-icons',
+  ];
+  const fontawesomeTransformImports = Object.fromEntries(
+    fontawesomePackages.map((pkg) => [
+      pkg,
+      {
+        transform: (importName) => `${pkg}/${importName}`,
+        skipDefaultConversion: true,
+      },
+    ])
+  );
+
   return {
       presets: [
           ["babel-preset-expo"],
       ],
     plugins: [
+      ['transform-imports', fontawesomeTransformImports],
       [
         "module-resolver",
         {

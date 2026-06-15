@@ -10,10 +10,6 @@ import {
     Roboto_900Black,
     useFonts,
 } from '@expo-google-fonts/roboto';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fasr } from '@fortawesome/sharp-regular-svg-icons';
-import { fass } from '@fortawesome/sharp-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
     Environment,
     getSupabaseClient,
@@ -92,8 +88,6 @@ function onAppStateChange(status: AppStateStatus) {
         focusManager.setFocused(status === 'active');
     }
 }
-
-library.add(fass, fasr, fab);
 
 SplashScreen.preventAutoHideAsync();
 
