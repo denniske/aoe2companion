@@ -47,6 +47,8 @@ echo "Filename: ${NAME}"
 #    echo "Skipping sentry sourcemap upload."
 #fi
 
+# https://github.com/expo/eas-cli/issues/3815 (also exported in zsh profile)
+export EXPO_NO_CAPABILITY_SYNC=1
 # https://github.com/expo/expo/issues/39782
 export EAS_SKIP_AUTO_FINGERPRINT=1
 export EAS_GRADLE_CACHE=1

@@ -374,11 +374,16 @@ export const changelog: IChangelog = {
     '201.0.0': [
         {
             type: 'minor',
-            title: 'Internal User Storage Migration',
+            title: 'Internal Account Storage Migration',
         },
         {
             type: 'minor',
             title: 'Add regional trade cart icon to tech tree',
+        },
+        {
+            type: 'bugfix',
+            title: 'Live activities',
+            content: 'Updating live activities when match is finished and letting them disappear two minutes later',
         },
     ],
     '200.0.0': [
