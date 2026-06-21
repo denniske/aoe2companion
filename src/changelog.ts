@@ -371,7 +371,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '201.0.0': [
+    '202.0.0': [
         {
             type: 'minor',
             title: 'Internal Account Storage Migration',
