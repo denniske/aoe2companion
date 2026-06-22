@@ -185,6 +185,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                         className="w-8 items-center justify-center"
                         onPress={() => setShowTournamentPlayer(true)}
                         disabled={!liquipediaProfile}
+                        hitSlop={10}
                     >
                         <Icon icon={faCheckCircle} color="brand" size={20} />
                         {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
@@ -202,7 +203,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                 visible={linksVisible}
                 onDismiss={() => setLinksVisible(false)}
                 anchor={
-                    <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setLinksVisible(true)}>
+                    <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setLinksVisible(true)} hitSlop={10}>
                         <Icon icon={faLink} color="brand" size={20} />
                     </TouchableOpacity>
                 }
@@ -217,7 +218,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
             </MenuNew>
 
             {profileId === authProfileId ? (
-                <TouchableOpacity onPress={showResetOrUnlinkDialog}>
+                <TouchableOpacity onPress={showResetOrUnlinkDialog} hitSlop={10}>
                     <Icon icon={faUserTimes} size={20} color="subtle" />
                 </TouchableOpacity>
             ) : (

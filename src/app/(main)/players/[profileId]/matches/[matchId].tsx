@@ -11,6 +11,7 @@ import MatchTeams from '@app/components/match/match-teams';
 import { LoadingScreen } from '@app/components/loading-screen';
 import NotFound from '@app/app/(main)/+not-found';
 import { Header } from '@app/components/header';
+import { ShareMatchButton } from '@app/components/match/share-match-button';
 
 type MatchPageParams = {
     matchId: string;
@@ -41,7 +42,11 @@ export default function MatchPage() {
     return (
         <ScrollView contentContainerClassName="p-4 gap-4">
             <Stack.Screen
-                options={{ title: match.mapName, header: (props) => <Header {...props} paramReplacements={{ profileId: player.name }} /> }}
+                options={{
+                    title: match.mapName,
+                    header: (props) => <Header {...props} paramReplacements={{ profileId: player.name }} />,
+                    headerRight: () => <ShareMatchButton profileId={player.profileId} matchId={match.matchId} />,
+                }}
             />
             <View className="gap-2">
                 <MatchCard match={match} linkMap={true} user={player.profileId} />
