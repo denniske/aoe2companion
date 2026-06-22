@@ -4,7 +4,7 @@
     "details": [
       {
         "appID": "HAFGZBHF9M.com.aoe2companion",
-        "paths": ["/auth/*", "/more/*"]
+        "paths": ["/auth/*", "/more/*", "/players/*"]
       }
     ]
   },
