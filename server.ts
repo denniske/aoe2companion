@@ -31,6 +31,9 @@ app.use(
   express.static(CLIENT_BUILD_DIR, {
     maxAge: '1h',
     extensions: ['html'],
+    // Serve dot-directories like /.well-known/ (Express ignores them by default),
+    // required for Apple universal links (apple-app-site-association).
+    dotfiles: 'allow',
   })
 );
 
