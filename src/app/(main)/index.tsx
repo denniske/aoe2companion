@@ -35,17 +35,17 @@ import { Image } from '@app/components/uniwind/image';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import Head from 'expo-router/head';
-// import { after, type LiveActivity } from 'expo-widgets';
-// import { match1v1 } from '@app/widgets/demo-matches/match-1v1';
-// import { widgetGroupDir } from '@app/service/storage';
-// import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
-// import { match2v2 } from '@app/widgets/demo-matches/match-2v2';
-// import { match4v4 } from '@app/widgets/demo-matches/match-4v4';
-// import { reducePayload } from '@app/widgets/demo-matches/demo-helper';
-// import { matchUneven } from '@app/widgets/demo-matches/match-uneven';
-// import { matchFFA } from '@app/widgets/demo-matches/match-ffa';
-// import { match2v2v2v2 } from '@app/widgets/demo-matches/match-2v2v2v2';
-// import { match2v2v1v1v1v1 } from '@app/widgets/demo-matches/match-2v2v1v1v1v1';
+import { after, type LiveActivity } from 'expo-widgets';
+import { match1v1 } from '@app/widgets/demo-matches/match-1v1';
+import { widgetGroupDir } from '@app/service/storage';
+import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
+import { match2v2 } from '@app/widgets/demo-matches/match-2v2';
+import { match4v4 } from '@app/widgets/demo-matches/match-4v4';
+import { reducePayload } from '@app/widgets/demo-matches/demo-helper';
+import { matchUneven } from '@app/widgets/demo-matches/match-uneven';
+import { matchFFA } from '@app/widgets/demo-matches/match-ffa';
+import { match2v2v2v2 } from '@app/widgets/demo-matches/match-2v2v2v2';
+import { match2v2v1v1v1v1 } from '@app/widgets/demo-matches/match-2v2v1v1v1v1';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -129,39 +129,32 @@ export default function IndexPage() {
     //     //     ...match4v4,
     //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
     //     // },
-    //     {
-    //         ...matchUneven,
-    //         iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
-    //     },
+    //     // {
+    //     //     ...matchUneven,
+    //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+    //     // },
     //     // {
     //     //     ...matchFFA,
     //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
     //     // },
-    //
-    //     {
-    //         ...match2v2v2v2,
-    //         iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
-    //     },
-    //     {
-    //         ...match2v2v1v1v1v1,
-    //         iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
-    //     },
+    //     // {
+    //     //     ...match2v2v2v2,
+    //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+    //     // },
+    //     // {
+    //     //     ...match2v2v1v1v1v1,
+    //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+    //     // },
     // ].map(reducePayload);
     //
     // const startDeliveryTracking = (i: number) => {
-    //     // Start the Live Activity
-    //     const instance = MatchActivity.start(
-    //         testMatches[i],
-    //         'myapp://deliveries/12345'
-    //     );
+    //     const firstPlayerProfileId = testMatches[i].match.teams[0].players[0].profileId;
+    //     const matchId = testMatches[i].match.matchId;
+    //     const link = `aoe2companion://players/${firstPlayerProfileId}/matches/${matchId}`;
+    //     console.log('LINK', link);
+    //     const instance = MatchActivity.start(testMatches[i]); //, link);
     //     setMatchActivity(instance);
     // };
-    //
-    // // const updateDeliveryTracking = () => {
-    // //     matchActivity?.update(
-    // //         testMatch,
-    // //     );
-    // // };
     //
     // const updateDeliveryTrackingSingle = (activity: LiveActivity<MatchActivityProps>, i: number) => {
     //     activity?.update(testMatches[i]);
