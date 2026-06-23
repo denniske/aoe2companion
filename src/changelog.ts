@@ -371,7 +371,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '203.0.0': [
+    '204.0.0': [
         {
             type: 'feature',
             title: 'Add share match button',

@@ -326,10 +326,11 @@ function LiveActivityController() {
     useEffect(() => {
         const pushToStartSubscription = addPushToStartTokenListener(async (event) => {
             // console.log('widgetGroupDir', widgetGroupDir.uri);
+            const iosAppGroupFolder = widgetGroupDir.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', '');
             const token = event.activityPushToStartToken;
-            console.log(`onTokenChanged account: ${accountId} token: ${token}`);
+            console.log(`onTokenChanged account: ${accountId} token: ${token} folder: ${iosAppGroupFolder}`);
             if (accountId && token) {
-                await setAccountLiveActivityToken(token);
+                await setAccountLiveActivityToken(token, iosAppGroupFolder);
             }
         });
 
