@@ -45,6 +45,7 @@ export const textColors: Record<TextColor, string | undefined> = {
     black: 'text-black',
     brand: 'text-brand',
 
+    note: 'text-textNote', // maybe just use text-note later
     subtle: 'text-subtle',
     default: 'text-default',
 };
@@ -57,6 +58,7 @@ export const accentColors: Record<TextColor, string | undefined> = {
     black: 'accent-black',
     brand: 'accent-brand',
 
+    note: 'accent-textNote', // maybe just use accent-note later
     subtle: 'accent-subtle',
     default: 'accent-default',
 };

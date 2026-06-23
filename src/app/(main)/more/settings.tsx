@@ -167,7 +167,7 @@ export default function SettingsPage() {
                 <View style={styles.row}>
                     <View style={styles.cellName}>
                         <Text>{getTranslation('settings.pushnotifications')}</Text>
-                        <Text style={styles.small}>{getTranslation('settings.pushnotifications.note')}</Text>
+                        <Text variant="body-sm" color="note">{getTranslation('settings.pushnotifications.note')}</Text>
                     </View>
                     <View style={styles.cellValueCol}>
                         <View style={styles.row2}>
@@ -244,7 +244,7 @@ export default function SettingsPage() {
             <View style={styles.row}>
                 <View style={styles.cellName}>
                     <Text>{getTranslation('settings.language')}</Text>
-                    <Text style={styles.small}>{getTranslation('settings.language.note')}</Text>
+                    <Text variant="body-sm" color="note">{getTranslation('settings.language.note')}</Text>
                 </View>
                 <View style={styles.cellValueCol}>
                     <Picker
@@ -265,7 +265,7 @@ export default function SettingsPage() {
                 <View style={styles.row}>
                     <View style={styles.cellName}>
                         <Text>{getTranslation('settings.mainpage')}</Text>
-                        <Text style={styles.small}>{getTranslation('settings.mainpage.note')}</Text>
+                        <Text variant="body-sm" color="note">{getTranslation('settings.mainpage.note')}</Text>
                     </View>
                     <View style={styles.cellValueCol}>
                         <Picker
@@ -339,10 +339,6 @@ const useStyles = createStylesheet((theme) =>
         container: {
             minHeight: '100%',
             padding: 20,
-        },
-        small: {
-            fontSize: 12,
-            color: theme.textNoteColor,
         },
     } as const)
 );
