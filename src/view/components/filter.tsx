@@ -22,7 +22,7 @@ interface FilterProps<Value> {
 
 export const Filter = <Value,>({ options, label, value, onChange, icon }: FilterProps<Value>) => {
     const styles = useStyles();
-    const initialValue = options.find((o) => o.value === value)?.label ?? '';
+    const initialValue = options.find((o) => o.value == value)?.label ?? '';
     const [search, setSearch] = useState<string>();
     const filterField = useRef<TextInput>(null);
     const blurTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -45,20 +45,22 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
                         placeholderTextColorClassName="accent-gray-500"
                         onFocus={() => {
                             clearTimeout(blurTimeout.current);
+                            setSearch('');
                             setIsFocused(true);
                         }}
                         onBlur={() => {
                             blurTimeout.current = setTimeout(() => {
                                 setIsFocused(false);
+                                setSearch(undefined);
                             }, 250);
                         }}
                         ref={filterField}
-                        selectTextOnFocus
                         autoCorrect={false}
                         returnKeyType="search"
                         accessibilityRole="search"
                         onChangeText={setSearch}
-                        value={search ?? options.find((o) => o.value === value)?.label}
+                        placeholder={initialValue}
+                        value={search ?? initialValue}
                         style={styles.filterInput}
                         contextMenuHidden={true}
                         onSubmitEditing={() => {
