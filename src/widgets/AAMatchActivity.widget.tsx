@@ -65,7 +65,7 @@ interface TeamRow {
 // Note: This file must be imported at the root layout (import '@app/widgets/AAMatchActivity.widget';)
 //       Otherwise the widget will show a black box if there has not been a working debug install on the device before.
 const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvironment) => {
-    ('widget');
+    'widget';
 
     const widgetStyle = {
         dark: {
