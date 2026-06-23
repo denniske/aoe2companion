@@ -25,6 +25,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
     const initialValue = options.find((o) => o.value === value)?.label ?? '';
     const [search, setSearch] = useState<string>();
     const filterField = useRef<TextInput>(null);
+    const blurTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     const [isFocused, setIsFocused] = useState(false);
     const filteredOptions = search ? options.filter(
         (option) =>
@@ -42,9 +43,12 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
                     <MyText style={styles.filterLabel}>{label}</MyText>
                     <TextInput
                         placeholderTextColorClassName="accent-gray-500"
-                        onFocus={() => setIsFocused(true)}
+                        onFocus={() => {
+                            clearTimeout(blurTimeout.current);
+                            setIsFocused(true);
+                        }}
                         onBlur={() => {
-                            setTimeout(() => {
+                            blurTimeout.current = setTimeout(() => {
                                 setIsFocused(false);
                             }, 250);
                         }}
@@ -55,7 +59,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
                         accessibilityRole="search"
                         onChangeText={setSearch}
                         value={search ?? options.find((o) => o.value === value)?.label}
-                        style={[styles.filterInput, isFocused && styles.filterInputFocused]}
+                        style={styles.filterInput}
                         contextMenuHidden={true}
                         onSubmitEditing={() => {
                             if (topOption) {
@@ -171,10 +175,6 @@ const useStyles = createStylesheet((theme, darkMode) =>
         },
         filterInput: {
             color: theme.textColor,
-            pointerEvents: 'none',
-        },
-        filterInputFocused: {
-            pointerEvents: 'auto',
         },
     } as const)
 );
