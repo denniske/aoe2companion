@@ -152,8 +152,10 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
         );
     };
 
+    const deepLink = `aoe2companion://players/${props.playerId}/matches/${props.match.matchId}`;
+
     const banner = (
-        <Link destination={`aoe2companion://players/${props.playerId}/matches/${props.match.matchId}`}>
+        <Link destination={deepLink}>
             <VStack modifiers={[padding({ all: 15 }), containerBackground(style.backgroundColor, 'widget')]}>
                 {opponentsCount === '1v1' ? (
                     <HStack modifiers={[padding({ all: 0 })]}>
@@ -272,27 +274,34 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
         banner,
 
         compactLeading: (
-            <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)} modifiers={[resizable(), frame({ width: 25, height: 25 })]} />
+            <Link destination={deepLink}>
+                <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)} modifiers={[resizable(), frame({ width: 25, height: 25 })]} />
+            </Link>
         ),
 
         compactTrailing: (
-            <>
-                {props.match.finished == null && (
-                    <Text
-                        modifiers={[font({ size: 16 }), monospacedDigit(), multilineTextAlignment('trailing'), frame({ width: 60 })]}
-                        date={startTime}
-                        dateStyle={'timer'}
-                    />
-                )}
-                {props.match.finished != null && (
-                    <Text modifiers={[font({ size: 14, weight: 'semibold' }), multilineTextAlignment('center')]}>
-                        {currentPlayer.won == true ? 'Nice win!' : 'Game over'}
-                    </Text>
-                )}
-            </>
+            <Link destination={deepLink}>
+                <>
+                    {props.match.finished == null ? (
+                        <Text
+                            modifiers={[font({ size: 16 }), monospacedDigit(), multilineTextAlignment('trailing'), frame({ width: 60 })]}
+                            date={startTime}
+                            dateStyle={'timer'}
+                        />
+                    ) : (
+                        <Text modifiers={[font({ size: 14, weight: 'semibold' }), multilineTextAlignment('center')]}>
+                            {currentPlayer.won == true ? 'Nice win!' : 'Game over'}
+                        </Text>
+                    )}
+                </>
+            </Link>
         ),
 
-        minimal: <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)} modifiers={[resizable(), frame({ width: 25, height: 25 })]} />,
+        minimal: (
+            <Link destination={deepLink}>
+                <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)} modifiers={[resizable(), frame({ width: 25, height: 25 })]} />
+            </Link>
+        ),
 
         expandedBottom: banner,
 
