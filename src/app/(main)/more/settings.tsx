@@ -1,5 +1,5 @@
 import { ScrollView } from '@app/components/scroll-view';
-import { MyText } from '@app/view/components/my-text';
+import { Text } from '@app/components/text';
 import Picker from '@app/view/components/picker';
 import * as Notifications from '../../../service/notifications';
 import { router, Stack } from 'expo-router';
@@ -166,8 +166,8 @@ export default function SettingsPage() {
             {Platform.OS !== 'web' && (
                 <View style={styles.row}>
                     <View style={styles.cellName}>
-                        <MyText>{getTranslation('settings.pushnotifications')}</MyText>
-                        <MyText style={styles.small}>{getTranslation('settings.pushnotifications.note')}</MyText>
+                        <Text>{getTranslation('settings.pushnotifications')}</Text>
+                        <Text style={styles.small}>{getTranslation('settings.pushnotifications.note')}</Text>
                     </View>
                     <View style={styles.cellValueCol}>
                         <View style={styles.row2}>
@@ -243,8 +243,8 @@ export default function SettingsPage() {
 
             <View style={styles.row}>
                 <View style={styles.cellName}>
-                    <MyText>{getTranslation('settings.language')}</MyText>
-                    <MyText style={styles.small}>{getTranslation('settings.language.note')}</MyText>
+                    <Text>{getTranslation('settings.language')}</Text>
+                    <Text style={styles.small}>{getTranslation('settings.language.note')}</Text>
                 </View>
                 <View style={styles.cellValueCol}>
                     <Picker
@@ -264,8 +264,8 @@ export default function SettingsPage() {
             {Platform.OS !== 'web' && (
                 <View style={styles.row}>
                     <View style={styles.cellName}>
-                        <MyText>{getTranslation('settings.mainpage')}</MyText>
-                        <MyText style={styles.small}>{getTranslation('settings.mainpage.note')}</MyText>
+                        <Text>{getTranslation('settings.mainpage')}</Text>
+                        <Text style={styles.small}>{getTranslation('settings.mainpage.note')}</Text>
                     </View>
                     <View style={styles.cellValueCol}>
                         <Picker
