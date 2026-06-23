@@ -65,9 +65,24 @@ interface TeamRow {
 // Note: This file must be imported at the root layout (import '@app/widgets/AAMatchActivity.widget';)
 //       Otherwise the widget will show a black box if there has not been a working debug install on the device before.
 const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvironment) => {
-    'widget';
+    ('widget');
 
-    const widgetStyle = {"dark": {"backgroundColor": "#0e1017", "cardBackgroundColor": "#181c29", "cardBorderColor": "#1e2939", "foregroundColor": "#ffffff", "foregroundNoteColor": "#888888"}, "light": {"backgroundColor": "#fffcf5", "cardBackgroundColor": "#ffffff", "cardBorderColor": "#e5e7eb", "foregroundColor": "#000000", "foregroundNoteColor": "#888888"}};
+    const widgetStyle = {
+        dark: {
+            backgroundColor: '#0e1017',
+            cardBackgroundColor: '#181c29',
+            cardBorderColor: '#1e2939',
+            foregroundColor: '#ffffff',
+            foregroundNoteColor: '#888888',
+        },
+        light: {
+            backgroundColor: '#fffcf5',
+            cardBackgroundColor: '#ffffff',
+            cardBorderColor: '#e5e7eb',
+            foregroundColor: '#000000',
+            foregroundNoteColor: '#888888',
+        },
+    };
 
     const style = widgetStyle[environment.colorScheme ?? 'light'];
 
@@ -88,7 +103,8 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
         return slugged + sizeStr + ext;
     };
 
-    const imagePathInAppGroup = (url?: string, size?: number) => `file:///var/mobile/Containers/Shared/AppGroup/${props.iosAppGroupFolder}/` + slugifyFilename(url, size);
+    const imagePathInAppGroup = (url?: string, size?: number) =>
+        `file:///var/mobile/Containers/Shared/AppGroup/${props.iosAppGroupFolder}/` + slugifyFilename(url, size);
 
     const opponents = props.match.teams.map((t) => String(t.players.length));
     const opponentsCount = opponents.join('v');
@@ -154,6 +170,8 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
 
     const deepLink = `aoe2companion://players/${props.playerId}/matches/${props.match.matchId}`;
 
+    // activityBackgroundTint('#FF000033')
+
     const banner = (
         <Link destination={deepLink}>
             <VStack modifiers={[padding({ all: 15 }), containerBackground(style.backgroundColor, 'widget')]}>
@@ -197,14 +215,19 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
                     <VStack modifiers={[padding({ leading: 0 }), frame({ maxWidth: Infinity, alignment: 'topLeading' })]} spacing={12}>
                         {/* Row 1: Map name + leaderboard/format */}
                         <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
-                            <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl)} modifiers={[resizable(), frame({ width: 20, height: 20 })]} />
+                            <Image
+                                uiImage={imagePathInAppGroup(props.match.mapImageUrl)}
+                                modifiers={[resizable(), frame({ width: 20, height: 20 })]}
+                            />
                             <Text modifiers={[font({ size: 18, weight: 'semibold' }), lineLimit(1)]}>{props.match.mapName}</Text>
                             <Spacer />
                             <Text modifiers={[font({ size: 14 })]}>{`${props.match.leaderboardName ?? ''}`}</Text>
                             <Text modifiers={[font({ size: 14 })]}>{`${opponentsCount}`}</Text>
                             {/*<Text modifiers={[font({ size: 14 })]}>{`${props.match.leaderboardName ?? ''} ${opponentsCount}`}</Text>*/}
                             {props.match.finished != null ? (
-                                <Text modifiers={[font({ size: 16, weight: 'semibold' })]}>{currentPlayer.won === true ? 'Nice win!' : 'Game over'}</Text>
+                                <Text modifiers={[font({ size: 16, weight: 'semibold' })]}>
+                                    {currentPlayer.won === true ? 'Nice win!' : 'Game over'}
+                                </Text>
                             ) : (
                                 <Text
                                     modifiers={[
