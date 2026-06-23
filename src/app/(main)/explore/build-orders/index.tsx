@@ -100,7 +100,7 @@ export default function BuildListPage() {
                 <View className="flex-1">
                     <BuildFilters />
 
-                    <View className={cn('pb-4', containerClassName)}>
+                    <View className={cn('pb-4 z-0', containerClassName)}>
                         <Field
                             type="search"
                             value={search}
