@@ -371,6 +371,17 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '203.0.0': [
+        {
+            type: 'feature',
+            title: 'Add share match button',
+        },
+        {
+            type: 'bugfix',
+            title: 'Live activities (iOS)',
+            content: 'Fix live activities showing match details instead of empty black box',
+        },
+    ],
     '202.0.0': [
         {
             type: 'minor',
@@ -382,7 +393,7 @@ export const changelog: IChangelog = {
         },
         {
             type: 'bugfix',
-            title: 'Live activities',
+            title: 'Live activities (iOS)',
             content: 'Updating live activities when match is finished and letting them disappear two minutes later',
         },
     ],

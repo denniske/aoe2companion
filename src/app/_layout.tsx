@@ -56,10 +56,13 @@ import { cacheLiveActivityAssets, widgetGroupDir } from '@app/service/storage';
 import { addPushToStartTokenListener, ExpoWidgetsEvents } from 'expo-widgets';
 import { setAccountLiveActivityToken } from '@app/api/account';
 import { addUserInteractionListener } from 'expo-widgets/src/Widgets';
-import MatchActivity from '@app/widgets/AAMatchActivity.widget';
 import { ObserveRoot, useObserve } from 'expo-observe';
-// import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
-// import { useEventListener } from 'expo';
+
+// Important:
+// Evaluating this module runs createLiveActivity('MatchActivity', …),
+// which seeds __expo_widgets_live_activity_MatchActivity_layout into the app group so push-started
+// activities can render. Must not be tree-shaken — do not convert to a named/default import.
+import '@app/widgets/AAMatchActivity.widget';
 
 initSentry();
 
@@ -323,11 +326,10 @@ function LiveActivityController() {
     useEffect(() => {
         const pushToStartSubscription = addPushToStartTokenListener(async (event) => {
             // console.log('widgetGroupDir', widgetGroupDir.uri);
-            const iosAppGroupFolder = widgetGroupDir.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', '');
             const token = event.activityPushToStartToken;
-            console.log(`onTokenChanged account: ${accountId} token: ${token} folder: ${iosAppGroupFolder}`);
+            console.log(`onTokenChanged account: ${accountId} token: ${token}`);
             if (accountId && token) {
-                await setAccountLiveActivityToken(token, iosAppGroupFolder);
+                await setAccountLiveActivityToken(token);
             }
         });
 
