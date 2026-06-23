@@ -53,6 +53,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
                 </View>
             ) : null}
             <TextInput
+                placeholderTextColorClassName="accent-gray-500"
                 {...typeOptions[inputType]}
                 {...props}
                 // Note: Do not set font size here with text-sm because that would lead to text jumping on Android/iOS

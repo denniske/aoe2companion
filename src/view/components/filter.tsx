@@ -41,6 +41,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
                 <View style={styles.filter}>
                     <MyText style={styles.filterLabel}>{label}</MyText>
                     <TextInput
+                        placeholderTextColorClassName="accent-gray-500"
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => {
                             setTimeout(() => {
@@ -53,7 +54,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
                         returnKeyType="search"
                         accessibilityRole="search"
                         onChangeText={setSearch}
-                        value={search ?? options.find(o => o.value === value)?.label}
+                        value={search ?? options.find((o) => o.value === value)?.label}
                         style={[styles.filterInput, isFocused && styles.filterInputFocused]}
                         contextMenuHidden={true}
                         onSubmitEditing={() => {
