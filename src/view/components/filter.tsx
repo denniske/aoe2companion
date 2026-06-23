@@ -68,11 +68,10 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
             </TouchableOpacity>
 
             {isFocused && (
-                <View style={styles.resultsContainer}>
+                <View style={styles.resultsContainer} className="shadow-md bg-white dark:bg-blue-900 overflow-hidden">
                     <FlatList
                         keyboardShouldPersistTaps="handled"
                         style={styles.results}
-                        className="shadow-md"
                         scrollEnabled
                         data={filteredOptions}
                         keyExtractor={(item) => String(item.value)}
@@ -114,6 +113,7 @@ const ResultRow: React.FC<{
 const useStyles = createStylesheet((theme, darkMode) =>
     StyleSheet.create({
         resultsContainer: {
+            borderRadius: 10,
             marginVertical: 10,
             elevation: 4,
             position: 'absolute',
@@ -124,10 +124,8 @@ const useStyles = createStylesheet((theme, darkMode) =>
             right: -5,
         },
         results: {
-            borderRadius: 10,
             overflow: 'hidden',
             maxHeight: 300,
-            backgroundColor: theme.backgroundColor,
         },
         name: {
             color: theme.textColor,
