@@ -127,23 +127,40 @@ export default function Competitive() {
         useCallback(() => {
             setEmbedId(`twitch-embed-${getUnixTime(new Date())}`);
             if (Platform.OS === 'web' && liveTwitch) {
+                // Guard against the script's onload firing after we've already
+                // navigated away — otherwise it would spin up a fresh embed on a
+                // hidden screen with nothing left to tear it down.
+                let cancelled = false;
+
                 const script = document.createElement('script');
                 script.src = 'https://embed.twitch.tv/embed/v1.js';
                 script.async = true;
                 script.onload = () => {
-                    if (embedRef.current) {
-                        player.current = new (window as any).Twitch.Embed(embedRef.current!.id, {
-                            width: '100%',
-                            height: isMedium ? 540 : 320,
-                            channel: liveTwitch.user_login,
-                        });
-                    }
+                    if (cancelled || !embedRef.current) return;
+                    player.current = new (window as any).Twitch.Embed(embedRef.current.id, {
+                        width: '100%',
+                        height: isMedium ? 540 : 320,
+                        channel: liveTwitch.user_login,
+                    });
                 };
                 document.body.appendChild(script);
 
                 return () => {
-                    document.body.removeChild(script);
-                    player.current?.getPlayer().pause();
+                    cancelled = true;
+                    if (script.parentNode) {
+                        document.body.removeChild(script);
+                    }
+                    try {
+                        player.current?.getPlayer()?.pause();
+                    } catch {
+                        // player may not be ready yet
+                    }
+                    player.current = null;
+                    // Remove the iframe entirely; pausing alone doesn't reliably
+                    // stop playback once the screen is hidden in the stack.
+                    if (embedRef.current) {
+                        embedRef.current.innerHTML = '';
+                    }
                 };
             }
         }, [liveTwitch])
