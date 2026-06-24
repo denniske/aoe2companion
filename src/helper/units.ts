@@ -44,7 +44,10 @@ export function getEliteUniqueResearchIcon() {
 // Use .webp for smaller files later
 export function getUnitIcon(unit: Unit, civ?: Civ): ImageSourcePropType {
     if (['Monk', 'TradeCart'].includes(unit) && civ) {
-        return unitIconImageDict[getPictureName(unit, civ)];
+        const pictureName = getPictureName(unit, civ);
+        if (pictureName) {
+            return unitIconImageDict[pictureName];
+        }
     }
     if (unitIconImageDict[unit] == null) return require('../../assets/units/EliteUniqueResearch.png');
     return unitIconImageDict[unit];

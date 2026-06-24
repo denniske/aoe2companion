@@ -26,7 +26,7 @@ interface ITip {
     building?: Building;
     tech?: Tech;
     url?: string;
-    imageIcon?: string;
+    imageIcon?: ImageSourcePropType;
     icon?: string;
 }
 

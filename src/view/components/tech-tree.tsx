@@ -140,7 +140,7 @@ export function getAbilityIcon({civ, tech, unit, building}: AbilityHelperProps) 
     if (building) {
         return getBuildingIcon(building);
     }
-    return false;
+    return undefined;
 }
 
 export function getAbilityNavHref({tech, unit, building}: AbilityHelperProps) {
