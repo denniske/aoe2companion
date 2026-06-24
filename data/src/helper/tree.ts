@@ -6,6 +6,14 @@ import {aoeData} from '../data/data';
 import { aoeTreeInternal } from '@/data/src/data/aoe-trees';
 
 
+interface TreeNode {
+    'Node Type'?: string;
+    'Node ID'?: number;
+    'Age ID'?: number;
+    'Picture Index'?: number;
+    'Picture Name'?: string;
+}
+
 export interface AbilityProps2 {
     civ: Civ;
     tech?: Tech;
@@ -120,7 +128,7 @@ export function getCivUnitAge(civ: Civ, unit: Unit) {
     const entry = units[unit];
 
     const civTechTree = aoeTreeInternal[civ as any as keyof typeof aoeTreeInternal];
-    const info = civTechTree.civ_techs_units.find(u =>
+    const info = (civTechTree.civ_techs_units as readonly TreeNode[]).find(u =>
         (u['Node Type'] === 'Unit' || u['Node Type'] === 'UnitUpgrade') &&
         u['Node ID'] === parseInt(entry.dataId)
     );
@@ -136,7 +144,7 @@ export function getCivTechAge(civ: Civ, tech: Tech) {
     const entry = techs[tech];
 
     const civTechTree = aoeTreeInternal[civ as any as keyof typeof aoeTreeInternal];
-    const info = civTechTree.civ_techs_units.find(u =>
+    const info = (civTechTree.civ_techs_units as readonly TreeNode[]).find(u =>
             u['Node Type'] === 'Research' &&
             u['Node ID'] === parseInt(entry.dataId)
     );
@@ -164,7 +172,7 @@ export function getCivTechAge(civ: Civ, tech: Tech) {
 
 export function getPictureName(unit: Unit, civ: Civ) {
     const civTechTree = aoeTreeInternal[civ as any as keyof typeof aoeTreeInternal];
-    const info = civTechTree.civ_techs_units.find((u) => u['Node Type'] === 'Unit' && u['Node ID'] === parseInt(units[unit].dataId));
+    const info = (civTechTree.civ_techs_units as readonly TreeNode[]).find(u => u['Node Type'] === 'Unit' && u['Node ID'] === parseInt(units[unit].dataId));
     return info?.['Picture Name'];
 }
 
