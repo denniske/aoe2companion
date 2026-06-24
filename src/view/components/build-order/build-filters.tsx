@@ -9,6 +9,7 @@ import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
+import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 
 
 export const BuildFilters = () => {
@@ -36,9 +37,10 @@ export const BuildFilters = () => {
 
     return (
         <View className={cn("relative z-1 flex flex-row items-center justify-center gap-[15px] py-4", containerClassName)}>
-            <Filter
+            <UserLoginWrapper
+                Component={Filter as any}
                 icon={civIcon}
-                onChange={(civ) => setFilter('civilization', civ)}
+                onChange={(civ: Civ | undefined) => setFilter('civilization', civ)}
                 label={getTranslation('builds.filters.civ')}
                 value={civilization}
                 options={civOptions.map((value) => ({
@@ -47,8 +49,9 @@ export const BuildFilters = () => {
                     icon: !value ? genericCivIcon : getCivIconLocal(value),
                 }))}
             />
-            <Filter
-                onChange={(diff) => setFilter('difficulty', diff)}
+            <UserLoginWrapper
+                Component={Filter as any}
+                onChange={(diff: number | undefined) => setFilter('difficulty', diff)}
                 label={getTranslation('builds.filters.difficulty')}
                 value={difficulty}
                 options={([undefined, 1, 2, 3] as const).map((value) => ({
@@ -56,8 +59,9 @@ export const BuildFilters = () => {
                     label: !value ? getTranslation('builds.filters.all') : getDifficultyName(getTranslation, value),
                 }))}
             />
-            <Filter
-                onChange={(type) => setFilter('buildType', type)}
+            <UserLoginWrapper
+                Component={Filter as any}
+                onChange={(type: (typeof buildTypeOptions)[number]) => setFilter('buildType', type)}
                 label={getTranslation('builds.filters.type')}
                 value={buildType}
                 options={buildTypeOptions.map((value) => ({

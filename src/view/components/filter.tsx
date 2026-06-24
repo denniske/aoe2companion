@@ -18,9 +18,12 @@ interface FilterProps<Value> {
     label: string;
     value: Value;
     onChange: (value: Value) => void;
+    // Injected by UserLoginWrapper when the user is not signed in: intercepts interaction to
+    // show the login popup instead of opening the filter (the value is stored in user prefs).
+    onPress?: (e: GestureResponderEvent) => void;
 }
 
-export const Filter = <Value,>({ options, label, value, onChange, icon }: FilterProps<Value>) => {
+export const Filter = <Value,>({ options, label, value, onChange, icon, onPress }: FilterProps<Value>) => {
     const styles = useStyles();
     const initialValue = options.find((o) => o.value == value)?.label ?? '';
     const [search, setSearch] = useState<string>();
@@ -37,7 +40,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
 
     return (
         <View style={styles.filterContainer}>
-            <TouchableOpacity style={styles.filterPressable} onPress={() => filterField.current?.focus()}>
+            <TouchableOpacity style={styles.filterPressable} onPress={onPress ?? (() => filterField.current?.focus())}>
                 {icon ? <Image style={styles.filterIcon} source={icon} /> : null}
                 <View style={styles.filter}>
                     <MyText style={styles.filterLabel}>{label}</MyText>
@@ -55,13 +58,14 @@ export const Filter = <Value,>({ options, label, value, onChange, icon }: Filter
                             }, 250);
                         }}
                         ref={filterField}
+                        editable={!onPress}
                         autoCorrect={false}
                         returnKeyType="search"
                         accessibilityRole="search"
                         onChangeText={setSearch}
                         placeholder={initialValue}
                         value={search ?? initialValue}
-                        style={styles.filterInput}
+                        style={[styles.filterInput, !!onPress && styles.filterInputLocked]}
                         contextMenuHidden={true}
                         onSubmitEditing={() => {
                             if (topOption) {
@@ -177,6 +181,10 @@ const useStyles = createStylesheet((theme, darkMode) =>
         },
         filterInput: {
             color: theme.textColor,
+        },
+        filterInputLocked: {
+            // Let taps fall through to the wrapping pressable so the login popup is shown.
+            pointerEvents: 'none',
         },
     } as const)
 );
