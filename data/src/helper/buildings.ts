@@ -587,162 +587,162 @@ interface IBuildingDict {
 
 export const buildingDefList: IBuilding[] = [
     {
-        "dataId": "1889",
-        "name": "Pasture",
+        dataId: '1889',
+        name: 'Pasture',
     },
     {
-        "dataId": "1806",
-        "name": "FortifiedChurch",
+        dataId: '1806',
+        name: 'FortifiedChurch',
     },
     {
-        "dataId": "1808",
-        "name": "MuleCart",
+        dataId: '1808',
+        name: 'MuleCart',
     },
     {
-        "dataId": "1189",
-        "name": "Harbor",
+        dataId: '1189',
+        name: 'Harbor',
     },
     {
-        "dataId": "1754",
-        "name": "Caravanserai",
+        dataId: '1754',
+        name: 'Caravanserai',
     },
     {
-        "dataId": "1734",
-        "name": "Folwark",
+        dataId: '1734',
+        name: 'Folwark',
     },
     {
-        "dataId": "1665",
-        "name": "Donjon",
+        dataId: '1665',
+        name: 'Donjon',
     },
     {
-        "dataId": "87",
-        "name": "ArcheryRange",
+        dataId: '87',
+        name: 'ArcheryRange',
     },
     {
-        "dataId": "12",
-        "name": "Barracks",
+        dataId: '12',
+        name: 'Barracks',
     },
     {
-        "dataId": "103",
-        "name": "Blacksmith",
+        dataId: '103',
+        name: 'Blacksmith',
     },
     {
-        "dataId": "236",
-        "name": "BombardTower",
+        dataId: '236',
+        name: 'BombardTower',
     },
     {
-        "dataId": "82",
-        "name": "Castle",
+        dataId: '82',
+        name: 'Castle',
     },
     {
-        "dataId": "45",
-        "name": "Dock",
+        dataId: '45',
+        name: 'Dock',
     },
     {
-        "dataId": "50",
-        "name": "Farm",
+        dataId: '50',
+        name: 'Farm',
     },
     {
-        "dataId": "1021",
-        "name": "Feitoria",
+        dataId: '1021',
+        name: 'Feitoria',
     },
     {
-        "dataId": "199",
-        "name": "FishTrap",
+        dataId: '199',
+        name: 'FishTrap',
     },
     {
-        "dataId": "155",
-        "name": "FortifiedWall",
+        dataId: '155',
+        name: 'FortifiedWall',
     },
     {
-        "dataId": "487",
-        "name": "Gate",
+        dataId: '487',
+        name: 'Gate',
     },
     {
-        "dataId": "234",
-        "name": "GuardTower",
+        dataId: '234',
+        name: 'GuardTower',
     },
     {
-        "dataId": "70",
-        "name": "House",
+        dataId: '70',
+        name: 'House',
     },
     {
-        "dataId": "235",
-        "name": "Keep",
+        dataId: '235',
+        name: 'Keep',
     },
     {
-        "dataId": "1251",
-        "name": "Krepost",
+        dataId: '1251',
+        name: 'Krepost',
     },
     {
-        "dataId": "562",
-        "name": "LumberCamp",
+        dataId: '562',
+        name: 'LumberCamp',
     },
     {
-        "dataId": "84",
-        "name": "Market",
+        dataId: '84',
+        name: 'Market',
     },
     {
-        "dataId": "68",
-        "name": "Mill",
+        dataId: '68',
+        name: 'Mill',
     },
     {
-        "dataId": "584",
-        "name": "MiningCamp",
+        dataId: '584',
+        name: 'MiningCamp',
     },
     {
-        "dataId": "104",
-        "name": "Monastery",
+        dataId: '104',
+        name: 'Monastery',
     },
     {
-        "dataId": "598",
-        "name": "Outpost",
+        dataId: '598',
+        name: 'Outpost',
     },
     {
-        "dataId": "792",
-        "name": "PalisadeGate",
+        dataId: '792',
+        name: 'PalisadeGate',
     },
     {
-        "dataId": "72",
-        "name": "PalisadeWall",
+        dataId: '72',
+        name: 'PalisadeWall',
     },
     {
-        "dataId": "49",
-        "name": "SiegeWorkshop",
+        dataId: '49',
+        name: 'SiegeWorkshop',
     },
     {
-        "dataId": "101",
-        "name": "Stable",
+        dataId: '101',
+        name: 'Stable',
     },
     {
-        "dataId": "117",
-        "name": "StoneWall",
+        dataId: '117',
+        name: 'StoneWall',
     },
     {
-        "dataId": "109",
-        "name": "TownCenter",
+        dataId: '209',
+        name: 'University',
     },
     {
-        "dataId": "209",
-        "name": "University",
+        dataId: '79',
+        name: 'WatchTower',
     },
     {
-        "dataId": "79",
-        "name": "WatchTower",
-    },
-    {
-        "dataId": "276",
-        "name": "Wonder",
+        dataId: '276',
+        name: 'Wonder',
     },
 
-    // why?
+    // In Last Chieftains the town center id seems to have changed
+    // {
+    //     dataId: '109',
+    //     name: 'TownCenter',
+    // },
     {
-        "dataId": "621",
-        "name": "TownCenter",
+        dataId: '621',
+        name: 'TownCenter',
     },
     {
-        "dataId": "2556",
-        "name": "Settlement",
+        dataId: '2556',
+        name: 'Settlement',
     },
 ];
 

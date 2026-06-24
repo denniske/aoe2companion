@@ -33,7 +33,6 @@ export const buildingIconImageDict: Record<string, any> = {
     'SiegeWorkshop': require('./SiegeWorkshop.png'),
     'Stable': require('./Stable.png'),
     'StoneWall': require('./StoneWall.png'),
-    'TownCenter': require('./TownCenter.png'),
     'University': require('./University.png'),
     'WatchTower': require('./WatchTower.png'),
     'Wonder': require('./Wonder.png'),
