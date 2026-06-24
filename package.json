@@ -142,5 +142,5 @@
         "typescript": "~6.0.3"
     },
     "private": true,
-    "packageManager": "yarn@4.8.1"
+    "packageManager": "yarn@4.17.0"
 }
