@@ -371,17 +371,17 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '206.0.0': [
+    // '208.0.0': [
+    //     {
+    //         type: 'bugfix',
+    //         title: 'Live activities (iOS)',
+    //         content: 'A live activity will now also correctly open the match detail page when tapping on the dynamic island',
+    //     },
+    // ],
+    '207.0.0': [
         {
             type: 'bugfix',
             title: 'Fix some build orders containing unit upgrade research entries',
-        },
-    ],
-    '205.0.0': [
-        {
-            type: 'bugfix',
-            title: 'Live activities (iOS)',
-            content: 'A live activity will now also correctly open the match detail page when tapping on the dynamic island',
         },
     ],
     '204.0.0': [
