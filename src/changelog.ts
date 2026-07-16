@@ -371,6 +371,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '206.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix some build orders containing unit upgrade research entries',
+        },
+    ],
     '205.0.0': [
         {
             type: 'bugfix',
