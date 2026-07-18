@@ -34,8 +34,8 @@ export default function Badge(props: Props) {
                     backgroundColor: labelColor,
                     flexDirection: 'row',
                     alignItems: 'center',
-                    padding: 6,
-                    paddingLeft: 6,
+                    paddingHorizontal: 6,
+                    paddingVertical: 6,
                     gap: 4,
                 }}
             >
@@ -51,11 +51,11 @@ export default function Badge(props: Props) {
                         backgroundColor: contentColor,
                         flexDirection: 'row',
                         alignItems: 'center',
-                        padding: 7,
-                        paddingRight: 6,
+                        paddingHorizontal: 6,
+                        paddingVertical: 7,
                     }}
                 >
-                    {dot && <MyText style={{ color: '#e91a16', fontSize: 10, lineHeight: 14 }}> ● </MyText>}
+                    {dot && <MyText style={{ color: '#e91a16', fontSize: 10, lineHeight: 14 }}>● </MyText>}
                     <MyText style={[styles.contentText, { color: contentTextColor }]}>{content}</MyText>
                 </View>
             )}
