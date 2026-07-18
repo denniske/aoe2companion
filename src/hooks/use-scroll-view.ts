@@ -21,8 +21,11 @@ export const useScrollView = ({
     const shouldDisableScroll = !showTabBar && !horizontal;
     const scrollViewRef = useRef<ScrollView>(null);
     const { bottom } = useSafeAreaInsets();
+
     // const tw = useTw();
     // const style = tw.style(contentContainerStyle);
+    // const paddingBottom = ((style.paddingBottom || 0) as number) + (Platform.OS === 'ios' ? 0 : bottomOffset);
+
     const bottomOffset = horizontal || shouldDisableScroll ? 0 : bottom + 82;
     const paddingTop = horizontal ? 10 : undefined;
     const paddingBottom = (horizontal ? 10 : 20) + (Platform.OS === 'ios' ? 0 : bottomOffset);
@@ -77,7 +80,13 @@ export const useScrollView = ({
                 }
             }
         },
-        contentInset: { bottom: bottomOffset },
+
+        // only iOS
+        automaticallyAdjustContentInsets: false,
+        automaticallyAdjustsScrollIndicatorInsets: false,
+        contentInset: { bottom: 116 },
+        scrollIndicatorInsets: { bottom: 116 },
+
         contentContainerStyle: !shouldDisableScroll && { paddingBottom, paddingTop },
         ref: (ref || scrollViewRef) as React.RefObject<any>,
         style: [shouldDisableScroll && { overflow: 'visible', overflowX: 'clip' }, horizontal && { marginBottom: -10, marginTop: -10 }],

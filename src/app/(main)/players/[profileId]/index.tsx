@@ -53,6 +53,7 @@ export default function ProfilePage() {
 
     const TextComponent = fullProfile ? Text : SkeletonText;
 
+    // Non-Web: Redirect to sub component
     if (showTabBar) {
         return <Redirect href={`/players/${profileId}/main-profile`} />;
     }

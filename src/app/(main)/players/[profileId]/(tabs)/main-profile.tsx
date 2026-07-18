@@ -47,31 +47,29 @@ export default function MainProfile() {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.content}>
-                {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
-                <ScrollView contentContainerClassName="p-4" refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}>
-                    <View className="md:flex-row md:justify-around gap-4">
-                        <View>
-                            {profile === null ? (
-                                <View style={styles.container}>
-                                    <MyText>{getTranslation('main.profile.noleaderboarddata')}</MyText>
-                                </View>
-                            ) : (
-                                <Profile data={profile} profileId={profileId} ready={profile != null && rating != null} />
-                            )}
-                        </View>
-
-                        <View className="md:w-1/2">
-                            {rating?.length === 0 ? (
-                                <View />
-                            ) : (
-                                <Rating ratingHistories={rating} profile={profile} ready={profile != null && rating != null} />
-                            )}
-                        </View>
+        <View className="flex-1">
+            {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
+            <ScrollView contentContainerClassName="p-4" refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}>
+                <View className="md:flex-row md:justify-around gap-4">
+                    <View>
+                        {profile === null ? (
+                            <View style={styles.container}>
+                                <MyText>{getTranslation('main.profile.noleaderboarddata')}</MyText>
+                            </View>
+                        ) : (
+                            <Profile data={profile} profileId={profileId} ready={profile != null && rating != null} />
+                        )}
                     </View>
-                </ScrollView>
-            </View>
+
+                    <View className="md:w-1/2">
+                        {rating?.length === 0 ? (
+                            <View />
+                        ) : (
+                            <Rating ratingHistories={rating} profile={profile} ready={profile != null && rating != null} />
+                        )}
+                    </View>
+                </View>
+            </ScrollView>
         </View>
     );
 }

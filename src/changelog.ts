@@ -378,6 +378,12 @@ export const changelog: IChangelog = {
     //         content: 'A live activity will now also correctly open the match detail page when tapping on the dynamic island',
     //     },
     // ],
+    '208.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix rating chart legend not hidden under navbar anymore on player profile page (iOS)',
+        },
+    ],
     '207.0.0': [
         {
             type: 'bugfix',

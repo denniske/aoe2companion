@@ -86,42 +86,40 @@ export default function MainStats() {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.content}>
-                {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
-                <FlatList
-                    initialNumToRender={10}
-                    contentContainerClassName="p-4"
-                    data={list}
-                    CellRendererComponent={({ children, index, style, ...props }) => (
-                        <View style={[style, { zIndex: list.length - index }]} {...props}>
-                            {children}
-                        </View>
-                    )}
-                    renderItem={({ item, index }) => {
-                        switch (item.type) {
-                            case 'stats-header':
-                                return (
-                                    <View>
-                                        <View style={styles.pickerRow}>
-                                            <LeaderboardSelect
-                                                leaderboardId={leaderboardId}
-                                                onLeaderboardIdChange={(x) => setLeaderboardId(x ?? undefined)}
-                                            />
-                                        </View>
-                                        {statsLoaded && !hasStats && <MyText style={styles.info}>{getTranslation('main.stats.nomatches')}</MyText>}
+        <View className="flex-1">
+            {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
+            <FlatList
+                initialNumToRender={10}
+                contentContainerClassName="p-4"
+                data={list}
+                CellRendererComponent={({ children, index, style, ...props }) => (
+                    <View style={[style, { zIndex: list.length - index }]} {...props}>
+                        {children}
+                    </View>
+                )}
+                renderItem={({ item, index }) => {
+                    switch (item.type) {
+                        case 'stats-header':
+                            return (
+                                <View>
+                                    <View style={styles.pickerRow}>
+                                        <LeaderboardSelect
+                                            leaderboardId={leaderboardId}
+                                            onLeaderboardIdChange={(x) => setLeaderboardId(x ?? undefined)}
+                                        />
                                     </View>
-                                );
-                            case 'header':
-                                return <StatsHeader title={item.title} />;
-                            default:
-                                return <StatsRow data={item.data} type={item.type} />;
-                        }
-                    }}
-                    keyExtractor={(item, index) => index.toString()}
-                    refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}
-                />
-            </View>
+                                    {statsLoaded && !hasStats && <MyText style={styles.info}>{getTranslation('main.stats.nomatches')}</MyText>}
+                                </View>
+                            );
+                        case 'header':
+                            return <StatsHeader title={item.title} />;
+                        default:
+                            return <StatsRow data={item.data} type={item.type} />;
+                    }
+                }}
+                keyExtractor={(item, index) => index.toString()}
+                refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}
+            />
         </View>
     );
 }
