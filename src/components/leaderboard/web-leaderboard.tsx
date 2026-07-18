@@ -34,15 +34,16 @@ export const WebLeaderboard: React.FC = () => {
 
     const { data: leaderboards } = useLeaderboards();
     const selectedLeaderboard = leaderboards?.find((l) => l.leaderboardId === leaderboardId);
-    const title = selectedLeaderboard
-        ? `${selectedLeaderboard.leaderboardName} ${getTranslation('leaderboard.title')}`
-        : getTranslation('leaderboard.title');
+
+    const headerTitle = getTranslation('leaderboard.title');
+    const title = selectedLeaderboard ? `${selectedLeaderboard.leaderboardName} ${getTranslation('leaderboard.title')}` : headerTitle;
 
     return (
         <View className={cn('py-4', containerClassName)}>
             <Stack.Screen
                 options={{
                     title,
+                    headerTitle,
                 }}
             />
 

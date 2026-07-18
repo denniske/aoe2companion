@@ -22,6 +22,8 @@ export const Header: React.FC<
     const showTabBar = useShowTabBar();
     const TextComponent = title ? Text : SkeletonText;
 
+    const headerTitleStr = options.headerTitle && typeof options.headerTitle === 'string' ? options.headerTitle : title;
+
     return (
         <>
             <Head>
@@ -29,7 +31,7 @@ export const Header: React.FC<
             </Head>
             {!showTabBar && (
                 <View className="bg-gold-50 dark:bg-blue-950 z-10">
-                    <Breadcrumbs title={title} paramReplacements={paramReplacements} />
+                    <Breadcrumbs title={headerTitleStr} paramReplacements={paramReplacements} />
                 </View>
             )}
             <View
@@ -61,7 +63,7 @@ export const Header: React.FC<
                         allowFontScaling={false}
                         alt
                     >
-                        {title}
+                        {headerTitleStr}
                     </TextComponent>
                 )}
                 {back || headerRight ? <View className="flex-row items-center gap-2 min-w-[22px]">{headerRight}</View> : null}
