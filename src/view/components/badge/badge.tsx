@@ -51,7 +51,7 @@ export default function Badge(props: Props) {
                         backgroundColor: contentColor,
                         flexDirection: 'row',
                         alignItems: 'center',
-                        padding: 6,
+                        padding: 7,
                         paddingRight: 6,
                     }}
                 >

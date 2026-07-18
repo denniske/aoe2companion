@@ -1,6 +1,5 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import React from 'react';
-import { createStylesheet } from '../../../theming-new';
 import Badge from './badge';
 import { discordOnline } from '../../../api/following';
 import { openLink } from '../../../helper/url';
@@ -38,5 +37,3 @@ export default function DiscordBadge(props: Props) {
         </TouchableOpacity>
     );
 }
-
-const useStyles = createStylesheet(theme => StyleSheet.create({}));
