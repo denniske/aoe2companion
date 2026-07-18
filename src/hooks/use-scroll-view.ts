@@ -28,7 +28,7 @@ export const useScrollView = ({
 
     const bottomOffset = horizontal || shouldDisableScroll ? 0 : bottom + 82;
     const paddingTop = horizontal ? 10 : undefined;
-    const paddingBottom = (horizontal ? 10 : 20) + (Platform.OS === 'ios' ? 0 : bottomOffset);
+    const paddingBottom = (horizontal ? 10 : 20) + (Platform.OS === 'ios' ? bottomOffset - 20 : bottomOffset);
     const scrollToTop = useScrollToTop();
     const { setScrollPosition } = useMutateScroll();
     const [localScrollPosition, setLocalScrollPosition] = useState<number>();
@@ -84,8 +84,8 @@ export const useScrollView = ({
         // only iOS
         automaticallyAdjustContentInsets: false,
         automaticallyAdjustsScrollIndicatorInsets: false,
-        contentInset: { bottom: 116 },
-        scrollIndicatorInsets: { bottom: 116 },
+        contentInset: { bottom: 0 },
+        scrollIndicatorInsets: { bottom: bottomOffset },
 
         contentContainerStyle: !shouldDisableScroll && { paddingBottom, paddingTop },
         ref: (ref || scrollViewRef) as React.RefObject<any>,
