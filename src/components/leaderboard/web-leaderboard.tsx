@@ -15,29 +15,28 @@ import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-ind
 import { formatAgo } from '@nex/data';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import cn from 'classnames';
-import { Link, Stack } from 'expo-router';
+import { Link, Stack, useLocalSearchParams } from 'expo-router';
 import { flatten } from 'lodash';
-import { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View } from 'react-native';
+import { LeaderboardOfficialSelect } from '@app/components/select/leaderboard-official-select';
 
-export const WebLeaderboard: React.FC<{ leaderboards: ILeaderboardDef[] | undefined }> = ({ leaderboards }) => {
+function paramToString(value: string | string[] | undefined): string | null {
+    return (Array.isArray(value) ? value[0] : value) ?? null;
+}
+
+export const WebLeaderboard: React.FC = () => {
     const getTranslation = useTranslation();
-    const [leaderboard, setLeaderboard] = useState<ILeaderboardDef | null>(null);
+    const [leaderboardId, setLeaderboardId] = useState<string | null>(null);
     const [search, setSearch] = useState('');
-    const leaderboardIds = leaderboards?.map((l) => l.leaderboardId);
 
-    useEffect(() => {
-        if (leaderboards) {
-            setLeaderboard(leaderboards[0]);
-        }
-    }, [leaderboards]);
+    const { leaderboard: initialLeaderboardId, country: initialCountry } = useLocalSearchParams<{ leaderboard?: string; country?: string }>();
 
     return (
         <View className={cn('py-4', containerClassName)}>
             <Stack.Screen
                 options={{
                     title: getTranslation('leaderboard.title'),
-                    headerRight: () => <CountrySelect />,
                 }}
             />
 
@@ -45,32 +44,25 @@ export const WebLeaderboard: React.FC<{ leaderboards: ILeaderboardDef[] | undefi
                 <View className="flex-row">
                     <Field value={search} onChangeText={setSearch} placeholder="Search for player" type="search" />
                 </View>
-
-                {leaderboards && leaderboard && (
-                    <View className="w-full lg:flex-1">
-                        <ButtonPicker
-                            flex={true}
-                            value={leaderboard?.leaderboardId}
-                            values={leaderboardIds ?? []}
-                            image={(value) => (value === 'ew_1v1_redbullwololo' ? require('../../../assets/red-bull-wololo.png') : undefined)}
-                            formatter={(value) => leaderboards?.find((l) => l.leaderboardId === value)?.abbreviation ?? ''}
-                            onSelect={(value) => {
-                                const newLeaderboard = leaderboards?.find((l) => l.leaderboardId === value);
-                                if (newLeaderboard) {
-                                    setLeaderboard(newLeaderboard);
-                                }
-                            }}
-                        />
-                    </View>
-                )}
+                <View className="flex-1"></View>
+                <View className="flex-row">
+                    <LeaderboardOfficialSelect
+                        leaderboardId={leaderboardId}
+                        onLeaderboardIdChange={setLeaderboardId}
+                        initialLeaderboardId={paramToString(initialLeaderboardId)}
+                    />
+                </View>
+                <View className="flex-row">
+                    <CountrySelect initialCountry={paramToString(initialCountry)} />
+                </View>
             </View>
 
-            {leaderboard && <PlayerList leaderboard={leaderboard} search={search} />}
+            {leaderboardId && <PlayerList leaderboardId={leaderboardId} search={search} />}
         </View>
     );
 };
 
-function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; search: string }) {
+function PlayerList({ leaderboardId, search }: { leaderboardId: string; search: string }) {
     const getTranslation = useTranslation();
     const debouncedSearch = useDebounce(search, 600);
     const language = useLanguage();
@@ -92,7 +84,7 @@ function PlayerList({ leaderboard, search }: { leaderboard: ILeaderboardDef; sea
     }, [followingIds, leaderboardCountry]);
 
     const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery({
-        queryKey: ['leaderboard-players', debouncedSearch, leaderboard.leaderboardId, params],
+        queryKey: ['leaderboard-players', debouncedSearch, leaderboardId, params],
         queryFn: (context) => {
             return fetchLeaderboard({
                 ...context,

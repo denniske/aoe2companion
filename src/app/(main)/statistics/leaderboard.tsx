@@ -449,7 +449,7 @@ export default function LeaderboardPage() {
     const handleStr = useDerivedValue(() => '#' + ((positionY.value / scrollRange.value) * listLength.value).toFixed());
 
     if (!showTabBar) {
-        return <WebLeaderboard leaderboards={leaderboards} />;
+        return <WebLeaderboard />;
     }
 
     if (!leaderboards || !leaderboardId) {

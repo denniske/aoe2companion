@@ -6,9 +6,10 @@ import { CountryImageForDropDown, SpecialImageForDropDown } from '@app/view/comp
 import { appConfig } from '@nex/dataset';
 import { Platform, StyleSheet, View } from 'react-native';
 import Picker from '@app/view/components/picker';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStylesheet } from '@app/theming-new';
 import { useTranslation } from '@app/helper/translate';
+import { useRouter } from 'expo-router';
 
 export const countryEarth = null;
 
@@ -16,10 +17,23 @@ export function isCountry(x: string | null) {
     return countriesDistinct.includes(x?.toUpperCase() as Country);
 }
 
-export function CountrySelect() {
+interface Props {
+    initialCountry?: string | null;
+}
+
+export function CountrySelect({ initialCountry }: Props = {}) {
     const getTranslation = useTranslation();
     const mutate = useMutate();
+    const router = useRouter();
     const country = useSelector((state) => state.leaderboardCountry) || null;
+
+    useEffect(() => {
+        if (!initialCountry) return;
+        const upperCountry = initialCountry.toUpperCase();
+        if (isCountry(upperCountry)) {
+            mutate(setLeaderboardCountry(upperCountry));
+        }
+    }, [initialCountry]);
 
     const authProfileId = useAuthProfileId();
     const { data: authProfile } = useProfileFast(authProfileId);
@@ -65,6 +79,7 @@ export function CountrySelect() {
     };
     const onCountrySelected = (country: string | null) => {
         mutate(setLeaderboardCountry(country));
+        router.setParams({ country: isCountry(country) ? country!.toLowerCase() : undefined });
     };
 
     const divider = (x: any, i: number) => i < (authCountry ? 3 : 2);

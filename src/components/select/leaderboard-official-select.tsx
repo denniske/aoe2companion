@@ -8,41 +8,54 @@ import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { Icon } from '@app/components/icon';
 import { faComputerMouse, faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'expo-router';
 
 interface Props {
     leaderboardId?: string | null;
     onLeaderboardIdChange?: (leaderboardId: string | null) => void;
+    initialLeaderboardId?: string | null;
 }
 
 export function LeaderboardOfficialSelect(props: Props) {
-    const { leaderboardId, onLeaderboardIdChange } = props;
+    const { leaderboardId, onLeaderboardIdChange, initialLeaderboardId } = props;
     const savedLeaderboards = usePrefData((state) => state?.selectedOfficialLeaderboards);
     const savePrefsMutation = useSavePrefsMutation();
-
-    const theme = useAppTheme();
+    const router = useRouter();
 
     const { data: allLeaderboards } = useLeaderboards();
     const leaderboards = useMemo(() => allLeaderboards?.filter(l => l.official), [allLeaderboards]);
 
     useEffect(() => {
-        if (savedLeaderboards && leaderboards) {
-            let leaderboardId: string | null = null;
-            const matchingLeaderboard = leaderboards.find((l) => l.leaderboardId === savedLeaderboards);
+        if (!leaderboards) return;
+
+        let leaderboardId: string | null = null;
+
+        if (initialLeaderboardId) {
+            const matchingLeaderboard = leaderboards.find((l) => l.leaderboardId === initialLeaderboardId);
+            leaderboardId = matchingLeaderboard?.leaderboardId ?? null;
+        }
+
+        if (!leaderboardId) {
             if (savedLeaderboards === 'PC') {
                 leaderboardId = leaderboardIdsByType(leaderboards, 'pc')[0];
             } else if (savedLeaderboards === 'Console') {
                 leaderboardId = leaderboardIdsByType(leaderboards, 'xbox')[0];
-            } else if (matchingLeaderboard) {
-                leaderboardId = matchingLeaderboard.leaderboardId;
-            }
-
-            const leaderboard = leaderboards.find((l) => l.leaderboardId === leaderboardId);
-
-            if (leaderboardId && leaderboard) {
-                onLeaderboardIdSelected(leaderboard);
+            } else if (savedLeaderboards) {
+                const matchingLeaderboard = leaderboards.find((l) => l.leaderboardId === savedLeaderboards);
+                leaderboardId = matchingLeaderboard?.leaderboardId ?? null;
             }
         }
-    }, [savedLeaderboards, leaderboards]);
+
+        if (!leaderboardId) {
+            leaderboardId = leaderboards[0]?.leaderboardId ?? null;
+        }
+
+        const leaderboard = leaderboards.find((l) => l.leaderboardId === leaderboardId);
+
+        if (leaderboard) {
+            onLeaderboardIdSelected(leaderboard);
+        }
+    }, [initialLeaderboardId, savedLeaderboards, leaderboards]);
 
     const selectedLeaderboard = leaderboards?.find((l) => l.leaderboardId === leaderboardId);
 
@@ -94,6 +107,7 @@ export function LeaderboardOfficialSelect(props: Props) {
             formatter={formatLeaderboard}
             onSelect={(leaderboard) => {
                 savePrefsMutation.mutate({ selectedOfficialLeaderboards: leaderboard.leaderboardId });
+                router.setParams({ leaderboard: leaderboard.leaderboardId });
                 onLeaderboardIdSelected(leaderboard);
             }}
             style={{ width: 150 }}
