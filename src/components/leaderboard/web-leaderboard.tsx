@@ -105,7 +105,7 @@ function PlayerList({ leaderboardId, search }: { leaderboardId: string; search: 
         },
         enabled: !!language,
         initialPageParam: 1,
-        getNextPageParam: (lastPage, pages) => lastPage.page + 1,
+        getNextPageParam: (lastPage, pages) => (lastPage.players.length === lastPage.perPage ? lastPage.page + 1 : null),
     });
 
     const isLoading = (isFetching && !isFetchingNextPage) || debouncedSearch !== search;

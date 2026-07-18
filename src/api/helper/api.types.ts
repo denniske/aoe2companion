@@ -747,6 +747,7 @@ export interface ILeaderboard {
     start: number;
     count: number;
     page: number;
+    perPage: number;
     country: string;
     players: ILeaderboardPlayer[];
 }
