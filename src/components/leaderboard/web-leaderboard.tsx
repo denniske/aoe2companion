@@ -7,7 +7,7 @@ import { Text } from '@app/components/text';
 import { Image } from '@app/components/uniwind/image';
 import { useTranslation } from '@app/helper/translate';
 import useDebounce from '@app/hooks/use-debounce';
-import { useFollowedAndMeProfileIds, useLanguage } from '@app/queries/all';
+import { useFollowedAndMeProfileIds, useLanguage, useLeaderboards } from '@app/queries/all';
 import { useSelector } from '@app/redux/reducer';
 import { containerClassName } from '@app/styles';
 import ButtonPicker from '@app/view/components/button-picker';
@@ -32,11 +32,17 @@ export const WebLeaderboard: React.FC = () => {
 
     const { leaderboard: initialLeaderboardId, country: initialCountry } = useLocalSearchParams<{ leaderboard?: string; country?: string }>();
 
+    const { data: leaderboards } = useLeaderboards();
+    const selectedLeaderboard = leaderboards?.find((l) => l.leaderboardId === leaderboardId);
+    const title = selectedLeaderboard
+        ? `${selectedLeaderboard.leaderboardName} ${getTranslation('leaderboard.title')}`
+        : getTranslation('leaderboard.title');
+
     return (
         <View className={cn('py-4', containerClassName)}>
             <Stack.Screen
                 options={{
-                    title: getTranslation('leaderboard.title'),
+                    title,
                 }}
             />
 
