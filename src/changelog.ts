@@ -383,6 +383,14 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix rating chart legend not hidden under navbar anymore on player profile page (iOS)',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix update available / version updated popup position (Android)',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix scroll position when filtering player matches list',
+        },
     ],
     '207.0.0': [
         {
