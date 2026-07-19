@@ -385,6 +385,10 @@ export const changelog: IChangelog = {
         },
         {
             type: 'bugfix',
+            title: 'Fix leaderboard icons and badges for DM and QP on player profile page',
+        },
+        {
+            type: 'bugfix',
             title: 'Fix update available / version updated popup position (Android)',
         },
         {
