@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-    Text, StyleProp, StyleSheet, ViewStyle, View, ActivityIndicator, Platform, StatusBar
+    Text, StyleProp, StyleSheet, ViewStyle, View, ActivityIndicator
 } from 'react-native';
 import {useEffect, useState} from "react";
 import {usePrevious} from "@nex/data/hooks";
@@ -150,7 +150,10 @@ export default function Snackbar(props: Props) {
 const styles = StyleSheet.create({
     wrapper: {
         position: 'absolute',
-        top: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        // SafeAreaView already insets the top edge (status bar on Android,
+        // notch on iOS). Adding StatusBar.currentHeight here double-counted the
+        // status bar on Android, pushing the snackbar too far down.
+        top: 0,
         width: '100%',
         pointerEvents: 'box-none',
     },
