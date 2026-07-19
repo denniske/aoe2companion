@@ -4,8 +4,8 @@ import { Match } from '@app/components/match/match';
 import { useNavigationState, useRoute } from "expo-router/react-navigation";
 import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { flatten } from 'lodash';
-import React, { useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Platform, StyleSheet, View, FlatList as RNFlatList } from 'react-native';
 import { useAuthProfileId, useLanguage, useLeaderboards, useProfile } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
@@ -69,6 +69,15 @@ export default function MainMatches(props: MainMatchesProps) {
     const { data: leaderboards } = useLeaderboards(!props.leaderboardIds);
 
     const list = flatten(data?.pages?.map((p) => p.matches) || Array(15).fill(null));
+
+    // The infinite query uses keepPreviousData, so switching leaderboard / search
+    // / with-me does not remount the list and it keeps its old scroll offset —
+    // leaving the user stranded in empty space below a now-shorter (or empty)
+    // result set. Reset to the top whenever the filter that defines the list changes.
+    const listRef = useRef<RNFlatList<any>>(null);
+    useEffect(() => {
+        listRef.current?.scrollToOffset({ offset: 0, animated: false });
+    }, [leaderboardIds.join(','), debouncedSearch, withMe]);
 
     const route = useRoute();
     const state = useNavigationState((state) => state);
@@ -158,6 +167,7 @@ export default function MainMatches(props: MainMatchesProps) {
             <View style={{ flex: 1, opacity: isRefetching ? 0.7 : 1 }}>
                 {list.length === 0 && <MyText style={styles.header}>{getTranslation('main.matches.nomatches')}</MyText>}
                 <FlatList
+                    ref={listRef}
                     contentContainerClassName="p-4 gap-2"
                     initialNumToRender={10}
                     windowSize={2}
