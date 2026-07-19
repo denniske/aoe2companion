@@ -70,10 +70,6 @@ export default function MainMatches(props: MainMatchesProps) {
 
     const list = flatten(data?.pages?.map((p) => p.matches) || Array(15).fill(null));
 
-    // The infinite query uses keepPreviousData, so switching leaderboard / search
-    // / with-me does not remount the list and it keeps its old scroll offset —
-    // leaving the user stranded in empty space below a now-shorter (or empty)
-    // result set. Reset to the top whenever the filter that defines the list changes.
     const listRef = useRef<RNFlatList<any>>(null);
     useEffect(() => {
         listRef.current?.scrollToOffset({ offset: 0, animated: false });

@@ -150,9 +150,6 @@ export default function Snackbar(props: Props) {
 const styles = StyleSheet.create({
     wrapper: {
         position: 'absolute',
-        // SafeAreaView already insets the top edge (status bar on Android,
-        // notch on iOS). Adding StatusBar.currentHeight here double-counted the
-        // status bar on Android, pushing the snackbar too far down.
         top: 0,
         width: '100%',
         pointerEvents: 'box-none',
