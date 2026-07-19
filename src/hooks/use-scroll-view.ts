@@ -84,7 +84,7 @@ export const useScrollView = ({
         // only iOS
         automaticallyAdjustContentInsets: false,
         automaticallyAdjustsScrollIndicatorInsets: false,
-        contentInset: { bottom: 0 },
+        contentInset: { bottom: 0 }, // content inset gets reset after hot reload so we use padding bottom instead like on android
         scrollIndicatorInsets: { bottom: bottomOffset },
 
         contentContainerStyle: !shouldDisableScroll && { paddingBottom, paddingTop },
