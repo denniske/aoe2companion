@@ -1,0 +1,4 @@
+# build artifacts (large: iOS .app, Android .apk) — regenerate with build.sh
+builds/
+# runtime state: pid files, metro logs, screenshots
+run/
