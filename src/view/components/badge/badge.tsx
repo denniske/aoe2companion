@@ -39,11 +39,11 @@ export default function Badge(props: Props) {
                     gap: 4,
                 }}
             >
-                {logoPng && <Image className="w-4 h-4" source={logoPng} />}
-                {logoSvg && Platform.OS === 'web' && <Image tintColor={logoColor} source={{ uri: logoSvg, width: 16, height: 16 }} />}
-                {logoSvg && Platform.OS !== 'web' && <SvgUri width={16} height={16} fill={logoColor} uri={logoSvg} />}
-                {logoIcon && <Icon icon={logoIcon} color={logoColor} />}
-                {label && <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>}
+                {!!logoPng && <Image className="w-4 h-4" source={logoPng} />}
+                {!!logoSvg && Platform.OS === 'web' && <Image tintColor={logoColor} source={{ uri: logoSvg, width: 16, height: 16 }} />}
+                {!!logoSvg && Platform.OS !== 'web' && <SvgUri width={16} height={16} fill={logoColor} uri={logoSvg} />}
+                {!!logoIcon && <Icon icon={logoIcon} color={logoColor} />}
+                {!!label && <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>}
             </View>
             {(content || dot) && (
                 <View

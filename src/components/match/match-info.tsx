@@ -85,7 +85,7 @@ export default function MatchInfo(props: Props) {
                                 : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
                         }
                     >
-                        {tournament.image && <Image source={{ uri: tournament.image }} className="w-5 h-5" />}
+                        {!!tournament.image && <Image source={{ uri: tournament.image }} className="w-5 h-5" />}
                         <Text color="subtle">
                             {tournament.name} ({format})
                         </Text>
@@ -128,13 +128,13 @@ export default function MatchInfo(props: Props) {
                 )}
 
                 <View className="flex-row items-center gap-1">
-                    {match.modGameMode && <Icon icon={faWrench} size={14} color="subtle" />}
+                    {!!match.modGameMode && <Icon icon={faWrench} size={14} color="subtle" />}
                     <Text color="subtle" numberOfLines={1}>
                         {getModName(match.modGameMode) ?? match.gameModeName}
                     </Text>
                 </View>
 
-                {match.modTuningPack && (
+                {!!match.modTuningPack && (
                     <View className="flex-row items-center gap-1">
                         <Icon icon={faWrench} size={14} color="subtle" />
 
@@ -143,7 +143,7 @@ export default function MatchInfo(props: Props) {
                         </Text>
                     </View>
                 )}
-                {match.modDataset && (
+                {!!match.modDataset && (
                     <View className="flex-row items-center gap-1">
                         <Icon icon={faWrench} size={14} color="subtle" />
 

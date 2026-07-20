@@ -35,7 +35,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
     };
     const playerColor = aoe2PlayerColors[player.colorHex] ?? player.colorHex;
     const { liveTwitchAccounts } = useLiveTwitchAccounts();
-    const twitch = player.socialTwitchChannel && liveTwitchAccounts?.find((twitch) => twitch.user_login === player.socialTwitchChannel);
+    const twitch = !!player.socialTwitchChannel && liveTwitchAccounts?.find((twitch) => twitch.user_login === player.socialTwitchChannel);
 
     return (
         <View
