@@ -73,7 +73,7 @@ export default function LiveLobbiesPage() {
             <View className="flex-1">
                 {Platform.OS !== 'web' && (
                     <View className={cn('flex-row items-center justify-center p-4 gap-2', containerClassName)}>
-                        <Icon icon={faExclamationTriangle} size={16} />;
+                        <Icon icon={faExclamationTriangle} size={16} />
                         <Text>{getTranslation('lobbies.datausagewarning', { usage: (usage / 1000000).toFixed(1) })}</Text>
                     </View>
                 )}

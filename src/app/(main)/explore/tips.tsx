@@ -319,7 +319,7 @@ export default function TipsPage() {
                             <View style={styles.rowInner}>
                                 {tip.icon && (
                                     <View style={styles.unitIconBig}>
-                                        <Icon icon={faVideo} size={16} />;
+                                        <Icon icon={faVideo} size={16} />
                                     </View>
                                 )}
                                 {!tip.icon && <Image style={styles.unitIconBig} source={tip.imageIcon ? tip.imageIcon : getAbilityIcon(tip)} />}
@@ -331,7 +331,7 @@ export default function TipsPage() {
                         </TouchableOpacity>
                         {tip.url && (
                             <TouchableOpacity style={styles.action} onPress={() => onOpen(tip)}>
-                                <Icon icon={faExternalLinkSquareAlt} size={16} />;
+                                <Icon icon={faExternalLinkSquareAlt} size={16} />
                             </TouchableOpacity>
                         )}
                     </View>
