@@ -183,7 +183,7 @@ export default function TournamentDetail() {
                             <View className="gap-2">
                                 <View className="flex-row items-center justify-between px-4">
                                     <Text variant="header">{getTranslation('tournaments.participants')}</Text>
-                                    {tournament.participantsNote && (
+                                    {!!tournament.participantsNote && (
                                         <TouchableOpacity onPress={() => setShowParticipantsNote((val) => !val)}>
                                             <Icon icon={faInfoCircle} color="brand" />
                                         </TouchableOpacity>
@@ -223,7 +223,7 @@ export default function TournamentDetail() {
                             </View>
                         )}
 
-                        {tournament.prizePool && (
+                        {!!tournament.prizePool && (
                             <View className="px-4">
                                 <Button align="center" onPress={() => setVisiblePopup('prizepool')}>
                                     {getTranslation('tournaments.viewPrizes')}
@@ -388,7 +388,7 @@ export default function TournamentDetail() {
                                                     horizontal
                                                     showsHorizontalScrollIndicator={false}
                                                 />
-                                                {tournament.resultsNote && (
+                                                {!!tournament.resultsNote && (
                                                     <View className="pt-4">
                                                         <TournamentMarkdown>{tournament.resultsNote}</TournamentMarkdown>
                                                     </View>

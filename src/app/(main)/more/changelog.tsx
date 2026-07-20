@@ -77,9 +77,9 @@ export default function ChangelogPage() {
                         </View>
                         <View className="flex-1">
                             <Text variant="label">{formatTitle(change.title)}</Text>
-                            {change.content && <Text>{formatTitle(change.content)}</Text>}
+                            {!!change.content && <Text>{formatTitle(change.content)}</Text>}
                             {
-                                change.author && <Text className="italic">by {formatTitle(change.author)}</Text>
+                                !!change.author && <Text className="italic">by {formatTitle(change.author)}</Text>
                             }
                         </View>
                     </View>

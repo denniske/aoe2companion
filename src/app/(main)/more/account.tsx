@@ -185,7 +185,7 @@ export default function AccountPage() {
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.patreon.title')}</Text>
                         <Text variant="body">{getTranslation('account.patreon.description')}</Text>
-                        {account.data?.patreonId && (
+                        {!!account.data?.patreonId && (
                             <>
                                 <Text variant="label">{getTranslation('account.patreon.membershipstatus')}</Text>
                                 <View className="flex-row gap-2 items-center">
@@ -319,7 +319,7 @@ export default function AccountPage() {
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.youtube.title')}</Text>
                         <Text variant="body">{getTranslation('account.youtube.description')}</Text>
-                        {account.data?.youtubeChannelName && (
+                        {!!account.data?.youtubeChannelName && (
                             <>
                                 <Text variant="label">{getTranslation('account.youtube.channel')}</Text>
                                 <View className="flex-row gap-2 items-center">
@@ -401,7 +401,7 @@ export default function AccountPage() {
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.twitch.title')}</Text>
                         <Text variant="body">{getTranslation('account.twitch.description')}</Text>
-                        {account.data?.twitchChannel && (
+                        {!!account.data?.twitchChannel && (
                             <>
                                 <Text variant="label">{getTranslation('account.twitch.channel')}</Text>
                                 <View className="flex-row gap-2 items-center">

@@ -151,7 +151,7 @@ export default function BuildDetail() {
                 )}
             </MyText>
 
-            {build.imageURL && <Image source={{uri: build.imageURL}} style={styles.image} />}
+            {!!build.imageURL && <Image source={{uri: build.imageURL}} style={styles.image} />}
             {/*{icon && <Image source={icon} style={styles.image} />}*/}
 
             <View style={styles.tagsContainer}>
@@ -192,7 +192,7 @@ export default function BuildDetail() {
                     {step.type === 'newAge' ? (
                         <View style={[styles.stepRow, styles.ageRow]}>
                             <View style={[styles.stepActions, styles.ageActions]}>
-                                {step.age && <Image source={getAgeIcon(capitalize(step.age) as any)} contentFit="contain" style={styles.agePic} />}
+                                {!!step.age && <Image source={getAgeIcon(capitalize(step.age) as any)} contentFit="contain" style={styles.agePic} />}
                                 <MyText style={styles.ageName}>{startCase(step.age)}</MyText>
                             </View>
 
@@ -202,7 +202,7 @@ export default function BuildDetail() {
                         <View style={styles.stepRow}>
                             <View style={styles.stepActions}>
                                 <StepActions {...step} size="small" />
-                                {step.text && <MyText style={styles.stepText}>{step.text}</MyText>}
+                                {!!step.text && <MyText style={styles.stepText}>{step.text}</MyText>}
                             </View>
                             <View style={styles.stepResources}>
                                 {shownResources.map((resourceName) => (

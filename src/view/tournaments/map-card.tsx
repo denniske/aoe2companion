@@ -26,11 +26,11 @@ export const MapCard: React.FC<{ map: Map }> = ({ map }) => {
     return (
         <View>
             <Card direction="vertical" className="p-4 w-36 gap-0" disabled={!map.path} onPress={() => setIsVisible(true)}>
-                {map.image && <Image source={{ uri: map.image }} contentFit="contain" style={{ aspectRatio: 2 }} />}
-                <Text align="center" variant="label" className={map.image && 'mt-2'} numberOfLines={1}>
+                {!!map.image && <Image source={{ uri: map.image }} contentFit="contain" style={{ aspectRatio: 2 }} />}
+                <Text align="center" variant="label" className={map.image ? 'mt-2' : ''} numberOfLines={1}>
                     {map.name}
                 </Text>
-                {map.category && (
+                {!!map.category && (
                     <Text align="center" variant="body-xs" numberOfLines={1}>
                         {map.category}
                     </Text>
@@ -43,7 +43,7 @@ export const MapCard: React.FC<{ map: Map }> = ({ map }) => {
                     ) : (
                         <View className="gap-2">
                             <View className="flex-row items-center gap-4">
-                                {(mapDetails?.image || map.image) && (
+                                {!!(mapDetails?.image || map.image) && (
                                     <Image
                                         source={{ uri: mapDetails?.image || map.image }}
                                         contentFit="contain"

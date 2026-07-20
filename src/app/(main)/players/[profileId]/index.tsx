@@ -92,8 +92,8 @@ export default function ProfilePage() {
                                     invitation={fullProfile?.socialDiscordInvitation}
                                 />
                             )}
-                            {fullProfile?.socialYoutubeChannelUrl && <YoutubeBadge channelUrl={fullProfile?.socialYoutubeChannelUrl} />}
-                            {fullProfile?.socialDouyuChannelUrl && <DouyuBadge channelUrl={fullProfile?.socialDouyuChannelUrl} />}
+                            {!!fullProfile?.socialYoutubeChannelUrl && <YoutubeBadge channelUrl={fullProfile?.socialYoutubeChannelUrl} />}
+                            {!!fullProfile?.socialDouyuChannelUrl && <DouyuBadge channelUrl={fullProfile?.socialDouyuChannelUrl} />}
                             {fullProfile?.socialTwitchChannelUrl && fullProfile?.socialTwitchChannel && (
                                 <TwitchBadge channelUrl={fullProfile?.socialTwitchChannelUrl} channel={fullProfile?.socialTwitchChannel} />
                             )}
