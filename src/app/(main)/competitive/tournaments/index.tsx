@@ -125,7 +125,7 @@ export default function TournamentsList() {
                     renderSectionHeader={({ section: { title } }) => (
                         <View className="bg-gold-50 dark:bg-blue-950 pt-2.5 pb-1 flex-row items-center justify-between">
                             <Text variant="header-lg">{title}</Text>
-                            {subtitleMap[title] && (
+                            {!!(subtitleMap[title]) && (
                                 <Text color="brand" variant="body-xs">
                                     {subtitleMap[title]}
                                 </Text>

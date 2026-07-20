@@ -232,7 +232,7 @@ export default function IndexPage() {
             </AnimateIn>
 
             <AnimateIn>
-                {shouldPromptLogin && (
+                {!!(shouldPromptLogin) && (
                     <View className="gap-2 pb-5 lg:pb-8">
                         <Text variant="header-lg">Get Started</Text>
 

@@ -171,12 +171,12 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 data?.socialDouyuChannelUrl ||
                 data?.socialTwitchChannelUrl != null) && (
                 <View className="flex-row gap-x-2">
-                    {data?.socialDiscordInvitationUrl && data?.socialDiscordInvitation && (
+                    {!!(data?.socialDiscordInvitationUrl && data?.socialDiscordInvitation) && (
                         <DiscordBadge invitationUrl={data?.socialDiscordInvitationUrl} invitation={data?.socialDiscordInvitation} />
                     )}
-                    {data?.socialYoutubeChannelUrl && <YoutubeBadge channelUrl={data?.socialYoutubeChannelUrl} />}
-                    {data?.socialDouyuChannelUrl && <DouyuBadge channelUrl={data?.socialDouyuChannelUrl} />}
-                    {data?.socialTwitchChannelUrl && data?.socialTwitchChannel && (
+                    {!!(data?.socialYoutubeChannelUrl) && <YoutubeBadge channelUrl={data?.socialYoutubeChannelUrl} />}
+                    {!!(data?.socialDouyuChannelUrl) && <DouyuBadge channelUrl={data?.socialDouyuChannelUrl} />}
+                    {!!(data?.socialTwitchChannelUrl && data?.socialTwitchChannel) && (
                         <TwitchBadge channelUrl={data?.socialTwitchChannelUrl} channel={data?.socialTwitchChannel} />
                     )}
                 </View>

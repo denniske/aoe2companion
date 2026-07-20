@@ -142,7 +142,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                                         >
                                             <Image source={{ uri: linkedProfile.avatarMediumUrl }} className="w-5 h-5 rounded-full" />
                                             <Text variant="body">{linkedProfile.name}</Text>
-                                            {linkedProfile.verified && <Icon icon={faCheckCircle} color="brand" size={14} />}
+                                            {!!(linkedProfile.verified) && <Icon icon={faCheckCircle} color="brand" size={14} />}
                                             {!linkedProfile.verified && linkedProfile.shared && <Icon icon={faFamily} color="brand" size={14} />}
                                             {!!linkedProfile.clan && (
                                                 <MyText>
@@ -166,7 +166,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                 </MenuNew>
             )}
 
-            {liquipediaProfile && (
+            {!!(liquipediaProfile) && (
                 <TournamentPlayerPopup
                     id={liquipediaProfile.name}
                     title={liquipediaProfile.name}
@@ -175,7 +175,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                 />
             )}
 
-            {profile.verified &&
+            {!!(profile.verified) &&
                 (Platform.OS === 'web' ? (
                     <Link href={`https://liquipedia.net/ageofempires/${profile.socialLiquipedia}`} target="_blank">
                         <Icon icon={faCheckCircle} color="brand" size={20} />
@@ -210,9 +210,9 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
             >
                 <View className="w-60">
                     <View className="gap-3">
-                        {profile?.steamId && profile?.platform && <LinkedPlatformAccount steamId={profile?.steamId} platform={profile?.platform} />}
-                        {profileId && <LinkedAoEAccount profileId={profileId} />}
-                        {profileId && <LinkedAoECompanionAccount profileId={profileId} />}
+                        {!!(profile?.steamId && profile?.platform) && <LinkedPlatformAccount steamId={profile?.steamId} platform={profile?.platform} />}
+                        {!!(profileId) && <LinkedAoEAccount profileId={profileId} />}
+                        {!!(profileId) && <LinkedAoECompanionAccount profileId={profileId} />}
                     </View>
                 </View>
             </MenuNew>

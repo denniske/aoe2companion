@@ -28,7 +28,7 @@ export function SectionListWeb<ItemT>({
         <View className={contentContainerClassName}>
             {sections.map((section, index) => (
                 <View key={index}>
-                    {renderSectionHeader && (
+                    {!!(renderSectionHeader) && (
                         <div
                             ref={(ref) => {
                                 if (ref) {

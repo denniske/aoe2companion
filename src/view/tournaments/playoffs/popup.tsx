@@ -65,7 +65,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
         <BottomSheet isActive={visible} title="Match" onClose={() => setVisible(false)} style={styles.modal} closeButton={true}>
             {match ? (
                 <>
-                    {tournamentPath && tournament && (
+                    {!!(tournamentPath && tournament) && (
                         <View className="flex-row gap-2 justify-center">
                             <Pressable
                                 className="flex-row items-center justify-center gap-2 mb-2"
@@ -75,11 +75,11 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                                         : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
                                 }
                             >
-                                {tournament.league?.image && <Image source={{ uri: tournament.league.image }} className="w-6 h-6" />}
+                                {!!(tournament.league?.image) && <Image source={{ uri: tournament.league.image }} className="w-6 h-6" />}
                                 <Text variant="label-lg">{tournament.name}</Text>
                             </Pressable>
 
-                            {match.header && (
+                            {!!(match.header) && (
                                 <Text variant="body-lg" color="subtle">
                                     {match.header.name}
                                 </Text>
@@ -95,19 +95,19 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                         ))}
                     </View>
                     <View className="flex-row items-center justify-center gap-6">
-                        {match.startTime && (
+                        {!!(match.startTime) && (
                             <Text variant="label" align="center">
                                 {formatDateAndTime(match.startTime)}
                             </Text>
                         )}
-                        {match.bestOf && (
+                        {!!(match.bestOf) && (
                             <Text variant="body" align="center">
                                 Best of {match.bestOf}
                             </Text>
                         )}
                     </View>
 
-                    {isLive && (
+                    {!!(isLive) && (
                         <View className="justify-center flex-row gap-4">
                             <Text variant="label" className="uppercase" color="brand">
                                 {getTranslation('tournaments.live')}
@@ -145,7 +145,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                             );
                         })}
                     </View>
-                    {match.note && <TournamentMarkdown>{match.note}</TournamentMarkdown>}
+                    {!!(match.note) && <TournamentMarkdown>{match.note}</TournamentMarkdown>}
                     <View style={styles.linksContainer}>
                         {match.links
                             .filter((link) => link.image && link.url)

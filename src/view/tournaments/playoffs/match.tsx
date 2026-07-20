@@ -17,7 +17,7 @@ export const PlayoffMatch: React.FC<{ match: PlayoffMatchProps; style?: ViewStyl
 
     return (
         <View style={[styles.container, style]}>
-            {match.header && (
+            {!!(match.header) && (
                 <View style={styles.nameContainer}>
                     <MyText style={styles.name}>{match.header?.name}</MyText>
                     <MyText style={styles.format}>{match.header?.format}</MyText>
@@ -37,7 +37,7 @@ export const PlayoffMatch: React.FC<{ match: PlayoffMatchProps; style?: ViewStyl
                 ))}
             </Card>
 
-            {match.games && match.links && <PlayoffPopup visible={visible} setVisible={setVisible} match={match as IPlayoffMatch} />}
+            {!!(match.games && match.links) && <PlayoffPopup visible={visible} setVisible={setVisible} match={match as IPlayoffMatch} />}
         </View>
     );
 };

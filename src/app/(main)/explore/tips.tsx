@@ -305,8 +305,8 @@ export default function TipsPage() {
                     )}
                     {tips.map((tip, i) => (
                         <Delayed key={i} delay={i * 100}>
-                            {tip.video && <VideoTip tip={tip} active={i === currentTipIndex} />}
-                            {tip.image && <ImageTip tip={tip} active={i === currentTipIndex} />}
+                            {!!(tip.video) && <VideoTip tip={tip} active={i === currentTipIndex} />}
+                            {!!(tip.image) && <ImageTip tip={tip} active={i === currentTipIndex} />}
                             {!tip.video && !tip.image && <NoPreviewTip tip={tip} active={i === currentTipIndex} />}
                         </Delayed>
                     ))}
@@ -317,7 +317,7 @@ export default function TipsPage() {
                     <View key={tip.title} style={styles.row}>
                         <TouchableOpacity style={styles.tip} onPress={() => setCurrentTipIndex(i)}>
                             <View style={styles.rowInner}>
-                                {tip.icon && (
+                                {!!(tip.icon) && (
                                     <View style={styles.unitIconBig}>
                                         <Icon icon={faVideo} size={16} />
                                     </View>
@@ -329,7 +329,7 @@ export default function TipsPage() {
                                 </View>
                             </View>
                         </TouchableOpacity>
-                        {tip.url && (
+                        {!!(tip.url) && (
                             <TouchableOpacity style={styles.action} onPress={() => onOpen(tip)}>
                                 <Icon icon={faExternalLinkSquareAlt} size={16} />
                             </TouchableOpacity>

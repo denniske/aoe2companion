@@ -112,7 +112,7 @@ export const ProfileLeaderboardModal = ({
                                         />
                                     </View>
 
-                                    {ratings && (
+                                    {!!(ratings) && (
                                         <View className="z-50">
                                             <RatingChart
                                                 allowMouseInteraction
@@ -155,7 +155,7 @@ export const ProfileLeaderboardModal = ({
                                                     </View>
                                                 ))}
 
-                                                {isLoadingComparison && <ActivityIndicator animating color="#999" />}
+                                                {!!(isLoadingComparison) && <ActivityIndicator animating color="#999" />}
 
                                                 <View className="flex-row gap-4 items-center">
                                                     <Text variant="label">Compare With</Text>

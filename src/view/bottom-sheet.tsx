@@ -139,12 +139,12 @@ export function BottomSheet({
 
                                 {container === 'scroll' ? (
                                     <ScrollView contentContainerStyle={[styles.contentContainer, style]} style={style}>
-                                        {title && (
+                                        {!!(title) && (
                                             <View className={closeButton ? 'relative px-6 flex-row' : 'flex-row'}>
                                                 <Text color="brand" variant="header-lg" className="text-center flex-1">
                                                     {title}
                                                 </Text>
-                                                {closeButton && (
+                                                {!!(closeButton) && (
                                                     <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
                                                         <Icon size={24} icon={faTimes} />
                                                     </TouchableOpacity>
@@ -157,12 +157,12 @@ export function BottomSheet({
 
                                 {container === 'none' ? (
                                     <>
-                                        {title && (
+                                        {!!(title) && (
                                             <View className={closeButton ? 'relative px-6 flex-row' : 'flex-row'}>
                                                 <Text color="brand" variant="header-lg" className="text-center flex-1">
                                                     {title}
                                                 </Text>
-                                                {closeButton && (
+                                                {!!(closeButton) && (
                                                     <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
                                                         <Icon size={24} icon={faTimes} />
                                                     </TouchableOpacity>

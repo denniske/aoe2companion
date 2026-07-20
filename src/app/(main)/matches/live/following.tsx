@@ -85,7 +85,7 @@ export default function LiveFollowingPage() {
                 );
             })}
 
-            {isLoading && (
+            {!!(isLoading) && (
                 <Card direction="vertical">
                     <Text className="text-center">{getTranslation('matches.current.loading')}</Text>
                 </Card>
@@ -125,7 +125,7 @@ export default function LiveFollowingPage() {
                 );
             })}
 
-            {isLoading && (
+            {!!(isLoading) && (
                 <Card direction="vertical">
                     <Text className="text-center">{getTranslation('matches.current.loading')}</Text>
                 </Card>

@@ -60,7 +60,7 @@ export const Dropdown = <ValueType extends string>({
                 <Icon size={isSmall ? 14 : 16} icon={isSmall ? faAngleDownRegular : faAngleDownSolid} />
             </Pressable>
 
-            {isOpen && (
+            {!!(isOpen) && (
                 <View className="absolute top-12 z-10 w-full shadow-sm">
                     <FlatList
                         keyboardShouldPersistTaps="handled"

@@ -45,7 +45,7 @@ export const AccountMenu: React.FC = () => {
                         anchor="bottom end"
                         className="w-52 origin-top-right rounded-lg border border-border bg-background p-1 transition duration-100 ease-out [--anchor-gap:--spacing(1)] focus:outline-none! data-closed:scale-95 data-closed:opacity-0 shadow-lg"
                     >
-                        {account?.profileId && (
+                        {!!(account?.profileId) && (
                             <MenuItem>
                                 <Link
                                     onPress={close}
@@ -58,7 +58,7 @@ export const AccountMenu: React.FC = () => {
                             </MenuItem>
                         )}
 
-                        {user && account && (
+                        {!!(user && account) && (
                             <>
                                 <MenuItem>
                                     <Link

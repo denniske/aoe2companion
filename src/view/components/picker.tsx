@@ -42,7 +42,7 @@ function defaultCell(props: any) {
     const { value, color, icon, formatter, selected, textMinWidth } = props;
     return (
         <View style={styles.row}>
-            {icon && icon(value)}
+            {!!(icon) && icon(value)}
             <MyText numberOfLines={1} style={[styles.text, { minWidth: textMinWidth, color: color, fontWeight: selected ? 'bold' : 'normal' }]}>
                 {formatter(value)}
             </MyText>
@@ -229,7 +229,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                         onPress={() => setMenu(true)}
                         disabled={disabled}
                     >
-                        {anchor && anchor({})}
+                        {!!(anchor) && anchor({})}
                         {!anchor && (
                             <View style={styles.row}>
                                 {cell({ value, formatter: (x: any, i: any) => formatter(x, false), color, icon })}

@@ -341,7 +341,7 @@ export function PlayerList({
 
     return (
         <div>
-            {selectedPlayer && (
+            {!!(selectedPlayer) && (
                 <PlayerModal
                     leaderboardId={leaderboardId}
                     playerNames={playerNames}

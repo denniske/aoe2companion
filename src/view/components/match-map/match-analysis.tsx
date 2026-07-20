@@ -30,7 +30,7 @@ export default function MatchAnalysis(props: Props) {
 
     return (
         <View>
-            {matchError && (
+            {!!(matchError) && (
                 <View className="bg-red-100 p-4 rounded-lg">
                     <Text color="text-red-800">{matchError?.message}</Text>
                 </View>

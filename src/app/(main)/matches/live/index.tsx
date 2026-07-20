@@ -74,7 +74,7 @@ export default function LiveAllPage() {
                         </Text>
                     ) : null}
 
-                    {isLoading && (
+                    {!!(isLoading) && (
                         <Card direction="vertical">
                             <Text className="text-center">{getTranslation('matches.current.loading')}</Text>
                         </Card>

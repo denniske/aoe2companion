@@ -86,7 +86,7 @@ export default function ProfilePage() {
                         fullProfile?.socialTwitchChannelUrl != null) && (
                         <View className="flex-row gap-x-2">
                             <DouyuBadge channelUrl={'asdasd'} />
-                            {fullProfile?.socialDiscordInvitationUrl && fullProfile?.socialDiscordInvitation && (
+                            {!!(fullProfile?.socialDiscordInvitationUrl && fullProfile?.socialDiscordInvitation) && (
                                 <DiscordBadge
                                     invitationUrl={fullProfile?.socialDiscordInvitationUrl}
                                     invitation={fullProfile?.socialDiscordInvitation}
@@ -94,7 +94,7 @@ export default function ProfilePage() {
                             )}
                             {!!fullProfile?.socialYoutubeChannelUrl && <YoutubeBadge channelUrl={fullProfile?.socialYoutubeChannelUrl} />}
                             {!!fullProfile?.socialDouyuChannelUrl && <DouyuBadge channelUrl={fullProfile?.socialDouyuChannelUrl} />}
-                            {fullProfile?.socialTwitchChannelUrl && fullProfile?.socialTwitchChannel && (
+                            {!!(fullProfile?.socialTwitchChannelUrl && fullProfile?.socialTwitchChannel) && (
                                 <TwitchBadge channelUrl={fullProfile?.socialTwitchChannelUrl} channel={fullProfile?.socialTwitchChannel} />
                             )}
                         </View>

@@ -189,7 +189,7 @@ export default function Competitive() {
             {/*        }}*/}
             {/*    />*/}
             {/*)}*/}
-            {selectedSet && (
+            {!!(selectedSet) && (
                 <PlayoffPopup
                     visible={showSetPopup}
                     setVisible={setShowSetPopup}
@@ -242,7 +242,7 @@ export default function Competitive() {
                     </View>
                 )}
 
-                {tournamentsEnabled && (
+                {!!(tournamentsEnabled) && (
                     <View className="gap-2">
                         <View className="flex-row justify-between items-center px-4">
                             <Text variant="header-lg">{getTranslation('home.featuredTournaments')}</Text>
@@ -263,7 +263,7 @@ export default function Competitive() {
                     </View>
                 )}
 
-                {tournamentsEnabled && (
+                {!!(tournamentsEnabled) && (
                     <View className="gap-2">
                         <Text className="px-4" variant="header-lg">
                             {getTranslation('competitive.upcomingMatches.title')}
@@ -292,7 +292,7 @@ export default function Competitive() {
                     </View>
                 )}
 
-                {liveTwitch && (
+                {!!(liveTwitch) && (
                     <View className="px-4 gap-3">
                         <View className="flex-row justify-between items-center">
                             <Text variant="header-lg">

@@ -72,7 +72,7 @@ export default function CurrentLobbyOrMatchPage() {
         <ScrollView contentContainerClassName="p-4 gap-4">
             <Stack.Screen options={{ title: getTranslation('matches.current.title') }} />
 
-            {isLoading && (
+            {!!(isLoading) && (
                 <Card direction="vertical">
                     <Text className="text-center">{getTranslation('matches.current.loading')}</Text>
                 </Card>
@@ -93,9 +93,9 @@ export default function CurrentLobbyOrMatchPage() {
                 </Card>
             )}
 
-            {lobby && <LiveMatch data={lobby} expanded={true} />}
+            {!!(lobby) && <LiveMatch data={lobby} expanded={true} />}
 
-            {match && (
+            {!!(match) && (
                 <>
                     <MatchCard match={match} />
                     <MatchInfo match={match} />

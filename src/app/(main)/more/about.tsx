@@ -281,7 +281,7 @@ export default function AboutPage() {
                     </MyText>
                 </TouchableOpacity>
 
-                {updateId && <MyText>{updateId}</MyText>}
+                {!!(updateId) && <MyText>{updateId}</MyText>}
 
                 {/*<MyText>{(Constants.expoConfig2?.metadata as any)?.branchName || 'dev'}</MyText>*/}
                 {/*<MyText>{(Constants.expoConfig2?.metadata as any)?.updateGroup || 'dev'}</MyText>*/}

@@ -90,7 +90,7 @@ export default function CivDetails() {
                             </MyText>
                         </View>
 
-                        {video && (
+                        {!!(video) && (
                             <View className="py-4 gap-0.5">
                                 <Text variant="header-lg">Video Guide</Text>
                                 <Text variant="label-sm">By {video.author}</Text>

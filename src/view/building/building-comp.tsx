@@ -39,7 +39,7 @@ export function BuildingCompBig({ building, subtitle, canShowCard }: { building:
                     <Image style={styles.unitIconBig} source={getBuildingIcon(building)} />
                     <View style={styles.unitIconBigTitle}>
                         <MyText>{getBuildingName(building)}</MyText>
-                        {subtitle && <MyText style={styles.base.small}>{subtitle}</MyText>}
+                        {!!(subtitle) && <MyText style={styles.base.small}>{subtitle}</MyText>}
                         {!subtitle && (
                             <MyText numberOfLines={1} style={styles.base.small}>
                                 {getBuildingDescription(building)}

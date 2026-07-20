@@ -255,7 +255,7 @@ export const PlayerModal = ({
                                 <div className="flex justify-between items-start md:items-center">
                                     <div className="flex flex-col md:flex-row gap-1 md:gap-4 mb-4 md:mb-0 md:items-center">
                                         <DialogTitle as="h2" className="text-xl font-semibold pb-2">
-                                            {countryIcon && <span className="text-3xl mr-2 align-middle font-flag">{countryIcon}</span>}
+                                            {!!(countryIcon) && <span className="text-3xl mr-2 align-middle font-flag">{countryIcon}</span>}
                                             {player.name}
                                         </DialogTitle>
 

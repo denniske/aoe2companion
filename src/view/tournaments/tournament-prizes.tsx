@@ -36,7 +36,7 @@ export const TournamentPrizes: React.FC<{ prizes?: TournamentDetail['prizes'], o
                         <PlaceIcon place={prize.place} />
                         <MyText style={styles.place}>{prize.place}</MyText>
                     </View>
-                    <View style={styles.cell}>{prize.prize && <MyText>{formatCurrency({ ...prize.prize })[0]}</MyText>}</View>
+                    <View style={styles.cell}>{!!(prize.prize) && <MyText>{formatCurrency({ ...prize.prize })[0]}</MyText>}</View>
 
                     <View style={styles.participants}>
                         {prize.participants.map((participant, index) => (

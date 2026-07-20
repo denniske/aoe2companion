@@ -42,7 +42,7 @@ export const GroupParticipant: React.FC<{ participant: IGroupParticipant }> = ({
     return (
         <View style={[styles.participant, { backgroundColor: statusColors[participant.status] }]} className="border-gray-200 dark:border-gray-800">
             <View style={styles.nameContainer}>
-                {participant.image && <Image source={{ uri: participant.image }} contentFit="contain" style={styles.participantImage} />}
+                {!!(participant.image) && <Image source={{ uri: participant.image }} contentFit="contain" style={styles.participantImage} />}
                 <Text style={{ color: textColor }}>{participant.name || getTranslation('tournaments.tbd')}</Text>
             </View>
             <View style={styles.cell}>

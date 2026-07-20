@@ -71,7 +71,7 @@ export default function Timeseries({ teams, metric, title, description, explanat
                     <Text className="" variant="body">
                         {description}
                     </Text>
-                    {explanation && (
+                    {!!(explanation) && (
                         <TouchableOpacity onPress={showExplanation}>
                             <Icon icon={faInfoCircle} color="subtle"></Icon>
                         </TouchableOpacity>

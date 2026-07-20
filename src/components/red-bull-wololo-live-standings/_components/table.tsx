@@ -35,7 +35,7 @@ export const HeadCell = ({
                 }
             >
                 {children}
-                {columnName && (
+                {!!(columnName) && (
                     <>
                         {' '}
                         <Icon

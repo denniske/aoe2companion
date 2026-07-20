@@ -36,9 +36,9 @@ function TechTreeRow({ civ, row }: { civ: Civ; row: ITechTreeRow }) {
             {row.items?.map((item, i) => (
                 <Fragment key={i}>
                     {isEmpty(item) && <Ability0 />}
-                    {item.unit && <Ability2 civ={civ} age={item.age} unit={item.unit as any} unique={item.unique} dependsOn={item.dependsOn} />}
-                    {item.tech && <Ability2 civ={civ} age={item.age} tech={item.tech as any} unique={item.unique} dependsOn={item.dependsOn} />}
-                    {item.building && <Ability2 civ={civ} age={item.age} building={item.building as any} unique={item.unique} dependsOn={item.dependsOn} />}
+                    {!!(item.unit) && <Ability2 civ={civ} age={item.age} unit={item.unit as any} unique={item.unique} dependsOn={item.dependsOn} />}
+                    {!!(item.tech) && <Ability2 civ={civ} age={item.age} tech={item.tech as any} unique={item.unique} dependsOn={item.dependsOn} />}
+                    {!!(item.building) && <Ability2 civ={civ} age={item.age} building={item.building as any} unique={item.unique} dependsOn={item.dependsOn} />}
                     {item.age && (!item.unit && !item.tech && !item.building) && <Ability3 age={item.age} />}
                 </Fragment>
             ))}

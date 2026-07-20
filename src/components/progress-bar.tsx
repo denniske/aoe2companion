@@ -31,7 +31,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ status = 'default', la
     const { color, borderColor, backgroundColor } = statusColors[status];
     return (
         <View>
-            {label && (
+            {!!(label) && (
                 <Text variant="label-xs" className="uppercase">
                     {label}
                 </Text>

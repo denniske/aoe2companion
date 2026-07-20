@@ -30,7 +30,7 @@ export const TournamentPlayerPopup: React.FC<{ id: string; title: string } & Pic
                 player && (
                     <View className="mt-4 gap-4">
                         <Card direction="horizontal" className="px-3 gap-3">
-                            {player.image && (
+                            {!!(player.image) && (
                                 <Image source={{ uri: player.image }} className="w-28" style={{ aspectRatio: 0.66 }} contentFit="contain" />
                             )}
                             <View className="gap-0.5 flex-1">

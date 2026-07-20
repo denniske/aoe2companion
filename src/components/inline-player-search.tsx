@@ -91,7 +91,7 @@ export const InlinePlayerSearch: React.FC<{
                 }}
             />
 
-            {(isFocused || text) && (
+            {!!(isFocused || text) && (
                 <View
                     className={cn(
                         'absolute -right-3 -left-3 bg-white dark:bg-black rounded-lg shadow-md dark:shadow-black',

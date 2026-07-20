@@ -121,7 +121,7 @@ export default function Snackbar(props: Props) {
                     className="flex-1 flex-row gap-x-2 items-center justify-between"
                     >
                     {
-                        working &&
+                        !!(working) &&
                         <ActivityIndicator animating size="small" color="#999"/>
                     }
                     <View style={styles.content}>

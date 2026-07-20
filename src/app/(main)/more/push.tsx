@@ -175,7 +175,7 @@ export default function PushPage() {
             <MyText>{accountId ? maskAccountId(accountId) : getTranslation('push.error.noaccount')}</MyText>
             <Space />
             <MyText>{pushToken ? maskToken(pushToken) : getTranslation('push.error.nopushtoken')}</MyText>
-            {notification && (
+            {!!(notification) && (
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                     <Space />
                     <MyText>{getTranslation('push.heading.notification')}:</MyText>
@@ -187,7 +187,7 @@ export default function PushPage() {
                 </View>
             )}
             <Space />
-            {pushToken && (
+            {!!(pushToken) && (
                 <>
                     <Button
                         onPress={async () => {
@@ -204,7 +204,7 @@ export default function PushPage() {
                     <MyText style={styles.note}>{getTranslation('push.action.sendtestnotification.note')}</MyText>
                 </>
             )}
-            {__DEV__ && (
+            {!!(__DEV__) && (
                 <>
                     <Space />
                     <Button

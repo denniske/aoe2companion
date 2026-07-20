@@ -31,14 +31,14 @@ export const TournamentParticipant: FC<{
             }}
             disabled={!participant.profileId}
         >
-            {participant.image && <Image source={{ uri: participant.image }} contentFit="contain" style={{ width: size * 2, height: size }} />}
+            {!!(participant.image) && <Image source={{ uri: participant.image }} contentFit="contain" style={{ width: size * 2, height: size }} />}
             <MyText
                 style={[styles.name, { fontSize: size }, { fontWeight: participant.profileId ? (bold ? 'bold' : '600') : 'normal' }]}
                 numberOfLines={1}
             >
                 {participant.name}
             </MyText>
-            {difficulty && <Image source={getDifficultyIcon(difficulty)} style={styles.difficulty} />}
+            {!!(difficulty) && <Image source={getDifficultyIcon(difficulty)} style={styles.difficulty} />}
         </TouchableOpacity>
     );
 };

@@ -36,7 +36,7 @@ export function TechCompBig({ tech: tech, showCivBanner: showCivBanner, canShowC
     if (!showTabBar && canShowCard) {
         return (
             <Card href={`/explore/technologies/${tech}`} direction="vertical" className="items-center w-40 mb-2 flex-1 relative">
-                {showCivBanner && civ && <Image className='absolute top-3 right-3 w-6 h-6' source={getCivIconLocal(civ)} />}
+                {!!(showCivBanner && civ) && <Image className='absolute top-3 right-3 w-6 h-6' source={getCivIconLocal(civ)} />}
 
                 <Image style={styles.unitIconBig} source={getTechIcon(tech)} />
 

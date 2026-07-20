@@ -26,12 +26,12 @@ export default function IconHeader(props: IconHeaderProps) {
                              contentFit="contain"
                              style={styles.image}>
                 {
-                    badgeIcon &&
+                    !!(badgeIcon) &&
                     <Image style={styles.unitIconBigBanner} source={badgeIcon}/>
                 }
                 <MyText style={subtitle ? styles.titleSmall : styles.title} numberOfLines={1}>{text}</MyText>
                 {
-                    subtitle &&
+                    !!(subtitle) &&
                     <MyText style={styles.subtitle} numberOfLines={1} onPress={onSubtitlePress}>{subtitle}</MyText>
                 }
             </ImageBackground>

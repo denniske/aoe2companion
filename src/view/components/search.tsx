@@ -83,7 +83,7 @@ export default function Search({ title, selectedUser, actionText, action, initia
 
     return (
         <View className="flex-1">
-            {title && <Text className="pt-4 text-center">{title}</Text>}
+            {!!(title) && <Text className="pt-4 text-center">{title}</Text>}
 
             <View className={cn('py-4', containerClassName)}>
                 <Field

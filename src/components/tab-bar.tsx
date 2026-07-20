@@ -162,7 +162,7 @@ export const TabBar: React.FC = () => {
                                 key={route.label}
                                 className={`justify-center items-center py-2 flex-1 ${isFocused && 'bg-blue-800 dark:bg-gold-700'} rounded-lg`}
                             >
-                                {route.icon && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon} />}
+                                {!!(route.icon) && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon} />}
                                 <Text allowFontScaling={false} variant="nav" color={isFocused ? 'white' : 'brand'} className={`uppercase mt-2`}>
                                     {label}
                                 </Text>

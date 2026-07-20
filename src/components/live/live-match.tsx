@@ -48,16 +48,16 @@ export function LiveMatch({ data, expanded = false, clickable }: IGameProps) {
                         </Text>
                         <Text numberOfLines={1}>
                             {data.gameModeName}
-                            {data.server && <MyText> - {data.server}</MyText>}
+                            {!!(data.server) && <MyText> - {data.server}</MyText>}
                         </Text>
                         <Text numberOfLines={1}>
                             {data.blockedSlotCount}/{data.totalSlotCount}
-                            {data.averageRating && <MyText> (~{data.averageRating})</MyText>}
+                            {!!(data.averageRating) && <MyText> (~{data.averageRating})</MyText>}
                         </Text>
                     </View>
                 </View>
             </Card>
-            {expanded && (
+            {!!(expanded) && (
                 <Card>
                     <View style={styles.playerList} className="gap-2">
                         <LivePlayer key={'header'} player={null} />

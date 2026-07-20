@@ -64,7 +64,7 @@ export const WebLeaderboard: React.FC = () => {
                 </View>
             </View>
 
-            {leaderboardId && <PlayerList leaderboardId={leaderboardId} search={search} />}
+            {!!(leaderboardId) && <PlayerList leaderboardId={leaderboardId} search={search} />}
         </View>
     );
 };
@@ -185,7 +185,7 @@ function PlayerList({ leaderboardId, search }: { leaderboardId: string; search: 
                 </View>
             )}
 
-            {isFetchingNextPage && <FlatListLoadingIndicator />}
+            {!!(isFetchingNextPage) && <FlatListLoadingIndicator />}
         </View>
     );
 }

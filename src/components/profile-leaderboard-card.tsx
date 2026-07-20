@@ -54,7 +54,7 @@ export const ProfileLeaderboardCard: React.FC<{
 
                     <View className="flex-1" />
 
-                    {canOpenModal && <Icon icon={faAngleRight} size={24} color="brand" />}
+                    {!!(canOpenModal) && <Icon icon={faAngleRight} size={24} color="brand" />}
                 </View>
 
                 <TextComponent variant="label-lg" color="subtle" className={cn('flex lg:hidden -my-2', !leaderboard && 'max-w-24')}>
@@ -171,7 +171,7 @@ export const ProfileLeaderboardCard: React.FC<{
                 </View>
             </Card>
 
-            {canOpenModal && (
+            {!!(canOpenModal) && (
                 <ProfileLeaderboardModal
                     name={leaderboard?.name}
                     isVisible={isVisible}

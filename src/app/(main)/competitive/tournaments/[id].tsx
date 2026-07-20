@@ -147,11 +147,11 @@ export default function TournamentDetail() {
                                 title={title}
                                 subtitle={
                                     <Text variant="label">
-                                        {validStart && formatCustom(start, 'LLL d')}
-                                        {validStart && validEnd && ' - '}
-                                        {validEnd && formatCustom(end, 'LLL d')}
-                                        {subtitle && (validStart || validEnd) && ' - '}
-                                        {subtitle && <Text variant="label-sm">{subtitle.replace(tournament?.game ?? '', '').trim()}</Text>}
+                                        {!!(validStart) && formatCustom(start, 'LLL d')}
+                                        {!!(validStart && validEnd) && ' - '}
+                                        {!!(validEnd) && formatCustom(end, 'LLL d')}
+                                        {!!(subtitle && (validStart || validEnd)) && ' - '}
+                                        {!!(subtitle) && <Text variant="label-sm">{subtitle.replace(tournament?.game ?? '', '').trim()}</Text>}
                                     </Text>
                                 }
                             />
@@ -215,7 +215,7 @@ export default function TournamentDetail() {
                                     image={(player) => <Image source={{ uri: player?.image }} className="w-7 h-3.5 my-2" contentFit="contain" />}
                                 />
 
-                                {tournament.participantsNote && showParticipantsNote && (
+                                {!!(tournament.participantsNote && showParticipantsNote) && (
                                     <View className="pb-4 px-4">
                                         <TournamentMarkdown>{tournament.participantsNote}</TournamentMarkdown>
                                     </View>
@@ -406,7 +406,7 @@ export default function TournamentDetail() {
                             <Text>{getTranslation('tournaments.schedulenotavailable')}</Text>
                         ) : null}
 
-                        {tournament.scheduleNote && (
+                        {!!(tournament.scheduleNote) && (
                             <View className="pb-4">
                                 <TournamentMarkdown>{tournament.scheduleNote}</TournamentMarkdown>
                             </View>
@@ -455,32 +455,32 @@ export default function TournamentDetail() {
                             <TournamentMarkdown textAlign="center">{tournament.description}</TournamentMarkdown>
 
                             <View className="gap-2 items-center">
-                                {tournament.organizer && (
+                                {!!(tournament.organizer) && (
                                     <Text variant="label-lg" align="center">
                                         {getTranslation('tournaments.organizer', { organizer: tournament.organizer })}
                                     </Text>
                                 )}
 
-                                {tournament.prizePool && (
+                                {!!(tournament.prizePool) && (
                                     <Text variant="label-lg" align="center">
                                         Prize Pool - {formatPrizePool(tournament.prizePool)}
                                     </Text>
                                 )}
 
-                                {tournament.tier && (
+                                {!!(tournament.tier) && (
                                     <Text variant="label-lg" align="center">
                                         Tier - {formatTier(tournament.tier)}
                                     </Text>
                                 )}
 
-                                {tournament.location && (
+                                {!!(tournament.location) && (
                                     <Text variant="label-lg" align="center">
                                         {countryCode ? `${flagEmojiDict[countryCode]} ` : ''}
                                         {tournament.location.name}
                                     </Text>
                                 )}
 
-                                {tournament.venue && (
+                                {!!(tournament.venue) && (
                                     <Text variant="label-lg" align="center">
                                         {getTranslation('tournaments.venue', { venue: tournament.venue })}
                                     </Text>
@@ -494,7 +494,7 @@ export default function TournamentDetail() {
                                     </Text>
                                 )}
 
-                                {tournament.league?.name && (
+                                {!!(tournament.league?.name) && (
                                     <View className="flex-row gap-2 mb-2 items-center">
                                         <Text variant="label-lg" align="center">
                                             {getTranslation('tournaments.series')}
@@ -532,7 +532,7 @@ export default function TournamentDetail() {
                                     </View>
                                 ) : null}
                             </View>
-                            {tournament.rules && (
+                            {!!(tournament.rules) && (
                                 <View className="gap-2">
                                     <Text variant="header">{getTranslation('tournaments.rules')}</Text>
                                     <Card direction="vertical">

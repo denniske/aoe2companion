@@ -76,7 +76,7 @@ export default function MatchInfo(props: Props) {
     return (
         <Card direction="vertical">
             <ScrollView horizontal contentContainerClassName="items-center gap-4 pb-2">
-                {tournament && (
+                {!!(tournament) && (
                     <Pressable
                         className="flex-row items-center gap-1"
                         onPress={() =>
@@ -121,7 +121,7 @@ export default function MatchInfo(props: Props) {
                     </Text>
                 )}
 
-                {match.pup && (
+                {!!(match.pup) && (
                     <View className="rounded-sm bg-gray-100 p-1 px-2 inline-block text-xs mr-1">
                         <Text>PUP</Text>
                     </View>

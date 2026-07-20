@@ -174,7 +174,7 @@ export default function AccountPage() {
                 </View>
             )}
 
-            {loggedIn && (
+            {!!(loggedIn) && (
                 <View className="gap-6">
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.profileinfo')}</Text>
@@ -241,7 +241,7 @@ export default function AccountPage() {
 
                         <Text variant="body">{getTranslation('account.link.description2')}</Text>
 
-                        {relicVerification && (
+                        {!!(relicVerification) && (
                             <>
                                 <Text variant="body">{getTranslation('account.relic.link.description')}</Text>
                                 <View className="flex-row gap-2">
@@ -265,7 +265,7 @@ export default function AccountPage() {
                         {/*)}*/}
                         {/*{account.data?.authRelicId && <LinkedAoEAccount profileId={account.data.authRelicId} />}*/}
 
-                        {linkedProfile && (
+                        {!!(linkedProfile) && (
                             <LinkedAvatarAccount
                                 profileId={linkedProfile.profileId}
                                 avatarUrl={linkedProfile.avatarFullUrl!}
@@ -274,7 +274,7 @@ export default function AccountPage() {
                             />
                         )}
 
-                        {(account.data?.steamId || account.data?.authRelicId) && (
+                        {!!(account.data?.steamId || account.data?.authRelicId) && (
                             <>
                                 <Button onPress={() => refreshAvatar()} className={'self-start mt-2'}>
                                     {getTranslation('account.refreshAvatar')}
@@ -282,13 +282,13 @@ export default function AccountPage() {
                             </>
                         )}
 
-                        {linkedProfile?.steamId && linkedProfile?.platform && (
+                        {!!(linkedProfile?.steamId && linkedProfile?.platform) && (
                             <LinkedPlatformAccount steamId={linkedProfile.steamId} platform={linkedProfile.platform} />
                         )}
-                        {linkedProfile && <LinkedAoEAccount profileId={linkedProfile.profileId} />}
-                        {linkedProfile && <LinkedAoECompanionAccount profileId={linkedProfile.profileId} />}
+                        {!!(linkedProfile) && <LinkedAoEAccount profileId={linkedProfile.profileId} />}
+                        {!!(linkedProfile) && <LinkedAoECompanionAccount profileId={linkedProfile.profileId} />}
 
-                        {(account.data?.steamId || account.data?.authRelicId) && (
+                        {!!(account.data?.steamId || account.data?.authRelicId) && (
                             <>
                                 <Button onPress={() => unlinkSteam()} className={'self-start mt-2'}>
                                     {getTranslation('account.unlink')}
@@ -345,7 +345,7 @@ export default function AccountPage() {
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.discord.title')}</Text>
                         <Text variant="body">{getTranslation('account.discord.description')}</Text>
-                        {account.data?.discordName && (
+                        {!!(account.data?.discordName) && (
                             <>
                                 <Text variant="label">{getTranslation('account.discord.channel')}</Text>
                                 <View className="flex-row gap-2 items-center">
@@ -353,7 +353,7 @@ export default function AccountPage() {
                                     <Text variant="body">{account.data.discordName}</Text>
                                 </View>
 
-                                {account.data.discordInvitation && (
+                                {!!(account.data.discordInvitation) && (
                                     <>
                                         <TouchableOpacity
                                             className="flex-row gap-2 items-center"

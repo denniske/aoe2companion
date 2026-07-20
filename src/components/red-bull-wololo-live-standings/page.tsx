@@ -92,7 +92,7 @@ export default function Page() {
                             View <span className="md:hidden lg:inline">Format</span> Details
                         </a>
 
-                        {isPastDeadline && (
+                        {!!(isPastDeadline) && (
                             <p className="text-xs italic text-center max-w-64">
                                 Please verify the qualified players from the{' '}
                                 <a href="https://www.ageofempires.com/stats/ageiidewololo/" target="_blank" rel="noreferrer" className="underline">

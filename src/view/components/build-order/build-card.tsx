@@ -33,7 +33,7 @@ export const BuildCard: React.FC<
                 className={cn('w-24 md:w-36 items-center justify-between gap-1', className)}
             >
                 <View className="w-full items-center justify-center">
-                    {build.imageURL && <Image source={{ uri: build.imageURL }} className="w-8 h-8 md:w-12 md:h-12" />}
+                    {!!(build.imageURL) && <Image source={{ uri: build.imageURL }} className="w-8 h-8 md:w-12 md:h-12" />}
                     {civIcon ? <Image className="w-5 h-5 md:w-8 md:h-8 absolute top-0 left-0" source={civIcon} /> : null}
                 </View>
 
@@ -50,7 +50,7 @@ export const BuildCard: React.FC<
 
     return (
         <Card href={`/explore/build-orders/${build.id}`} className={className}>
-            {build.imageURL && <Image source={{ uri: build.imageURL }} className="w-12 h-12" />}
+            {!!(build.imageURL) && <Image source={{ uri: build.imageURL }} className="w-12 h-12" />}
 
             <View className="flex-1 gap-0.5">
                 <View className="flex-row justify-between items-center gap-2">
@@ -80,7 +80,7 @@ export const BuildCard: React.FC<
                         <View className="flex-row gap-2 items-center">
                             {difficultyIcon && <Image className="w-6 h-6" source={difficultyIcon} />}
 
-                            {toggleFavorite && (
+                            {!!(toggleFavorite) && (
                                 <UserLoginWrapper Component={TouchableOpacity} hitSlop={10} onPress={toggleFavorite}>
                                     <Icon icon={favorited ? faHeartSolid : faHeartRegular} size={20} color="accent-[#ef4444]" />
                                 </UserLoginWrapper>

@@ -184,8 +184,8 @@ function Player<PlayerType extends IPlayerListPlayer>({
                     )}
                 </View>
                 <View className="flex-1 flex-row justify-end gap-2">
-                    {action && action(player)}
-                    {actionText && selectedUser && (
+                    {!!(action) && action(player)}
+                    {!!(actionText && selectedUser) && (
                         <Button size="small" onPress={() => selectedUser?.(player)} href={href}>
                             {actionText}
                         </Button>

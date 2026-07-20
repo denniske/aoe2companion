@@ -90,7 +90,7 @@ export function MatchCard(props: MatchCardProps) {
                                 <Icon size={isMedium ? 20 : 12} icon={faSkull} color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
                             )}
 
-                            {match.abandoned && (
+                            {!!(match.abandoned) && (
                                 <Icon size={isMedium ? 20 : 12} icon={faBan} color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
                             )}
 
@@ -110,7 +110,7 @@ export function MatchCard(props: MatchCardProps) {
                             <Text numberOfLines={1} variant="header-sm">
                                 {match.gameVariant === 'ror' && 'RoR - '}
                                 {match.mapName}
-                                {match.server && <Text> - {match.server}</Text>}
+                                {!!(match.server) && <Text> - {match.server}</Text>}
                             </Text>
                         </TouchableOpacity>
                     </MapLinkComponent>
@@ -120,7 +120,7 @@ export function MatchCard(props: MatchCardProps) {
                     <ElapsedTimeOrDuration match={match} />
                 </View>
 
-                {isLarge && (
+                {!!(isLarge) && (
                     <View className="flex-1 px-4">
                         <MatchTeams
                             match={match}

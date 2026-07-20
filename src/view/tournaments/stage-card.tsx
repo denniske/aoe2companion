@@ -49,9 +49,9 @@ export const StageCard: React.FC<StageCardProps> = ({ title, matches, ...props }
                     </Text>
                     {start || end ? <Icon icon={faMinus} size={12} color="subtle" /> : null}
                     <Text color="subtle">
-                        {start && formatCustom(start, 'LLL d')}
-                        {start && end && ' - '}
-                        {end && formatCustom(end, 'LLL d')}
+                        {!!(start) && formatCustom(start, 'LLL d')}
+                        {!!(start && end) && ' - '}
+                        {!!(end) && formatCustom(end, 'LLL d')}
                     </Text>
                 </View>
             </View>

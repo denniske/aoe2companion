@@ -22,13 +22,13 @@ export const PlayoffPlayer: FC<{ player: EventPlayerWithCiv; reverse?: boolean }
 
     return (
         <View style={[styles.player, reverse && { flexDirection: 'row-reverse' }]}>
-            {player.country && <CountryImage country={player.country.code} style={{}} />}
-            {player.name && (
+            {!!(player.country) && <CountryImage country={player.country.code} style={{}} />}
+            {!!(player.name) && (
                 <MyText style={styles.playerName} numberOfLines={1}>
                     {player.name}
                 </MyText>
             )}
-            {(civ ?? player.civilization) && (
+            {!!(civ ?? player.civilization) && (
                 <Image
                     source={getCivIconLocal(civ ?? player.civilization)}
                     style={[styles.civImage, !player.name && styles.civImageLarge]}

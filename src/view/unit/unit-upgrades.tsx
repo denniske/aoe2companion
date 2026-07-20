@@ -116,12 +116,12 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                                     </MyText>
                                 </Link>
 
-                                {(upgrade.effect[group.prop] || upgrade.civ) && (
+                                {!!(upgrade.effect[group.prop] || upgrade.civ) && (
                                     <MyText size="footnote">
                                         {' ('}
                                         {upgrade.effect[group.prop] ? upgrade.effect[group.prop] : ''}
                                         {upgrade.effect[group.prop] && upgrade.civ ? ', ' : ''}
-                                        {upgrade.civ && (
+                                        {!!(upgrade.civ) && (
                                             <>
                                                 <MyText size="footnote">only </MyText>
                                                 <Link asChild href={`/explore/civilizations/${upgrade.civ}`}>
@@ -139,7 +139,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                     ))}
                 </View>
             ))}
-            {upgradedFrom && (
+            {!!(upgradedFrom) && (
                 <View>
                     <Space />
                     <View style={styles.row}>

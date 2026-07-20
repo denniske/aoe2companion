@@ -16,8 +16,8 @@ export const Tag: React.FC<TagProps> = ({ leftComponent, children, icon, selecte
     return (
         <View style={[styles.tag, selected && styles.selectedTag, styles[size]]}>
             {leftComponent}
-            {icon && <Image style={styles.tagImage} source={icon} />}
-            {children && <MyText style={[styles.tagText, size === 'large' && { fontWeight: '600', fontSize: 14 }]}>{children}</MyText>}
+            {!!(icon) && <Image style={styles.tagImage} source={icon} />}
+            {!!(children) && <MyText style={[styles.tagText, size === 'large' && { fontWeight: '600', fontSize: 14 }]}>{children}</MyText>}
         </View>
     );
 };

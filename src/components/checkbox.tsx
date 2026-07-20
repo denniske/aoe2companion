@@ -21,7 +21,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({ checked, onPress, text, disa
     return (
         <TouchableOpacity activeOpacity={1} onPress={onPress} disabled={disabled}>
             <View className="flex flex-row items-center gap-2 p-2">
-                {checked && <Icon icon={faSquareCheck} color="brand" size={20} />}
+                {!!(checked) && <Icon icon={faSquareCheck} color="brand" size={20} />}
                 {!checked && <Icon icon={faSquare} color="brand" size={20} />}
                 <MyText>{text ?? (checked ? getTranslation('checkbox.active') : getTranslation('checkbox.inactive'))}</MyText>
             </View>

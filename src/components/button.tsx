@@ -50,9 +50,9 @@ export const Button: React.FC<ButtonProps> = ({
     return (
         <Wrapper asChild href={href!}>
             <Pressable className={`flex-row rounded items-center ${spacingSizes[size]} ${backgroundColor} ${className ?? ''}`} onPress={onPress}>
-                {image && <Image source={image} className='w-4 h-4' />}
-                {icon && <Icon color="white" icon={icon} size={14} />}
-                {children && (
+                {!!(image) && <Image source={image} className='w-4 h-4' />}
+                {!!(icon) && <Icon color="white" icon={icon} size={14} />}
+                {!!(children) && (
                     <Text
                         variant={textSizes[size]}
                         color={finalColor}

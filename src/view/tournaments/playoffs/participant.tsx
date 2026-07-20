@@ -16,7 +16,7 @@ export const PlayoffParticipant: React.FC<{ size?: number; participant: EventPar
 
     return (
         <View style={[styles.nameContainer, reversed && styles.reversed]}>
-            {participant.image && <Image source={{ uri: participant.image }} contentFit="contain" style={{ width: size * 2, height: size }} />}
+            {!!(participant.image) && <Image source={{ uri: participant.image }} contentFit="contain" style={{ width: size * 2, height: size }} />}
             <MyText numberOfLines={1} style={[{ fontSize: size, flex: 1, textAlign: reversed ? 'right' : 'left' }, winner && styles.winner]}>
                 {participant.name || getTranslation('tournaments.tbd')}
             </MyText>

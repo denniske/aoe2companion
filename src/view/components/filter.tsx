@@ -77,7 +77,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon, onPress 
                 </View>
             </TouchableOpacity>
 
-            {isFocused && (
+            {!!(isFocused) && (
                 <View style={styles.resultsContainer} className="shadow-md bg-white dark:bg-blue-900 overflow-hidden">
                     <FlatList
                         keyboardShouldPersistTaps="handled"
@@ -114,7 +114,7 @@ const ResultRow: React.FC<{
 
     return (
         <TouchableOpacity style={[styles.result, index === 0 && styles.highlightedResult]} onPress={onPress}>
-            {icon && <Image style={styles.icon} source={icon} />}
+            {!!(icon) && <Image style={styles.icon} source={icon} />}
             <MyText style={styles.name}>{label}</MyText>
         </TouchableOpacity>
     );

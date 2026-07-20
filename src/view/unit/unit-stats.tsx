@@ -328,7 +328,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
     return (
         <View style={styles.statsContainer}>
             <View style={[styles.statsRowHeader, { marginBottom: comparisonUnit ? 0 : 15 }]}>
-                {comparisonUnit && (
+                {!!(comparisonUnit) && (
                     <>
                         <MyText style={styles.cellName} />
                         <MyText style={styles.cellValue}>{getUnitName(unitId)}</MyText>
@@ -367,7 +367,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                         </View>
                     ))}
                 </View>
-                {comparisonUnit && (
+                {!!(comparisonUnit) && (
                     <View className="flex-row items-center gap-2" style={styles.cellValue}>
                         {sortResources(keysOf(baseData2!.Cost)).map((res) => (
                             <View key={res} className="flex-row items-center gap-1">

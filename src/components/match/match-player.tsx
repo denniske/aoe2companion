@@ -62,7 +62,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                         {player.name}
                     </Text>
                     {player.status === 'player' && player.verified && <Icon icon={faCheckCircle} color="brand" size={12} className="w-6" />}
-                    {twitch && (
+                    {!!(twitch) && (
                         <View className={reverse ? 'mr-2' : 'ml-2'}>
                             <TwitchBadge channelUrl={player?.socialTwitchChannelUrl} channel={player?.socialTwitchChannel} condensed />
                         </View>
@@ -89,7 +89,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 </Text>
             )}
 
-            {(match.finished || match.abandoned) && (
+            {!!(match.finished || match.abandoned) && (
                 <View className="w-5">
                     {player.won === true && (freeForAll || player.team != -1) && <Icon icon={faCrown} color="brand" />}
                     {player.won === false && (freeForAll || player.team != -1) && <Icon icon={faSkull} color="subtle" />}

@@ -57,7 +57,7 @@ export default function SearchPage() {
                 <View className="flex-row justify-between items-center gap-4 lg:gap-8">
                     <Text variant="header-lg">Rankings</Text>
 
-                    {leaderboards && leaderboard && (
+                    {!!(leaderboards && leaderboard) && (
                         <View className="w-full flex-1 hidden lg:flex">
                             <ButtonPicker
                                 flex={true}

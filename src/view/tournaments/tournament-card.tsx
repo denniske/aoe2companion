@@ -45,10 +45,10 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string; directio
                     {tournament.name.replace(tournament.game, '').trim()}
                 </Text>
                 <Text variant={direction === 'horizontal' ? 'body-sm' : 'body-xs'} numberOfLines={1}>
-                    {tournament.tier && formatTier(tournament.tier)} • {getTranslation(`tournaments.${status}date`, { start, end })} •{' '}
-                    {tournament.prizePool && formatPrizePool(tournament.prizePool)}
+                    {!!(tournament.tier) && formatTier(tournament.tier)} • {getTranslation(`tournaments.${status}date`, { start, end })} •{' '}
+                    {!!(tournament.prizePool) && formatPrizePool(tournament.prizePool)}
                 </Text>
-                {tournament.subtitle && (
+                {!!(tournament.subtitle) && (
                     <Text variant={direction === 'horizontal' ? 'body-sm' : 'body-xs'} numberOfLines={1}>
                         {tournament.subtitle}
                     </Text>
@@ -67,7 +67,7 @@ export const TournamentSkeletonCard: React.FC<{ direction: 'horizontal' | 'verti
             <View className={direction === 'horizontal' ? 'flex-1 gap-0.5' : 'items-center'}>
                 <SkeletonText variant={direction === 'horizontal' ? 'header-sm' : 'header-xs'} />
                 <SkeletonText variant={direction === 'horizontal' ? 'body-sm' : 'body-xs'} />
-                {subtitle && <SkeletonText variant={direction === 'horizontal' ? 'body-sm' : 'body-xs'} />}
+                {!!(subtitle) && <SkeletonText variant={direction === 'horizontal' ? 'body-sm' : 'body-xs'} />}
             </View>
         </Card>
     );

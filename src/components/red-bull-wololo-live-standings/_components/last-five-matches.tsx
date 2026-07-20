@@ -53,7 +53,7 @@ export const LastFiveMatches = ({
                     key={index}
                     className={`group w-4 h-4 relative flex items-center justify-center rounded-full text-md ${statusClass}`}
                 >
-                    {icon && <Icon icon={icon} color="white" size={10} />}
+                    {!!(icon) && <Icon icon={icon} color="white" size={10} />}
 
                     {!!match && won === null && (
                         <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-3 py-2 2xl:group-hover:scale-100 z-10 flex flex-row w-96 gap-3 items-center text-sm shadow-2xl transition-transform invisible group-hover:visible">

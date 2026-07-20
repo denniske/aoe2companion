@@ -511,7 +511,7 @@ export default function LeaderboardPage() {
                     <GestureDetector gesture={panGesture}>
                         <Animated.View style={[{ right: 0, opacity: handleVisible ? 1 : 0 }, styles.handle, handleAnimatedStyle]}>
                             <Icon icon={faArrowsAltV} size={22} className="mx-0 my-4.5" color="subtle" />
-                            {baseMoving && (
+                            {!!(baseMoving) && (
                                 <View style={styles.textContainer}>
                                     <View style={styles.textBox}>
                                         <AnimatedValueText value={handleStr} style={styles.text} />

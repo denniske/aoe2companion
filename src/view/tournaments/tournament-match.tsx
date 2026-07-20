@@ -24,7 +24,7 @@ export const TournamentMatch: React.FC<{ match: TournamentMatchProps; style?: Vi
 
     return (
         <Card direction="vertical" onPress={onPress ?? (() => setVisible(true))} disabled={match.participants.length < 2} style={style}>
-            {match.header && (
+            {!!(match.header) && (
                 <View className="flex-row gap-2">
                     <Text variant="label-sm" className="flex-1" numberOfLines={1}>
                         {match.header.name}
@@ -51,7 +51,7 @@ export const TournamentMatch: React.FC<{ match: TournamentMatchProps; style?: Vi
 
 export const TournamentMatchSkeleton: React.FC<{ style?: ViewStyle; header?: boolean }> = ({ style, header }) => (
     <Card direction="vertical" disabled style={style}>
-        {header && (
+        {!!(header) && (
             <View className="flex-row justify-between">
                 <SkeletonText variant="label-sm" />
                 <SkeletonText variant="body-sm" />

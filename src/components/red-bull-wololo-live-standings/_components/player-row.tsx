@@ -71,11 +71,11 @@ export const PlayerRow = ({
                             ></div>
                         </>
                     )}
-                    {rank && (
+                    {!!(rank) && (
                         <div className="flex gap-2 items-center relative">
                             <span>
                                 #{rank}
-                                {hasDuplicateRank && (
+                                {!!(hasDuplicateRank) && (
                                     <a className="hover:text-[#EAC65E] transition-colors" href="#rankdisclaimer">
                                         *
                                     </a>
@@ -90,7 +90,7 @@ export const PlayerRow = ({
                                     size={16}
                                 />
                             )}
-                            {hasDuplicateRank && (
+                            {!!(hasDuplicateRank) && (
                                 <div className="absolute top-8 left-1/2 -translate-x-1/2 mx-auto scale-0 bg-blue-800 rounded-lg border-gray-800 px-1.5 py-1.5 group-hover:scale-100 z-10 flex flex-row text-xs shadow-2xl transition-transform text-center italic w-36 whitespace-normal invisible group-hover:visible">
                                     In case of a tie between players, the player with the highest current rating will take precedence. <br />
                                     <br />
@@ -101,7 +101,7 @@ export const PlayerRow = ({
                         </div>
                     )}
 
-                    {showCurrentRank && (
+                    {!!(showCurrentRank) && (
                         <span className="text-xs text-gray-300 -mt-0.5 pl-1">
                             Current <span className="text-sm">#{player.rank}</span>
                         </span>

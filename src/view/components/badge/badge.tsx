@@ -45,7 +45,7 @@ export default function Badge(props: Props) {
                 {!!logoIcon && <Icon icon={logoIcon} color={logoColor} />}
                 {!!label && <MyText style={[styles.labelText, { color: labelTextColor }]}>{label}</MyText>}
             </View>
-            {(content || dot) && (
+            {!!(content || dot) && (
                 <View
                     style={{
                         backgroundColor: contentColor,
@@ -55,7 +55,7 @@ export default function Badge(props: Props) {
                         paddingVertical: 7,
                     }}
                 >
-                    {dot && <MyText style={{ color: '#e91a16', fontSize: 10, lineHeight: 14 }}>● </MyText>}
+                    {!!(dot) && <MyText style={{ color: '#e91a16', fontSize: 10, lineHeight: 14 }}>● </MyText>}
                     <MyText style={[styles.contentText, { color: contentTextColor }]}>{content}</MyText>
                 </View>
             )}

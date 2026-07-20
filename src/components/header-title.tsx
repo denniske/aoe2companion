@@ -52,7 +52,7 @@ export const HeaderTitle: React.FC<HeaderTitleProps> = ({
                 >
                     {title}
                 </TextComponent>
-                {subtitle && (
+                {!!(subtitle) && (
                     <TouchableOpacity onPress={() => openLink(subtitleLink!)} disabled={!subtitleLink}>
                         <TextComponent
                             alt

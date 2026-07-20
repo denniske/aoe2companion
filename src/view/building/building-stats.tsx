@@ -53,7 +53,7 @@ export function BuildingStats({ buildingId }: Props) {
 
             <View style={[styles.statsRowHeader, {marginBottom: comparisonUnit ? 0 : 15}]}>
                 {
-                    comparisonUnit &&
+                    !!(comparisonUnit) &&
                     <>
                         <MyText style={styles.cellName}/>
                         <MyText style={styles.cellValue}>{getBuildingName(buildingId)}</MyText>
@@ -85,7 +85,7 @@ export function BuildingStats({ buildingId }: Props) {
                     }
                 </View>
                 {
-                    comparisonUnit &&
+                    !!(comparisonUnit) &&
                     <View className="flex-row items-center gap-2" style={styles.cellValue}>
                         {
                             sortResources(keysOf(baseData2!.Cost)).map(res =>

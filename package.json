@@ -20,7 +20,8 @@
         "postinstall": "patch-package",
         "deploy": "bash deploy.sh",
         "app-update-types": "expo-type-information module-interface -m modules/app-update",
-        "log": "bash log.sh"
+        "log": "bash log.sh",
+        "lint": "biome lint src"
     },
     "dependencies": {
         "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
@@ -122,6 +123,7 @@
         "websocket": "^1.0.34"
     },
     "devDependencies": {
+        "@biomejs/biome": "2.5.4",
         "@types/compression": "^1",
         "@types/express": "^5",
         "@types/humps": "^2.0.6",

@@ -24,7 +24,7 @@ export const BuildRating: React.FC<IBuildOrder & { showCount?: boolean }> = ({ s
                         <Icon icon={faStarRegular} size={14} key={`unfilled-${index}`} color="brand" />
                     ))}
             </View>
-            {showCount && (
+            {!!(showCount) && (
                 <Text variant="header-xs" color="subtle">
                     {build.numberOfRatings}
                 </Text>

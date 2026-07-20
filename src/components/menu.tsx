@@ -351,9 +351,10 @@ export const MenuNew: FC<MenuProps> = ({
     return (
         <View>
             <View ref={(ref) => (anchorRef.current = ref) as any} collapsable={false}>
+                {/* biome-ignore lint/suspicious/noLeakedRender: anchor is a ReactNode, never a leakable primitive */}
                 {anchor == null ? null : anchor}
             </View>
-            {visible && (
+            {!!(visible) && (
                 <>
                     <RenderInPortal>
                         <GestureDetector gesture={tapGesture}>
