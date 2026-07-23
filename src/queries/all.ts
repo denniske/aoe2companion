@@ -1,4 +1,4 @@
-import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, queryOptions, useInfiniteQuery, useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import {
     fetchBuilds,
     fetchLeaderboards,
@@ -22,12 +22,17 @@ import { IFetchProfilesParams } from '@app/api/helper/api.types';
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
 
-export const useAccount = () => {
-    const account = useQuery({
+export const accountQueryOptions = () =>
+    queryOptions({
         queryKey: QUERY_KEY_ACCOUNT(),
         queryFn: async () => await fetchAccount(),
         staleTime: 10 * 1000, // 10s
     });
+
+export const useAccountSuspense = () => useSuspenseQuery(accountQueryOptions());
+
+export const useAccount = () => {
+    const account = useQuery(accountQueryOptions());
 
     const logout = async () => {
         await getSupabaseClient().auth.signOut();
@@ -106,13 +111,23 @@ export const useMatchAnalysisSvg = (matchId: number, enabled: boolean) => {
     });
 };
 
+const PROFILE_EXTEND = 'profiles.avatar_medium_url,profiles.avatar_full_url';
+
+export const profileFastQueryOptions = (profileId: number | null | undefined, language: string | undefined) =>
+    queryOptions({
+        queryKey: ['profile-fast', profileId],
+        queryFn: async () => {
+            if (!profileId) return null;
+            return (await fetchProfiles({ language: language!, profileIds: [profileId], extend: PROFILE_EXTEND })).profiles[0] ?? null;
+        },
+    });
+
 export const useProfileFast = (profileId: number | null | undefined, enabled: boolean = true) => {
     const language = useLanguage();
-    const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
     return useQuery({
         queryKey: ['profile-fast', profileId],
         queryFn: async () => {
-            return (await fetchProfiles({ language: language!, profileIds: [profileId!], extend })).profiles[0];
+            return (await fetchProfiles({ language: language!, profileIds: [profileId!], extend: PROFILE_EXTEND })).profiles[0];
         },
         enabled: !!language && !!profileId && enabled,
     });
@@ -160,6 +175,15 @@ export const useProfilesByClan = (clan?: string, enabled: boolean = true, params
         enabled: !!language && !!clan && enabled,
     });
 };
+
+export const profilesByProfileIdsQueryOptions = (profileIds: number[] | undefined, language: string | undefined) =>
+    queryOptions({
+        queryKey: ['profiles-by-profileids', profileIds],
+        queryFn: async () => {
+            if (!profileIds || profileIds.length === 0) return [];
+            return (await fetchProfiles({ language: language!, profileIds, extend: PROFILE_EXTEND })).profiles;
+        },
+    });
 
 export const useProfilesByProfileIds = (profileIds?: number[], enabled: boolean = true) => {
     const language = useLanguage();
