@@ -3,12 +3,12 @@ import { FlatList } from '@app/components/flat-list';
 import { FollowedPlayers } from '@app/components/followed-players';
 import { Link } from '@app/components/link';
 import { Match } from '@app/components/match/match';
-import { NewsCard, NewsCardSkeleton } from '@app/components/news-card';
+import { NewsList, NewsSection } from '@app/components/news-section';
+import { QueryBoundary } from '@app/components/query-boundary';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { useFollowedTournaments } from '@app/service/favorite-tournaments';
 import { useAccountMostRecentMatches } from '@app/utils/match';
-import { useNews } from '@app/utils/news';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
 import { Href, Stack } from 'expo-router';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -83,7 +83,6 @@ export default function IndexPage() {
     const tournaments = useFeaturedTournaments();
     const accountMostRecentMatches = useAccountMostRecentMatches(1);
     const accountMostRecentMatch = accountMostRecentMatches?.length ? accountMostRecentMatches[0] : null;
-    const { data: news = Array<null>(3).fill(null) } = useNews();
     const { favoriteIds } = useFavoritedBuilds();
     const { followedIds } = useFollowedTournaments();
     const showTabBar = useShowTabBar();
@@ -365,15 +364,9 @@ export default function IndexPage() {
 
             <View className="gap-2 pb-5 lg:pb-8">
                 <Text variant="header-lg">Recent News</Text>
-
-                <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerClassName="gap-4 px-4"
-                    className="-mx-4"
-                    horizontal
-                    data={news}
-                    renderItem={({ item }) => (item ? <NewsCard {...item} /> : <NewsCardSkeleton />)}
-                />
+                <QueryBoundary loadingFallback={<NewsList />} errorFallback={() => <NewsList />}>
+                    <NewsSection />
+                </QueryBoundary>
             </View>
 
             {appConfig.game === 'aoe2' && (

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { queryOptions, useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { appConfig } from '@nex/dataset';
 import { fetchNews } from '@app/api/helper/api';
@@ -32,13 +32,19 @@ export interface Rendered {
     rendered: string;
 }
 
-export const useNews = () => {
-    return useQuery({
+// Shared config so both the classic and the suspense variant stay in sync.
+export const newsQueryOptions = () =>
+    queryOptions({
         queryKey: ['news'],
         queryFn: fetchNews,
         refetchOnWindowFocus: true,
     });
-};
+
+export const useNews = () => useQuery(newsQueryOptions());
+
+// Suspense variant. Must render under a <Suspense> + error boundary
+// (see <QueryBoundary>). `data` is guaranteed defined and never in a loading state.
+export const useNewsSuspense = () => useSuspenseQuery(newsQueryOptions());
 
 export interface Media {
     id: number;
