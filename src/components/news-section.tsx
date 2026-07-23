@@ -19,7 +19,7 @@ export const NewsList = ({ news }: { news?: INewsResult }) => (
         contentContainerClassName="gap-4 px-4"
         className="-mx-4"
         horizontal
-        data={news || Array<null>(3).fill(null)}
+        data={news || Array<null>(5).fill(null)}
         renderItem={({ item }) => (item ? <NewsCard {...item} /> : <NewsCardSkeleton />)}
     />
 );
