@@ -1,7 +1,7 @@
 import { dateReviver, getHost } from '@nex/data';
 import { useFocusEffect } from 'expo-router';
 import produce from 'immer';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ICloseEvent, w3cwebsocket } from 'websocket';
 import { IMatchesMatch } from '../helper/api.types';
 import { makeQueryString } from '@app/api/helper/util';
@@ -19,43 +19,41 @@ interface IConnectionHandler {
     onClose?: (event: ICloseEvent) => void;
 }
 
-function initConnection(handler: IConnectionHandler, profileIds?: number[], verified?: boolean): Promise<w3cwebsocket> {
-    return new Promise((resolve) => {
-        const queryString = makeQueryString(
-            decamelizeKeys({
-                handler: 'ongoing-matches',
-                profileIds,
-                verified,
-            })
-        );
-        const url = `${getHost('aoe2companion-socket')}listen?${queryString}`;
-        // console.log('WebSocket URL', url);
-        const client = new w3cwebsocket(url);
+function initConnection(handler: IConnectionHandler, profileIds?: number[], verified?: boolean): w3cwebsocket {
+    const queryString = makeQueryString(
+        decamelizeKeys({
+            handler: 'ongoing-matches',
+            profileIds,
+            verified,
+        })
+    );
+    const url = `${getHost('aoe2companion-socket')}listen?${queryString}`;
+    // console.log('WebSocket URL', url);
+    const client = new w3cwebsocket(url);
 
-        // Resolve immediately (not in `onopen`) so the caller can always close the socket,
-        // even when it is closed again before the connection has been established.
-        resolve(client);
+    client.onopen = () => {
+        handler.onOpen?.();
+    };
 
-        client.onopen = () => {
-            handler.onOpen?.();
-        };
+    client.onmessage = (messageEvent) => {
+        const message = JSON.parse(messageEvent.data as string, dateReviver);
+        handler.onMessage?.(message);
+        if (message.type != 'pong') {
+            handler.onMatches?.(message);
+        }
+    };
 
-        client.onmessage = (messageEvent) => {
-            const message = JSON.parse(messageEvent.data as string, dateReviver);
-            handler.onMessage?.(message);
-            if (message.type != 'pong') {
-                handler.onMatches?.(message);
-            }
-        };
+    client.onerror = (error) => {
+        console.log('WebSocket client error', error);
+    };
 
-        client.onerror = (error) => {
-            console.log('WebSocket client error', error);
-        };
+    client.onclose = (event: ICloseEvent) => {
+        handler.onClose?.(event);
+    };
 
-        client.onclose = (event: ICloseEvent) => {
-            handler.onClose?.(event);
-        };
-    });
+    // The client is returned right away, so the caller can always close it, even before the
+    // connection has been established.
+    return client;
 }
 
 interface IMatchAddedEvent {
@@ -75,7 +73,7 @@ interface IMatchRemovedEvent {
 
 type IMatchEvent = IMatchAddedEvent | IMatchUpdatedEvent | IMatchRemovedEvent;
 
-export function initMatchSubscription(handler: IConnectionHandler, profileIds?: number[], verified?: boolean): Promise<w3cwebsocket> {
+export function initMatchSubscription(handler: IConnectionHandler, profileIds?: number[], verified?: boolean): w3cwebsocket {
     let _matches: any[] = [];
 
     return initConnection(
@@ -128,9 +126,16 @@ export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingPa
     const [connected, setConnected] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const focused = useIsFocused();
+    const socket = useRef<w3cwebsocket>(undefined);
 
-    const connect = async (_profileIds?: number[], _verified?: boolean) => {
-        return await initMatchSubscription(
+    const connect = (_profileIds?: number[], _verified?: boolean) => {
+        // There is nothing to subscribe to, e.g. a subscription by profile ids without any profile id
+        if (!enabled) return;
+
+        // Reconnecting would otherwise leave the previous socket open
+        socket.current?.close();
+
+        socket.current = initMatchSubscription(
             {
                 onOpen: () => {
                     setConnected(true);
@@ -148,21 +153,20 @@ export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingPa
             _profileIds,
             _verified,
         );
+
+        return socket.current;
     };
 
     useFocusEffect(() => {
-        if (!enabled) return;
-        let socket: w3cwebsocket | undefined;
-        let cancelled = false;
-        connect(profileIds, verified).then((s) => {
-            socket = s;
-            // The screen may already have been blurred/unmounted while the socket was being created.
-            if (cancelled) s.close();
-        });
-        setIsLoading(true);
+        if (enabled) {
+            connect(profileIds, verified);
+            setIsLoading(true);
+        }
+
+        // Cleaned up even when disabled, `connect` is also called by the caller
         return () => {
-            cancelled = true;
-            socket?.close();
+            socket.current?.close();
+            socket.current = undefined;
         };
     });
 

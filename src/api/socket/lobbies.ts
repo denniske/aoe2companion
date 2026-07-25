@@ -1,5 +1,5 @@
 import { ILobbiesMatch } from '@app/api/helper/api.types';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useFocusEffect } from 'expo-router';
 import { ICloseEvent, w3cwebsocket } from 'websocket';
 import { decamelizeKeys } from 'humps';
@@ -34,46 +34,44 @@ interface IConnectionHandler {
     onClose?: (event: ICloseEvent) => void;
 }
 
-function initConnection(handler: IConnectionHandler, profileIds?: number[], verified?: boolean, matchIds?: number[]): Promise<w3cwebsocket> {
-    return new Promise((resolve) => {
-        const queryString = makeQueryString(
-            decamelizeKeys({
-                handler: 'lobbies',
-                profileIds,
-                verified,
-                matchIds,
-            })
-        );
-        const url = `${getHost('aoe2companion-socket')}listen?${queryString}`;
-        // console.log('WebSocket URL', url);
-        const client = new w3cwebsocket(url);
+function initConnection(handler: IConnectionHandler, profileIds?: number[], verified?: boolean, matchIds?: number[]): w3cwebsocket {
+    const queryString = makeQueryString(
+        decamelizeKeys({
+            handler: 'lobbies',
+            profileIds,
+            verified,
+            matchIds,
+        })
+    );
+    const url = `${getHost('aoe2companion-socket')}listen?${queryString}`;
+    // console.log('WebSocket URL', url);
+    const client = new w3cwebsocket(url);
 
-        // Resolve immediately (not in `onopen`) so the caller can always close the socket,
-        // even when it is closed again before the connection has been established.
-        resolve(client);
+    client.onopen = () => {
+        console.log('WebSocket client connected');
+        handler.onOpen?.();
+    };
 
-        client.onopen = () => {
-            console.log('WebSocket client connected');
-            handler.onOpen?.();
-        };
+    client.onmessage = (messageEvent) => {
+        const message = JSON.parse(messageEvent.data as string);
+        handler.onMessage?.(message);
+        if (message.type != 'pong') {
+            handler.onLobbies?.(message);
+        }
+    };
 
-        client.onmessage = (messageEvent) => {
-            const message = JSON.parse(messageEvent.data as string);
-            handler.onMessage?.(message);
-            if (message.type != 'pong') {
-                handler.onLobbies?.(message);
-            }
-        };
+    client.onerror = (error) => {
+        console.log('WebSocket client error', error);
+    };
 
-        client.onerror = (error) => {
-            console.log('WebSocket client error', error);
-        };
+    client.onclose = (event: ICloseEvent) => {
+        console.log('WebSocket client closed', event);
+        handler.onClose?.(event);
+    };
 
-        client.onclose = (event: ICloseEvent) => {
-            console.log('WebSocket client closed', event);
-            handler.onClose?.(event);
-        };
-    });
+    // The client is returned right away, so the caller can always close it, even before the
+    // connection has been established.
+    return client;
 }
 
 interface ILobbyAddedEvent {
@@ -113,7 +111,7 @@ export function initLobbySubscription(
     profileIds?: number[],
     verified?: boolean,
     matchIds?: number[]
-): Promise<w3cwebsocket> {
+): w3cwebsocket {
     let _lobbies: any[] = [];
 
     return initConnection(
@@ -182,9 +180,16 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
     const [connected, setConnected] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const focused = useIsFocused();
+    const socket = useRef<w3cwebsocket>(undefined);
 
-    const connect = async (_profileIds?: number[], _verified?: boolean, _matchIds?: number[]) => {
-        return await initLobbySubscription(
+    const connect = (_profileIds?: number[], _verified?: boolean, _matchIds?: number[]) => {
+        // There is nothing to subscribe to, e.g. a subscription by match ids without any match id
+        if (!enabled) return;
+
+        // Reconnecting would otherwise leave the previous socket open
+        socket.current?.close();
+
+        socket.current = initLobbySubscription(
             {
                 onOpen: () => {
                     setConnected(true);
@@ -203,21 +208,20 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
             _verified,
             _matchIds,
         );
+
+        return socket.current;
     };
 
     useFocusEffect(() => {
-        if (!enabled) return;
-        let socket: w3cwebsocket | undefined;
-        let cancelled = false;
-        connect(profileIds, verified, matchIds).then((s) => {
-            socket = s;
-            // The screen may already have been blurred/unmounted while the socket was being created.
-            if (cancelled) s.close();
-        });
-        setIsLoading(true);
+        if (enabled) {
+            connect(profileIds, verified, matchIds);
+            setIsLoading(true);
+        }
+
+        // Cleaned up even when disabled, `connect` is also called by the caller
         return () => {
-            cancelled = true;
-            socket?.close();
+            socket.current?.close();
+            socket.current = undefined;
         };
     });
 

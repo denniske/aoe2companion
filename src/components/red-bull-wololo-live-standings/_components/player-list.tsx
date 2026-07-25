@@ -83,9 +83,9 @@ export function PlayerList({
         });
     };
 
-    const connect = async (profileIds?: number[]) => {
+    const connect = (profileIds?: number[]) => {
         setIsConnecting(true);
-        return await initMatchSubscription(
+        return initMatchSubscription(
             {
                 onOpen: () => {
                     setIsConnecting(false);
@@ -123,7 +123,8 @@ export function PlayerList({
 
     const openSocket = (profileIds: number[]) => {
         if (profileIds && profileIds.length > 0 && !isPastDeadline) {
-            connect(profileIds).then((s) => (socket.current = s));
+            closeSocket();
+            socket.current = connect(profileIds);
         }
     };
 
