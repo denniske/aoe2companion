@@ -90,6 +90,9 @@ export default function LeaderboardPage() {
     const [refetching, setRefetching] = useState(false);
     const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
     const [loadedLeaderboardCountry, setLoadedLeaderboardCountry] = useState(leaderboardCountry);
+    // Which query the currently-held rows actually came from, so the focus effect
+    // below can tell "came back to this screen" from "the query changed".
+    const [loadedLeaderboardId, setLoadedLeaderboardId] = useState<string | null>(null);
     const insets = useSafeAreaInsets();
     const flatListRef = React.useRef<FlatListRN>(null);
     const [contentOffsetY, setContentOffsetY] = useState<number>();
@@ -177,6 +180,7 @@ export default function LeaderboardPage() {
                 calcRankWidth(contentOffsetY);
 
                 setLoadedLeaderboardCountry(leaderboardCountry);
+                setLoadedLeaderboardId(leaderboardId);
 
                 // console.log('APPENDED', list.current);
                 // console.log('APPENDED', params);
@@ -236,7 +240,18 @@ export default function LeaderboardPage() {
         if (!leaderboardId) return;
         if (!isFocused) return;
         if (!showTabBar) return;
-        if (leaderboard.touched && leaderboard.lastParams?.leaderboardCountry === leaderboardCountry) return;
+        // Skip the reload when nothing about the query changed — otherwise merely
+        // returning to this screen (isFocused flipping back after visiting a
+        // player) reloads and scrollToOffset(0) throws away the user's position.
+        //
+        // This used to compare `leaderboard.lastParams?.leaderboardCountry`, which
+        // could never match: useLazyAppendApi stores `setLastParams(args)` — the
+        // arguments *array* — so every property read off it is undefined, while
+        // leaderboardCountry is a string or null. The guard was dead code and the
+        // screen reloaded on every refocus. Compare against what was actually
+        // loaded instead (both set in append). The id matters too, otherwise
+        // switching leaderboards within one country would skip its reload.
+        if (leaderboard.touched && loadedLeaderboardId === leaderboardId && loadedLeaderboardCountry === leaderboardCountry) return;
         list.current.length = Math.min(list.current.length, pageSize);
         listLength.set(Math.min(list.current.length, pageSize));
         publishRows();
