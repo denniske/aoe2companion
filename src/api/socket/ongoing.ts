@@ -32,9 +32,12 @@ function initConnection(handler: IConnectionHandler, profileIds?: number[], veri
         // console.log('WebSocket URL', url);
         const client = new w3cwebsocket(url);
 
+        // Resolve immediately (not in `onopen`) so the caller can always close the socket,
+        // even when it is closed again before the connection has been established.
+        resolve(client);
+
         client.onopen = () => {
             handler.onOpen?.();
-            resolve(client);
         };
 
         client.onmessage = (messageEvent) => {
@@ -93,10 +96,15 @@ export function initMatchSubscription(handler: IConnectionHandler, profileIds?: 
                                 Object.assign(match, event.data);
                                 handler.onMatchUpdated?.(match);
                                 break;
-                            case 'matchRemoved':
+                            case 'matchRemoved': {
+                                // `indexOf` is -1 for a match we never received, and `splice(-1, 1)`
+                                // would silently remove the last match of the list instead
+                                const index = matches.indexOf(match);
+                                if (index === -1) break;
                                 handler.onMatchRemoved?.(cloneDeep({ ...match, finished: new Date() }));
-                                matches.splice(matches.indexOf(match), 1);
+                                matches.splice(index, 1);
                                 break;
+                            }
                         }
                     }
                 });
@@ -144,10 +152,16 @@ export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingPa
 
     useFocusEffect(() => {
         if (!enabled) return;
-        let socket: w3cwebsocket;
-        connect(profileIds, verified).then((s) => (socket = s));
+        let socket: w3cwebsocket | undefined;
+        let cancelled = false;
+        connect(profileIds, verified).then((s) => {
+            socket = s;
+            // The screen may already have been blurred/unmounted while the socket was being created.
+            if (cancelled) s.close();
+        });
         setIsLoading(true);
         return () => {
+            cancelled = true;
             socket?.close();
         };
     });

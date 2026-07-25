@@ -48,10 +48,13 @@ function initConnection(handler: IConnectionHandler, profileIds?: number[], veri
         // console.log('WebSocket URL', url);
         const client = new w3cwebsocket(url);
 
+        // Resolve immediately (not in `onopen`) so the caller can always close the socket,
+        // even when it is closed again before the connection has been established.
+        resolve(client);
+
         client.onopen = () => {
             console.log('WebSocket client connected');
             handler.onOpen?.();
-            resolve(client);
         };
 
         let lastMessage = '';
@@ -140,9 +143,15 @@ export function initLobbySubscription(
                             case 'lobbyUpdated':
                                 Object.assign(lobby, event.data);
                                 break;
-                            case 'lobbyRemoved':
-                                lobbies.splice(lobbies.indexOf(lobby), 1);
+                            case 'lobbyRemoved': {
+                                // `indexOf` is -1 for a lobby we never received, and `splice(-1, 1)`
+                                // would silently remove the last lobby of the list instead
+                                const index = lobbies.indexOf(lobby);
+                                if (index !== -1) {
+                                    lobbies.splice(index, 1);
+                                }
                                 break;
+                            }
                             case 'slotAdded':
                                 lobby.players = lobby.players || [];
                                 lobby.players[event.data.slot] = event.data;
@@ -203,10 +212,16 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
 
     useFocusEffect(() => {
         if (!enabled) return;
-        let socket: w3cwebsocket;
-        connect(profileIds, verified, matchIds).then((s) => (socket = s));
+        let socket: w3cwebsocket | undefined;
+        let cancelled = false;
+        connect(profileIds, verified, matchIds).then((s) => {
+            socket = s;
+            // The screen may already have been blurred/unmounted while the socket was being created.
+            if (cancelled) s.close();
+        });
         setIsLoading(true);
         return () => {
+            cancelled = true;
             socket?.close();
         };
     });
