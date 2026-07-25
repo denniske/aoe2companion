@@ -1,5 +1,4 @@
 import { produce } from 'immer';
-import { useCallback } from 'react';
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
 import { IAccount, IConfig, IFollowingEntry, IPrefs, IScroll } from '../service/storage';
 import { Manifest } from 'expo-updates/build/Updates.types';
@@ -31,13 +30,18 @@ export function useMutate() {
  * dependency arrays (see useScrollView) without the effect re-running on every
  * render.
  *
- * This requires `ma` to be a stable reference too — declare action creators at
- * module scope, as below. Passing an arrow inline here would make `ma` a new
- * value each render and defeat the memoization.
+ * React Compiler provides the memoization — it caches the returned closure on
+ * `[dispatch, ma]`. No useCallback needed; adding one emits byte-identical code
+ * and only risks a `preserve-manual-memoization` bailout if the body later reads
+ * something the dep array misses.
+ *
+ * The stability does require `ma` to be a stable reference — declare action
+ * creators at module scope, as below. Passing an arrow inline would make `ma` a
+ * new value every render and defeat the cache.
  */
 export function useMutateAction(ma: StateMutationAction) {
     const dispatch = useDispatch();
-    return useCallback((...args: any[]) => dispatch(exec(ma(...args))), [dispatch, ma]);
+    return (...args: any[]) => dispatch(exec(ma(...args)));
 }
 
 const setScrollPositionAction: StateMutationAction = (scrollPosition: number) => (state) => {
