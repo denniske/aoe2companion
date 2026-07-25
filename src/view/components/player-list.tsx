@@ -6,7 +6,7 @@ import { faAngleRight, faCircleCheck, faPlus, faUser } from '@fortawesome/sharp-
 import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import { Href, Link } from 'expo-router';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
 import { Image } from '@/src/components/uniwind/image';
 import { useAuthProfileId } from '@app/queries/all';
@@ -52,17 +52,14 @@ function Player<PlayerType extends IPlayerListPlayer>({
     const { isMedium } = useBreakpoints();
     const authProfileId = useAuthProfileId();
 
-    const FullSkeleton = useMemo(
-        () => (
-            <>
-                <View className="w-7 h-7 md:w-12 md:h-12 items-center justify-center">
-                    <Skeleton className="w-6 h-6 md:w-10 md:h-10" />
-                </View>
-                <SkeletonText variant={isMedium ? 'label' : 'body-sm'} />
-                {footer ? footer() : <SkeletonText variant={isMedium ? 'body-sm' : 'body-xs'} />}
-            </>
-        ),
-        [footer]
+    const FullSkeleton = (
+        <>
+            <View className="w-7 h-7 md:w-12 md:h-12 items-center justify-center">
+                <Skeleton className="w-6 h-6 md:w-10 md:h-10" />
+            </View>
+            <SkeletonText variant={isMedium ? 'label' : 'body-sm'} />
+            {footer ? footer() : <SkeletonText variant={isMedium ? 'body-sm' : 'body-xs'} />}
+        </>
     );
 
     if (player === 'loading') {

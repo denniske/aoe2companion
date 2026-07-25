@@ -17,28 +17,15 @@ export default function UnitList() {
     const getTranslation = useTranslation();
     const [text, setText] = useState('');
     const [scrollReady, setScrollReady] = useState(false);
-    const [list, setList] = useState(allUnitSections);
     const { section } = useLocalSearchParams<{ section: string }>();
     const sectionList = useRef<SectionListRef>(null);
 
-    const refresh = () => {
-        const newSections = allUnitSections
-            .map((section) => ({
-                ...section,
-                data: section.data.filter((u) => {
-                    // if (unitLines[u]) {
-                    //     return unitLines[u].units.some(u => getUnitName(u).toLowerCase().includes(text.toLowerCase()));
-                    // }
-                    return getUnitName(u).toLowerCase().includes(text.toLowerCase());
-                }),
-            }))
-            .filter((section) => section.data.length > 0);
-        setList(newSections);
-    };
-
-    useEffect(() => {
-        refresh();
-    }, [text]);
+    const list = allUnitSections
+        .map((section) => ({
+            ...section,
+            data: section.data.filter((u) => getUnitName(u).toLowerCase().includes(text.toLowerCase())),
+        }))
+        .filter((section) => section.data.length > 0);
 
     useEffect(() => {
         if (section && scrollReady && sectionList.current) {

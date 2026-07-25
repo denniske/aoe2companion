@@ -16,28 +16,19 @@ import { containerClassName } from '@app/styles';
 export default function BuildingList() {
     const getTranslation = useTranslation();
     const [text, setText] = useState('');
-    const [list, setList] = useState(buildingSections);
     const [scrollReady, setScrollReady] = useState(false);
     const sectionList = useRef<SectionListRef>(null);
     const { section } = useLocalSearchParams<{ section: string }>();
 
-    const refresh = () => {
-        if (text.length == 0) {
-            setList(buildingSections);
-            return;
-        }
-        const newSections = buildingSections
-            .map((section) => ({
-                ...section,
-                data: section.data.filter((building) => getBuildingName(building).toLowerCase().includes(text.toLowerCase())),
-            }))
-            .filter((section) => section.data.length > 0);
-        setList(newSections);
-    };
-
-    useEffect(() => {
-        refresh();
-    }, [text]);
+    const list =
+        text.length == 0
+            ? buildingSections
+            : buildingSections
+                  .map((section) => ({
+                      ...section,
+                      data: section.data.filter((building) => getBuildingName(building).toLowerCase().includes(text.toLowerCase())),
+                  }))
+                  .filter((section) => section.data.length > 0);
 
     useEffect(() => {
         if (section && scrollReady && sectionList.current) {

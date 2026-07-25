@@ -25,6 +25,10 @@ export function LeaderboardOfficialSelect(props: Props) {
     const { data: allLeaderboards } = useLeaderboards();
     const leaderboards = useMemo(() => allLeaderboards?.filter(l => l.official), [allLeaderboards]);
 
+    const onLeaderboardIdSelected = (leaderboard: ILeaderboardDef) => {
+        onLeaderboardIdChange?.(leaderboard?.leaderboardId);
+    };
+
     useEffect(() => {
         if (!leaderboards) return;
 
@@ -71,10 +75,6 @@ export function LeaderboardOfficialSelect(props: Props) {
         } else {
             return <Icon icon={faComputerMouse} size={16} className="mr-2" />;
         }
-    };
-
-    const onLeaderboardIdSelected = (leaderboard: ILeaderboardDef) => {
-        onLeaderboardIdChange?.(leaderboard?.leaderboardId);
     };
 
     const loadingLeaderboard = false;

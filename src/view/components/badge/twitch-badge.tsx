@@ -19,12 +19,13 @@ interface Props {
 export default function TwitchBadge(props: Props) {
     const { channelUrl, channel, condensed } = props;
 
-    if (!channel || !channelUrl) return null;
-
     const { data: playerTwitchLive } = useQuery({
         queryKey: ['twitch-live', channel],
-        queryFn: () => twitchLive(channel),
+        queryFn: () => twitchLive(channel!),
+        enabled: !!channel,
     });
+
+    if (!channel || !channelUrl) return null;
 
     let label: string;
     let content: string;

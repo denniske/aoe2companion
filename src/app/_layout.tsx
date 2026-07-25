@@ -27,7 +27,7 @@ import { focusManager, QueryClientProvider } from '@tanstack/react-query';
 import * as Device from 'expo-device';
 import * as Notifications from '../service/notifications';
 import { Slot, SplashScreen, usePathname, useRootNavigationState, useRouter } from 'expo-router';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AppState, AppStateStatus, BackHandler, LogBox, Platform, StatusBar, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
@@ -539,12 +539,12 @@ function AppWrapper() {
         return () => subscription.remove();
     }, []);
 
-    const onLayoutRootView = useCallback(async () => {
+    const onLayoutRootView = async () => {
         if (fontsLoaded && supabaseInitialized) {
             SplashScreen.hide();
             markInteractive();
         }
-    }, [fontsLoaded, supabaseInitialized]);
+    };
 
     // if (!fontsLoaded || (cachedLanguage && !languageLoaded)) {
     if (!fontsLoaded || !supabaseInitialized) {

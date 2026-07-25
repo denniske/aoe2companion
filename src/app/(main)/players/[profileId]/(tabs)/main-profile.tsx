@@ -36,15 +36,15 @@ export default function MainProfile() {
     const activeRoute = state.routes[state.index];
     const isActiveRoute = route?.key === activeRoute?.key;
 
-    useWebRefresh(() => {
-        if (!isActiveRoute) return;
-        onRefresh();
-    }, [isActiveRoute]);
-
     const onRefresh = async () => {
         console.log('REFRESHING MAIN PROFILE');
         await Promise.all([refetch()]);
     };
+
+    useWebRefresh(() => {
+        if (!isActiveRoute) return;
+        onRefresh();
+    }, [isActiveRoute]);
 
     return (
         <View className="flex-1">

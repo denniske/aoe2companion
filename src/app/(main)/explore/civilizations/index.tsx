@@ -6,7 +6,7 @@ import { Civ, civs, getCivNameById, getCivTeamBonus, orderCivs, parseCivDescript
 import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
 import { Link, router, Stack } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { getCivIconLocal } from '../../../../helper/civs';
 import { useTranslation } from '@app/helper/translate';
@@ -15,27 +15,12 @@ import cn from 'classnames';
 import { containerClassName } from '@app/styles';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 
-type Mutable<Type> = {
-    -readonly [Key in keyof Type]: Type[Key];
-};
-
-function makeMutable<T>(a: T) {
-    return a as Mutable<T>;
-}
-
 export default function CivList() {
     const getTranslation = useTranslation();
     const [text, setText] = useState('');
-    const [list, setList] = useState(makeMutable(civs) as Civ[]);
     const { isMedium } = useBreakpoints();
 
-    const refresh = () => {
-        setList(civs.filter((civ) => getCivNameById(civ)?.toLowerCase().includes(text.toLowerCase())));
-    };
-
-    useEffect(() => {
-        refresh();
-    }, [text]);
+    const list = civs.filter((civ) => getCivNameById(civ)?.toLowerCase().includes(text.toLowerCase()));
 
     const aoe4CivInfo = useAoe4CivData();
 

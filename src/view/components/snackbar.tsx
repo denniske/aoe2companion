@@ -60,16 +60,6 @@ export default function Snackbar(props: Props) {
     const [hidden, setHidden] = useState(!visible);
     const prevVisible = usePrevious(visible);
 
-    useEffect(() => {
-        if (visible === prevVisible) return;
-        if (visible) {
-            show();
-        }
-        if (!visible) {
-            hide();
-        }
-    }, [visible]);
-
     const show = () => {
         setHidden(false);
         opacity.value = withTiming(1, { duration: 200 });
@@ -82,6 +72,16 @@ export default function Snackbar(props: Props) {
             }
         });
     };
+
+    useEffect(() => {
+        if (visible === prevVisible) return;
+        if (visible) {
+            show();
+        }
+        if (!visible) {
+            hide();
+        }
+    }, [visible]);
 
     const animatedStyle = useAnimatedStyle(() => {
         return {

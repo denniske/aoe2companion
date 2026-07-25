@@ -25,18 +25,35 @@ export function useMutate() {
     return (m: StateMutation) => dispatch(exec(m));
 }
 
+/**
+ * Returns a dispatcher with a *stable* identity, so callers can put it in effect
+ * dependency arrays (see useScrollView) without the effect re-running on every
+ * render.
+ *
+ * React Compiler provides the memoization — it caches the returned closure on
+ * `[dispatch, ma]`. No useCallback needed; adding one emits byte-identical code
+ * and only risks a `preserve-manual-memoization` bailout if the body later reads
+ * something the dep array misses.
+ *
+ * The stability does require `ma` to be a stable reference — declare action
+ * creators at module scope, as below. Passing an arrow inline would make `ma` a
+ * new value every render and defeat the cache.
+ */
 export function useMutateAction(ma: StateMutationAction) {
     const dispatch = useDispatch();
     return (...args: any[]) => dispatch(exec(ma(...args)));
 }
 
+const setScrollPositionAction: StateMutationAction = (scrollPosition: number) => (state) => {
+    state.scroll.scrollPosition = scrollPosition;
+};
+const setScrollToTopAction: StateMutationAction = (scrollToTop: string) => (state) => {
+    state.scroll.scrollToTop = scrollToTop;
+};
+
 export function useMutateScroll() {
-    const setScrollPosition = useMutateAction((scrollPosition: number) => (state) => {
-        state.scroll.scrollPosition = scrollPosition;
-    });
-    const setScrollToTop = useMutateAction((scrollToTop: string) => (state) => {
-        state.scroll.scrollToTop = scrollToTop;
-    });
+    const setScrollPosition = useMutateAction(setScrollPositionAction);
+    const setScrollToTop = useMutateAction(setScrollToTopAction);
 
     // const setScrollPosition = useMutateAction((scrollPosition: number) => (state) => (state.scroll.scrollPosition = scrollPosition));
     // const setScrollToTop = useMutateAction((scrollToTop: string) => (state) => (state.scroll.scrollToTop = scrollToTop));

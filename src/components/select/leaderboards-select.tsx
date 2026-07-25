@@ -19,12 +19,6 @@ export function LeaderboardsSelect(props: Props) {
     const savedLeaderboards = usePrefData((state) => state?.selectedLeaderboards);
     const savePrefsMutation = useSavePrefsMutation();
 
-    useEffect(() => {
-        if (savedLeaderboards) {
-            onLeaderboardIdSelected(savedLeaderboards);
-        }
-    }, [savedLeaderboards]);
-
     const { leaderboardIdList, onLeaderboardIdChange } = props;
     const theme = useAppTheme();
 
@@ -82,6 +76,12 @@ export function LeaderboardsSelect(props: Props) {
 
         onLeaderboardIdChange?.(leaderboardIds);
     };
+
+    useEffect(() => {
+        if (savedLeaderboards) {
+            onLeaderboardIdSelected(savedLeaderboards);
+        }
+    }, [savedLeaderboards]);
 
     const loadingLeaderboard = false;
 

@@ -31,7 +31,7 @@ import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
 import { Href, Redirect, router, Stack, Link as ExpoLink, RouteSegments } from 'expo-router';
 import { compact, orderBy, uniq } from 'lodash';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { ImageSourcePropType, Platform, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { useInfiniteBuilds, useMaps } from '@app/queries/all';
@@ -126,19 +126,17 @@ export default function Explore() {
     const getTranslation = useTranslation();
     const showTabBar = useShowTabBar();
     const { data: maps } = useMaps();
-    const techsList = useMemo<Array<ITechSection & { title?: string }>>(() => {
-        if (showTabBar) {
-            return techSections;
-        } else {
-            const uniqueTechs = techSections.flatMap((section) => (section.civ ? section.data : []));
-            const sections = techSections.filter((section) => !section.civ);
-
-            return [
-                ...sections.map((s) => ({ ...s, title: s.building ?? s.civ })),
-                { title: getTranslation('unit.section.unique'), civ: undefined, building: undefined, data: uniqueTechs },
-            ];
-        }
-    }, [techSections]);
+    const techsList: Array<ITechSection & { title?: string }> = showTabBar
+        ? techSections
+        : [
+              ...techSections.filter((section) => !section.civ).map((s) => ({ ...s, title: s.building ?? s.civ })),
+              {
+                  title: getTranslation('unit.section.unique'),
+                  civ: undefined,
+                  building: undefined,
+                  data: techSections.flatMap((section) => (section.civ ? section.data : [])),
+              },
+          ];
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBuilds({});
     const builds = data?.pages?.flatMap((p) => p.builds);

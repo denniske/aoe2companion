@@ -5,7 +5,7 @@ import { Text } from '@app/components/text';
 import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
 import { Link, router, Stack } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { useMaps } from '@app/queries/all';
@@ -17,14 +17,12 @@ import { containerClassName } from '@app/styles';
 export default function MapsIndex() {
     const getTranslation = useTranslation();
     const [text, setText] = useState('');
-    const [list, setList] = useState<IMap[]>([]);
     const { data: maps } = useMaps();
 
-    useEffect(() => {
-        const filtered = compact(maps).filter((map) => map.mapName?.toLowerCase()?.includes(text.toLowerCase()));
-        const ordered = orderBy(filtered, (map) => map.mapName);
-        setList(ordered);
-    }, [maps, text]);
+    const list = orderBy(
+        compact(maps).filter((map) => map.mapName?.toLowerCase()?.includes(text.toLowerCase())),
+        (map) => map.mapName
+    );
 
     const renderItem = (map: IMap, index: number) => (
             <Link href={`/explore/maps/${map.mapId}`} asChild key={map.mapId}>

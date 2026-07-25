@@ -51,7 +51,7 @@ export default function Timeseries({ teams, metric, title, description, explanat
             yKeys: teams.flatMap((team) => team.players).map((p) => p.color),
             data,
         };
-    }, [teams]);
+    }, [teams, metric]);
 
     const showExplanation = () => {
         showAlert(title, explanation || 'No additional explanation available.');

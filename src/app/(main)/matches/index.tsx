@@ -54,16 +54,16 @@ export default function MatchesPage() {
         placeholderData: keepPreviousData,
     });
 
-    useWebRefresh(() => {
-        if (!isActiveRoute) return;
-        onRefresh();
-    }, [isActiveRoute]);
-
     const onRefresh = async () => {
         setRefetching(true);
         await refetch();
         setRefetching(false);
     };
+
+    useWebRefresh(() => {
+        if (!isActiveRoute) return;
+        onRefresh();
+    }, [isActiveRoute]);
 
     useEffect(() => {
         if (matchId && !refetching) {

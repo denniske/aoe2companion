@@ -26,6 +26,10 @@ export default function UpdateSnackbar() {
     const updateState = useSelector(state => state.updateState);
     const mutate = useMutate();
 
+    const close = () => {
+        mutate(setUpdateAvailable(false));
+    };
+
     const init = async () => {
         if (Constants.expoConfig == null) return;
         if (updateManifest !== undefined) return;
@@ -60,10 +64,6 @@ export default function UpdateSnackbar() {
 
     const restart = async () => {
         await reloadAsync();
-    };
-
-    const close = () => {
-        mutate(setUpdateAvailable(false));
     };
 
     let message = '';

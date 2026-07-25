@@ -1,5 +1,5 @@
 import { useFocusEffect } from 'expo-router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Platform, ScrollView, ScrollViewProps, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { useMutateScroll, useScrollToTop } from '@app/redux/reducer';
@@ -46,21 +46,19 @@ export const useScrollView = ({
         }
     }, [scrollToTop, horizontal]);
 
-    useFocusEffect(
-        useCallback(() => {
-            if (!horizontal) {
-                if (localScrollPosition === undefined) {
-                    if (scrollReady) {
-                        setTimeout(() => {
-                            setLocalScrollPosition((localScrollPosition) => (localScrollPosition === undefined ? 0 : localScrollPosition));
-                        }, 100);
-                    }
-                } else {
-                    setScrollPosition(localScrollPosition);
+    useFocusEffect(() => {
+        if (!horizontal) {
+            if (localScrollPosition === undefined) {
+                if (scrollReady) {
+                    setTimeout(() => {
+                        setLocalScrollPosition((localScrollPosition) => (localScrollPosition === undefined ? 0 : localScrollPosition));
+                    }, 100);
                 }
+            } else {
+                setScrollPosition(localScrollPosition);
             }
-        }, [localScrollPosition, scrollReady, horizontal])
-    );
+        }
+    });
 
     return {
         onLayout: (e) => {

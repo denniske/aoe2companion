@@ -20,7 +20,7 @@ import { v3Shadow } from '@app/components/shadow';
 import { Gesture, GestureDetector, TapGestureHandler } from 'react-native-gesture-handler';
 import { RenderInPortal } from '@app/components/portal/render-in-portal';
 import * as React from 'react';
-import { FC, MutableRefObject, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, MutableRefObject, ReactNode, useEffect, useRef, useState } from 'react';
 import { KeyboardEvent as RNKeyboardEvent } from 'react-native/Libraries/Components/Keyboard/Keyboard';
 
 const WINDOW_LAYOUT = Dimensions.get('window');
@@ -94,14 +94,14 @@ export const MenuNew: FC<MenuProps> = ({
     const menuRef = useRef<View | null>(null);
     const prevRendered = useRef(false);
 
-    const keyboardDidShow = useCallback((e: RNKeyboardEvent) => {
+    const keyboardDidShow = (e: RNKeyboardEvent) => {
         const keyboardHeight = e.endCoordinates.height;
         keyboardHeightRef.current = keyboardHeight;
-    }, []);
+    };
 
-    const keyboardDidHide = useCallback(() => {
+    const keyboardDidHide = () => {
         keyboardHeightRef.current = 0;
-    }, []);
+    };
 
     const keyboardDidShowListenerRef: MutableRefObject<EmitterSubscription | undefined> = useRef(undefined);
     const keyboardDidHideListenerRef: MutableRefObject<EmitterSubscription | undefined> = useRef(undefined);
@@ -109,28 +109,25 @@ export const MenuNew: FC<MenuProps> = ({
     const backHandlerSubscriptionRef: MutableRefObject<NativeEventSubscription | undefined> = useRef(undefined);
     const dimensionsSubscriptionRef: MutableRefObject<NativeEventSubscription | undefined> = useRef(undefined);
 
-    const handleDismiss = useCallback(() => {
+    const handleDismiss = () => {
         if (visible) {
             onDismiss?.();
         }
-    }, [onDismiss, visible]);
+    };
 
-    const handleKeypress = useCallback(
-        (e: KeyboardEvent) => {
-            if (e.key === 'Escape') {
-                onDismiss?.();
-            }
-        },
-        [onDismiss]
-    );
+    const handleKeypress = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            onDismiss?.();
+        }
+    };
 
-    const removeListeners = useCallback(() => {
+    const removeListeners = () => {
         // backHandlerSubscriptionRef.current?.remove();
         // dimensionsSubscriptionRef.current?.remove();
         // isBrowser() && document.removeEventListener('keyup', handleKeypress);
-    }, [handleKeypress]);
+    };
 
-    const attachListeners = useCallback(() => {
+    const attachListeners = () => {
         // backHandlerSubscriptionRef.current = addEventListener(
         //     BackHandler,
         //     'hardwareBackPress',
@@ -142,7 +139,7 @@ export const MenuNew: FC<MenuProps> = ({
         //     handleDismiss
         // );
         // Platform.OS === 'web' && document.addEventListener('keyup', handleKeypress);
-    }, [handleDismiss, handleKeypress]);
+    };
 
     const measureMenuLayout = () =>
         new Promise<LayoutRectangle>((resolve) => {
@@ -153,24 +150,21 @@ export const MenuNew: FC<MenuProps> = ({
             }
         });
 
-    const measureAnchorLayout = useCallback(
-        () =>
-            new Promise<LayoutRectangle>((resolve) => {
-                if (anchorRef.current) {
-                    anchorRef.current.measureInWindow((x: any, y: any, width: any, height: any) => {
-                        resolve({ x, y, width, height });
-                    });
-                }
-            }),
-        [anchor]
-    );
+    const measureAnchorLayout = () =>
+        new Promise<LayoutRectangle>((resolve) => {
+            if (anchorRef.current) {
+                anchorRef.current.measureInWindow((x: any, y: any, width: any, height: any) => {
+                    resolve({ x, y, width, height });
+                });
+            }
+        });
 
     // console.log('left, top', left, top);
     // console.log('anchorLayout', anchorLayout);
     // console.log('menuLayout', menuLayout);
     // console.log('windowLayout', windowLayout);
 
-    const show = useCallback(async () => {
+    const show = async () => {
         // console.log('==> SHOW');
 
         const windowLayoutResult = Dimensions.get('window');
@@ -200,7 +194,10 @@ export const MenuNew: FC<MenuProps> = ({
 
         setLeft(anchorLayoutResult.x);
         setTop(anchorLayoutResult.y + (Platform.OS === 'web' ? window.scrollY : 0));
-        setRight(windowLayout.width - anchorLayoutResult.x - anchorLayoutResult.width);
+        // Use the freshly measured window width, not the `windowLayout` state: on the
+        // first show that state is still the module-level default, so `right` was
+        // computed from the wrong width.
+        setRight(windowLayoutResult.width - anchorLayoutResult.x - anchorLayoutResult.width);
 
         // console.log('windowLayout.width', windowLayout.width)
         // console.log('_left', _left)
@@ -245,9 +242,9 @@ export const MenuNew: FC<MenuProps> = ({
         // });
 
         prevRendered.current = true;
-    }, [anchor, attachListeners, measureAnchorLayout, theme]);
+    };
 
-    const hide = useCallback(() => {
+    const hide = () => {
         // console.log('==> HIDE');
 
         removeListeners();
@@ -271,28 +268,25 @@ export const MenuNew: FC<MenuProps> = ({
         setMenuLayout({ width: 0, height: 0 });
         setRendered(false);
         prevRendered.current = false;
-    }, [removeListeners, theme]);
+    };
 
-    const updateVisibility = useCallback(
-        async (display: boolean) => {
-            // console.log('==> updateVisibility', display);
+    const updateVisibility = async (display: boolean) => {
+        // console.log('==> updateVisibility', display);
 
-            // Menu is rendered in Portal, which updates items asynchronously
-            // We need to do the same here so that the ref is up-to-date
-            await Promise.resolve().then(() => {
-                if (display && !prevRendered.current) {
-                    show();
-                } else {
-                    if (rendered) {
-                        hide();
-                    }
+        // Menu is rendered in Portal, which updates items asynchronously
+        // We need to do the same here so that the ref is up-to-date
+        await Promise.resolve().then(() => {
+            if (display && !prevRendered.current) {
+                show();
+            } else {
+                if (rendered) {
+                    hide();
                 }
+            }
 
-                return;
-            });
-        },
-        [hide, show, rendered]
-    );
+            return;
+        });
+    };
 
     useEffect(() => {
         // const opacityAnimation = opacityAnimationRef.current;
