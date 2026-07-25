@@ -13,6 +13,10 @@ jobs:
 
     react-compiler:
         name: React Compiler
+        # `push` already covers every commit pushed to this repo, so a same-repo PR
+        # would run this a second time on the identical commit. Let `pull_request`
+        # through only for forks, where no push event fires here.
+        if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
         runs-on: ubuntu-24.04
         steps:
             -   name: Checkout
