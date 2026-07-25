@@ -1,4 +1,5 @@
 import { produce } from 'immer';
+import { useCallback } from 'react';
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
 import { IAccount, IConfig, IFollowingEntry, IPrefs, IScroll } from '../service/storage';
 import { Manifest } from 'expo-updates/build/Updates.types';
@@ -25,18 +26,30 @@ export function useMutate() {
     return (m: StateMutation) => dispatch(exec(m));
 }
 
+/**
+ * Returns a dispatcher with a *stable* identity, so callers can put it in effect
+ * dependency arrays (see useScrollView) without the effect re-running on every
+ * render.
+ *
+ * This requires `ma` to be a stable reference too — declare action creators at
+ * module scope, as below. Passing an arrow inline here would make `ma` a new
+ * value each render and defeat the memoization.
+ */
 export function useMutateAction(ma: StateMutationAction) {
     const dispatch = useDispatch();
-    return (...args: any[]) => dispatch(exec(ma(...args)));
+    return useCallback((...args: any[]) => dispatch(exec(ma(...args))), [dispatch, ma]);
 }
 
+const setScrollPositionAction: StateMutationAction = (scrollPosition: number) => (state) => {
+    state.scroll.scrollPosition = scrollPosition;
+};
+const setScrollToTopAction: StateMutationAction = (scrollToTop: string) => (state) => {
+    state.scroll.scrollToTop = scrollToTop;
+};
+
 export function useMutateScroll() {
-    const setScrollPosition = useMutateAction((scrollPosition: number) => (state) => {
-        state.scroll.scrollPosition = scrollPosition;
-    });
-    const setScrollToTop = useMutateAction((scrollToTop: string) => (state) => {
-        state.scroll.scrollToTop = scrollToTop;
-    });
+    const setScrollPosition = useMutateAction(setScrollPositionAction);
+    const setScrollToTop = useMutateAction(setScrollToTopAction);
 
     // const setScrollPosition = useMutateAction((scrollPosition: number) => (state) => (state.scroll.scrollPosition = scrollPosition));
     // const setScrollToTop = useMutateAction((scrollToTop: string) => (state) => (state.scroll.scrollToTop = scrollToTop));

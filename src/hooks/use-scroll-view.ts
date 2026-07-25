@@ -59,7 +59,7 @@ export const useScrollView = ({
                     setScrollPosition(localScrollPosition);
                 }
             }
-        }, [localScrollPosition, scrollReady, horizontal])
+        }, [localScrollPosition, scrollReady, horizontal, setScrollPosition])
     );
 
     return {
