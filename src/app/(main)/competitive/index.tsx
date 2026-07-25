@@ -20,7 +20,7 @@ import { Stack, useFocusEffect } from 'expo-router';
 import { PlayoffMatch } from 'liquipedia';
 import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Linking, Platform, TouchableOpacity, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { useTranslation } from '@app/helper/translate';
@@ -92,83 +92,88 @@ export default function Competitive() {
         setShowSetPopup(true);
     }, [selectedSet]);
 
-    // Keep these useCallbacks: this component bails out of React Compiler (it has
-    // optional chaining inside a try/catch, which the compiler does not support
-    // yet), so the callback identity is not memoized for us. `yarn lint:compiler`
-    // will say when that changes.
-    useFocusEffect(
-        useCallback(() => {
-            setIsVideoPlaying(false);
+    useFocusEffect(() => {
+        setIsVideoPlaying(false);
 
-            return () => {
-                setIsVideoPlaying(false);
-            };
-        }, [])
-    );
+        return () => {
+            setIsVideoPlaying(false);
+        };
+    });
 
     const { data: featuredTournaments, isLoading } = useFeaturedTournaments();
 
     const playTwitchStream = async () => {
-        if (Platform.OS === 'ios') {
-            try {
-                if (Platform.OS === 'ios' && (await Linking.canOpenURL(liveTwitchAppUrl!))) {
-                    await Linking.openURL(liveTwitchAppUrl!);
-                } else {
-                    await openLinkWithCheck(liveTwitchUrl!);
-                }
-            } catch (e: any) {
-                showAlert(e.message);
-            }
-        } else {
+        if (Platform.OS !== 'ios') {
             setIsVideoPlaying(true);
+            return;
+        }
+        try {
+            // Pulled out of the `if` condition on purpose: a logical expression
+            // inside a try/catch makes React Compiler bail out on the whole
+            // component. Plain `if` statements are fine.
+            const canOpenInApp = await Linking.canOpenURL(liveTwitchAppUrl!);
+            if (canOpenInApp) {
+                await Linking.openURL(liveTwitchAppUrl!);
+            } else {
+                await openLinkWithCheck(liveTwitchUrl!);
+            }
+        } catch (e: any) {
+            showAlert(e.message);
         }
     };
 
     const embedRef = useRef<HTMLDivElement>(null);
     const [embedId, setEmbedId] = useState(`twitch-embed-${getUnixTime(new Date())}`);
 
-    useFocusEffect(
-        useCallback(() => {
-            setEmbedId(`twitch-embed-${getUnixTime(new Date())}`);
-            if (Platform.OS === 'web' && liveTwitch) {
-                // Guard against the script's onload firing after we've already
-                // navigated away — otherwise it would spin up a fresh embed on a
-                // hidden screen with nothing left to tear it down.
-                let cancelled = false;
+    useFocusEffect(() => {
+        setEmbedId(`twitch-embed-${getUnixTime(new Date())}`);
+        if (Platform.OS === 'web' && liveTwitch) {
+            // Guard against the script's onload firing after we've already
+            // navigated away — otherwise it would spin up a fresh embed on a
+            // hidden screen with nothing left to tear it down.
+            let cancelled = false;
 
-                const script = document.createElement('script');
-                script.src = 'https://embed.twitch.tv/embed/v1.js';
-                script.async = true;
-                script.onload = () => {
-                    if (cancelled || !embedRef.current) return;
-                    player.current = new (window as any).Twitch.Embed(embedRef.current.id, {
-                        width: '100%',
-                        height: isMedium ? 540 : 320,
-                        channel: liveTwitch.user_login,
-                    });
-                };
-                document.body.appendChild(script);
+            const script = document.createElement('script');
+            script.src = 'https://embed.twitch.tv/embed/v1.js';
+            script.async = true;
+            script.onload = () => {
+                if (cancelled || !embedRef.current) return;
+                player.current = new (window as any).Twitch.Embed(embedRef.current.id, {
+                    width: '100%',
+                    height: isMedium ? 540 : 320,
+                    channel: liveTwitch.user_login,
+                });
+            };
+            document.body.appendChild(script);
 
-                return () => {
-                    cancelled = true;
-                    if (script.parentNode) {
-                        document.body.removeChild(script);
+            return () => {
+                cancelled = true;
+                if (script.parentNode) {
+                    document.body.removeChild(script);
+                }
+                try {
+                    // Spelled out rather than `player.current?.getPlayer()?.pause()`:
+                    // optional chaining inside a try/catch makes React Compiler
+                    // bail out on the whole component.
+                    const embed = player.current;
+                    if (embed) {
+                        const embedPlayer = embed.getPlayer();
+                        if (embedPlayer) {
+                            embedPlayer.pause();
+                        }
                     }
-                    try {
-                        player.current?.getPlayer()?.pause();
-                    } catch {
-                        // player may not be ready yet
-                    }
-                    player.current = null;
-                    // Remove the iframe entirely; pausing alone doesn't reliably
-                    // stop playback once the screen is hidden in the stack.
-                    if (embedRef.current) {
-                        embedRef.current.innerHTML = '';
-                    }
-                };
-            }
-        }, [liveTwitch, isMedium])
-    );
+                } catch {
+                    // player may not be ready yet
+                }
+                player.current = null;
+                // Remove the iframe entirely; pausing alone doesn't reliably
+                // stop playback once the screen is hidden in the stack.
+                if (embedRef.current) {
+                    embedRef.current.innerHTML = '';
+                }
+            };
+        }
+    });
 
     return (
         <ScrollView className="flex-1" contentContainerClassName="pb-4">

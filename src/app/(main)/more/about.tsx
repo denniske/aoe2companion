@@ -60,10 +60,14 @@ export default function AboutPage() {
             const storeUpdate = await doCheckForStoreUpdate();
             setDebugStoreUpdate(JSON.stringify(storeUpdate));
 
-            if (storeUpdate?.isAvailable) {
-                mutate(setUpdateStoreManifest(storeUpdate));
-                setState('');
-                return;
+            // Nested `if` rather than `storeUpdate?.isAvailable`: optional chaining
+            // inside a try/catch makes React Compiler bail out.
+            if (storeUpdate) {
+                if (storeUpdate.isAvailable) {
+                    mutate(setUpdateStoreManifest(storeUpdate));
+                    setState('');
+                    return;
+                }
             }
         } catch (e: any) {
             setState('');
@@ -84,9 +88,12 @@ export default function AboutPage() {
         // navigation.navigate('Error');
         // }
 
+        // Resolved outside the try: a logical expression inside a try/catch makes
+        // React Compiler bail out on the whole component.
+        const manifest = Constants.expoConfig || { empty: true };
         try {
             // delete Constants.expoConfig?.assets;
-            setDebugManifest(JSON.stringify(Constants.expoConfig || { empty: true }, null, 4));
+            setDebugManifest(JSON.stringify(manifest, null, 4));
         } catch (e) {}
     };
 

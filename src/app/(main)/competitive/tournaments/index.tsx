@@ -22,10 +22,15 @@ export default function TournamentsList() {
     const { data: allTournaments = [], ...query } = useUpcomingTournaments();
     const [search, setSearch] = useState('');
     const theme = useAppTheme();
+    // Keys are bound to locals first: React Compiler cannot lower a computed key
+    // that is a call expression, and bails out on the whole component.
+    const ongoingTitle = getTranslation('tournaments.ongoing');
+    const upcomingTitle = getTranslation('tournaments.upcoming');
+    const recentTitle = getTranslation('tournaments.recent');
     const subtitleMap = {
-        [getTranslation('tournaments.ongoing')]: getTranslation('tournaments.sortedbytier'),
-        [getTranslation('tournaments.upcoming')]: getTranslation('tournaments.sortedbydate'),
-        [getTranslation('tournaments.recent')]: getTranslation('tournaments.sortedbydate'),
+        [ongoingTitle]: getTranslation('tournaments.sortedbytier'),
+        [upcomingTitle]: getTranslation('tournaments.sortedbydate'),
+        [recentTitle]: getTranslation('tournaments.sortedbydate'),
     };
     const filteredTournaments = useMemo(() => {
         const sections: { title: string; data: Tournament[] }[] = [];
@@ -78,7 +83,7 @@ export default function TournamentsList() {
             : query.isFetching || Platform.OS === 'web'
               ? []
               : [{ title: getTranslation('tournaments.noresults'), data: [] }];
-    }, [allTournaments, search, query.isFetching]);
+    }, [allTournaments, search, query.isFetching, getTranslation]);
 
     const refreshControlProps = useRefreshControl(query);
 
