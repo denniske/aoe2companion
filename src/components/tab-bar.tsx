@@ -57,19 +57,19 @@ export const TabBar: React.FC = () => {
     const opacity = useSharedValue(1);
 
     const animatedStyle = useAnimatedStyle(() => ({
-        opacity: opacity.value,
+        opacity: opacity.get(),
         bottom: bottom,
     }));
 
     const animatedArrowStyle = useAnimatedStyle(() => ({
         pointerEvents: 'box-none',
         bottom,
-        opacity: interpolate(opacity.value, [0, 1], [1, 0]),
+        opacity: interpolate(opacity.get(), [0, 1], [1, 0]),
     }));
 
     useEffect(() => {
         const toValue = showTabBar ? 1 : 0;
-        opacity.value = withTiming(toValue, { duration: 500 });
+        opacity.set(withTiming(toValue, { duration: 500 }));
     }, [showTabBar]);
 
     const routes: Array<{ key: string; additionalRoutes: string[]; label: string; icon: IconDefinition; path: Href }> = [

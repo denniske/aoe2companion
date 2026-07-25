@@ -21,12 +21,18 @@ export const BuildFocus: React.FC<{
     const flatListRef = useRef<FlatList>(null);
     const theme = useAppTheme();
 
-    const viewAbilityConfigCallbackPairs = useRef(({ changed, viewableItems }: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => {
+    // FlatList does not support onViewableItemsChanged changing identity between
+    // renders, which is why this used to be parked in a useRef — but reading
+    // `.current` during render is itself a rules-of-react violation and took the
+    // component out of React Compiler. It only closes over setCurrentStep, which is
+    // stable, so the compiler caches it once per instance and the identity is just
+    // as stable as the ref was.
+    const handleViewableItemsChanged = ({ changed, viewableItems }: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => {
         if (changed) {
             const viewableSteps = viewableItems.map((item) => item.index ?? 0);
             setCurrentStep(viewableSteps[0]);
         }
-    });
+    };
 
     const goToStep = (step: number) => {
         const newStep = Math.max(step, 0);
@@ -62,7 +68,7 @@ export const BuildFocus: React.FC<{
                         viewabilityConfig={{
                             itemVisiblePercentThreshold: 100,
                         }}
-                        onViewableItemsChanged={viewAbilityConfigCallbackPairs.current}
+                        onViewableItemsChanged={handleViewableItemsChanged}
                         className="flex-1 bg-white dark:bg-blue-950"
                         data={build.build}
                         ref={flatListRef}

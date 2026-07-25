@@ -143,6 +143,15 @@ export default function LeaderboardPage() {
 
     const language = useLanguage();
 
+    // Declared above their first use: the append callback below and several
+    // handlers read these, and referencing them before declaration made React
+    // Compiler bail out on the whole screen.
+    const handleOffsetY = useSharedValue<number>(0);
+    const movingScrollHandle = useSharedValue(false);
+    const scrollRange = useSharedValue(0);
+    const listLength = useSharedValue(0);
+    const positionY = useSharedValue(0);
+
     const leaderboard = useLazyAppendApi(
         {
             append: (data, newData, args) => {
@@ -152,7 +161,7 @@ export default function LeaderboardPage() {
                 total.current = newData.total;
                 total2.current = newData.total;
                 list.current.length = newData.total;
-                listLength.value = newData.total;
+                listLength.set(newData.total);
                 newData.players.forEach((value, index) => (list.current[(params.page! - 1) * pageSize + index] = value));
 
                 calcRankWidth(contentOffsetY);
@@ -219,7 +228,7 @@ export default function LeaderboardPage() {
         if (!showTabBar) return;
         if (leaderboard.touched && leaderboard.lastParams?.leaderboardCountry === leaderboardCountry) return;
         list.current.length = Math.min(list.current.length, pageSize);
-        listLength.value = Math.min(list.current.length, pageSize);
+        listLength.set(Math.min(list.current.length, pageSize));
         leaderboard.reload();
         // if (auth) {
         //     myRank.reload();
@@ -330,9 +339,9 @@ export default function LeaderboardPage() {
     }, [contentOffsetY, fetchingPages.current]);
 
     const updateScrollHandlePosition = (contentOffsetY: number) => {
-        if (movingScrollHandle.value) return;
-        positionY.value = (contentOffsetY / (list.current.length * ROW_HEIGHT)) * scrollRange.value;
-        console.log('updateScrollHandlePosition', 'contentOffsetY:', contentOffsetY, 'positionY:', positionY.value);
+        if (movingScrollHandle.get()) return;
+        positionY.set((contentOffsetY / (list.current.length * ROW_HEIGHT)) * scrollRange.get());
+        console.log('updateScrollHandlePosition', 'contentOffsetY:', contentOffsetY, 'positionY:', positionY.get());
     };
 
     const handleOnScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -363,23 +372,12 @@ export default function LeaderboardPage() {
     };
 
     const inactivityTimeout = useRef<number | undefined>(undefined);
-    const handleOffsetY = useSharedValue<number>(0);
-
-    // const movingScrollHandle = useRef<boolean>();
-    const movingScrollHandle = useSharedValue(false);
-
-    // const scrollRange = useRef<number>(0);
-    const scrollRange = useSharedValue(0);
-
-    const listLength = useSharedValue(0);
-
     const scollingFlatlist = useRef<boolean>(false);
     const [handleVisible, setHandleVisible] = useState(true);
     const [baseMoving, setBaseMoving] = useState(false);
 
-    const positionY = useSharedValue(0);
     const handleAnimatedStyle = useAnimatedStyle(() => {
-        return { top: positionY.value };
+        return { top: positionY.get() };
     });
 
     const scrollFlatListTo = (offset: number) => {
@@ -392,9 +390,9 @@ export default function LeaderboardPage() {
         () =>
             Gesture.Pan()
                 .onBegin(() => {
-                    handleOffsetY.value = positionY.value;
-                    console.log('onBegin', 'handleOffsetY:', handleOffsetY.value, 'positionY:', positionY.value);
-                    movingScrollHandle.value = true;
+                    handleOffsetY.set(positionY.get());
+                    console.log('onBegin', 'handleOffsetY:', handleOffsetY.get(), 'positionY:', positionY.get());
+                    movingScrollHandle.set(true);
                     scheduleOnRN(setBaseMoving, true);
                 })
                 .onUpdate((e) => {
@@ -404,29 +402,29 @@ export default function LeaderboardPage() {
                     // positionY.value = next;
 
                     const min = 0;
-                    const max = scrollRange.value;
-                    const next = Math.max(Math.min(handleOffsetY.value + e.translationY, max), min);
-                    positionY.value = next;
+                    const max = scrollRange.get();
+                    const next = Math.max(Math.min(handleOffsetY.get() + e.translationY, max), min);
+                    positionY.set(next);
                     console.log(
                         'onUpdate',
                         next,
                         'handleOffsetY:',
-                        handleOffsetY.value,
+                        handleOffsetY.get(),
                         'e.translationY:',
                         e.translationY,
                         'scrollRange:',
-                        scrollRange.value
+                        scrollRange.get()
                     );
                 })
                 .onEnd(() => {
-                    const offset = positionY.value;
+                    const offset = positionY.get();
                     // const newOffset = (offset / scrollRange.value) * total.value * ROW_HEIGHT;
-                    const newOffset = (offset / scrollRange.value) * listLength.value * ROW_HEIGHT;
+                    const newOffset = (offset / scrollRange.get()) * listLength.get() * ROW_HEIGHT;
                     scheduleOnRN(scrollFlatListTo, newOffset);
-                    movingScrollHandle.value = false;
+                    movingScrollHandle.set(false);
                     scheduleOnRN(setBaseMoving, false);
-                    handleOffsetY.value = 0;
-                    console.log('onEnd', 'listLength:', listLength.value);
+                    handleOffsetY.set(0);
+                    console.log('onEnd', 'listLength:', listLength.get());
                 }),
         []
     );
@@ -449,7 +447,7 @@ export default function LeaderboardPage() {
 
     // const text = useDerivedValue(() => `#${positionY.value}`);
     // const text = useDerivedValue(() => ((positionY.value / scrollRange.value)).toFixed());
-    const handleStr = useDerivedValue(() => '#' + ((positionY.value / scrollRange.value) * listLength.value).toFixed());
+    const handleStr = useDerivedValue(() => '#' + ((positionY.get() / scrollRange.get()) * listLength.get()).toFixed());
 
     if (!showTabBar) {
         return <WebLeaderboard />;
@@ -491,7 +489,7 @@ export default function LeaderboardPage() {
                         // called later so it will work anyway
                         if (currentTarget && !(currentTarget as any)?.scrollTo) return;
 
-                        scrollRange.value = layout.height - HANDLE_RADIUS * 2 - bottom;
+                        scrollRange.set(layout.height - HANDLE_RADIUS * 2 - bottom);
                     }}
                     scrollEventThrottle={500}
                     // contentContainerClassName="pt-2 pb-4"
