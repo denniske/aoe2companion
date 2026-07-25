@@ -39,7 +39,6 @@ import { Icon } from '@app/components/icon';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 
 const ROW_HEIGHT = 45;
-const ROW_HEIGHT_MY_RANK = 52;
 
 const pageSize = 100;
 
@@ -216,26 +215,6 @@ export default function LeaderboardPage() {
     //     flatListRef.current?.scrollToIndex({ animated: false, index, viewPosition: 0, viewOffset: -headerHeightAndPadding });
     // };
 
-    const scrollToMe = () => {
-        // scrollToIndex(101-1);
-        // console.log('leaderboardCountry', leaderboardCountry);
-        // if (leaderboardCountry == 'following') {
-        //     const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
-        //     if (meIndex >= 0) {
-        //         scrollToIndex(meIndex);
-        //     }
-        // } else if (leaderboardCountry?.startsWith('clan:')) {
-        //     const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
-        //     if (meIndex >= 0) {
-        //         scrollToIndex(meIndex);
-        //     }
-        // } else if (leaderboardCountry == countryEarth) {
-        //     scrollToIndex(myRank.data.players[0].rank - 1);
-        // } else {
-        //     scrollToIndex(myRank.data.players[0].rankCountry - 1);
-        // }
-    };
-
     useEffect(() => {
         if (!leaderboardId) return;
         if (!isFocused) return;
@@ -278,18 +257,16 @@ export default function LeaderboardPage() {
     // own; the useCallback is kept only because its deps are already correct and
     // removing it buys nothing.
     const _renderRow = useCallback(
-        (player: ILeaderboardPlayer, i: number, isMyRankRow?: boolean) => {
+        (player: ILeaderboardPlayer, i: number) => {
             logPlayer('INIT', i, player);
             return (
                 <MemoizedRenderRow
                     player={player}
                     i={i}
                     leaderboardCountry={loadedLeaderboardCountry}
-                    isMyRankRow={isMyRankRow}
                     rankWidth={rankWidth}
                     myRankWidth={myRankWidth}
                     onSelect={onSelect}
-                    scrollToMe={scrollToMe}
                 />
             );
         },
@@ -568,11 +545,9 @@ interface RenderRowProps {
     player: ILeaderboardPlayer;
     i: number;
     leaderboardCountry: string | null;
-    isMyRankRow?: boolean;
     rankWidth?: number;
     myRankWidth?: number;
     onSelect: (player: ILeaderboardPlayer) => void;
-    scrollToMe: () => void;
 }
 
 function logPlayer(str: string, i: number, player: ILeaderboardPlayer, leaderboardCountry?: string | null) {
@@ -584,13 +559,19 @@ function logPlayer(str: string, i: number, player: ILeaderboardPlayer, leaderboa
 
 function RenderRow(props: RenderRowProps) {
     const getTranslation = useTranslation();
-    const { player, i, isMyRankRow, rankWidth, myRankWidth, onSelect, scrollToMe, leaderboardCountry } = props;
+    const { player, i, rankWidth, myRankWidth, onSelect, leaderboardCountry } = props;
 
     const styles = useStyles();
     const authProfileId = useAuthProfileId();
 
     const isMe = player?.profileId != null && player?.profileId === authProfileId;
-    const rowStyle = { minHeight: isMyRankRow ? ROW_HEIGHT_MY_RANK : ROW_HEIGHT };
+    // Fixed height, not minHeight: getItemLayout below promises the list that
+    // every row is exactly ROW_HEIGHT. A row that rendered taller made the real
+    // layout disagree with that promise, so when a page landed and placeholder
+    // rows filled with content the list corrected itself — yanking the scroll
+    // position backwards and killing momentum mid-fling. Nothing here wraps
+    // (rank and name are both numberOfLines={1}), so pinning the height is safe.
+    const rowStyle = { height: ROW_HEIGHT };
     const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
     const rankWidthStyle = { width: Math.max(myRankWidth || 43, rankWidth || 43) } as TextStyle;
 
@@ -600,8 +581,8 @@ function RenderRow(props: RenderRowProps) {
     logPlayer('RENDER', i, player, leaderboardCountry);
 
     return (
-        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => (isMyRankRow ? scrollToMe() : onSelect(player))}>
-            <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
+        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => onSelect(player)}>
+            <View style={styles.innerRowWithBorder}>
                 <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>
                     #{isCountry(leaderboardCountry) ? player?.rankCountry : player?.rank || i + 1}
                 </TextLoader>
@@ -799,14 +780,6 @@ const useStyles = createStylesheet((theme) =>
             // width: '100%',
             // flex: 3,
             flex: 1,
-        },
-        innerRow: {
-            // backgroundColor: 'red',
-            flex: 1,
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: 15,
         },
         innerRowWithBorder: {
             // backgroundColor: 'green',
