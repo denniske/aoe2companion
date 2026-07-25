@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { useMutateScroll, useScrollToTop } from '@app/redux/reducer';
 import { useShowTabBar } from './use-show-tab-bar';
 
-export interface UseScrollViewProps extends Pick<ScrollViewProps, 'horizontal' | 'onScroll' | 'onLayout' | 'scrollEnabled'> {
+export interface UseScrollViewProps extends Pick<ScrollViewProps, 'horizontal' | 'onScroll' | 'onLayout' | 'scrollEnabled' | 'scrollEventThrottle'> {
     contentContainerStyle?: string;
     ref: React.ForwardedRef<any>;
 }
@@ -16,6 +16,7 @@ export const useScrollView = ({
     onLayout,
     ref,
     scrollEnabled,
+    scrollEventThrottle,
 }: UseScrollViewProps): Omit<ScrollViewProps, 'hitSlop'> & { ref: React.RefObject<any> } & { initialNumToRender?: number } => {
     const showTabBar = useShowTabBar();
     const shouldDisableScroll = !showTabBar && !horizontal;
@@ -65,7 +66,12 @@ export const useScrollView = ({
             onLayout?.(e);
             setScrollReady(true);
         },
-        scrollEventThrottle: 16,
+        // flat-list.tsx spreads these *after* the caller's props, so a hardcoded
+        // value here silently overrode any scrollEventThrottle a screen set for
+        // itself. The leaderboard asks for 500 precisely because every scroll
+        // event re-renders a list of tens of thousands of rows; it was getting 16
+        // and re-rendering ~60x/second while flinging.
+        scrollEventThrottle: scrollEventThrottle ?? 16,
         onScroll: (event) => {
             onScroll?.(event);
             if (!horizontal) {
