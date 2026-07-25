@@ -57,12 +57,7 @@ function initConnection(handler: IConnectionHandler, profileIds?: number[], veri
             handler.onOpen?.();
         };
 
-        let lastMessage = '';
-
         client.onmessage = (messageEvent) => {
-            if (lastMessage === messageEvent.data) return;
-            lastMessage = messageEvent.data as string;
-
             const message = JSON.parse(messageEvent.data as string);
             handler.onMessage?.(message);
             if (message.type != 'pong') {
