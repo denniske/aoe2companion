@@ -1,14 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { useAppTheme } from '../../../../theming';
 import { LiveMatch } from '@app/components/live/live-match';
-import { ILobbiesMatch } from '../../../../api/helper/api.types';
 import { Stack } from 'expo-router';
 import { Field } from '@app/components/field';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { FlatList } from '@app/components/flat-list';
 import { useTranslation } from '@app/helper/translate';
-import { initLobbySubscription } from '@app/api/socket/lobbies';
+import { useLobbies } from '@app/api/socket/lobbies';
 import { Text } from '@app/components/text';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
@@ -23,31 +22,9 @@ export default function LiveLobbiesPage() {
     const [search, setSearch] = useState('');
     const [limit, setLimit] = useState(20);
 
-    const [data, setData] = useState<ILobbiesMatch[]>([]);
-    const [isConnecting, setIsConnecting] = useState(true);
-    const [connected, setConnected] = useState(false);
-
-    const connect = async () => {
-        setIsConnecting(true);
-
-        await initLobbySubscription({
-            onOpen: () => {
-                setConnected(true);
-            },
-            onClose: () => {
-                setIsConnecting(false);
-                setConnected(false);
-            },
-            onLobbies: (_lobbies: any[]) => {
-                setIsConnecting(false);
-                setData(_lobbies);
-            },
-        });
-    };
-
-    useEffect(() => {
-        connect();
-    }, []);
+    // `useLobbies` subscribes while the screen is focused and closes the socket on blur. The screen
+    // stays mounted when navigating away, so a plain `useEffect` would keep the socket open forever.
+    const { lobbies: data, isLoading: isConnecting } = useLobbies({});
 
     const filteredData = useMemo(() => {
         const parts = search.toLowerCase().split(' ');
