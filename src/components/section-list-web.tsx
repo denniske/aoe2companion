@@ -1,6 +1,6 @@
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { noop } from 'lodash';
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 import { SectionListProps, View } from 'react-native';
 
 export function SectionListWeb<ItemT>({
@@ -12,17 +12,15 @@ export function SectionListWeb<ItemT>({
     const params = useLocalSearchParams<{ section?: string }>();
     const refs = useRef<Array<HTMLDivElement>>([]);
 
-    useFocusEffect(
-        useCallback(() => {
-            const section = params.section;
-            if (section) {
-                const index = sections.findIndex((s) => s.title === section);
-                if (index !== -1 && refs.current[index]) {
-                    refs.current[index]?.scrollIntoView({ behavior: 'smooth' });
-                }
+    useFocusEffect(() => {
+        const section = params.section;
+        if (section) {
+            const index = sections.findIndex((s) => s.title === section);
+            if (index !== -1 && refs.current[index]) {
+                refs.current[index]?.scrollIntoView({ behavior: 'smooth' });
             }
-        }, [params.section, sections])
-    );
+        }
+    });
 
     return (
         <View className={contentContainerClassName}>

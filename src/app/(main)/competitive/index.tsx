@@ -92,6 +92,10 @@ export default function Competitive() {
         setShowSetPopup(true);
     }, [selectedSet]);
 
+    // Keep these useCallbacks: this component bails out of React Compiler (it has
+    // optional chaining inside a try/catch, which the compiler does not support
+    // yet), so the callback identity is not memoized for us. `yarn lint:compiler`
+    // will say when that changes.
     useFocusEffect(
         useCallback(() => {
             setIsVideoPlaying(false);

@@ -1,5 +1,5 @@
 import { ILobbiesMatch } from '@app/api/helper/api.types';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useFocusEffect } from 'expo-router';
 import { ICloseEvent, w3cwebsocket } from 'websocket';
 import { decamelizeKeys } from 'humps';
@@ -201,17 +201,15 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
         );
     };
 
-    useFocusEffect(
-        useCallback(() => {
-            if (!enabled) return;
-            let socket: w3cwebsocket;
-            connect(profileIds, verified, matchIds).then((s) => (socket = s));
-            setIsLoading(true);
-            return () => {
-                socket?.close();
-            };
-        }, [profileIds, verified, matchIds, enabled])
-    );
+    useFocusEffect(() => {
+        if (!enabled) return;
+        let socket: w3cwebsocket;
+        connect(profileIds, verified, matchIds).then((s) => (socket = s));
+        setIsLoading(true);
+        return () => {
+            socket?.close();
+        };
+    });
 
     return { lobbies, connected: connected || !focused, isLoading, connect: () => connect(profileIds, verified, matchIds) };
 };

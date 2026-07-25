@@ -94,6 +94,11 @@ export const MenuNew: FC<MenuProps> = ({
     const menuRef = useRef<View | null>(null);
     const prevRendered = useRef(false);
 
+    // The useCallbacks below are load-bearing, not decoration: this component
+    // currently bails out of React Compiler ("Cannot access variable before it is
+    // declared" — `show` is referenced above its declaration), so nothing is
+    // auto-memoized here. Check with `yarn lint:compiler` before removing them;
+    // once the bailout is fixed they become redundant.
     const keyboardDidShow = useCallback((e: RNKeyboardEvent) => {
         const keyboardHeight = e.endCoordinates.height;
         keyboardHeightRef.current = keyboardHeight;

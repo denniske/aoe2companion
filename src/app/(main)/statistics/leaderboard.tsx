@@ -239,6 +239,9 @@ export default function LeaderboardPage() {
         router.push(`/players/${player.profileId}`);
     };
 
+    // Keep this useCallback: LeaderboardPage bails out of React Compiler (refs
+    // read during render in the custom scroll handle), so this is the only thing
+    // keeping the row renderer stable for MemoizedRenderRow.
     const _renderRow = useCallback(
         (player: ILeaderboardPlayer, i: number, isMyRankRow?: boolean) => {
             logPlayer('INIT', i, player);

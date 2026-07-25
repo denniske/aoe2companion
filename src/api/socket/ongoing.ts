@@ -1,7 +1,7 @@
 import { dateReviver, getHost } from '@nex/data';
 import { useFocusEffect } from 'expo-router';
 import produce from 'immer';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { ICloseEvent, w3cwebsocket } from 'websocket';
 import { IMatchesMatch } from '../helper/api.types';
 import { makeQueryString } from '@app/api/helper/util';
@@ -142,17 +142,15 @@ export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingPa
         );
     };
 
-    useFocusEffect(
-        useCallback(() => {
-            if (!enabled) return;
-            let socket: w3cwebsocket;
-            connect(profileIds, verified).then((s) => (socket = s));
-            setIsLoading(true);
-            return () => {
-                socket?.close();
-            };
-        }, [profileIds, verified, enabled])
-    );
+    useFocusEffect(() => {
+        if (!enabled) return;
+        let socket: w3cwebsocket;
+        connect(profileIds, verified).then((s) => (socket = s));
+        setIsLoading(true);
+        return () => {
+            socket?.close();
+        };
+    });
 
     return { matches, connected: connected || !focused, isLoading, connect: () => connect(profileIds, verified) };
 };
