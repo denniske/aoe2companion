@@ -51,20 +51,23 @@ export function BottomSheet({
     const easing = Easing.inOut(Easing.quad);
     const duration = 250;
 
-    const triggerOpen = () => bottom.value = withTiming(0, { duration, easing });
-    const triggerClose = () => bottom.value = withTiming(height, { duration, easing }, () => {
-        scheduleOnRN(setIsVisible, false)
-        if (onCloseComplete) {
-            scheduleOnRN(onCloseComplete);
-        }
-    });
+    const triggerOpen = () => bottom.set(withTiming(0, { duration, easing }));
+    const triggerClose = () =>
+        bottom.set(
+            withTiming(height, { duration, easing }, () => {
+                scheduleOnRN(setIsVisible, false);
+                if (onCloseComplete) {
+                    scheduleOnRN(onCloseComplete);
+                }
+            })
+        );
 
     const animatedStyle = useAnimatedStyle(() => {
         return {
             pointerEvents: Platform.OS === 'web' ? 'box-none' : undefined,
             flex: isFullHeight ? 1 : undefined,
-            marginBottom: interpolate(bottom.value, [-1, 0, 1], [0, 0, -1]),
-            paddingBottom: interpolate(bottom.value, [-1, 0, 1], [1, 0, 0]),
+            marginBottom: interpolate(bottom.get(), [-1, 0, 1], [0, 0, -1]),
+            paddingBottom: interpolate(bottom.get(), [-1, 0, 1], [1, 0, 0]),
         };
     }, [isFullHeight]);
 
@@ -97,7 +100,7 @@ export function BottomSheet({
                             onLayout={(e) => {
                                 const newHeight = Math.round(e.nativeEvent.layout.height);
                                 if (height === 0) {
-                                    bottom.value = newHeight;
+                                    bottom.set(newHeight);
                                 }
                                 setHeight(newHeight);
                             }}

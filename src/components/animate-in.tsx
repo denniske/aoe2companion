@@ -11,8 +11,8 @@ export const AnimateIn: React.FC<PropsWithChildren<{ skipFirstAnimation?: boolea
 
     const style = useAnimatedStyle(() => {
         return {
-            height: height.value,
-            opacity: opacity.value
+            height: height.get(),
+            opacity: opacity.get()
         };
     });
 
@@ -31,12 +31,12 @@ export const AnimateIn: React.FC<PropsWithChildren<{ skipFirstAnimation?: boolea
                 className={cn(canHaveAnimationStyles ? 'absolute top-4 left-4 right-4' : 'p-4')}
                 onLayout={(e) => {
                     if (skipFirstAnimation && !hasFirstAnimationRun) {
-                        height.value = e.nativeEvent.layout.height;
-                        opacity.value = e.nativeEvent.layout.height > 0 ? 1 : 0;
+                        height.set(e.nativeEvent.layout.height);
+                        opacity.set(e.nativeEvent.layout.height > 0 ? 1 : 0);
                         setHasFirstAnimationRun(true);
                     } else {
-                        height.value = withTiming(e.nativeEvent.layout.height + 32, { duration: 250 });
-                        opacity.value = withTiming(e.nativeEvent.layout.height > 32 ? 1 : 0, { duration: 250 });
+                        height.set(withTiming(e.nativeEvent.layout.height + 32, { duration: 250 }));
+                        opacity.set(withTiming(e.nativeEvent.layout.height > 32 ? 1 : 0, { duration: 250 }));
                     }
                 }}
             >

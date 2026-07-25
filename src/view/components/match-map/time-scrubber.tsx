@@ -32,14 +32,15 @@ export default function TimeScrubber({time, duration} : Props) {
     const [isPlaying, setIsPlaying] = useState(false);
 
     const barWidth = useSharedValue(0);
-    const progress = useSharedValue(0);
 
     const play = () => {
         setIsPlaying(true);
-        const remaining = duration - time.value;
-        time.value = withTiming(duration, { duration: remaining/30, easing: Easing.linear }, () => {
-            scheduleOnRN(setIsPlaying, false);
-        });
+        const remaining = duration - time.get();
+        time.set(
+            withTiming(duration, { duration: remaining / 30, easing: Easing.linear }, () => {
+                scheduleOnRN(setIsPlaying, false);
+            })
+        );
     };
 
     const pause = () => {
@@ -56,29 +57,31 @@ export default function TimeScrubber({time, duration} : Props) {
             cancelAnimation(time);
         })
         .onUpdate((e) => {
-            time.value = Math.max(0, Math.min(duration, (e.x - 12) / barWidth.value * duration));
+            time.set(Math.max(0, Math.min(duration, ((e.x - 12) / barWidth.get()) * duration)));
         })
-        .onEnd(() => {
-            // progress.value = (time.value / duration) * barWidth.value;
-        });
+        .onEnd(() => {});
 
+    // `progress` used to be written from inside progressStyle and read back in
+    // handleStyle. Writing a shared value from a style worklet is a side effect in
+    // what should be a pure derivation, so both styles now derive the same width
+    // directly. `progress` is gone; behaviour is identical because handleStyle only
+    // ever saw the value progressStyle had just computed.
     const progressStyle = useAnimatedStyle(() => {
-        const width = (time.value / duration) * barWidth.value;
-        progress.value = width;
         return {
-            width: progress.value,
+            width: (time.get() / duration) * barWidth.get(),
         };
     });
 
     const handleStyle = useAnimatedStyle(() => {
+        // 10 is half the handle width, 12 is padding of the bar container
         return {
-            left: progress.value - 10 + 12, // 10 is half the handle width, 12 is padding of the bar container
+            left: (time.get() / duration) * barWidth.get() - 10 + 12,
         };
     });
 
     const animatedProps = useAnimatedProps(() => {
         return {
-            text: `${formatTimeFromMs(time.value)} / ${formatTimeFromMs(duration)}`, // this won't work with Text, only TextInput's "value"
+            text: `${formatTimeFromMs(time.get())} / ${formatTimeFromMs(duration)}`, // this won't work with Text, only TextInput's "value"
         };
     });
 
@@ -87,7 +90,8 @@ export default function TimeScrubber({time, duration} : Props) {
             <GestureDetector gesture={panGesture}>
                 <View style={styles.barContainer} className="px-3"
                       onLayout={(event) => {
-                          barWidth.value = event.nativeEvent.layout.width - 12*2; // 12 is padding of the bar container
+                          // 12 is padding of the bar container
+                          barWidth.set(event.nativeEvent.layout.width - 12 * 2);
                       }}
                 >
                     <View style={styles.track} />
