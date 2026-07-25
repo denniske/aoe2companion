@@ -32,9 +32,19 @@ lane_android_serial(){ echo "emulator-$(lane_android_port "$1")"; }
 [ -f "$RUN_DIR/lanes.env" ] && source "$RUN_DIR/lanes.env"                  # sets LANE_A_WORKTREE / LANE_B_WORKTREE
 lane_worktree()   { local u v val; u="$(printf '%s' "$1" | tr 'a-z' 'A-Z')"; v="LANE_${u}_WORKTREE"; val="${!v:-}"; echo "${val:-$MAIN_REPO/.claude/worktrees/feat-$1}"; }
 
-# iOS runtime/device to create sims on (stable, not the 26.x betas)
-IOS_RUNTIME="${IOS_RUNTIME:-com.apple.CoreSimulator.SimRuntime.iOS-18-4}"
-IOS_DEVICETYPE_PREF=("iPhone 16 Pro" "iPhone 16" "iPhone 15 Pro" "iPhone 15")
+# iOS runtime/device to create sims on.
+#
+# Must be 26.x. On the iOS 18.4 runtime every request to data.aoe2companion.com
+# (Cloudflare, alt-svc h3) stalls: NSURLSession opens a QUIC/HTTP-3 connection,
+# the handshake succeeds, then nothing transfers for ~88s and it fails with
+# NSURLErrorNetworkConnectionLost. JS sees "fetch failed: The network connection
+# was lost.", react-query gives up, and the leaderboard / build orders / news
+# render empty forever — looks exactly like an app bug but is not. The api. and
+# tournament. hosts (Caddy) and the websockets are unaffected, so lobbies keep
+# working, which makes it extra confusing. Verified fixed on 26.5 with the same
+# dev-client binary and bundle; erasing/rebooting an 18.4 sim does not help.
+IOS_RUNTIME="${IOS_RUNTIME:-com.apple.CoreSimulator.SimRuntime.iOS-26-5}"
+IOS_DEVICETYPE_PREF=("iPhone 17 Pro" "iPhone 17" "iPhone 16 Pro" "iPhone 16")
 
 # Build artifacts (populated by the build step; see build-ios.sh / build-android.sh)
 ios_app_path()  { ls -dt "$HARNESS_DIR"/builds/ios/*.app 2>/dev/null | head -1; }
