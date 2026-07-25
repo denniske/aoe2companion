@@ -9,11 +9,11 @@ import { useTranslation } from '@app/helper/translate';
 import { ScrollView } from '@app/components/scroll-view';
 
 export default function StatisticsPage() {
+    const getTranslation = useTranslation();
+
     if (appConfig.game !== 'aoe2') {
         return <Redirect href="/statistics/leaderboard" />;
     }
-
-    const getTranslation = useTranslation();
 
     return (
         <ScrollView contentContainerClassName="py-4 gap-4 px-4 md:flex-row">

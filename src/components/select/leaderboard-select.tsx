@@ -23,6 +23,10 @@ export function LeaderboardSelect(props: Props) {
 
     const { data: leaderboards } = useLeaderboards();
 
+    const onLeaderboardIdSelected = (leaderboard: ILeaderboardDef) => {
+        onLeaderboardIdChange?.(leaderboard?.leaderboardId);
+    };
+
     useEffect(() => {
         if (savedLeaderboards && leaderboards) {
             let leaderboardId: string | null = null;
@@ -57,10 +61,6 @@ export function LeaderboardSelect(props: Props) {
         } else {
             return <Icon icon={faComputerMouse} size={16} className="mr-2" />;
         }
-    };
-
-    const onLeaderboardIdSelected = (leaderboard: ILeaderboardDef) => {
-        onLeaderboardIdChange?.(leaderboard?.leaderboardId);
     };
 
     const loadingLeaderboard = false;

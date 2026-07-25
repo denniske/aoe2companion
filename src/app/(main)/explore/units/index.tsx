@@ -4,7 +4,7 @@ import { Text } from '@app/components/text';
 import { scrollToSection, sectionItemLayout } from '@app/utils/list';
 import { allUnitSections, getUnitName } from '@nex/data';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { SectionList as SectionListRef, View } from 'react-native';
 
 import { UnitCompBig } from '../../../../view/unit/unit-comp';
@@ -17,28 +17,19 @@ export default function UnitList() {
     const getTranslation = useTranslation();
     const [text, setText] = useState('');
     const [scrollReady, setScrollReady] = useState(false);
-    const [list, setList] = useState(allUnitSections);
     const { section } = useLocalSearchParams<{ section: string }>();
     const sectionList = useRef<SectionListRef>(null);
 
-    const refresh = () => {
-        const newSections = allUnitSections
-            .map((section) => ({
-                ...section,
-                data: section.data.filter((u) => {
-                    // if (unitLines[u]) {
-                    //     return unitLines[u].units.some(u => getUnitName(u).toLowerCase().includes(text.toLowerCase()));
-                    // }
-                    return getUnitName(u).toLowerCase().includes(text.toLowerCase());
-                }),
-            }))
-            .filter((section) => section.data.length > 0);
-        setList(newSections);
-    };
-
-    useEffect(() => {
-        refresh();
-    }, [text]);
+    const list = useMemo(
+        () =>
+            allUnitSections
+                .map((section) => ({
+                    ...section,
+                    data: section.data.filter((u) => getUnitName(u).toLowerCase().includes(text.toLowerCase())),
+                }))
+                .filter((section) => section.data.length > 0),
+        [text]
+    );
 
     useEffect(() => {
         if (section && scrollReady && sectionList.current) {

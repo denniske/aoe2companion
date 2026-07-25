@@ -80,16 +80,16 @@ export default function MainMatches(props: MainMatchesProps) {
     const activeRoute = state.routes[state.index];
     const isActiveRoute = route?.key === activeRoute?.key;
 
-    useWebRefresh(() => {
-        if (!isActiveRoute) return;
-        onRefresh();
-    }, [isActiveRoute]);
-
     const onRefresh = async () => {
         setReloading(true);
         await refetch();
         setReloading(false);
     };
+
+    useWebRefresh(() => {
+        if (!isActiveRoute) return;
+        onRefresh();
+    }, [isActiveRoute]);
 
     if (!leaderboards && !props.leaderboardIds) {
         return <View />;

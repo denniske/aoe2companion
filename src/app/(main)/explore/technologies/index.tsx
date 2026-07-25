@@ -18,27 +18,20 @@ import { useBreakpoints } from '@app/hooks/use-breakpoints';
 export default function TechList() {
     const getTranslation = useTranslation();
     const [text, setText] = useState('');
-    const [localList, setList] = useState(techSections);
     const [scrollReady, setScrollReady] = useState(false);
     const sectionList = useRef<SectionListRef>(null);
     const { section } = useLocalSearchParams<{ section: string }>();
 
-    const refresh = () => {
+    const localList = useMemo(() => {
         if (text.length === 0) {
-            setList(techSections);
-            return;
+            return techSections;
         }
-        const newSections = techSections
+        return techSections
             .map((section) => ({
                 ...section,
                 data: section.data.filter((tech) => getTechName(tech).toLowerCase().includes(text.toLowerCase())),
             }))
             .filter((section) => section.data.length > 0);
-        setList(newSections);
-    };
-
-    useEffect(() => {
-        refresh();
     }, [text]);
 
     const showTabBar = useShowTabBar();

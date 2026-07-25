@@ -15,11 +15,11 @@ export const TournamentCard: React.FC<Tournament & { subtitle?: string; directio
     direction = 'horizontal',
     ...tournament
 }) => {
+    const getTranslation = useTranslation();
+
     if (!tournament.path) {
         return <TournamentSkeletonCard subtitle={!!tournament.subtitle} direction={direction} />;
     }
-
-    const getTranslation = useTranslation();
     const status = tournamentStatus(tournament);
     const startDateFormat = isCurrentYear(tournament.start) ? 'LLL d' : 'LLL d (yyyy)';
     const start = tournament.start && formatCustom(tournament.start, startDateFormat);

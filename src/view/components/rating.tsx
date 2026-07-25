@@ -25,7 +25,7 @@ interface IRatingProps {
 export default function Rating({ ratingHistories, profile, ready }: IRatingProps) {
     const [width, setWidth] = useState(0)
     const getTranslation = useTranslation();
-    ratingHistories = ready ? ratingHistories : null;
+    const effectiveRatingHistories = ready ? ratingHistories : null;
 
     const theme = useAppTheme();
     const authProfileId = useAuthProfileId();
@@ -84,13 +84,13 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     const filteredRatingHistories = useMemo(() => {
         const since = getRatingTimespan(ratingHistoryDuration);
 
-        return ratingHistories?.filter(r => (!r.leaderboardId.includes('_console') && platform != 'console') || (r.leaderboardId.includes('_console') && platform == 'console'))?.map((r) => ({
+        return effectiveRatingHistories?.filter(r => (!r.leaderboardId.includes('_console') && platform != 'console') || (r.leaderboardId.includes('_console') && platform == 'console'))?.map((r) => ({
             ...r,
             leaderboardId: r.leaderboardId,
             ratings: r.ratings.filter((d) => since == null || isAfter(d.date!, since)),
         }))
             ;
-    }, [ratingHistories, ratingHistoryDuration, platform]);
+    }, [effectiveRatingHistories, ratingHistoryDuration, platform]);
 
     const hasData = filteredRatingHistories?.some((rh) => rh.ratings.length > 0);
 

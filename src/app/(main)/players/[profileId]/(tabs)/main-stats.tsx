@@ -62,14 +62,14 @@ export default function MainStats() {
     const activeRoute = state.routes[state.index];
     const isActiveRoute = route?.key === activeRoute?.key;
 
+    const onRefresh = async () => {
+        refetch();
+    };
+
     useWebRefresh(() => {
         if (!isActiveRoute) return;
         onRefresh();
     }, [isActiveRoute]);
-
-    const onRefresh = async () => {
-        refetch();
-    };
 
     if (!leaderboards) {
         return <View />;
