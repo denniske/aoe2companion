@@ -22,7 +22,8 @@
         "app-update-types": "expo-type-information module-interface -m modules/app-update",
         "log": "bash log.sh",
         "lint": "biome lint src",
-        "lint:hooks": "eslint src"
+        "lint:hooks": "eslint src",
+        "lint:compiler": "node scripts/react-compiler-report.js"
     },
     "dependencies": {
         "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
