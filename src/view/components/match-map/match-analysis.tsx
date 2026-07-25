@@ -14,6 +14,12 @@ interface Props {
     matchLoading?: boolean;
 }
 
+// Hoisted rather than written inline in JSX: React Compiler cannot lower a
+// dynamic `import()` expression and bails out on the whole component. The lazy
+// loading behaviour is unchanged — the import still only runs when SkiaLoader
+// calls this.
+const loadMatchMap = () => import('@app/view/components/match-map/match-map');
+
 export default function MatchAnalysis(props: Props) {
     const { match, matchError, matchLoading } = props;
     const [analyzeNow, setAnalyzeNow] = React.useState(false);
@@ -51,7 +57,7 @@ export default function MatchAnalysis(props: Props) {
             )}
             {analysis && !analysisError && (
                 <SkiaLoader
-                    getComponent={() => import('@app/view/components/match-map/match-map')}
+                    getComponent={loadMatchMap}
                     fallback={
                         <View className="flex-row items-center justify-center h-20">
                             <View className="flex-row justify-center my-3 gap-2">
