@@ -16,9 +16,14 @@ interface IPickerProps<T> {
     disabled?: boolean;
 }
 
+// Hoisted rather than written inline as a default value: React Compiler cannot
+// reorder an arrow function used as a destructuring default, and bails out on the
+// whole component. Also saves re-creating it on every render.
+const defaultFormatter = (value: unknown) => `${value}`;
+
 // HMR reload breaks this component at least in tech tree. Why?
 export default function ButtonPicker<T>(props: IPickerProps<T>) {
-    const { value, values, onSelect, image, style, flex = false, disabled, formatter = (x) => `${x}` } = props;
+    const { value, values, onSelect, image, style, flex = false, disabled, formatter = defaultFormatter } = props;
 
     return (
         <View className="rounded-lg overflow-hidden flex-row bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">

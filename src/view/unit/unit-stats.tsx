@@ -38,6 +38,12 @@ interface Props {
 
 type IFormatter = (x: number) => string;
 
+// Hoisted rather than written inline as default values: React Compiler cannot
+// reorder an arrow function used as a destructuring default, and bails out on the
+// whole component. Also saves re-creating them on every render.
+const defaultPathFormatter: IFormatter = (x) => (x || 0).toString();
+const defaultValueFormatter: IFormatter = (x: any) => x;
+
 const includeEliteDataUnitLines = ['ElephantArcher', 'BattleElephant', 'CannonGalleon', 'SteppeLancer'];
 
 function getEliteData(unitLineId: UnitLine) {
@@ -83,7 +89,7 @@ export function getUpgradeByAgeData(params: GetDataParams) {
 
 export function GetValueByPath(props: PathProps) {
     const getTranslation = useTranslation();
-    const { style, unitId, buildingId, path, formatter = (x) => (x || 0).toString() } = props;
+    const { style, unitId, buildingId, path, formatter = defaultPathFormatter } = props;
     const styles = useStyles();
     const baseData = getData({ unitId, buildingId }) as IUnitInfo;
     const upgradeByAgeData = getUpgradeByAgeData({ unitId, buildingId });
@@ -199,7 +205,7 @@ interface PathProps2 {
 }
 
 export function GetUnitValue(props: PathProps2) {
-    const { style, unitId, buildingId, prop, formatter = (x: any) => x } = props;
+    const { style, unitId, buildingId, prop, formatter = defaultValueFormatter } = props;
     return <GetValueByPath style={style} unitId={unitId} buildingId={buildingId} path={(x: Partial<IUnitInfo>) => x[prop]} formatter={formatter} />;
 }
 

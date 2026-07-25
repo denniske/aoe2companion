@@ -12,10 +12,15 @@ interface IPickerProps<T> {
     disabled?: boolean;
 }
 
+// Hoisted rather than written inline as a default value: React Compiler cannot
+// reorder an arrow function used as a destructuring default, and bails out on the
+// whole component. Also saves re-creating it on every render.
+const defaultTemplate = (value: unknown) => value as ReactNode;
+
 export default function TemplatePicker<T>(props: IPickerProps<T>) {
     const theme = useAppTheme();
 
-    const { value, values, onSelect, style, disabled, template = (x) => x} = props;
+    const { value, values, onSelect, style, disabled, template = defaultTemplate } = props;
 
     const renderItem = (v: T, i: number) => {
         let style: ViewStyle = {};
