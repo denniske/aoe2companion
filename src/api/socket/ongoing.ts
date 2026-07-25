@@ -151,7 +151,7 @@ export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingPa
             return () => {
                 socket?.close();
             };
-        }, [profileIds, enabled])
+        }, [profileIds, verified, enabled])
     );
 
     return { matches, connected: connected || !focused, isLoading, connect: () => connect(profileIds, verified) };

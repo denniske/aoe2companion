@@ -6,7 +6,7 @@ import { Civ, civs, getCivNameById, getCivTeamBonus, orderCivs, parseCivDescript
 import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
 import { Link, router, Stack } from 'expo-router';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { getCivIconLocal } from '../../../../helper/civs';
 import { useTranslation } from '@app/helper/translate';
@@ -20,10 +20,7 @@ export default function CivList() {
     const [text, setText] = useState('');
     const { isMedium } = useBreakpoints();
 
-    const list = useMemo(
-        () => civs.filter((civ) => getCivNameById(civ)?.toLowerCase().includes(text.toLowerCase())),
-        [text]
-    );
+    const list = civs.filter((civ) => getCivNameById(civ)?.toLowerCase().includes(text.toLowerCase()));
 
     const aoe4CivInfo = useAoe4CivData();
 

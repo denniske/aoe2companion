@@ -5,7 +5,7 @@ import { Text } from '@app/components/text';
 import { scrollToSection, sectionItemLayout } from '@app/utils/list';
 import { getBuildingName, getCivNameById, getTechName, techSections } from '@nex/data';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SectionList as SectionListRef, View } from 'react-native';
 
 import { TechCompBig } from '../../../../view/tech/tech-comp';
@@ -22,33 +22,27 @@ export default function TechList() {
     const sectionList = useRef<SectionListRef>(null);
     const { section } = useLocalSearchParams<{ section: string }>();
 
-    const localList = useMemo(() => {
-        if (text.length === 0) {
-            return techSections;
-        }
-        return techSections
-            .map((section) => ({
-                ...section,
-                data: section.data.filter((tech) => getTechName(tech).toLowerCase().includes(text.toLowerCase())),
-            }))
-            .filter((section) => section.data.length > 0);
-    }, [text]);
+    const localList =
+        text.length === 0
+            ? techSections
+            : techSections
+                  .map((section) => ({
+                      ...section,
+                      data: section.data.filter((tech) => getTechName(tech).toLowerCase().includes(text.toLowerCase())),
+                  }))
+                  .filter((section) => section.data.length > 0);
 
     const showTabBar = useShowTabBar();
 
-    const list = useMemo(() => {
-        if (showTabBar) {
-            return localList.map((s) => ({ ...s, title: s.building ?? s.civ }));
-        } else {
-            const uniqueTechs = localList.flatMap((section) => (section.civ ? section.data : []));
-            const sections = localList.filter((section) => !section.civ);
-
-            return [
-                ...sections.map((s) => ({ ...s, title: s.building ?? s.civ })),
-                { title: getTranslation('unit.section.unique'), data: uniqueTechs },
-            ];
-        }
-    }, [text, localList]);
+    const list = showTabBar
+        ? localList.map((s) => ({ ...s, title: s.building ?? s.civ }))
+        : [
+              ...localList.filter((section) => !section.civ).map((s) => ({ ...s, title: s.building ?? s.civ })),
+              {
+                  title: getTranslation('unit.section.unique'),
+                  data: localList.flatMap((section) => (section.civ ? section.data : [])),
+              },
+          ];
 
     useEffect(() => {
         if (section && scrollReady && sectionList.current) {

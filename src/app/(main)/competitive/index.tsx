@@ -163,7 +163,7 @@ export default function Competitive() {
                     }
                 };
             }
-        }, [liveTwitch])
+        }, [liveTwitch, isMedium])
     );
 
     return (

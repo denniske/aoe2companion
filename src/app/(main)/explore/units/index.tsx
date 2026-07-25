@@ -4,7 +4,7 @@ import { Text } from '@app/components/text';
 import { scrollToSection, sectionItemLayout } from '@app/utils/list';
 import { allUnitSections, getUnitName } from '@nex/data';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SectionList as SectionListRef, View } from 'react-native';
 
 import { UnitCompBig } from '../../../../view/unit/unit-comp';
@@ -20,16 +20,12 @@ export default function UnitList() {
     const { section } = useLocalSearchParams<{ section: string }>();
     const sectionList = useRef<SectionListRef>(null);
 
-    const list = useMemo(
-        () =>
-            allUnitSections
-                .map((section) => ({
-                    ...section,
-                    data: section.data.filter((u) => getUnitName(u).toLowerCase().includes(text.toLowerCase())),
-                }))
-                .filter((section) => section.data.length > 0),
-        [text]
-    );
+    const list = allUnitSections
+        .map((section) => ({
+            ...section,
+            data: section.data.filter((u) => getUnitName(u).toLowerCase().includes(text.toLowerCase())),
+        }))
+        .filter((section) => section.data.length > 0);
 
     useEffect(() => {
         if (section && scrollReady && sectionList.current) {

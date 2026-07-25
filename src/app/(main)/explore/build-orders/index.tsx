@@ -53,7 +53,10 @@ export default function BuildListPage() {
         }
 
         return builds;
-    }, [data]); // || Array(15).fill(null);
+        // Deliberately keeps the `builds.length = ...` padding: it extends the
+        // array with holes, which map()/renderItem skip. Filling with explicit
+        // undefined instead would render placeholder rows.
+    }, [data, isLarge, isMedium]); // || Array(15).fill(null);
 
     const onEndReached = async () => {
         if (!hasNextPage || isFetchingNextPage) return;

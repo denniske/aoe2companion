@@ -4,7 +4,7 @@ import { Text } from '@app/components/text';
 import { scrollToSection, sectionItemLayout } from '@app/utils/list';
 import { buildingSections, getBuildingName } from '@nex/data';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SectionList as SectionListRef, View } from 'react-native';
 
 import { BuildingCompBig } from '../../../../view/building/building-comp';
@@ -20,17 +20,15 @@ export default function BuildingList() {
     const sectionList = useRef<SectionListRef>(null);
     const { section } = useLocalSearchParams<{ section: string }>();
 
-    const list = useMemo(() => {
-        if (text.length == 0) {
-            return buildingSections;
-        }
-        return buildingSections
-            .map((section) => ({
-                ...section,
-                data: section.data.filter((building) => getBuildingName(building).toLowerCase().includes(text.toLowerCase())),
-            }))
-            .filter((section) => section.data.length > 0);
-    }, [text]);
+    const list =
+        text.length == 0
+            ? buildingSections
+            : buildingSections
+                  .map((section) => ({
+                      ...section,
+                      data: section.data.filter((building) => getBuildingName(building).toLowerCase().includes(text.toLowerCase())),
+                  }))
+                  .filter((section) => section.data.length > 0);
 
     useEffect(() => {
         if (section && scrollReady && sectionList.current) {

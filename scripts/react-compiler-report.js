@@ -178,9 +178,14 @@ const compiled = results.filter((r) => r.status === 'compiled');
 const bailouts = results.filter((r) => r.status === 'bailout');
 const skipped = results.filter((r) => r.status === 'skipped');
 
+// Set exitCode rather than calling process.exit(), which can truncate a large
+// stdout payload when piped.
+const failing = () => (flags.has('--strict') && bailouts.length > 0 ? 1 : 0);
+
 if (flags.has('--json')) {
     console.log(JSON.stringify({ summary: { files: files.length, total: results.length, compiled: compiled.length, bailouts: bailouts.length, skipped: skipped.length }, results, parseFailures }, null, 2));
-    process.exit(flags.has('--strict') && bailouts.length > 0 ? 1 : 0);
+    process.exitCode = failing();
+    return;
 }
 
 const GREEN = '\x1b[32m', RED = '\x1b[31m', YELLOW = '\x1b[33m', DIM = '\x1b[2m', BOLD = '\x1b[1m', RESET = '\x1b[0m';
@@ -236,4 +241,4 @@ if (bailouts.length) {
 
 if (!flags.has('--failures-only') && bailouts.length) console.log(c(DIM, `\n  rerun with --failures-only to list just the bailouts`));
 
-process.exit(flags.has('--strict') && bailouts.length > 0 ? 1 : 0);
+process.exitCode = failing();

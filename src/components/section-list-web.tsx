@@ -21,7 +21,7 @@ export function SectionListWeb<ItemT>({
                     refs.current[index]?.scrollIntoView({ behavior: 'smooth' });
                 }
             }
-        }, [params])
+        }, [params.section, sections])
     );
 
     return (

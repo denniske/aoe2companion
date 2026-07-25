@@ -59,7 +59,7 @@ export default function MatchInfo(props: Props) {
                     )
                 );
             }),
-        [players, tournamentMatches]
+        [match, players, tournamentMatches]
     );
 
     const { tournament, format } = tournamentMatch ?? { tournament: undefined, format: undefined };
