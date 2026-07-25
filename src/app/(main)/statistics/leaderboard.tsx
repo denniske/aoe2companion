@@ -101,6 +101,15 @@ export default function LeaderboardPage() {
     const list = useRef<any[]>([]);
     const fetchingPages = useRef<number[]>([]);
 
+    // `list` stays the mutable paging buffer — the fetch/rank-width/scroll-handle
+    // maths all index into it and must not churn per render. But render may not
+    // read a ref, so every mutation of it is followed by publishAndRender(), and
+    // the FlatList consumes this snapshot instead of `list.current`. Copying also
+    // gives FlatList a new identity, so pages actually appear when they land
+    // rather than waiting for some unrelated state change to force a re-render.
+    const [rows, setRows] = useState<any[]>([]);
+    const publishRows = () => setRows(list.current.slice());
+
     const isFocused = useIsFocused();
 
     const followingIds = useFollowedAndMeProfileIds();
@@ -163,6 +172,7 @@ export default function LeaderboardPage() {
                 list.current.length = newData.total;
                 listLength.set(newData.total);
                 newData.players.forEach((value, index) => (list.current[(params.page! - 1) * pageSize + index] = value));
+                publishRows();
 
                 calcRankWidth(contentOffsetY);
 
@@ -229,6 +239,7 @@ export default function LeaderboardPage() {
         if (leaderboard.touched && leaderboard.lastParams?.leaderboardCountry === leaderboardCountry) return;
         list.current.length = Math.min(list.current.length, pageSize);
         listLength.set(Math.min(list.current.length, pageSize));
+        publishRows();
         leaderboard.reload();
         // if (auth) {
         //     myRank.reload();
@@ -248,9 +259,9 @@ export default function LeaderboardPage() {
         router.push(`/players/${player.profileId}`);
     };
 
-    // Keep this useCallback: LeaderboardPage bails out of React Compiler (refs
-    // read during render in the custom scroll handle), so this is the only thing
-    // keeping the row renderer stable for MemoizedRenderRow.
+    // LeaderboardPage compiles now, so the compiler would keep this stable on its
+    // own; the useCallback is kept only because its deps are already correct and
+    // removing it buys nothing.
     const _renderRow = useCallback(
         (player: ILeaderboardPlayer, i: number, isMyRankRow?: boolean) => {
             logPlayer('INIT', i, player);
@@ -333,10 +344,15 @@ export default function LeaderboardPage() {
         fetchPage(Math.ceil(indexBottom / pageSize));
     };
 
+    // `fetchingPages.current` used to be a dependency here. Mutating a ref does not
+    // re-render, so it never scheduled this effect on its own — it only ever
+    // changed the comparison when some *other* state had already caused a render,
+    // which is why the compiler rejects reading a ref during render. Scrolling is
+    // what should drive paging, and fetchPage() already de-dupes in-flight pages.
     useEffect(() => {
         if (contentOffsetY === undefined) return;
         fetchByContentOffset(contentOffsetY);
-    }, [contentOffsetY, fetchingPages.current]);
+    }, [contentOffsetY]);
 
     const updateScrollHandlePosition = (contentOffsetY: number) => {
         if (movingScrollHandle.get()) return;
@@ -380,15 +396,23 @@ export default function LeaderboardPage() {
         return { top: positionY.get() };
     });
 
-    const scrollFlatListTo = (offset: number) => {
-        console.log('scrollFlatListTo', offset, flatListRef.current != null, flatListRef.current!.scrollToOffset != null);
-        flatListRef.current?.scrollToOffset({ animated: false, offset });
-        // flatListRef.current!.scrollToOffset({ animated: true, offset: 300 });
-    };
+    // The pan gesture below is built during render, so handing it a function that
+    // touches flatListRef would be a ref read during render. Instead the worklet
+    // only records where it wants to go, and the effect — a legal place to touch a
+    // ref — does the scrolling. A fresh object per request on purpose: dragging to
+    // the same offset twice must still re-fire the effect.
+    const [scrollRequest, setScrollRequest] = useState<{ offset: number } | null>(null);
+    const scrollFlatListTo = (offset: number) => setScrollRequest({ offset });
 
-    const panGesture = useMemo(
-        () =>
-            Gesture.Pan()
+    useEffect(() => {
+        if (!scrollRequest) return;
+        flatListRef.current?.scrollToOffset({ animated: false, offset: scrollRequest.offset });
+    }, [scrollRequest]);
+
+    // No useMemo: the `[]` deps were a lie (the worklets capture shared values and
+    // scrollFlatListTo), which the compiler rejects as unpreservable memoization.
+    // It memoizes this itself from the real dependencies, all of which are stable.
+    const panGesture = Gesture.Pan()
                 .onBegin(() => {
                     handleOffsetY.set(positionY.get());
                     console.log('onBegin', 'handleOffsetY:', handleOffsetY.get(), 'positionY:', positionY.get());
@@ -425,9 +449,7 @@ export default function LeaderboardPage() {
                     scheduleOnRN(setBaseMoving, false);
                     handleOffsetY.set(0);
                     console.log('onEnd', 'listLength:', listLength.get());
-                }),
-        []
-    );
+                });
 
     const updateTimer = () => {
         setHandleVisible(false);
@@ -493,7 +515,7 @@ export default function LeaderboardPage() {
                     }}
                     scrollEventThrottle={500}
                     // contentContainerClassName="pt-2 pb-4"
-                    data={list.current}
+                    data={rows}
                     getItemLayout={(_data: any, index: number) => ({ length: ROW_HEIGHT, offset: ROW_HEIGHT * index, index })}
                     renderItem={({ item, index }: any) => _renderRow(item, index)}
                     keyExtractor={(item: { profileId: any }, index: any) => (item?.profileId || index).toString()}
