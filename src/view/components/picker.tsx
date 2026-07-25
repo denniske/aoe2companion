@@ -50,6 +50,14 @@ function defaultCell(props: any) {
     );
 }
 
+// Hoisted rather than written inline as default values: React Compiler cannot
+// reorder an arrow function used as a destructuring default, and bails out on the
+// whole component. Also saves re-creating them on every render.
+const defaultFormatter = (value: unknown) => value as string;
+const defaultSectionFormatter = (value: string) => value;
+const defaultIcon = () => undefined;
+const defaultDivider = () => false;
+
 export default function Picker<T>(props: IPickerProps<T>) {
     const theme = useAppTheme();
     const [menu, setMenu] = useState(false);
@@ -61,11 +69,11 @@ export default function Picker<T>(props: IPickerProps<T>) {
         onSelect,
         style,
         disabled,
-        formatter = (x) => x,
-        sectionFormatter = (x) => x,
-        icon = (x) => undefined,
+        formatter = defaultFormatter,
+        sectionFormatter = defaultSectionFormatter,
+        icon = defaultIcon,
         cell = defaultCell,
-        divider = (x) => false,
+        divider = defaultDivider,
         container,
         textMinWidth = 0,
         itemHeight,
