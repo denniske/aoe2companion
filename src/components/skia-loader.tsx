@@ -7,10 +7,15 @@ interface SkiaLoaderProps {
     fallback?: React.ReactNode;
 }
 
+// Hoisted rather than written inline as a default value: React Compiler cannot
+// reorder a JSX element used as a destructuring default, and bails out on the
+// whole component.
+const defaultFallback = <Text>Loading...</Text>;
+
 export default function SkiaLoader({
                                        getComponent,
                                        componentProps = {},
-                                       fallback = <Text>Loading...</Text>,
+                                       fallback = defaultFallback,
                                    }: SkiaLoaderProps) {
     const [Component, setComponent] = useState<ComponentType<any> | null>(null);
 

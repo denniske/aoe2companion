@@ -116,6 +116,21 @@ export function PlayerList({
         );
     };
 
+    // Declared above their first use (the queryFn below calls closeSocket, and the
+    // effect further down calls openSocket). Referencing them before declaration
+    // made React Compiler bail out on the whole component.
+    const socket = useRef<w3cwebsocket>(null);
+
+    const openSocket = (profileIds: number[]) => {
+        if (profileIds && profileIds.length > 0 && !isPastDeadline) {
+            connect(profileIds).then((s) => (socket.current = s));
+        }
+    };
+
+    const closeSocket = () => {
+        socket.current?.close();
+    };
+
     const { data, isFetching, refetch, isLoading, isError, isSuccess } = useQuery<ILeaderboard, Error, ILeaderboard>({
         queryKey: ['leaderboard-players', leaderboardId],
         queryFn: async () => {
@@ -164,17 +179,6 @@ export function PlayerList({
     }, [data, isSuccess]);
 
     const playerNames = Object.fromEntries(data?.players.map((p) => [p.profileId, { name: p.name, icon: p.countryIcon }]) ?? []);
-    const socket = useRef<w3cwebsocket>(null);
-
-    const openSocket = (profileIds: number[]) => {
-        if (profileIds && profileIds.length > 0 && !isPastDeadline) {
-            connect(profileIds).then((s) => (socket.current = s));
-        }
-    };
-
-    const closeSocket = () => {
-        socket.current?.close();
-    };
 
     const mappedPlayers = useMemo(
         () =>
