@@ -1,0 +1,35 @@
+on: [push, pull_request]
+
+name: Lint
+
+env:
+    NODE_VERSION: 22.22.3
+    # .yarnrc.yml authenticates the @fortawesome scope against npm.fontawesome.com,
+    # so `yarn install` fails without this. Add it under Settings → Secrets and
+    # variables → Actions.
+    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+jobs:
+
+    react-compiler:
+        name: React Compiler
+        runs-on: ubuntu-24.04
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+
+            -   name: Setup Node
+                uses: actions/setup-node@v4
+                with:
+                    node-version: ${{ env.NODE_VERSION }}
+                    cache: yarn
+
+            -   name: Install
+                run: |
+                    corepack enable
+                    yarn install --immutable
+
+            # `yarn lint:compiler` alone always exits 0 — it is a report. `--strict`
+            # is what turns a bailout into a non-zero exit so CI actually fails.
+            -   name: Check every component still compiles
+                run: yarn lint:compiler --strict
