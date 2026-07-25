@@ -44,7 +44,10 @@ export default function MainMatches(props: MainMatchesProps) {
     const realText = text.trim().length < 3 ? '' : text.trim();
     const debouncedSearch = useDebounce(realText, 600);
 
-    const { data: profile = props.profile } = useProfile(props.profile === undefined ? profileId : 0);
+    // Bound to a local first: React Compiler cannot reorder a member expression
+    // used as a destructuring default, and bails out on the whole component.
+    const profileFromProps = props.profile;
+    const { data: profile = profileFromProps } = useProfile(props.profile === undefined ? profileId : 0);
 
     const language = useLanguage();
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery({
