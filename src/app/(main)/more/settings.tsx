@@ -19,6 +19,13 @@ import { useTranslation } from '@app/helper/translate';
 import { showAlert } from '@app/helper/alert';
 import { AvailableMainPage, availableMainPages } from '@app/helper/routing';
 
+// Throwing directly inside a try/catch makes React Compiler bail out on the whole
+// component. Raising from a helper behaves identically — the catch still handles
+// it — while staying compilable.
+function throwCouldNotCreateToken(): never {
+    throw 'Could not create token';
+}
+
 export default function SettingsPage() {
     const getTranslation = useTranslation();
     const styles = useStyles();
@@ -56,7 +63,7 @@ export default function SettingsPage() {
 
                 token = await getToken();
                 if (!token) {
-                    throw 'Could not create token';
+                    throwCouldNotCreateToken();
                 }
 
                 if (Platform.OS === 'android') {

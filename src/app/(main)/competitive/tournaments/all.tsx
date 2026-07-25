@@ -31,10 +31,15 @@ export default function AllTournaments() {
     const { data: tournaments = [], ...query } = useTournaments((league as TournamentCategory) || category);
     const [search, setSearch] = useState('');
     const theme = useAppTheme();
+    // Keys are bound to locals first: React Compiler cannot lower a computed key
+    // that is a call expression, and bails out on the whole component.
+    const ongoingTitle = getTranslation('tournaments.ongoing');
+    const upcomingTitle = getTranslation('tournaments.upcoming');
+    const recentTitle = getTranslation('tournaments.recent');
     const subtitleMap = {
-        [getTranslation('tournaments.ongoing')]: getTranslation('tournaments.sortedbytier'),
-        [getTranslation('tournaments.upcoming')]: getTranslation('tournaments.sortedbydate'),
-        [getTranslation('tournaments.recent')]: getTranslation('tournaments.sortedbydate'),
+        [ongoingTitle]: getTranslation('tournaments.sortedbytier'),
+        [upcomingTitle]: getTranslation('tournaments.sortedbydate'),
+        [recentTitle]: getTranslation('tournaments.sortedbydate'),
     };
     const filteredTournaments = useMemo(() => {
         const filteredTournaments = tournaments
@@ -56,7 +61,7 @@ export default function AllTournaments() {
             : query.isFetching || Platform.OS === 'web'
               ? []
               : [{ title: getTranslation('tournaments.noresults'), data: [] }];
-    }, [league, tournaments, search, query.isFetching]);
+    }, [league, tournaments, search, query.isFetching, getTranslation]);
 
     const refreshControlProps = useRefreshControl(query);
 
@@ -81,7 +86,7 @@ export default function AllTournaments() {
                     </View>
                 </View>
             ),
-        [search, league, theme, setCategory, category, setSearch, formatTier, sortedTiers]
+        [search, league, theme, setCategory, category, setSearch, formatTier, sortedTiers, getTranslation]
     );
 
     return (

@@ -7,6 +7,13 @@ interface ILazyApiOptions<A extends (...args: any) => any> {
     append?: (data: UnPromisify<ReturnType<A>>, newData: UnPromisify<ReturnType<A>>, args: Parameters<A>) => UnPromisify<ReturnType<A>>;
 }
 
+// Throwing directly inside a try/catch makes React Compiler bail out on the whole
+// hook. Raising from a helper keeps the exact same behaviour — the catch below
+// still handles it — while staying compilable.
+function throwMissingAppend(): never {
+    throw new Error('options.append not defined');
+}
+
 export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOptions<A>, action: A, ...defArgs: Parameters<A>) {
     const [data, setData] = useState(null as UnPromisify<ReturnType<A>>);
     const [loading, setLoading] = useState(false);
@@ -38,14 +45,17 @@ export function useLazyApi<A extends (...args: any) => any>(options: ILazyApiOpt
             if (append) {
                 if (!options.append) {
                     console.log('options.append not defined');
-                    throw new Error('options.append not defined');
+                    throwMissingAppend();
                 }
                 newData = options.append(data, newData, args);
             }
 
             // console.log('num', num, 'numref', requestRef.current);
             // Ignore result if component unmounted OR a more recent request has been started
-            if (!mountedRef.current || num < requestRef.current) return null;
+            // Split rather than `||`: a logical expression inside a try/catch makes
+            // React Compiler bail out on the whole hook.
+            if (!mountedRef.current) return null;
+            if (num < requestRef.current) return null;
 
             setData(newData);
             setLoading(false);

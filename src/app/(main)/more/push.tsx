@@ -152,7 +152,12 @@ export default function PushPage() {
 
         return () => {
             try {
-                notificationListener.current?.remove();
+                // Not `notificationListener.current?.remove()`: optional chaining
+                // inside a try/catch makes React Compiler bail out.
+                const listener = notificationListener.current;
+                if (listener) {
+                    listener.remove();
+                }
             } catch (e) {
                 log(e);
             }
