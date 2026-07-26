@@ -11,7 +11,6 @@ import { router, Stack } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     Dimensions,
-    FlatList as FlatListRN,
     NativeScrollEvent,
     NativeSyntheticEvent,
     Platform,
@@ -29,7 +28,8 @@ import { ILeaderboardPlayer } from '../../../api/helper/api.types';
 import { useLazyAppendApi } from '../../../hooks/use-lazy-append-api';
 import { useSelector } from '../../../redux/reducer';
 import { createStylesheet } from '../../../theming-new';
-import { FlatList } from '@app/components/flat-list';
+import { FlashList } from '@app/components/flash-list';
+import type { FlashListRef } from '@shopify/flash-list';
 import cn from 'classnames';
 import { containerClassName, containerScrollClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
@@ -93,7 +93,7 @@ export default function LeaderboardPage() {
     // below can tell "came back to this screen" from "the query changed".
     const [loadedLeaderboardId, setLoadedLeaderboardId] = useState<string | null>(null);
     const insets = useSafeAreaInsets();
-    const flatListRef = React.useRef<FlatListRN>(null);
+    const flatListRef = React.useRef<FlashListRef<any>>(null);
     const [contentOffsetY, setContentOffsetY] = useState<number>();
     const [rankWidth, setRankWidth] = useState<number>(43);
     const [myRankWidth, setMyRankWidth] = useState<number>(0);
@@ -115,6 +115,7 @@ export default function LeaderboardPage() {
     const isFocused = useIsFocused();
 
     const followingIds = useFollowedAndMeProfileIds();
+    const authProfileId = useAuthProfileId();
 
     const getParams = (page: number, profileId?: number) => {
         if (leaderboardCountry == 'following') {
@@ -264,13 +265,14 @@ export default function LeaderboardPage() {
                     player={player}
                     i={i}
                     leaderboardCountry={loadedLeaderboardCountry}
+                    authProfileId={authProfileId}
                     rankWidth={rankWidth}
                     myRankWidth={myRankWidth}
                     onSelect={onSelect}
                 />
             );
         },
-        [myRankWidth, rankWidth, loadedLeaderboardCountry]
+        [myRankWidth, rankWidth, loadedLeaderboardCountry, authProfileId]
     );
 
     // useEffect(() => {
@@ -488,7 +490,7 @@ export default function LeaderboardPage() {
             {/*<Button onPress={() => scrollFlatListTo(300)}>Scroll</Button>*/}
 
             <View style={[styles.content, { opacity: leaderboard.loading ? 0.7 : 1 }]}>
-                <FlatList
+                <FlashList
                     ref={flatListRef}
                     onScrollEndDrag={handleOnScrollEndDrag}
                     onMomentumScrollBegin={handleOnMomentumScrollBegin}
@@ -506,23 +508,14 @@ export default function LeaderboardPage() {
                         scrollRange.set(layout.height - HANDLE_RADIUS * 2 - bottom);
                     }}
                     scrollEventThrottle={500}
-                    // Commit cost here is almost exactly rows-rendered x ~3.2ms
-                    // (measured: 207ms/69 rows, 113ms/35, 111ms/32, 94ms/26), so
-                    // the only lever that matters is how many cells a single
-                    // commit touches. VirtualizedList defaults to windowSize 21 —
-                    // ~21 viewport heights, roughly 400 rows here — which is what
-                    // produced ~1s freezes when a page landed mid-scroll. 3 still
-                    // keeps 1.5 screens of buffer either side and shows no blank
-                    // rows even when flinging. maxToRenderPerBatch caps the
-                    // incremental fill; it does not cap window-shift re-renders,
-                    // which is why windowSize is doing most of the work.
-                    windowSize={3}
-                    maxToRenderPerBatch={4}
-                    updateCellsBatchingPeriod={100}
-                    removeClippedSubviews={true}
-                    // contentContainerClassName="pt-2 pb-4"
+                    // FlashList, not FlatList: commit cost here is rows-rendered x
+                    // per-row cost, and FlatList's VirtualizedList re-rendered its
+                    // whole window (up to ~69 rows in one commit) whenever a page
+                    // landed mid-scroll. FlashList recycles instead, so no
+                    // windowSize/maxToRenderPerBatch tuning is needed, and it needs
+                    // no getItemLayout — it derives the extent itself, which the
+                    // scroll handle depends on.
                     data={rows}
-                    getItemLayout={(_data: any, index: number) => ({ length: ROW_HEIGHT, offset: ROW_HEIGHT * index, index })}
                     renderItem={({ item, index }: any) => _renderRow(item, index)}
                     keyExtractor={(item: { profileId: any }, index: any) => (item?.profileId || index).toString()}
                     // refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}
@@ -559,6 +552,7 @@ interface RenderRowProps {
     player: ILeaderboardPlayer;
     i: number;
     leaderboardCountry: string | null;
+    authProfileId?: number | null;
     rankWidth?: number;
     myRankWidth?: number;
     onSelect: (player: ILeaderboardPlayer) => void;
@@ -573,10 +567,9 @@ function logPlayer(str: string, i: number, player: ILeaderboardPlayer, leaderboa
 
 function RenderRow(props: RenderRowProps) {
     const getTranslation = useTranslation();
-    const { player, i, rankWidth, myRankWidth, onSelect, leaderboardCountry } = props;
+    const { player, i, rankWidth, myRankWidth, onSelect, leaderboardCountry, authProfileId } = props;
 
     const styles = useStyles();
-    const authProfileId = useAuthProfileId();
 
     const isMe = player?.profileId != null && player?.profileId === authProfileId;
     // Fixed height, not minHeight: getItemLayout below promises the list that
