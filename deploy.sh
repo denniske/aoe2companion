@@ -2,6 +2,13 @@
 # EXAMPLE:
 # yarn deploy
 
+echo "🔍 Checking components with react compiler..."
+if ! yarn lint:compiler --strict; then
+  echo "❌ React compiler check failed. Aborting deploy."
+  exit 1
+fi
+echo "✅ React compiler check passed."
+
 # this was need before between builds when aoe2/aoe4 dataset import was done via babel alias
 #rm -rf $TMPDIR/metro-cache
 

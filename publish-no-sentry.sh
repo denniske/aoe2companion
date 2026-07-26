@@ -19,6 +19,13 @@ then
   exit 1
 fi
 
+echo "🔍 Checking components with react compiler..."
+if ! yarn lint:compiler --strict; then
+  echo "❌ React compiler check failed. Aborting build."
+  exit 1
+fi
+echo "✅ React compiler check passed."
+
 NAME="$(date "+%Y-%m-%d-%H:%M:%S").${EXT}"
 
 echo "Game: ${GAME}"
