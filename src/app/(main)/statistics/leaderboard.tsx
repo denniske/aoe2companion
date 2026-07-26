@@ -11,7 +11,6 @@ import { router, Stack } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     Dimensions,
-    FlatList as FlatListRN,
     NativeScrollEvent,
     NativeSyntheticEvent,
     Platform,
@@ -29,7 +28,8 @@ import { ILeaderboardPlayer } from '../../../api/helper/api.types';
 import { useLazyAppendApi } from '../../../hooks/use-lazy-append-api';
 import { useSelector } from '../../../redux/reducer';
 import { createStylesheet } from '../../../theming-new';
-import { FlatList } from '@app/components/flat-list';
+import { FlashList } from '@app/components/flash-list';
+import type { FlashListRef } from '@shopify/flash-list';
 import cn from 'classnames';
 import { containerClassName, containerScrollClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
@@ -39,7 +39,6 @@ import { Icon } from '@app/components/icon';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 
 const ROW_HEIGHT = 45;
-const ROW_HEIGHT_MY_RANK = 52;
 
 const pageSize = 100;
 
@@ -90,8 +89,11 @@ export default function LeaderboardPage() {
     const [refetching, setRefetching] = useState(false);
     const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
     const [loadedLeaderboardCountry, setLoadedLeaderboardCountry] = useState(leaderboardCountry);
+    // Which query the currently-held rows actually came from, so the focus effect
+    // below can tell "came back to this screen" from "the query changed".
+    const [loadedLeaderboardId, setLoadedLeaderboardId] = useState<string | null>(null);
     const insets = useSafeAreaInsets();
-    const flatListRef = React.useRef<FlatListRN>(null);
+    const flatListRef = React.useRef<FlashListRef<any>>(null);
     const [contentOffsetY, setContentOffsetY] = useState<number>();
     const [rankWidth, setRankWidth] = useState<number>(43);
     const [myRankWidth, setMyRankWidth] = useState<number>(0);
@@ -101,9 +103,19 @@ export default function LeaderboardPage() {
     const list = useRef<any[]>([]);
     const fetchingPages = useRef<number[]>([]);
 
+    // `list` stays the mutable paging buffer — the fetch/rank-width/scroll-handle
+    // maths all index into it and must not churn per render. But render may not
+    // read a ref, so every mutation of it is followed by publishAndRender(), and
+    // the FlatList consumes this snapshot instead of `list.current`. Copying also
+    // gives FlatList a new identity, so pages actually appear when they land
+    // rather than waiting for some unrelated state change to force a re-render.
+    const [rows, setRows] = useState<any[]>([]);
+    const publishRows = () => setRows(list.current.slice());
+
     const isFocused = useIsFocused();
 
     const followingIds = useFollowedAndMeProfileIds();
+    const authProfileId = useAuthProfileId();
 
     const getParams = (page: number, profileId?: number) => {
         if (leaderboardCountry == 'following') {
@@ -163,10 +175,12 @@ export default function LeaderboardPage() {
                 list.current.length = newData.total;
                 listLength.set(newData.total);
                 newData.players.forEach((value, index) => (list.current[(params.page! - 1) * pageSize + index] = value));
+                publishRows();
 
                 calcRankWidth(contentOffsetY);
 
                 setLoadedLeaderboardCountry(leaderboardCountry);
+                setLoadedLeaderboardId(leaderboardId);
 
                 // console.log('APPENDED', list.current);
                 // console.log('APPENDED', params);
@@ -202,33 +216,25 @@ export default function LeaderboardPage() {
     //     flatListRef.current?.scrollToIndex({ animated: false, index, viewPosition: 0, viewOffset: -headerHeightAndPadding });
     // };
 
-    const scrollToMe = () => {
-        // scrollToIndex(101-1);
-        // console.log('leaderboardCountry', leaderboardCountry);
-        // if (leaderboardCountry == 'following') {
-        //     const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
-        //     if (meIndex >= 0) {
-        //         scrollToIndex(meIndex);
-        //     }
-        // } else if (leaderboardCountry?.startsWith('clan:')) {
-        //     const meIndex = list.current?.findIndex((p: any) => p.profileId == auth.profileId);
-        //     if (meIndex >= 0) {
-        //         scrollToIndex(meIndex);
-        //     }
-        // } else if (leaderboardCountry == countryEarth) {
-        //     scrollToIndex(myRank.data.players[0].rank - 1);
-        // } else {
-        //     scrollToIndex(myRank.data.players[0].rankCountry - 1);
-        // }
-    };
-
     useEffect(() => {
         if (!leaderboardId) return;
         if (!isFocused) return;
         if (!showTabBar) return;
-        if (leaderboard.touched && leaderboard.lastParams?.leaderboardCountry === leaderboardCountry) return;
+        // Skip the reload when nothing about the query changed — otherwise merely
+        // returning to this screen (isFocused flipping back after visiting a
+        // player) reloads and scrollToOffset(0) throws away the user's position.
+        //
+        // This used to compare `leaderboard.lastParams?.leaderboardCountry`, which
+        // could never match: useLazyAppendApi stores `setLastParams(args)` — the
+        // arguments *array* — so every property read off it is undefined, while
+        // leaderboardCountry is a string or null. The guard was dead code and the
+        // screen reloaded on every refocus. Compare against what was actually
+        // loaded instead (both set in append). The id matters too, otherwise
+        // switching leaderboards within one country would skip its reload.
+        if (leaderboard.touched && loadedLeaderboardId === leaderboardId && loadedLeaderboardCountry === leaderboardCountry) return;
         list.current.length = Math.min(list.current.length, pageSize);
         listLength.set(Math.min(list.current.length, pageSize));
+        publishRows();
         leaderboard.reload();
         // if (auth) {
         //     myRank.reload();
@@ -248,26 +254,25 @@ export default function LeaderboardPage() {
         router.push(`/players/${player.profileId}`);
     };
 
-    // Keep this useCallback: LeaderboardPage bails out of React Compiler (refs
-    // read during render in the custom scroll handle), so this is the only thing
-    // keeping the row renderer stable for MemoizedRenderRow.
+    // LeaderboardPage compiles now, so the compiler would keep this stable on its
+    // own; the useCallback is kept only because its deps are already correct and
+    // removing it buys nothing.
     const _renderRow = useCallback(
-        (player: ILeaderboardPlayer, i: number, isMyRankRow?: boolean) => {
+        (player: ILeaderboardPlayer, i: number) => {
             logPlayer('INIT', i, player);
             return (
                 <MemoizedRenderRow
                     player={player}
                     i={i}
                     leaderboardCountry={loadedLeaderboardCountry}
-                    isMyRankRow={isMyRankRow}
+                    authProfileId={authProfileId}
                     rankWidth={rankWidth}
                     myRankWidth={myRankWidth}
                     onSelect={onSelect}
-                    scrollToMe={scrollToMe}
                 />
             );
         },
-        [myRankWidth, rankWidth, loadedLeaderboardCountry]
+        [myRankWidth, rankWidth, loadedLeaderboardCountry, authProfileId]
     );
 
     // useEffect(() => {
@@ -333,10 +338,15 @@ export default function LeaderboardPage() {
         fetchPage(Math.ceil(indexBottom / pageSize));
     };
 
+    // `fetchingPages.current` used to be a dependency here. Mutating a ref does not
+    // re-render, so it never scheduled this effect on its own — it only ever
+    // changed the comparison when some *other* state had already caused a render,
+    // which is why the compiler rejects reading a ref during render. Scrolling is
+    // what should drive paging, and fetchPage() already de-dupes in-flight pages.
     useEffect(() => {
         if (contentOffsetY === undefined) return;
         fetchByContentOffset(contentOffsetY);
-    }, [contentOffsetY, fetchingPages.current]);
+    }, [contentOffsetY]);
 
     const updateScrollHandlePosition = (contentOffsetY: number) => {
         if (movingScrollHandle.get()) return;
@@ -380,15 +390,23 @@ export default function LeaderboardPage() {
         return { top: positionY.get() };
     });
 
-    const scrollFlatListTo = (offset: number) => {
-        console.log('scrollFlatListTo', offset, flatListRef.current != null, flatListRef.current!.scrollToOffset != null);
-        flatListRef.current?.scrollToOffset({ animated: false, offset });
-        // flatListRef.current!.scrollToOffset({ animated: true, offset: 300 });
-    };
+    // The pan gesture below is built during render, so handing it a function that
+    // touches flatListRef would be a ref read during render. Instead the worklet
+    // only records where it wants to go, and the effect — a legal place to touch a
+    // ref — does the scrolling. A fresh object per request on purpose: dragging to
+    // the same offset twice must still re-fire the effect.
+    const [scrollRequest, setScrollRequest] = useState<{ offset: number } | null>(null);
+    const scrollFlatListTo = (offset: number) => setScrollRequest({ offset });
 
-    const panGesture = useMemo(
-        () =>
-            Gesture.Pan()
+    useEffect(() => {
+        if (!scrollRequest) return;
+        flatListRef.current?.scrollToOffset({ animated: false, offset: scrollRequest.offset });
+    }, [scrollRequest]);
+
+    // No useMemo: the `[]` deps were a lie (the worklets capture shared values and
+    // scrollFlatListTo), which the compiler rejects as unpreservable memoization.
+    // It memoizes this itself from the real dependencies, all of which are stable.
+    const panGesture = Gesture.Pan()
                 .onBegin(() => {
                     handleOffsetY.set(positionY.get());
                     console.log('onBegin', 'handleOffsetY:', handleOffsetY.get(), 'positionY:', positionY.get());
@@ -425,9 +443,7 @@ export default function LeaderboardPage() {
                     scheduleOnRN(setBaseMoving, false);
                     handleOffsetY.set(0);
                     console.log('onEnd', 'listLength:', listLength.get());
-                }),
-        []
-    );
+                });
 
     const updateTimer = () => {
         setHandleVisible(false);
@@ -474,7 +490,7 @@ export default function LeaderboardPage() {
             {/*<Button onPress={() => scrollFlatListTo(300)}>Scroll</Button>*/}
 
             <View style={[styles.content, { opacity: leaderboard.loading ? 0.7 : 1 }]}>
-                <FlatList
+                <FlashList
                     ref={flatListRef}
                     onScrollEndDrag={handleOnScrollEndDrag}
                     onMomentumScrollBegin={handleOnMomentumScrollBegin}
@@ -492,9 +508,14 @@ export default function LeaderboardPage() {
                         scrollRange.set(layout.height - HANDLE_RADIUS * 2 - bottom);
                     }}
                     scrollEventThrottle={500}
-                    // contentContainerClassName="pt-2 pb-4"
-                    data={list.current}
-                    getItemLayout={(_data: any, index: number) => ({ length: ROW_HEIGHT, offset: ROW_HEIGHT * index, index })}
+                    // FlashList, not FlatList: commit cost here is rows-rendered x
+                    // per-row cost, and FlatList's VirtualizedList re-rendered its
+                    // whole window (up to ~69 rows in one commit) whenever a page
+                    // landed mid-scroll. FlashList recycles instead, so no
+                    // windowSize/maxToRenderPerBatch tuning is needed, and it needs
+                    // no getItemLayout — it derives the extent itself, which the
+                    // scroll handle depends on.
+                    data={rows}
                     renderItem={({ item, index }: any) => _renderRow(item, index)}
                     keyExtractor={(item: { profileId: any }, index: any) => (item?.profileId || index).toString()}
                     // refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}
@@ -531,11 +552,10 @@ interface RenderRowProps {
     player: ILeaderboardPlayer;
     i: number;
     leaderboardCountry: string | null;
-    isMyRankRow?: boolean;
+    authProfileId?: number | null;
     rankWidth?: number;
     myRankWidth?: number;
     onSelect: (player: ILeaderboardPlayer) => void;
-    scrollToMe: () => void;
 }
 
 function logPlayer(str: string, i: number, player: ILeaderboardPlayer, leaderboardCountry?: string | null) {
@@ -547,13 +567,18 @@ function logPlayer(str: string, i: number, player: ILeaderboardPlayer, leaderboa
 
 function RenderRow(props: RenderRowProps) {
     const getTranslation = useTranslation();
-    const { player, i, isMyRankRow, rankWidth, myRankWidth, onSelect, scrollToMe, leaderboardCountry } = props;
+    const { player, i, rankWidth, myRankWidth, onSelect, leaderboardCountry, authProfileId } = props;
 
     const styles = useStyles();
-    const authProfileId = useAuthProfileId();
 
     const isMe = player?.profileId != null && player?.profileId === authProfileId;
-    const rowStyle = { minHeight: isMyRankRow ? ROW_HEIGHT_MY_RANK : ROW_HEIGHT };
+    // Fixed height, not minHeight: getItemLayout below promises the list that
+    // every row is exactly ROW_HEIGHT. A row that rendered taller made the real
+    // layout disagree with that promise, so when a page landed and placeholder
+    // rows filled with content the list corrected itself — yanking the scroll
+    // position backwards and killing momentum mid-fling. Nothing here wraps
+    // (rank and name are both numberOfLines={1}), so pinning the height is safe.
+    const rowStyle = { height: ROW_HEIGHT };
     const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
     const rankWidthStyle = { width: Math.max(myRankWidth || 43, rankWidth || 43) } as TextStyle;
 
@@ -563,8 +588,8 @@ function RenderRow(props: RenderRowProps) {
     logPlayer('RENDER', i, player, leaderboardCountry);
 
     return (
-        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => (isMyRankRow ? scrollToMe() : onSelect(player))}>
-            <View style={isMyRankRow ? styles.innerRow : styles.innerRowWithBorder}>
+        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => onSelect(player)}>
+            <View style={styles.innerRowWithBorder}>
                 <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>
                     #{isCountry(leaderboardCountry) ? player?.rankCountry : player?.rank || i + 1}
                 </TextLoader>
@@ -762,14 +787,6 @@ const useStyles = createStylesheet((theme) =>
             // width: '100%',
             // flex: 3,
             flex: 1,
-        },
-        innerRow: {
-            // backgroundColor: 'red',
-            flex: 1,
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: 15,
         },
         innerRowWithBorder: {
             // backgroundColor: 'green',

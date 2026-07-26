@@ -23,19 +23,20 @@ module.exports = defineConfig([
             // eslint-config-expo@56.0.4 does not set. Currently 0 violations.
             'react-hooks/void-use-memo': 'error',
 
-            // Known backlog, deliberately not fixed yet: these are Reanimated
-            // shared-value writes, worklets, refs read during render (the custom
-            // leaderboard scroller) and effects that reset/initialise rather than
-            // derive state. Warnings so they don't fail the run; delete a line to
-            // promote it back to expo's `error` and enforce it.
+            // `immutability` and `refs` used to be downgraded here too. Both are at
+            // 0 findings now that the last compiler bailouts are fixed, so they are
+            // left at expo's `error` to keep them that way — every component in src/
+            // compiles, and CI enforces it (.github/workflows/lint.yml).
+            //
+            // Still a backlog: effects that reset/initialise rather than derive
+            // state. Warning so it doesn't fail the run; delete the line to promote
+            // it back to expo's `error` and enforce it.
             //
             // NOTE: `eslint` still exits 1 — there are 47 pre-existing errors from
             // eslint-plugin-react (react/no-unescaped-entities, react/jsx-key,
             // react/display-name), unrelated to the compiler rules. They were
             // simply never visible while the config failed to load.
             'react-hooks/set-state-in-effect': 'warn', // 20 findings
-            'react-hooks/immutability': 'warn', // 12 findings
-            'react-hooks/refs': 'warn', // 6 findings
 
             // 'react-native/no-unused-styles': 1,
             // 'import/no-unresolved': 'off',

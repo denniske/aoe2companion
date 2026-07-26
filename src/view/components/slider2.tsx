@@ -7,7 +7,6 @@ import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils';
 export interface SliderProps extends Omit<ViewProps, 'children'> {
     slides: React.ReactNode[];
     setActiveSlide?: (index: number) => void;
-    pagination?: (scrollTo: (index: number) => void, current: number) => React.ReactElement;
     equalizeHeights?: boolean;
     scrollEnabled?: boolean;
     paginationStyle?: ViewStyle;
@@ -16,7 +15,6 @@ export interface SliderProps extends Omit<ViewProps, 'children'> {
 export const Slider2: React.FC<SliderProps> = ({
                                                   slides: allSlides,
                                                   setActiveSlide,
-                                                  pagination,
                                                   scrollEnabled = true,
                                                   equalizeHeights = true,
                                                   style,
@@ -42,18 +40,15 @@ export const Slider2: React.FC<SliderProps> = ({
 
     return (
         <View style={[styles.container, style]} {...props}>
-            {slides.length > 1 &&
-                (pagination ? (
-                    pagination(scrollToIndex, activeIndex)
-                ) : (
-                    <View style={[styles.pagination, paginationStyle]}>
-                        {slides.map((_, index) => (
-                            <TouchableOpacity hitSlop={15} key={index} style={styles.page} onPress={() => scrollToIndex(index)} className="rounded-full w-4 h-4 p-px border">
-                                {activeIndex === index && <View style={styles.activePage} />}
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                ))}
+            {slides.length > 1 && (
+                <View style={[styles.pagination, paginationStyle]}>
+                    {slides.map((_, index) => (
+                        <TouchableOpacity hitSlop={15} key={index} style={styles.page} onPress={() => scrollToIndex(index)} className="rounded-full w-4 h-4 p-px border">
+                            {activeIndex === index && <View style={styles.activePage} />}
+                        </TouchableOpacity>
+                    ))}
+                </View>
+            )}
             <FlatList
                 scrollEnabled={scrollEnabled && slides.length > 1}
                 ref={scrollView}

@@ -161,6 +161,17 @@ function getTipStyle(active: boolean, status: string) {
     };
 }
 
+// Module scope on purpose: `player.currentTime = 0` writes to a value returned
+// from useVideoPlayer, which React Compiler treats as immutable and bails the
+// whole component out on. Handing the player to a plain function outside the
+// component keeps the write out of the component's own scope. Deliberately not
+// `player.replay()` — that seeks to the start but reads as resuming playback,
+// and this path exists to leave an inactive tip parked at frame 0.
+function rewindToStart(player: VideoPlayer) {
+    player.pause();
+    player.currentTime = 0;
+}
+
 function VideoTip(props: any) {
     const { tip, active } = props;
     const styles = useStyles();
@@ -200,8 +211,7 @@ function VideoTip(props: any) {
 
     useEffect(() => {
         if (!active) {
-            player.pause();
-            player.currentTime = 0;
+            rewindToStart(player);
         }
     }, [player, active]);
 
