@@ -514,7 +514,7 @@ export default function LeaderboardPage() {
 
     // const text = useDerivedValue(() => `#${positionY.value}`);
     // const text = useDerivedValue(() => ((positionY.value / scrollRange.value)).toFixed());
-    const handleStr = useDerivedValue(() => '#' + ((positionY.get() / scrollRange.get()) * listLength.get()).toFixed());
+    const handleStr = useDerivedValue(() => '#' + ((positionY.get() / scrollRange.get()) * (listLength.get() - 1) + 1).toFixed());
 
     if (!showTabBar) {
         return <WebLeaderboard />;
@@ -582,21 +582,24 @@ export default function LeaderboardPage() {
                         </View>
                     }
                 />
-            </View>
-            <View className={cn(containerScrollClassName, 'absolute inset-0')} style={{ pointerEvents: Platform.OS === 'web' ? 'none' : 'box-none' }}>
-                <View style={[styles.handleContainer, { bottom }]}>
-                    <GestureDetector gesture={panGesture}>
-                        <Animated.View style={[{ right: 0, opacity: handleVisible ? 1 : 0 }, styles.handle, handleAnimatedStyle]}>
-                            <Icon icon={faArrowsAltV} size={22} className="mx-0 my-4.5" color="subtle" />
-                            {!!(baseMoving) && (
-                                <View style={styles.textContainer}>
-                                    <View style={styles.textBox}>
-                                        <AnimatedValueText value={handleStr} style={styles.text} />
+                <View
+                    className={cn(containerScrollClassName, 'absolute inset-0')}
+                    style={{ pointerEvents: Platform.OS === 'web' ? 'none' : 'box-none' }}
+                >
+                    <View style={[styles.handleContainer, { bottom }]}>
+                        <GestureDetector gesture={panGesture}>
+                            <Animated.View style={[{ right: 0, opacity: handleVisible ? 1 : 0 }, styles.handle, handleAnimatedStyle]}>
+                                <Icon icon={faArrowsAltV} size={22} className="mx-0 my-4.5" color="subtle" />
+                                {!!baseMoving && (
+                                    <View style={styles.textContainer}>
+                                        <View style={styles.textBox}>
+                                            <AnimatedValueText value={handleStr} style={styles.text} />
+                                        </View>
                                     </View>
-                                </View>
-                            )}
-                        </Animated.View>
-                    </GestureDetector>
+                                )}
+                            </Animated.View>
+                        </GestureDetector>
+                    </View>
                 </View>
             </View>
         </View>
