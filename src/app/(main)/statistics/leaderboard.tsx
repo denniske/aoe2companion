@@ -301,7 +301,7 @@ export default function LeaderboardPage() {
     const rowStyles = useLeaderboardRowStyles();
     // Fetched with its `{games}` placeholder intact; the row fills in the number.
     const gamesLabel = getTranslation('leaderboard.games') ?? '';
-    const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+    const { width: windowWidth } = useWindowDimensions();
     const showGames = windowWidth >= 360;
     // The selected country, not a separate "country the rows came from" state: the
     // reset effect empties the list the moment the selection changes, so there is no
@@ -370,20 +370,18 @@ export default function LeaderboardPage() {
     // Asking for a page is now just adding it to `requestedPages`; whether that
     // costs a request is react-query's business, so the checks that used to guard
     // this — in flight already, already loaded, something else loading — are gone.
-    const requestRowRange = (first: number, last: number) => {
-        lastVisibleIndex.current = last;
-        calcRankWidth(last);
-
-        requestPage(Math.floor(first / pageSize) + 1);
-        requestPage(Math.floor(last / pageSize) + 1);
-    };
-
     const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken[] }) => {
         if (viewableItems.length === 0) return;
         if (!total) return;
 
         const first = viewableItems[0].index ?? 0;
-        requestRowRange(first, viewableItems[viewableItems.length - 1].index ?? first);
+        const last = viewableItems[viewableItems.length - 1].index ?? first;
+
+        lastVisibleIndex.current = last;
+        calcRankWidth(last);
+
+        requestPage(Math.floor(first / pageSize) + 1);
+        requestPage(Math.floor(last / pageSize) + 1);
     };
 
     const updateScrollHandlePosition = (contentOffsetY: number) => {
@@ -429,7 +427,6 @@ export default function LeaderboardPage() {
     // ref — does the scrolling. A fresh object per request on purpose: dragging to
     // the same offset twice must still re-fire the effect.
     const [scrollRequest, setScrollRequest] = useState<{ row: number } | null>(null);
-    const handledScrollRequest = useRef<object | null>(null);
 
     // Nothing but the target row, handed over through a React setter. The gesture
     // that calls this is built during render and its worklet keeps whatever closure
@@ -440,36 +437,29 @@ export default function LeaderboardPage() {
     const scrollFlatListTo = (row: number) => setScrollRequest({ row });
 
     useEffect(() => {
-        // Guard rather than trusting the deps to stay put: `requestRowRange` changes
-        // identity whenever the query does, and re-running this would drag the list
-        // back to a row the user has long since left.
-        if (!scrollRequest || handledScrollRequest.current === scrollRequest) return;
-        handledScrollRequest.current = scrollRequest;
-
-        const first = Math.max(0, Math.min(scrollRequest.row, list.current.length - 1));
+        if (!scrollRequest) return;
 
         // scrollToIndex, not scrollToOffset. scrollToOffset only calls the native
         // scrollTo (see useRecyclerViewController.tsx) and FlashList learns where it
-        // is exclusively from its own onScroll handler — so a jump left the list
-        // showing nothing at all until a real scroll event arrived, which for a
-        // programmatic scroll may never happen. scrollToIndex walks its internal
-        // offset to the target in steps, so the window for those rows is rendered as
-        // part of the jump. It also means the handle no longer has to assume the
-        // content is exactly `rows * ROW_HEIGHT` tall to find its target.
-        flatListRef.current?.scrollToIndex({ index: first, animated: false });
-
-        // The pages are asked for here rather than left to onViewableItemsChanged,
-        // which does not reliably report a programmatic jump: viewability is
-        // computed in that same onScroll handler and then held for
-        // minimumViewTime, 250ms by default.
+        // is from its own scroll handler — so a jump left the list showing nothing
+        // at all until a real scroll event arrived, which for a programmatic scroll
+        // may never happen. scrollToIndex walks its internal offset to the target in
+        // steps and commits a layout there, which renders the rows.
         //
-        // An effect, not the gesture callback: this closure is the one from the
-        // render that committed `scrollRequest`, so requestPage() sees the current
-        // query identity. The window is taller than the list, so the row range errs
-        // towards one page too many.
-        const viewportRows = Math.ceil(windowHeight / ROW_HEIGHT);
-        requestRowRange(first, Math.min(Math.max(list.current.length - 1, 0), first + viewportRows));
-    }, [scrollRequest, requestRowRange, windowHeight]);
+        // That commit is also why the jump needs no paging code of its own:
+        // committing a layout runs computeItemViewability() (RecyclerView.tsx,
+        // onCommitEffect), so onViewableItemsChanged reports the new position and
+        // the pages are requested by the same path that handles ordinary scrolling.
+        // A jump used to ask for its pages here, back when it went through
+        // scrollToOffset and no commit — and so no viewability — ever happened.
+        //
+        // Working in rows also means the handle no longer has to assume the content
+        // is exactly `rows * ROW_HEIGHT` tall to find its target.
+        flatListRef.current?.scrollToIndex({
+            index: Math.max(0, Math.min(scrollRequest.row, list.current.length - 1)),
+            animated: false,
+        });
+    }, [scrollRequest]);
 
     // No useMemo: the `[]` deps were a lie (the worklets capture shared values and
     // scrollFlatListTo), which the compiler rejects as unpreservable memoization.
