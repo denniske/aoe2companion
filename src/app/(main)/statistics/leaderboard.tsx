@@ -3,22 +3,11 @@ import { leaderboardsByType } from '@app/helper/leaderboard';
 import { useTranslation } from '@app/helper/translate';
 import { useAuthProfileId, useFollowedAndMeProfileIds, useLanguage, useLeaderboards } from '@app/queries/all';
 import { AnimatedValueText } from '@app/view/components/animated-value-text';
-import { ImageLoader } from '@app/view/components/loader/image-loader';
-import { TextLoader } from '@app/view/components/loader/text-loader';
 import { MyText } from '@app/view/components/my-text';
 import { useIsFocused } from 'expo-router/react-navigation';
 import { router, Stack } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import {
-    Dimensions,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    Platform,
-    StyleSheet,
-    TextStyle,
-    TouchableOpacity,
-    View,
-} from 'react-native';
+import { NativeScrollEvent, NativeSyntheticEvent, Platform, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useDerivedValue, useSharedValue } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
@@ -37,8 +26,7 @@ import { WebLeaderboard } from '../../../components/leaderboard/web-leaderboard'
 import { LeaderboardOfficialSelect } from '@app/components/select/leaderboard-official-select';
 import { Icon } from '@app/components/icon';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
-
-const ROW_HEIGHT = 45;
+import { LeaderboardRow, ROW_HEIGHT, useLeaderboardRowStyles } from '@app/components/leaderboard/leaderboard-row';
 
 const pageSize = 100;
 
@@ -254,25 +242,38 @@ export default function LeaderboardPage() {
         router.push(`/players/${player.profileId}`);
     };
 
+    // Everything a row used to look up for itself is resolved once here instead.
+    // A row is rendered up to 50x per commit, so a per-row hook is 50 query
+    // subscriptions or 50 Appearance listeners, and isCountry() is a scan over
+    // ~250 countries. See components/leaderboard/leaderboard-row.tsx.
+    const rowStyles = useLeaderboardRowStyles();
+    // Fetched with its `{games}` placeholder intact; the row fills in the number.
+    const gamesLabel = getTranslation('leaderboard.games') ?? '';
+    const { width: windowWidth } = useWindowDimensions();
+    const showGames = windowWidth >= 360;
+    const showCountryRank = isCountry(loadedLeaderboardCountry);
+    const finalRankWidth = Math.max(myRankWidth || 43, rankWidth || 43);
+
     // LeaderboardPage compiles now, so the compiler would keep this stable on its
     // own; the useCallback is kept only because its deps are already correct and
     // removing it buys nothing.
     const _renderRow = useCallback(
         (player: ILeaderboardPlayer, i: number) => {
-            logPlayer('INIT', i, player);
             return (
-                <MemoizedRenderRow
+                <LeaderboardRow
                     player={player}
                     i={i}
-                    leaderboardCountry={loadedLeaderboardCountry}
+                    showCountryRank={showCountryRank}
+                    showGames={showGames}
+                    gamesLabel={gamesLabel}
                     authProfileId={authProfileId}
-                    rankWidth={rankWidth}
-                    myRankWidth={myRankWidth}
+                    rankWidth={finalRankWidth}
+                    styles={rowStyles}
                     onSelect={onSelect}
                 />
             );
         },
-        [myRankWidth, rankWidth, loadedLeaderboardCountry, authProfileId]
+        [finalRankWidth, showCountryRank, showGames, gamesLabel, authProfileId, rowStyles]
     );
 
     // useEffect(() => {
@@ -548,72 +549,6 @@ export default function LeaderboardPage() {
     );
 }
 
-interface RenderRowProps {
-    player: ILeaderboardPlayer;
-    i: number;
-    leaderboardCountry: string | null;
-    authProfileId?: number | null;
-    rankWidth?: number;
-    myRankWidth?: number;
-    onSelect: (player: ILeaderboardPlayer) => void;
-}
-
-function logPlayer(str: string, i: number, player: ILeaderboardPlayer, leaderboardCountry?: string | null) {
-    // if (i == 1 && player?.leaderboardId == 'rm_1v1') {
-    //     console.log(str.padEnd(8, ' '), 'ROW', i, player.rank, player?.name, player != null,
-    //         isCountry(leaderboardCountry), isCountry(leaderboardCountry) ? player?.rankCountry : player?.rank || i + 1);
-    // }
-}
-
-function RenderRow(props: RenderRowProps) {
-    const getTranslation = useTranslation();
-    const { player, i, rankWidth, myRankWidth, onSelect, leaderboardCountry, authProfileId } = props;
-
-    const styles = useStyles();
-
-    const isMe = player?.profileId != null && player?.profileId === authProfileId;
-    // Fixed height, not minHeight: getItemLayout below promises the list that
-    // every row is exactly ROW_HEIGHT. A row that rendered taller made the real
-    // layout disagree with that promise, so when a page landed and placeholder
-    // rows filled with content the list corrected itself — yanking the scroll
-    // position backwards and killing momentum mid-fling. Nothing here wraps
-    // (rank and name are both numberOfLines={1}), so pinning the height is safe.
-    const rowStyle = { height: ROW_HEIGHT };
-    const weightStyle = { fontWeight: isMe ? 'bold' : 'normal' } as TextStyle;
-    const rankWidthStyle = { width: Math.max(myRankWidth || 43, rankWidth || 43) } as TextStyle;
-
-    // console.log('Math.max(myRankWidth, rankWidth)', myRankWidth, rankWidth);
-    // console.log('Math.max(myRankWidth, rankWidth)', Math.max(myRankWidth, rankWidth));
-
-    logPlayer('RENDER', i, player, leaderboardCountry);
-
-    return (
-        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => onSelect(player)}>
-            <View style={styles.innerRowWithBorder}>
-                <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>
-                    #{isCountry(leaderboardCountry) ? player?.rankCountry : player?.rank || i + 1}
-                </TextLoader>
-
-                <TextLoader style={isMe ? styles.cellRatingMe : styles.cellRating}>{player?.rating}</TextLoader>
-                <View style={styles.cellName}>
-                    <ImageLoader source={{ uri: player?.avatarSmallUrl }} ready={player} className="w-5 h-5 mr-2 rounded-full" />
-                    <TextLoader style={isMe ? styles.nameMe : styles.name} numberOfLines={1}>
-                        {player?.name}
-                    </TextLoader>
-                </View>
-
-                {Dimensions.get('window').width >= 360 && (
-                    <TextLoader ready={player?.games} style={styles.cellGames}>
-                        {getTranslation('leaderboard.games', { games: player?.games })}
-                    </TextLoader>
-                )}
-            </View>
-        </TouchableOpacity>
-    );
-}
-
-const MemoizedRenderRow = React.memo(RenderRow);
-
 const HANDLE_RADIUS = 36;
 
 const padding = 8;
@@ -701,13 +636,6 @@ const useStyles = createStylesheet((theme) =>
             marginLeft: 25,
             // backgroundColor: 'red',
         },
-        name: {
-            flex: 1,
-        },
-        nameMe: {
-            flex: 1,
-            fontWeight: 'bold',
-        },
         cellRankMe: {
             margin: padding,
             textAlign: 'left',
@@ -715,41 +643,12 @@ const useStyles = createStylesheet((theme) =>
             // width: 60,
             fontWeight: 'bold',
         },
-        cellRank: {
-            margin: padding,
-            textAlign: 'left',
-            // backgroundColor: 'yellow',
-        },
-        cellRating: {
-            margin: padding,
-            width: 38,
-            // backgroundColor: 'yellow',
-        },
-        cellRatingMe: {
-            margin: padding,
-            width: 38,
-            fontWeight: 'bold',
-            // backgroundColor: 'yellow',
-        },
         flexRow: {
             flexDirection: 'row',
-        },
-        cellName: {
-            margin: padding,
-            flex: 4,
-            flexDirection: 'row',
-            alignItems: 'center',
         },
         cellName2: {
             margin: padding,
             flex: 4,
-        },
-        cellGames: {
-            margin: padding,
-            width: 90,
-            textAlign: 'right',
-            fontSize: 12,
-            color: theme.textNoteColor,
         },
         cellWins: {
             margin: padding,
@@ -780,23 +679,6 @@ const useStyles = createStylesheet((theme) =>
             width: '100%',
             borderBottomWidth: 1,
             borderBottomColor: theme.borderColor,
-        },
-        row: {
-            // marginRight: 30,
-            // marginLeft: 30,
-            // width: '100%',
-            // flex: 3,
-            flex: 1,
-        },
-        innerRowWithBorder: {
-            // backgroundColor: 'green',
-            flex: 1,
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: 15,
-            borderBottomWidth: 1,
-            borderBottomColor: theme.lightBorderColor,
         },
         countryIcon: {
             width: 21,

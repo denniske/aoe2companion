@@ -10,7 +10,7 @@ import { useTranslation } from '@app/helper/translate';
 import { appConfig } from '@nex/dataset';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { Image } from '@app/components/uniwind/image';
-import { faAngleRight, faCoffee, faCog, faExchangeAlt, faHandsHelping, faQuestionCircle, faUser } from '@fortawesome/sharp-solid-svg-icons';
+import { faAngleRight, faClock, faCoffee, faCog, faExchangeAlt, faHandsHelping, faQuestionCircle, faUser } from '@fortawesome/sharp-solid-svg-icons';
 
 interface Link {
     icon: IconDefinition;
@@ -28,6 +28,7 @@ export default function More() {
         { icon: faQuestionCircle, title: getTranslation('about.title'), path: '/more/about' },
         { icon: faExchangeAlt, title: getTranslation('changelog.title'), path: '/more/changelog' },
         { icon: faHandsHelping, title: getTranslation('footer.help'), path: 'https://discord.com/invite/gCunWKx' },
+        { icon: faClock, title: 'Leaderboard row benchmark', path: '/statistics/leaderboard-row-benchmark' },
 
         // iOS does not allow donations and android did check for aoe2 also
         ...(!((Platform.OS === 'ios' || (appConfig.game === 'aoe2' && Platform.OS !== 'web')) && isMajorRelease)
