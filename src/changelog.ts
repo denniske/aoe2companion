@@ -378,6 +378,16 @@ export const changelog: IChangelog = {
     //         content: 'A live activity will now also correctly open the match detail page when tapping on the dynamic island',
     //     },
     // ],
+    '209.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix monk icon in tech tree for Inca, Mapuche, Muisca and Tupi',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix leaderboard scroll performance',
+        },
+    ],
     '208.0.0': [
         {
             type: 'bugfix',

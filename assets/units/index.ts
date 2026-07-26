@@ -242,4 +242,5 @@ export const unitIconImageDict: Record<string, any> = {
     'MonkCatholic': require('./MonkCatholic.png'),
     'MonkOrthodox': require('./MonkOrthodox.png'),
     'MonkTengri': require('./MonkTengri.png'),
+    'MonkAnimism': require('./MonkAnimism.png'),
 };
