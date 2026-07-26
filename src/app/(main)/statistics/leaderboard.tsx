@@ -506,6 +506,14 @@ export default function LeaderboardPage() {
                         scrollRange.set(layout.height - HANDLE_RADIUS * 2 - bottom);
                     }}
                     scrollEventThrottle={500}
+                    // VirtualizedList defaults to windowSize 21 — ~21 viewport
+                    // heights of cells kept mounted, roughly 400 rows here. Every
+                    // re-render walked all of them, which measured 50-65ms per
+                    // commit (one outlier at 323ms) and stacked into ~1s freezes
+                    // whenever a page landed mid-scroll. 5 is still two screens of
+                    // buffer either side.
+                    windowSize={5}
+                    removeClippedSubviews={true}
                     // contentContainerClassName="pt-2 pb-4"
                     data={rows}
                     getItemLayout={(_data: any, index: number) => ({ length: ROW_HEIGHT, offset: ROW_HEIGHT * index, index })}
