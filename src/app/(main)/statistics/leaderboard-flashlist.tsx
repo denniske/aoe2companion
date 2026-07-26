@@ -16,7 +16,8 @@ import { fetchLeaderboard } from '../../../api/helper/api';
 import { ILeaderboardPlayer } from '../../../api/helper/api.types';
 import { useSelector } from '../../../redux/reducer';
 import { createStylesheet } from '../../../theming-new';
-import { FlatList } from '@app/components/flat-list';
+import { FlashList } from '@app/components/flash-list';
+import type { FlashListRef } from '@shopify/flash-list';
 import cn from 'classnames';
 import { containerClassName, containerScrollClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
@@ -26,11 +27,17 @@ import { Icon } from '@app/components/icon';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 import { LeaderboardListRow, LeaderboardRow, ROW_HEIGHT, useLeaderboardRowStyles } from '@app/components/leaderboard/leaderboard-row';
 
+// A copy of ./leaderboard.tsx as it stood when the screen ran on FlashList, kept
+// so the two list implementations can be compared on a real device. leaderboard.tsx
+// itself now uses react-native's FlatList; everything else about the two files —
+// the react-query paging, the row buffer, the scroll handle — is the same.
+//
+// Not linked from the tab bar; reachable from More.
 const pageSize = 100;
 
 // A row counts as visible as soon as any part of it is, so the pages being paged
-// in are the ones actually under the viewport. Neither list supports changing this
-// on the fly, hence module scope.
+// in are the ones actually under the viewport. FlashList does not support changing
+// this on the fly, hence module scope.
 const viewabilityConfig = { itemVisiblePercentThreshold: 0 };
 
 // Stable identity, so switching leaderboards hands useQueries the same array
@@ -43,7 +50,7 @@ const firstPageOnly = [1];
 // the shared query client.
 const pageStaleTime = 5 * 60 * 1000;
 
-export default function LeaderboardPage() {
+export default function LeaderboardFlashListPage() {
     const showTabBar = useShowTabBar();
 
     // const flatListRef = useRef<FlatList>(null);
@@ -90,7 +97,7 @@ export default function LeaderboardPage() {
     const [refetching, setRefetching] = useState(false);
     const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
     const insets = useSafeAreaInsets();
-    const flatListRef = React.useRef<React.ComponentRef<typeof FlatList<LeaderboardListRow>>>(null);
+    const flatListRef = React.useRef<FlashListRef<any>>(null);
     const [rankWidth, setRankWidth] = useState<number>(43);
     const [myRankWidth, setMyRankWidth] = useState<number>(0);
     const bottom = insets.bottom + 82;
@@ -289,18 +296,6 @@ export default function LeaderboardPage() {
         calcRankWidth(lastVisibleIndex.current);
     }, [results, listLength]);
 
-    // Constant, because every row is exactly ROW_HEIGHT tall — the promise the row
-    // makes in leaderboard-row.tsx. Handing it to VirtualizedList means it can place
-    // any of the 66k rows without rendering the ones in between.
-    const getItemLayout = useCallback(
-        (_data: ArrayLike<LeaderboardListRow> | null | undefined, index: number) => ({
-            length: ROW_HEIGHT,
-            offset: ROW_HEIGHT * index,
-            index,
-        }),
-        []
-    );
-
     const onSelect = async (player: ILeaderboardPlayer) => {
         router.push(`/players/${player.profileId}`);
     };
@@ -381,13 +376,6 @@ export default function LeaderboardPage() {
     // Asking for a page is now just adding it to `requestedPages`; whether that
     // costs a request is react-query's business, so the checks that used to guard
     // this — in flight already, already loaded, something else loading — are gone.
-    // VirtualizedList reads onViewableItemsChanged once and throws "Changing
-    // onViewableItemsChanged on the fly is not supported" if the identity ever
-    // changes, so the list gets a wrapper that never changes and the effect below
-    // keeps it pointed at the current closure. FlashList had no such rule.
-    const viewabilityHandler = useRef<(info: { viewableItems: ViewToken[] }) => void>(undefined);
-    const onViewableItemsChangedStable = useCallback((info: { viewableItems: ViewToken[] }) => viewabilityHandler.current?.(info), []);
-
     const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken[] }) => {
         if (viewableItems.length === 0) return;
         if (!total) return;
@@ -401,10 +389,6 @@ export default function LeaderboardPage() {
         requestPage(Math.floor(first / pageSize) + 1);
         requestPage(Math.floor(last / pageSize) + 1);
     };
-
-    useEffect(() => {
-        viewabilityHandler.current = onViewableItemsChanged;
-    });
 
     const updateScrollHandlePosition = (contentOffsetY: number) => {
         if (movingScrollHandle.get()) return;
@@ -461,11 +445,22 @@ export default function LeaderboardPage() {
     useEffect(() => {
         if (!scrollRequest) return;
 
-        // scrollToIndex with getItemLayout below is exact and instant here: the
-        // offset of row n is n * ROW_HEIGHT, so VirtualizedList does not have to
-        // measure its way there. The scroll event that follows drives viewability,
-        // which is what asks for the pages — the jump needs no paging code of its
-        // own.
+        // scrollToIndex, not scrollToOffset. scrollToOffset only calls the native
+        // scrollTo (see useRecyclerViewController.tsx) and FlashList learns where it
+        // is from its own scroll handler — so a jump left the list showing nothing
+        // at all until a real scroll event arrived, which for a programmatic scroll
+        // may never happen. scrollToIndex walks its internal offset to the target in
+        // steps and commits a layout there, which renders the rows.
+        //
+        // That commit is also why the jump needs no paging code of its own:
+        // committing a layout runs computeItemViewability() (RecyclerView.tsx,
+        // onCommitEffect), so onViewableItemsChanged reports the new position and
+        // the pages are requested by the same path that handles ordinary scrolling.
+        // A jump used to ask for its pages here, back when it went through
+        // scrollToOffset and no commit — and so no viewability — ever happened.
+        //
+        // Working in rows also means the handle no longer has to assume the content
+        // is exactly `rows * ROW_HEIGHT` tall to find its target.
         flatListRef.current?.scrollToIndex({
             index: Math.max(0, Math.min(scrollRequest.row, list.current.length - 1)),
             animated: false,
@@ -539,7 +534,7 @@ export default function LeaderboardPage() {
         <View style={styles.container2}>
             <Stack.Screen
                 options={{
-                    title: getTranslation('leaderboard.title'),
+                    title: `${getTranslation('leaderboard.title')} (FlashList)`,
                     headerRight: () => null,
                 }}
             />
@@ -552,7 +547,7 @@ export default function LeaderboardPage() {
             {/*<Button onPress={() => scrollFlatListTo(300)}>Scroll</Button>*/}
 
             <View style={[styles.content, { opacity: loading ? 0.7 : 1 }]}>
-                <FlatList
+                <FlashList
                     ref={flatListRef}
                     onScrollEndDrag={handleOnScrollEndDrag}
                     onMomentumScrollBegin={handleOnMomentumScrollBegin}
@@ -569,32 +564,21 @@ export default function LeaderboardPage() {
 
                         scrollRange.set(layout.height - HANDLE_RADIUS * 2 - bottom);
                     }}
+                    // FlashList, not FlatList: commit cost here is rows-rendered x
+                    // per-row cost, and FlatList's VirtualizedList re-rendered its
+                    // whole window (up to ~69 rows in one commit) whenever a page
+                    // landed mid-scroll. FlashList recycles instead, so no
+                    // windowSize/maxToRenderPerBatch tuning is needed, and it needs
+                    // no getItemLayout — it derives the extent itself, which the
+                    // scroll handle depends on.
                     data={rows}
                     renderItem={({ item }: { item: LeaderboardListRow }) => _renderRow(item)}
                     // By index, not by profile id: the key then does not change when
-                    // a page lands, so the row updates props instead of being torn
-                    // down and rebuilt mid-transition.
+                    // a page lands, so the cell keeps its view and updates props
+                    // rather than being recycled mid-transition.
                     keyExtractor={(item: LeaderboardListRow) => item.index.toString()}
-                    // Every row is exactly ROW_HEIGHT tall, so VirtualizedList never
-                    // has to measure one. This is what makes a 66k-row list cheap to
-                    // mount and scrollToIndex exact for any row, however far away.
-                    getItemLayout={getItemLayout}
-                    onViewableItemsChanged={onViewableItemsChangedStable}
+                    onViewableItemsChanged={onViewableItemsChanged}
                     viewabilityConfig={viewabilityConfig}
-                    // VirtualizedList renders windowSize screenfuls either side of
-                    // the viewport and re-renders that whole window in one commit
-                    // when a page lands, so the window is kept small: a page landing
-                    // mid-scroll used to be ~69 rows in a single commit.
-                    windowSize={3}
-                    maxToRenderPerBatch={10}
-                    updateCellsBatchingPeriod={50}
-                    initialNumToRender={20}
-                    removeClippedSubviews={Platform.OS === 'android'}
-                    // Reached only if a jump outruns the data; getItemLayout means it
-                    // should not happen, and retrying with the offset is harmless.
-                    onScrollToIndexFailed={({ index }) => {
-                        flatListRef.current?.scrollToOffset({ animated: false, offset: index * ROW_HEIGHT });
-                    }}
                     // refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}
                     ListHeaderComponent={_renderHeader}
                     showsVerticalScrollIndicator={!handleVisible}

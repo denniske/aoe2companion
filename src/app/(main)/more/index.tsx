@@ -28,10 +28,12 @@ export default function More() {
         { icon: faQuestionCircle, title: getTranslation('about.title'), path: '/more/about' },
         { icon: faExchangeAlt, title: getTranslation('changelog.title'), path: '/more/changelog' },
         { icon: faHandsHelping, title: getTranslation('footer.help'), path: 'https://discord.com/invite/gCunWKx' },
-        { icon: faClock, title: 'Leaderboard row benchmark', path: '/statistics/leaderboard-row-benchmark' },
-        { icon: faClock, title: 'Leaderboard row flat list', path: '/statistics/leaderboard-row-flatlist' },
-        { icon: faClock, title: 'Leaderboard row skeleton list', path: '/statistics/leaderboard-row-skeleton-list' },
-        { icon: faClock, title: 'Leaderboard row window', path: '/statistics/leaderboard-row-window' },
+
+        // { icon: faClock, title: 'Leaderboard (FlashList)', path: '/statistics/leaderboard-flashlist' },
+        // { icon: faClock, title: 'Leaderboard row benchmark', path: '/statistics/leaderboard-row-benchmark' },
+        // { icon: faClock, title: 'Leaderboard row flat list', path: '/statistics/leaderboard-row-flatlist' },
+        // { icon: faClock, title: 'Leaderboard row skeleton list', path: '/statistics/leaderboard-row-skeleton-list' },
+        // { icon: faClock, title: 'Leaderboard row window', path: '/statistics/leaderboard-row-window' },
 
         // iOS does not allow donations and android did check for aoe2 also
         ...(!((Platform.OS === 'ios' || (appConfig.game === 'aoe2' && Platform.OS !== 'web')) && isMajorRelease)
