@@ -506,13 +506,19 @@ export default function LeaderboardPage() {
                         scrollRange.set(layout.height - HANDLE_RADIUS * 2 - bottom);
                     }}
                     scrollEventThrottle={500}
-                    // VirtualizedList defaults to windowSize 21 — ~21 viewport
-                    // heights of cells kept mounted, roughly 400 rows here. Every
-                    // re-render walked all of them, which measured 50-65ms per
-                    // commit (one outlier at 323ms) and stacked into ~1s freezes
-                    // whenever a page landed mid-scroll. 5 is still two screens of
-                    // buffer either side.
-                    windowSize={5}
+                    // Commit cost here is almost exactly rows-rendered x ~3.2ms
+                    // (measured: 207ms/69 rows, 113ms/35, 111ms/32, 94ms/26), so
+                    // the only lever that matters is how many cells a single
+                    // commit touches. VirtualizedList defaults to windowSize 21 —
+                    // ~21 viewport heights, roughly 400 rows here — which is what
+                    // produced ~1s freezes when a page landed mid-scroll. 3 still
+                    // keeps 1.5 screens of buffer either side and shows no blank
+                    // rows even when flinging. maxToRenderPerBatch caps the
+                    // incremental fill; it does not cap window-shift re-renders,
+                    // which is why windowSize is doing most of the work.
+                    windowSize={3}
+                    maxToRenderPerBatch={4}
+                    updateCellsBatchingPeriod={100}
                     removeClippedSubviews={true}
                     // contentContainerClassName="pt-2 pb-4"
                     data={rows}
