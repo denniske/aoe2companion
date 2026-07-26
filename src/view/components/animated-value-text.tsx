@@ -36,7 +36,11 @@ export function AnimatedValueText({
     value: SharedValue<string>;
     style?: any;
 }) {
-    const [display, setDisplay] = useState(value.value);
+    // Starts empty rather than seeded with `value.value`: reading a shared value
+    // during render is what Reanimated's strict mode warns about, and it warned
+    // every time this mounted. useAnimatedReaction runs once on mount with
+    // oldValue === null, so the first real value arrives immediately anyway.
+    const [display, setDisplay] = useState('');
 
     // React to changes in the shared value
     useAnimatedReaction(

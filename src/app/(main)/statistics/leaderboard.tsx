@@ -93,10 +93,6 @@ export default function LeaderboardPage() {
     const insets = useSafeAreaInsets();
     const flatListRef = React.useRef<FlashListRef<any>>(null);
     const [rankWidth, setRankWidth] = useState<number>(43);
-    // How tall the list is, i.e. how many rows a jump lands on. State rather than a
-    // ref because the scroll handle needs it, and the handle's gesture is built
-    // during render. Set once, from onLayout.
-    const [listHeight, setListHeight] = useState<number>(0);
     const [myRankWidth, setMyRankWidth] = useState<number>(0);
     const bottom = insets.bottom + 82;
 
@@ -208,10 +204,14 @@ export default function LeaderboardPage() {
         })),
     });
 
+    // Only ever call this from something React re-creates every render — a prop, an
+    // effect. It closes over `queryIdentity`, and a caller holding on to an older
+    // copy of it would write pages tagged with an identity that no longer matches,
+    // which the line above then silently discards. That is exactly what the scroll
+    // handle used to do; see scrollFlatListTo.
     const requestPage = (page: number) => {
         setRequested((current) => {
             const pages = current.identity === queryIdentity ? current.pages : firstPageOnly;
-            console.log('requestPage', page, pages.includes(page));
             if (pages.includes(page)) return current;
             return { identity: queryIdentity, pages: [...pages, page] };
         });
@@ -301,7 +301,7 @@ export default function LeaderboardPage() {
     const rowStyles = useLeaderboardRowStyles();
     // Fetched with its `{games}` placeholder intact; the row fills in the number.
     const gamesLabel = getTranslation('leaderboard.games') ?? '';
-    const { width: windowWidth } = useWindowDimensions();
+    const { width: windowWidth, height: windowHeight } = useWindowDimensions();
     const showGames = windowWidth >= 360;
     // The selected country, not a separate "country the rows came from" state: the
     // reset effect empties the list the moment the selection changes, so there is no
@@ -389,7 +389,6 @@ export default function LeaderboardPage() {
     const updateScrollHandlePosition = (contentOffsetY: number) => {
         if (movingScrollHandle.get()) return;
         positionY.set((contentOffsetY / (list.current.length * ROW_HEIGHT)) * scrollRange.get());
-        console.log('updateScrollHandlePosition', 'contentOffsetY:', contentOffsetY, 'positionY:', positionY.get());
     };
 
     const handleOnScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -429,37 +428,48 @@ export default function LeaderboardPage() {
     // only records where it wants to go, and the effect — a legal place to touch a
     // ref — does the scrolling. A fresh object per request on purpose: dragging to
     // the same offset twice must still re-fire the effect.
-    const [scrollRequest, setScrollRequest] = useState<{ offset: number; lastRow: number } | null>(null);
+    const [scrollRequest, setScrollRequest] = useState<{ row: number } | null>(null);
+    const handledScrollRequest = useRef<object | null>(null);
 
-    const scrollFlatListTo = (offset: number) => {
-        console.log('scrollFlatListTo', offset);
-        // A jump asks for its own pages instead of leaving it to
-        // onViewableItemsChanged, which does not reliably report one. FlashList
-        // computes viewability inside its own onScroll handler and scrollToOffset
-        // only calls the native scrollTo, so the jump has to wait for a native
-        // scroll event — which scrollEventThrottle={500} can hold back or drop
-        // outright — and then for viewability's minimumViewTime, 250ms by default.
-        // Dragging the handle to rank 30000 landed on skeleton rows with nothing
-        // asking for their page until the list was nudged by hand.
-        //
-        // Worked out from `rows` and `listHeight` rather than from `list.current`:
-        // this is handed to the pan gesture, which is built during render, so it
-        // may not touch a ref. Whatever does need one waits for the effect below.
-        const viewportRows = Math.ceil((listHeight || ROW_HEIGHT * 15) / ROW_HEIGHT);
-        const first = Math.max(0, Math.floor(offset / ROW_HEIGHT));
-        const lastRow = Math.min(Math.max(rows.length - 1, 0), first + viewportRows);
-
-        setScrollRequest({ offset, lastRow });
-        requestPage(Math.floor(first / pageSize) + 1);
-        requestPage(Math.floor(lastRow / pageSize) + 1);
-    };
+    // Nothing but the target row, handed over through a React setter. The gesture
+    // that calls this is built during render and its worklet keeps whatever closure
+    // it captured, so everything else in scope here is a closure from some earlier
+    // render: calling requestPage() from here wrote pages tagged with a
+    // `queryIdentity` that no longer matched, and the derived `requestedPages`
+    // dropped them. Only a React setter is safe, because it never goes stale.
+    const scrollFlatListTo = (row: number) => setScrollRequest({ row });
 
     useEffect(() => {
-        if (!scrollRequest) return;
-        flatListRef.current?.scrollToOffset({ animated: false, offset: scrollRequest.offset });
-        lastVisibleIndex.current = scrollRequest.lastRow;
-        calcRankWidth(scrollRequest.lastRow);
-    }, [scrollRequest]);
+        // Guard rather than trusting the deps to stay put: `requestRowRange` changes
+        // identity whenever the query does, and re-running this would drag the list
+        // back to a row the user has long since left.
+        if (!scrollRequest || handledScrollRequest.current === scrollRequest) return;
+        handledScrollRequest.current = scrollRequest;
+
+        const first = Math.max(0, Math.min(scrollRequest.row, list.current.length - 1));
+
+        // scrollToIndex, not scrollToOffset. scrollToOffset only calls the native
+        // scrollTo (see useRecyclerViewController.tsx) and FlashList learns where it
+        // is exclusively from its own onScroll handler — so a jump left the list
+        // showing nothing at all until a real scroll event arrived, which for a
+        // programmatic scroll may never happen. scrollToIndex walks its internal
+        // offset to the target in steps, so the window for those rows is rendered as
+        // part of the jump. It also means the handle no longer has to assume the
+        // content is exactly `rows * ROW_HEIGHT` tall to find its target.
+        flatListRef.current?.scrollToIndex({ index: first, animated: false });
+
+        // The pages are asked for here rather than left to onViewableItemsChanged,
+        // which does not reliably report a programmatic jump: viewability is
+        // computed in that same onScroll handler and then held for
+        // minimumViewTime, 250ms by default.
+        //
+        // An effect, not the gesture callback: this closure is the one from the
+        // render that committed `scrollRequest`, so requestPage() sees the current
+        // query identity. The window is taller than the list, so the row range errs
+        // towards one page too many.
+        const viewportRows = Math.ceil(windowHeight / ROW_HEIGHT);
+        requestRowRange(first, Math.min(Math.max(list.current.length - 1, 0), first + viewportRows));
+    }, [scrollRequest, requestRowRange, windowHeight]);
 
     // No useMemo: the `[]` deps were a lie (the worklets capture shared values and
     // scrollFlatListTo), which the compiler rejects as unpreservable memoization.
@@ -481,22 +491,15 @@ export default function LeaderboardPage() {
                     const max = scrollRange.get();
                     const next = Math.max(Math.min(handleOffsetY.get() + e.translationY, max), min);
                     positionY.set(next);
-                    console.log(
-                        'onUpdate',
-                        next,
-                        'handleOffsetY:',
-                        handleOffsetY.get(),
-                        'e.translationY:',
-                        e.translationY,
-                        'scrollRange:',
-                        scrollRange.get()
-                    );
                 })
                 .onEnd(() => {
-                    const offset = positionY.get();
-                    // const newOffset = (offset / scrollRange.value) * total.value * ROW_HEIGHT;
-                    const newOffset = (offset / scrollRange.get()) * listLength.get() * ROW_HEIGHT;
-                    scheduleOnRN(scrollFlatListTo, newOffset);
+                    // The row under the handle, which is what the handle's own label
+                    // has always shown. It used to convert that to a pixel offset
+                    // here — the same maths, then undone on the other side — which
+                    // only worked as long as the list's content was exactly
+                    // `rows * ROW_HEIGHT` tall.
+                    const row = Math.round((positionY.get() / scrollRange.get()) * listLength.get());
+                    scheduleOnRN(scrollFlatListTo, row);
                     movingScrollHandle.set(false);
                     scheduleOnRN(setBaseMoving, false);
                     handleOffsetY.set(0);
@@ -563,10 +566,8 @@ export default function LeaderboardPage() {
                         // called later so it will work anyway
                         if (currentTarget && !(currentTarget as any)?.scrollTo) return;
 
-                        setListHeight(layout.height);
                         scrollRange.set(layout.height - HANDLE_RADIUS * 2 - bottom);
                     }}
-                    scrollEventThrottle={500}
                     // FlashList, not FlatList: commit cost here is rows-rendered x
                     // per-row cost, and FlatList's VirtualizedList re-rendered its
                     // whole window (up to ~69 rows in one commit) whenever a page
