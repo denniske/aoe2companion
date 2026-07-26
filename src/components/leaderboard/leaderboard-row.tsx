@@ -16,6 +16,35 @@ import { createStylesheet } from '../../theming-new';
 export const ROW_HEIGHT = 45;
 
 /**
+ * One slot in a leaderboard list: a row that exists, holding a player once its
+ * page has landed.
+ *
+ * The wrapper is not decoration. A leaderboard list is `total` rows long from the
+ * first frame, and the obvious way to express "no data yet" — a hole in the array,
+ * i.e. `undefined` — makes every unloaded row reference-equal to every other one.
+ * FlashList v2 recycles a cell by handing the same ViewHolder a new index and a
+ * new item, but it renders the children through
+ *
+ *     useMemo(() => renderItem({ item, index, ... }), [item, extraData, target, renderItem])
+ *
+ * with `index` deliberately left out of the deps (see ViewHolder.tsx in
+ * @shopify/flash-list). So a cell recycled from row 40 to row 300 with `undefined`
+ * on both sides sees nothing change and keeps the children it already had —
+ * including the rank, which falls back to the list index while the row is a
+ * skeleton. The result was a column of stale rank numbers whenever you scrolled
+ * through a range that had not loaded, correcting itself only when the page
+ * landed and the items became distinct objects again.
+ *
+ * One object per index means recycling always changes `item`. Keying the list by
+ * `index` rather than by profile id is the other half: the key then survives the
+ * skeleton -> data swap, so the cell updates props instead of being recycled.
+ */
+export interface LeaderboardListRow {
+    index: number;
+    player?: ILeaderboardPlayer;
+}
+
+/**
  * The two leaderboard rows.
  *
  * `LeaderboardRowLegacy` is the row exactly as it was before this change. It is

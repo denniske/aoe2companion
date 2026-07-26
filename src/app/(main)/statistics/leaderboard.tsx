@@ -4,17 +4,16 @@ import { useTranslation } from '@app/helper/translate';
 import { useAuthProfileId, useFollowedAndMeProfileIds, useLanguage, useLeaderboards } from '@app/queries/all';
 import { AnimatedValueText } from '@app/view/components/animated-value-text';
 import { MyText } from '@app/view/components/my-text';
-import { useIsFocused } from 'expo-router/react-navigation';
+import { useQueries, useQueryClient } from '@tanstack/react-query';
 import { router, Stack } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent, Platform, StyleSheet, useWindowDimensions, View } from 'react-native';
+import { NativeScrollEvent, NativeSyntheticEvent, Platform, StyleSheet, useWindowDimensions, View, ViewToken } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useDerivedValue, useSharedValue } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { fetchLeaderboard } from '../../../api/helper/api';
 import { ILeaderboardPlayer } from '../../../api/helper/api.types';
-import { useLazyAppendApi } from '../../../hooks/use-lazy-append-api';
 import { useSelector } from '../../../redux/reducer';
 import { createStylesheet } from '../../../theming-new';
 import { FlashList } from '@app/components/flash-list';
@@ -26,9 +25,24 @@ import { WebLeaderboard } from '../../../components/leaderboard/web-leaderboard'
 import { LeaderboardOfficialSelect } from '@app/components/select/leaderboard-official-select';
 import { Icon } from '@app/components/icon';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
-import { LeaderboardRow, ROW_HEIGHT, useLeaderboardRowStyles } from '@app/components/leaderboard/leaderboard-row';
+import { LeaderboardListRow, LeaderboardRow, ROW_HEIGHT, useLeaderboardRowStyles } from '@app/components/leaderboard/leaderboard-row';
 
 const pageSize = 100;
+
+// A row counts as visible as soon as any part of it is, so the pages being paged
+// in are the ones actually under the viewport. FlashList does not support changing
+// this on the fly, hence module scope.
+const viewabilityConfig = { itemVisiblePercentThreshold: 0 };
+
+// Stable identity, so switching leaderboards hands useQueries the same array
+// rather than a new one-element array per render.
+const firstPageOnly = [1];
+
+// Pages are immutable once fetched — a rank does not change under you mid-scroll —
+// and every page stays mounted while it is in `requestedPages`. This keeps a page
+// you scroll back to from refetching, and pairs with refetchOnWindowFocus: false in
+// the shared query client.
+const pageStaleTime = 5 * 60 * 1000;
 
 export default function LeaderboardPage() {
     const showTabBar = useShowTabBar();
@@ -76,20 +90,24 @@ export default function LeaderboardPage() {
     const styles = useStyles();
     const [refetching, setRefetching] = useState(false);
     const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
-    const [loadedLeaderboardCountry, setLoadedLeaderboardCountry] = useState(leaderboardCountry);
-    // Which query the currently-held rows actually came from, so the focus effect
-    // below can tell "came back to this screen" from "the query changed".
-    const [loadedLeaderboardId, setLoadedLeaderboardId] = useState<string | null>(null);
     const insets = useSafeAreaInsets();
     const flatListRef = React.useRef<FlashListRef<any>>(null);
-    const [contentOffsetY, setContentOffsetY] = useState<number>();
     const [rankWidth, setRankWidth] = useState<number>(43);
+    // How tall the list is, i.e. how many rows a jump lands on. State rather than a
+    // ref because the scroll handle needs it, and the handle's gesture is built
+    // during render. Set once, from onLayout.
+    const [listHeight, setListHeight] = useState<number>(0);
     const [myRankWidth, setMyRankWidth] = useState<number>(0);
-    const [temp, setTemp] = useState<number>(43);
     const bottom = insets.bottom + 82;
 
-    const list = useRef<any[]>([]);
-    const fetchingPages = useRef<number[]>([]);
+    const list = useRef<LeaderboardListRow[]>([]);
+    // Pages already spliced into `list`, so a re-render that hands back the same
+    // query results does not splice them again. Cleared when the query identity
+    // changes, since page 1 of another leaderboard is a different page 1.
+    const appliedPages = useRef(new Set<number>());
+    // The bottom row currently on screen, kept by onViewableItemsChanged. Read when
+    // a page lands, to size the rank column against what is actually visible.
+    const lastVisibleIndex = useRef<number>(0);
 
     // `list` stays the mutable paging buffer — the fetch/rank-width/scroll-handle
     // maths all index into it and must not churn per render. But render may not
@@ -97,47 +115,53 @@ export default function LeaderboardPage() {
     // the FlatList consumes this snapshot instead of `list.current`. Copying also
     // gives FlatList a new identity, so pages actually appear when they land
     // rather than waiting for some unrelated state change to force a re-render.
-    const [rows, setRows] = useState<any[]>([]);
+    const [rows, setRows] = useState<LeaderboardListRow[]>([]);
     const publishRows = () => setRows(list.current.slice());
 
-    const isFocused = useIsFocused();
+    // Grows the list to `length`, giving every new row its own object — see
+    // LeaderboardListRow for why a hole in the array will not do. Shrinking just
+    // truncates; the rows that survive keep whatever they were holding.
+    const resizeList = (length: number) => {
+        const rows = list.current;
+        if (length <= rows.length) {
+            rows.length = length;
+            return;
+        }
+        for (let index = rows.length; index < length; index++) {
+            rows[index] = { index };
+        }
+    };
 
     const followingIds = useFollowedAndMeProfileIds();
     const authProfileId = useAuthProfileId();
+    const queryClient = useQueryClient();
 
-    const getParams = (page: number, profileId?: number) => {
+    // Everything that selects *which* leaderboard, minus the page. Same shape as
+    // web-leaderboard.tsx builds for its infinite query.
+    const queryParams = useMemo(() => {
         if (leaderboardCountry == 'following') {
-            return { page, profileId, profileIds: followingIds };
+            return { profileIds: followingIds };
         }
         if (leaderboardCountry?.startsWith('Clan ')) {
-            return { page, profileId, clan: leaderboardCountry?.replace('Clan ', '') };
+            return { clan: leaderboardCountry?.replace('Clan ', '') };
         }
         if (leaderboardCountry == countryEarth) {
-            return { page, profileId };
+            return {};
         }
-        return { page, profileId, country: leaderboardCountry };
-    };
+        return { country: leaderboardCountry };
+    }, [leaderboardCountry, followingIds]);
 
     // const myRank = useLazyApi({}, fetchLeaderboard, { leaderboardId, ...getParams(1, auth?.profileId) });
 
-    const calcRankWidth = (contentOffsetY: number | undefined) => {
-        if (contentOffsetY === undefined) return;
-        if (total.current === undefined) return;
-
-        contentOffsetY -= headerHeightAndPadding;
-
-        const index = Math.floor(contentOffsetY / ROW_HEIGHT);
-        const indexTop = Math.max(0, index);
-        const indexBottom = Math.min(total.current - 1, index + 15);
-
-        if (total2.current === 0) return;
-
-        // console.log('contentOffsetY', contentOffsetY);
-        // console.log('current', list.current[indexBottom]?.rank.toFixed(0).length);
-
-        const rankLen = list.current[indexBottom]?.rank.toFixed(0).length;
-        if (rankLen != null) {
-            setRankWidth((rankLen + 1) * 10);
+    // Sized against the bottom row on screen: it has the longest rank of the ones
+    // visible, so the column is exactly as wide as it needs to be. This used to
+    // derive that row from the scroll offset — offset minus the header, divided by
+    // ROW_HEIGHT, plus a guessed 15 rows for the viewport — which is what
+    // onViewableItemsChanged reports outright.
+    const calcRankWidth = (index: number) => {
+        const rank = list.current[index]?.player?.rank;
+        if (rank != null) {
+            setRankWidth((rank.toFixed(0).length + 1) * 10);
         }
     };
 
@@ -152,37 +176,57 @@ export default function LeaderboardPage() {
     const listLength = useSharedValue(0);
     const positionY = useSharedValue(0);
 
-    const leaderboard = useLazyAppendApi(
-        {
-            append: (data, newData, args) => {
-                const [params] = args;
-                // console.log('APPEND', data, newData, args);
+    // One query per page, which is what a leaderboard actually is: random access
+    // into a list you already know the length of. An infinite query cannot express
+    // that — it can only walk outwards from where it started, so jumping the scroll
+    // handle to rank 30000 would have to fetch every page on the way there.
+    //
+    // This replaces useLazyAppendApi, which fetched into a single mutable blob and
+    // hand-rolled the parts react-query already has: in-flight de-duplication (it
+    // needed a `fetchingPages` ref), caching (an `if (list.current[index]) return`
+    // guard), cancellation, and retries.
+    //
+    // `queryIdentity` is every part of the key except the page. It is what "the
+    // list you are looking at changed" means here — see the reset effect below.
+    const queryIdentity = useMemo(() => JSON.stringify([language, leaderboardId, queryParams]), [language, leaderboardId, queryParams]);
+    const [requested, setRequested] = useState<{ identity: string; pages: number[] }>({ identity: '', pages: firstPageOnly });
+    // Derived, not reset in an effect: the moment the identity changes this is back
+    // to page 1, so the render that switches leaderboards cannot start fetches for
+    // the pages the *previous* leaderboard happened to be scrolled to.
+    const requestedPages = requested.identity === queryIdentity ? requested.pages : firstPageOnly;
 
-                total.current = newData.total;
-                total2.current = newData.total;
-                list.current.length = newData.total;
-                listLength.set(newData.total);
-                newData.players.forEach((value, index) => (list.current[(params.page! - 1) * pageSize + index] = value));
-                publishRows();
+    const results = useQueries({
+        queries: requestedPages.map((page) => ({
+            queryKey: ['leaderboard', language, leaderboardId, queryParams, page],
+            // `signal` keeps the cancellation useLazyAppendApi did by hand with an
+            // AbortController; fetchLeaderboard passes it through to fetch().
+            queryFn: ({ signal }) => fetchLeaderboard({ language: language!, leaderboardId: leaderboardId ?? '', page, signal, ...queryParams }),
+            // showTabBar is false on web, where WebLeaderboard renders instead and
+            // runs its own query.
+            enabled: !!language && !!leaderboardId && showTabBar,
+            staleTime: pageStaleTime,
+        })),
+    });
 
-                calcRankWidth(contentOffsetY);
+    const requestPage = (page: number) => {
+        setRequested((current) => {
+            const pages = current.identity === queryIdentity ? current.pages : firstPageOnly;
+            console.log('requestPage', page, pages.includes(page));
+            if (pages.includes(page)) return current;
+            return { identity: queryIdentity, pages: [...pages, page] };
+        });
+    };
 
-                setLoadedLeaderboardCountry(leaderboardCountry);
-                setLoadedLeaderboardId(leaderboardId);
-
-                // console.log('APPENDED', list.current);
-                // console.log('APPENDED', params);
-                return data;
-            },
-        },
-        fetchLeaderboard,
-        { language: language!, leaderboardId: leaderboardId ?? '', ...getParams(1) }
-    );
+    // The page that is always requested, so its state is the list's state.
+    const firstPage = results[0];
+    const total = results.find((result) => result.data != null)?.data?.total;
+    const loading = firstPage?.isFetching ?? false;
+    const touched = firstPage?.isFetched ?? false;
+    const error = results.some((result) => result.isError);
 
     const onRefresh = async () => {
         setRefetching(true);
-        // await Promise.all([leaderboard.reload(), auth ? myRank.reload() : noop()]);
-        await Promise.all([leaderboard.reload()]);
+        await queryClient.refetchQueries({ queryKey: ['leaderboard', language, leaderboardId, queryParams] });
         setRefetching(false);
     };
 
@@ -193,50 +237,58 @@ export default function LeaderboardPage() {
     //     (leaderboardCountry == 'following' && followingIds.find((f) => f == myRankPlayer?.profileId) != null) ||
     //     leaderboardCountry == myRankPlayer?.country;
 
-    const containerPadding = 20;
-    const headerMyRankHeight = 0; //myRank.data?.players.length > 0 && showMyRank ? ROW_HEIGHT_MY_RANK : 0;
     const headerInfoHeight = 40;
-    const headerHeightAndPadding = containerPadding + headerInfoHeight + headerMyRankHeight;
 
+    // The header height used to matter here as well: paging and the rank column
+    // were computed from the scroll offset, so both had to subtract it before
+    // dividing by ROW_HEIGHT. onViewableItemsChanged reports row indices, which owe
+    // nothing to the header.
+    //
     // const scrollToIndex = (index: number) => {
     //     // TODO: Scrolling position is not accurate because the database is actually missing some ranks (sometimes).
     //     // HACK: We use viewPosition: 0.5 so that the user does not notice it.
-    //     flatListRef.current?.scrollToIndex({ animated: false, index, viewPosition: 0, viewOffset: -headerHeightAndPadding });
+    //     flatListRef.current?.scrollToIndex({ animated: false, index, viewPosition: 0 });
     // };
 
+    // The list being looked at changed: throw the buffer away and go back to the
+    // top. Nothing is reloaded here — useQueries switched keys in the same render,
+    // so page 1 of the new leaderboard is already either in the cache or in flight.
+    //
+    // Declared before the effect that applies landed pages, because when the new
+    // page 1 is a cache hit both run in the same commit and this one has to go
+    // first.
+    //
+    // This used to hang off isFocused, with a guard so that merely returning to the
+    // screen would not reload and scrollToOffset(0) away the user's position. The
+    // cache is that guard now: coming back re-renders with the same keys and the
+    // same data, and neither effect does anything.
     useEffect(() => {
-        if (!leaderboardId) return;
-        if (!isFocused) return;
-        if (!showTabBar) return;
-        // Skip the reload when nothing about the query changed — otherwise merely
-        // returning to this screen (isFocused flipping back after visiting a
-        // player) reloads and scrollToOffset(0) throws away the user's position.
-        //
-        // This used to compare `leaderboard.lastParams?.leaderboardCountry`, which
-        // could never match: useLazyAppendApi stores `setLastParams(args)` — the
-        // arguments *array* — so every property read off it is undefined, while
-        // leaderboardCountry is a string or null. The guard was dead code and the
-        // screen reloaded on every refocus. Compare against what was actually
-        // loaded instead (both set in append). The id matters too, otherwise
-        // switching leaderboards within one country would skip its reload.
-        if (leaderboard.touched && loadedLeaderboardId === leaderboardId && loadedLeaderboardCountry === leaderboardCountry) return;
-        list.current.length = Math.min(list.current.length, pageSize);
-        listLength.set(Math.min(list.current.length, pageSize));
+        appliedPages.current = new Set();
+        resizeList(0);
+        listLength.set(0);
         publishRows();
-        leaderboard.reload();
-        // if (auth) {
-        //     myRank.reload();
-        // }
-        console.log('RELOADING LEADERBOARD', leaderboardId, 'country:', leaderboardCountry);
         flatListRef.current?.scrollToOffset({ animated: false, offset: 0 });
-        total2.current = 1000;
-    }, [isFocused, leaderboardCountry, leaderboardId]);
+    }, [queryIdentity, listLength]);
 
-    const total = useRef<number | undefined>(undefined);
+    // Where a page lands — the successor to useLazyAppendApi's `append`. react-query
+    // owns the fetching, this owns the buffer the list reads from. Same shape as
+    // /statistics/leaderboard-row-skeleton-list.
+    useEffect(() => {
+        const landed = results.map((result) => result.data).filter((page) => page != null && !appliedPages.current.has(page.page));
+        if (landed.length === 0) return;
 
-    // When switching from on leaderboard to another we need to set this to something
-    // greater 0 so that a fetch is not prevented
-    const total2 = useRef<number>(1000);
+        landed.forEach((page) => appliedPages.current.add(page!.page));
+
+        resizeList(landed[0]!.total);
+        listLength.set(list.current.length);
+        landed.forEach((page) => {
+            const offset = (page!.page - 1) * pageSize;
+            page!.players.forEach((player, i) => (list.current[offset + i] = { index: offset + i, player }));
+        });
+        publishRows();
+
+        calcRankWidth(lastVisibleIndex.current);
+    }, [results, listLength]);
 
     const onSelect = async (player: ILeaderboardPlayer) => {
         router.push(`/players/${player.profileId}`);
@@ -251,18 +303,24 @@ export default function LeaderboardPage() {
     const gamesLabel = getTranslation('leaderboard.games') ?? '';
     const { width: windowWidth } = useWindowDimensions();
     const showGames = windowWidth >= 360;
-    const showCountryRank = isCountry(loadedLeaderboardCountry);
+    // The selected country, not a separate "country the rows came from" state: the
+    // reset effect empties the list the moment the selection changes, so there is no
+    // window in which rows from the previous country are still on screen.
+    const showCountryRank = isCountry(leaderboardCountry);
     const finalRankWidth = Math.max(myRankWidth || 43, rankWidth || 43);
 
     // LeaderboardPage compiles now, so the compiler would keep this stable on its
     // own; the useCallback is kept only because its deps are already correct and
     // removing it buys nothing.
     const _renderRow = useCallback(
-        (player: ILeaderboardPlayer, i: number) => {
+        (row: LeaderboardListRow) => {
             return (
                 <LeaderboardRow
-                    player={player}
-                    i={i}
+                    player={row.player}
+                    // row.index, not the renderItem index: the two are the same
+                    // number, but FlashList does not re-render a recycled cell for
+                    // an index change alone. See LeaderboardListRow.
+                    i={row.index}
                     showCountryRank={showCountryRank}
                     showGames={showGames}
                     gamesLabel={gamesLabel}
@@ -281,13 +339,13 @@ export default function LeaderboardPage() {
     // }, [myRankPlayer, showMyRank]);
 
     const _renderHeader = () => {
-        const players = getTranslation('leaderboard.players', { players: total.current });
+        const players = getTranslation('leaderboard.players', { players: total });
         // const updated = leaderboard.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(leaderboard.data.updated) }) : '';
         return (
             <>
                 <View style={{ height: headerInfoHeight }} className="flex-row justify-center pl-4 pr-12 items-center">
                     <MyText style={styles.info}>
-                        {total.current ? players : ''}
+                        {total ? players : ''}
                         {/*{leaderboard.data?.updated ? ' (' + updated + ')' : ''}*/}
                     </MyText>
                 </View>
@@ -296,58 +354,37 @@ export default function LeaderboardPage() {
         );
     };
 
-    const fetchPage = async (page: number) => {
-        const index = (page - 1) * pageSize + 1;
+    // Paging is driven by which rows are on screen, reported by the list itself.
+    //
+    // It used to be derived from the scroll offset instead: every scroll event set
+    // a contentOffsetY state — a re-render of this whole screen per event — and an
+    // effect turned that offset back into row indices with the header height and
+    // ROW_HEIGHT, then guessed the bottom of the viewport as `index + 15`. The list
+    // knows all of that exactly, and reports it only when the set of visible rows
+    // actually changes, so the scroll handlers no longer set state at all.
+    //
+    // The page maths is also fixed here: `Math.ceil(index / pageSize)` made row 0
+    // ask for page 0, and every row at an exact page boundary ask for the page
+    // before its own.
+    //
+    // Asking for a page is now just adding it to `requestedPages`; whether that
+    // costs a request is react-query's business, so the checks that used to guard
+    // this — in flight already, already loaded, something else loading — are gone.
+    const requestRowRange = (first: number, last: number) => {
+        lastVisibleIndex.current = last;
+        calcRankWidth(last);
 
-        if (fetchingPages.current.includes(page)) {
-            // console.log('FETCHPAGE', page, 'ALREADY FETCHING');
-            return;
-        }
-        if (list.current[index]) {
-            // console.log('FETCHPAGE', page, 'ALREADY HAVE');
-            return;
-        }
-        if (leaderboard.loading) {
-            // console.log('FETCHPAGE', page, 'LEADERBOARD LOADING');
-            return;
-        }
-
-        // console.log('FETCHPAGE', page, 'WILL FETCH');
-
-        fetchingPages.current = [...fetchingPages.current, page];
-        await leaderboard.refetchAppend({ language: language!, leaderboardId: leaderboardId ?? '', ...getParams(page) });
-        fetchingPages.current = fetchingPages.current.filter((p) => p !== page);
-
-        setTemp((t) => t + 1);
+        requestPage(Math.floor(first / pageSize) + 1);
+        requestPage(Math.floor(last / pageSize) + 1);
     };
 
-    const fetchByContentOffset = (contentOffsetY: number) => {
-        if (!leaderboard.touched) return;
-        if (!total.current) return;
+    const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+        if (viewableItems.length === 0) return;
+        if (!total) return;
 
-        contentOffsetY -= headerHeightAndPadding;
-
-        const index = Math.floor(contentOffsetY / ROW_HEIGHT);
-        const indexTop = Math.max(0, index);
-        const indexBottom = Math.min(total.current - 1, index + 15);
-
-        if (total2.current === 0) return;
-
-        // console.log('fetchByContentOffset', indexTop, '-', indexBottom);
-
-        fetchPage(Math.ceil(indexTop / pageSize));
-        fetchPage(Math.ceil(indexBottom / pageSize));
+        const first = viewableItems[0].index ?? 0;
+        requestRowRange(first, viewableItems[viewableItems.length - 1].index ?? first);
     };
-
-    // `fetchingPages.current` used to be a dependency here. Mutating a ref does not
-    // re-render, so it never scheduled this effect on its own — it only ever
-    // changed the comparison when some *other* state had already caused a render,
-    // which is why the compiler rejects reading a ref during render. Scrolling is
-    // what should drive paging, and fetchPage() already de-dupes in-flight pages.
-    useEffect(() => {
-        if (contentOffsetY === undefined) return;
-        fetchByContentOffset(contentOffsetY);
-    }, [contentOffsetY]);
 
     const updateScrollHandlePosition = (contentOffsetY: number) => {
         if (movingScrollHandle.get()) return;
@@ -356,26 +393,22 @@ export default function LeaderboardPage() {
     };
 
     const handleOnScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        setContentOffsetY(event.nativeEvent.contentOffset.y);
         updateTimer();
         updateScrollHandlePosition(event.nativeEvent.contentOffset.y);
     };
 
-    const handleOnMomentumScrollBegin = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        setContentOffsetY(event.nativeEvent.contentOffset.y);
+    const handleOnMomentumScrollBegin = () => {
         updateTimer();
         scollingFlatlist.current = true;
     };
 
     const handleOnMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        setContentOffsetY(event.nativeEvent.contentOffset.y);
         updateTimer();
         updateScrollHandlePosition(event.nativeEvent.contentOffset.y);
         scollingFlatlist.current = false;
     };
 
     const handleOnScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        setContentOffsetY(event.nativeEvent.contentOffset.y);
         if (scollingFlatlist.current) {
             updateTimer();
         }
@@ -396,12 +429,36 @@ export default function LeaderboardPage() {
     // only records where it wants to go, and the effect — a legal place to touch a
     // ref — does the scrolling. A fresh object per request on purpose: dragging to
     // the same offset twice must still re-fire the effect.
-    const [scrollRequest, setScrollRequest] = useState<{ offset: number } | null>(null);
-    const scrollFlatListTo = (offset: number) => setScrollRequest({ offset });
+    const [scrollRequest, setScrollRequest] = useState<{ offset: number; lastRow: number } | null>(null);
+
+    const scrollFlatListTo = (offset: number) => {
+        console.log('scrollFlatListTo', offset);
+        // A jump asks for its own pages instead of leaving it to
+        // onViewableItemsChanged, which does not reliably report one. FlashList
+        // computes viewability inside its own onScroll handler and scrollToOffset
+        // only calls the native scrollTo, so the jump has to wait for a native
+        // scroll event — which scrollEventThrottle={500} can hold back or drop
+        // outright — and then for viewability's minimumViewTime, 250ms by default.
+        // Dragging the handle to rank 30000 landed on skeleton rows with nothing
+        // asking for their page until the list was nudged by hand.
+        //
+        // Worked out from `rows` and `listHeight` rather than from `list.current`:
+        // this is handed to the pan gesture, which is built during render, so it
+        // may not touch a ref. Whatever does need one waits for the effect below.
+        const viewportRows = Math.ceil((listHeight || ROW_HEIGHT * 15) / ROW_HEIGHT);
+        const first = Math.max(0, Math.floor(offset / ROW_HEIGHT));
+        const lastRow = Math.min(Math.max(rows.length - 1, 0), first + viewportRows);
+
+        setScrollRequest({ offset, lastRow });
+        requestPage(Math.floor(first / pageSize) + 1);
+        requestPage(Math.floor(lastRow / pageSize) + 1);
+    };
 
     useEffect(() => {
         if (!scrollRequest) return;
         flatListRef.current?.scrollToOffset({ animated: false, offset: scrollRequest.offset });
+        lastVisibleIndex.current = scrollRequest.lastRow;
+        calcRankWidth(scrollRequest.lastRow);
     }, [scrollRequest]);
 
     // No useMemo: the `[]` deps were a lie (the worklets capture shared values and
@@ -453,10 +510,10 @@ export default function LeaderboardPage() {
     };
 
     const getEmptyListStr = () => {
-        if (!leaderboard.touched) {
+        if (!touched) {
             return '';
         }
-        if (leaderboard.error) {
+        if (error) {
             return getTranslation('leaderboard.error');
         }
         return getTranslation('leaderboard.noplayerfound');
@@ -490,7 +547,7 @@ export default function LeaderboardPage() {
 
             {/*<Button onPress={() => scrollFlatListTo(300)}>Scroll</Button>*/}
 
-            <View style={[styles.content, { opacity: leaderboard.loading ? 0.7 : 1 }]}>
+            <View style={[styles.content, { opacity: loading ? 0.7 : 1 }]}>
                 <FlashList
                     ref={flatListRef}
                     onScrollEndDrag={handleOnScrollEndDrag}
@@ -506,6 +563,7 @@ export default function LeaderboardPage() {
                         // called later so it will work anyway
                         if (currentTarget && !(currentTarget as any)?.scrollTo) return;
 
+                        setListHeight(layout.height);
                         scrollRange.set(layout.height - HANDLE_RADIUS * 2 - bottom);
                     }}
                     scrollEventThrottle={500}
@@ -517,8 +575,13 @@ export default function LeaderboardPage() {
                     // no getItemLayout — it derives the extent itself, which the
                     // scroll handle depends on.
                     data={rows}
-                    renderItem={({ item, index }: any) => _renderRow(item, index)}
-                    keyExtractor={(item: { profileId: any }, index: any) => (item?.profileId || index).toString()}
+                    renderItem={({ item }: { item: LeaderboardListRow }) => _renderRow(item)}
+                    // By index, not by profile id: the key then does not change when
+                    // a page lands, so the cell keeps its view and updates props
+                    // rather than being recycled mid-transition.
+                    keyExtractor={(item: LeaderboardListRow) => item.index.toString()}
+                    onViewableItemsChanged={onViewableItemsChanged}
+                    viewabilityConfig={viewabilityConfig}
                     // refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={refetching} />}
                     ListHeaderComponent={_renderHeader}
                     showsVerticalScrollIndicator={!handleVisible}
