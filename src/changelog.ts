@@ -387,6 +387,11 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix leaderboard scroll performance',
         },
+        {
+            type: 'bugfix',
+            title: 'Rate Limit',
+            content: 'App will now respect rate limits from server and retry fetching data as fast as the server allows',
+        },
     ],
     '208.0.0': [
         {
