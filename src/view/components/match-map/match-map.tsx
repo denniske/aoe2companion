@@ -365,10 +365,10 @@ export default function MatchMap(props: Props) {
                                     )}
 
                                     {[...playerObjectsSingleToWalls].map((unit, index) => (
-                                        <Wall unit={unit} coord={coord} />
+                                        <Wall unit={unit} coord={coord} key={index} />
                                     ))}
                                     {[...staticWalls].map((unit, index) => (
-                                        <Wall unit={unit} coord={coord} />
+                                        <Wall unit={unit} coord={coord} key={index} />
                                     ))}
 
                                     {[...walls].map((unit, index) => {

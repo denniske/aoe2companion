@@ -146,7 +146,7 @@ export const ProfileLeaderboardModal = ({
                                             />
                                             <View className="flex-row gap-8 justify-center mt-4 items-center">
                                                 {ratingHistories.map((history) => (
-                                                    <View className="flex-row gap-2 items-center overflow-hidden shrink">
+                                                    <View className="flex-row gap-2 items-center overflow-hidden shrink" key={history.label}>
                                                         <View style={{ backgroundColor: history.color }} className="h-6 w-6" />
 
                                                         <Text variant="label" numberOfLines={1} className="flex-1">
@@ -181,7 +181,7 @@ export const ProfileLeaderboardModal = ({
                                                 ],
                                             ] as const
                                         ).map((group) => (
-                                            <View className="gap-4">
+                                            <View className="gap-4" key={group.map(({ key }) => key).join('-')}>
                                                 {group.map(({ key, title }) =>
                                                     stats?.[key].length ? (
                                                         <Card direction="vertical" className="gap-1 flex-1 py-3!" key={key}>

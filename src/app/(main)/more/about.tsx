@@ -214,7 +214,7 @@ export default function AboutPage() {
                 <MyText>Fabian Riebe</MyText>
                 <MyText>Firestormhand</MyText>
                 <MyText>Freddy Rayes</MyText>
-                <MyText>Gareth Deacon'</MyText>
+                <MyText>Gareth Deacon</MyText>
                 <MyText>Ghost of 6am</MyText>
                 <MyText>GWig</MyText>
                 <MyText>|GZ| tAMe</MyText>

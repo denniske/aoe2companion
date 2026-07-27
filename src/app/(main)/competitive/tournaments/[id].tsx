@@ -164,7 +164,7 @@ export default function TournamentDetail() {
             <Slider
                 tabs={tabs}
                 slides={[
-                    <View className="gap-5">
+                    <View className="gap-5" key="overview">
                         {filteredMatches.length ? (
                             <View className="gap-2">
                                 <Text variant="header" className="px-4">
@@ -400,7 +400,7 @@ export default function TournamentDetail() {
                             </View>
                         ) : null}
                     </View>,
-                    <View className="gap-2 px-4">
+                    <View className="gap-2 px-4" key="schedule">
                         <Text variant="header">{getTranslation('tournaments.fullschedule')}</Text>
                         {!tournament.scheduleNote && tournament.schedule.length === 0 ? (
                             <Text>{getTranslation('tournaments.schedulenotavailable')}</Text>
@@ -429,7 +429,7 @@ export default function TournamentDetail() {
                             ))}
                         </View>
                     </View>,
-                    <View className="gap-5 px-4">
+                    <View className="gap-5 px-4" key="moreinfo">
                         {tournamentTabs.length > 0 && (
                             <View className="gap-2">
                                 {tournamentTabs.map((tabs, index) => (
@@ -525,7 +525,7 @@ export default function TournamentDetail() {
                                                 className="mt-4"
                                                 tabs={tournament.broadcastTalent.map((broadcast) => broadcast.name)}
                                                 slides={tournament.broadcastTalent.map((broadcast) => (
-                                                    <TournamentMarkdown>{broadcast.content}</TournamentMarkdown>
+                                                    <TournamentMarkdown key={broadcast.name}>{broadcast.content}</TournamentMarkdown>
                                                 ))}
                                             />
                                         </BottomSheet>

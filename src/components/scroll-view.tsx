@@ -9,7 +9,10 @@ export interface ScrollViewProps extends Omit<ScrollViewPropsRN, 'contentContain
 }
 
 export const ScrollView = forwardRef(
-    ({ contentContainerStyle, contentContainerClassName, ...props }: ScrollViewProps, ref: React.ForwardedRef<ScrollViewRN>) => {
+    function ScrollView(
+        { contentContainerStyle, contentContainerClassName, ...props }: ScrollViewProps,
+        ref: React.ForwardedRef<ScrollViewRN>
+    ) {
         const scrollViewProps = useScrollView({ contentContainerStyle, ref, ...props });
 
         return (

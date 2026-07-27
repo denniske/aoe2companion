@@ -149,7 +149,7 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
 
 
                 return (
-                    <Card className="p-0 gap-0 mx-4 h-80" direction="vertical">
+                    <Card className="p-0 gap-0 mx-4 h-80" direction="vertical" key={key}>
                         <Text variant="header" className="pt-4 mb-2" align="center">
                             {label}
                         </Text>
@@ -226,7 +226,7 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                 }));
 
                 return (
-                    <Card className="p-0 gap-0 mx-4 h-80" direction="vertical">
+                    <Card className="p-0 gap-0 mx-4 h-80" direction="vertical" key={key}>
                         <Text variant="header" className="pt-4 mb-2" align="center">
                             {label}
                         </Text>

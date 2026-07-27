@@ -141,8 +141,8 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                         <MyText style={styles.header2}>{getTranslation('unit.heading.upgradedto')}</MyText>
                     </View>
                     {upgradedToList.map((upgradedTo) => (
-                        <Link asChild href={`/explore/buildings/${upgradedTo}`}>
-                            <TouchableOpacity key={upgradedTo} disabled={buildingLine.unique}>
+                        <Link asChild href={`/explore/buildings/${upgradedTo}`} key={upgradedTo}>
+                            <TouchableOpacity disabled={buildingLine.unique}>
                                 <View style={styles.row}>
                                     <Image
                                         style={styles.buildingIcon}

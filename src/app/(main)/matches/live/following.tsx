@@ -71,7 +71,7 @@ export default function LiveFollowingPage() {
             {lobbyList.map((lobby) => {
                 const highlightedUsers = lobby.players.filter((p) => profileIds.includes(p.profileId));
                 return (
-                    <View className="gap-2">
+                    <View className="gap-2" key={lobby.matchId}>
                         <View className="flex-row items-center flex-wrap" style={{ columnGap: 8 }}>
                             {highlightedUsers.map((player, index) => (
                                 <Fragment key={player.profileId.toString()}>
@@ -111,7 +111,7 @@ export default function LiveFollowingPage() {
             {matchList.map((match) => {
                 const highlightedUsers = match.teams.flatMap((t) => t.players).filter((p) => profileIds.includes(p.profileId));
                 return (
-                    <View className="gap-2">
+                    <View className="gap-2" key={match.matchId}>
                         <View className="flex-row items-center flex-wrap" style={{ columnGap: 8 }}>
                             {highlightedUsers.map((player, index) => (
                                 <Fragment key={player.profileId.toString()}>

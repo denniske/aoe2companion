@@ -33,8 +33,8 @@ export default function WinratesPage() {
                     slides={[...sortedWinrates]
                         .reverse()
                         .slice(0, 5)
-                        .map((civ) => (
-                            <CivWinrateCard civ={civ} />
+                        .map((civ, index) => (
+                            <CivWinrateCard civ={civ} key={civ?.civ_name ?? index} />
                         ))}
                 />
             </View>
@@ -46,8 +46,8 @@ export default function WinratesPage() {
                 <Slider2
                     className="pb-6"
                     paginationStyle={{ bottom: 0 }}
-                    slides={[...sortedWinrates].slice(0, 5).map((civ) => (
-                        <CivWinrateCard civ={civ} />
+                    slides={[...sortedWinrates].slice(0, 5).map((civ, index) => (
+                        <CivWinrateCard civ={civ} key={civ?.civ_name ?? index} />
                     ))}
                 />
             </View>
@@ -62,8 +62,8 @@ export default function WinratesPage() {
                     slides={[...sortedPlayrates]
                         .reverse()
                         .slice(0, 5)
-                        .map((civ) => (
-                            <CivWinrateCard civ={civ} />
+                        .map((civ, index) => (
+                            <CivWinrateCard civ={civ} key={civ?.civ_name ?? index} />
                         ))}
                 />
             </View>
@@ -75,8 +75,8 @@ export default function WinratesPage() {
                 <Slider2
                     className="pb-6"
                     paginationStyle={{ bottom: 0 }}
-                    slides={[...sortedPlayrates].slice(0, 5).map((civ) => (
-                        <CivWinrateCard civ={civ} />
+                    slides={[...sortedPlayrates].slice(0, 5).map((civ, index) => (
+                        <CivWinrateCard civ={civ} key={civ?.civ_name ?? index} />
                     ))}
                 />
             </View>

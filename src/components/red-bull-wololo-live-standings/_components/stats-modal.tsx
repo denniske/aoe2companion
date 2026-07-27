@@ -163,8 +163,13 @@ export const StatsModal = ({ onClose, isVisible, profileIds }: { isVisible: bool
                                                                     slides={[...sortedPlayrates]
                                                                         .reverse()
                                                                         .slice(0, 5)
-                                                                        .map((civ) => (
-                                                                            <CivWinrateCard civ={civ} maxPlayrate={100} clickable={false} />
+                                                                        .map((civ, civIndex) => (
+                                                                            <CivWinrateCard
+                                                                                civ={civ}
+                                                                                maxPlayrate={100}
+                                                                                clickable={false}
+                                                                                key={civ?.civ_name ?? civIndex}
+                                                                            />
                                                                         ))}
                                                                 />
                                                             </View>
@@ -179,8 +184,13 @@ export const StatsModal = ({ onClose, isVisible, profileIds }: { isVisible: bool
                                                                     slides={[...sortedWinrates]
                                                                         .reverse()
                                                                         .slice(0, 5)
-                                                                        .map((civ) => (
-                                                                            <CivWinrateCard civ={civ} maxPlayrate={100} clickable={false} />
+                                                                        .map((civ, civIndex) => (
+                                                                            <CivWinrateCard
+                                                                                civ={civ}
+                                                                                maxPlayrate={100}
+                                                                                clickable={false}
+                                                                                key={civ?.civ_name ?? civIndex}
+                                                                            />
                                                                         ))}
                                                                 />
                                                             </View>
