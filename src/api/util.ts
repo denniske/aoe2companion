@@ -80,7 +80,46 @@ function needsAuth(url: string): boolean {
     return url.startsWith(getHost('aoe2companion-api'));
 }
 
+function isDataHost(url: string): boolean {
+    return url.startsWith(getHost('aoe2companion-data'));
+}
+
+// Requests carrying this parameter are excluded from the Cloudflare cache rules, so they always
+// reach the origin. Valueless on purpose: it is a marker for the rule expression, not data.
+export const REFETCH_PARAM = '_refetch_';
+
+let cacheBustDepth = 0;
+
+/**
+ * Marks everything fetched inside `fn` as a deliberate refresh, so it bypasses the edge cache.
+ *
+ * Pull-to-refresh otherwise cannot see past Cloudflare: `refetch()` does go to the network, but the
+ * network is entitled to answer from the edge copy, so the user can ask for fresh data and be handed
+ * the same response they were already looking at.
+ *
+ * Note this is scoped by time rather than by query, so a background fetch that happens to overlap a
+ * refresh is also bypassed. That is the desirable direction to err in -- a refresh gesture asking
+ * for slightly more fresh data than strictly necessary.
+ */
+export async function withCacheBust<T>(fn: () => Promise<T>): Promise<T> {
+    cacheBustDepth++;
+    try {
+        return await fn();
+    } finally {
+        cacheBustDepth--;
+    }
+}
+
+function applyCacheBust(input: RequestInfo): RequestInfo {
+    if (cacheBustDepth === 0 || typeof input !== 'string') return input;
+    if (!isDataHost(input)) return input;
+    if (input.includes(REFETCH_PARAM)) return input;
+    return input + (input.includes('?') ? '&' : '?') + REFETCH_PARAM;
+}
+
 export async function fetchJson(input: RequestInfo, init?: RequestInit, reviver?: any, signal?: AbortSignal) {
+
+    input = applyCacheBust(input);
 
     const headers: Record<string, string> = {
         'User-Agent': `AoEIICompanion/${getAppVersion()} (${getAppPlatform()})`,

@@ -5,6 +5,12 @@ export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             refetchOnWindowFocus: false,
+            // Must stay >= the Cloudflare edge TTL on the data host (15s). Below it, a screen can
+            // remount after an explicit refresh, refetch the un-busted URL, and be handed the edge's
+            // older copy -- so the user watches data they just refreshed roll backwards.
+            // Every non-data-host query already declares its own staleTime, so this default lands on
+            // the data.aoe2companion.com queries and leaves the rest untouched.
+            staleTime: 60 * 1000,
             // retry: 0,
             retry: (failureCount, error) => {
                 console.log('retry', failureCount, error);

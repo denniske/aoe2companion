@@ -19,6 +19,7 @@ import { appConfig } from '@nex/dataset';
 import { getSupabaseClient } from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IFetchProfilesParams } from '@app/api/helper/api.types';
+import { withCacheBust } from '@app/api/util';
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
 
@@ -223,7 +224,7 @@ export function useWithRefetching<TData, TError>(result: UseQueryResult<TData, T
     const [isRefetching, setIsRefetching] = useState(false);
     const refetch = async () => {
         setIsRefetching(true);
-        await result.refetch();
+        await withCacheBust(() => result.refetch());
         setIsRefetching(false);
     };
     return {

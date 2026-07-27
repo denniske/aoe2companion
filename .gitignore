@@ -11,6 +11,7 @@
 .agents
 skills-lock.json
 .ai
+.mcp.json
 
 modules/app-update/android/build
 
