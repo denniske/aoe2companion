@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
-import { IPrefs, IScroll } from '../service/storage';
+import { IScroll } from '../service/storage';
 import { ExpoUpdatesManifest } from 'expo-manifests';
 
 export const EXEC = 'EXEC';
@@ -94,12 +94,6 @@ export function setLeaderboardCountry(country?: string | null) {
     };
 }
 
-export function setLeaderboardId(id?: string | null) {
-    return (state: AppState) => {
-        state.leaderboardId = id;
-    };
-}
-
 export function addLog(log: string) {
     return (state: AppState) => {
         if (!state.logs) {
@@ -108,12 +102,6 @@ export function addLog(log: string) {
         state.logs.push(log);
     };
 }
-
-// export function setPurchaserInfo(purchaserInfo: any | null) {
-//     return (state: AppState) => {
-//         state.donation.purchaserInfo = purchaserInfo;
-//     };
-// }
 
 export function setUpdateManifest(updateManifest: ExpoUpdatesManifest | null) {
     return (state: AppState) => {
@@ -155,27 +143,19 @@ export interface IError {
     error: Error;
 }
 
-export interface IDonation {
-    purchaserInfo?: any;
-}
-
 export type DarkMode = 'light' | 'dark' | 'system';
 
 // Only holds global UI state that no other layer owns. Server data lives in
 // react-query; anything that used to be mirrored here (account, following,
 // leaderboards, civInfos, config, ...) was dropped once react-query took over.
 export interface AppState {
-    donation: IDonation;
-
     error?: IError | null;
     errors?: IError[] | null;
     logs?: string[] | null;
 
-    prefs: IPrefs;
     scroll: IScroll;
 
     leaderboardCountry?: string | null;
-    leaderboardId?: string | null;
 
     updateState: string;
     updateAvailable: boolean;
@@ -185,7 +165,6 @@ export interface AppState {
 }
 
 export const initialState: Partial<AppState> = {
-    donation: {},
     scroll: { scrollPosition: 0 },
 };
 
