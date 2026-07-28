@@ -1,9 +1,6 @@
 import { produce } from 'immer';
 import { TypedUseSelectorHook, useDispatch, useSelector as useReduxSelector } from 'react-redux';
-import { IAccount, IConfig, IFollowingEntry, IPrefs, IScroll } from '../service/storage';
-import { Manifest } from 'expo-updates/build/Updates.types';
-import { set } from 'lodash';
-import { ILeaderboardDef } from '../api/helper/api.types';
+import { IPrefs, IScroll } from '../service/storage';
 import { ExpoUpdatesManifest } from 'expo-manifests';
 
 export const EXEC = 'EXEC';
@@ -164,44 +161,32 @@ export interface IDonation {
 
 export type DarkMode = 'light' | 'dark' | 'system';
 
+// Only holds global UI state that no other layer owns. Server data lives in
+// react-query; anything that used to be mirrored here (account, following,
+// leaderboards, civInfos, config, ...) was dropped once react-query took over.
 export interface AppState {
-    account: IAccount;
-    auth?: { profileId: number } | null;
     donation: IDonation;
-    statsPlayer: any;
-    leaderboards: ILeaderboardDef[];
-    civInfos: any;
 
     error?: IError | null;
     errors?: IError[] | null;
     logs?: string[] | null;
 
-    config: IConfig;
     prefs: IPrefs;
     scroll: IScroll;
 
-    following: IFollowingEntry[];
-
     leaderboardCountry?: string | null;
     leaderboardId?: string | null;
-
-    loadedLanguages: string[];
 
     updateState: string;
     updateAvailable: boolean;
     updateManifest?: ExpoUpdatesManifest | null;
     updateStoreManifest?: any | null;
-    mainPage: string;
     mainPageShown?: boolean;
 }
 
 export const initialState: Partial<AppState> = {
-    config: undefined,
     donation: {},
     scroll: { scrollPosition: 0 },
-    auth: undefined,
-    statsPlayer: undefined,
-    civInfos: {},
 };
 
 function notesReducer(state = initialState, action: IAction) {
