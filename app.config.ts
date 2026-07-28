@@ -245,6 +245,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         bundleIdentifier: app.bundleIdentifier,
         buildNumber: runtimeVersion,
         supportsTablet: true,
+        usesBroadcastPushNotifications: true,
         config: {
             usesNonExemptEncryption: false,
         },
