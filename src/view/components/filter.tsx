@@ -13,7 +13,7 @@ import { MyText } from './my-text';
 import { Image } from '@/src/components/uniwind/image';
 
 interface FilterProps<Value> {
-    options: Array<{ value: Value; label: string; icon?: ImageSourcePropType }>;
+    options: { value: Value; label: string; icon?: ImageSourcePropType }[];
     icon?: ImageSourcePropType;
     label: string;
     value: Value;
@@ -25,7 +25,7 @@ interface FilterProps<Value> {
 
 export const Filter = <Value,>({ options, label, value, onChange, icon, onPress }: FilterProps<Value>) => {
     const styles = useStyles();
-    const initialValue = options.find((o) => o.value == value)?.label ?? '';
+    const initialValue = options.find((o) => o.value === value)?.label ?? '';
     const [search, setSearch] = useState<string>();
     const filterField = useRef<TextInput>(null);
     const blurTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);

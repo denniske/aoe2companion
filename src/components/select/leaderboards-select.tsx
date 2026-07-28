@@ -81,7 +81,7 @@ export function LeaderboardsSelect(props: Props) {
         if (savedLeaderboards) {
             onLeaderboardIdSelected(savedLeaderboards);
         }
-    }, [savedLeaderboards]);
+    }, [savedLeaderboards, onLeaderboardIdSelected]);
 
     const loadingLeaderboard = false;
 

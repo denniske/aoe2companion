@@ -126,7 +126,7 @@ export default function Explore() {
     const getTranslation = useTranslation();
     const showTabBar = useShowTabBar();
     const { data: maps } = useMaps();
-    const techsList: Array<ITechSection & { title?: string }> = showTabBar
+    const techsList: (ITechSection & { title?: string })[] = showTabBar
         ? techSections
         : [
               ...techSections.filter((section) => !section.civ).map((s) => ({ ...s, title: s.building ?? s.civ })),

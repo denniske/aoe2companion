@@ -33,7 +33,11 @@ export function BuildingStats({ buildingId }: Props) {
     const unitNone = null;
 
     const formaUnit = (x: (string | null), inList?: boolean) => {
-        if (x == unitNone) {
+        // `== null` on purpose, matching both null and undefined: the picker passes
+        // `undefined` while nothing is selected, and that has to hit the `unitNone`
+        // placeholder too. Written against the `null` literal so `eqeqeq: smart`
+        // allows it — it does not exempt a variable that merely holds null.
+        if (x == null) {
             return getTranslation('unit.stats.action.compare');
         }
         return getBuildingName(x as Building);

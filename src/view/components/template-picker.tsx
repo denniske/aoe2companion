@@ -24,7 +24,8 @@ export default function TemplatePicker<T>(props: IPickerProps<T>) {
 
     const renderItem = (v: T, i: number) => {
         let style: ViewStyle = {};
-        const selected = v == value;
+        // See button-picker: null placeholder vs undefined value must match.
+        const selected = v === value || (v == null && value == null);
         style.borderTopLeftRadius = 5;
         style.borderBottomLeftRadius = 5;
         style.borderTopRightRadius = 5;

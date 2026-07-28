@@ -45,7 +45,7 @@ export function LeaderboardSelect(props: Props) {
                 onLeaderboardIdSelected(leaderboard);
             }
         }
-    }, [savedLeaderboards, leaderboards]);
+    }, [savedLeaderboards, leaderboards, onLeaderboardIdSelected]);
 
     const selectedLeaderboard = leaderboards?.find((l) => l.leaderboardId === leaderboardId);
 

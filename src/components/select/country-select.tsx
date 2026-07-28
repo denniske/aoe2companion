@@ -33,7 +33,7 @@ export function CountrySelect({ initialCountry }: Props = {}) {
         if (isCountry(upperCountry)) {
             mutate(setLeaderboardCountry(upperCountry));
         }
-    }, [initialCountry]);
+    }, [initialCountry, mutate]);
 
     const authProfileId = useAuthProfileId();
     const { data: authProfile } = useProfileFast(authProfileId);
@@ -41,10 +41,14 @@ export function CountrySelect({ initialCountry }: Props = {}) {
     const authClan = authProfile?.clan;
 
     const formatCountry = (x: string | null, inList?: boolean) => {
-        if (x == countryEarth) {
+        // `== null` on purpose, matching both null and undefined: `countryEarth` is
+        // null, and this branch also guards the unchecked `x.startsWith('Clan')`
+        // below. Written against the `null` literal because `eqeqeq: smart` exempts
+        // that but not a variable holding null.
+        if (x == null) {
             return Platform.OS === 'web' ? getTranslation('country.all') : getTranslation('country.earth');
         }
-        if (x == 'following') {
+        if (x === 'following') {
             return getTranslation('country.following');
         }
         if (x.startsWith('Clan')) {
@@ -64,10 +68,11 @@ export function CountrySelect({ initialCountry }: Props = {}) {
     ];
     // const divider = (x: any, i: number) => i < (authCountry ? 2 : 1);
     const icon = (x: any) => {
-        if (x == countryEarth) {
+        // See formatCountry: `== null` also guards the `x.startsWith` call below.
+        if (x == null) {
             return <CountryImageForDropDown country="EARTH" />;
         }
-        if (x == 'following') {
+        if (x === 'following') {
             // return <FontAwesome name="heart" size={14} />;
             return <SpecialImageForDropDown emoji="🖤" />;
         }

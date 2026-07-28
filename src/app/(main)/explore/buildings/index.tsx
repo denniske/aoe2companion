@@ -21,7 +21,7 @@ export default function BuildingList() {
     const { section } = useLocalSearchParams<{ section: string }>();
 
     const list =
-        text.length == 0
+        text.length === 0
             ? buildingSections
             : buildingSections
                   .map((section) => ({
@@ -30,11 +30,16 @@ export default function BuildingList() {
                   }))
                   .filter((section) => section.data.length > 0);
 
+    // Guarded by a ref rather than left out of the deps: 'list' is rebuilt on every
+    // keystroke in the search field, and without the guard including it would re-scroll
+    // the user back to the section while they type. Scrolls once per requested section.
+    const scrolledToSection = useRef<string>(undefined);
     useEffect(() => {
-        if (section && scrollReady && sectionList.current) {
-            scrollToSection(sectionList.current, section, list);
-        }
-    }, [section, scrollReady]);
+        if (!section || !scrollReady || !sectionList.current) return;
+        if (scrolledToSection.current === section) return;
+        scrolledToSection.current = section;
+        scrollToSection(sectionList.current, section, list);
+    }, [section, scrollReady, list]);
 
     return (
         <KeyboardAvoidingView>

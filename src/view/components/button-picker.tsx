@@ -29,7 +29,10 @@ export default function ButtonPicker<T>(props: IPickerProps<T>) {
         <View className="rounded-lg overflow-hidden flex-row bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
             {
                 values!.map((val, i) => {
-                    const selected = val == value;
+                    // `value` is optional and `values` may carry a null placeholder, so
+                    // an unselected picker means comparing null against undefined —
+                    // those must count as equal.
+                    const selected = val === value || (val == null && value == null);
                     return (
                         <Button
                             key={i}

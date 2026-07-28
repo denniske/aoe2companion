@@ -26,7 +26,7 @@ export function LeaderboardOfficialSelect(props: Props) {
     const leaderboards = useMemo(() => allLeaderboards?.filter(l => l.official), [allLeaderboards]);
 
     const onLeaderboardIdSelected = (leaderboard: ILeaderboardDef) => {
-        onLeaderboardIdChange?.(leaderboard?.leaderboardId);
+        onLeaderboardIdChange?.(leaderboard.leaderboardId);
     };
 
     useEffect(() => {
@@ -59,7 +59,7 @@ export function LeaderboardOfficialSelect(props: Props) {
         if (leaderboard) {
             onLeaderboardIdSelected(leaderboard);
         }
-    }, [initialLeaderboardId, savedLeaderboards, leaderboards]);
+    }, [initialLeaderboardId, savedLeaderboards, leaderboards, onLeaderboardIdSelected]);
 
     const selectedLeaderboard = leaderboards?.find((l) => l.leaderboardId === leaderboardId);
 

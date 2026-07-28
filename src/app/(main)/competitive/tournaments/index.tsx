@@ -12,7 +12,7 @@ import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { Stack } from 'expo-router';
 import { Tournament } from 'liquipedia';
 import { orderBy } from 'lodash';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 
@@ -32,70 +32,66 @@ export default function TournamentsList() {
         [upcomingTitle]: getTranslation('tournaments.sortedbydate'),
         [recentTitle]: getTranslation('tournaments.sortedbydate'),
     };
-    const filteredTournaments = useMemo(() => {
-        const sections: { title: string; data: Tournament[] }[] = [];
-        const ongoing: Tournament[] = [];
-        const upcoming: Tournament[] = [];
-        const past: Tournament[] = [];
+    const sections: { title: string; data: Tournament[] }[] = [];
+    const ongoing: Tournament[] = [];
+    const upcoming: Tournament[] = [];
+    const past: Tournament[] = [];
 
-        const filteredTournaments = allTournaments.filter((tournament) => {
-            return (
-                transformSearch(tournament.name).includes(transformSearch(search)) ||
-                tournamentAbbreviation(tournament.name).includes(transformSearch(search))
-            );
+    const matchingTournaments = allTournaments.filter((tournament) => {
+        return (
+            transformSearch(tournament.name).includes(transformSearch(search)) ||
+            tournamentAbbreviation(tournament.name).includes(transformSearch(search))
+        );
+    });
+
+    matchingTournaments.forEach((tournament) => {
+        const status = tournamentStatus(tournament);
+
+        if (status === 'ongoing') {
+            ongoing.push(tournament);
+        } else if (status === 'upcoming') {
+            upcoming.push(tournament);
+        } else {
+            past.push(tournament);
+        }
+    });
+
+    if (ongoing.length > 0) {
+        sections.push({
+            title: getTranslation('tournaments.ongoing'),
+            data: orderBy(ongoing, [sortByTier, (t) => t.end ?? t.start], ['asc', 'asc']),
         });
+    }
 
-        filteredTournaments.map((tournament) => {
-            const status = tournamentStatus(tournament);
-
-            if (status === 'ongoing') {
-                ongoing.push(tournament);
-            } else if (status === 'upcoming') {
-                upcoming.push(tournament);
-            } else {
-                past.push(tournament);
-            }
+    if (upcoming.length > 0) {
+        sections.push({
+            title: getTranslation('tournaments.upcoming'),
+            data: orderBy(upcoming, ['start', 'end'], ['asc', 'asc']),
         });
+    }
 
-        if (ongoing.length > 0) {
-            sections.push({
-                title: getTranslation('tournaments.ongoing'),
-                data: orderBy(ongoing, [sortByTier, (t) => t.end ?? t.start], ['asc', 'asc']),
-            });
-        }
+    if (past.length > 0) {
+        sections.push({
+            title: getTranslation('tournaments.recent'),
+            data: orderBy(past, [(t) => t.end ?? t.start, (t) => t.start], ['desc', 'asc']),
+        });
+    }
 
-        if (upcoming.length > 0) {
-            sections.push({
-                title: getTranslation('tournaments.upcoming'),
-                data: orderBy(upcoming, ['start', 'end'], ['asc', 'asc']),
-            });
-        }
-
-        if (past.length > 0) {
-            sections.push({
-                title: getTranslation('tournaments.recent'),
-                data: orderBy(past, [(t) => t.end ?? t.start, (t) => t.start], ['desc', 'asc']),
-            });
-        }
-
-        return sections.length > 0
+    const filteredTournaments =
+        sections.length > 0
             ? sections
             : query.isFetching || Platform.OS === 'web'
               ? []
               : [{ title: getTranslation('tournaments.noresults'), data: [] }];
-    }, [allTournaments, search, query.isFetching, getTranslation]);
 
     const refreshControlProps = useRefreshControl(query);
 
-    const listHeader = useMemo(
-        () => (
-            <View style={styles.container}>
-                <View style={styles.searchContainer}>
-                    <Field type="search" value={search} onChangeText={setSearch} placeholder={getTranslation('tournaments.search')} />
-                </View>
+    const listHeader = (
+        <View style={styles.container}>
+            <View style={styles.searchContainer}>
+                <Field type="search" value={search} onChangeText={setSearch} placeholder={getTranslation('tournaments.search')} />
             </View>
-        ),
-        [search, theme]
+        </View>
     );
 
     return (

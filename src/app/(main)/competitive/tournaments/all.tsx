@@ -19,7 +19,7 @@ import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { appConfig } from '@nex/dataset';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { GameVersion, TournamentCategory } from 'liquipedia';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 
@@ -41,52 +41,47 @@ export default function AllTournaments() {
         [upcomingTitle]: getTranslation('tournaments.sortedbydate'),
         [recentTitle]: getTranslation('tournaments.sortedbydate'),
     };
-    const filteredTournaments = useMemo(() => {
-        const filteredTournaments = tournaments
-            .map((tournamentsSection) => {
-                return {
-                    ...tournamentsSection,
-                    data: tournamentsSection.data.filter(
-                        (tournament) =>
-                            tournament.game === (appConfig.game === 'aoe2' ? GameVersion.Age2 : GameVersion.Age4) &&
-                            (transformSearch(tournament.name).includes(transformSearch(search)) ||
-                                tournamentAbbreviation(tournament.name).includes(transformSearch(search)))
-                    ),
-                };
-            })
-            .filter((tournamentSection) => tournamentSection.data.length);
+    const matchingTournaments = tournaments
+        .map((tournamentsSection) => {
+            return {
+                ...tournamentsSection,
+                data: tournamentsSection.data.filter(
+                    (tournament) =>
+                        tournament.game === (appConfig.game === 'aoe2' ? GameVersion.Age2 : GameVersion.Age4) &&
+                        (transformSearch(tournament.name).includes(transformSearch(search)) ||
+                            tournamentAbbreviation(tournament.name).includes(transformSearch(search)))
+                ),
+            };
+        })
+        .filter((tournamentSection) => tournamentSection.data.length);
 
-        return filteredTournaments.length > 0
-            ? filteredTournaments
+    const filteredTournaments =
+        matchingTournaments.length > 0
+            ? matchingTournaments
             : query.isFetching || Platform.OS === 'web'
               ? []
               : [{ title: getTranslation('tournaments.noresults'), data: [] }];
-    }, [league, tournaments, search, query.isFetching, getTranslation]);
 
     const refreshControlProps = useRefreshControl(query);
 
-    const listHeader = useMemo(
-        () =>
-            league ? undefined : (
-                <View style={styles.container}>
-                    <View style={styles.searchContainer}>
-                        <Dropdown
-                            style={{ minWidth: 100, height: 45 }}
-                            onChange={setCategory}
-                            options={sortedTiers.map((tier) => ({ value: tier, label: formatTier(tier), abbreviated: formatTierShort(category) }))}
-                            value={category}
-                        />
-                        <Field
-                            className="flex-1"
-                            type="search"
-                            value={search}
-                            onChangeText={setSearch}
-                            placeholder={getTranslation('tournaments.searchTierTournaments', { tier: formatTierShort(category) })}
-                        />
-                    </View>
-                </View>
-            ),
-        [search, league, theme, setCategory, category, setSearch, formatTier, sortedTiers, getTranslation]
+    const listHeader = league ? undefined : (
+        <View style={styles.container}>
+            <View style={styles.searchContainer}>
+                <Dropdown
+                    style={{ minWidth: 100, height: 45 }}
+                    onChange={setCategory}
+                    options={sortedTiers.map((tier) => ({ value: tier, label: formatTier(tier), abbreviated: formatTierShort(category) }))}
+                    value={category}
+                />
+                <Field
+                    className="flex-1"
+                    type="search"
+                    value={search}
+                    onChangeText={setSearch}
+                    placeholder={getTranslation('tournaments.searchTierTournaments', { tier: formatTierShort(category) })}
+                />
+            </View>
+        </View>
     );
 
     return (
