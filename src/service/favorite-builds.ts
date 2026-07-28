@@ -1,4 +1,4 @@
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { camelCase, compact } from 'lodash';
 import { useEffect } from 'react';
 import { useAccount } from '@app/queries/all';
@@ -13,36 +13,42 @@ import { md5, widgetGroupDir, widgetSetFileIfNotExists } from '@app/service/stor
 import AABuilds from '@app/widgets/AABuilds.widget';
 import Constants from 'expo-constants';
 
-export const useFavoritedBuilds = () => {
-    const { getItem, removeItem } = useAsyncStorage('favoritedBuilds');
+// Read straight off the module API rather than via useAsyncStorage: that hook builds
+// new getItem/removeItem closures on every call, so listing them as dependencies of
+// the migration effect below would re-run it on every render.
+const FAVORITED_BUILDS_KEY = 'favoritedBuilds';
 
+export const useFavoritedBuilds = () => {
     const { data: account, isLoading: isLoadingAccount } = useAccount();
     const favoriteIds = compact(account?.favoriteBuildIds);
 
     // console.log('====> favoriteIds', favoriteIds);
 
-    const saveAccountMutation = useSaveAccountMutation();
-
-    const readItemFromStorage = async () => {
-        // console.log('=> cond', `${!isLoadingAccount} && ${!account?.favoriteBuildIds} || ${account?.favoriteBuildIds?.length == 0}`)
-        if (!isLoadingAccount && !account?.favoriteBuildIds || account?.favoriteBuildIds?.length == 0) {
-            const item = await getItem();
-            // console.log('=> item', item)
-            if (item) {
-                const favorites = JSON.parse(item);
-
-                // console.log('Migrating local favorited builds to server', favorites, account?.accountId);
-                await saveAccountMutation.mutate({
-                    favoriteBuildIds: favorites,
-                });
-                await removeItem();
-            }
-        }
-    };
+    // Destructured: react-query returns a new mutation object every render, but
+    // `mutate` itself is a stable reference, so the migration effect below can depend
+    // on it without re-running (and re-migrating) on every render.
+    const { mutate: saveAccount } = useSaveAccountMutation();
 
     useEffect(() => {
+        const readItemFromStorage = async () => {
+            // console.log('=> cond', `${!isLoadingAccount} && ${!account?.favoriteBuildIds} || ${account?.favoriteBuildIds?.length == 0}`)
+            if (!isLoadingAccount && !account?.favoriteBuildIds || account?.favoriteBuildIds?.length === 0) {
+                const item = await AsyncStorage.getItem(FAVORITED_BUILDS_KEY);
+                // console.log('=> item', item)
+                if (item) {
+                    const favorites = JSON.parse(item);
+
+                    // console.log('Migrating local favorited builds to server', favorites, account?.accountId);
+                    await saveAccount({
+                        favoriteBuildIds: favorites,
+                    });
+                    await AsyncStorage.removeItem(FAVORITED_BUILDS_KEY);
+                }
+            }
+        };
+
         readItemFromStorage();
-    }, [isLoadingAccount, account]);
+    }, [isLoadingAccount, account, saveAccount]);
 
     const toggleFavorite = async (id: string) => {
         let favoriteBuildIds;
@@ -52,7 +58,7 @@ export const useFavoritedBuilds = () => {
             favoriteBuildIds = [...favoriteIds, id];
         }
 
-        saveAccountMutation.mutate({
+        saveAccount({
             favoriteBuildIds,
         });
 

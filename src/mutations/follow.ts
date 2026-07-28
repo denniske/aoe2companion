@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { followV2, IAccount } from '@app/api/account';
-import produce from 'immer';
+import { produce } from 'immer';
 import { uniqBy } from 'lodash';
 
 const QUERY_KEY_ACCOUNT = () => ['account'];

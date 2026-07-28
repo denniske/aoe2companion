@@ -79,7 +79,7 @@ export type IDiscordInfo = {
         banner: any
         description: any
         icon: string
-        features: Array<string>
+        features: string[]
         verification_level: number
         vanity_url_code: any
         nsfw_level: number

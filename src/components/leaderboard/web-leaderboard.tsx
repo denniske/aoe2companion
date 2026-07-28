@@ -78,13 +78,13 @@ function PlayerList({ leaderboardId, search }: { leaderboardId: string; search: 
     const followingIds = useFollowedAndMeProfileIds();
 
     const params = useMemo(() => {
-        if (leaderboardCountry == 'following') {
+        if (leaderboardCountry === 'following') {
             return { profileIds: followingIds };
         }
         if (leaderboardCountry?.startsWith('Clan ')) {
             return { clan: leaderboardCountry?.replace('Clan ', '') };
         }
-        if (leaderboardCountry == countryEarth) {
+        if (leaderboardCountry === countryEarth) {
             return {};
         }
         return { country: leaderboardCountry };

@@ -82,7 +82,7 @@ export function TranslationModeOverlay() {
             window.removeEventListener('click', handleClick, true);
             window.removeEventListener('message', handleMessage);
         };
-    }, []);
+    }, [setMode]);
 
     if (mode !== 'key') return null;
 

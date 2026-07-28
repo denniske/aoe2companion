@@ -14,16 +14,16 @@ export default function AuthLinkSteam() {
     const queryClient = useQueryClient()
     const getTranslation = useTranslation();
 
-    const init = async () => {
-        const data = await authLinkSteam(params);
-        console.log('authLinkSteam', data);
-        await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
-        router.dismiss();
-    }
-
     useEffect(() => {
+        const init = async () => {
+            const data = await authLinkSteam(params);
+            console.log('authLinkSteam', data);
+            await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
+            router.dismiss();
+        };
+
         init();
-    }, [params]);
+    }, [params, queryClient, router]);
 
     return (
         <View>

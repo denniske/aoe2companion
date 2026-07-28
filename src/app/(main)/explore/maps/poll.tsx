@@ -54,7 +54,7 @@ export default function MapsPoll() {
                     </Text>
                     <View className="flex-row flex-wrap">
                         {mapsPoll?.questions
-                            ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
+                            ?.find((l) => l.leaderboardId === (rankedMapLeaderboard ?? firstValue))
                             ?.options?.map((map) => (
                                 <Link asChild href={`/explore/maps/${map.mapId}`} key={map.mapId}>
                                     <TouchableOpacity className="flex-col justify-between items-center w-[25%] mb-4">
@@ -76,7 +76,7 @@ export default function MapsPoll() {
                     </Text>
                     <View className="flex-row flex-wrap">
                         {mapsPoll?.questions
-                            ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
+                            ?.find((l) => l.leaderboardId === (rankedMapLeaderboard ?? firstValue))
                             ?.devOptions?.map((map) => (
                                 <Link asChild href={`/explore/maps/${map.mapId}`} key={map.mapId}>
                                     <TouchableOpacity className="flex-col justify-between items-center w-[25%]">

@@ -45,7 +45,7 @@ export const useScrollView = ({
                 animated: true,
             });
         }
-    }, [scrollToTop, horizontal]);
+    }, [scrollToTop, horizontal, ref]);
 
     useFocusEffect(() => {
         if (!horizontal) {

@@ -38,6 +38,13 @@ module.exports = defineConfig([
             // is ~590 warnings (no-unused-vars, eqeqeq, array-type, exhaustive-deps).
             'react-hooks/set-state-in-effect': 'warn', // 20 findings
 
+            // Off by choice. 341 findings, dominated by intentionally-unused values:
+            // destructured props kept for shape, commented-out debug code's leftover
+            // imports, unused catch bindings. TypeScript already reports genuinely
+            // dead locals via `noUnusedLocals` when it is turned on, so this rule was
+            // only adding noise that hid the warnings worth acting on.
+            '@typescript-eslint/no-unused-vars': 'off',
+
             // Dropped `'` and `"` from the default forbid list. Both are legal in JSX
             // text and the parser decodes `&apos;`/`&quot;` to exactly the same string,
             // so the rule only forced prose — don't, "Game Content Usage Rules" — to be

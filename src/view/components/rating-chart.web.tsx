@@ -8,12 +8,11 @@ import { IProfileRatingsLeaderboard } from '../../api/helper/api.types';
 import { cloneDeep, merge, orderBy } from 'lodash';
 import { getRatingTimespan } from '@app/utils/rating';
 import { useCSSVariable, useResolveClassNames, useUniwind } from 'uniwind';
-import _ from 'lodash';
 
 interface IRatingChartProps {
     formatTick: (date: Date) => string;
     ratingHistoryDuration?: string;
-    filteredRatingHistories: Array<IProfileRatingsLeaderboard & { label?: string; color?: string }> | null | undefined;
+    filteredRatingHistories: (IProfileRatingsLeaderboard & { label?: string; color?: string })[] | null | undefined;
     hiddenLeaderboardIds: LeaderboardId[];
     width: number;
     allowMouseInteraction?: boolean;

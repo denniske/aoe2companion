@@ -36,7 +36,7 @@ export function PlayerList({
     isPastDeadline: boolean;
     limit?: number;
     hideHeader?: boolean;
-    hideCols?: Array<keyof ILeaderboardPlayer | 'winrates'>;
+    hideCols?: (keyof ILeaderboardPlayer | 'winrates')[];
     rotatingBar?: boolean;
     animationSpeed?: number;
 }) {
@@ -104,7 +104,7 @@ export function PlayerList({
                         updateMatches([match]);
                     }
                 },
-                onMessage: (events: Array<{ type: 'connections'; data: { count: number } }>) => {
+                onMessage: (events: { type: 'connections'; data: { count: number } }[]) => {
                     const connectionsEvent = events.find((event) => event.type === 'connections');
 
                     if (connectionsEvent) {

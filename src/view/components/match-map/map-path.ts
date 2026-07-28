@@ -61,7 +61,7 @@ export function getPath(path: IPath) {
     // console.log('stepsOrthogonal', stepsOrthogonal);
     // console.log('stepsDiagonal', stepsDiagonal);
 
-    if (stepsOrthogonal == 0 || stepsDiagonal == 0) {
+    if (stepsOrthogonal === 0 || stepsDiagonal === 0) {
         return [{ position, positionEnd }];
     }
 
@@ -70,7 +70,7 @@ export function getPath(path: IPath) {
     let vec0 = getVecFromAngle(angles[0]);
 
     // Orthogonal
-    if (angles[0] % 90 == 0) {
+    if (angles[0] % 90 === 0) {
         middle = { x: position.x + stepsOrthogonal * vec0.x, y: position.y + stepsOrthogonal * vec0.y };
     } else {
         middle = { x: position.x + stepsDiagonal * vec0.x, y: position.y + stepsDiagonal * vec0.y };

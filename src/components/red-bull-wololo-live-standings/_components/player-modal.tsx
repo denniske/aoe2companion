@@ -22,13 +22,13 @@ import { RatingDiff } from './rating-diff';
 
 const formatTick = (tick: any, index: number, ticks: any[]) => {
     const date = ticks[index] as Date;
-    if (date.getMonth() == 0 && date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
+    if (date.getMonth() === 0 && date.getDate() === 1 && date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0) {
         return formatYear(date);
     }
-    if (date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
+    if (date.getDate() === 1 && date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0) {
         return formatMonth(date);
     }
-    if (date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
+    if (date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0) {
         return formatDateShort(date);
     }
     return formatTime(ticks[index]);
@@ -124,7 +124,7 @@ export const PlayerModal = ({
                     end: now,
                 });
             default:
-                false;
+                return false;
         }
     });
     const recentDiff = recentRatings?.map((rating) => rating.ratingDiff ?? 0).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
@@ -158,14 +158,14 @@ export const PlayerModal = ({
 
     const tabs = ['Civilizations', 'Maps', 'Opponents'] as const;
     const [tab, setTab] = useState<(typeof tabs)[number]>('Civilizations');
-    let tabData: Array<{
+    let tabData: {
         games: number;
         wins: number;
         key: string;
         imageUrl?: string;
         name: string;
         icon?: string;
-    }> = [];
+    }[] = [];
     if (stats) {
         switch (tab) {
             case 'Civilizations':

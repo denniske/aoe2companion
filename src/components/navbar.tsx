@@ -26,7 +26,7 @@ export const NavBar: React.FC = () => {
 
     const getTranslation = useTranslation();
 
-    const routes: Array<{ key: string; label: string; icon: IconDefinition; path: Href }> = [
+    const routes: { key: string; label: string; icon: IconDefinition; path: Href }[] = [
         {
             key: 'matches',
             label: getTranslation('nav.matches'),

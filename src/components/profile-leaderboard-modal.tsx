@@ -41,7 +41,7 @@ export const ProfileLeaderboardModal = ({
     const ratingHistories = useMemo(() => {
         const since = getRatingTimespan(ratingHistoryDuration);
 
-        const allRatings: Array<IProfileRatingsLeaderboard & { color?: string; label?: string }> = [];
+        const allRatings: (IProfileRatingsLeaderboard & { color?: string; label?: string })[] = [];
         const comparedRatings = compariedProfile?.ratings.find((r) => r.leaderboardId === ratings?.leaderboardId);
 
         if (ratings) {
@@ -119,23 +119,23 @@ export const ProfileLeaderboardModal = ({
                                                 width={1200}
                                                 formatTick={(date) => {
                                                     if (
-                                                        date.getMonth() == 0 &&
-                                                        date.getDate() == 1 &&
-                                                        date.getHours() == 0 &&
-                                                        date.getMinutes() == 0 &&
-                                                        date.getSeconds() == 0
+                                                        date.getMonth() === 0 &&
+                                                        date.getDate() === 1 &&
+                                                        date.getHours() === 0 &&
+                                                        date.getMinutes() === 0 &&
+                                                        date.getSeconds() === 0
                                                     ) {
                                                         return formatYear(date);
                                                     }
                                                     if (
-                                                        date.getDate() == 1 &&
-                                                        date.getHours() == 0 &&
-                                                        date.getMinutes() == 0 &&
-                                                        date.getSeconds() == 0
+                                                        date.getDate() === 1 &&
+                                                        date.getHours() === 0 &&
+                                                        date.getMinutes() === 0 &&
+                                                        date.getSeconds() === 0
                                                     ) {
                                                         return formatMonth(date);
                                                     }
-                                                    if (date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
+                                                    if (date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0) {
                                                         return formatDateShort(date);
                                                     }
                                                     return formatTime(date);

@@ -17,7 +17,7 @@ export default function Follow() {
 
     useEffect(() => {
         navigation.setOptions({ title: getTranslation('matches.follow.title') });
-    }, [navigation]);
+    }, [navigation, getTranslation]);
 
     return <Search action={(user: IProfilesResultProfile) => <FeedAction user={user} />} />;
 }

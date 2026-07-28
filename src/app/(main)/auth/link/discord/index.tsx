@@ -14,17 +14,17 @@ export default function AuthLinkDiscord() {
     const queryClient = useQueryClient();
     const getTranslation = useTranslation();
 
-    const init = async () => {
-        console.log('authLinkDiscord', params);
-        const data = await authLinkDiscord(params);
-        console.log('authLinkDiscord', data);
-        await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
-        router.dismiss();
-    }
-
     useEffect(() => {
+        const init = async () => {
+            console.log('authLinkDiscord', params);
+            const data = await authLinkDiscord(params);
+            console.log('authLinkDiscord', data);
+            await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
+            router.dismiss();
+        };
+
         init();
-    }, [params]);
+    }, [params, queryClient, router]);
 
     return (
         <View>

@@ -11,7 +11,7 @@ import { useFollowedTournaments } from '@app/service/favorite-tournaments';
 import { useAccountMostRecentMatches } from '@app/utils/match';
 import { TournamentCardLarge } from '@app/view/tournaments/tournament-card-large';
 import { Href, Stack } from 'expo-router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { Button } from '@app/components/button';
 import { useAuthProfileId, useInfiniteBuilds } from '@app/queries/all';
@@ -86,7 +86,7 @@ export default function IndexPage() {
     const { favoriteIds } = useFavoritedBuilds();
     const { followedIds } = useFollowedTournaments();
     const showTabBar = useShowTabBar();
-    const welcomeCards: Array<{ icon: IconDefinition; title: string; description: string; href: Href }> = [
+    const welcomeCards: { icon: IconDefinition; title: string; description: string; href: Href }[] = [
         { icon: faSearch, title: 'Find Players', description: 'Search players and view match history, civs, and ratings', href: '/players/search' },
         {
             icon: faRankingStar,
@@ -105,15 +105,7 @@ export default function IndexPage() {
 
     const { isLarge, isMedium, isSmall } = useBreakpoints();
 
-    const count = useMemo(() => {
-        if (isLarge) {
-            return 3;
-        } else if (isMedium) {
-            return 2;
-        }
-
-        return 1;
-    }, [isLarge, isMedium, isSmall]);
+    const count = isLarge ? 3 : isMedium ? 2 : 1;
 
     // const [matchActivity, setMatchActivity] = useState<LiveActivity<MatchActivityProps>>();
     //

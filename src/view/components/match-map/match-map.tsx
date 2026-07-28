@@ -105,7 +105,7 @@ export default function MatchMap(props: Props) {
         players: team.players.map((player) => {
 
             const colorHex = getAnalysisPlayer(player.color)?.colorHex;
-            const color = darkMode == 'light' ? aoe2PlayerColorsLightModeChatLegend[colorHex as any] ?? colorHex : colorHex;
+            const color = darkMode === 'light' ? aoe2PlayerColorsLightModeChatLegend[colorHex as any] ?? colorHex : colorHex;
 
             return {
                 profileId: player.profileId,
@@ -304,7 +304,7 @@ export default function MatchMap(props: Props) {
                 p.chat?.map(ch => ({
                     ...ch,
                     time: getTimestampMs(ch.timestamp),
-                    color: darkMode == 'light' ? (aoe2PlayerColorsLightModeChatLegend[p.colorHex as any] ?? p.colorHex) : p.colorHex,
+                    color: darkMode === 'light' ? (aoe2PlayerColorsLightModeChatLegend[p.colorHex as any] ?? p.colorHex) : p.colorHex,
                     playerName: p.name,
                 }))
             )
@@ -449,9 +449,9 @@ export default function MatchMap(props: Props) {
     );
 }
 
-export type ILegendInfo = Array<{
+export type ILegendInfo = {
     teamId?: number
-    players: Array<{
+    players: {
         profileId: number
         name: string
         civImageUrl: string
@@ -465,14 +465,14 @@ export type ILegendInfo = Array<{
             timestamp: string
             type: string
         }
-        uptimes: Array<{
+        uptimes: {
             timestamp: string
             age: string
-        }>
-        timeseries: Array<{
+        }[]
+        timeseries: {
             timestamp: string
             totalObjects: number
             totalResources: number
-        }>
-    }>
-}>
+        }[]
+    }[]
+}[]

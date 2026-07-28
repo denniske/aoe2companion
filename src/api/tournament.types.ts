@@ -116,14 +116,14 @@ export interface INewLiquipediaMatch {
         timezoneid?: string;
     };
     match2bracketdata: {
-        loweredges?: Array<{
+        loweredges?: {
             opponentIndex: number;
             lowerMatchIndex: number;
-        }>;
+        }[];
         type: string;
         thirdplace?: string;
         bracketsection?: string;
-        lowerMatchIds?: Array<string>;
+        lowerMatchIds?: string[];
         toupper?: string;
         inheritedheader?: string;
         header?: string;
@@ -151,7 +151,7 @@ export interface INewLiquipediaMatch {
         title?: string;
         qualwin?: string;
     };
-    match2opponents: Array<{
+    match2opponents: {
         id: number;
         type: string;
         name: string;
@@ -160,15 +160,15 @@ export interface INewLiquipediaMatch {
         score: number;
         status: string;
         placement: number;
-        match2players: Array<{
+        match2players: {
             id: number;
             opid: number;
             name: string;
             displayname: string;
             flag: string;
             extradata: any;
-        }>;
-        extradata: Array<any>;
+        }[];
+        extradata: any[];
         teamtemplate?: {
             template: string;
             page: string;
@@ -184,12 +184,12 @@ export interface INewLiquipediaMatch {
             legacyimageurl: string;
             legacyimagedarkurl: string;
         };
-    }>;
-    match2games: Array<{
+    }[];
+    match2games: {
         map: string;
         subgroup: string;
         match2gameid: number;
-        scores: Array<number>;
+        scores: number[];
         participants: {
             '1_1': {
                 pageName: string;
@@ -206,17 +206,17 @@ export interface INewLiquipediaMatch {
                 displayName: string;
             };
         };
-        opponents: Array<{
-            players: Array<{
+        opponents: {
+            players: {
                 pageName: string;
                 index: number;
                 flag: string;
                 civ: string;
                 displayName: string;
-            }>;
+            }[];
             status?: string;
             score?: number;
-        }>;
+        }[];
         status: string;
         winner: string;
         walkover: string;
@@ -233,6 +233,6 @@ export interface INewLiquipediaMatch {
             dateexact: boolean;
             displayname?: string;
         };
-    }>;
+    }[];
     wiki: string;
 }

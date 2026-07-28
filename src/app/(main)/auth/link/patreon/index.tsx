@@ -14,17 +14,17 @@ export default function AuthLinkPatreon() {
     const queryClient = useQueryClient();
     const getTranslation = useTranslation();
 
-    const init = async () => {
-        console.log('authLinkPatreon', params);
-        const data = await authLinkPatreon(params);
-        console.log('authLinkPatreon', data);
-        await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
-        router.dismiss();
-    }
-
     useEffect(() => {
+        const init = async () => {
+            console.log('authLinkPatreon', params);
+            const data = await authLinkPatreon(params);
+            console.log('authLinkPatreon', data);
+            await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
+            router.dismiss();
+        };
+
         init();
-    }, [params]);
+    }, [params, queryClient, router]);
 
     return (
         <View>

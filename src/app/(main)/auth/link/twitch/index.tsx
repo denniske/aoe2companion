@@ -14,17 +14,17 @@ export default function AuthLinkTwitch() {
     const queryClient = useQueryClient();
     const getTranslation = useTranslation();
 
-    const init = async () => {
-        console.log('authLinkTwitch', params);
-        const data = await authLinkTwitch(params);
-        console.log('authLinkTwitch', data);
-        await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
-        router.dismiss();
-    }
-
     useEffect(() => {
+        const init = async () => {
+            console.log('authLinkTwitch', params);
+            const data = await authLinkTwitch(params);
+            console.log('authLinkTwitch', data);
+            await queryClient.invalidateQueries({ queryKey: ['account'], refetchType: 'all' })
+            router.dismiss();
+        };
+
         init();
-    }, [params]);
+    }, [params, queryClient, router]);
 
     return (
         <View>

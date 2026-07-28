@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import { Card } from './card';
-import { IProfileRatingsLeaderboard, IStatNew } from '@app/api/helper/api.types';
+import { IProfileRatingsLeaderboard, IStatNew , IProfileLeaderboardResult } from '@app/api/helper/api.types';
 import { Skeleton, SkeletonText } from './skeleton';
 import { Text } from './text';
 import { first, orderBy, reverse } from 'lodash';
@@ -9,7 +9,6 @@ import { Image } from './uniwind/image';
 import { getMapImage } from '@app/helper/maps';
 import { Icon } from './icon';
 import { faAngleRight, faCheck, faTimes } from '@fortawesome/sharp-solid-svg-icons';
-import { IProfileLeaderboardResult } from '@app/api/helper/api.types';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { ProfileLeaderboardModal } from './profile-leaderboard-modal';
 import { useState } from 'react';

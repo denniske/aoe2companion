@@ -21,7 +21,7 @@ export default function SkiaLoader({
 
     useEffect(() => {
         getComponent().then((mod) => setComponent(() => mod.default));
-    }, []);
+    }, [getComponent]);
 
     if (!Component) return <>{fallback}</>;
 

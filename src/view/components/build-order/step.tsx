@@ -21,7 +21,7 @@ export interface StepProps {
     count: number;
     step: IBuildOrderStep;
     build: IBuildOrder;
-    shownResources: Array<keyof IBuildOrderStandardResources>;
+    shownResources: (keyof IBuildOrderStandardResources)[];
     onPress: (event: GestureResponderEvent) => void;
 }
 

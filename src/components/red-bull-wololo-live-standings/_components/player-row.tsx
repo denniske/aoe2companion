@@ -39,7 +39,7 @@ export const PlayerRow = ({
         position: SpringValue<React.CSSProperties['position']>;
         opacity: SpringValue<number>;
     } & Omit<React.CSSProperties, 'position' | 'opacity'>;
-    hideCols: Array<keyof ILeaderboardPlayer | 'winrates'>;
+    hideCols: (keyof ILeaderboardPlayer | 'winrates')[];
     selectPlayer: (player: ILeaderboardPlayer) => void;
     showCurrentRank: boolean;
 }) => {

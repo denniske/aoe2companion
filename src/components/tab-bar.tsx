@@ -70,9 +70,9 @@ export const TabBar: React.FC = () => {
     useEffect(() => {
         const toValue = showTabBar ? 1 : 0;
         opacity.set(withTiming(toValue, { duration: 500 }));
-    }, [showTabBar]);
+    }, [showTabBar, opacity]);
 
-    const routes: Array<{ key: string; additionalRoutes: string[]; label: string; icon: IconDefinition; path: Href }> = [
+    const routes: { key: string; additionalRoutes: string[]; label: string; icon: IconDefinition; path: Href }[] = [
         {
             key: 'index',
             additionalRoutes: [],

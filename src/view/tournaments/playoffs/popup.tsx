@@ -54,7 +54,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
             setVisible(false);
             router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`);
         }
-    }, [tournamentPath, match, tournament, visible]);
+    }, [tournamentPath, match, tournament, visible, setVisible]);
 
     const twitch = match?.links
         .find((link) => link.text === 'Twitch')

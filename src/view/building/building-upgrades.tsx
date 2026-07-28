@@ -42,7 +42,7 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
 
     const buildingLine = buildingLines[buildingLineId];
 
-    const buildingLineUpgrades = buildingLine.upgrades.map((u) => techEffectDict[u]).filter((u) => !u.building || u.building == buildingId);
+    const buildingLineUpgrades = buildingLine.upgrades.map((u) => techEffectDict[u]).filter((u) => !u.building || u.building === buildingId);
 
     const buildingIndex = buildingLine.buildings.indexOf(buildingId);
 

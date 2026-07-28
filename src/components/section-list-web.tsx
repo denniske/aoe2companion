@@ -10,7 +10,7 @@ export function SectionListWeb<ItemT>({
     renderSectionHeader,
 }: SectionListProps<ItemT> & { contentContainerClassName?: string }) {
     const params = useLocalSearchParams<{ section?: string }>();
-    const refs = useRef<Array<HTMLDivElement>>([]);
+    const refs = useRef<HTMLDivElement[]>([]);
 
     useFocusEffect(() => {
         const section = params.section;

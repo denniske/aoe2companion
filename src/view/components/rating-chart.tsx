@@ -21,7 +21,7 @@ const font = matchFont(fontStyle as any);
 interface IRatingChartProps {
     formatTick: (date: Date) => string;
     ratingHistoryDuration?: string;
-    filteredRatingHistories: Array<IProfileRatingsLeaderboard & { label?: string; color?: string }> | null | undefined;
+    filteredRatingHistories: (IProfileRatingsLeaderboard & { label?: string; color?: string })[] | null | undefined;
     hiddenLeaderboardIds: LeaderboardId[];
     width: number;
     allowMouseInteraction?: boolean;

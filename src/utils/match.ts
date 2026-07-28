@@ -65,8 +65,8 @@ export const useAccountMostRecentMatches = (count: number) => {
     const matches = data?.matches.slice(0, count);
 
     const filterAndSortPlayers = (players: IPlayerNew[]) => {
-        let filteredPlayers = players.filter((p) => p.profileId == authProfileId);
-        filteredPlayers = orderBy(filteredPlayers, (p) => p.profileId == authProfileId);
+        let filteredPlayers = players.filter((p) => p.profileId === authProfileId);
+        filteredPlayers = orderBy(filteredPlayers, (p) => p.profileId === authProfileId);
         return filteredPlayers;
     };
 

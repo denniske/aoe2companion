@@ -12,7 +12,7 @@ import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { Image } from '@app/components/uniwind/image';
 import { faAngleRight, faClock, faCoffee, faCog, faExchangeAlt, faHandsHelping, faQuestionCircle, faUser } from '@fortawesome/sharp-solid-svg-icons';
 
-interface Link {
+interface MoreLink {
     icon: IconDefinition;
     title: string;
     path: Href;
@@ -22,7 +22,7 @@ export default function More() {
     const isMajorRelease = Constants.expoConfig?.version?.includes('.0.0');
     const getTranslation = useTranslation();
 
-    const links: Link[] = [
+    const links: MoreLink[] = [
         { icon: faUser, title: 'Account', path: '/more/account' },
         { icon: faCog, title: getTranslation('settings.title'), path: '/more/settings' },
         { icon: faQuestionCircle, title: getTranslation('about.title'), path: '/more/about' },
@@ -37,7 +37,7 @@ export default function More() {
 
         // iOS does not allow donations and android did check for aoe2 also
         ...(!((Platform.OS === 'ios' || (appConfig.game === 'aoe2' && Platform.OS !== 'web')) && isMajorRelease)
-            ? [{ icon: faCoffee, title: getTranslation('footer.buymeacoffee'), path: 'https://www.buymeacoffee.com/denniskeil' } as Link]
+            ? [{ icon: faCoffee, title: getTranslation('footer.buymeacoffee'), path: 'https://www.buymeacoffee.com/denniskeil' } as MoreLink]
             : []),
     ];
 

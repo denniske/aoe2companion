@@ -53,8 +53,10 @@ interface IRecordingPlatform {
     ratings: IRecordingRatings;
 }
 
-interface IRecordingRatings {
-}
+// The API returns a ratings object whose keys are not modelled here; nothing
+// reads them, so keep it as an opaque object rather than an empty interface
+// (which would also accept `0`, `""` and other non-nullish primitives).
+type IRecordingRatings = Record<string, unknown>;
 
 interface IRecordingMap {
     custom: boolean;

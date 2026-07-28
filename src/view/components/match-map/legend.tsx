@@ -13,16 +13,16 @@ import { IMatchNew } from '@app/api/helper/api.types';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { Text } from '@app/components/text';
 
-type ILegendTeams = Array<{
+type ILegendTeams = {
     teamId?: number;
-    players: Array<{
+    players: {
         name: string;
         civImageUrl: string;
         color: string;
         resigned: boolean;
         age: string;
-    }>;
-}>;
+    }[];
+}[];
 
 interface Props {
     time: SharedValue<number>;

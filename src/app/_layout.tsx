@@ -113,7 +113,7 @@ try {
         handleSuccess: (notificationId) => console.log('success:' + notificationId),
         handleError: (notificationId) => console.log('error:' + notificationId),
     });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
 } catch (e) {}
 
 if (Platform.OS !== 'web') {

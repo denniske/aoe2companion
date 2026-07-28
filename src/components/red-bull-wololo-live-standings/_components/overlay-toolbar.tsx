@@ -6,7 +6,7 @@ import { faBorderBottom, faBorderCenterH, faBorderCenterV, faBorderLeft, faBorde
 import cn from 'classnames';
 import { Button } from '@app/components/button';
 
-export type OverlayToolbarOptions = Array<'horizontal' | 'vertical' | 'scale' | 'padding' | 'count' | 'speed'>;
+export type OverlayToolbarOptions = ('horizontal' | 'vertical' | 'scale' | 'padding' | 'count' | 'speed')[];
 
 export const OverlayToolbar: React.FC<{ options: OverlayToolbarOptions }> = ({ options }) => {
     const { hideToolbar, setProps, ...params } = useToolbarProps();
@@ -79,7 +79,7 @@ export const OverlayToolbar: React.FC<{ options: OverlayToolbarOptions }> = ({ o
 };
 
 const AlignmentSelector: React.FC<{
-    options: Array<{ icon: IconDefinition; label: string; value: string }>;
+    options: { icon: IconDefinition; label: string; value: string }[];
     label: string;
     value: 'horizontal' | 'vertical';
 }> = ({ options, label, value }) => {

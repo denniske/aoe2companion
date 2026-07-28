@@ -345,19 +345,19 @@ export type IMap = {
 export type IMapsRankedResult = {
     patch: number
     patchVersion: number
-    leaderboards: Array<{
+    leaderboards: {
         leaderboardId: string
         leaderboardName: string
         abbreviation: string
-        maps: Array<{
+        maps: {
             mapId: string
             mapName: string
             description: string
             imageUrl: string
             count: number
             percentage: number
-        }>
-    }>
+        }[]
+    }[]
 }
 
 export type IMapsPollResult = {
@@ -366,13 +366,13 @@ export type IMapsPollResult = {
     finished: Date
     expired: Date
     metadata: string
-    questions: Array<{
+    questions: {
         leaderboardId: string
         leaderboardName: string
         abbreviation: string
         questionId: number
         totalVotes: number
-        options: Array<{
+        options: {
             optionId: number
             mapId: string
             mapName: string
@@ -380,8 +380,8 @@ export type IMapsPollResult = {
             imageUrl: string
             voteCount: number
             percentage: number
-        }>
-        devOptions: Array<{
+        }[]
+        devOptions: {
             optionId: number
             mapId: string
             mapName: string
@@ -389,8 +389,8 @@ export type IMapsPollResult = {
             imageUrl: string
             voteCount: number
             percentage: number
-        }>
-    }>
+        }[]
+    }[]
 }
 
 
@@ -758,7 +758,7 @@ export interface ILeaderboardPlayer {
     profileId: number;
     name: string;
     countryIcon?: string;
-    last10MatchesWon?: Array<boolean | null>;
+    last10MatchesWon?: (boolean | null)[];
     rank: number;
     rankCountry: number;
     rating: number;
@@ -863,7 +863,7 @@ export type IAnalysis = {
     guid: string
     version: string
     duration: string
-    gaia?: Array<{
+    gaia?: {
         classId: number
         index: number
         instanceId: number
@@ -873,8 +873,8 @@ export type IAnalysis = {
             x: number
             y: number
         }
-    }>
-    players: Array<{
+    }[]
+    players: {
         eapmPerMinute: Record<string, number>
         civilization?: string
         civilizationId?: number
@@ -884,7 +884,7 @@ export type IAnalysis = {
         eapm?: number
         name?: string
         number?: number
-        objects?: Array<{
+        objects?: {
             classId: number
             index: number
             instanceId: number
@@ -894,7 +894,7 @@ export type IAnalysis = {
                 x: number
                 y: number
             }
-        }>
+        }[]
         position?: object
         preferRandom?: boolean
         profileId?: number
@@ -909,7 +909,7 @@ export type IAnalysis = {
                 eapm: number
                 name: string
                 number: number
-                objects: Array<{
+                objects: {
                     classId: number
                     index: number
                     instanceId: number
@@ -919,22 +919,22 @@ export type IAnalysis = {
                         x: number
                         y: number
                     }
-                }>
+                }[]
                 position: object
                 preferRandom: boolean
                 profileId: number
                 rateSnapshot: number
-                team: Array<number>
-                teamId: Array<number>
+                team: number[]
+                teamId: number[]
                 winner: boolean
             }
         ]
-        teamId?: Array<number>
+        teamId?: number[]
         winner?: boolean
-        unknown: Array<{
+        unknown: {
             payload: {
                 sequence: number
-                targets: Array<number>
+                targets: number[]
             }
             player: number
             position: {
@@ -943,19 +943,19 @@ export type IAnalysis = {
             }
             timestamp: string
             type: string
-        }>
-        queuedUnits: Array<{
+        }[]
+        queuedUnits: {
             timestamp: string
             unit: string
-        }>
-        queuedTechs: Array<{
+        }[]
+        queuedTechs: {
             timestamp: string
             unit: string
-        }>
+        }[]
         resignation?: {
             timestamp: string
         }
-        queuedBuildings: Array<{
+        queuedBuildings: {
             timestamp: string
             position: {
                 x: number
@@ -963,8 +963,8 @@ export type IAnalysis = {
             }
             unit: string
             unitId: number
-        }>
-        queuedWalls: Array<{
+        }[]
+        queuedWalls: {
             timestamp: string
             position: {
                 x: number
@@ -975,30 +975,30 @@ export type IAnalysis = {
                 y: number
             }
             unit: string
-        }>
-        market: Array<{
+        }[]
+        market: {
             timestamp: string
             unit: string
             amount: number
             type: string
-        }>
-        chat: Array<{
+        }[]
+        chat: {
             timestamp: string
             audience: string
             message: string
             origination: string
-        }>
-        uptimes: Array<{
+        }[]
+        uptimes: {
             timestamp: string
             age: string
-        }>
-        timeseries: Array<{
+        }[]
+        timeseries: {
             timestamp: string
             totalObjects: number
             totalResources: number
-        }>
-        viewLocks: Array<any>
-    }>
+        }[]
+        viewLocks: any[]
+    }[]
     map: {
         custom: boolean
         dimension: number
@@ -1009,14 +1009,14 @@ export type IAnalysis = {
             fixedPositions: boolean
             guardState: boolean
         }
-        tiles: Array<{
+        tiles: {
             elevation: number
             position: {
                 x: number
                 y: number
             }
             terrain: number
-        }>
+        }[]
         name: string
         size: string
         zr: boolean

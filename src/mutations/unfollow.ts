@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { IAccount, unfollowV2 } from '@app/api/account';
-import produce from 'immer';
+import { produce } from 'immer';
 import { QUERY_KEY_ACCOUNT } from '@app/queries/all';
 
 

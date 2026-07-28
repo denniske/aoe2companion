@@ -24,7 +24,7 @@ export const LastFiveMatches = ({
     player: ILeaderboardPlayer;
     playerNames: Record<string, { name: string; icon?: string }>;
     match?: ILobbiesMatch;
-    last10MatchesWon?: Array<boolean | null>;
+    last10MatchesWon?: (boolean | null)[];
     isPastDeadline?: boolean;
 }) => {
     const last5MatchesWon = reverse(clone((last10MatchesWon ?? player.last10MatchesWon)?.filter((_, i) => i < 5) ?? []));

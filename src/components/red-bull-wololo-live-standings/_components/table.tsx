@@ -21,7 +21,7 @@ export const HeadCell = ({
     hideIcon?: boolean;
     sort: [keyof ILeaderboardPlayer | 'winrates' | 'rankMaxRating', 'desc' | 'asc'];
     setSort: (s: [keyof ILeaderboardPlayer | 'winrates' | 'rankMaxRating', 'desc' | 'asc']) => void;
-    hideCols: Array<keyof ILeaderboardPlayer | 'winrates' | 'rankMaxRating'>;
+    hideCols: (keyof ILeaderboardPlayer | 'winrates' | 'rankMaxRating')[];
 } & HTMLAttributes<HTMLTableCellElement>) =>
     columnName && hideCols.includes(columnName) ? null : (
         <th scope="col" className={`py-2 px-6 whitespace-nowrap block ${className} select-none`} {...props}>

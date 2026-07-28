@@ -6,21 +6,24 @@ export const RenderInPortal: React.FC<{ children: React.ReactNode }> = ({ childr
     const { mount, update, unmount } = usePortalManager();
     const keyRef = useRef<number | null>(null);
 
+    // Teardown only. Kept separate from the mount/update effect below so that a
+    // change to `children` updates the portal in place instead of unmounting and
+    // remounting it.
     useEffect(() => {
-        keyRef.current = mount(children);
-
         return () => {
             if (keyRef.current !== null) {
                 unmount(keyRef.current);
             }
         };
-    }, []);
+    }, [unmount]);
 
     useEffect(() => {
-        if (keyRef.current !== null) {
+        if (keyRef.current === null) {
+            keyRef.current = mount(children);
+        } else {
             update(keyRef.current, children);
         }
-    }, [children]);
+    }, [children, mount, update]);
 
     return null; // Nothing in place
 };

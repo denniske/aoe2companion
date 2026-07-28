@@ -13,7 +13,7 @@ import { useAppTheme } from '@app/theming';
 export const BuildFocus: React.FC<{
     build: IBuildOrder;
     visible: boolean;
-    shownResources: Array<keyof IBuildOrderStandardResources>;
+    shownResources: (keyof IBuildOrderStandardResources)[];
     onClose: (event: GestureResponderEvent) => void;
 }> = ({ build, visible, onClose, shownResources }) => {
     const getTranslation = useTranslation();
@@ -27,7 +27,7 @@ export const BuildFocus: React.FC<{
     // component out of React Compiler. It only closes over setCurrentStep, which is
     // stable, so the compiler caches it once per instance and the identity is just
     // as stable as the ref was.
-    const handleViewableItemsChanged = ({ changed, viewableItems }: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => {
+    const handleViewableItemsChanged = ({ changed, viewableItems }: { viewableItems: ViewToken[]; changed: ViewToken[] }) => {
         if (changed) {
             const viewableSteps = viewableItems.map((item) => item.index ?? 0);
             setCurrentStep(viewableSteps[0]);

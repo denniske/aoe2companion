@@ -49,7 +49,11 @@ export default function TimeScrubber({time, duration} : Props) {
     };
 
     const togglePlay = () => {
-        isPlaying ? pause() : play();
+        if (isPlaying) {
+            pause();
+        } else {
+            play();
+        }
     };
 
     const panGesture = Gesture.Pan()

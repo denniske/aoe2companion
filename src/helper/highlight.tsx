@@ -78,7 +78,7 @@ export function HighlightUnitAndTechs(props: IProps) {
 
     const texts = [];
     for (let i = 0; i < parts.length; i++) {
-        if (i % 2 == 0) {
+        if (i % 2 === 0) {
             texts.push(<MyText key={i}>{parts[i]}</MyText>);
         } else {
             // console.log('part', parts[i]);
@@ -137,7 +137,7 @@ export function Highlight(props: IProps2) {
 
     const texts = [];
     for (let i = 0; i < parts.length; i++) {
-        if (i % 2 == 0) {
+        if (i % 2 === 0) {
             texts.push(<MyText key={i}>{parts[i]}</MyText>);
         } else {
             texts.push(

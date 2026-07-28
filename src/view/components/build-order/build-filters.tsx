@@ -33,7 +33,7 @@ export const BuildFilters = () => {
     };
 
     const civIcon = civilization ? getCivIconLocal(civilization) : genericCivIcon;
-    const civOptions: Array<Civ | undefined> = [undefined, ...orderCivs(civs.filter((civ) => civ !== 'Indians'))];
+    const civOptions: (Civ | undefined)[] = [undefined, ...orderCivs(civs.filter((civ) => civ !== 'Indians'))];
 
     return (
         <View className={cn("relative z-1 flex flex-row items-center justify-center gap-[15px] py-4", containerClassName)}>

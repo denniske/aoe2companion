@@ -13,6 +13,8 @@ import { Directory, File, Paths } from 'expo-file-system';
 import { camelCase } from 'lodash';
 import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
 
+import { SaveFormat, ImageManipulator } from 'expo-image-manipulator';
+
 const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
 // console.log('WIDGET', `group.${Constants.expoConfig?.ios?.bundleIdentifier}`);
@@ -174,8 +176,6 @@ const slugifyFilename = (url?: string, size?: number) => {
 
     return slugged + sizeStr + ext;
 };
-
-import { SaveFormat, ImageManipulator } from 'expo-image-manipulator';
 
 const processImageFast = async (uri: string) => {
     try {
