@@ -41,6 +41,19 @@ export function getEliteUniqueResearchIcon() {
     return require('../../assets/units/EliteUniqueResearch.png');
 }
 
+// Sheep and Boar have no data id, so they are missing from the auto-generated
+// unitIconImageDict even though their icons exist. Without these the build order
+// steps fall back to the elite unique research icon.
+const extraUnitIcons: Record<string, ImageSourcePropType> = {
+    'Sheep': require('../../assets/units/Sheep.png'),
+    'Boar': require('../../assets/units/Boar.png'),
+};
+
+function getUnitIconImage(unit: string | undefined): ImageSourcePropType | undefined {
+    if (!unit) return undefined;
+    return unitIconImageDict[unit] ?? extraUnitIcons[unit];
+}
+
 // Use .webp for smaller files later
 export function getUnitIcon(unit: Unit, civ?: Civ): ImageSourcePropType {
     if (['Monk', 'TradeCart'].includes(unit) && civ) {
@@ -49,10 +62,9 @@ export function getUnitIcon(unit: Unit, civ?: Civ): ImageSourcePropType {
             return unitIconImageDict[pictureName];
         }
     }
-    if (unitIconImageDict[unit] == null) return require('../../assets/units/EliteUniqueResearch.png');
-    return unitIconImageDict[unit];
+    return getUnitIconImage(unit) ?? require('../../assets/units/EliteUniqueResearch.png');
 }
 
 export function getIcon(icon: string) {
-    return unitIconImageDict[icon] ?? unitIconImageDict[unitLines[icon]?.units?.[0]] ?? getBuildingIcon(icon as Building) ?? getTechIcon(icon as Tech) ?? getAgeIcon(icon as Age) ?? getOtherIcon(icon as Other);
+    return getUnitIconImage(icon) ?? getUnitIconImage(unitLines[icon]?.units?.[0]) ?? getBuildingIcon(icon as Building) ?? getTechIcon(icon as Tech) ?? getAgeIcon(icon as Age) ?? getOtherIcon(icon as Other);
 }

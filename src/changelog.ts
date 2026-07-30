@@ -378,6 +378,12 @@ export const changelog: IChangelog = {
     //         content: 'A live activity will now also correctly open the match detail page when tapping on the dynamic island',
     //     },
     // ],
+    '211.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix sheep and boar icon in build orders',
+        },
+    ],
     '210.0.0': [
         {
             type: 'bugfix',
