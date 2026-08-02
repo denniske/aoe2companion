@@ -14,7 +14,6 @@ import { scheduleOnRN } from 'react-native-worklets';
 import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { fetchLeaderboard } from '../../../api/helper/api';
 import { ILeaderboardPlayer } from '../../../api/helper/api.types';
-import { useSelector } from '../../../redux/reducer';
 import { createStylesheet } from '../../../theming-new';
 import { FlashList } from '@app/components/flash-list';
 import type { FlashListRef } from '@shopify/flash-list';
@@ -95,7 +94,7 @@ export default function LeaderboardFlashListPage() {
 
     const styles = useStyles();
     const [refetching, setRefetching] = useState(false);
-    const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
+    const [leaderboardCountry, setLeaderboardCountry] = useState<string | null>(null);
     const insets = useSafeAreaInsets();
     const flatListRef = React.useRef<FlashListRef<any>>(null);
     const [rankWidth, setRankWidth] = useState<number>(43);
@@ -541,7 +540,7 @@ export default function LeaderboardFlashListPage() {
 
             <View className={cn('items-center flex-row py-4 gap-2.5', containerClassName)}>
                 <LeaderboardOfficialSelect leaderboardId={leaderboardId} onLeaderboardIdChange={setLeaderboardId} />
-                <CountrySelect />
+                <CountrySelect country={leaderboardCountry} onCountryChange={setLeaderboardCountry} />
             </View>
 
             {/*<Button onPress={() => scrollFlatListTo(300)}>Scroll</Button>*/}

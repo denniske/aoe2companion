@@ -1,4 +1,3 @@
-import { setLeaderboardCountry, useMutate, useSelector } from '@app/redux/reducer';
 import { useAuthProfileId, useProfileFast } from '@app/queries/all';
 import { getCountryName } from '@app/helper/flags';
 import { countriesDistinct, Country } from '@nex/data';
@@ -6,7 +5,7 @@ import { CountryImageForDropDown, SpecialImageForDropDown } from '@app/view/comp
 import { appConfig } from '@nex/dataset';
 import { Platform, StyleSheet, View } from 'react-native';
 import Picker from '@app/view/components/picker';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createStylesheet } from '@app/theming-new';
 import { useTranslation } from '@app/helper/translate';
 import { useRouter } from 'expo-router';
@@ -18,22 +17,13 @@ export function isCountry(x: string | null) {
 }
 
 interface Props {
-    initialCountry?: string | null;
+    country?: string | null;
+    onCountryChange: (country: string | null) => void;
 }
 
-export function CountrySelect({ initialCountry }: Props = {}) {
+export function CountrySelect({ country = null, onCountryChange }: Props) {
     const getTranslation = useTranslation();
-    const mutate = useMutate();
     const router = useRouter();
-    const country = useSelector((state) => state.leaderboardCountry) || null;
-
-    useEffect(() => {
-        if (!initialCountry) return;
-        const upperCountry = initialCountry.toUpperCase();
-        if (isCountry(upperCountry)) {
-            mutate(setLeaderboardCountry(upperCountry));
-        }
-    }, [initialCountry, mutate]);
 
     const authProfileId = useAuthProfileId();
     const { data: authProfile } = useProfileFast(authProfileId);
@@ -82,9 +72,9 @@ export function CountrySelect({ initialCountry }: Props = {}) {
         }
         return <CountryImageForDropDown country={x} />;
     };
-    const onCountrySelected = (country: string | null) => {
-        mutate(setLeaderboardCountry(country));
-        router.setParams({ country: isCountry(country) ? country!.toLowerCase() : undefined });
+    const onCountrySelected = (selected: string | null) => {
+        onCountryChange(selected);
+        router.setParams({ country: isCountry(selected) ? selected!.toLowerCase() : undefined });
     };
 
     const divider = (x: any, i: number) => i < (authCountry ? 3 : 2);

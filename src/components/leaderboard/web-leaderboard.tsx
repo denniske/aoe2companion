@@ -2,13 +2,12 @@ import { fetchLeaderboard } from '@app/api/helper/api';
 import { ILeaderboardDef } from '@app/api/helper/api.types';
 import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
-import { countryEarth, CountrySelect } from '@app/components/select/country-select';
+import { countryEarth, CountrySelect, isCountry } from '@app/components/select/country-select';
 import { Text } from '@app/components/text';
 import { Image } from '@app/components/uniwind/image';
 import { useTranslation } from '@app/helper/translate';
 import useDebounce from '@app/hooks/use-debounce';
 import { useFollowedAndMeProfileIds, useLanguage, useLeaderboards } from '@app/queries/all';
-import { useSelector } from '@app/redux/reducer';
 import { containerClassName } from '@app/styles';
 import ButtonPicker from '@app/view/components/button-picker';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
@@ -31,6 +30,14 @@ export const WebLeaderboard: React.FC = () => {
     const [search, setSearch] = useState('');
 
     const { leaderboard: initialLeaderboardId, country: initialCountry } = useLocalSearchParams<{ leaderboard?: string; country?: string }>();
+
+    // Seeded from the URL on the first render rather than in an effect, so the
+    // initial player query already carries the country instead of firing once
+    // without it and immediately refetching.
+    const [leaderboardCountry, setLeaderboardCountry] = useState<string | null>(() => {
+        const country = paramToString(initialCountry)?.toUpperCase() ?? null;
+        return isCountry(country) ? country : null;
+    });
 
     const { data: leaderboards } = useLeaderboards();
     const selectedLeaderboard = leaderboards?.find((l) => l.leaderboardId === leaderboardId);
@@ -60,21 +67,28 @@ export const WebLeaderboard: React.FC = () => {
                     />
                 </View>
                 <View className="flex-row">
-                    <CountrySelect initialCountry={paramToString(initialCountry)} />
+                    <CountrySelect country={leaderboardCountry} onCountryChange={setLeaderboardCountry} />
                 </View>
             </View>
 
-            {!!(leaderboardId) && <PlayerList leaderboardId={leaderboardId} search={search} />}
+            {!!(leaderboardId) && <PlayerList leaderboardId={leaderboardId} search={search} leaderboardCountry={leaderboardCountry} />}
         </View>
     );
 };
 
-function PlayerList({ leaderboardId, search }: { leaderboardId: string; search: string }) {
+function PlayerList({
+    leaderboardId,
+    search,
+    leaderboardCountry,
+}: {
+    leaderboardId: string;
+    search: string;
+    leaderboardCountry: string | null;
+}) {
     const getTranslation = useTranslation();
     const debouncedSearch = useDebounce(search, 600);
     const language = useLanguage();
 
-    const leaderboardCountry = useSelector((state) => state.leaderboardCountry) || null;
     const followingIds = useFollowedAndMeProfileIds();
 
     const params = useMemo(() => {

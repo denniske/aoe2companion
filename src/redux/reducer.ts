@@ -88,12 +88,6 @@ export function setMainPageShown(mainPageShown: boolean) {
     };
 }
 
-export function setLeaderboardCountry(country?: string | null) {
-    return (state: AppState) => {
-        state.leaderboardCountry = country;
-    };
-}
-
 export function addLog(log: string) {
     return (state: AppState) => {
         if (!state.logs) {
@@ -154,8 +148,6 @@ export interface AppState {
     logs?: string[] | null;
 
     scroll: IScroll;
-
-    leaderboardCountry?: string | null;
 
     updateState: string;
     updateAvailable: boolean;
