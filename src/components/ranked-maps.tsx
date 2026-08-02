@@ -107,7 +107,7 @@ export const RankedMaps: React.FC = () => {
                                               </View>
                                           ))
                                     : mapsRanked?.leaderboards
-                                          ?.find((l) => l.leaderboardId === (rankedMapLeaderboard ?? firstValue))
+                                          ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
                                           ?.maps?.map((map) => (
                                               <ExpoLink asChild href={`/explore/maps/${map.mapId}`} key={map.mapId}>
                                                   <TouchableOpacity className="flex-col justify-between items-center w-[25%] mb-4">

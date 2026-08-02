@@ -25,7 +25,7 @@ interface FilterProps<Value> {
 
 export const Filter = <Value,>({ options, label, value, onChange, icon, onPress }: FilterProps<Value>) => {
     const styles = useStyles();
-    const initialValue = options.find((o) => o.value === value)?.label ?? '';
+    const initialValue = options.find((o) => o.value == value)?.label ?? '';
     const [search, setSearch] = useState<string>();
     const filterField = useRef<TextInput>(null);
     const blurTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);

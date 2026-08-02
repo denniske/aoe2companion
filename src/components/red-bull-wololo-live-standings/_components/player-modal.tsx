@@ -22,13 +22,13 @@ import { RatingDiff } from './rating-diff';
 
 const formatTick = (tick: any, index: number, ticks: any[]) => {
     const date = ticks[index] as Date;
-    if (date.getMonth() === 0 && date.getDate() === 1 && date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0) {
+    if (date.getMonth() == 0 && date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
         return formatYear(date);
     }
-    if (date.getDate() === 1 && date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0) {
+    if (date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
         return formatMonth(date);
     }
-    if (date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0) {
+    if (date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
         return formatDateShort(date);
     }
     return formatTime(ticks[index]);

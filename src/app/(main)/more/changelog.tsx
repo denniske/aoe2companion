@@ -48,7 +48,7 @@ export default function ChangelogPage() {
 
         const texts = [];
         for (let i = 0; i < parts.length; i++) {
-            if (i % 2 === 0) {
+            if (i % 2 == 0) {
                 texts.push(<MyText key={i}>{parts[i]}</MyText>);
             } else {
                 const match = parts[i].match(/\[(.+)]\((.+)\)/);

@@ -32,7 +32,7 @@ export const useFavoritedBuilds = () => {
     useEffect(() => {
         const readItemFromStorage = async () => {
             // console.log('=> cond', `${!isLoadingAccount} && ${!account?.favoriteBuildIds} || ${account?.favoriteBuildIds?.length == 0}`)
-            if (!isLoadingAccount && !account?.favoriteBuildIds || account?.favoriteBuildIds?.length === 0) {
+            if (!isLoadingAccount && !account?.favoriteBuildIds || account?.favoriteBuildIds?.length == 0) {
                 const item = await AsyncStorage.getItem(FAVORITED_BUILDS_KEY);
                 // console.log('=> item', item)
                 if (item) {

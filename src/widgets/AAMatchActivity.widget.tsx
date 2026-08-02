@@ -313,7 +313,7 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
                         />
                     ) : (
                         <Text modifiers={[font({ size: 14, weight: 'semibold' }), multilineTextAlignment('center')]}>
-                            {currentPlayer.won === true ? 'Nice win!' : 'Game over'}
+                            {currentPlayer.won == true ? 'Nice win!' : 'Game over'}
                         </Text>
                     )}
                 </>

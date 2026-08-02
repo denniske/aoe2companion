@@ -16,7 +16,7 @@ export interface LoaderProps extends Props {
 export function CountryImageForDropDown(props: Props) {
     const { country } = props;
 
-    const fontSize = country === 'EARTH' ? 16 : 24;
+    const fontSize = country == 'EARTH' ? 16 : 24;
 
     return (
         <MyText style={{ fontSize, textAlign: 'center' }} className="w-7 mr-2 font-flag">{country ? flagEmojiDict[country.toUpperCase() as any] : '🏳'}</MyText>

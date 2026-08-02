@@ -38,7 +38,7 @@ function initConnection(handler: IConnectionHandler, profileIds?: number[], veri
     client.onmessage = (messageEvent) => {
         const message = JSON.parse(messageEvent.data as string, dateReviver);
         handler.onMessage?.(message);
-        if (message.type !== 'pong') {
+        if (message.type != 'pong') {
             handler.onMatches?.(message);
         }
     };
@@ -83,7 +83,7 @@ export function initMatchSubscription(handler: IConnectionHandler, profileIds?: 
             onMatches: (events: IMatchEvent[]) => {
                 _matches = produce(_matches, (matches) => {
                     for (const event of events) {
-                        const match = matches.find((match) => match.matchId === event.data.matchId);
+                        const match = matches.find((match) => match.matchId == event.data.matchId);
 
                         switch (event.type) {
                             case 'matchAdded':

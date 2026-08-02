@@ -56,7 +56,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     const toggleLeaderboard = (leaderboardId: LeaderboardId) => {
         let ids = [];
         if (hiddenLeaderboardIds.includes(leaderboardId)) {
-            ids = hiddenLeaderboardIds.filter((id) => id !== leaderboardId);
+            ids = hiddenLeaderboardIds.filter((id) => id != leaderboardId);
         } else {
             ids = [...hiddenLeaderboardIds, leaderboardId];
         }
@@ -69,13 +69,13 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     // We need to supply our custom tick formatter because otherwise victory native will
     // print too much ticks on the x-axis.
     const formatTick = (date: Date) => {
-        if (date.getMonth() === 0 && date.getDate() === 1 && date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0) {
+        if (date.getMonth() == 0 && date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
             return formatYear(date);
         }
-        if (date.getDate() === 1 && date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0) {
+        if (date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
             return formatMonth(date);
         }
-        if (date.getHours() === 0 && date.getMinutes() === 0 && date.getSeconds() === 0) {
+        if (date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
             return formatDateShort(date);
         }
         return formatTime(date);
@@ -84,7 +84,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     const filteredRatingHistories = useMemo(() => {
         const since = getRatingTimespan(ratingHistoryDuration);
 
-        return effectiveRatingHistories?.filter(r => (!r.leaderboardId.includes('_console') && platform !== 'console') || (r.leaderboardId.includes('_console') && platform === 'console'))?.map((r) => ({
+        return effectiveRatingHistories?.filter(r => (!r.leaderboardId.includes('_console') && platform != 'console') || (r.leaderboardId.includes('_console') && platform == 'console'))?.map((r) => ({
             ...r,
             leaderboardId: r.leaderboardId,
             ratings: r.ratings.filter((d) => since == null || isAfter(d.date!, since)),

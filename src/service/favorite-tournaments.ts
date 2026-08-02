@@ -20,7 +20,7 @@ export const useFollowedTournaments = () => {
 
     useEffect(() => {
         const readItemFromStorage = async () => {
-            if (!isLoadingAccount && !account?.favoriteTournamentIds || account?.favoriteTournamentIds?.length === 0) {
+            if (!isLoadingAccount && !account?.favoriteTournamentIds || account?.favoriteTournamentIds?.length == 0) {
                 const item = await AsyncStorage.getItem(FOLLOWED_TOURNAMENTS_KEY);
                 if (item) {
                     const favorites = JSON.parse(item);

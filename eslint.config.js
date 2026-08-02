@@ -57,6 +57,22 @@ module.exports = defineConfig([
             // more permissive parser.
             'react/no-unescaped-entities': ['error', { forbid: ['>', '}'] }],
 
+            // Off by choice. 99 findings, and the `==` in this codebase is deliberate:
+            // it is the idiomatic "null or undefined" check. Expo sets this rule to
+            // `smart`, which exempts a comparison against the `null` *literal* but not
+            // against a variable that holds null — so it flagged precisely the checks
+            // that were already correct, and converting them to `===` silently narrowed
+            // them to null-only. That broke two real cases before it was caught:
+            // `x == unitNone` in the unit/building compare pickers, and
+            // `x == countryEarth` in country-select, where the branch also guarded an
+            // unchecked `x.startsWith('Clan')` and so could throw on an unselected
+            // value. See 55f3568 and its revert.
+            //
+            // The remaining ~90 findings compare against string, number or boolean
+            // literals, where `==` and `===` behave identically, so enforcing it buys
+            // nothing and risks the above.
+            eqeqeq: 'off',
+
             // 'react-native/no-unused-styles': 1,
             // 'import/no-unresolved': 'off',
             // 'react/jsx-key': 'off',

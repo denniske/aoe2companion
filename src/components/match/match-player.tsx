@@ -91,9 +91,9 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
 
             {!!(match.finished || match.abandoned) && (
                 <View className="w-5">
-                    {player.won === true && (freeForAll || player.team !== -1) && <Icon icon={faCrown} color="brand" />}
-                    {player.won === false && (freeForAll || player.team !== -1) && <Icon icon={faSkull} color="subtle" />}
-                    {player.won == null && (freeForAll || player.team !== -1) && <Icon icon={faBan} color="subtle" />}
+                    {player.won === true && (freeForAll || player.team != -1) && <Icon icon={faCrown} color="brand" />}
+                    {player.won === false && (freeForAll || player.team != -1) && <Icon icon={faSkull} color="subtle" />}
+                    {player.won == null && (freeForAll || player.team != -1) && <Icon icon={faBan} color="subtle" />}
                 </View>
             )}
         </View>

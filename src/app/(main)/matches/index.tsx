@@ -95,15 +95,15 @@ export default function MatchesPage() {
 
     const filterAndSortPlayers = (players: IPlayerNew[]) => {
         let filteredPlayers = players.filter(
-            (p) => (followedPlayers ?? []).filter((f) => f.profileId === p.profileId).length > 0 || p.profileId === authProfileId
+            (p) => (followedPlayers ?? []).filter((f) => f.profileId === p.profileId).length > 0 || p.profileId == authProfileId
         );
-        filteredPlayers = orderBy(filteredPlayers, (p) => p.profileId === authProfileId);
+        filteredPlayers = orderBy(filteredPlayers, (p) => p.profileId == authProfileId);
         return filteredPlayers;
     };
 
     const formatPlayer = (player: any, i: number) => {
         return player?.profileId === authProfileId
-            ? i === 0
+            ? i == 0
                 ? getTranslation('feed.following.you')
                 : getTranslation('feed.following.you').toLowerCase()
             : player.name;
@@ -198,9 +198,9 @@ export default function MatchesPage() {
                                 const overlapPlayers = uniq([...filteredPlayers, ...previousFilteredPlayers].map((p) => p.profileId));
 
                                 if (
-                                    !!match.finished === !!previousMatch.finished &&
-                                    previousFilteredPlayers.length === filteredPlayers.length &&
-                                    overlapPlayers.length === filteredPlayers.length
+                                    !!match.finished == !!previousMatch.finished &&
+                                    previousFilteredPlayers.length == filteredPlayers.length &&
+                                    overlapPlayers.length == filteredPlayers.length
                                 ) {
                                     samePlayers = true;
                                 }
@@ -235,7 +235,7 @@ export default function MatchesPage() {
                                                     )}
 
                                                     {i < len - 2 && <MyText>, </MyText>}
-                                                    {i === len - 2 && <MyText> {getTranslation('feed.following.and')} </MyText>}
+                                                    {i == len - 2 && <MyText> {getTranslation('feed.following.and')} </MyText>}
                                                 </MyText>
                                             ))}
                                             {filteredPlayers[0].profileId === authProfileId && (
@@ -246,7 +246,7 @@ export default function MatchesPage() {
                                                         : getTranslation('feed.following.yplayingnow')}
                                                 </MyText>
                                             )}
-                                            {filteredPlayers[0].profileId !== authProfileId && filteredPlayers.length === 1 && (
+                                            {filteredPlayers[0].profileId !== authProfileId && filteredPlayers.length == 1 && (
                                                 <MyText>
                                                     {' '}
                                                     {match.finished

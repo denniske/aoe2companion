@@ -18,8 +18,8 @@ export default function CivAvailability({ tech, unit, building }: CivAvailabilit
     const getTranslation = useTranslation();
     const styles = useStyles();
 
-    const civAvailable = civs.filter((c) => c !== 'Indians').filter((civ) => getAbilityEnabled({ civ, tech, unit, building }));
-    const civUnavailable = civs.filter((c) => c !== 'Indians').filter((civ) => !getAbilityEnabled({ civ, tech, unit, building }));
+    const civAvailable = civs.filter((c) => c != 'Indians').filter((civ) => getAbilityEnabled({ civ, tech, unit, building }));
+    const civUnavailable = civs.filter((c) => c != 'Indians').filter((civ) => !getAbilityEnabled({ civ, tech, unit, building }));
 
     const availableForAllCivs = civAvailable.length === civs.length;
     const availableForOneCivs = civAvailable.length === 1;

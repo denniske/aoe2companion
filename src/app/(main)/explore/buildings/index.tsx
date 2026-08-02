@@ -21,7 +21,7 @@ export default function BuildingList() {
     const { section } = useLocalSearchParams<{ section: string }>();
 
     const list =
-        text.length === 0
+        text.length == 0
             ? buildingSections
             : buildingSections
                   .map((section) => ({

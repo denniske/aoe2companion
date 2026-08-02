@@ -316,11 +316,7 @@ export function UnitStats({ unitId, unitLineId }: Props) {
     const unitNone = null;
 
     const formatUnit = (x: string | null, inList?: boolean) => {
-        // `== null` on purpose, matching both null and undefined: the picker passes
-        // `undefined` while nothing is selected, and that has to hit the `unitNone`
-        // placeholder too. Written against the `null` literal so `eqeqeq: smart`
-        // allows it — it does not exempt a variable that merely holds null.
-        if (x == null) {
+        if (x == unitNone) {
             return getTranslation('unit.stats.action.compare');
         }
         return getUnitName(x as Unit);
@@ -393,13 +389,13 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                 {units.map((u) => (
                     <MyText key={u} style={styles.cellValue}>
                         <GetUnitValue style={styles.cellValue} unitId={u} prop="TrainTime" formatter={(x) => x + ' s'} />
-                        {getUnitLineIdForUnit(u) === 'Tarkan' && (
+                        {getUnitLineIdForUnit(u) == 'Tarkan' && (
                             <MyText>
                                 <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 21s{' '}
                                 <MyText style={styles.small}>({getBuildingName('Stable')})</MyText>
                             </MyText>
                         )}
-                        {getUnitLineIdForUnit(u) === 'Huskarl' && (
+                        {getUnitLineIdForUnit(u) == 'Huskarl' && (
                             <MyText>
                                 <MyText style={styles.small}> ({getBuildingName('Castle')})</MyText>, 13s{' '}
                                 <MyText style={styles.small}>({getBuildingName('Barracks')})</MyText>

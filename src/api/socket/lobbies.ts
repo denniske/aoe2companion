@@ -55,7 +55,7 @@ function initConnection(handler: IConnectionHandler, profileIds?: number[], veri
     client.onmessage = (messageEvent) => {
         const message = JSON.parse(messageEvent.data as string);
         handler.onMessage?.(message);
-        if (message.type !== 'pong') {
+        if (message.type != 'pong') {
             handler.onLobbies?.(message);
         }
     };
@@ -121,7 +121,7 @@ export function initLobbySubscription(
             onLobbies: (events: ILobbyEvent[]) => {
                 _lobbies = produce(_lobbies, (lobbies) => {
                     for (const event of events) {
-                        let lobby = lobbies.find((lobby) => lobby.matchId === event.data.matchId);
+                        let lobby = lobbies.find((lobby) => lobby.matchId == event.data.matchId);
 
                         if (lobby == null && (profileIds != null || verified != null)) {
                             // If the lobby is not found, we create a new one

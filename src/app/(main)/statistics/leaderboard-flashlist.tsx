@@ -140,13 +140,13 @@ export default function LeaderboardFlashListPage() {
     // Everything that selects *which* leaderboard, minus the page. Same shape as
     // web-leaderboard.tsx builds for its infinite query.
     const queryParams = useMemo(() => {
-        if (leaderboardCountry === 'following') {
+        if (leaderboardCountry == 'following') {
             return { profileIds: followingIds };
         }
         if (leaderboardCountry?.startsWith('Clan ')) {
             return { clan: leaderboardCountry?.replace('Clan ', '') };
         }
-        if (leaderboardCountry === countryEarth) {
+        if (leaderboardCountry == countryEarth) {
             return {};
         }
         return { country: leaderboardCountry };

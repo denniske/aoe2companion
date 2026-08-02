@@ -78,7 +78,7 @@ export function MatchCard(props: MatchCardProps) {
                             </TouchableOpacity>
                         </MapLinkComponent>
                         <View className={`absolute ${appConfig.game === 'aoe2' ? 'top-0 left-0' : 'top-1 left-1'}`}>
-                            {players.some((p) => p.profileId === user && p.won === true && (freeForAll || p.team !== -1)) && (
+                            {players.some((p) => p.profileId === user && p.won === true && (freeForAll || p.team != -1)) && (
                                 <Icon size={isMedium ? 20 : 12} icon={faCrown} color={appConfig.game === 'aoe2' ? 'brand' : 'brand'} />
                             )}
 
@@ -86,7 +86,7 @@ export function MatchCard(props: MatchCardProps) {
                                 <Image className="w-3 h-3 md:w-5 md:h-5" source={require('../../../assets/other/SkullCrown.png')} />
                             )}
 
-                            {players.some((p) => p.profileId === user && p.won === false && (freeForAll || p.team !== -1)) && (
+                            {players.some((p) => p.profileId === user && p.won === false && (freeForAll || p.team != -1)) && (
                                 <Icon size={isMedium ? 20 : 12} icon={faSkull} color={appConfig.game === 'aoe2' ? 'subtle' : 'subtle'} />
                             )}
 

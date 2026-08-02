@@ -98,8 +98,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 >
                     {cell({
                         value: v,
-                        // See button-picker: null placeholder vs undefined value must match.
-                        selected: v === value || (v == null && value == null),
+                        selected: v == value,
                         formatter: (x: any, i: any) => formatter(x, true),
                         color,
                         icon: (x: any, i: any) => icon(x, true),

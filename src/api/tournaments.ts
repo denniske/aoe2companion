@@ -191,7 +191,7 @@ function convertNewLiquipediaMatches(newLiquipediaMatches: INewLiquipediaMatch[]
             return {
                 format: match.mode,
                 finished: match.finished === 1,
-                startTime: match.date && match.date !== '0000-01-01 00:00:00' ? parseISO(match.date + 'Z') : undefined,
+                startTime: match.date && match.date != '0000-01-01 00:00:00' ? parseISO(match.date + 'Z') : undefined,
                 participants: match.match2opponents.map((participant) => ({
                     name: participant.name,
                 })) as [Match['participants'][0], Match['participants'][1]],
