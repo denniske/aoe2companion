@@ -378,7 +378,13 @@ export const changelog: IChangelog = {
     //         content: 'A live activity will now also correctly open the match detail page when tapping on the dynamic island',
     //     },
     // ],
-    '209.0.0': [
+    '211.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix sheep and boar icon in build orders',
+        },
+    ],
+    '210.0.0': [
         {
             type: 'bugfix',
             title: 'Fix monk icon in tech tree for Inca, Mapuche, Muisca and Tupi',
@@ -386,6 +392,11 @@ export const changelog: IChangelog = {
         {
             type: 'bugfix',
             title: 'Fix leaderboard scroll performance',
+        },
+        {
+            type: 'bugfix',
+            title: 'Rate Limit',
+            content: 'App will now respect rate limits from server and retry fetching data as fast as the server allows',
         },
     ],
     '208.0.0': [

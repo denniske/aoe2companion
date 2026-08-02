@@ -1,4 +1,5 @@
 import { countryEarth, CountrySelect, isCountry } from '@app/components/select/country-select';
+import { withCacheBust } from '@app/api/util';
 import { leaderboardsByType } from '@app/helper/leaderboard';
 import { useTranslation } from '@app/helper/translate';
 import { useAuthProfileId, useFollowedAndMeProfileIds, useLanguage, useLeaderboards } from '@app/queries/all';
@@ -224,7 +225,7 @@ export default function LeaderboardPage() {
 
     const onRefresh = async () => {
         setRefetching(true);
-        await queryClient.refetchQueries({ queryKey: ['leaderboard', language, leaderboardId, queryParams] });
+        await withCacheBust(() => queryClient.refetchQueries({ queryKey: ['leaderboard', language, leaderboardId, queryParams] }));
         setRefetching(false);
     };
 
