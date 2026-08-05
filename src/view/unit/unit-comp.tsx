@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Image } from '@/src/components/uniwind/image';
 import { getUnitLineForUnit, getUnitLineName, getUnitName, iconHeight, iconWidth, IUnitLine, Unit, UnitLine, unitLines } from '@nex/data';
 import { MyText } from '../components/my-text';
@@ -8,6 +8,7 @@ import { createStylesheet } from '../../theming-new';
 import { Link } from 'expo-router';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { Card } from '@app/components/card';
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Text } from '@app/components/text';
 
 function getUnitLineTitle(unitLine: IUnitLine) {
@@ -41,7 +42,7 @@ export function UnitCompBig({ unit, subtitle, canShowCard }: { unit: Unit; subti
 
     return (
         <Link asChild href={`/explore/units/${unit}`}>
-            <TouchableOpacity>
+            <PressableOpacity>
                 <View style={styles.rowBig}>
                     <Image style={styles.unitIconBig} source={getUnitIcon(unit)} />
                     <View style={styles.unitIconBigTitle}>
@@ -49,7 +50,7 @@ export function UnitCompBig({ unit, subtitle, canShowCard }: { unit: Unit; subti
                         {subtitle != null && <MyText style={styles.base.small}>{subtitle}</MyText>}
                     </View>
                 </View>
-            </TouchableOpacity>
+            </PressableOpacity>
         </Link>
     );
 }
