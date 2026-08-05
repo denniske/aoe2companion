@@ -12,6 +12,7 @@ import {
     ViewStyle,
 } from 'react-native';
 
+import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { PressableOpacityProps } from '@app/components/pressable-opacity';
 import { IconProps } from './icon';
 import { TextProps } from './text';
@@ -24,6 +25,9 @@ import { FC, MutableRefObject, ReactNode, useEffect, useRef, useState } from 're
 import { KeyboardEvent as RNKeyboardEvent } from 'react-native/Libraries/Components/Keyboard/Keyboard';
 
 const WINDOW_LAYOUT = Dimensions.get('window');
+
+const BACKDROP_COLOR = Platform.OS === 'web' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.1)';
+const BACKDROP_FADE_DURATION = 300;
 
 export interface MenuProps extends Omit<PressableOpacityProps, 'children'> {
     icon?: IconProps['icon'];
@@ -87,6 +91,8 @@ export const MenuNew: FC<MenuProps> = ({
         width: WINDOW_LAYOUT.width,
         height: WINDOW_LAYOUT.height,
     });
+
+    const backdropProgress = useSharedValue(0);
 
     const keyboardHeightRef = useRef(0);
     const prevVisible = useRef<boolean | null>(null);
@@ -326,6 +332,12 @@ export const MenuNew: FC<MenuProps> = ({
         updateVisibility(rendered);
     }, [rendered, updateVisibility]);
 
+    useEffect(() => {
+        // The backdrop is unmounted as soon as `visible` flips to false, so only the
+        // fade in is ever seen; resetting to 0 keeps the next open starting from clear.
+        backdropProgress.value = visible ? withTiming(1, { duration: BACKDROP_FADE_DURATION }) : 0;
+    }, [visible, backdropProgress]);
+
     const tapGesture = Gesture.Tap()
         .runOnJS(true)
         .numberOfTaps(1)
@@ -342,6 +354,10 @@ export const MenuNew: FC<MenuProps> = ({
         // do nothing
     });
 
+    const backdropStyle = useAnimatedStyle(() => ({
+        backgroundColor: interpolateColor(backdropProgress.value, [0, 1], ['rgba(0, 0, 0, 0)', BACKDROP_COLOR]),
+    }));
+
     return (
         <View>
             <View ref={(ref) => (anchorRef.current = ref) as any} collapsable={false}>
@@ -352,14 +368,7 @@ export const MenuNew: FC<MenuProps> = ({
                 <>
                     <RenderInPortal>
                         <GestureDetector gesture={tapGesture}>
-                            <View
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    backgroundColor: Platform.OS === 'web' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.2)',
-                                    cursor: 'pointer'
-                                }}
-                            >
+                            <Animated.View className="w-full h-full cursor-pointer" style={backdropStyle}>
                                 <GestureDetector gesture={noopGesture}>
                                     <View
                                         ref={(ref) => (menuRef.current = ref) as any}
@@ -383,7 +392,7 @@ export const MenuNew: FC<MenuProps> = ({
                                         {children}
                                     </View>
                                 </GestureDetector>
-                            </View>
+                            </Animated.View>
                         </GestureDetector>
                     </RenderInPortal>
                 </>
