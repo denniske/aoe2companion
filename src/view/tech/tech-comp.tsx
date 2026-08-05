@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Image} from '@/src/components/uniwind/image';
 import {getTechDescription, getTechName, iconHeight, iconWidth, Tech, techs} from "@nex/data";
 import {MyText} from "../components/my-text";
@@ -53,7 +54,7 @@ export function TechCompBig({ tech: tech, showCivBanner: showCivBanner, canShowC
 
     return (
         <Link asChild href={`/explore/technologies/${tech}`}>
-            <TouchableOpacity className="h-10">
+            <PressableOpacity className="h-10">
                 <View style={styles.rowBig}>
                     <TechIcon style={styles.unitIconBig} tech={tech} />
                     <View style={styles.unitIconBigTitle}>
@@ -63,7 +64,7 @@ export function TechCompBig({ tech: tech, showCivBanner: showCivBanner, canShowC
                         </MyText>
                     </View>
                 </View>
-            </TouchableOpacity>
+            </PressableOpacity>
         </Link>
     );
 }

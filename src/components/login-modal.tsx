@@ -1,8 +1,9 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React, { Fragment } from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { Icon } from './icon';
 import { faTimes } from '@fortawesome/sharp-regular-svg-icons';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { Text } from './text';
 import Login from './login';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
@@ -41,9 +42,9 @@ export const LoginModal = ({ onClose, isVisible }: { isVisible: boolean; onClose
                                     Sign In Required
                                 </Text>
 
-                                <TouchableOpacity onPress={onClose} className="absolute top-5 right-5">
+                                <PressableOpacity onPress={onClose} className="absolute top-5 right-5">
                                     <Icon icon={faTimes} size={32} />
-                                </TouchableOpacity>
+                                </PressableOpacity>
 
                                 <Text variant="body-lg" align="center">
                                     An account lets you follow players and save your favorites. Your information syncs automatically across devices.

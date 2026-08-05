@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { useAppTheme } from '../../theming';
 import { Icon } from '@app/components/icon';
 import { faChevronDown, faChevronUp } from '@fortawesome/sharp-solid-svg-icons';
@@ -27,14 +27,14 @@ export default function MyListAccordion(props: Props) {
 
     return (
         <View style={style}>
-            <TouchableOpacity activeOpacity={1} style={[styles.container]} onPress={handlePress}>
+            <Pressable style={[styles.container]} onPress={handlePress}>
                 <View style={styles.row} className="pointer-events-none">
                     <View style={[styles.item, styles.content]}>{left ? left({}) : null}</View>
                     <View style={styles.item}>
                         <Icon icon={expanded ? faChevronUp : faChevronDown} color={expandable ? 'subtle' : 'subtle'} size={18} />
                     </View>
                 </View>
-            </TouchableOpacity>
+            </Pressable>
 
             {expanded ? (
                 <View style={styles.row2}>

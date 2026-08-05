@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
 import { Field } from '@app/components/field';
@@ -32,7 +33,7 @@ import { Image } from '@/src/components/uniwind/image';
 import { Href, Redirect, router, Stack, Link as ExpoLink, RouteSegments } from 'expo-router';
 import { compact, orderBy, uniq } from 'lodash';
 import React, { useState } from 'react';
-import { ImageSourcePropType, Platform, TouchableOpacity, View } from 'react-native';
+import { ImageSourcePropType, Platform, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { useInfiniteBuilds, useMaps } from '@app/queries/all';
 import { BuildCard } from '@app/view/components/build-order/build-card';
@@ -107,7 +108,7 @@ const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
 
     return (
         <ExpoLink asChild href={`/explore/${path}/${item.name}`}>
-            <TouchableOpacity
+            <PressableOpacity
                 className={`flex-row items-center py-2.5 gap-2 -mx-4 px-4 -mb-px ${index === 0 ? 'bg-gold-100 dark:bg-blue-900 z-10' : ''}`}
             >
                 <Image source={item.image} className="w-8 h-8" />
@@ -117,7 +118,7 @@ const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
                 <Text color="subtle" variant="body-sm">
                     {item.type !== 'civ' && item.section && item.section} {getTranslation(labelKey as any)}
                 </Text>
-            </TouchableOpacity>
+            </PressableOpacity>
         </ExpoLink>
     );
 };

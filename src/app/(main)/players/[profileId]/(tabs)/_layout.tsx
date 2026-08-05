@@ -1,8 +1,9 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { IProfileResult, IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
 import { Link, Redirect, useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Platform, TouchableOpacity, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
@@ -124,9 +125,9 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                     visible={linkedProfilesVisible}
                     onDismiss={() => setLinkedProfilesVisible(false)}
                     anchor={
-                        <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setLinkedProfilesVisible(true)}>
+                        <PressableOpacity className="w-8 items-center justify-center" onPress={() => setLinkedProfilesVisible(true)}>
                             <Icon icon={faFamily} color="brand" size={20} />
-                        </TouchableOpacity>
+                        </PressableOpacity>
                     }
                 >
                     <View className="w-60">
@@ -136,7 +137,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                             {fullProfile.linkedProfiles.map((linkedProfile) => {
                                 return (
                                     <Link asChild href={`/players/${linkedProfile.profileId}`} key={linkedProfile.profileId}>
-                                        <TouchableOpacity
+                                        <PressableOpacity
                                             className="flex-row gap-2 items-center w-full overflow-hidden"
                                             onPress={() => setLinkedProfilesVisible(false)}
                                         >
@@ -150,7 +151,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                                                     ({getTranslation('main.profile.clan')}: {linkedProfile.clan})
                                                 </MyText>
                                             )}
-                                        </TouchableOpacity>
+                                        </PressableOpacity>
                                     </Link>
                                 );
                             })}
@@ -181,7 +182,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                         <Icon icon={faCheckCircle} color="brand" size={20} />
                     </Link>
                 ) : (
-                    <TouchableOpacity
+                    <PressableOpacity
                         className="w-8 items-center justify-center"
                         onPress={() => setShowTournamentPlayer(true)}
                         disabled={!liquipediaProfile}
@@ -189,7 +190,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                     >
                         <Icon icon={faCheckCircle} color="brand" size={20} />
                         {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
-                    </TouchableOpacity>
+                    </PressableOpacity>
                 ))}
 
             <MenuNew
@@ -203,9 +204,9 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                 visible={linksVisible}
                 onDismiss={() => setLinksVisible(false)}
                 anchor={
-                    <TouchableOpacity className="w-8 items-center justify-center" onPress={() => setLinksVisible(true)} hitSlop={10}>
+                    <PressableOpacity className="w-8 items-center justify-center" onPress={() => setLinksVisible(true)} hitSlop={10}>
                         <Icon icon={faLink} color="brand" size={20} />
-                    </TouchableOpacity>
+                    </PressableOpacity>
                 }
             >
                 <View className="w-60">
@@ -218,12 +219,12 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
             </MenuNew>
 
             {profileId === authProfileId ? (
-                <TouchableOpacity onPress={showResetOrUnlinkDialog} hitSlop={10}>
+                <PressableOpacity onPress={showResetOrUnlinkDialog} hitSlop={10}>
                     <Icon icon={faUserTimes} size={20} color="subtle" />
-                </TouchableOpacity>
+                </PressableOpacity>
             ) : (
                 <UserLoginWrapper
-                    Component={TouchableOpacity}
+                    Component={PressableOpacity}
                     className="w-8 items-center justify-center"
                     hitSlop={10}
                     onPress={followingThisUser ? () => unfollowMutation.mutate([profileId]) : () => followMutation.mutate([profileId])}

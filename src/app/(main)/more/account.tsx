@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Platform, StyleSheet, View } from 'react-native';
 import { MyText } from '@app/view/components/my-text';
 import { createStylesheet } from '../../../theming-new';
 import { router, Stack } from 'expo-router';
@@ -355,13 +356,13 @@ export default function AccountPage() {
 
                                 {!!(account.data.discordInvitation) && (
                                     <>
-                                        <TouchableOpacity
+                                        <PressableOpacity
                                             className="flex-row gap-2 items-center"
                                             onPress={() => openLink(`https://discord.gg/${account.data.discordInvitation}`)}
                                         >
                                             <Icon icon={faLink} size={14} />
                                             <Text variant="body">{`https://discord.gg/${account.data.discordInvitation}`}</Text>
-                                        </TouchableOpacity>
+                                        </PressableOpacity>
                                     </>
                                 )}
 

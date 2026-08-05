@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import {
     AbilityHelperProps, Age,
     aoeCivKey,
@@ -12,7 +13,7 @@ import {
     Tech,
     Unit,
 } from '@nex/data';
-import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { Image, ImageBackground } from '@/src/components/uniwind/image';
 import React, { Fragment } from 'react';
 import { MyText } from './my-text';
@@ -184,7 +185,7 @@ function Ability2({civ, age, tech, unit, building, unique, dependsOn}: AbilityPr
     }
     return (
         <Link asChild href={getAbilityNavHref({ tech, unit, building })} style={[styles.imageContainer2, { borderColor, opacity }]}>
-            <TouchableOpacity>
+            <PressableOpacity>
                 <ImageBackground
                     source={getAbilityIcon({ civ, tech, unit, building })}
                     contentFit="cover"
@@ -198,16 +199,16 @@ function Ability2({civ, age, tech, unit, building, unique, dependsOn}: AbilityPr
                         />
                     )}
                 </ImageBackground>
-            </TouchableOpacity>
+            </PressableOpacity>
         </Link>
     );
 }
 
 function Ability3({age}: Ability3Props) {
     return (
-        <TouchableOpacity style={[styles.imageContainer3]}>
+        <PressableOpacity style={[styles.imageContainer3]}>
             <ImageBackground source={getAgeIcon(age)} contentFit="cover" style={styles.image2}/>
-        </TouchableOpacity>
+        </PressableOpacity>
     );
 }
 

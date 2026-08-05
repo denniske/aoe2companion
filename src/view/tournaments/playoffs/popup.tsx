@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Text } from '@app/components/text';
 import TwitchBadge from '@app/view/components/badge/twitch-badge';
 import { Icon } from '@app/components/icon';
@@ -7,7 +8,7 @@ import { Image } from '@/src/components/uniwind/image';
 import { router } from 'expo-router';
 import { PlayoffMatch as IPlayoffMatch } from 'liquipedia';
 import { Fragment, useEffect } from 'react';
-import { ActivityIndicator, Linking, Platform, Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Linking, Platform, Pressable, StyleSheet, View } from 'react-native';
 
 import { PlayoffParticipant } from './participant';
 import { PlayoffPlayer } from './player';
@@ -150,9 +151,9 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                         {match.links
                             .filter((link) => link.image && link.url)
                             .map((link) => (
-                                <TouchableOpacity key={link.text} onPress={() => Linking.openURL(link.url)}>
+                                <PressableOpacity key={link.text} onPress={() => Linking.openURL(link.url)}>
                                     <Image source={{ uri: link.image }} alt={link.text} contentFit="contain" style={styles.linkImage} />
-                                </TouchableOpacity>
+                                </PressableOpacity>
                             ))}
                     </View>
                 </>

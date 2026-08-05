@@ -1,4 +1,5 @@
-import { TouchableOpacity, View } from 'react-native';
+import { PressableOpacity } from '@app/components/pressable-opacity';
+import { View } from 'react-native';
 import { openLink } from '@app/helper/url';
 import { noop } from 'lodash';
 import { Text } from '@app/components/text';
@@ -31,14 +32,14 @@ export function LinkedPlatformAccount({steamId, platform}: {steamId: string, pla
             <View className="flex-col items-center w-8">
                 <Icon icon={getPlatformIcon(platform)} size={30} />
             </View>
-            <TouchableOpacity
+            <PressableOpacity
                 className="flex-col gap-0"
                 onPress={() => (platform === 'steam' ? openLink(steamProfileUrl) : noop())}
                 disabled={platform !== 'steam'}
             >
                 <Text variant="header-xs">{platformName}</Text>
                 <Text variant="body">{steamId}</Text>
-            </TouchableOpacity>
+            </PressableOpacity>
         </View>
     );
 }
@@ -48,10 +49,10 @@ export function LinkedAoEAccount({profileId}: {profileId: number}) {
     return (
         <View className="flex flex-row gap-2 items-center">
             <Image source={require('../../assets/icon/ageofempires.png')} className="w-8 h-8 rounded-md" />
-            <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(ageofempiresProfileUrl)}>
+            <PressableOpacity className="flex-col gap-0" onPress={() => openLink(ageofempiresProfileUrl)}>
                 <Text variant="header-xs">{appConfig.liquipediaName}</Text>
                 <Text variant="body">{profileId}</Text>
-            </TouchableOpacity>
+            </PressableOpacity>
         </View>
     );
 }
@@ -61,10 +62,10 @@ export function LinkedAoECompanionAccount({profileId}: {profileId: number}) {
     return (
         <View className="flex flex-row gap-2 items-center">
             <Image source={appConfig.game === 'aoe2' ? require('../../assets/icon/aoe2companion.png') :  require('../../assets/icon/aoe4companion.png')} className="w-8 h-8 rounded-md" />
-            <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(aoecompanionProfileUrl)}>
+            <PressableOpacity className="flex-col gap-0" onPress={() => openLink(aoecompanionProfileUrl)}>
                 <Text variant="header-xs">{appConfig.app.name}</Text>
                 <Text variant="body">{profileId}</Text>
-            </TouchableOpacity>
+            </PressableOpacity>
         </View>
     );
 }
@@ -75,10 +76,10 @@ export function LinkedAvatarAccount({profileId, avatarUrl, name, games}: {profil
     return (
         <View className="flex flex-row gap-2 items-center">
             <Image source={{ uri: avatarUrl }} className="w-8 h-8 rounded-md" />
-            <TouchableOpacity className="flex-col gap-0" onPress={() => openLink(aoecompanionProfileUrl)}>
+            <PressableOpacity className="flex-col gap-0" onPress={() => openLink(aoecompanionProfileUrl)}>
                 <Text variant="header-xs">{name}</Text>
                 <Text variant="body">{getTranslation('leaderboard.games', { games })}</Text>
-            </TouchableOpacity>
+            </PressableOpacity>
         </View>
     );
 }

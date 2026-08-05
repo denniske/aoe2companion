@@ -7,12 +7,12 @@ import {
     Platform,
     Pressable,
     StyleProp,
-    TouchableOpacityProps,
     View,
     ViewProps,
     ViewStyle,
 } from 'react-native';
 
+import { PressableOpacityProps } from '@app/components/pressable-opacity';
 import { IconProps } from './icon';
 import { TextProps } from './text';
 import { useAppTheme } from '@app/theming';
@@ -25,7 +25,7 @@ import { KeyboardEvent as RNKeyboardEvent } from 'react-native/Libraries/Compone
 
 const WINDOW_LAYOUT = Dimensions.get('window');
 
-export interface MenuProps extends Omit<TouchableOpacityProps, 'children'> {
+export interface MenuProps extends Omit<PressableOpacityProps, 'children'> {
     icon?: IconProps['icon'];
     href?: string;
     size?: 'small' | 'medium' | 'large';

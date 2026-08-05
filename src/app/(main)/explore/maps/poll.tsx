@@ -1,8 +1,9 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Text } from '@app/components/text';
 import { Image } from '@/src/components/uniwind/image';
 import { Link, Stack } from 'expo-router';
 import React, { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { useMapsPoll } from '@app/queries/all';
 import { isAfter, isWithinInterval } from 'date-fns';
@@ -57,7 +58,7 @@ export default function MapsPoll() {
                             ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
                             ?.options?.map((map) => (
                                 <Link asChild href={`/explore/maps/${map.mapId}`} key={map.mapId}>
-                                    <TouchableOpacity className="flex-col justify-between items-center w-[25%] mb-4">
+                                    <PressableOpacity className="flex-col justify-between items-center w-[25%] mb-4">
                                         <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
                                         <Text variant={'body-sm'} className="text-center mb-1">
                                             {map.mapName}
@@ -67,7 +68,7 @@ export default function MapsPoll() {
                                                 {map.percentage.toFixed(0)} %
                                             </Text>
                                         )}
-                                    </TouchableOpacity>
+                                    </PressableOpacity>
                                 </Link>
                             ))}
                     </View>
@@ -79,12 +80,12 @@ export default function MapsPoll() {
                             ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
                             ?.devOptions?.map((map) => (
                                 <Link asChild href={`/explore/maps/${map.mapId}`} key={map.mapId}>
-                                    <TouchableOpacity className="flex-col justify-between items-center w-[25%]">
+                                    <PressableOpacity className="flex-col justify-between items-center w-[25%]">
                                         <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
                                         <Text variant={'body-sm'} className="text-center mb-1">
                                             {map.mapName}
                                         </Text>
-                                    </TouchableOpacity>
+                                    </PressableOpacity>
                                 </Link>
                             ))}
                     </View>

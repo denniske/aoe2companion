@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Image, ImageProps } from '@/src/components/uniwind/image';
-import { ImageSourcePropType, TouchableOpacity, View } from 'react-native';
+import { ImageSourcePropType, View } from 'react-native';
 
 import { Text, TextProps } from './text';
 import { openLink } from '@app/helper/url';
@@ -53,7 +54,7 @@ export const HeaderTitle: React.FC<HeaderTitleProps> = ({
                     {title}
                 </TextComponent>
                 {!!(subtitle) && (
-                    <TouchableOpacity onPress={() => openLink(subtitleLink!)} disabled={!subtitleLink}>
+                    <PressableOpacity onPress={() => openLink(subtitleLink!)} disabled={!subtitleLink}>
                         <TextComponent
                             alt
                             variant="label"
@@ -65,7 +66,7 @@ export const HeaderTitle: React.FC<HeaderTitleProps> = ({
                         >
                             {subtitle}
                         </TextComponent>
-                    </TouchableOpacity>
+                    </PressableOpacity>
                 )}
             </View>
         </View>

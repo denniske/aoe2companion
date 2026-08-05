@@ -1,9 +1,10 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { FlatList } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { Text } from '@app/components/text';
 import { Href, Link, Redirect, Stack } from 'expo-router';
-import { Platform, TouchableOpacity, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import React from 'react';
 import Constants from 'expo-constants';
 import { useTranslation } from '@app/helper/translate';
@@ -61,14 +62,14 @@ export default function More() {
                 ItemSeparatorComponent={() => <View className="h-px bg-gray-200 dark:bg-gray-800 w-full" />}
                 renderItem={({ item: { icon, title, path } }) => (
                     <Link asChild href={path} target={path.toString().startsWith('https:') ? '_blank' : undefined}>
-                        <TouchableOpacity className="flex-row gap-3 py-4 items-center">
+                        <PressableOpacity className="flex-row gap-3 py-4 items-center">
                             <Icon icon={icon} color="brand" size={24} />
                             <View>
                                 <Text variant="header-sm">{title}</Text>
                             </View>
                             <View className="flex-1" />
                             <Icon icon={faAngleRight} color="brand" size={20} />
-                        </TouchableOpacity>
+                        </PressableOpacity>
                     </Link>
                 )}
                 ListFooterComponent={

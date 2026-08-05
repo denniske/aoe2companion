@@ -1,4 +1,5 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { PressableOpacity } from '@app/components/pressable-opacity';
+import { StyleSheet, View } from 'react-native';
 import React, { useEffect, useMemo, useState } from 'react';
 import { formatDateShort, formatMonth, formatTime, formatYear, LeaderboardId } from '@nex/data';
 import { getLeaderboardTextColor } from '../../helper/colors';
@@ -120,7 +121,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 
             <View className="flex-row justify-evenly flex-wrap -mx-2 mt-3">
                 {(filteredRatingHistories || Array(2).fill(0)).map((ratingHistory, i) => (
-                    <TouchableOpacity key={'legend-' + i} onPress={() => toggleLeaderboard(ratingHistory.leaderboardId)}>
+                    <PressableOpacity key={'legend-' + i} onPress={() => toggleLeaderboard(ratingHistory.leaderboardId)}>
                         <TextLoader
                             width={100}
                             key={'legend-' + i}
@@ -135,7 +136,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                         >
                             {ratingHistory.abbreviation?.replace('🎮', '')}
                         </TextLoader>
-                    </TouchableOpacity>
+                    </PressableOpacity>
                 ))}
             </View>
         </View>

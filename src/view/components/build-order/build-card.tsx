@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
 import { Icon } from '@app/components/icon';
@@ -5,7 +6,7 @@ import { faHeart as faHeartSolid } from '@fortawesome/sharp-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/sharp-regular-svg-icons';
 import { Image } from '@/src/components/uniwind/image';
 import { startCase } from 'lodash';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { BuildRating } from './build-rating';
 import { getAgeIcon } from '../../../helper/units';
 import { IBuildOrder, sortBuildAges } from '@/data/src/helper/builds';
@@ -81,7 +82,7 @@ export const BuildCard: React.FC<
                             {difficultyIcon && <Image className="w-6 h-6" source={difficultyIcon} />}
 
                             {!!(toggleFavorite) && (
-                                <UserLoginWrapper Component={TouchableOpacity} hitSlop={10} onPress={toggleFavorite}>
+                                <UserLoginWrapper Component={PressableOpacity} hitSlop={10} onPress={toggleFavorite}>
                                     <Icon icon={favorited ? faHeartSolid : faHeartRegular} size={20} color="accent-[#ef4444]" />
                                 </UserLoginWrapper>
                             )}

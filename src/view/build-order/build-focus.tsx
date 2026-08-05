@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React, { useRef, useState } from 'react';
-import { FlatList, GestureResponderEvent, Modal, Platform, TouchableOpacity, View, ViewToken } from 'react-native';
+import { FlatList, GestureResponderEvent, Modal, Platform, View, ViewToken } from 'react-native';
 import { Step } from '../components/build-order/step';
 import { SafeAreaProvider, SafeAreaView } from '@/src/components/uniwind/safe-area-context';
 import { Icon } from '@app/components/icon';
@@ -57,9 +58,9 @@ export const BuildFocus: React.FC<{
                 <SafeAreaView className="flex-1 bg-white dark:bg-blue-950">
                     <View className="flex-row justify-between items-center p-4 pb-2">
                         <Text variant="header-lg">{build.title}</Text>
-                        <TouchableOpacity onPress={onClose}>
+                        <PressableOpacity onPress={onClose}>
                             <Icon icon={faTimes} size={24} style={{ color: theme.textColor }} />
-                        </TouchableOpacity>
+                        </PressableOpacity>
                     </View>
 
                     <FlatList

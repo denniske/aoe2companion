@@ -1,8 +1,9 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { getCivIdByEnum } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Link, router } from 'expo-router';
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { CountryImage } from './country-image';
 import { TextLoader } from './loader/text-loader';
 import { MyText } from './my-text';
@@ -101,14 +102,14 @@ export function StatsRow({ type, data, onPress }: (IRowPropsCiv | IRowPropsMap |
                         : `/explore/maps/${data.map}`
                 }
             >
-                <TouchableOpacity className="flex-row flex-4 items-center">
+                <PressableOpacity className="flex-row flex-4 items-center">
                     <View className="flex-row items-center w-full">
                         {(type === 'ally' || type === 'opponent') && <CountryImage country={data.country} />}
                         {type === 'civ' && <Image style={styles.civIcon as any} source={getIcon()} />}
                         {type === 'map' && <Image style={styles.icon as any} source={getIcon()} />}
                         <MyText>{getName()}</MyText>
                     </View>
-                </TouchableOpacity>
+                </PressableOpacity>
             </Link>
             <MyText className="flex-row flex-1 items-center text-right font-tabular" numberOfLines={1}>
                 {data.games}

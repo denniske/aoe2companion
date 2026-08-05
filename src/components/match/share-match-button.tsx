@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React from 'react';
-import { Platform, Share, TouchableOpacity } from 'react-native';
+import { Platform, Share } from 'react-native';
 import { Icon } from '@app/components/icon';
 import { faArrowUpFromSquare } from '@fortawesome/sharp-regular-svg-icons';
 import { appConfig } from '@nex/dataset';
@@ -37,8 +38,8 @@ export function ShareMatchButton({ profileId, matchId }: ShareMatchButtonProps) 
     };
 
     return (
-        <TouchableOpacity onPress={onPress} hitSlop={10}>
+        <PressableOpacity onPress={onPress} hitSlop={10}>
             <Icon icon={faArrowUpFromSquare} size={20} color="foreground" />
-        </TouchableOpacity>
+        </PressableOpacity>
     );
 }

@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React, { Fragment, useEffect, useState } from 'react';
-import { Image, ImageSourcePropType, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, ImageSourcePropType, Platform, StyleSheet, View } from 'react-native';
 import { useAppTheme } from '../../../theming';
 import { MyText } from '@app/view/components/my-text';
 import { Building, iconHeight, iconWidth, Tech, Unit } from '@nex/data';
@@ -325,7 +326,7 @@ export default function TipsPage() {
             <ScrollView style={styles.container} contentContainerClassName="pb-4">
                 {tips.map((tip, i) => (
                     <View key={tip.title} style={styles.row}>
-                        <TouchableOpacity style={styles.tip} onPress={() => setCurrentTipIndex(i)}>
+                        <PressableOpacity style={styles.tip} onPress={() => setCurrentTipIndex(i)}>
                             <View style={styles.rowInner}>
                                 {!!(tip.icon) && (
                                     <View style={styles.unitIconBig}>
@@ -338,11 +339,11 @@ export default function TipsPage() {
                                     <MyText style={styles.description}>{tip.description}</MyText>
                                 </View>
                             </View>
-                        </TouchableOpacity>
+                        </PressableOpacity>
                         {!!(tip.url) && (
-                            <TouchableOpacity style={styles.action} onPress={() => onOpen(tip)}>
+                            <PressableOpacity style={styles.action} onPress={() => onOpen(tip)}>
                                 <Icon icon={faExternalLinkSquareAlt} size={16} />
-                            </TouchableOpacity>
+                            </PressableOpacity>
                         )}
                     </View>
                 ))}

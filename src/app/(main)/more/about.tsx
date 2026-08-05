@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React, { useState } from 'react';
-import { Linking, Platform, TouchableOpacity, View } from 'react-native';
+import { Linking, Platform, View } from 'react-native';
 import Constants from 'expo-constants';
 import { useLinkTo } from "expo-router/react-navigation";
 import { Button } from '@app/components/button';
@@ -279,14 +280,14 @@ export default function AboutPage() {
 
             <View className="items-center gap-y-1">
                 <Text variant="header-xs">{getTranslation('about.heading.version')}</Text>
-                <TouchableOpacity onPress={incrementVersionClickCount}>
+                <PressableOpacity onPress={incrementVersionClickCount}>
                     <MyText>
                         {channel || 'dev'} {getAppVersion()} ({runtimeVersion || 'dev'})
                     </MyText>
                     <MyText>
                         n{nativeApplicationVersion}+{nativeBuildVersion}
                     </MyText>
-                </TouchableOpacity>
+                </PressableOpacity>
 
                 {!!(updateId) && <MyText>{updateId}</MyText>}
 

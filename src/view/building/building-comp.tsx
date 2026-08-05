@@ -1,6 +1,7 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React from 'react';
 import { createStylesheet } from '../../theming-new';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Image } from '@/src/components/uniwind/image';
 import { getBuildingIcon } from '../../helper/buildings';
 import { MyText } from '../components/my-text';
@@ -34,7 +35,7 @@ export function BuildingCompBig({ building, subtitle, canShowCard }: { building:
 
     return (
         <Link asChild href={`/explore/buildings/${building}`}>
-            <TouchableOpacity className="pt-1 pb-1">
+            <PressableOpacity className="pt-1 pb-1">
                 <View style={styles.rowBig}>
                     <Image style={styles.unitIconBig} source={getBuildingIcon(building)} />
                     <View style={styles.unitIconBigTitle}>
@@ -47,7 +48,7 @@ export function BuildingCompBig({ building, subtitle, canShowCard }: { building:
                         )}
                     </View>
                 </View>
-            </TouchableOpacity>
+            </PressableOpacity>
         </Link>
     );
 }

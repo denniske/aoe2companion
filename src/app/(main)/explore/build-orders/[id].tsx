@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { HeaderTitle } from '@app/components/header-title';
 import { Icon } from '@app/components/icon';
 import { ScrollView } from '@app/components/scroll-view';
@@ -7,7 +8,7 @@ import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import startCase from 'lodash/startCase';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
-import { Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Linking, Platform, StyleSheet, View } from 'react-native';
 import { IBuildOrderStandardResources, sortBuildAges } from '@/data/src/helper/builds';
 import { getDifficultyIcon, getDifficultyName } from '../../../../helper/difficulties';
 import { getAgeIcon, getOtherIcon } from '../../../../helper/units';
@@ -55,7 +56,7 @@ export function FavoriteHeaderButton(props: FavoriteHeaderButtonProps) {
     const { toggleFavorite, isFavorited } = useFavoritedBuild(id);
 
     return (
-        <UserLoginWrapper Component={TouchableOpacity} hitSlop={10} onPress={toggleFavorite}>
+        <UserLoginWrapper Component={PressableOpacity} hitSlop={10} onPress={toggleFavorite}>
             <Icon icon={isFavorited ? faHeartSolid : faHeartRegular} size={20} color="accent-[#ef4444]" />
         </UserLoginWrapper>
     );

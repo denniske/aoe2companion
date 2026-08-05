@@ -1,8 +1,9 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { getUnitLineIdForUnit, getUnitLineName, iconSmallHeight, iconSmallWidth, sortUnitCounter, Unit, UnitLine, unitLines } from '@nex/data';
 import { Image } from '@/src/components/uniwind/image';
 import { Link } from 'expo-router';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { getUnitLineIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
@@ -13,12 +14,12 @@ function CounterUnit({ unitLineId }: { unitLineId: UnitLine }) {
 
     return (
         <Link asChild href={`/explore/units/${unitLineId}`}>
-            <TouchableOpacity>
+            <PressableOpacity>
                 <View style={styles.row}>
                     <Image style={styles.unitIcon} source={getUnitLineIcon(unitLineId)} />
                     <MyText style={styles.unitDesc}>{getUnitLineName(unitLineId)}</MyText>
                 </View>
-            </TouchableOpacity>
+            </PressableOpacity>
         </Link>
     );
 }

@@ -1,4 +1,5 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { PressableOpacity } from '@app/components/pressable-opacity';
+import { StyleSheet, View } from 'react-native';
 import { MyText } from '../components/my-text';
 import {
     Civ,
@@ -122,7 +123,7 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                         <MyText style={styles.header2}>{getTranslation('unit.heading.upgradedfrom')}</MyText>
                     </View>
                     <Link asChild href={`/explore/buildings/${upgradedFrom}`}>
-                        <TouchableOpacity>
+                        <PressableOpacity>
                             <View style={styles.row}>
                                 <Image
                                     style={styles.buildingIcon}
@@ -130,7 +131,7 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                                 />
                                 <MyText style={styles.buildingDesc}>{getBuildingName(upgradedFrom)}</MyText>
                             </View>
-                        </TouchableOpacity>
+                        </PressableOpacity>
                     </Link>
                 </View>
             )}
@@ -142,7 +143,7 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                     </View>
                     {upgradedToList.map((upgradedTo) => (
                         <Link asChild href={`/explore/buildings/${upgradedTo}`} key={upgradedTo}>
-                            <TouchableOpacity disabled={buildingLine.unique}>
+                            <PressableOpacity disabled={buildingLine.unique}>
                                 <View style={styles.row}>
                                     <Image
                                         style={styles.buildingIcon}
@@ -150,7 +151,7 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                                     />
                                     <MyText style={styles.buildingDesc}>{getBuildingName(upgradedTo)}</MyText>
                                 </View>
-                            </TouchableOpacity>
+                            </PressableOpacity>
                         </Link>
                     ))}
                 </View>

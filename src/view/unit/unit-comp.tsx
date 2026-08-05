@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { Image } from '@/src/components/uniwind/image';
 import { getUnitLineForUnit, getUnitLineName, getUnitName, iconHeight, iconWidth, IUnitLine, Unit, UnitLine, unitLines } from '@nex/data';
 import { MyText } from '../components/my-text';
@@ -60,7 +60,7 @@ export function UnitCompBigWithCiv({ unit }: { unit: Unit }) {
     const unitLine = getUnitLineForUnit(unit);
     return (
         <Link asChild href={`/explore/units/${unit}`}>
-            <TouchableOpacity>
+            <PressableOpacity>
                 <View style={styles.rowBig}>
                     <Image style={styles.unitIconBig} source={getUnitIcon(unit)} />
                     <View style={styles.unitIconBigTitle}>
@@ -71,7 +71,7 @@ export function UnitCompBigWithCiv({ unit }: { unit: Unit }) {
                         {/*}*/}
                     </View>
                 </View>
-            </TouchableOpacity>
+            </PressableOpacity>
         </Link>
     );
 }
@@ -80,7 +80,7 @@ export function UnitLineCompBig({ unitLine }: { unitLine: UnitLine }) {
     const styles = useStyles();
     return (
         <Link asChild href={`/explore/units/${unitLine}`}>
-            <TouchableOpacity>
+            <PressableOpacity>
                 <View style={styles.rowBig}>
                     <Image style={styles.unitIconBig} source={getUnitLineIcon(unitLine)} />
                     <View style={styles.unitIconBigTitle}>
@@ -92,7 +92,7 @@ export function UnitLineCompBig({ unitLine }: { unitLine: UnitLine }) {
                         )}
                     </View>
                 </View>
-            </TouchableOpacity>
+            </PressableOpacity>
         </Link>
     );
 }

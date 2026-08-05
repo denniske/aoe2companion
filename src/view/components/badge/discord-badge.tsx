@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native';
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React from 'react';
 import Badge from './badge';
 import { discordOnline } from '../../../api/following';
@@ -25,7 +25,7 @@ export default function DiscordBadge(props: Props) {
     }
 
     return (
-        <TouchableOpacity onPress={() => openLink(invitationUrl)}>
+        <PressableOpacity onPress={() => openLink(invitationUrl)}>
             <Badge
                 label="Discord"
                 labelColor="#6B85CD"
@@ -34,6 +34,6 @@ export default function DiscordBadge(props: Props) {
                 logoSvg="https://raw.githubusercontent.com/badges/shields/fcf6678a127c9679b0d68284b860181c2580fe26/logo/discord.svg"
                 logoColor="white"
             />
-        </TouchableOpacity>
+        </PressableOpacity>
     );
 }

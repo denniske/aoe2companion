@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { IMatchesMatch } from '@app/api/helper/api.types';
 import { useLiveTwitchAccounts } from '@app/api/twitch';
 import { useOngoing } from '@app/api/socket/ongoing';
@@ -21,7 +22,7 @@ import { PlayoffMatch } from 'liquipedia';
 import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';
 import { useEffect, useRef, useState } from 'react';
-import { Linking, Platform, TouchableOpacity, View } from 'react-native';
+import { Linking, Platform, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { useTranslation } from '@app/helper/translate';
 import { openLinkWithCheck } from '@app/helper/url';
@@ -324,7 +325,7 @@ export default function Competitive() {
                                     </Button>
                                 )}
                                 {Platform.OS !== 'ios' && (
-                                    <TouchableOpacity className="relative" onPress={playTwitchStream}>
+                                    <PressableOpacity className="relative" onPress={playTwitchStream}>
                                         <Image
                                             source={{ uri: liveTwitch.thumbnail_url.replace('{width}', '800').replace('{height}', '450') }}
                                             style={{ width: '100%', aspectRatio: 800 / 450 }}
@@ -332,7 +333,7 @@ export default function Competitive() {
                                         <View className="absolute top-0 left-0 right-0 bottom-0 items-center justify-center">
                                             <Icon icon={faPlayCircle} size={40} color="subtle" />
                                         </View>
-                                    </TouchableOpacity>
+                                    </PressableOpacity>
                                 )}
                             </>
                         )}

@@ -1,6 +1,7 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { compact } from 'lodash';
 import { useRef, useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View, TouchableOpacity, ScrollView, ViewStyle } from 'react-native';
+import { NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View, ScrollView, ViewStyle } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils';
 
@@ -43,9 +44,9 @@ export const Slider2: React.FC<SliderProps> = ({
             {slides.length > 1 && (
                 <View style={[styles.pagination, paginationStyle]}>
                     {slides.map((_, index) => (
-                        <TouchableOpacity hitSlop={15} key={index} style={styles.page} onPress={() => scrollToIndex(index)} className="rounded-full w-4 h-4 p-px border">
+                        <PressableOpacity hitSlop={15} key={index} style={styles.page} onPress={() => scrollToIndex(index)} className="rounded-full w-4 h-4 p-px border">
                             {activeIndex === index && <View style={styles.activePage} />}
-                        </TouchableOpacity>
+                        </PressableOpacity>
                     ))}
                 </View>
             )}

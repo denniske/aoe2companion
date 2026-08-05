@@ -1,9 +1,9 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import {
     GestureResponderEvent,
     ImageSourcePropType,
     StyleSheet,
     TextInput,
-    TouchableOpacity,
     View,
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -40,7 +40,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon, onPress 
 
     return (
         <View style={styles.filterContainer}>
-            <TouchableOpacity style={styles.filterPressable} onPress={onPress ?? (() => filterField.current?.focus())}>
+            <PressableOpacity style={styles.filterPressable} onPress={onPress ?? (() => filterField.current?.focus())}>
                 {icon ? <Image style={styles.filterIcon} source={icon} /> : null}
                 <View style={styles.filter}>
                     <MyText style={styles.filterLabel}>{label}</MyText>
@@ -75,7 +75,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon, onPress 
                         }}
                     />
                 </View>
-            </TouchableOpacity>
+            </PressableOpacity>
 
             {!!(isFocused) && (
                 <View style={styles.resultsContainer} className="shadow-md bg-white dark:bg-blue-900 overflow-hidden">
@@ -113,10 +113,10 @@ const ResultRow: React.FC<{
     const styles = useStyles();
 
     return (
-        <TouchableOpacity style={[styles.result, index === 0 && styles.highlightedResult]} onPress={onPress}>
+        <PressableOpacity style={[styles.result, index === 0 && styles.highlightedResult]} onPress={onPress}>
             {!!(icon) && <Image style={styles.icon} source={icon} />}
             <MyText style={styles.name}>{label}</MyText>
-        </TouchableOpacity>
+        </PressableOpacity>
     );
 };
 

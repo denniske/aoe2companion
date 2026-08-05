@@ -1,6 +1,7 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Text } from '@app/components/text';
 import { useEffect, useState } from 'react';
-import { Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle, Platform, TouchableOpacity } from 'react-native';
+import { Modal, View, ScrollView, Pressable, StyleSheet, ViewStyle, Platform } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from '@/src/components/uniwind/safe-area-context';
 import { createStylesheet } from '../theming-new';
 import { Icon } from '@app/components/icon';
@@ -148,9 +149,9 @@ export function BottomSheet({
                                                     {title}
                                                 </Text>
                                                 {!!(closeButton) && (
-                                                    <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
+                                                    <PressableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
                                                         <Icon size={24} icon={faTimes} />
-                                                    </TouchableOpacity>
+                                                    </PressableOpacity>
                                                 )}
                                             </View>
                                         )}
@@ -166,9 +167,9 @@ export function BottomSheet({
                                                     {title}
                                                 </Text>
                                                 {!!(closeButton) && (
-                                                    <TouchableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
+                                                    <PressableOpacity className="absolute right-0 h-full justify-center" onPress={onClose}>
                                                         <Icon size={24} icon={faTimes} />
-                                                    </TouchableOpacity>
+                                                    </PressableOpacity>
                                                 )}
                                             </View>
                                         )}

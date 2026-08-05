@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
@@ -7,7 +8,7 @@ import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
 import { Link, router, Stack } from 'expo-router';
 import React, { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { getCivIconLocal } from '../../../../helper/civs';
 import { useTranslation } from '@app/helper/translate';
 import { useAoe4CivData } from '@app/queries/all';
@@ -29,7 +30,7 @@ export default function CivList() {
 
     const renderItem = (civ: Civ, index: number) => (
         <Link asChild href={`/explore/civilizations/${civ}`} key={civ}>
-            <TouchableOpacity>
+            <PressableOpacity>
                 <View className={`flex-row items-center py-1.5 -mx-4 px-4 ${text && index === 0 ? 'bg-gold-100 dark:bg-blue-900' : ''}`}>
                     <Image className={`${appConfig.game === 'aoe2' ? 'w-8' : 'w-14'} h-8`} source={getCivIconLocal(civ)} />
                     <View className="flex-1 ml-2.5">
@@ -39,7 +40,7 @@ export default function CivList() {
                         </Text>
                     </View>
                 </View>
-            </TouchableOpacity>
+            </PressableOpacity>
         </Link>
     );
 
@@ -50,7 +51,7 @@ export default function CivList() {
 
         return (
             <Link asChild key={civ} href={`/explore/civilizations/${civ}`}>
-                <TouchableOpacity>
+                <PressableOpacity>
                     <View className={`flex-row items-center py-1.5 -mx-4 px-4 gap-2 ${text && index === 0 ? 'bg-gold-100 dark:bg-blue-900' : ''}`}>
                         <Image className={cn('h-12', appConfig.game === 'aoe2' ? 'w-12' : 'w-20')} source={getCivIconLocal(civ)} />
                         <View className={cn('ml-2.5 flex-row justify-between w-32', appConfig.game !== 'aoe2' && 'w-auto flex-1')}>
@@ -64,7 +65,7 @@ export default function CivList() {
                             {teamBonus}
                         </Text>
                     </View>
-                </TouchableOpacity>
+                </PressableOpacity>
             </Link>
         );
     };

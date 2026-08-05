@@ -1,8 +1,9 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React, { Fragment, useMemo, useState } from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { Icon } from './icon';
 import { faTimes } from '@fortawesome/sharp-regular-svg-icons';
-import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { StatsRow } from '@app/view/components/stats-rows';
 import { IProfileRatingsLeaderboard, IStatNew } from '@app/api/helper/api.types';
 import { useTranslation } from '@app/helper/translate';
@@ -98,9 +99,9 @@ export const ProfileLeaderboardModal = ({
                                             {name} - {stats?.leaderboardName}
                                         </Text>
 
-                                        <TouchableOpacity onPress={onClose}>
+                                        <PressableOpacity onPress={onClose}>
                                             <Icon icon={faTimes} size={32} />
-                                        </TouchableOpacity>
+                                        </PressableOpacity>
                                     </View>
 
                                     <View className="flex-row items-center gap-4 relative">

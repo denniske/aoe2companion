@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Building, civs, getAbilityEnabled, getCivNameById, orderCivs, Tech, Unit } from '@nex/data';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { MyText } from './my-text';
 import React from 'react';
 import Space from './space';
@@ -41,12 +42,12 @@ export default function CivAvailability({ tech, unit, building }: CivAvailabilit
                     <Space />
                     {orderCivs(civAvailable).map((civ) => (
                         <Link asChild href={`/explore/civilizations/${civ}`} key={civ}>
-                            <TouchableOpacity style={styles.civCol}>
+                            <PressableOpacity style={styles.civCol}>
                                 <View style={styles.row}>
                                     <Image style={styles.civIcon} source={getCivIconLocal(civ) as any} />
                                     <MyText> {getCivNameById(civ)}</MyText>
                                 </View>
-                            </TouchableOpacity>
+                            </PressableOpacity>
                         </Link>
                     ))}
                 </View>
@@ -56,12 +57,12 @@ export default function CivAvailability({ tech, unit, building }: CivAvailabilit
                     {!availableForOneCivs &&
                         orderCivs(civUnavailable).map((civ) => (
                             <Link asChild href={`/explore/civilizations/${civ}`} key={civ}>
-                                <TouchableOpacity style={styles.civCol}>
+                                <PressableOpacity style={styles.civCol}>
                                     <View style={styles.row}>
                                         <Image style={styles.civIcon} source={getCivIconLocal(civ) as any} />
                                         <MyText> {getCivNameById(civ)}</MyText>
                                     </View>
-                                </TouchableOpacity>
+                                </PressableOpacity>
                             </Link>
                         ))}
                     {availableForOneCivs && <MyText>All other civs</MyText>}

@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React, { useState } from 'react';
-import { View, StyleSheet, Pressable, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Pressable, Text, TextInput } from 'react-native';
 import Animated, {
     useSharedValue,
     withTiming,
@@ -105,9 +106,9 @@ export default function TimeScrubber({time, duration} : Props) {
             </GestureDetector>
 
             <View className="flex-row gap-2 items-center border-0 border-gray-700">
-                <TouchableOpacity className="py-5 px-3" onPress={togglePlay}>
+                <PressableOpacity className="py-5 px-3" onPress={togglePlay}>
                     <Icon icon={isPlaying ? faPause : faPlay} size={14} />
-                </TouchableOpacity>
+                </PressableOpacity>
                 <AnimatedTextInput
                     editable={false}
                     animatedProps={animatedProps as any}

@@ -1,4 +1,5 @@
-import { GestureResponderEvent, TouchableOpacity } from 'react-native';
+import { PressableOpacity } from '@app/components/pressable-opacity';
+import { GestureResponderEvent } from 'react-native';
 import { Text } from '@app/components/text';
 import { FC } from 'react';
 
@@ -11,12 +12,12 @@ export interface ButtonProps {
 
 export const BuildOrderButton: FC<ButtonProps> = ({ disabled, children, onPress, fullWidth }) => {
     return (
-        <TouchableOpacity
+        <PressableOpacity
             disabled={disabled}
             className={`p-3 items-center rounded-sm bg-hoverBackground ${fullWidth ? 'flex-1' : ''} ${disabled ? 'opacity-20' : ''}`}
             onPress={onPress}
         >
             <Text variant="header-xs" className="uppercase">{children}</Text>
-        </TouchableOpacity>
+        </PressableOpacity>
     );
 };

@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { IMatchNew, IPlayerNew } from '@app/api/helper/api.types';
 import { useLiveTwitchAccounts } from '@app/api/twitch';
 import { getCivIcon } from '@app/helper/civs';
@@ -7,7 +8,7 @@ import { getLocalCivEnum } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
 import { Link } from 'expo-router';
-import { Platform, Pressable, TouchableOpacity, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
 
 import { Icon } from '../icon';
 import { faBan, faCheckCircle, faCloudDownloadAlt, faCrown, faFamily, faSkull } from '@fortawesome/sharp-solid-svg-icons';
@@ -48,16 +49,16 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
             }
         >
             <Link href={player.civ ? `/explore/civilizations/${getLocalCivEnum(player.civ)}` : '/'} disabled={!player.civ} asChild>
-                <TouchableOpacity className={cn('flex-1 gap-1', reverse ? 'flex-row-reverse' : 'flex-row')} onPress={onClose}>
+                <PressableOpacity className={cn('flex-1 gap-1', reverse ? 'flex-row-reverse' : 'flex-row')} onPress={onClose}>
                     <Image className={appConfig.game === 'aoe2' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="cover" />
                     <Text numberOfLines={1} variant={highlight ? 'label' : 'body'} className="flex-1" align={reverse ? 'right' : 'left'}>
                         {player.civName}
                     </Text>
-                </TouchableOpacity>
+                </PressableOpacity>
             </Link>
 
             <Link href={`/players/${player.profileId}`} asChild disabled={player.profileId === -1}>
-                <TouchableOpacity className={cn('flex-1 gap-1 items-center', reverse ? 'flex-row-reverse' : 'flex-row')} onPress={onClose}>
+                <PressableOpacity className={cn('flex-1 gap-1 items-center', reverse ? 'flex-row-reverse' : 'flex-row')} onPress={onClose}>
                     <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1} className="shrink">
                         {player.name}
                     </Text>
@@ -70,7 +71,7 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                     {player.status === 'player' && !player.verified && player.shared && (
                         <Icon icon={faFamily} color="brand" size={12} className="w-6" />
                     )}
-                </TouchableOpacity>
+                </PressableOpacity>
             </Link>
 
             {Platform.OS === 'web' && appConfig.game === 'aoe2' && canDownloadRec && (

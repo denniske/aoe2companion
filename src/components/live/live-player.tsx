@@ -1,8 +1,9 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Link } from 'expo-router';
 import { Icon } from '@app/components/icon';
 import { faCrown, faFistRaised, faPlug } from '@fortawesome/sharp-solid-svg-icons';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { IMatchesMatchPlayer2 } from '../../api/helper/api.types';
 import { useAppTheme } from '../../theming';
 import { MyText } from '../../view/components/my-text';
@@ -40,7 +41,7 @@ export function LivePlayer({ player }: IPlayerProps) {
 
     return (
         <Link asChild href={`/players/${player.profileId}`}>
-            <TouchableOpacity className="flex-row items-center gap-2">
+            <PressableOpacity className="flex-row items-center gap-2">
                 {appConfig.game === 'aoe2' && (
                     <View className="w-5 h-5 items-center justify-center" style={{ backgroundColor: playerColor }}>
                         <Text variant="header-xs" className="text-sm" color="text-white">
@@ -59,7 +60,7 @@ export function LivePlayer({ player }: IPlayerProps) {
                 <MyText className="flex-1 text-right">
                     {!!player.games && !!player.drops && ((player.drops / player.games) * 100).toFixed(0) + ' %'}
                 </MyText>
-            </TouchableOpacity>
+            </PressableOpacity>
         </Link>
     );
 }

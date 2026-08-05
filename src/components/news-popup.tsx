@@ -1,6 +1,7 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { BottomSheet } from '@app/view/bottom-sheet';
 import { useRef } from 'react';
-import { Platform, TouchableOpacity, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { Icon } from '@app/components/icon';
 import { faTimes } from '@fortawesome/sharp-regular-svg-icons';
@@ -73,14 +74,14 @@ export const NewsPopup: React.FC<{ news: INews; visible: boolean; onClose: () =>
 
                 <BlurView intensity={50} className="absolute left-0 right-0 top-0 p-4 flex-row" >
                     <View className="flex-1"></View>
-                    <TouchableOpacity onPress={onClose}>
+                    <PressableOpacity onPress={onClose}>
                         <Icon size={24} icon={faTimes} />
-                    </TouchableOpacity>
+                    </PressableOpacity>
                 </BlurView>
 
-                {/*<TouchableOpacity className="absolute right-1 top-1 p-5" onPress={onClose}>*/}
+                {/*<PressableOpacity className="absolute right-1 top-1 p-5" onPress={onClose}>*/}
                 {/*    <Icon size={24} prefix="fasr" icon="times" />*/}
-                {/*</TouchableOpacity>*/}
+                {/*</PressableOpacity>*/}
 
                 {/*<BlurView intensity={50} className="absolute right-2 top-1 p-4 rounded-full overflow-hidden" >*/}
                 {/*    <Icon size={24} prefix="fasr" icon="times" />*/}

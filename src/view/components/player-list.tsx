@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
 import { FlatList, FlatListProps, FlatListRef } from '@app/components/flat-list';
@@ -7,7 +8,7 @@ import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import { Href, Link } from 'expo-router';
 import React from 'react';
-import { TouchableOpacity, View, ViewStyle } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import { Image } from '@/src/components/uniwind/image';
 import { useAuthProfileId } from '@app/queries/all';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
@@ -158,7 +159,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
 
     return (
         <Wrapper href={href!} asChild>
-            <TouchableOpacity
+            <PressableOpacity
                 className="flex-row items-center w-full gap-2"
                 onPress={selectedUser ? () => selectedUser?.(player) : undefined}
                 style={playerStyle}
@@ -189,7 +190,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                     )}
                 </View>
                 <Icon icon={faAngleRight} color="brand" size={20} />
-            </TouchableOpacity>
+            </PressableOpacity>
         </Wrapper>
     );
 }

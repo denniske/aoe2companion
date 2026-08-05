@@ -1,6 +1,7 @@
 import { TextColor, TextVariant } from '@app/utils/text.util';
 import { Href, Link, router } from 'expo-router';
-import { ImageSourcePropType, Pressable, TouchableOpacityProps } from 'react-native';
+import { ImageSourcePropType, Pressable } from 'react-native';
+import { PressableOpacityProps } from '@app/components/pressable-opacity';
 
 import { Icon, IconProps } from './icon';
 import { Text, TextProps } from './text';
@@ -8,7 +9,7 @@ import { Fragment } from 'react';
 import { CustomFragment } from './custom-fragment';
 import { Image } from './uniwind/image';
 
-export interface ButtonProps extends Omit<TouchableOpacityProps, 'children'> {
+export interface ButtonProps extends Omit<PressableOpacityProps, 'children'> {
     children?: string;
     icon?: IconProps['icon'];
     href?: Href;

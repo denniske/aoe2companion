@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { textColors } from '@app/utils/text.util';
-import { TextInput, TextInputProps, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { TextInput, TextInputProps, View, ViewStyle } from 'react-native';
 
 import { Icon } from './icon';
 import { faEye, faEyeSlash, faSearch, faTimesCircle } from '@fortawesome/sharp-solid-svg-icons';
@@ -63,14 +64,14 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
                 )}
             />
             {inputType === 'search' && props.value ? (
-                <TouchableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => props.onChangeText?.('')}>
+                <PressableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => props.onChangeText?.('')}>
                     <Icon icon={faTimesCircle} />
-                </TouchableOpacity>
+                </PressableOpacity>
             ) : null}
             {inputType === 'password' ? (
-                <TouchableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => setSecureTextEntry((x) => !x)}>
+                <PressableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => setSecureTextEntry((x) => !x)}>
                     <Icon icon={secureTextEntry ? faEye : faEyeSlash} color="subtle" />
-                </TouchableOpacity>
+                </PressableOpacity>
             ) : null}
         </View>
     );

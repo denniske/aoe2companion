@@ -1,4 +1,5 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { PressableOpacity } from '@app/components/pressable-opacity';
+import { StyleSheet, View } from 'react-native';
 import { MyText } from '../components/my-text';
 import {
     Civ,
@@ -146,12 +147,12 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                         <MyText style={styles.header2}>{getTranslation('unit.heading.upgradedfrom')}</MyText>
                     </View>
                     <Link asChild href={`/explore/units/${upgradedFrom}`}>
-                        <TouchableOpacity>
+                        <PressableOpacity>
                             <View style={styles.row}>
                                 <Image style={styles.unitIcon} source={getUnitIcon(upgradedFrom)} />
                                 <MyText style={styles.unitDesc}>{getUnitName(upgradedFrom)}</MyText>
                             </View>
-                        </TouchableOpacity>
+                        </PressableOpacity>
                     </Link>
                 </View>
             )}
@@ -163,7 +164,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                     </View>
                     {upgradedToList.map((upgradedTo) => (
                         <Link asChild href={`/explore/units/${upgradedTo}`} key={upgradedTo}>
-                            <TouchableOpacity disabled={unitLine.unique}>
+                            <PressableOpacity disabled={unitLine.unique}>
                                 <View style={styles.row}>
                                     <Image
                                         style={styles.unitIcon}
@@ -172,7 +173,7 @@ export function UnitUpgrades({ unitLineId, unitId }: Props) {
                                     <MyText style={styles.unitDesc}>{getUnitName(upgradedTo)}</MyText>
                                     {getUnitUpgradeCost(upgradedTo) && <Costs costDict={getUnitUpgradeCost(upgradedTo)!} />}
                                 </View>
-                            </TouchableOpacity>
+                            </PressableOpacity>
                         </Link>
                     ))}
                 </View>

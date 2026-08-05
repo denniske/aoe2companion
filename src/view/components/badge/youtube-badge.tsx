@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native';
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React from 'react';
 import Badge from './badge';
 import { openLink } from '../../../helper/url';
@@ -13,7 +13,7 @@ export default function YoutubeBadge(props: Props) {
     const { channelUrl } = props;
 
     return (
-        <TouchableOpacity onPress={() => openLink(channelUrl)}>
+        <PressableOpacity onPress={() => openLink(channelUrl)}>
             <Badge
                 label="Youtube"
                 labelColor="#FF0233"
@@ -21,6 +21,6 @@ export default function YoutubeBadge(props: Props) {
                 // contentColor="#333638"
                 logoIcon={faYoutube}
                 logoColor="accent-[#FFFFFF]" />
-        </TouchableOpacity>
+        </PressableOpacity>
     );
 }

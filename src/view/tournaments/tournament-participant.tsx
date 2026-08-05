@@ -1,4 +1,5 @@
-import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
+import { PressableOpacity } from '@app/components/pressable-opacity';
+import { StyleSheet, ViewStyle } from 'react-native';
 import { createStylesheet } from '../../theming-new';
 import { MyText } from '../components/my-text';
 import { EventParticipant } from 'liquipedia';
@@ -23,7 +24,7 @@ export const TournamentParticipant: FC<{
     const difficulty = position && Math.abs(position - 4);
 
     return (
-        <TouchableOpacity
+        <PressableOpacity
             style={[styles.row, style]}
             onPress={() => {
                 router.navigate(`/players/${participant.profileId}`);
@@ -39,7 +40,7 @@ export const TournamentParticipant: FC<{
                 {participant.name}
             </MyText>
             {!!(difficulty) && <Image source={getDifficultyIcon(difficulty)} style={styles.difficulty} />}
-        </TouchableOpacity>
+        </PressableOpacity>
     );
 };
 

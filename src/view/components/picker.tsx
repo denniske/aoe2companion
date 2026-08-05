@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import {
     Dimensions,
     FlatList,
@@ -7,7 +8,6 @@ import {
     SectionListData,
     StyleProp,
     StyleSheet,
-    TouchableOpacity,
     View,
     ViewStyle,
 } from 'react-native';
@@ -87,7 +87,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
     const renderItem = (v: T, i: number) => {
         return (
             <View key={i} style={{ height: itemHeight, flexDirection: 'column' }}>
-                <TouchableOpacity
+                <PressableOpacity
                     onPress={() => {
                         console.log('onSelect', v);
                         onSelect(v);
@@ -104,7 +104,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                         icon: (x: any, i: any) => icon(x, true),
                         textMinWidth,
                     })}
-                </TouchableOpacity>
+                </PressableOpacity>
                 {divider && divider(v, i) && <View style={{ height: 1, backgroundColor: theme.lightBorderColor }}></View>}
             </View>
         );
@@ -231,7 +231,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 visible={menu}
                 onDismiss={() => setMenu(false)}
                 anchor={
-                    <TouchableOpacity
+                    <PressableOpacity
                         className="px-2.5 py-1 rounded-lg border border-gray-200 dark:border-gray-800 shadow-xs"
                         style={[styles.anchor, anchorStyle, { backgroundColor: theme.backgroundColor }]}
                         onPress={() => setMenu(true)}
@@ -244,7 +244,7 @@ export default function Picker<T>(props: IPickerProps<T>) {
                                 <Icon icon={faChevronDown} style={styles.handle} size={12} />
                             </View>
                         )}
-                    </TouchableOpacity>
+                    </PressableOpacity>
                 }
             >
                 {container === 'flatlist' && (

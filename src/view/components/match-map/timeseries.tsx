@@ -1,4 +1,5 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { PressableOpacity } from '@app/components/pressable-opacity';
+import { StyleSheet, View } from 'react-native';
 import React, { Fragment, useMemo } from 'react';
 import { orderBy } from 'lodash';
 import { CartesianChart, Line, Scatter } from 'victory-native-current';
@@ -72,9 +73,9 @@ export default function Timeseries({ teams, metric, title, description, explanat
                         {description}
                     </Text>
                     {!!(explanation) && (
-                        <TouchableOpacity onPress={showExplanation}>
+                        <PressableOpacity onPress={showExplanation}>
                             <Icon icon={faInfoCircle} color="subtle"></Icon>
-                        </TouchableOpacity>
+                        </PressableOpacity>
                     )}
                 </View>
                 <View style={{ height: 160, marginVertical: 12 }}>

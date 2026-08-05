@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet, View, AppState, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, View, AppState } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { getSupabaseClient } from '@/data/src/helper/supabase';
 import { Button } from '@app/components/button';
@@ -208,9 +209,9 @@ export default function Login({ onComplete }: { onComplete?: () => void }) {
                 />
 
                 <View className="flex-row justify-end">
-                    <TouchableOpacity className="p-2" onPress={() => forgotPassword()}>
+                    <PressableOpacity className="p-2" onPress={() => forgotPassword()}>
                         <Text variant="body">{getTranslation('login.forgotpassword')}</Text>
-                    </TouchableOpacity>
+                    </PressableOpacity>
                 </View>
             </View>
 

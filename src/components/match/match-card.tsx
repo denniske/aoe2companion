@@ -1,9 +1,10 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { getMapImage } from '@app/helper/maps';
 import { isMatchFreeForAll, teamRatio } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { flatten, startCase, uniq } from 'lodash';
 import React, { Fragment } from 'react';
-import { Platform, Pressable, TouchableOpacity, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
 import { Card } from '../card';
 import { Icon } from '../icon';
 import { faBan, faCrown, faEye, faSkull } from '@fortawesome/sharp-solid-svg-icons';
@@ -69,13 +70,13 @@ export function MatchCard(props: MatchCardProps) {
                 header={
                     <View className="relative">
                         <MapLinkComponent asChild href={`/explore/maps/${match.map}`}>
-                            <TouchableOpacity disabled={!linkMap}>
+                            <PressableOpacity disabled={!linkMap}>
                                 <Image
                                     source={getMapImage(match)}
                                     className={`w-14 h-14 md:w-20 md:h-20 ${appConfig.game === 'aoe2' ? '' : 'border border-gold-500 rounded'}`}
                                     contentFit="cover"
                                 />
-                            </TouchableOpacity>
+                            </PressableOpacity>
                         </MapLinkComponent>
                         <View className={`absolute ${appConfig.game === 'aoe2' ? 'top-0 left-0' : 'top-1 left-1'}`}>
                             {players.some((p) => p.profileId === user && p.won === true && (freeForAll || p.team != -1)) && (
@@ -106,13 +107,13 @@ export function MatchCard(props: MatchCardProps) {
             >
                 <View className="flex-1 lg:flex-none lg:min-w-3xs lg:max-w-3xs">
                     <MapLinkComponent asChild href={`/explore/maps/${match.map}`}>
-                        <TouchableOpacity disabled={!linkMap}>
+                        <PressableOpacity disabled={!linkMap}>
                             <Text numberOfLines={1} variant="header-sm">
                                 {match.gameVariant === 'ror' && 'RoR - '}
                                 {match.mapName}
                                 {!!(match.server) && <Text> - {match.server}</Text>}
                             </Text>
-                        </TouchableOpacity>
+                        </PressableOpacity>
                     </MapLinkComponent>
 
                     <Text numberOfLines={1}>{attributes.join(' - ')}</Text>

@@ -1,5 +1,6 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { BottomTabHeaderProps } from "expo-router/js-tabs";
-import { Platform, TouchableOpacity, View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 import { HeaderTitle } from './header-title';
 import { Icon } from './icon';
@@ -43,9 +44,9 @@ export const Header: React.FC<
             >
                 {back && Platform.OS !== 'web' && (
                     <View>
-                        <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={10}>
+                        <PressableOpacity onPress={() => navigation.goBack()} hitSlop={10}>
                             <Icon icon={faAngleLeft} size={22} color="foreground" />
-                        </TouchableOpacity>
+                        </PressableOpacity>
                     </View>
                 )}
                 {(back && Platform.OS !== 'web') || typeof options.headerTitle === 'function' ? (

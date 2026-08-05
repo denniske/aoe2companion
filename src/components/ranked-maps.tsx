@@ -1,10 +1,11 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Link } from '@app/components/link';
 import { Text } from '@app/components/text';
 import { useMapsPoll, useMapsRanked } from '@app/queries/all';
 import { formatDayAndTime } from '@nex/data';
 import { isWithinInterval } from 'date-fns';
 import { useState } from 'react';
-import { Platform, TouchableOpacity, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import ButtonPicker from '../view/components/button-picker';
 import { Link as ExpoLink } from 'expo-router';
 import { Image } from '@/src/components/uniwind/image';
@@ -110,7 +111,7 @@ export const RankedMaps: React.FC = () => {
                                           ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
                                           ?.maps?.map((map) => (
                                               <ExpoLink asChild href={`/explore/maps/${map.mapId}`} key={map.mapId}>
-                                                  <TouchableOpacity className="flex-col justify-between items-center w-[25%] mb-4">
+                                                  <PressableOpacity className="flex-col justify-between items-center w-[25%] mb-4">
                                                       <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
                                                       <Text variant="label-sm" className="text-center mb-0.5">
                                                           {map.mapName}
@@ -118,7 +119,7 @@ export const RankedMaps: React.FC = () => {
                                                       <Text variant={'body-sm'} className="text-center">
                                                           {map.percentage.toFixed(0)} %
                                                       </Text>
-                                                  </TouchableOpacity>
+                                                  </PressableOpacity>
                                               </ExpoLink>
                                           ))}
                             </View>

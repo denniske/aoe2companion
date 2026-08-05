@@ -1,4 +1,5 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { PressableOpacity } from '@app/components/pressable-opacity';
+import { StyleSheet } from 'react-native';
 import React from 'react';
 import { createStylesheet } from '../../../theming-new';
 import Badge from './badge';
@@ -38,7 +39,7 @@ export default function TwitchBadge(props: Props) {
     }
 
     return (
-        <TouchableOpacity onPress={() => openLink(channelUrl)}>
+        <PressableOpacity onPress={() => openLink(channelUrl)}>
             <Badge
                 label={label}
                 labelColor="#6441a5"
@@ -48,7 +49,7 @@ export default function TwitchBadge(props: Props) {
                 logoColor="accent-[#FFFFFF]"
                 dot={!!playerTwitchLive?.viewer_count && !condensed}
             />
-        </TouchableOpacity>
+        </PressableOpacity>
     );
 }
 

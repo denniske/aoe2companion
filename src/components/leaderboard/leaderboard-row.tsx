@@ -1,9 +1,10 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { isCountry } from '@app/components/select/country-select';
 import { useTranslation } from '@app/helper/translate';
 import { ImageLoader } from '@app/view/components/loader/image-loader';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import React from 'react';
-import { Dimensions, Image, Pressable, PressableStateCallbackType, StyleSheet, Text, TextStyle, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, Pressable, PressableStateCallbackType, StyleSheet, Text, TextStyle, View } from 'react-native';
 import { ILeaderboardPlayer } from '../../api/helper/api.types';
 import { createStylesheet } from '../../theming-new';
 
@@ -83,7 +84,7 @@ function LeaderboardRowLegacyInner(props: LeaderboardRowLegacyProps) {
     const rankWidthStyle = { width: Math.max(myRankWidth || 43, rankWidth || 43) } as TextStyle;
 
     return (
-        <TouchableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => onSelect(player!)}>
+        <PressableOpacity style={[styles.row, rowStyle]} disabled={player == null} onPress={() => onSelect(player!)}>
             <View style={styles.innerRowWithBorder}>
                 <TextLoader numberOfLines={1} style={[styles.cellRank, weightStyle, rankWidthStyle]}>
                     #{isCountry(leaderboardCountry) ? player?.rankCountry : player?.rank || i + 1}
@@ -103,7 +104,7 @@ function LeaderboardRowLegacyInner(props: LeaderboardRowLegacyProps) {
                     </TextLoader>
                 )}
             </View>
-        </TouchableOpacity>
+        </PressableOpacity>
     );
 }
 
@@ -154,7 +155,7 @@ const staticStyles = StyleSheet.create({
 });
 
 // Module-level, so Pressable gets the same function identity on every render.
-// Matches TouchableOpacity's press feedback.
+// Matches PressableOpacity's press feedback.
 const pressableStyle = ({ pressed }: PressableStateCallbackType) => (pressed ? staticStyles.rowPressed : staticStyles.row);
 
 function LeaderboardRowInner(props: LeaderboardRowProps) {

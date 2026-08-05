@@ -1,4 +1,5 @@
-import {Linking, Platform, StyleSheet, TouchableOpacity} from "react-native";
+import { PressableOpacity } from '@app/components/pressable-opacity';
+import {Linking, Platform, StyleSheet} from "react-native";
 import React from "react";
 import {createStylesheet} from '../../../theming-new';
 import Badge from './badge';
@@ -13,7 +14,7 @@ export default function DouyuBadge(props: Props) {
     const { channelUrl } = props;
 
     return (
-        <TouchableOpacity onPress={() => openLink(channelUrl)}>
+        <PressableOpacity onPress={() => openLink(channelUrl)}>
             <Badge
                 label="Douyu"
                 labelColor="#EEEEEE"
@@ -21,7 +22,7 @@ export default function DouyuBadge(props: Props) {
                 logoPng={require('../../../../assets/icon/douyu.png')}
                 logoColor="accent-[#FFFFFF]"
             />
-        </TouchableOpacity>
+        </PressableOpacity>
     );
 }
 

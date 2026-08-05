@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
@@ -6,7 +7,7 @@ import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
 import { Link, router, Stack } from 'expo-router';
 import React, { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { useMaps } from '@app/queries/all';
 import { IMap } from '@app/api/helper/api.types';
@@ -26,7 +27,7 @@ export default function MapsIndex() {
 
     const renderItem = (map: IMap, index: number) => (
             <Link href={`/explore/maps/${map.mapId}`} asChild key={map.mapId}>
-                <TouchableOpacity>
+                <PressableOpacity>
                     <View className={`flex-row items-center py-1.5 -mx-4 px-4 ${text && index === 0 ? 'bg-gold-500 dark:bg-blue-900' : ''}`}>
                         <Image className={`${appConfig.game === 'aoe2' ? 'w-8' : 'w-14'} h-8`} source={{ uri: map.imageUrl }} />
                         <View className="flex-1 ml-2.5">
@@ -36,7 +37,7 @@ export default function MapsIndex() {
                             </Text>
                         </View>
                     </View>
-                </TouchableOpacity>
+                </PressableOpacity>
             </Link>
         );
 

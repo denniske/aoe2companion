@@ -1,3 +1,4 @@
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { useRefreshControl, useTournament, useTournamentMatches, useTournamentPlacements } from '@app/api/tournaments';
 import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
@@ -25,7 +26,7 @@ import { Image } from '@/src/components/uniwind/image';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { GameVersion, TournamentType } from 'liquipedia';
 import { useState } from 'react';
-import { Linking, TouchableOpacity, View } from 'react-native';
+import { Linking, View } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
 import { useTranslation } from '@app/helper/translate';
 import { useProfilesByLiquipediaNames } from '@app/queries/all';
@@ -184,9 +185,9 @@ export default function TournamentDetail() {
                                 <View className="flex-row items-center justify-between px-4">
                                     <Text variant="header">{getTranslation('tournaments.participants')}</Text>
                                     {!!tournament.participantsNote && (
-                                        <TouchableOpacity onPress={() => setShowParticipantsNote((val) => !val)}>
+                                        <PressableOpacity onPress={() => setShowParticipantsNote((val) => !val)}>
                                             <Icon icon={faInfoCircle} color="brand" />
-                                        </TouchableOpacity>
+                                        </PressableOpacity>
                                     )}
                                 </View>
 
@@ -256,9 +257,9 @@ export default function TournamentDetail() {
                                 <View className="flex-row items-center justify-between">
                                     <Text variant="header">Results</Text>
                                     {tournament.format && hasResults ? (
-                                        <TouchableOpacity onPress={() => setShowFormatNote((val) => !val)}>
+                                        <PressableOpacity onPress={() => setShowFormatNote((val) => !val)}>
                                             <Icon icon={faInfoCircle} color="brand" />
-                                        </TouchableOpacity>
+                                        </PressableOpacity>
                                     ) : null}
                                 </View>
                                 {tournament.format && (showFormatNote || !hasResults) ? (
@@ -435,7 +436,7 @@ export default function TournamentDetail() {
                                 {tournamentTabs.map((tabs, index) => (
                                     <View className="flex-row gap-1 justify-center flex-wrap" key={index}>
                                         {tabs.map((tab) => (
-                                            <TouchableOpacity
+                                            <PressableOpacity
                                                 onPress={() => {
                                                     router.setParams({ id: encodeURIComponent(tab.path) });
                                                 }}
@@ -445,7 +446,7 @@ export default function TournamentDetail() {
                                                 <Tag size="small" selected={tab.active}>
                                                     {tab.name}
                                                 </Tag>
-                                            </TouchableOpacity>
+                                            </PressableOpacity>
                                         ))}
                                     </View>
                                 ))}
@@ -557,10 +558,10 @@ function HeaderButtons({ id }: { id: string }) {
 
     return (
         <View className="flex-row gap-4">
-            <TouchableOpacity hitSlop={10} onPress={openInBrowser}>
+            <PressableOpacity hitSlop={10} onPress={openInBrowser}>
                 <Image style={{ width: 28, height: 20 }} source={require('../../../../../assets/icon/liquipedia.png')} />
-            </TouchableOpacity>
-            <UserLoginWrapper Component={TouchableOpacity} hitSlop={10} onPress={toggleFollow}>
+            </PressableOpacity>
+            <UserLoginWrapper Component={PressableOpacity} hitSlop={10} onPress={toggleFollow}>
                 <Icon icon={isFollowed ? faHeartSolid : faHeartRegular} size={20} color="accent-[#ef4444]" />
             </UserLoginWrapper>
         </View>
