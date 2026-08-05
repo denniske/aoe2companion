@@ -4,6 +4,7 @@ import {
     FlatList,
     FlatListProps,
     Platform,
+    Pressable,
     SectionList,
     SectionListData,
     StyleProp,
@@ -231,20 +232,20 @@ export default function Picker<T>(props: IPickerProps<T>) {
                 visible={menu}
                 onDismiss={() => setMenu(false)}
                 anchor={
-                    <PressableOpacity
+                    <Pressable
                         className="px-2.5 py-1 rounded-lg border border-gray-200 dark:border-gray-800 shadow-xs"
                         style={[styles.anchor, anchorStyle, { backgroundColor: theme.backgroundColor }]}
                         onPress={() => setMenu(true)}
                         disabled={disabled}
                     >
-                        {!!(anchor) && anchor({})}
+                        {!!anchor && anchor({})}
                         {!anchor && (
                             <View style={styles.row}>
                                 {cell({ value, formatter: (x: any, i: any) => formatter(x, false), color, icon })}
                                 <Icon icon={faChevronDown} style={styles.handle} size={12} />
                             </View>
                         )}
-                    </PressableOpacity>
+                    </Pressable>
                 }
             >
                 {container === 'flatlist' && (

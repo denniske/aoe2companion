@@ -70,7 +70,7 @@ export const MenuNew: FC<MenuProps> = ({
     const backgroundColor = disabled ? 'bg-gray-500' : 'bg-blue-800 dark:bg-gold-700';
     const color = disabled ? 'text-gray-600' : 'text-white';
 
-    const roundness = 4;
+    const roundness = 8;
 
     // console.log('visible', visible);
 
