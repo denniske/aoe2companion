@@ -17,15 +17,14 @@ import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getCivHistoryImage, getCivIconLocal } from '@app/helper/civs';
 import { Slider2 } from '@app/view/components/slider2';
-import { aoeCivKey, Civ, formatCustom, getCivNameById } from '@nex/data';
+import { Civ, formatDateShort, formatMonth, formatTime, formatYear, getCivNameById } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { format } from 'date-fns';
 import { ImageBackground } from '@/src/components/uniwind/image';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { useAccountData } from '@app/queries/all';
-import { Area, Bar, CartesianChart, Line } from 'victory-native-current';
+import { Area, Bar, CartesianChart, Line } from 'victory-native-date';
 import { DashPathEffect, matchFont } from '@shopify/react-native-skia';
 import { useAppTheme } from '@app/theming';
 import { useCSSVariable, useUniwind } from 'uniwind';
@@ -214,16 +213,40 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
     const colorGold200 = useCSSVariable('--color-gold-200') as string;
     const colorBlue500 = useCSSVariable('--color-blue-500') as string;
 
+    const formatTick = (date: Date) => {
+        if (date.getMonth() == 0 && date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
+            return formatYear(date);
+        }
+        if (date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
+            return formatMonth(date);
+        }
+        if (date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
+            return formatDateShort(date);
+        }
+        return formatTime(date);
+    };
+
+
     return (
         <Slider2
             paginationStyle={{ bottom: 0 }}
             className="-mx-4 pb-6"
             slides={graphs.map(({ label, key, domain, tickFormat }) => {
-                const data = breakdown.priorStats.map((prior) => ({
-                    date: patches?.find((patch) => patch.number === prior.patch)?.release_date,
-                    patch: prior.patch,
-                    [key]: prior.civ_stats[civ][key],
-                }));
+                const data = breakdown.priorStats
+                    .map((prior) => {
+                        const releaseDate = patches?.find((patch) => patch.number === prior.patch)?.release_date;
+                        // The x axis becomes a time scale only when every x value is a
+                        // real Date, so drop points whose patch has no release date
+                        // rather than letting one undefined fall back to categorical.
+                        return releaseDate
+                            ? {
+                                  date: new Date(releaseDate),
+                                  patch: prior.patch,
+                                  [key]: prior.civ_stats[civ][key],
+                              }
+                            : null;
+                    })
+                    .filter((datum): datum is NonNullable<typeof datum> => datum !== null);
 
                 return (
                     <Card className="p-0 gap-0 mx-4 h-80" direction="vertical" key={key}>
@@ -236,18 +259,21 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                                     data={data}
                                     padding={15}
                                     domain={{
-                                        x: [-0.5, data.length - 0.5],
+                                        // No x domain: index-space bounds would push the
+                                        // date timestamps off-scale. Let the time scale
+                                        // derive its bounds from the dates themselves.
                                         y: domain,
                                     }}
                                     xAxis={{
                                         font,
                                         labelColor: appTheme.textColor,
-                                        tickCount: data.length,
                                         lineWidth: 0,
-                                        formatXLabel: (x) => formatCustom(new Date(x), 'yy-MMM'),
+                                        // tickCount: data.length,
+                                        formatXLabel: (x) => formatTick(x instanceof Date ? x : new Date(x)),
+                                        // formatXLabel: (x) => formatCustom(x instanceof Date ? x : new Date(x), 'yy-MMM'),
                                         // formatXLabel: (x) => formatCustom(new Date(x), 'yyyy MMM d'),
+                                        // labelRotate: -25,
                                         linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                        labelRotate: 0, //-90,
                                     }}
                                     yAxis={[
                                         {

@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import React, { Fragment, useMemo } from 'react';
 import { orderBy } from 'lodash';
-import { CartesianChart, Line, Scatter } from 'victory-native-current';
+import { CartesianChart, Line, Scatter } from 'victory-native-date';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
 import { ILegendInfo } from '@app/view/components/match-map/match-map';
 import { useAppTheme } from '@app/theming';

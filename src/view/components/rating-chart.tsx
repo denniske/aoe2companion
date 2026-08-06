@@ -83,7 +83,10 @@ export default function RatingChart(props: IRatingChartProps) {
             xAxis={{
                 font,
                 labelColor: theme.textColor,
-                formatXLabel: formatTick,
+                // The datum type widens x to `number | Date` because of the
+                // dynamic leaderboardId keys, so normalize before formatting.
+                formatXLabel: (label: number | Date) =>
+                    formatTick(label instanceof Date ? label : new Date(label)),
                 lineColor: theme.dark? '#454545' : '#BBB',
             }}
             yAxis={[{

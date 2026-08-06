@@ -4988,8 +4988,7 @@ __metadata:
     uniwind: "npm:^1.9.0"
     uuid: "npm:^3.4.0"
     victory-native: "npm:^37.3.1"
-    victory-native-current: "npm:victory-native@^41.19.3"
-    victory-native-date: "npm:^45.0.0"
+    victory-native-date: "file:/Users/dennis/Projects/victory-native-datefix.tgz"
     websocket: "npm:^1.0.34"
   languageName: unknown
   linkType: soft
@@ -14071,9 +14070,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"victory-native-current@npm:victory-native@^41.19.3":
-  version: 41.20.1
-  resolution: "victory-native@npm:41.20.1"
+"victory-native-date@file:/Users/dennis/Projects/victory-native-datefix.tgz::locator=aoe2companion%40workspace%3A.":
+  version: 41.26.0
+  resolution: "victory-native-date@file:/Users/dennis/Projects/victory-native-datefix.tgz#/Users/dennis/Projects/victory-native-datefix.tgz::hash=87dc5d&locator=aoe2companion%40workspace%3A."
   dependencies:
     d3-scale: "npm:^4.0.2"
     d3-shape: "npm:^3.2.0"
@@ -14081,29 +14080,12 @@ __metadata:
     its-fine: "npm:^1.2.5"
     react-fast-compare: "npm:^3.2.2"
   peerDependencies:
-    "@shopify/react-native-skia": ">=1.2.3"
+    "@shopify/react-native-skia": ">=1.2.3 <3.0.0"
     react: "*"
     react-native: "*"
     react-native-gesture-handler: ">=2.0.0"
     react-native-reanimated: ">=3.0.0"
-  checksum: 10/7e1e22344b1b1eed7fa6e01466492e68571a6b44391cd4c535cfc41380df68c4e79398cb6e79a0558a3aff83b39d7ee2bff6597dcf387687e75f47ffbacc8eb9
-  languageName: node
-  linkType: hard
-
-"victory-native-date@npm:^45.0.0":
-  version: 45.0.0
-  resolution: "victory-native-date@npm:45.0.0"
-  dependencies:
-    d3-scale: "npm:^4.0.2"
-    d3-shape: "npm:^3.2.0"
-    react-fast-compare: "npm:^3.2.2"
-  peerDependencies:
-    "@shopify/react-native-skia": ">=1.2.3"
-    react: "*"
-    react-native: "*"
-    react-native-gesture-handler: ">=2.0.0"
-    react-native-reanimated: ">=3.0.0"
-  checksum: 10/1f8999f82709c017d6613bcf9de8dadafc67c559606a161d511187b47299284c0cf84027158ac59fec8b97bf926566bf0dcee2359e8e420c312f14b515e812b8
+  checksum: 10/de893159669240f6eb7a065ba6afc5762a881de4dd552c9ead4c0e962730b87ed8baaede30e8f8c02ee58c24d64bf4b775ba5d2088ac84fea0d159aaaeda81ba
   languageName: node
   linkType: hard
 
