@@ -114,7 +114,7 @@ export const ProfileLeaderboardModal = ({
                                     </View>
 
                                     {!!(ratings) && (
-                                        <View className="z-50">
+                                        <View className="z-50" style={{ height: 400 }}>
                                             <RatingChart
                                                 allowMouseInteraction
                                                 width={1200}

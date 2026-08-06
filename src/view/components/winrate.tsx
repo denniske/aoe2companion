@@ -1,5 +1,4 @@
 import {
-    PriorCivStat,
     useWinrateGroupings,
     useWinrates,
     useWinratesBreakdown,
@@ -16,18 +15,19 @@ import { ProgressBar } from '@app/components/progress-bar';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getCivHistoryImage, getCivIconLocal } from '@app/helper/civs';
-import { Slider2 } from '@app/view/components/slider2';
 import { Civ, formatDateShort, formatMonth, formatTime, formatYear, getCivNameById } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { ImageBackground } from '@/src/components/uniwind/image';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useAccountData } from '@app/queries/all';
-import { Area, Bar, CartesianChart, Line } from 'victory-native-date';
-import { DashPathEffect, matchFont } from '@shopify/react-native-skia';
-import { useAppTheme } from '@app/theming';
-import { useCSSVariable, useUniwind } from 'uniwind';
+import SkiaLoader from '@app/components/skia-loader';
+import { useUniwind } from 'uniwind';
+
+// Hoisted rather than written inline in JSX: React Compiler cannot lower a
+// dynamic `import()` expression and bails out on the whole component.
+const loadWinrateCharts = () => import('@app/view/components/winrate-charts');
 
 export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: Civ }>();
@@ -95,224 +95,15 @@ export default function CivDetails() {
                     </Card>
                 </View>
 
-                <StatsByRatingSlider width={width} grouping={grouping} breakdown={breakdown} civ={nameLower} />
-                <StatsByPatchSlider width={width} breakdown={breakdown} civ={nameLower} />
+                <SkiaLoader
+                    getComponent={loadWinrateCharts}
+                    componentProps={{ width, grouping, breakdown, civ: nameLower }}
+                    fallback={<View className="h-80" />}
+                />
             </ScrollView>
         </ImageBackground>
     );
 }
-
-
-const DATA = (length: number = 10) =>
-    Array.from({ length }, (_, index) => ({
-        month: index + 1,
-        listenCount: Math.floor(Math.random() * (100 - 50 + 1)) + 50,
-    }));
-
-
-const fontFamily = Platform.select({ ios: 'Helvetica', default: 'serif' });
-const fontStyle = {
-    fontFamily,
-    fontSize: 11,
-    fontStyle: "normal",
-    fontWeight: "normal",
-};
-const font = matchFont(fontStyle as any);
-
-const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingResponse; breakdown: WinrateBreakdown; civ: string }> = ({
-    width,
-    grouping,
-    breakdown,
-    civ,
-}) => {
-    const appTheme = useAppTheme();
-    const { theme } = useUniwind();
-    const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
-        { key: 'win_rate', label: 'Win Rate by Rating', domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
-        { key: 'play_rate', label: 'Play Rate by Rating', domain: [0, 0.08], tickFormat: (y) => `${Math.round(y * 100)}%` },
-    ];
-
-    const colorGold200 = useCSSVariable('--color-gold-200') as string;
-    const colorBlue500 = useCSSVariable('--color-blue-500') as string;
-
-    return (
-        <Slider2
-            paginationStyle={{ bottom: 0 }}
-            className="-mx-4 pb-6"
-            slides={graphs.map(({ label, key, domain, tickFormat }) => {
-                const data = Object.values(breakdown.byRating).map((byRating, i) => ({
-                    index: i,
-                    elo: byRating.elo_range,
-                    [key]: byRating.civ_stats[civ][key],
-                }));
-
-
-                return (
-                    <Card className="p-0 gap-0 mx-4 h-80" direction="vertical" key={key}>
-                        <Text variant="header" className="pt-4 mb-2" align="center">
-                            {label}
-                        </Text>
-                        {width > 0 && (
-                            <>
-                                <CartesianChart
-                                    data={data}
-                                    padding={15}
-                                    domain={{
-                                        x: [-0.5, data.length - 0.5],
-                                        y: domain,
-                                    }}
-                                    xAxis={{
-                                        font,
-                                        labelColor: appTheme.textColor,
-                                        tickCount: data.length,
-                                        lineWidth: 0,
-                                        formatXLabel: (x) =>
-                                            grouping.elo_groupings.find((eg) => eg.name === data[x].elo)?.label.replace(/ *\([^)]*\) */g, '') ?? '',
-                                        linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                    }}
-                                    yAxis={[
-                                        {
-                                            font,
-                                            labelColor: appTheme.textColor,
-                                            yKeys: [key as any],
-                                            linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                            formatYLabel: tickFormat,
-                                        },
-                                    ]}
-                                    xKey="index"
-                                    yKeys={[key]}
-                                >
-                                    {({ points, chartBounds }) => (
-                                        <Bar
-                                            points={points[key]}
-                                            chartBounds={chartBounds}
-                                            barWidth={width / (data.length + 3)}
-                                            color={theme === 'dark' ? colorGold200 : colorBlue500}
-                                        />
-                                    )}
-                                </CartesianChart>
-                            </>
-                        )}
-                    </Card>
-                );
-            })}
-        />
-    );
-};
-
-const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown; civ: string }> = ({ width, breakdown, civ }) => {
-    const appTheme = useAppTheme();
-    const { theme } = useUniwind();
-    const { patches } = useWinratesPatches();
-    const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
-        { key: 'win_rate', label: 'Win Rate by Patch', domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
-        { key: 'play_rate', label: 'Play Rate by Patch', domain: [0, 0.08], tickFormat: (y) => `${Math.round(y * 100)}%` },
-        { key: 'rank', label: 'Rank by Patch', domain: [50, 0] },
-    ];
-
-    const colorGold200 = useCSSVariable('--color-gold-200') as string;
-    const colorBlue500 = useCSSVariable('--color-blue-500') as string;
-
-    const formatTick = (date: Date) => {
-        if (date.getMonth() == 0 && date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
-            return formatYear(date);
-        }
-        if (date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
-            return formatMonth(date);
-        }
-        if (date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
-            return formatDateShort(date);
-        }
-        return formatTime(date);
-    };
-
-
-    return (
-        <Slider2
-            paginationStyle={{ bottom: 0 }}
-            className="-mx-4 pb-6"
-            slides={graphs.map(({ label, key, domain, tickFormat }) => {
-                const data = breakdown.priorStats
-                    .map((prior) => {
-                        const releaseDate = patches?.find((patch) => patch.number === prior.patch)?.release_date;
-                        // The x axis becomes a time scale only when every x value is a
-                        // real Date, so drop points whose patch has no release date
-                        // rather than letting one undefined fall back to categorical.
-                        return releaseDate
-                            ? {
-                                  date: new Date(releaseDate),
-                                  patch: prior.patch,
-                                  [key]: prior.civ_stats[civ][key],
-                              }
-                            : null;
-                    })
-                    .filter((datum): datum is NonNullable<typeof datum> => datum !== null);
-
-                return (
-                    <Card className="p-0 gap-0 mx-4 h-80" direction="vertical" key={key}>
-                        <Text variant="header" className="pt-4 mb-2" align="center">
-                            {label}
-                        </Text>
-                        {width > 0 && (
-                            <>
-                                <CartesianChart
-                                    data={data}
-                                    padding={15}
-                                    domain={{
-                                        // No x domain: index-space bounds would push the
-                                        // date timestamps off-scale. Let the time scale
-                                        // derive its bounds from the dates themselves.
-                                        y: domain,
-                                    }}
-                                    xAxis={{
-                                        font,
-                                        labelColor: appTheme.textColor,
-                                        lineWidth: 0,
-                                        // tickCount: data.length,
-                                        formatXLabel: (x) => formatTick(x instanceof Date ? x : new Date(x)),
-                                        // formatXLabel: (x) => formatCustom(x instanceof Date ? x : new Date(x), 'yy-MMM'),
-                                        // formatXLabel: (x) => formatCustom(new Date(x), 'yyyy MMM d'),
-                                        // labelRotate: -25,
-                                        linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                    }}
-                                    yAxis={[
-                                        {
-                                            font,
-                                            labelColor: appTheme.textColor,
-                                            yKeys: [key],
-                                            linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                            formatYLabel: tickFormat,
-                                        },
-                                    ]}
-                                    xKey={'date' as any}
-                                    yKeys={[key as any]}
-                                >
-                                    {({ points, chartBounds }) =>
-                                        domain[0] < domain[1] ? (
-                                            <Area
-                                                points={points[key]}
-                                                y0={chartBounds.bottom}
-                                                animate={{ type: 'timing', duration: 300 }}
-                                                color={theme === 'dark' ? colorGold200 : colorBlue500}
-                                            />
-                                        ) : (
-                                            <Line
-                                                points={points[key]}
-                                                color={theme === 'dark' ? colorGold200 : colorBlue500}
-                                                strokeWidth={3}
-                                                animate={{ type: 'timing', duration: 300 }}
-                                            />
-                                        )
-                                    }
-                                </CartesianChart>
-                            </>
-                        )}
-                    </Card>
-                );
-            })}
-        />
-    );
-};
 
 const styles = StyleSheet.create({
     imageInner: {
