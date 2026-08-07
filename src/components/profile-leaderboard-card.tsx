@@ -39,6 +39,9 @@ export const ProfileLeaderboardCard: React.FC<{
                 className="flex flex-1 px-4 items-center lg:items-stretch gap-4"
                 direction="vertical"
                 onPress={canOpenModal ? () => setIsVisible(true) : undefined}
+                // Marks the card as interactive once its queries have resolved,
+                // so automated checks can wait for the modal to be openable.
+                testID={canOpenModal ? 'leaderboard-card-openable' : 'leaderboard-card-loading'}
             >
                 <View className={cn('flex-row items-center gap-1 lg:gap-5', !leaderboard && 'min-w-24')}>
                     <TextComponent variant="header-lg" numberOfLines={1} color="subtle">

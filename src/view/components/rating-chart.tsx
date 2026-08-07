@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, InteractionManager, View } from 'react-native';
 import SkiaLoader from '@app/components/skia-loader';
 import type { IRatingChartProps } from '@app/view/components/rating-chart-skia';
 
@@ -24,5 +24,18 @@ const chartFallback = (
 );
 
 export default function RatingChart(props: IRatingChartProps) {
+    // Building the Skia paths for a large rating history is a long synchronous
+    // block on the JS thread. Waiting for interactions to finish keeps that work
+    // out of the navigation/modal transition, so the animation stays smooth and
+    // the spinner covers the cost instead of a frozen screen.
+    const [ready, setReady] = React.useState(false);
+
+    React.useEffect(() => {
+        const handle = InteractionManager.runAfterInteractions(() => setReady(true));
+        return () => handle.cancel();
+    }, []);
+
+    if (!ready) return chartFallback;
+
     return <SkiaLoader getComponent={loadRatingChart} componentProps={props} fallback={chartFallback} />;
 }

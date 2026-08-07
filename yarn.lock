@@ -14072,7 +14072,7 @@ __metadata:
 
 "victory-native-date@file:/Users/dennis/Projects/victory-native-datefix.tgz::locator=aoe2companion%40workspace%3A.":
   version: 41.26.0
-  resolution: "victory-native-date@file:/Users/dennis/Projects/victory-native-datefix.tgz#/Users/dennis/Projects/victory-native-datefix.tgz::hash=87dc5d&locator=aoe2companion%40workspace%3A."
+  resolution: "victory-native-date@file:/Users/dennis/Projects/victory-native-datefix.tgz#/Users/dennis/Projects/victory-native-datefix.tgz::hash=7140ab&locator=aoe2companion%40workspace%3A."
   dependencies:
     d3-scale: "npm:^4.0.2"
     d3-shape: "npm:^3.2.0"
@@ -14085,7 +14085,7 @@ __metadata:
     react-native: "*"
     react-native-gesture-handler: ">=2.0.0"
     react-native-reanimated: ">=3.0.0"
-  checksum: 10/de893159669240f6eb7a065ba6afc5762a881de4dd552c9ead4c0e962730b87ed8baaede30e8f8c02ee58c24d64bf4b775ba5d2088ac84fea0d159aaaeda81ba
+  checksum: 10/4c5d01c4d8999ad4ae72bf1011701b4f46c84ec0e4fd0d76e4ff01c4f8d4d8fd2667b5d1abafc2be45e148283ee6fb76066a61e2cfc80aa1ba5ba98bc6585abc
   languageName: node
   linkType: hard
 

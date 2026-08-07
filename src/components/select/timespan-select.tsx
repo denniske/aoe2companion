@@ -12,7 +12,7 @@ export function TimespanSelect(props: any) {
     const savePrefsMutation = useSavePrefsMutation();
 
     // const [ratingHistoryDuration, setRatingHistoryDuration] = useState<string>('max');
-    const values: string[] = ['max', '3m', '1m', '1w', '1d'];
+    const values: string[] = ['max', '1y', '3m', '1m', '1w', '1d'];
 
     const onCountrySelected = async (str: any) => {
         setRatingHistoryDuration(str);
