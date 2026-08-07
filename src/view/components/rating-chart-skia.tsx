@@ -40,7 +40,7 @@ type Series = {
     color: string;
 };
 
-export default function RatingChart(props: IRatingChartProps) {
+export default function RatingChartSkia(props: IRatingChartProps) {
     const { formatTick, filteredRatingHistories, hiddenLeaderboardIds, allowMouseInteraction } = props;
 
     const theme = useAppTheme();
@@ -52,6 +52,7 @@ export default function RatingChart(props: IRatingChartProps) {
     // Point positions and plot bounds, published by the chart's render callback
     // for the overlay to read. A ref, so publishing costs no render.
     const geometryRef = useRef<Geometry | null>(null);
+
 
     const dataset = useMemo(() => {
         if (!filteredRatingHistories) {
@@ -97,6 +98,36 @@ export default function RatingChart(props: IRatingChartProps) {
 
     const yKeys = useMemo(() => dataset.series.map((s) => s.id), [dataset.series]);
 
+    // Measured from inside the render callback rather than an effect: the chart
+    // only invokes that callback once it has measured its own layout, which is
+    // after this component's effects have already run.
+    const measuredKey = useRef('');
+    const measure = () => {
+        const key = `${dataset.data.length}|${visibleSeries.length}`;
+        if (!MEASURE_DRAW || measuredKey.current === key) return;
+        measuredKey.current = key;
+
+        const started = performance.now();
+
+        // Two numbers, because one cannot tell them apart: `sync` is the JS this
+        // chart actually spends building the Skia scene (the microtask runs once
+        // the current task — render plus commit — has finished), while `toFrame`
+        // also includes whatever else the thread does before the next frame.
+        // A large gap between them is contention, not chart cost.
+        let sync = 0;
+        queueMicrotask(() => {
+            sync = performance.now() - started;
+        });
+
+        requestAnimationFrame(() => {
+            // eslint-disable-next-line no-console
+            console.log(
+                `[chart] points=${dataset.data.length} series=${visibleSeries.length} ` +
+                    `sync=${sync.toFixed(1)}ms toFrame=${(performance.now() - started).toFixed(1)}ms`
+            );
+        });
+    };
+
     if (dataset.data?.length === 0) {
         return <View />;
     }
@@ -128,16 +159,12 @@ export default function RatingChart(props: IRatingChartProps) {
             >
                 {({ points, chartBounds }) => {
                     geometryRef.current = { points: points as never, chartBounds };
+                    // measure();
 
                     return (
                         <>
                             {visibleSeries.map((series) => (
-                                <ChartSeries
-                                    key={series.id}
-                                    points={(points as never)[series.id]}
-                                    color={series.color}
-                                    showDots={dataset.data.length <= DOT_LIMIT}
-                                />
+                                <ChartSeries key={series.id} points={(points as never)[series.id]} color={series.color} />
                             ))}
                         </>
                     );
@@ -164,32 +191,24 @@ const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 const ROW_PADDING_X = 9;
 
 /**
- * Above this many points the scatter dots are dropped: they are a separate
- * filled contour per datum, and at that density radius-2 dots read as a solid
- * ribbon under the line anyway.
+ * Logs how long a chart draw costs: the synchronous JS to build the Skia scene,
+ * and the wall time until the frame carrying it is presented. Flip on to compare
+ * configurations (e.g. with and without the scatter dots).
  */
-const DOT_LIMIT = 1500;
+const MEASURE_DRAW = true;
 
 
 /**
  * One series' line + dots. Split out and memoized so a re-render of the chart
  * does not rebuild the Skia path for thousands of points on the JS thread.
  */
-const ChartSeries = React.memo(function ChartSeries({
-    points,
-    color,
-    showDots,
-}: {
-    points: ChartPoint[];
-    color: string;
-    showDots: boolean;
-}) {
+const ChartSeries = React.memo(function ChartSeries({ points, color }: { points: ChartPoint[]; color: string }) {
     const defined = useMemo(() => points.filter((p) => p.yValue != null), [points]);
 
     return (
         <>
             <Line points={defined as never} color={color} strokeWidth={1.5} />
-            {showDots ? <Scatter points={points as never} shape="circle" radius={2} style="fill" color={color} /> : null}
+            {/*<Scatter points={points as never} shape="circle" radius={2} style="fill" color={color} />*/}
         </>
     );
 });
