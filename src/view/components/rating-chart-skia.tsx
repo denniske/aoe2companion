@@ -1,12 +1,12 @@
 import { View } from 'react-native';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { formatCustom, LeaderboardId } from '@nex/data';
 import { getLeaderboardColor } from '../../helper/colors';
 import { useAppTheme } from '../../theming';
 import { IProfileRatingsLeaderboard } from '../../api/helper/api.types';
 import { orderBy } from 'lodash';
 
-import { useDerivedValue, useSharedValue } from 'react-native-reanimated';
+import { type SharedValue, useDerivedValue, useSharedValue } from 'react-native-reanimated';
 import { CartesianChart, Line, Scatter } from 'victory-native-date';
 import { Group, Line as SkiaLine, Rect, Text as SkiaText, vec } from '@shopify/react-native-skia';
 import { useChartFont } from '@app/view/components/chart-font';
@@ -161,11 +161,11 @@ const ChartSeries = React.memo(function ChartSeries({ points, color }: { points:
  * chart. The rule follows the pointer exactly rather than snapping to a datum;
  * each series reports its most recent value at or before that position.
  *
- * Owns the pointer state, so a mouse move re-renders only this component —
- * CartesianChart above it is untouched. The rule itself is driven by a
- * Reanimated shared value straight into Skia, so it tracks the cursor without
- * any React render at all; only the text labels need a render, and those are
- * coalesced to one per frame.
+ * Nothing here re-renders on pointer movement. The cursor position lives in a
+ * Reanimated shared value and every visual — rule, plates, text — is a derived
+ * value read straight by Skia on the UI thread. To make that possible the label
+ * strings are formatted up front (date-fns is not worklet-safe) and looked up by
+ * index in a worklet.
  */
 function CursorOverlay({
     containerRef,
@@ -182,156 +182,160 @@ function CursorOverlay({
     font: ReturnType<typeof useChartFont>;
     dark: boolean;
 }) {
-    // Drives the rule on the UI thread. -1 means "pointer is away".
+    // The only piece of hover state. -1 means "pointer is away".
     const cursorX = useSharedValue(-1);
-    // Drives the labels, which need JS (date formatting, glyph measurement).
-    const [labelX, setLabelX] = useState<number | null>(null);
 
     useEffect(() => {
         const node = containerRef.current as unknown as HTMLElement | null;
         if (!node || typeof node.addEventListener !== 'function') return;
 
-        let frame: number | null = null;
-        let pending: number | null = null;
-
-        const flush = () => {
-            frame = null;
-            setLabelX(pending);
-        };
-
         const onMove = (event: PointerEvent) => {
-            const x = event.clientX - node.getBoundingClientRect().left;
-            // Straight to the UI thread: no render, no frame delay.
-            cursorX.value = x;
-
-            // pointermove outruns the display refresh, and every label update is
-            // a React render — coalesce them to one per frame.
-            pending = x;
-            if (frame == null) frame = requestAnimationFrame(flush);
+            // Straight to the UI thread: no setState, no render, no frame delay.
+            cursorX.value = event.clientX - node.getBoundingClientRect().left;
         };
         const onLeave = () => {
             cursorX.value = -1;
-            pending = null;
-            if (frame == null) frame = requestAnimationFrame(flush);
         };
 
         node.addEventListener('pointermove', onMove);
         node.addEventListener('pointerleave', onLeave);
         return () => {
-            if (frame != null) cancelAnimationFrame(frame);
             node.removeEventListener('pointermove', onMove);
             node.removeEventListener('pointerleave', onLeave);
         };
     }, [containerRef, cursorX]);
 
-    const { left, right, top, bottom } = chartBounds;
+    /**
+     * Everything the worklets need, precomputed once per dataset: the x pixel of
+     * each datum, the formatted date per datum, and per series the formatted
+     * "<label> - <value>" carried forward from the last non-null rating.
+     */
+    const lookup = useMemo(() => {
+        const reference = visibleSeries.length > 0 ? ((points as never)[visibleSeries[0]!.id] as ChartPoint[]) : undefined;
+        if (!reference || reference.length === 0) {
+            return { xs: [] as number[], dates: [] as string[], rows: [] as string[][], boxWidth: 0 };
+        }
 
+        let longest = '';
+        const remember = (text: string) => {
+            if (text.length > longest.length) longest = text;
+            return text;
+        };
+
+        const xs = reference.map((point) => point.x);
+        const dates = reference.map((point) =>
+            remember(formatCustom(point.xValue instanceof Date ? point.xValue : new Date(point.xValue), 'P'))
+        );
+
+        const rows = visibleSeries.map((series) => {
+            const data = (points as never)[series.id] as ChartPoint[];
+            let carried: number | null = null;
+            return data.map((point) => {
+                if (point.yValue != null) carried = point.yValue;
+                return carried == null ? '' : remember(`${series.label} - ${carried}`);
+            });
+        });
+
+        // Measure only the longest candidate — measuring every row would mean
+        // tens of thousands of glyph lookups. A fixed width also stops the box
+        // from jittering as the pointer moves.
+        //
+        // NOT font.measureText: that is a "Not implemented on React Native Web"
+        // stub. Summing glyph widths is what getTextWidth does internally.
+        const width = font ? font.getGlyphWidths(font.getGlyphIDs(longest)).reduce((a, b) => a + b, 0) : longest.length * 6;
+
+        return { xs, dates, rows, boxWidth: Math.ceil(width) + ROW_PADDING_X * 2 };
+    }, [points, visibleSeries, font]);
+
+    const { left, right, top, bottom } = chartBounds;
+    const { xs, dates, rows, boxWidth } = lookup;
+
+    // Index of the most recent datum at or before the pointer.
+    const index = useDerivedValue(() => {
+        const x = cursorX.value;
+        if (x < left || x > right || xs.length === 0) return -1;
+
+        let lo = 0;
+        let hi = xs.length - 1;
+        let found = -1;
+        while (lo <= hi) {
+            const mid = (lo + hi) >> 1;
+            if (xs[mid]! <= x) {
+                found = mid;
+                lo = mid + 1;
+            } else {
+                hi = mid - 1;
+            }
+        }
+        return found;
+    }, [xs, left, right]);
+
+    const visible = useDerivedValue(() => (index.value >= 0 ? 1 : 0));
     const ruleStart = useDerivedValue(() => vec(cursorX.value, top), [top]);
     const ruleEnd = useDerivedValue(() => vec(cursorX.value, bottom), [bottom]);
-    const ruleOpacity = useDerivedValue(
-        () => (cursorX.value >= left && cursorX.value <= right ? 1 : 0),
-        [left, right]
-    );
 
-    const inBounds = labelX != null && labelX >= left && labelX <= right;
-
-    // Most recent datum at or before the pointer, per series — a step lookup,
-    // so the label holds the last known rating rather than jumping ahead.
-    const entries = !inBounds
-        ? []
-        : visibleSeries
-              .map((series) => {
-                  const data = (points as never)[series.id] as ChartPoint[] | undefined;
-                  if (!data) return null;
-
-                  let latest: ChartPoint | undefined;
-                  for (const point of data) {
-                      if (point.x > labelX!) break;
-                      if (point.yValue != null) latest = point;
-                  }
-                  return latest ? { series, point: latest } : null;
-              })
-              .filter((entry): entry is { series: Series; point: ChartPoint } => entry !== null);
+    // Flip to the left of the rule near the right edge so the box stays inside.
+    const boxX = useDerivedValue(() => (cursorX.value + boxWidth > right ? cursorX.value - boxWidth : cursorX.value), [boxWidth, right]);
+    const textX = useDerivedValue(() => boxX.value + ROW_PADDING_X);
+    const dateText = useDerivedValue(() => (index.value >= 0 ? dates[index.value]! : ''), [dates]);
 
     return (
-        <Group>
-            {/* Driven entirely from the shared value — never re-rendered. */}
-            <Group opacity={ruleOpacity}>
-                <SkiaLine p1={ruleStart} p2={ruleEnd} color={dark ? '#DDDDDD' : '#222222'} strokeWidth={1} />
-            </Group>
+        <Group opacity={visible}>
+            <SkiaLine p1={ruleStart} p2={ruleEnd} color={dark ? '#DDDDDD' : '#222222'} strokeWidth={1} />
 
-            {entries.length > 0 ? (
-                <CursorLabels entries={entries} cursorX={labelX!} chartBounds={chartBounds} font={font} dark={dark} />
-            ) : null}
+            {/* Date header: dark plate. */}
+            <Rect x={boxX} y={top} width={boxWidth} height={ROW_HEIGHT} color={dark ? '#111111' : '#1A1A1A'} />
+            {font ? <SkiaText x={textX} y={top + TEXT_BASELINE} text={dateText} font={font} color="#FFFFFF" /> : null}
+
+            {/* One plate per series, filled with that series' own colour. */}
+            {visibleSeries.map((series, i) => (
+                <CursorRow
+                    key={series.id}
+                    series={series}
+                    texts={rows[i] ?? []}
+                    index={index}
+                    boxX={boxX}
+                    textX={textX}
+                    y={top + ROW_HEIGHT * (i + 1)}
+                    boxWidth={boxWidth}
+                    font={font}
+                />
+            ))}
         </Group>
     );
 }
 
-function CursorLabels({
-    entries,
-    cursorX,
-    chartBounds,
+/**
+ * A single series row of the hover plate. Split into its own component so each
+ * row can own the derived values it needs — hooks cannot be created in a loop.
+ */
+function CursorRow({
+    series,
+    texts,
+    index,
+    boxX,
+    textX,
+    y,
+    boxWidth,
     font,
-    dark,
 }: {
-    entries: { series: Series; point: ChartPoint }[];
-    cursorX: number;
-    chartBounds: { left: number; right: number; top: number; bottom: number };
+    series: Series;
+    texts: string[];
+    index: SharedValue<number>;
+    boxX: SharedValue<number>;
+    textX: SharedValue<number>;
+    y: number;
+    boxWidth: number;
     font: ReturnType<typeof useChartFont>;
-    dark: boolean;
 }) {
-    const newest = entries.reduce((a, b) => (b.point.x > a.point.x ? b : a));
-    const dateLabel = formatCustom(
-        newest.point.xValue instanceof Date ? newest.point.xValue : new Date(newest.point.xValue),
-        'P'
-    );
-    const rows = [dateLabel, ...entries.map((entry) => `${entry.series.label} - ${entry.point.yValue}`)];
-
-    // NOT font.measureText: that is a "Not implemented on React Native Web"
-    // stub. Summing glyph widths is what getTextWidth does internally and works
-    // on every platform (and avoids getTextWidth's deprecation warning).
-    const measure = (text: string) => {
-        if (!font) return text.length * 6;
-        return font.getGlyphWidths(font.getGlyphIDs(text)).reduce((a, b) => a + b, 0);
-    };
-    const boxWidth = Math.ceil(Math.max(...rows.map(measure))) + ROW_PADDING_X * 2;
-
-    // Flip to the left of the rule near the right edge so the box stays inside.
-    const flip = cursorX + boxWidth > chartBounds.right;
-    const boxX = flip ? cursorX - boxWidth : cursorX;
+    const text = useDerivedValue(() => (index.value >= 0 ? texts[index.value]! : ''), [texts]);
+    // Series that have no rating yet at this position contribute no row.
+    const opacity = useDerivedValue(() => (index.value >= 0 && texts[index.value] ? 1 : 0), [texts]);
 
     return (
-        <Group>
-            {/* Date header: dark plate. */}
-            <Rect x={boxX} y={chartBounds.top} width={boxWidth} height={ROW_HEIGHT} color={dark ? '#111111' : '#1A1A1A'} />
-            {font ? (
-                <SkiaText
-                    x={boxX + ROW_PADDING_X}
-                    y={chartBounds.top + TEXT_BASELINE}
-                    text={dateLabel}
-                    font={font}
-                    color="#FFFFFF"
-                />
-            ) : null}
-
-            {/* One plate per series, filled with that series' own colour. */}
-            {entries.map((entry, i) => {
-                const y = chartBounds.top + ROW_HEIGHT * (i + 1);
-                return (
-                    <Group key={entry.series.id}>
-                        <Rect x={boxX} y={y} width={boxWidth} height={ROW_HEIGHT} color={entry.series.color} />
-                        {font ? (
-                            <SkiaText
-                                x={boxX + ROW_PADDING_X}
-                                y={y + TEXT_BASELINE}
-                                text={`${entry.series.label} - ${entry.point.yValue}`}
-                                font={font}
-                                color="#FFFFFF"
-                            />
-                        ) : null}
-                    </Group>
-                );
-            })}
+        <Group opacity={opacity}>
+            <Rect x={boxX} y={y} width={boxWidth} height={ROW_HEIGHT} color={series.color} />
+            {font ? <SkiaText x={textX} y={y + TEXT_BASELINE} text={text} font={font} color="#FFFFFF" /> : null}
         </Group>
     );
 }
