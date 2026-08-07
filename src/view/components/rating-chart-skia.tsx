@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { formatCustom, LeaderboardId } from '@nex/data';
 import { getLeaderboardColor } from '../../helper/colors';
@@ -6,9 +6,15 @@ import { useAppTheme } from '../../theming';
 import { IProfileRatingsLeaderboard } from '../../api/helper/api.types';
 import { orderBy } from 'lodash';
 
-import { type SharedValue, useDerivedValue, useSharedValue } from 'react-native-reanimated';
+import Animated, {
+    type SharedValue,
+    useAnimatedProps,
+    useAnimatedStyle,
+    useDerivedValue,
+    useSharedValue,
+} from 'react-native-reanimated';
 import { CartesianChart, Line, Scatter } from 'victory-native-date';
-import { Group, Line as SkiaLine, Rect, Text as SkiaText, vec } from '@shopify/react-native-skia';
+
 import { useChartFont } from '@app/view/components/chart-font';
 
 export interface IRatingChartProps {
@@ -21,6 +27,10 @@ export interface IRatingChartProps {
 }
 
 type ChartPoint = { x: number; y: number | null; xValue: number | Date; yValue: number | null };
+
+type ChartBounds = { left: number; right: number; top: number; bottom: number };
+
+type Geometry = { points: Record<string, ChartPoint[]>; chartBounds: ChartBounds };
 
 type Series = {
     /** Unique data key. NOT the leaderboard id — see the comment in `dataset`. */
@@ -36,10 +46,12 @@ export default function RatingChart(props: IRatingChartProps) {
     const theme = useAppTheme();
     const font = useChartFont();
 
-    // No cursor state here on purpose. The overlay owns it, so pointer moves
-    // re-render only the overlay — never this component, and therefore never
-    // CartesianChart, whose re-render rebuilds paths for the whole dataset.
+    // No cursor state here on purpose — the overlay owns it entirely.
     const containerRef = useRef<View | null>(null);
+
+    // Point positions and plot bounds, published by the chart's render callback
+    // for the overlay to read. A ref, so publishing costs no render.
+    const geometryRef = useRef<Geometry | null>(null);
 
     const dataset = useMemo(() => {
         if (!filteredRatingHistories) {
@@ -114,141 +126,164 @@ export default function RatingChart(props: IRatingChartProps) {
                     },
                 ]}
             >
-                {({ points, chartBounds }) => (
-                    <>
-                        {visibleSeries.map((series) => (
-                            <ChartSeries key={series.id} points={(points as never)[series.id]} color={series.color} />
-                        ))}
+                {({ points, chartBounds }) => {
+                    geometryRef.current = { points: points as never, chartBounds };
 
-                        {allowMouseInteraction ? (
-                            <CursorOverlay
-                                containerRef={containerRef}
-                                points={points}
-                                visibleSeries={visibleSeries}
-                                chartBounds={chartBounds}
-                                font={font}
-                                dark={theme.dark}
-                            />
-                        ) : null}
-                    </>
-                )}
+                    return (
+                        <>
+                            {visibleSeries.map((series) => (
+                                <ChartSeries
+                                    key={series.id}
+                                    points={(points as never)[series.id]}
+                                    color={series.color}
+                                    showDots={dataset.data.length <= DOT_LIMIT}
+                                />
+                            ))}
+                        </>
+                    );
+                }}
             </CartesianChart>
+
+            {/* Plain RN views, not Skia. Drawing the cursor inside the chart's
+                canvas forced Skia to repaint the entire scene — every line
+                segment and dot — on each pointer move. As sibling views it
+                costs nothing, and layout measures the labels for us. */}
+            {allowMouseInteraction ? (
+                <CursorOverlay
+                    geometryRef={geometryRef}
+                    visibleSeries={visibleSeries}
+                    dark={theme.dark}
+                />
+            ) : null}
         </View>
     );
 }
 
-const ROW_HEIGHT = 21;
+const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+
 const ROW_PADDING_X = 9;
-const TEXT_BASELINE = 14;
+
+/**
+ * Above this many points the scatter dots are dropped: they are a separate
+ * filled contour per datum, and at that density radius-2 dots read as a solid
+ * ribbon under the line anyway.
+ */
+const DOT_LIMIT = 1500;
+
 
 /**
  * One series' line + dots. Split out and memoized so a re-render of the chart
  * does not rebuild the Skia path for thousands of points on the JS thread.
  */
-const ChartSeries = React.memo(function ChartSeries({ points, color }: { points: ChartPoint[]; color: string }) {
+const ChartSeries = React.memo(function ChartSeries({
+    points,
+    color,
+    showDots,
+}: {
+    points: ChartPoint[];
+    color: string;
+    showDots: boolean;
+}) {
     const defined = useMemo(() => points.filter((p) => p.yValue != null), [points]);
 
     return (
         <>
             <Line points={defined as never} color={color} strokeWidth={1.5} />
-            <Scatter points={points as never} shape="circle" radius={2} style="fill" color={color} />
+            {showDots ? <Scatter points={points as never} shape="circle" radius={2} style="fill" color={color} /> : null}
         </>
     );
 });
 
 /**
- * The vertical rule plus value labels shown while the pointer is over the
- * chart. The rule follows the pointer exactly rather than snapping to a datum;
- * each series reports its most recent value at or before that position.
+ * Hover cursor: a vertical rule and a stack of value plates.
  *
- * Nothing here re-renders on pointer movement. The cursor position lives in a
- * Reanimated shared value and every visual — rule, plates, text — is a derived
- * value read straight by Skia on the UI thread. To make that possible the label
- * strings are formatted up front (date-fns is not worklet-safe) and looked up by
- * index in a worklet.
+ * Deliberately *not* Skia. A Skia canvas repaints its whole scene every frame,
+ * so drawing the cursor beside the series meant re-rasterizing thousands of
+ * points per pointer move. As plain views the chart canvas is never touched.
+ *
+ * Nothing here uses React state either: the pointer position lives in a shared
+ * value and every visual is an animated style/prop applied on the UI thread.
+ * Label text is formatted up front (date-fns is not worklet-safe) and indexed
+ * from a worklet.
  */
 function CursorOverlay({
-    containerRef,
-    points,
+    geometryRef,
     visibleSeries,
-    chartBounds,
-    font,
     dark,
 }: {
-    containerRef: React.RefObject<View | null>;
-    points: unknown;
+    geometryRef: React.RefObject<Geometry | null>;
     visibleSeries: Series[];
-    chartBounds: { left: number; right: number; top: number; bottom: number };
-    font: ReturnType<typeof useChartFont>;
     dark: boolean;
 }) {
     // The only piece of hover state. -1 means "pointer is away".
     const cursorX = useSharedValue(-1);
+    // Written from onLayout, so the flip near the right edge needs no manual
+    // text measurement — layout reports the real width.
+    const boxWidth = useSharedValue(0);
+
+    const overlayRef = useRef<View | null>(null);
 
     useEffect(() => {
-        const node = containerRef.current as unknown as HTMLElement | null;
-        if (!node || typeof node.addEventListener !== 'function') return;
+        // Listen on the document and resolve our own node at event time. Binding
+        // to the container directly needs its ref to be populated when the effect
+        // runs, which it is not — the listener then never attaches and the cursor
+        // silently does nothing. `document` is absent on native, where hover does
+        // not apply anyway.
+        if (typeof document === 'undefined') return;
 
         const onMove = (event: PointerEvent) => {
-            // Straight to the UI thread: no setState, no render, no frame delay.
-            cursorX.value = event.clientX - node.getBoundingClientRect().left;
-        };
-        const onLeave = () => {
-            cursorX.value = -1;
+            const self = overlayRef.current as unknown as HTMLElement | null;
+            const node = self?.parentElement;
+            if (!node) return;
+
+            const rect = node.getBoundingClientRect();
+            const inside =
+                event.clientX >= rect.left &&
+                event.clientX <= rect.right &&
+                event.clientY >= rect.top &&
+                event.clientY <= rect.bottom;
+
+            cursorX.value = inside ? event.clientX - rect.left : -1;
         };
 
-        node.addEventListener('pointermove', onMove);
-        node.addEventListener('pointerleave', onLeave);
-        return () => {
-            node.removeEventListener('pointermove', onMove);
-            node.removeEventListener('pointerleave', onLeave);
-        };
-    }, [containerRef, cursorX]);
+        document.addEventListener('pointermove', onMove);
+        return () => document.removeEventListener('pointermove', onMove);
+    }, [cursorX]);
+
+    const geometry = geometryRef.current;
+    const points = geometry?.points ?? {};
+    const bounds = geometry?.chartBounds ?? { left: 0, right: 0, top: 0, bottom: 0 };
 
     /**
-     * Everything the worklets need, precomputed once per dataset: the x pixel of
-     * each datum, the formatted date per datum, and per series the formatted
-     * "<label> - <value>" carried forward from the last non-null rating.
+     * Precomputed once per dataset: x pixel of each datum, its formatted date,
+     * and per series the "<label> - <value>" carried forward from the last
+     * non-null rating. The worklets only index into these.
      */
     const lookup = useMemo(() => {
-        const reference = visibleSeries.length > 0 ? ((points as never)[visibleSeries[0]!.id] as ChartPoint[]) : undefined;
+        const reference = visibleSeries.length > 0 ? points[visibleSeries[0]!.id] : undefined;
         if (!reference || reference.length === 0) {
-            return { xs: [] as number[], dates: [] as string[], rows: [] as string[][], boxWidth: 0 };
+            return { xs: [] as number[], dates: [] as string[], rows: [] as string[][] };
         }
-
-        let longest = '';
-        const remember = (text: string) => {
-            if (text.length > longest.length) longest = text;
-            return text;
-        };
 
         const xs = reference.map((point) => point.x);
         const dates = reference.map((point) =>
-            remember(formatCustom(point.xValue instanceof Date ? point.xValue : new Date(point.xValue), 'P'))
+            formatCustom(point.xValue instanceof Date ? point.xValue : new Date(point.xValue), 'P')
         );
 
         const rows = visibleSeries.map((series) => {
-            const data = (points as never)[series.id] as ChartPoint[];
+            const data = points[series.id] ?? [];
             let carried: number | null = null;
             return data.map((point) => {
                 if (point.yValue != null) carried = point.yValue;
-                return carried == null ? '' : remember(`${series.label} - ${carried}`);
+                return carried == null ? '' : `${series.label} - ${carried}`;
             });
         });
 
-        // Measure only the longest candidate — measuring every row would mean
-        // tens of thousands of glyph lookups. A fixed width also stops the box
-        // from jittering as the pointer moves.
-        //
-        // NOT font.measureText: that is a "Not implemented on React Native Web"
-        // stub. Summing glyph widths is what getTextWidth does internally.
-        const width = font ? font.getGlyphWidths(font.getGlyphIDs(longest)).reduce((a, b) => a + b, 0) : longest.length * 6;
+        return { xs, dates, rows };
+    }, [points, visibleSeries]);
 
-        return { xs, dates, rows, boxWidth: Math.ceil(width) + ROW_PADDING_X * 2 };
-    }, [points, visibleSeries, font]);
-
-    const { left, right, top, bottom } = chartBounds;
-    const { xs, dates, rows, boxWidth } = lookup;
+    const { xs, dates, rows } = lookup;
+    const { left, right, top, bottom } = bounds;
 
     // Index of the most recent datum at or before the pointer.
     const index = useDerivedValue(() => {
@@ -270,72 +305,103 @@ function CursorOverlay({
         return found;
     }, [xs, left, right]);
 
-    const visible = useDerivedValue(() => (index.value >= 0 ? 1 : 0));
-    const ruleStart = useDerivedValue(() => vec(cursorX.value, top), [top]);
-    const ruleEnd = useDerivedValue(() => vec(cursorX.value, bottom), [bottom]);
+    const ruleStyle = useAnimatedStyle(() => ({
+        opacity: index.value >= 0 ? 1 : 0,
+        transform: [{ translateX: cursorX.value }],
+    }));
 
-    // Flip to the left of the rule near the right edge so the box stays inside.
-    const boxX = useDerivedValue(() => (cursorX.value + boxWidth > right ? cursorX.value - boxWidth : cursorX.value), [boxWidth, right]);
-    const textX = useDerivedValue(() => boxX.value + ROW_PADDING_X);
-    const dateText = useDerivedValue(() => (index.value >= 0 ? dates[index.value]! : ''), [dates]);
+    const boxStyle = useAnimatedStyle(() => {
+        // Flip to the left of the rule near the right edge so it stays inside.
+        const width = boxWidth.value;
+        const x = cursorX.value + width > right ? cursorX.value - width + 1 : cursorX.value + 1;
+        return {
+            opacity: index.value >= 0 ? 1 : 0,
+            transform: [{ translateX: x }],
+        };
+    }, [right]);
+
+    const dateProps = useAnimatedProps(
+        () => ({ text: index.value >= 0 ? dates[index.value]! : '' }) as never,
+        [dates]
+    );
 
     return (
-        <Group opacity={visible}>
-            <SkiaLine p1={ruleStart} p2={ruleEnd} color={dark ? '#DDDDDD' : '#222222'} strokeWidth={1} />
+        <View ref={overlayRef} pointerEvents="none" style={StyleSheet.absoluteFill}>
+            <Animated.View
+                style={[
+                    {
+                        position: 'absolute',
+                        left: 0,
+                        top,
+                        width: 1,
+                        height: Math.max(0, bottom - top),
+                        backgroundColor: dark ? '#DDDDDD' : '#222222',
+                    },
+                    ruleStyle,
+                ]}
+            />
 
-            {/* Date header: dark plate. */}
-            <Rect x={boxX} y={top} width={boxWidth} height={ROW_HEIGHT} color={dark ? '#111111' : '#1A1A1A'} />
-            {font ? <SkiaText x={textX} y={top + TEXT_BASELINE} text={dateText} font={font} color="#FFFFFF" /> : null}
-
-            {/* One plate per series, filled with that series' own colour. */}
-            {visibleSeries.map((series, i) => (
-                <CursorRow
-                    key={series.id}
-                    series={series}
-                    texts={rows[i] ?? []}
-                    index={index}
-                    boxX={boxX}
-                    textX={textX}
-                    y={top + ROW_HEIGHT * (i + 1)}
-                    boxWidth={boxWidth}
-                    font={font}
+            <Animated.View
+                onLayout={(event) => {
+                    boxWidth.value = event.nativeEvent.layout.width;
+                }}
+                style={[{ position: 'absolute', left: 0, top, alignItems: 'flex-start' }, boxStyle]}
+            >
+                <AnimatedLabel
+                    animatedProps={dateProps}
+                    background={dark ? '#111111' : '#1A1A1A'}
+                    fallback={dates[0] ?? ''}
                 />
-            ))}
-        </Group>
+
+                {visibleSeries.map((series, i) => (
+                    <CursorRow key={series.id} series={series} texts={rows[i] ?? []} index={index} />
+                ))}
+            </Animated.View>
+        </View>
     );
 }
 
-/**
- * A single series row of the hover plate. Split into its own component so each
- * row can own the derived values it needs — hooks cannot be created in a loop.
- */
-function CursorRow({
-    series,
-    texts,
-    index,
-    boxX,
-    textX,
-    y,
-    boxWidth,
-    font,
-}: {
-    series: Series;
-    texts: string[];
-    index: SharedValue<number>;
-    boxX: SharedValue<number>;
-    textX: SharedValue<number>;
-    y: number;
-    boxWidth: number;
-    font: ReturnType<typeof useChartFont>;
-}) {
-    const text = useDerivedValue(() => (index.value >= 0 ? texts[index.value]! : ''), [texts]);
-    // Series that have no rating yet at this position contribute no row.
-    const opacity = useDerivedValue(() => (index.value >= 0 && texts[index.value] ? 1 : 0), [texts]);
+/** One series row of the hover plate. Own component so it can own its hooks. */
+function CursorRow({ series, texts, index }: { series: Series; texts: string[]; index: SharedValue<number> }) {
+    const animatedProps = useAnimatedProps(
+        () => ({ text: index.value >= 0 ? texts[index.value]! : '' }) as never,
+        [texts]
+    );
 
+    return <AnimatedLabel animatedProps={animatedProps} background={series.color} fallback={texts[0] ?? ''} />;
+}
+
+/**
+ * A text plate whose content is driven from the UI thread.
+ *
+ * Uses TextInput rather than Text because only TextInput exposes a `text` prop
+ * that Reanimated can set natively — the standard way to animate text content
+ * without a React render.
+ */
+function AnimatedLabel({
+    animatedProps,
+    background,
+    fallback,
+}: {
+    animatedProps: ReturnType<typeof useAnimatedProps>;
+    background: string;
+    fallback: string;
+}) {
     return (
-        <Group opacity={opacity}>
-            <Rect x={boxX} y={y} width={boxWidth} height={ROW_HEIGHT} color={series.color} />
-            {font ? <SkiaText x={textX} y={y + TEXT_BASELINE} text={text} font={font} color="#FFFFFF" /> : null}
-        </Group>
+        <AnimatedTextInput
+            editable={false}
+            defaultValue={fallback}
+            animatedProps={animatedProps}
+            style={{
+                backgroundColor: background,
+                color: '#FFFFFF',
+                fontSize: 11,
+                lineHeight: 14,
+                paddingHorizontal: ROW_PADDING_X,
+                paddingVertical: 4,
+                borderWidth: 0,
+                alignSelf: 'stretch',
+            }}
+        />
     );
 }
