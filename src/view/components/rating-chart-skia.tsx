@@ -75,12 +75,18 @@ export default function RatingChartSkia(props: IRatingChartProps) {
             .filter((entry) => !entry.empty);
 
         const data = orderBy(
-            filteredRatingHistories.flatMap((history, index) =>
-                history.ratings.map((rating) => ({
+            filteredRatingHistories.flatMap((history, index) => {
+                // Hoisted out of the object literal on purpose: React Compiler
+                // cannot lower a template literal used as a computed key and
+                // bails out of the entire component, which leaves the chart's
+                // axis props unmemoized and re-runs the (expensive) data
+                // transform on every render.
+                const seriesKey = `series_${index}`;
+                return history.ratings.map((rating) => ({
                     x: rating.date!,
-                    [`series_${index}`]: rating.rating,
-                }))
-            ),
+                    [seriesKey]: rating.rating,
+                }));
+            }),
             ['x']
         );
 
