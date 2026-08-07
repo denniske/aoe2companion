@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react';
-import { LeaderboardId } from '@nex/data';
+import { formatCustom, LeaderboardId } from '@nex/data';
 import { getLeaderboardColor } from '../../helper/colors';
 import { useAppTheme } from '../../theming';
 import { IProfileRatingsLeaderboard } from '../../api/helper/api.types';
@@ -113,96 +113,100 @@ export default function RatingChart(props: IRatingChartProps) {
                     },
                 ]}
             >
-                {({ points, chartBounds }) => {
-                    // Snap the cursor to the nearest datum of the first visible
-                    // series; every series shares the same x positions.
-                    const reference = visibleKeys.length > 0 ? ((points as never)[visibleKeys[0]!] as ChartPoint[]) : undefined;
-                    const active =
-                        cursorX != null && reference && reference.length > 0
-                            ? reference.reduce((best, point) =>
-                                  Math.abs(point.x - cursorX) < Math.abs(best.x - cursorX) ? point : best
-                              )
-                            : undefined;
+                {({ points, chartBounds }) => (
+                    <>
+                        {visibleKeys.map((key) => (
+                            <ChartSeries key={key} points={(points as never)[key]} color={colorFor(key)} />
+                        ))}
 
-                    return (
-                        <>
-                            {visibleKeys.map((key) => (
-                                <Fragment key={key}>
-                                    <Line
-                                        points={((points as never)[key] as ChartPoint[]).filter((p) => p.yValue != null)}
-                                        color={colorFor(key)}
-                                        strokeWidth={1.25}
-                                    />
-                                    <Scatter points={(points as never)[key]} shape="circle" radius={1} style="fill" color={colorFor(key)} />
-                                </Fragment>
-                            ))}
-
-                            {active ? (
-                                <CursorOverlay
-                                    active={active}
-                                    points={points}
-                                    visibleKeys={visibleKeys}
-                                    chartBounds={chartBounds}
-                                    colorFor={colorFor}
-                                    formatTick={formatTick}
-                                    font={font}
-                                    dark={theme.dark}
-                                />
-                            ) : null}
-                        </>
-                    );
-                }}
+                        {cursorX != null && cursorX >= chartBounds.left && cursorX <= chartBounds.right ? (
+                            <CursorOverlay
+                                cursorX={cursorX}
+                                points={points}
+                                visibleKeys={visibleKeys}
+                                chartBounds={chartBounds}
+                                colorFor={colorFor}
+                                font={font}
+                                dark={theme.dark}
+                            />
+                        ) : null}
+                    </>
+                )}
             </CartesianChart>
         </View>
     );
 }
 
-const LABEL_HEIGHT = 16;
-const LABEL_PADDING = 6;
-const LABEL_WIDTH = 120;
+const LABEL_HEIGHT = 15;
+const LABEL_PADDING = 4;
+const LABEL_WIDTH = 96;
+
+/**
+ * One series' line + dots. Split out and memoized so that moving the pointer —
+ * which re-renders the chart on every mouse event — does not rebuild the Skia
+ * path for thousands of points on the JS thread.
+ */
+const ChartSeries = React.memo(function ChartSeries({ points, color }: { points: ChartPoint[]; color: string }) {
+    const defined = useMemo(() => points.filter((p) => p.yValue != null), [points]);
+
+    return (
+        <>
+            <Line points={defined as never} color={color} strokeWidth={2} />
+            <Scatter points={points as never} shape="circle" radius={1} style="fill" color={color} />
+        </>
+    );
+});
 
 /**
  * The vertical rule plus value labels shown while the pointer is over the
- * chart. Drawn in Skia rather than as an absolutely positioned overlay so it
- * shares the chart's coordinate space on every platform.
+ * chart. The rule follows the pointer exactly rather than snapping to a datum;
+ * each series reports its most recent value at or before that position.
  */
 function CursorOverlay({
-    active,
+    cursorX,
     points,
     visibleKeys,
     chartBounds,
     colorFor,
-    formatTick,
     font,
     dark,
 }: {
-    active: ChartPoint;
+    cursorX: number;
     points: unknown;
     visibleKeys: LeaderboardId[];
     chartBounds: { left: number; right: number; top: number; bottom: number };
     colorFor: (key: LeaderboardId) => string;
-    formatTick: (date: Date) => string;
     font: ReturnType<typeof useChartFont>;
     dark: boolean;
 }) {
-    const index = ((points as never)[visibleKeys[0]!] as ChartPoint[]).indexOf(active);
-    const dateLabel = formatTick(active.xValue instanceof Date ? active.xValue : new Date(active.xValue));
-
-    // Values for every visible series at the hovered x.
+    // Most recent datum at or before the pointer, per series — a step lookup,
+    // so the label holds the last known rating rather than jumping ahead.
     const entries = visibleKeys
-        .map((key) => ({ key, point: ((points as never)[key] as ChartPoint[])[index] }))
-        .filter((entry): entry is { key: LeaderboardId; point: ChartPoint } => entry.point?.yValue != null);
+        .map((key) => {
+            const series = (points as never)[key] as ChartPoint[];
+            let latest: ChartPoint | undefined;
+            for (const point of series) {
+                if (point.x > cursorX) break;
+                if (point.yValue != null) latest = point;
+            }
+            return latest ? { key, point: latest } : null;
+        })
+        .filter((entry): entry is { key: LeaderboardId; point: ChartPoint } => entry !== null);
 
-    // Flip the label to the other side of the rule near the right edge so it
-    // never runs off the chart.
-    const flip = active.x + LABEL_WIDTH + LABEL_PADDING > chartBounds.right;
-    const labelX = flip ? active.x - LABEL_WIDTH - LABEL_PADDING : active.x + LABEL_PADDING;
+    if (entries.length === 0) return null;
+
+    const hovered = entries[entries.length - 1]!.point;
+    const dateLabel = formatCustom(hovered.xValue instanceof Date ? hovered.xValue : new Date(hovered.xValue), 'P');
+
+    // Flip to the left of the rule near the right edge so the box stays inside.
+    const flip = cursorX + LABEL_WIDTH > chartBounds.right;
+    const labelX = flip ? cursorX - LABEL_WIDTH : cursorX;
 
     return (
         <Group>
             <SkiaLine
-                p1={vec(active.x, chartBounds.top)}
-                p2={vec(active.x, chartBounds.bottom)}
+                p1={vec(cursorX, chartBounds.top)}
+                p2={vec(cursorX, chartBounds.bottom)}
                 color={dark ? '#DDDDDD' : '#333333'}
                 strokeWidth={1}
             />
@@ -212,7 +216,7 @@ function CursorOverlay({
                 y={chartBounds.top}
                 width={LABEL_WIDTH}
                 height={LABEL_HEIGHT * (entries.length + 1) + LABEL_PADDING}
-                color={dark ? '#000000DD' : '#000000BB'}
+                color={dark ? '#000000EE' : '#000000CC'}
             />
 
             {font ? (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import SkiaLoader from '@app/components/skia-loader';
 import type { IRatingChartProps } from '@app/view/components/rating-chart-skia';
 
@@ -15,6 +15,14 @@ const loadRatingChart = () => import('@app/view/components/rating-chart-skia');
 
 export type { IRatingChartProps };
 
+// Shown while the chart chunk (and, on web, CanvasKit) loads. Fills the same
+// box the chart will occupy so nothing shifts once it swaps in.
+const chartFallback = (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator animating size="small" color="#999" />
+    </View>
+);
+
 export default function RatingChart(props: IRatingChartProps) {
-    return <SkiaLoader getComponent={loadRatingChart} componentProps={props} fallback={<View style={{ flex: 1 }} />} />;
+    return <SkiaLoader getComponent={loadRatingChart} componentProps={props} fallback={chartFallback} />;
 }
