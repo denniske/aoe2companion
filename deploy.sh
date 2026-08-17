@@ -3,7 +3,7 @@
 # yarn deploy
 
 echo "🔍 Checking components with react compiler..."
-if ! yarn lint:compiler --strict; then
+if ! yarn lint:compiler --strict --failures-only; then
   echo "❌ React compiler check failed. Aborting deploy."
   exit 1
 fi

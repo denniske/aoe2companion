@@ -1,17 +1,10 @@
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import SkiaLoader from '@app/components/skia-loader';
 import RatingChartSkia, { IRatingChartProps } from '@app/view/components/rating-chart-skia';
 
-// Hoisted rather than written inline in JSX: React Compiler cannot lower a
-// dynamic `import()` expression and bails out on the whole component. The lazy
-// loading behaviour is unchanged — the import still only runs when SkiaLoader
-// calls this.
-//
-// The chart body lives in a separate module so that on web nothing touching
-// Skia (including the module-scope `matchFont` call) is evaluated until
-// CanvasKit has finished loading.
-const loadRatingChart = () => import('@app/view/components/rating-chart-skia');
+// Native only. Web resolves rating-chart.web.tsx instead, which must reach the
+// chart body through a dynamic import — see the comment there. Importing it
+// directly is fine here: CanvasKit is not involved on native.
 
 export type { IRatingChartProps };
 
@@ -54,13 +47,6 @@ export default function RatingChart(props: IRatingChartProps) {
     // }, []);
     //
     // if (!ready) return chartFallback;
-    //
-    // return <SkiaLoader getComponent={loadRatingChart} componentProps={props} fallback={chartFallback} />;
-
-
-
-
-
 
     return <RatingChartSkia {...props} />;
 }

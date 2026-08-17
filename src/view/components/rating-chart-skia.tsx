@@ -1,5 +1,5 @@
 import { StyleSheet, TextInput, View } from 'react-native';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { formatCustom, LeaderboardId } from '@nex/data';
 import { getLeaderboardColor } from '../../helper/colors';
 import { useAppTheme } from '../../theming';
@@ -30,7 +30,30 @@ type ChartPoint = { x: number; y: number | null; xValue: number | Date; yValue: 
 
 type ChartBounds = { left: number; right: number; top: number; bottom: number };
 
-type Geometry = { points: Record<string, ChartPoint[]>; chartBounds: ChartBounds };
+type Geometry = {
+    points: Record<string, ChartPoint[]>;
+    chartBounds: ChartBounds;
+    /**
+     * The inputs `points` was derived from. The chart hands us freshly built
+     * arrays on every draw, so identity tells us nothing about whether the
+     * geometry actually moved — but it is a pure function of these three, and
+     * the first two are memoized. Comparing them lets `publishGeometry` bail
+     * out of the vast majority of publishes without walking the points.
+     */
+    source: { data: Record<string, unknown>[]; keys: string[] };
+};
+
+function sameGeometry(prev: Geometry | null, next: Geometry) {
+    return (
+        prev != null &&
+        prev.source.data === next.source.data &&
+        prev.source.keys === next.source.keys &&
+        prev.chartBounds.left === next.chartBounds.left &&
+        prev.chartBounds.right === next.chartBounds.right &&
+        prev.chartBounds.top === next.chartBounds.top &&
+        prev.chartBounds.bottom === next.chartBounds.bottom
+    );
+}
 
 type Series = {
     /** Unique data key. NOT the leaderboard id — see the comment in `dataset`. */
@@ -50,8 +73,32 @@ export default function RatingChartSkia(props: IRatingChartProps) {
     const containerRef = useRef<View | null>(null);
 
     // Point positions and plot bounds, published by the chart's render callback
-    // for the overlay to read. A ref, so publishing costs no render.
-    const geometryRef = useRef<Geometry | null>(null);
+    // for the overlay to read. State rather than a ref: the overlay derives
+    // rendered output from it, and a ref read during render is neither correct
+    // under concurrent rendering nor accepted by the React Compiler. The
+    // equality bail-out in `publishGeometry` keeps this from costing a render
+    // per draw — it only re-renders when the geometry genuinely moved.
+    const [geometry, setGeometry] = useState<Geometry | null>(null);
+
+    // Last value handed to `setGeometry`, tracked separately from the state
+    // itself because the guard has to work before the deferred update lands —
+    // otherwise a burst of draws in one frame would queue several updates.
+    const publishedRef = useRef<Geometry | null>(null);
+
+    const publishGeometry = (next: Geometry) => {
+        if (sameGeometry(publishedRef.current, next)) return;
+        publishedRef.current = next;
+
+        // Deferred, because the chart calls this from inside its own render.
+        // Setting state there is an update during another component's render
+        // ("Cannot update a component while rendering a different component"),
+        // and an effect is no use: the chart re-renders itself after measuring
+        // layout without re-rendering us, so our effects would not run for the
+        // draw that actually produces the geometry. A microtask lands right
+        // after the current commit. The overlay is a hover affordance, so being
+        // one tick behind the first paint is not observable.
+        queueMicrotask(() => setGeometry(next));
+    };
 
 
     const dataset = useMemo(() => {
@@ -164,7 +211,11 @@ export default function RatingChartSkia(props: IRatingChartProps) {
                 ]}
             >
                 {({ points, chartBounds }) => {
-                    geometryRef.current = { points: points as never, chartBounds };
+                    publishGeometry({
+                        points: points as never,
+                        chartBounds,
+                        source: { data: dataset.data, keys: yKeys },
+                    });
                     // measure();
 
                     return (
@@ -183,7 +234,7 @@ export default function RatingChartSkia(props: IRatingChartProps) {
                 costs nothing, and layout measures the labels for us. */}
             {allowMouseInteraction ? (
                 <CursorOverlay
-                    geometryRef={geometryRef}
+                    geometry={geometry}
                     visibleSeries={visibleSeries}
                     dark={theme.dark}
                 />
@@ -232,11 +283,11 @@ const ChartSeries = React.memo(function ChartSeries({ points, color }: { points:
  * from a worklet.
  */
 function CursorOverlay({
-    geometryRef,
+    geometry,
     visibleSeries,
     dark,
 }: {
-    geometryRef: React.RefObject<Geometry | null>;
+    geometry: Geometry | null;
     visibleSeries: Series[];
     dark: boolean;
 }) {
@@ -275,7 +326,6 @@ function CursorOverlay({
         return () => document.removeEventListener('pointermove', onMove);
     }, [cursorX]);
 
-    const geometry = geometryRef.current;
     const points = geometry?.points ?? {};
     const bounds = geometry?.chartBounds ?? { left: 0, right: 0, top: 0, bottom: 0 };
 
