@@ -69,7 +69,7 @@ export const useFollowedAndMeProfileIds = () =>
 export const useProfile = (profileId: number, extend: string = 'avatar_medium_url,avatar_full_url') => {
     const language = useLanguage();
     return useQuery({
-        queryKey: ['profile', profileId, extend],
+        queryKey: ['profile', profileId, extend, language],
         queryFn: () => fetchProfile({ language: language!, profileId, extend }),
         enabled: !!language && !!profileId,
     });
@@ -78,7 +78,7 @@ export const useProfile = (profileId: number, extend: string = 'avatar_medium_ur
 export const useMatch = (matchId: number) => {
     const language = useLanguage();
     return useQuery({
-        queryKey: ['match', matchId],
+        queryKey: ['match', matchId, language],
         queryFn: () => fetchMatch({ language: language!, matchId }),
         enabled: !!language && !!matchId,
     });
@@ -97,7 +97,7 @@ export const useLeaderboards = (enabled = true) => {
 export const useMatchAnalysis = (matchId: number, enabled: boolean) => {
     const language = useLanguage();
     return useQuery({
-        queryKey: ['match', matchId, 'analysis'],
+        queryKey: ['match', matchId, 'analysis', language],
         queryFn: () => fetchMatchAnalysis({ language: language!, matchId }),
         enabled: !!language && !!matchId && enabled,
     });
@@ -106,7 +106,7 @@ export const useMatchAnalysis = (matchId: number, enabled: boolean) => {
 export const useMatchAnalysisSvg = (matchId: number, enabled: boolean) => {
     const language = useLanguage();
     return useQuery({
-        queryKey: ['match', matchId, 'analysis', 'svg'],
+        queryKey: ['match', matchId, 'analysis', 'svg', language],
         queryFn: () => fetchMatchAnalysisSvg({ language: language!, matchId }),
         enabled: !!language && !!matchId && enabled,
     });
@@ -116,7 +116,7 @@ const PROFILE_EXTEND = 'profiles.avatar_medium_url,profiles.avatar_full_url';
 
 export const profileFastQueryOptions = (profileId: number | null | undefined, language: string | undefined) =>
     queryOptions({
-        queryKey: ['profile-fast', profileId],
+        queryKey: ['profile-fast', profileId, language],
         queryFn: async () => {
             if (!profileId) return null;
             return (await fetchProfiles({ language: language!, profileIds: [profileId], extend: PROFILE_EXTEND })).profiles[0] ?? null;
@@ -126,7 +126,7 @@ export const profileFastQueryOptions = (profileId: number | null | undefined, la
 export const useProfileFast = (profileId: number | null | undefined, enabled: boolean = true) => {
     const language = useLanguage();
     return useQuery({
-        queryKey: ['profile-fast', profileId],
+        queryKey: ['profile-fast', profileId, language],
         queryFn: async () => {
             return (await fetchProfiles({ language: language!, profileIds: [profileId!], extend: PROFILE_EXTEND })).profiles[0];
         },
@@ -138,7 +138,7 @@ export const useProfilesBySearchInfiniteQuery = (search?: string) => {
     const language = useLanguage();
     const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
     return useInfiniteQuery({
-        queryKey: ['profiles-by-search', search],
+        queryKey: ['profiles-by-search', search, language],
         queryFn: (context) =>
             fetchProfiles({
                 ...context,
@@ -157,7 +157,7 @@ export const useProfilesBySteamId = (steamId?: string, enabled: boolean = true) 
     const language = useLanguage();
     const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
     return useQuery({
-        queryKey: ['profiles-by-steamid', steamId],
+        queryKey: ['profiles-by-steamid', steamId, language],
         queryFn: async () => {
             return (await fetchProfiles({ language: language!, steamId, extend })).profiles;
         },
@@ -169,7 +169,7 @@ export const useProfilesByClan = (clan?: string, enabled: boolean = true, params
     const language = useLanguage();
     const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
     return useQuery({
-        queryKey: ['profiles-by-clan', clan, params],
+        queryKey: ['profiles-by-clan', clan, params, language],
         queryFn: async () => {
             return (await fetchProfiles({ language: language!, clan, extend, ...params })).profiles;
         },
@@ -179,7 +179,7 @@ export const useProfilesByClan = (clan?: string, enabled: boolean = true, params
 
 export const profilesByProfileIdsQueryOptions = (profileIds: number[] | undefined, language: string | undefined) =>
     queryOptions({
-        queryKey: ['profiles-by-profileids', profileIds],
+        queryKey: ['profiles-by-profileids', profileIds, language],
         queryFn: async () => {
             if (!profileIds || profileIds.length === 0) return [];
             return (await fetchProfiles({ language: language!, profileIds, extend: PROFILE_EXTEND })).profiles;
@@ -190,7 +190,7 @@ export const useProfilesByProfileIds = (profileIds?: number[], enabled: boolean 
     const language = useLanguage();
     const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
     return useQuery({
-        queryKey: ['profiles-by-profileids', profileIds],
+        queryKey: ['profiles-by-profileids', profileIds, language],
         queryFn: async () => {
             return (await fetchProfiles({ language: language!, profileIds, extend })).profiles;
         },
@@ -202,7 +202,7 @@ export const useProfilesByLiquipediaNames = (liquipediaNames?: string[], enabled
     const language = useLanguage();
     const extend = 'profiles.avatar_medium_url,profiles.avatar_full_url';
     return useQuery({
-        queryKey: ['profiles', liquipediaNames],
+        queryKey: ['profiles', liquipediaNames, language],
         queryFn: async () => {
             return (await fetchProfiles({ language: language!, liquipediaNames, extend })).profiles;
         },
@@ -214,7 +214,7 @@ export const useProfileWithStats = (profileId: number, isFocused: boolean) => {
     const language = useLanguage();
     const extend = 'stats,profiles.avatar_medium_url,profiles.avatar_full_url';
     return useQuery({
-        queryKey: ['profile-with-stats', profileId],
+        queryKey: ['profile-with-stats', profileId, language],
         queryFn: () => fetchProfile({ language: language!, profileId, extend }),
         enabled: !!language && isFocused,
     });
@@ -237,7 +237,7 @@ export function useWithRefetching<TData, TError>(result: UseQueryResult<TData, T
 export const useMaps = () => {
     const language = useLanguage();
     return useQuery({
-        queryKey: ['maps'],
+        queryKey: ['maps', language],
         queryFn: () => fetchMaps({ language: language! }),
         enabled: !!language,
     });
@@ -246,7 +246,7 @@ export const useMaps = () => {
 export const useMapsRanked = () => {
     const language = useLanguage();
     return useQuery({
-        queryKey: ['maps-ranked'],
+        queryKey: ['maps-ranked', language],
         queryFn: () => fetchMapsRanked({ language: language! }),
         enabled: !!language && appConfig.game === 'aoe2',
     });
@@ -255,7 +255,7 @@ export const useMapsRanked = () => {
 export const useMapsPoll = () => {
     const language = useLanguage();
     return useQuery({
-        queryKey: ['maps-poll'],
+        queryKey: ['maps-poll', language],
         queryFn: () => fetchMapsPoll({ language: language! }),
         enabled: !!language && appConfig.game === 'aoe2',
     });
