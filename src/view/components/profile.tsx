@@ -177,8 +177,8 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                     {!!(data?.socialDiscordInvitationUrl && data?.socialDiscordInvitation) && (
                         <DiscordBadge invitationUrl={data?.socialDiscordInvitationUrl} invitation={data?.socialDiscordInvitation} />
                     )}
-                    {!!(data?.socialYoutubeChannelUrl) && <YoutubeBadge channelUrl={data?.socialYoutubeChannelUrl} />}
-                    {!!(data?.socialDouyuChannelUrl) && <DouyuBadge channelUrl={data?.socialDouyuChannelUrl} />}
+                    {!!data?.socialYoutubeChannelUrl && <YoutubeBadge channelUrl={data?.socialYoutubeChannelUrl} />}
+                    {!!data?.socialDouyuChannelUrl && <DouyuBadge channelUrl={data?.socialDouyuChannelUrl} />}
                     {!!(data?.socialTwitchChannelUrl && data?.socialTwitchChannel) && (
                         <TwitchBadge channelUrl={data?.socialTwitchChannelUrl} channel={data?.socialTwitchChannel} />
                     )}
@@ -189,7 +189,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 <View className="gap-x-2 flex-row items-center">
                     <Translated
                         text={getTranslation('main.profile.signup')}
-                        components={{ button: <Button href="/more/account">{getTranslation('main.profile.signup.button')}</Button> }}
+                        components={{ button: (label) => <Button href="/more/account">{label}</Button> }}
                     />
                 </View>
             )}

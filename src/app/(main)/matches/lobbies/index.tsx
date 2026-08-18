@@ -17,8 +17,6 @@ import { faExclamationTriangle, faGamepad } from '@fortawesome/free-solid-svg-ic
 
 export default function LiveLobbiesPage() {
     const getTranslation = useTranslation();
-    const theme = useAppTheme();
-    const [usage, setUsage] = useState(0);
     const [search, setSearch] = useState('');
     const [limit, setLimit] = useState(20);
 
@@ -51,7 +49,7 @@ export default function LiveLobbiesPage() {
                 {Platform.OS !== 'web' && (
                     <View className={cn('flex-row items-center justify-center p-4 gap-2', containerClassName)}>
                         <Icon icon={faExclamationTriangle} size={16} />
-                        <Text>{getTranslation('lobbies.datausagewarning', { usage: (usage / 1000000).toFixed(1) })}</Text>
+                        <Text>{getTranslation('lobbies.datausagewarning')}</Text>
                     </View>
                 )}
 

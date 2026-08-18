@@ -108,9 +108,9 @@ export default function ProfilePage() {
                             <Translated
                                 text={getTranslation('main.profile.signup')}
                                 components={{
-                                    button: (
+                                    button: (label) => (
                                         <Button size="small" href="/more/account" className="min-h-[26px]">
-                                            {getTranslation('main.profile.signup.button')}
+                                            {label}
                                         </Button>
                                     ),
                                 }}

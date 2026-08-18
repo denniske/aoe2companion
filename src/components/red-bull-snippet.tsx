@@ -40,9 +40,9 @@ export const RedBullSnippet: React.FC = () => {
                         <Translated
                             text={getTranslation('redbull.snippet.compete.signup')}
                             components={{
-                                link: (
+                                link: (label) => (
                                     <Link variant="body" onPress={showLoginPopup}>
-                                        {getTranslation('redbull.snippet.compete.signingup')}
+                                        {label}
                                     </Link>
                                 ),
                             }}
@@ -51,11 +51,11 @@ export const RedBullSnippet: React.FC = () => {
                 ) : authProfileId ? (
                     <Text className="text-center md:text-left">
                         <Translated
-                            text={getTranslation('redbull.snippet.compete.profile')}
+                            text={getTranslation('redbull.snippet.compete.viewprofile')}
                             components={{
-                                link: (
+                                link: (label) => (
                                     <Link variant="body" href={`/players/${authProfileId}`}>
-                                        {getTranslation('redbull.snippet.compete.viewprofile')}
+                                        {label}
                                     </Link>
                                 ),
                             }}
@@ -64,11 +64,11 @@ export const RedBullSnippet: React.FC = () => {
                 ) : (
                     <Text className="text-center md:text-left">
                         <Translated
-                            text={getTranslation('redbull.snippet.compete.profile')}
+                            text={getTranslation('redbull.snippet.compete.selectprofile')}
                             components={{
-                                link: (
+                                link: (label) => (
                                     <Link variant="body" href={`/players/select`}>
-                                        {getTranslation('redbull.snippet.compete.selectprofile')}
+                                        {label}
                                     </Link>
                                 ),
                             }}
