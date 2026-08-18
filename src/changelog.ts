@@ -378,6 +378,12 @@ export const changelog: IChangelog = {
     //         content: 'A live activity will now also correctly open the match detail page when tapping on the dynamic island',
     //     },
     // ],
+    '213.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Added missing translations using AI',
+        },
+    ],
     '212.0.0': [
         {
             type: 'bugfix',
