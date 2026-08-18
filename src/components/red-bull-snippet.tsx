@@ -11,6 +11,7 @@ import { Link } from './link';
 import { Link as ExpoLink } from 'expo-router';
 import { END_DATE } from './red-bull-wololo-live-standings/dates';
 import { isPast } from 'date-fns';
+import { Translated } from '@app/components/translated';
 import { useTranslation } from '@app/helper/translate';
 
 export const RedBullSnippet: React.FC = () => {
@@ -36,27 +37,42 @@ export const RedBullSnippet: React.FC = () => {
                     </Text>
                 ) : shouldPromptLogin ? (
                     <Text className="text-center md:text-left">
-                        {getTranslation('redbull.snippet.compete.before')}{' '}
-                        <Link variant="body" onPress={showLoginPopup}>
-                            {getTranslation('redbull.snippet.compete.signingup')}
-                        </Link>{' '}
-                        {getTranslation('redbull.snippet.compete.signup.after')}
+                        <Translated
+                            text={getTranslation('redbull.snippet.compete.signup')}
+                            components={{
+                                link: (
+                                    <Link variant="body" onPress={showLoginPopup}>
+                                        {getTranslation('redbull.snippet.compete.signingup')}
+                                    </Link>
+                                ),
+                            }}
+                        />
                     </Text>
                 ) : authProfileId ? (
                     <Text className="text-center md:text-left">
-                        {getTranslation('redbull.snippet.compete.before')}{' '}
-                        <Link variant="body" href={`/players/${authProfileId}`}>
-                            {getTranslation('redbull.snippet.compete.viewprofile')}
-                        </Link>
-                        .
+                        <Translated
+                            text={getTranslation('redbull.snippet.compete.profile')}
+                            components={{
+                                link: (
+                                    <Link variant="body" href={`/players/${authProfileId}`}>
+                                        {getTranslation('redbull.snippet.compete.viewprofile')}
+                                    </Link>
+                                ),
+                            }}
+                        />
                     </Text>
                 ) : (
                     <Text className="text-center md:text-left">
-                        {getTranslation('redbull.snippet.compete.before')}{' '}
-                        <Link variant="body" href={`/players/select`}>
-                            {getTranslation('redbull.snippet.compete.selectprofile')}
-                        </Link>
-                        .
+                        <Translated
+                            text={getTranslation('redbull.snippet.compete.profile')}
+                            components={{
+                                link: (
+                                    <Link variant="body" href={`/players/select`}>
+                                        {getTranslation('redbull.snippet.compete.selectprofile')}
+                                    </Link>
+                                ),
+                            }}
+                        />
                     </Text>
                 )}
 

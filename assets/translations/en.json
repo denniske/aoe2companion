@@ -195,8 +195,7 @@
     "main.profile.follow": "Follow",
     "main.profile.unfollow": "Unfollow",
     "main.profile.linkedprofiles": "Linked Profiles",
-    "main.profile.signup": "Sign up",
-    "main.profile.signup.note": "to manage your profile.",
+    "main.profile.signup": "{button} to manage your profile.",
     "main.matches.search.placeholder": "Search by player",
     "main.matches.withme": "me",
     "main.matches.matches": "{matches} matches",
@@ -394,7 +393,6 @@
     "about.source.and": "and",
     "about.source.at": "at",
     "about.legal.privacypolicy": "Privacy Policy",
-    "about.legal.gamecontentusagerules": "Game Content Usage Rules",
     "changelogsnackbar.appupdated": "App has been updated.",
     "changelogsnackbar.showchanges": "Show Changes",
     "updatesnackbar.update.downloadingupdate": "Downloading update",
@@ -1007,9 +1005,9 @@
     "redbull.snippet.description": "Track real-time rankings, win streaks, and qualification spots as AoE II players compete for a place at Red Bull Wololo: Londinium.",
     "redbull.snippet.description.complete": "The ladder qualifier for Red Bull Wololo: Londinium has concluded.",
     "redbull.snippet.complete.note": "Explore the final standings, qualification cut-off, and top performers from the event.",
-    "redbull.snippet.compete.before": "Anyone can compete for a spot! Track your ranking by",
+    "redbull.snippet.compete.signup": "Anyone can compete for a spot! Track your ranking by {link} for an account.",
     "redbull.snippet.compete.signingup": "signing up",
-    "redbull.snippet.compete.signup.after": "for an account.",
+    "redbull.snippet.compete.profile": "Anyone can compete for a spot! Track your ranking by {link}.",
     "redbull.snippet.compete.viewprofile": "viewing your profile",
     "redbull.snippet.compete.selectprofile": "selecting your profile",
     "redbull.snippet.standings.live": "Standings update automatically during live matches",
@@ -1025,5 +1023,6 @@
     "matchanalysis.resources.explanation": "Total resources (wood + food + gold + stone)",
     "matchanalysis.objects.title": "Objects",
     "matchanalysis.objects.description": "Total objects",
-    "matchanalysis.objects.explanation": "Total number of objects (include foundation), when a unit is lost, this counter updates after its displayable objects (body) dies"
+    "matchanalysis.objects.explanation": "Total number of objects (include foundation), when a unit is lost, this counter updates after its displayable objects (body) dies",
+    "main.profile.signup.button": "Sign up"
 }

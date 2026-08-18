@@ -244,7 +244,7 @@ export default function IndexPage() {
 
                             <Card className="items-center md:justify-between md:flex-row gap-4" direction="vertical">
                                 <Text variant="header-lg" className="text-center">
-<                                    {getTranslation('home.buy')}{' '}
+                                    {getTranslation('home.buy')}{' '}
                                     <Text variant="header-lg" className="italic">
                                         Age of Empires II: Definitive Edition
                                     </Text>

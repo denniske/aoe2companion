@@ -20,6 +20,7 @@ import { sumBy } from 'lodash';
 import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import NotFound from '@app/app/(main)/+not-found';
 import { useTranslation } from '@app/helper/translate';
+import { Translated } from '@app/components/translated';
 
 type UserPageParams = {
     profileId: string;
@@ -104,10 +105,16 @@ export default function ProfilePage() {
 
                     {!loggedIn && authProfileId === profileId && (
                         <View className="gap-x-1 flex-row items-center">
-                            <Button size="small" href="/more/account" className="min-h-[26px]">
-                                {getTranslation('main.profile.signup')}
-                            </Button>
-                            <TextComponent>{getTranslation('main.profile.signup.note')}</TextComponent>
+                            <Translated
+                                text={getTranslation('main.profile.signup')}
+                                components={{
+                                    button: (
+                                        <Button size="small" href="/more/account" className="min-h-[26px]">
+                                            {getTranslation('main.profile.signup.button')}
+                                        </Button>
+                                    ),
+                                }}
+                            />
                         </View>
                     )}
                 </View>

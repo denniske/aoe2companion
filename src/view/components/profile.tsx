@@ -21,6 +21,7 @@ import { Skeleton } from '@app/view/components/loader/skeleton';
 import { AnimateIn } from '@app/components/animate-in';
 import { faComputerMouse, faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from '@app/helper/translate';
+import { Translated } from '@app/components/translated';
 
 interface ILeaderboardRowProps {
     data: IProfileLeaderboardResult;
@@ -186,8 +187,10 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
 
             {!loggedIn && authProfileId === profileId && (
                 <View className="gap-x-2 flex-row items-center">
-                    <Button href="/more/account">{getTranslation('main.profile.signup')}</Button>
-                    <MyText>{getTranslation('main.profile.signup.note')}</MyText>
+                    <Translated
+                        text={getTranslation('main.profile.signup')}
+                        components={{ button: <Button href="/more/account">{getTranslation('main.profile.signup.button')}</Button> }}
+                    />
                 </View>
             )}
 
