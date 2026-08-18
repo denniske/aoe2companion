@@ -1,5 +1,6 @@
 import { Text } from 'react-native';
 import { ComponentType, useEffect, useState } from 'react';
+import { useTranslation } from '@app/helper/translate';
 
 interface SkiaLoaderProps {
     getComponent: () => Promise<{ default: React.ComponentType<any> }>;
@@ -7,10 +8,15 @@ interface SkiaLoaderProps {
     fallback?: React.ReactNode;
 }
 
+function DefaultFallback() {
+    const getTranslation = useTranslation();
+    return <Text>{getTranslation('common.loading')}</Text>;
+}
+
 // Hoisted rather than written inline as a default value: React Compiler cannot
 // reorder a JSX element used as a destructuring default, and bails out on the
 // whole component.
-const defaultFallback = <Text>Loading...</Text>;
+const defaultFallback = <DefaultFallback />;
 
 export default function SkiaLoader({
                                        getComponent,

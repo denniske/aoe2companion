@@ -8,8 +8,10 @@ import { useMemo } from 'react';
 import { Link } from 'expo-router';
 import { formatAgo } from '@nex/data';
 import { orderBy } from 'lodash';
+import { useTranslation } from '@app/helper/translate';
 
 export const FeaturedVideos = () => {
+    const getTranslation = useTranslation();
     const { data: videos } = useFeaturedVideos();
     const { isSmall, isMedium, isLarge } = useBreakpoints();
 
@@ -27,7 +29,7 @@ export const FeaturedVideos = () => {
 
     return (
         <View className="gap-2">
-            <Text variant="header-lg">Recent Videos</Text>
+            <Text variant="header-lg">{getTranslation('home.recentvideos')}</Text>
 
             <View className="flex flex-row gap-2.5">
                 {orderBy(videos?.slice(0, count), 'publishDate', 'desc')?.map((video) => (

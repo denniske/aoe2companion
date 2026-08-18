@@ -99,13 +99,14 @@ export async function loadTranslatonStringsAsync(language: string): Promise<any>
         return require('../../assets/translations/en.json');
     } else {
         console.log('Loading translation strings for', language);
-        if (appConfig.game === 'aoe2') {
+        // return require(`../../assets/translations/${language}.json`);
+        // if (appConfig.game === 'aoe2') {
             let response = await fetch(
                 `https://i18n.cdn.aoe2companion.com/translations/${language}.json`
             );
             return await response.json();
-        }
-        return {};
+        // }
+        // return {};
     }
 }
 

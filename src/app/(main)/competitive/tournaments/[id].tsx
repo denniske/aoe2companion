@@ -255,7 +255,7 @@ export default function TournamentDetail() {
                         {hasResults || tournament.format ? (
                             <View className="gap-2 px-4">
                                 <View className="flex-row items-center justify-between">
-                                    <Text variant="header">Results</Text>
+                                    <Text variant="header">{getTranslation('tournaments.results')}</Text>
                                     {tournament.format && hasResults ? (
                                         <PressableOpacity onPress={() => setShowFormatNote((val) => !val)}>
                                             <Icon icon={faInfoCircle} color="brand" />

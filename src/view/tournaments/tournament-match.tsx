@@ -9,6 +9,7 @@ import { View, ViewStyle } from 'react-native';
 import { PlayoffParticipant } from './playoffs/participant';
 import { PlayoffPopup } from './playoffs/popup';
 import { formatDateAndTime } from '@nex/data';
+import { useTranslation } from '@app/helper/translate';
 
 export type TournamentMatchProps = {
     games?: IPlayoffMatch['games'];
@@ -16,6 +17,7 @@ export type TournamentMatchProps = {
 } & Omit<IPlayoffMatch, 'games' | 'links'>;
 
 export const TournamentMatch: React.FC<{ match: TournamentMatchProps; style?: ViewStyle; onPress?: () => void }> = ({ match, style, onPress }) => {
+    const getTranslation = useTranslation();
     const [visible, setVisible] = useState(false);
 
     if (!match) {
@@ -35,7 +37,7 @@ export const TournamentMatch: React.FC<{ match: TournamentMatchProps; style?: Vi
                 </View>
             )}
             {!!match.startTime && <Text color="brand">{formatDateAndTime(match.startTime)}</Text>}
-            {!match.startTime && <Text color="brand">Not scheduled yet</Text>}
+            {!match.startTime && <Text color="brand">{getTranslation('tournaments.notscheduledyet')}</Text>}
             {match.participants.map((participant, index) => (
                 <View className="flex-row" key={index}>
                     <PlayoffParticipant size={12} participant={participant} winner={match.winner === index} />

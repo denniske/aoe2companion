@@ -18,8 +18,10 @@ import NotFound from '@app/app/(main)/+not-found';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { useCivVideo } from '@app/utils/video';
 import { Text } from '@app/components/text';
+import { useTranslation } from '@app/helper/translate';
 
 export default function CivDetails() {
+    const getTranslation = useTranslation();
     const { name } = useLocalSearchParams<{ name: Civ }>();
     const civ = name!;
     const { theme } = useUniwind();
@@ -58,7 +60,7 @@ export default function CivDetails() {
                         <MyText style={styles.content}>{type}</MyText>
 
                         <View style={styles.box}>
-                            <MyText style={styles.heading}>Bonus</MyText>
+                            <MyText style={styles.heading}>{getTranslation('civ.heading.bonus')}</MyText>
                             {boni.map((bonus, i) => (
                                 <View key={i} style={styles.bonusRow}>
                                     <MyText style={styles.bullet}>• </MyText>
@@ -92,8 +94,8 @@ export default function CivDetails() {
 
                         {!!(video) && (
                             <View className="py-4 gap-0.5">
-                                <Text variant="header-lg">Video Guide</Text>
-                                <Text variant="label-sm">By {video.author}</Text>
+                                <Text variant="header-lg">{getTranslation('civ.heading.videoguide')}</Text>
+                                <Text variant="label-sm">{getTranslation('civ.videoguide.author', { author: video.author })}</Text>
                                 <Link
                                     href={`https://www.youtube.com/watch?v=${video.videoId}`}
                                     target="_blank"

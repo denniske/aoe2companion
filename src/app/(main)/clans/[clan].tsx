@@ -44,18 +44,18 @@ export default function SearchPage() {
 
     return (
         <ScrollView contentContainerClassName="p-4 md:py-6 gap-6">
-            <Stack.Screen options={{ title: `Clan ${clan}` }} />
+            <Stack.Screen options={{ title: getTranslation('clan.title', { clan }) }} />
 
             <View className="gap-2 -mx-4">
                 <View className={cn('flex-row justify-between items-center', containerClassName)}>
-                    <Text variant="header-lg">Members</Text>
+                    <Text variant="header-lg">{getTranslation('clan.members')}</Text>
                 </View>
                 <PlayerList list={profiles} variant="horizontal" />
             </View>
 
             <View className="gap-2">
                 <View className="flex-row justify-between items-center gap-4 lg:gap-8">
-                    <Text variant="header-lg">Rankings</Text>
+                    <Text variant="header-lg">{getTranslation('clan.rankings')}</Text>
 
                     {!!(leaderboards && leaderboard) && (
                         <View className="w-full flex-1 hidden lg:flex">

@@ -65,7 +65,7 @@ export default function CivAvailability({ tech, unit, building }: CivAvailabilit
                                 </PressableOpacity>
                             </Link>
                         ))}
-                    {availableForOneCivs && <MyText>All other civs</MyText>}
+                    {availableForOneCivs && <MyText>{getTranslation('unit.availability.allothercivs')}</MyText>}
                 </View>
             </View>
         </View>

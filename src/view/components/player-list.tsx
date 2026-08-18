@@ -14,6 +14,7 @@ import { useAuthProfileId } from '@app/queries/all';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 import { CustomFragment } from '@app/components/custom-fragment';
+import { useTranslation } from '@app/helper/translate';
 
 export interface IPlayerListPlayer {
     country?: string;
@@ -50,6 +51,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
     playerStyle,
     shouldLink,
 }: IPlayerProps<PlayerType>) {
+    const getTranslation = useTranslation();
     const { isMedium } = useBreakpoints();
     const authProfileId = useAuthProfileId();
 
@@ -85,7 +87,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 <View className="absolute inset-0 items-center justify-center gap-2">
                     <Icon icon={faUser} color="brand" size={isMedium ? 48 : 28} />
                     <Text numberOfLines={1} variant={isMedium ? 'label' : 'body-sm'} allowFontScaling={false}>
-                        Find Me
+                        {getTranslation('playerlist.findme')}
                     </Text>
                 </View>
             </UserLoginWrapper>
@@ -106,7 +108,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 <View className="absolute inset-0 items-center justify-center gap-2">
                     <Icon icon={faPlus} color="brand" size={isMedium ? 48 : 28} />
                     <Text numberOfLines={1} variant={isMedium ? 'label' : 'body-sm'} allowFontScaling={false}>
-                        Add Player
+                        {getTranslation('playerlist.addplayer')}
                     </Text>
                 </View>
             </UserLoginWrapper>

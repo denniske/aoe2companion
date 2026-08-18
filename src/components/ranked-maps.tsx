@@ -14,8 +14,10 @@ import { AnimateIn } from './animate-in';
 import { LeaderboardSnapshot } from './leaderboard-snapshot';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { Button } from './button';
+import { useTranslation } from '@app/helper/translate';
 
 export const RankedMaps: React.FC = () => {
+    const getTranslation = useTranslation();
     const { data: mapsRanked, isPending: isLoadingRankedMaps } = useMapsRanked();
     const { data: mapsPoll } = useMapsPoll();
 
@@ -39,14 +41,14 @@ export const RankedMaps: React.FC = () => {
                 {!!mapsPoll && (
                     <View className="flex-row justify-between items-center mb-4">
                         {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired }) ? (
-                            <Text variant="body">New Map Rotation on {formatDayAndTime(mapsPoll.expired)}</Text>
+                            <Text variant="body">{getTranslation('maps.rotation.newon', { date: formatDayAndTime(mapsPoll.expired) })}</Text>
                         ) : (
-                            <Text variant="body">Maps active since {formatDayAndTime(mapsPoll.expired)}</Text>
+                            <Text variant="body">{getTranslation('maps.rotation.activesince', { date: formatDayAndTime(mapsPoll.expired) })}</Text>
                         )}
                         {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ? (
-                            <Link href="/explore/maps/poll">View Active Poll</Link>
+                            <Link href="/explore/maps/poll">{getTranslation('maps.poll.viewactive')}</Link>
                         ) : (
-                            <Link href="/explore/maps/poll">View Poll Results</Link>
+                            <Link href="/explore/maps/poll">{getTranslation('maps.poll.viewresults')}</Link>
                         )}
                     </View>
                 )}
@@ -71,19 +73,19 @@ export const RankedMaps: React.FC = () => {
                     <View className="md:flex-row gap-4">
                         <View className="hidden md:flex md:flex-1">
                             <Text variant="header-xs" className="pb-2">
-                                Top 5 Players
+                                {getTranslation('maps.top5players')}
                             </Text>
 
                             <LeaderboardSnapshot leaderboardId={rankedMapLeaderboard ?? firstValue} />
 
                             <View className="flex flex-row gap-4 justify-center">
                                 <Button href="/statistics/leaderboard" className="self-center mt-2">
-                                    View Full Leaderboard
+                                    {getTranslation('maps.viewfullleaderboard')}
                                 </Button>
                                 {Platform.OS === 'web' && rankedMapLeaderboard === 'ew_1v1_redbullwololo' ? (
                                     <ExpoLink className="flex rounded self-center mt-2" href="/red-bull-wololo-live-standings" target="_blank">
                                         <Button>
-                                            View Live Standings
+                                            {getTranslation('maps.viewlivestandings')}
                                         </Button>
                                     </ExpoLink>
                                 ) : null}
@@ -91,7 +93,7 @@ export const RankedMaps: React.FC = () => {
                         </View>
                         <View className="md:flex-1">
                             <Text variant="header-xs" className="pb-2 hidden md:flex">
-                                Current Maps
+                                {getTranslation('maps.currentmaps')}
                             </Text>
 
                             <View className="flex-row flex-wrap md:flex-1">

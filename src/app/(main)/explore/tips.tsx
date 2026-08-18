@@ -266,6 +266,7 @@ function ImageTip(props: any) {
 function NoPreviewTip(props: any) {
     const { active } = props;
     const styles = useStyles();
+    const getTranslation = useTranslation();
 
     return (
         <View
@@ -278,7 +279,7 @@ function NoPreviewTip(props: any) {
                 },
             ]}
         >
-            <MyText>No Preview</MyText>
+            <MyText>{getTranslation('tips.nopreview')}</MyText>
         </View>
     );
 }

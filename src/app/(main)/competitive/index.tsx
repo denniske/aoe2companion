@@ -321,7 +321,7 @@ export default function Competitive() {
                             <>
                                 {Platform.OS === 'ios' && (
                                     <Button className="self-start" onPress={playTwitchStream}>
-                                        Open Stream
+                                        {getTranslation('competitive.twitchStream.openstream')}
                                     </Button>
                                 )}
                                 {Platform.OS !== 'ios' && (

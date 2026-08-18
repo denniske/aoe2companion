@@ -105,7 +105,7 @@ export const ProfileLeaderboardModal = ({
                                     </View>
 
                                     <View className="flex-row items-center gap-4 relative">
-                                        <Text variant="header-lg">Rating History</Text>
+                                        <Text variant="header-lg">{getTranslation('profilemodal.ratinghistory')}</Text>
                                         <View className="flex-1" />
                                         <TimespanSelect
                                             ratingHistoryDuration={ratingHistoryDuration}
@@ -159,7 +159,7 @@ export const ProfileLeaderboardModal = ({
                                                 {!!(isLoadingComparison) && <ActivityIndicator animating color="#999" />}
 
                                                 <View className="flex-row gap-4 items-center">
-                                                    <Text variant="label">Compare With</Text>
+                                                    <Text variant="label">{getTranslation('profilemodal.comparewith')}</Text>
                                                     <InlinePlayerSearch
                                                         showViewAll={false}
                                                         onSelect={({ profileId }) => setComparedProfileId(profileId)}
@@ -169,7 +169,7 @@ export const ProfileLeaderboardModal = ({
                                         </View>
                                     )}
 
-                                    <Text variant="header-lg">Statistics</Text>
+                                    <Text variant="header-lg">{getTranslation('profilemodal.statistics')}</Text>
 
                                     <View className="grid grid-cols-3 gap-4 items-start">
                                         {(

@@ -20,6 +20,7 @@ import { getUnitLineIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
 import { MyText } from '../components/my-text';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
+import { useTranslation } from '@app/helper/translate';
 
 function CounterUnit({ unitLineId }: { unitLineId: UnitLine }) {
     const styles = useStyles();
@@ -36,6 +37,7 @@ function CounterUnit({ unitLineId }: { unitLineId: UnitLine }) {
 }
 
 export default function UnitCounters({ unitId }: { unitId: Unit }) {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const unitLineId = getUnitLineIdForUnit(unitId);
     const unitLine = unitLines[unitLineId];
@@ -54,22 +56,22 @@ export default function UnitCounters({ unitId }: { unitId: Unit }) {
     return (
         <View>
             <View style={styles.row}>
-                <MyText style={styles.header1}>Counters</MyText>
+                <MyText style={styles.header1}>{getTranslation('unit.counters.title')}</MyText>
             </View>
             <View style={styles.row}>
                 <View style={styles.checkboxCell}>
-                    <CheckboxNew checked={showUniqueUnits} onPress={toggleUniqueUnits} text={'Display Unique Units'} />
+                    <CheckboxNew checked={showUniqueUnits} onPress={toggleUniqueUnits} text={getTranslation('unit.counters.displayuniqueunits')} />
                 </View>
             </View>
             <View>
                 <View style={styles.row}>
-                    <MyText style={styles.header2}>Weak vs.</MyText>
+                    <MyText style={styles.header2}>{getTranslation('unit.counters.weakvs')}</MyText>
                 </View>
                 {sortedUnitCounters.map((counterUnit) => (
                     <CounterUnit key={counterUnit} unitLineId={counterUnit} />
                 ))}
                 <View style={styles.row}>
-                    <MyText style={styles.header2}>Strong vs.</MyText>
+                    <MyText style={styles.header2}>{getTranslation('unit.counters.strongvs')}</MyText>
                 </View>
                 {sortedInferiorUnits.map((counterUnit) => (
                     <CounterUnit key={counterUnit} unitLineId={counterUnit} />

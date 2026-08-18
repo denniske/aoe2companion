@@ -11,8 +11,10 @@ import { Link } from './link';
 import { Link as ExpoLink } from 'expo-router';
 import { END_DATE } from './red-bull-wololo-live-standings/dates';
 import { isPast } from 'date-fns';
+import { useTranslation } from '@app/helper/translate';
 
 export const RedBullSnippet: React.FC = () => {
+    const getTranslation = useTranslation();
     const { shouldPromptLogin, showLoginPopup } = useLoginPopup();
     const authProfileId = useAuthProfileId();
     const isPastDeadline = isPast(END_DATE);
@@ -23,38 +25,36 @@ export const RedBullSnippet: React.FC = () => {
 
             <View className="flex-1 gap-3">
                 <Text variant="header" className="text-center md:text-left">
-                    {isPastDeadline ? 'Red Bull Wololo: Ladder Qualifier — Complete' : 'Red Bull Wololo: Ladder Qualifier'}
+                    {getTranslation(isPastDeadline ? 'redbull.snippet.title.complete' : 'redbull.snippet.title')}
                 </Text>
                 <Text className="text-center md:text-left">
-                    {isPastDeadline
-                        ? 'The ladder qualifier for Red Bull Wololo: Londinium has concluded.'
-                        : 'Track real-time rankings, win streaks, and qualification spots as AoE II players compete for a place at Red Bull Wololo: Londinium.'}
+                    {getTranslation(isPastDeadline ? 'redbull.snippet.description.complete' : 'redbull.snippet.description')}
                 </Text>
                 {isPastDeadline ? (
                     <Text className="text-center md:text-left">
-                        Explore the final standings, qualification cut-off, and top performers from the event.
+                        {getTranslation('redbull.snippet.complete.note')}
                     </Text>
                 ) : shouldPromptLogin ? (
                     <Text className="text-center md:text-left">
-                        Anyone can compete for a spot! Track your ranking by{' '}
+                        {getTranslation('redbull.snippet.compete.before')}{' '}
                         <Link variant="body" onPress={showLoginPopup}>
-                            signing up
+                            {getTranslation('redbull.snippet.compete.signingup')}
                         </Link>{' '}
-                        for an account.
+                        {getTranslation('redbull.snippet.compete.signup.after')}
                     </Text>
                 ) : authProfileId ? (
                     <Text className="text-center md:text-left">
-                        Anyone can compete for a spot! Track your ranking by{' '}
+                        {getTranslation('redbull.snippet.compete.before')}{' '}
                         <Link variant="body" href={`/players/${authProfileId}`}>
-                            viewing your profile
+                            {getTranslation('redbull.snippet.compete.viewprofile')}
                         </Link>
                         .
                     </Text>
                 ) : (
                     <Text className="text-center md:text-left">
-                        Anyone can compete for a spot! Track your ranking by{' '}
+                        {getTranslation('redbull.snippet.compete.before')}{' '}
                         <Link variant="body" href={`/players/select`}>
-                            selecting your profile
+                            {getTranslation('redbull.snippet.compete.selectprofile')}
                         </Link>
                         .
                     </Text>
@@ -64,7 +64,7 @@ export const RedBullSnippet: React.FC = () => {
                     <Icon icon={isPastDeadline ? faSignalSlash : faSignal} color="subtle" size={14} />
 
                     <Text variant="body-sm" color="subtle" className="text-center md:text-left italic">
-                        {isPastDeadline ? 'Standings are now final.' : 'Standings update automatically during live matches'}
+                        {getTranslation(isPastDeadline ? 'redbull.snippet.standings.final' : 'redbull.snippet.standings.live')}
                     </Text>
                 </View>
             </View>

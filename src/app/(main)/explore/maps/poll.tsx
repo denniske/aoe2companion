@@ -23,7 +23,7 @@ export default function MapsPoll() {
     const formatLeaderboard = (leaderboardId: string) => mapsPoll?.questions?.find((l) => l.leaderboardId === leaderboardId)?.abbreviation ?? '';
 
     if (!mapsPoll) {
-        return <Text>No map poll found.</Text>;
+        return <Text>{getTranslation('maps.poll.notfound')}</Text>;
     }
 
     const pollEnded = isAfter(new Date(), mapsPoll.finished);
@@ -36,9 +36,9 @@ export default function MapsPoll() {
                 <>
                     <View className="flex-row justify-center items-center mt-1 mb-5">
                         {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ? (
-                            <Text variant="body">Poll ends in {formatAgo(mapsPoll.finished)}</Text>
+                            <Text variant="body">{getTranslation('maps.poll.endsin', { time: formatAgo(mapsPoll.finished) })}</Text>
                         ) : (
-                            <Text variant="body">Poll finished on {formatDayAndTime(mapsPoll.finished)}</Text>
+                            <Text variant="body">{getTranslation('maps.poll.finishedon', { date: formatDayAndTime(mapsPoll.finished) })}</Text>
                         )}
                     </View>
                     <View className="mb-3">
@@ -51,7 +51,7 @@ export default function MapsPoll() {
                         />
                     </View>
                     <Text variant="header" className="mt-2 mb-5">
-                        Community Picks
+                        {getTranslation('maps.poll.communitypicks')}
                     </Text>
                     <View className="flex-row flex-wrap">
                         {mapsPoll?.questions
@@ -73,7 +73,7 @@ export default function MapsPoll() {
                             ))}
                     </View>
                     <Text variant="header" className="mt-2 mb-5">
-                        Dev Picks
+                        {getTranslation('maps.poll.devpicks')}
                     </Text>
                     <View className="flex-row flex-wrap">
                         {mapsPoll?.questions

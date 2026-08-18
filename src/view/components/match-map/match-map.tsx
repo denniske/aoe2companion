@@ -22,6 +22,7 @@ import {aoe2PlayerColorsLightModeChatLegend} from '@app/helper/colors';
 import Timeseries from '@app/view/components/match-map/timeseries';
 import {useDarkMode} from '@app/hooks/use-dark-mode';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { useTranslation } from '@app/helper/translate';
 
 interface Props {
     match?: IMatchNew;
@@ -41,6 +42,7 @@ export function getTimestampMs(timestamp: string) {
 }
 
 export default function MatchMap(props: Props) {
+    const getTranslation = useTranslation();
     const { match, analysis, analysisSvgUrl } = props;
     const darkMode = useDarkMode();
 
@@ -50,7 +52,7 @@ export default function MatchMap(props: Props) {
     const size = (isLarge ? 576 : (isMedium ? 384 : 240)) - 2;
 
     if (!match || !analysis || !analysisSvgUrl) {
-        return <Text>Loading...</Text>;
+        return <Text>{getTranslation('common.loading')}</Text>;
     }
 
     const dimension = analysis.map.dimension;
@@ -418,18 +420,18 @@ export default function MatchMap(props: Props) {
                     <Timeseries
                         teams={teams as any}
                         metric="totalResources"
-                        title="Resources"
-                        description="Total resources"
-                        explanation="Total resources (wood + food + gold + stone)"
+                        title={getTranslation('matchanalysis.resources.title')}
+                        description={getTranslation('matchanalysis.resources.description')}
+                        explanation={getTranslation('matchanalysis.resources.explanation')}
                     />
                 </Card>
                 <Card direction="vertical" className="max-w-full flex-1">
                     <Timeseries
                         teams={teams as any}
                         metric="totalObjects"
-                        title="Objects"
-                        description="Total objects"
-                        explanation="Total number of objects (include foundation), when a unit is lost, this counter updates after its displayable objects (body) dies"
+                        title={getTranslation('matchanalysis.objects.title')}
+                        description={getTranslation('matchanalysis.objects.description')}
+                        explanation={getTranslation('matchanalysis.objects.explanation')}
                     />
                 </Card>
             </View>

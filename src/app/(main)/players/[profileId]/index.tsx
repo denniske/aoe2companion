@@ -19,12 +19,14 @@ import { Text } from '@app/components/text';
 import { sumBy } from 'lodash';
 import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import NotFound from '@app/app/(main)/+not-found';
+import { useTranslation } from '@app/helper/translate';
 
 type UserPageParams = {
     profileId: string;
 };
 
 export default function ProfilePage() {
+    const getTranslation = useTranslation();
     const showTabBar = useShowTabBar();
     const [leaderboardIds, setLeaderboardIds] = useState<string[]>([]);
     const params = useLocalSearchParams<UserPageParams>();
@@ -103,9 +105,9 @@ export default function ProfilePage() {
                     {!loggedIn && authProfileId === profileId && (
                         <View className="gap-x-1 flex-row items-center">
                             <Button size="small" href="/more/account" className="min-h-[26px]">
-                                Sign up
+                                {getTranslation('main.profile.signup')}
                             </Button>
-                            <TextComponent>to manage your profile.</TextComponent>
+                            <TextComponent>{getTranslation('main.profile.signup.note')}</TextComponent>
                         </View>
                     )}
                 </View>

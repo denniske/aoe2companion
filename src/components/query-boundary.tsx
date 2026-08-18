@@ -3,6 +3,7 @@ import React, { Component, ReactNode, Suspense } from 'react';
 import { View } from 'react-native';
 
 import { Text } from './text';
+import { useTranslation } from '@app/helper/translate';
 
 interface ErrorBoundaryProps {
     onReset: () => void;
@@ -52,6 +53,7 @@ interface QueryBoundaryProps {
  * loading and error fallbacks stay next to the component they belong to.
  */
 export function QueryBoundary({ children, loadingFallback = null, errorFallback }: QueryBoundaryProps) {
+    const getTranslation = useTranslation();
     return (
         <QueryErrorResetBoundary>
             {({ reset }) => (
@@ -62,7 +64,7 @@ export function QueryBoundary({ children, loadingFallback = null, errorFallback 
                             errorFallback({ error, retry })
                         ) : (
                             <View className="p-4">
-                                <Text variant="body">Something went wrong.</Text>
+                                <Text variant="body">{getTranslation('error.somethingwentwrong')}</Text>
                             </View>
                         )
                     }

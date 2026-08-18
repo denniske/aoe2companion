@@ -225,7 +225,7 @@ export default function IndexPage() {
             <AnimateIn>
                 {!!(shouldPromptLogin) && (
                     <View className="gap-2 pb-5 lg:pb-8">
-                        <Text variant="header-lg">Get Started</Text>
+                        <Text variant="header-lg">{getTranslation('home.getstarted')}</Text>
 
                         <View className="gap-4">
                             <View className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -244,7 +244,7 @@ export default function IndexPage() {
 
                             <Card className="items-center md:justify-between md:flex-row gap-4" direction="vertical">
                                 <Text variant="header-lg" className="text-center">
-                                    Buy{' '}
+<                                    {getTranslation('home.buy')}{' '}
                                     <Text variant="header-lg" className="italic">
                                         Age of Empires II: Definitive Edition
                                     </Text>
@@ -299,9 +299,9 @@ export default function IndexPage() {
                     <View className="gap-2 pb-5 lg:pb-8">
                         <View className="flex-row justify-between items-center">
                             <Text variant="header-lg">
-                                {getTranslation(accountMostRecentMatch?.finished === null ? 'home.current' : 'home.mostRecent')} Match
+                                {getTranslation(accountMostRecentMatch?.finished === null ? 'home.currentMatch' : 'home.mostRecentMatch')}
                             </Text>
-                            <Link href="/matches/live/mine">Open My Dashboard</Link>
+                            <Link href="/matches/live/mine">{getTranslation('home.openmydashboard')}</Link>
                         </View>
                         <View className="gap-2">
                             <Match
@@ -355,7 +355,7 @@ export default function IndexPage() {
             ) : null}
 
             <View className="gap-2 pb-5 lg:pb-8">
-                <Text variant="header-lg">Recent News</Text>
+                <Text variant="header-lg">{getTranslation('home.recentnews')}</Text>
                 <QueryBoundary loadingFallback={<NewsList />} errorFallback={() => <NewsList />}>
                     <NewsSection />
                 </QueryBoundary>

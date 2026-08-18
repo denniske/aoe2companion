@@ -9,6 +9,7 @@ import { formatCurrency } from 'react-native-format-currency';
 import { TournamentMarkdown } from './tournament-markdown';
 import {BottomSheet, BottomSheetProps} from '../bottom-sheet';
 import { formatCustom } from '@nex/data';
+import { useTranslation } from '@app/helper/translate';
 
 const Attribute: React.FC<{ label: string; value?: string }> = ({ label, value }) =>
     value && (
@@ -19,6 +20,7 @@ const Attribute: React.FC<{ label: string; value?: string }> = ({ label, value }
     );
 
 export const TournamentPlayerPopup: React.FC<{ id: string; title: string } & Pick<BottomSheetProps, 'isActive' | 'onClose'>> = ({ id, ...props }) => {
+    const getTranslation = useTranslation();
     const { data: player, isLoading } = useTournamentPlayer(id);
     const total = player?.totalWinnings;
 
@@ -34,18 +36,18 @@ export const TournamentPlayerPopup: React.FC<{ id: string; title: string } & Pic
                                 <Image source={{ uri: player.image }} className="w-28" style={{ aspectRatio: 0.66 }} contentFit="contain" />
                             )}
                             <View className="gap-0.5 flex-1">
-                                <Attribute label="Name" value={player.fullName} />
+                                <Attribute label={getTranslation('tournaments.player.name')} value={player.fullName} />
                                 <Attribute
-                                    label="Age"
+                                    label={getTranslation('tournaments.player.age')}
                                     value={`${player.age}${player.birthdate && !isNaN(player.birthdate?.valueOf()) ? ` (${formatCustom(player.birthdate, 'LLL d, y')})` : ''}`}
                                 />
                                 <Attribute
-                                    label="Total Winnings"
+                                    label={getTranslation('tournaments.player.totalwinnings')}
                                     value={total && formatCurrency({ ...total, amount: Math.round(total.amount) })[0].replace(/(,\d{3})/i, 'K')}
                                 />
-                                <Attribute label="Status" value={player.status} />
-                                <Attribute label="Years Active" value={player.yearsActive} />
-                                <Attribute label="Team" value={player.team} />
+                                <Attribute label={getTranslation('tournaments.player.status')} value={player.status} />
+                                <Attribute label={getTranslation('tournaments.player.yearsactive')} value={player.yearsActive} />
+                                <Attribute label={getTranslation('tournaments.player.team')} value={player.team} />
                             </View>
                         </Card>
                         <TournamentMarkdown>{player.bio ?? ''}</TournamentMarkdown>

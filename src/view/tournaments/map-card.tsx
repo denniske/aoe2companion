@@ -8,6 +8,7 @@ import { ActivityIndicator, View } from 'react-native';
 
 import { TournamentMarkdown } from './tournament-markdown';
 import {BottomSheet} from '../bottom-sheet';
+import { useTranslation } from '@app/helper/translate';
 
 const MapAttribute: React.FC<{ label: string; value?: string }> = ({ label, value }) =>
     value === undefined ? null : (
@@ -20,6 +21,7 @@ const MapAttribute: React.FC<{ label: string; value?: string }> = ({ label, valu
     );
 
 export const MapCard: React.FC<{ map: Map }> = ({ map }) => {
+    const getTranslation = useTranslation();
     const [isVisible, setIsVisible] = useState(false);
     const { data: mapDetails, isLoading } = useMap(map.path ?? '', isVisible);
 
@@ -52,12 +54,12 @@ export const MapCard: React.FC<{ map: Map }> = ({ map }) => {
                                     />
                                 )}
                                 <View className="flex-1">
-                                    <MapAttribute label="Creator" value={mapDetails?.creator} />
-                                    <MapAttribute label="Map Type" value={mapDetails?.type} />
-                                    <MapAttribute label="Walls" value={mapDetails?.walls} />
+                                    <MapAttribute label={getTranslation('tournaments.map.creator')} value={mapDetails?.creator} />
+                                    <MapAttribute label={getTranslation('tournaments.map.type')} value={mapDetails?.type} />
+                                    <MapAttribute label={getTranslation('tournaments.map.walls')} value={mapDetails?.walls} />
                                     <MapAttribute
-                                        label="Nomad"
-                                        value={mapDetails?.nomad === undefined ? undefined : mapDetails.nomad ? 'Yes' : 'No'}
+                                        label={getTranslation('tournaments.map.nomad')}
+                                        value={mapDetails?.nomad === undefined ? undefined : getTranslation(mapDetails.nomad ? 'tournaments.map.yes' : 'tournaments.map.no')}
                                     />
                                 </View>
                             </View>

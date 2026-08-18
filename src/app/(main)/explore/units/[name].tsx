@@ -60,7 +60,7 @@ export default function UnitDetails() {
                     <View className="lg:flex-1">
                         {getUnitUpgradeCost(unitName) && (
                             <View className="flex-row mb-2 items-center gap-2">
-                                <Text>Upgrade cost </Text>
+                                <Text>{getTranslation('unit.stats.heading.upgradecost')} </Text>
                                 <Costs costDict={getUnitUpgradeCost(unitName)!} />
                                 <Text>
                                     {getTranslation('unit.stats.heading.researchedin')} {getUnitUpgradeTime(unitName)}s

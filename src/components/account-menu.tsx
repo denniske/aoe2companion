@@ -10,8 +10,10 @@ import { Link } from 'expo-router';
 import { Text } from './text';
 import useAuth from '@/data/src/hooks/use-auth';
 import { useLoginPopup } from '@app/hooks/use-login-popup';
+import { useTranslation } from '@app/helper/translate';
 
 export const AccountMenu: React.FC = () => {
+    const getTranslation = useTranslation();
     const { showLoginPopup } = useLoginPopup();
     const { data: account, isPending, logout } = useAccount();
     const user = useAuth();
@@ -53,7 +55,7 @@ export const AccountMenu: React.FC = () => {
                                     className="flex flex-row w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-hoverBackground"
                                 >
                                     <Icon icon={faUser} />
-                                    <Text variant="body-lg">Profile</Text>
+                                    <Text variant="body-lg">{getTranslation('main.heading.profile')}</Text>
                                 </Link>
                             </MenuItem>
                         )}
@@ -67,7 +69,7 @@ export const AccountMenu: React.FC = () => {
                                         className="flex flex-row w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-hoverBackground"
                                     >
                                         <Icon icon={faUserCircle} />
-                                        <Text variant="body-lg">Account</Text>
+                                        <Text variant="body-lg">{getTranslation('account.title')}</Text>
                                     </Link>
                                 </MenuItem>
 
@@ -78,7 +80,7 @@ export const AccountMenu: React.FC = () => {
                                         className="flex flex-row w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-hoverBackground"
                                     >
                                         <Icon icon={faCog} />
-                                        <Text variant="body-lg">Settings</Text>
+                                        <Text variant="body-lg">{getTranslation('settings.title')}</Text>
                                     </Link>
                                 </MenuItem>
 
@@ -93,7 +95,7 @@ export const AccountMenu: React.FC = () => {
                                         className="flex flex-row w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-hoverBackground"
                                     >
                                         <Icon icon={faArrowRightFromBracket} />
-                                        <Text variant="body-lg">Logout</Text>
+                                        <Text variant="body-lg">{getTranslation('account.action.logout')}</Text>
                                     </Pressable>
                                 </MenuItem>
                             </>
@@ -109,7 +111,7 @@ export const AccountMenu: React.FC = () => {
                                     className="flex flex-row w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-hoverBackground"
                                 >
                                     <Icon icon={faArrowRightToBracket} />
-                                    <Text variant="body-lg">Login</Text>
+                                    <Text variant="body-lg">{getTranslation('login.title')}</Text>
                                 </Pressable>
                             </MenuItem>
                         )}

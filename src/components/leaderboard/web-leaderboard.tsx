@@ -56,7 +56,7 @@ export const WebLeaderboard: React.FC = () => {
 
             <View className="flex xl:flex-row items-center gap-6">
                 <View className="flex-row">
-                    <Field value={search} onChangeText={setSearch} placeholder="Search for player" type="search" />
+                    <Field value={search} onChangeText={setSearch} placeholder={getTranslation('search.placeholder.player')} type="search" />
                 </View>
                 <View className="flex-1"></View>
                 <View className="flex-row">
@@ -139,19 +139,19 @@ function PlayerList({
                                 Name
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                Rating
+                                {getTranslation('leaderboard.heading.rating')}
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                Highest Rating
+                                {getTranslation('leaderboard.heading.highestrating')}
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                Wins
+                                {getTranslation('leaderboard.heading.wins')}
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                Games
+                                {getTranslation('leaderboard.heading.games')}
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                Last Match
+                                {getTranslation('leaderboard.heading.lastmatch')}
                             </th>
                         </tr>
                     </thead>

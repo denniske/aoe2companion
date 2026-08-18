@@ -132,7 +132,7 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                 >
                     <View className="w-60">
                         <View className="gap-3">
-                            <Text variant="header-sm">Linked Profiles</Text>
+                            <Text variant="header-sm">{getTranslation('main.profile.linkedprofiles')}</Text>
 
                             {fullProfile.linkedProfiles.map((linkedProfile) => {
                                 return (

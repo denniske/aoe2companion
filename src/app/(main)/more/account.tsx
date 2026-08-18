@@ -179,7 +179,7 @@ export default function AccountPage() {
                 <View className="gap-6">
                     <View className="gap-2">
                         <Text variant="header-sm">{getTranslation('account.profileinfo')}</Text>
-                        <Text variant="label">Email</Text>
+                        <Text variant="label">{getTranslation('account.email')}</Text>
                         <MyText style={styles.content}>{user.email}</MyText>
                     </View>
 

@@ -352,50 +352,46 @@ export default function AboutPage() {
                 {appConfig.game === 'aoe2' && (
                     <>
                         <View className="flex-row">
-                            <Text>Game data from </Text>
                             <Link alt href="https://github.com/SiegeEngineers/aoe2techtree" target="_blank">
                                 aoe2techtree
                             </Link>
-                            <Text> and </Text>
+                            <Text> + </Text>
                             <Link alt href="https://github.com/SiegeEngineers/genieutils-py" target="_blank">
                                 genieutils-py
                             </Link>
                         </View>
 
                         <View className="flex-row">
-                            <Text>Player info from </Text>
                             <Link alt href="https://github.com/SiegeEngineers/aoc-reference-data" target="_blank">
                                 aoc-reference-data
                             </Link>
                         </View>
 
                         <View className="flex-row">
-                            <Text>Game data from </Text>
                             <Link alt href="https://ageofempires.fandom.com/wiki/Age_of_Empires_II:Portal" target="_blank">
                                 Age of Empires II Wiki
                             </Link>
-                            <Text> at </Text>
-                            <Link alt href="https://www.fandom.com/" target="_blank">
+                            (<Link alt href="https://www.fandom.com/" target="_blank">
                                 Fandom
-                            </Link>
+                            </Link>)
                         </View>
                     </>
                 )}
                 {appConfig.game === 'aoe4' && (
                     <>
                         <View className="flex-row">
-                            <Text>Match data from </Text>
+                            <Text>{getTranslation('about.source.matchdatafrom')} </Text>
                             <Link alt href="https://aoe4world.com/" target="_blank">
                                 aoe4world.com
                             </Link>
                         </View>
 
                         <View className="flex-row">
-                            <Text>Game data from </Text>
+                            <Text>{getTranslation('about.source.gamedatafrom')} </Text>
                             <Link alt href="https://ageofempires.fandom.com/wiki/Age_of_Empires_IV:Portal" target="_blank">
                                 Age of Empires IV Wiki
                             </Link>
-                            <Text> at </Text>
+                            <Text> {getTranslation('about.source.at')} </Text>
                             <Link alt href="https://www.fandom.com/" target="_blank">
                                 Fandom
                             </Link>
@@ -405,7 +401,7 @@ export default function AboutPage() {
             </View>
 
             <View className="items-center gap-y-1">
-                <Text variant="header-xs">Checkout my other apps</Text>
+                <Text variant="header-xs">{getTranslation('about.heading.otherapps')}</Text>
 
                 {appConfig.game === 'aoe4' ? (
                     <Link alt onPress={openAoe2CompanionInStore}>
@@ -423,9 +419,9 @@ export default function AboutPage() {
             </View>
 
             <View className="items-center gap-y-1">
-                <Text variant="header-xs">Legal</Text>
+                <Text variant="header-xs">{getTranslation('about.heading.legal')}</Text>
                 <Link alt href="/more/privacy">
-                    Privacy Policy
+                    {getTranslation('about.legal.privacypolicy')}
                 </Link>
             </View>
 

@@ -8,6 +8,7 @@ import { StyleSheet, View } from 'react-native';
 import { getUnitLineIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
 import { MyText } from '../components/my-text';
+import { useTranslation } from '@app/helper/translate';
 
 function CounterUnit({ unitLineId }: { unitLineId: UnitLine }) {
     const styles = useStyles();
@@ -25,6 +26,7 @@ function CounterUnit({ unitLineId }: { unitLineId: UnitLine }) {
 }
 
 export default function UnitRelated({ unitId }: { unitId: Unit }) {
+    const getTranslation = useTranslation();
     const styles = useStyles();
     const unitLineId = getUnitLineIdForUnit(unitId);
     const unitLine = unitLines[unitLineId];
@@ -39,7 +41,7 @@ export default function UnitRelated({ unitId }: { unitId: Unit }) {
         <View>
             <View>
                 <View style={styles.row}>
-                    <MyText style={styles.header2}>Related</MyText>
+                    <MyText style={styles.header2}>{getTranslation('unit.related.title')}</MyText>
                 </View>
                 {sortedUnitCounters.map((counterUnit) => (
                     <CounterUnit key={counterUnit} unitLineId={counterUnit} />

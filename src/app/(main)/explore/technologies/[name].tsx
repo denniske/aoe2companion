@@ -115,7 +115,7 @@ export default function TechDetails() {
                         {!techsAffectingAllUnits.includes(tech) && affectedUnitInfos.length > 0 && (
                             <View>
                                 <Space />
-                                <MyText>Affected Units</MyText>
+                                <MyText>{getTranslation('tech.affectedunits')}</MyText>
                                 <Space />
                                 {affectedUnitInfos.map((affectedUnit) => (
                                     <UnitCompBig
@@ -132,7 +132,7 @@ export default function TechDetails() {
                         {!techsAffectingAllUnits.includes(tech) && affectedBuildingInfos.length > 0 && (
                             <View>
                                 <Space />
-                                <MyText>Affected Buildings</MyText>
+                                <MyText>{getTranslation('tech.affectedbuildings')}</MyText>
                                 <Space />
                                 {affectedBuildingInfos.map((affectedBuilding) => (
                                     <BuildingCompBig
@@ -149,7 +149,7 @@ export default function TechDetails() {
                         {affectedUnits.length > 0 && (
                             <View>
                                 <Space />
-                                <MyText>Affected Units</MyText>
+                                <MyText>{getTranslation('tech.affectedunits')}</MyText>
                                 <Space />
                                 {affectedUnits.map((affectedUnit) => (
                                     <UnitCompBig
@@ -164,7 +164,7 @@ export default function TechDetails() {
                         {affectedBuildings.length > 0 && (
                             <View>
                                 <Space />
-                                <MyText>Affected Buildings</MyText>
+                                <MyText>{getTranslation('tech.affectedbuildings')}</MyText>
                                 <Space />
                                 {affectedBuildings.map((affectedBuilding) => (
                                     <BuildingCompBig

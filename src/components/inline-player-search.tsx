@@ -75,7 +75,7 @@ export const InlinePlayerSearch: React.FC<{
                 iconColor={iconColor}
                 className={cn('h-full border-transparent dark:border-border', className)}
                 type="search"
-                placeholder="Search Players"
+                placeholder={getTranslation('search.placeholder.players')}
                 onFocus={() => setIsFocused(true)}
                 style={{ zIndex: 1, height: 48 }}
                 onChangeText={setText}
@@ -119,7 +119,7 @@ export const InlinePlayerSearch: React.FC<{
                                     <View className="h-px bg-gray-200 dark:bg-gray-800 w-full mt-2.5" />
                                     <Link asChild href={`/players/search?query=${text}`}>
                                         <Pressable onPress={viewAll} className="p-3 items-center">
-                                            <Text variant="label">View All</Text>
+                                            <Text variant="label">{getTranslation('home.viewAll')}</Text>
                                         </Pressable>
                                     </Link>
                                 </View>

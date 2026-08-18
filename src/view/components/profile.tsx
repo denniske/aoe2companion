@@ -20,6 +20,7 @@ import useAuth from '@/data/src/hooks/use-auth';
 import { Skeleton } from '@app/view/components/loader/skeleton';
 import { AnimateIn } from '@app/components/animate-in';
 import { faComputerMouse, faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from '@app/helper/translate';
 
 interface ILeaderboardRowProps {
     data: IProfileLeaderboardResult;
@@ -146,6 +147,7 @@ interface IProfileProps {
 }
 
 export default function Profile({ data, ready, profileId }: IProfileProps) {
+    const getTranslation = useTranslation();
     data = ready ? data : null;
 
     const theme = useAppTheme();
@@ -184,8 +186,8 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
 
             {!loggedIn && authProfileId === profileId && (
                 <View className="gap-x-2 flex-row items-center">
-                    <Button href="/more/account">Sign up</Button>
-                    <MyText>to manage your profile.</MyText>
+                    <Button href="/more/account">{getTranslation('main.profile.signup')}</Button>
+                    <MyText>{getTranslation('main.profile.signup.note')}</MyText>
                 </View>
             )}
 

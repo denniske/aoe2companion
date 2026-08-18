@@ -7,12 +7,14 @@ import { ILegendInfo } from '@app/view/components/match-map/match-map';
 import { useAppTheme } from '@app/theming';
 import { Text } from '@app/components/text';
 import { useChartFont } from '@app/view/components/match-map/map-utils';
+import { useTranslation } from '@app/helper/translate';
 
 interface Props {
     teams: ILegendInfo;
 }
 
 export default function Eapm({ teams }: Props) {
+    const getTranslation = useTranslation();
     const theme = useAppTheme();
     const font = useChartFont();
 
@@ -52,10 +54,10 @@ export default function Eapm({ teams }: Props) {
         <View style={styles.container}>
             <ViewLoader ready={dataset.data?.length > 0}>
                 <Text className="" variant="header-sm">
-                    eAPMs
+                    {getTranslation('matchanalysis.eapm.title')}
                 </Text>
                 <Text className="" variant="body">
-                    Effective Actions Per Minute
+                    {getTranslation('matchanalysis.eapm.description')}
                 </Text>
 
                 <View style={{ height: 160, marginVertical: 12 }}>

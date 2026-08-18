@@ -7,6 +7,7 @@ import SkiaLoader from '@app/components/skia-loader';
 import { Button } from '@app/components/button';
 import { appConfig } from '@nex/dataset';
 import { FetchNotOkError } from '@app/api/util';
+import { useTranslation } from '@app/helper/translate';
 
 interface Props {
     match?: IMatchNew;
@@ -21,6 +22,7 @@ interface Props {
 const loadMatchMap = () => import('@app/view/components/match-map/match-map');
 
 export default function MatchAnalysis(props: Props) {
+    const getTranslation = useTranslation();
     const { match, matchError, matchLoading } = props;
     const [analyzeNow, setAnalyzeNow] = React.useState(false);
 
@@ -49,7 +51,7 @@ export default function MatchAnalysis(props: Props) {
                     {(analysisError as FetchNotOkError)?.status === 503 && (
                         <View className="flex-row items-center justify-center h-20">
                             <View className="flex-row justify-center my-3 gap-2">
-                                <Button onPress={() => analysisRefetch()}>Retry</Button>
+                                <Button onPress={() => analysisRefetch()}>{getTranslation('matchanalysis.retry')}</Button>
                             </View>
                         </View>
                     )}
@@ -63,7 +65,7 @@ export default function MatchAnalysis(props: Props) {
                             <View className="flex-row justify-center my-3 gap-2">
                                 <ActivityIndicator animating size="small" color="#999" />
                                 <Text variant="body" className="text-center py-1">
-                                    Loading Analysis (Skia)...
+                                    {getTranslation('matchanalysis.loading.skia')}
                                 </Text>
                             </View>
                         </View>
@@ -82,7 +84,7 @@ export default function MatchAnalysis(props: Props) {
                         <View className="flex-row justify-center my-3 gap-2">
                             <ActivityIndicator animating size="small" color="#999" />
                             <Text variant="body" className="text-center py-1">
-                                Loading Analysis...
+                                {getTranslation('matchanalysis.loading')}
                             </Text>
                         </View>
                     </View>
@@ -91,7 +93,7 @@ export default function MatchAnalysis(props: Props) {
             {!analysis && !analysisError && !analyzeNow && match?.finished && appConfig.game === 'aoe2' && (
                 <View className="flex-row items-center justify-center h-20">
                     <View className="flex-row justify-center my-3 gap-2">
-                        <Button onPress={() => setAnalyzeNow(true)}>Analyze match (Beta)</Button>
+                        <Button onPress={() => setAnalyzeNow(true)}>{getTranslation('matchanalysis.analyzematch')}</Button>
                     </View>
                 </View>
             )}

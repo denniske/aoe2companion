@@ -15,12 +15,14 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { appConfig } from '@nex/dataset';
 import { useLanguage } from '@app/queries/all';
+import { useTranslation } from '@app/helper/translate';
 
 export const ProfileLeaderboardCard: React.FC<{
     leaderboard: IProfileLeaderboardResult | null | undefined;
     stats: IStatNew | undefined;
     ratings: IProfileRatingsLeaderboard | undefined;
 }> = ({ leaderboard, stats, ratings }) => {
+    const getTranslation = useTranslation();
     const language = useLanguage();
     const topCiv = first(orderBy(stats?.civ, 'games', 'desc'));
     const topMap = first(orderBy(stats?.map, 'games', 'desc'));
@@ -51,7 +53,7 @@ export const ProfileLeaderboardCard: React.FC<{
                     <View className="w-px bg-border self-stretch hidden lg:flex" />
 
                     <TextComponent variant="label-lg" color="subtle" className="hidden lg:flex">
-                        {leaderboard?.games?.toLocaleString(language)} Games
+                        {getTranslation('profilecard.games', { games: leaderboard?.games?.toLocaleString(language) ?? '' })}
                     </TextComponent>
 
                     <View className="flex-1" />
@@ -60,7 +62,7 @@ export const ProfileLeaderboardCard: React.FC<{
                 </View>
 
                 <TextComponent variant="label-lg" color="subtle" className={cn('flex lg:hidden -my-2', !leaderboard && 'max-w-24')}>
-                    {leaderboard?.games?.toLocaleString(language)} Games
+                    {getTranslation('profilecard.games', { games: leaderboard?.games?.toLocaleString(language) ?? '' })}
                 </TextComponent>
 
                 <View className="flex-row gap-4 items-center">
@@ -70,17 +72,21 @@ export const ProfileLeaderboardCard: React.FC<{
                                 #{leaderboard?.rank}
                             </TextComponent>
                             <TextComponent variant="body-xs" className="min-w-24 -mt-0.5 whitespace-nowrap" color="subtle">
-                                Top {(leaderboard && leaderboard.total ? Math.max(1, (leaderboard.rank / leaderboard.total) * 100) : 0).toFixed()}%
-                                <span className=""> (of {leaderboard?.total.toLocaleString(language)} players)</span>
+                                {getTranslation('profilecard.toppercent', {
+                                    percent: (
+                                        leaderboard && leaderboard.total ? Math.max(1, (leaderboard.rank / leaderboard.total) * 100) : 0
+                                    ).toFixed(),
+                                })}
+                                <span className=""> {getTranslation('profilecard.ofplayers', { total: leaderboard?.total.toLocaleString(language) ?? '' })}</span>
                             </TextComponent>
                         </View>
 
                         <View className="items-center">
-                            <TextComponent variant="label-sm">Rating</TextComponent>
+                            <TextComponent variant="label-sm">{getTranslation('profilecard.rating')}</TextComponent>
                             <View className="flex-row gap-4">
                                 <View className="items-center">
                                     <TextComponent variant="body-sm" color="subtle">
-                                        Current
+                                        {getTranslation('profilecard.rating.current')}
                                     </TextComponent>
                                     <TextComponent variant="label-lg" color="brand" className="min-w-10" align="center">
                                         {leaderboard?.rating}
@@ -89,7 +95,7 @@ export const ProfileLeaderboardCard: React.FC<{
 
                                 <View className="items-center">
                                     <TextComponent variant="body-sm" color="subtle">
-                                        Highest
+                                        {getTranslation('profilecard.rating.highest')}
                                     </TextComponent>
                                     <TextComponent variant="body-lg" className="min-w-10" align="center">
                                         {leaderboard?.maxRating}
@@ -99,7 +105,7 @@ export const ProfileLeaderboardCard: React.FC<{
                         </View>
 
                         <TextComponent variant="label-sm">
-                            {Math.abs(streak)} Match {streak < 0 ? 'Losing' : 'Winning'} Streak
+                            {getTranslation(streak < 0 ? 'profilecard.streak.losing' : 'profilecard.streak.winning', { count: Math.abs(streak) })}
                         </TextComponent>
                         <View className="flex-row gap-2">
                             {last5MatchesWon?.map((match, i) =>
@@ -127,7 +133,7 @@ export const ProfileLeaderboardCard: React.FC<{
 
                     <View className="flex-1 hidden lg:flex items-center gap-1">
                         <TextComponent variant="label-sm" numberOfLines={1}>
-                            Favorite Civilization
+                            {getTranslation('profilecard.favoritecivilization')}
                         </TextComponent>
                         {topCiv ? (
                             <Image source={getCivIcon(topCiv)} className={cn('w-12 h-12', appConfig.game === 'aoe4' && 'h-12 w-20')} />
@@ -140,16 +146,18 @@ export const ProfileLeaderboardCard: React.FC<{
                         </TextComponent>
 
                         <TextComponent variant="header" color="brand">
-                            {!topCiv?.wins || isNaN(topCiv?.wins) ? '-' : ((topCiv.wins / topCiv.games) * 100).toFixed(0) + '%'} Winrate
+                            {getTranslation('profilecard.winrate', {
+                                percent: !topCiv?.wins || isNaN(topCiv?.wins) ? '-' : ((topCiv.wins / topCiv.games) * 100).toFixed(0) + '%',
+                            })}
                         </TextComponent>
 
-                        <TextComponent color="subtle">{topCiv?.games} Matches</TextComponent>
+                        <TextComponent color="subtle">{getTranslation('profilecard.matches', { games: topCiv?.games ?? '' })}</TextComponent>
                     </View>
                     <View className="w-px bg-border self-stretch hidden lg:flex" />
 
                     <View className="flex-1 hidden lg:flex items-center gap-1">
                         <TextComponent variant="label-sm" numberOfLines={1}>
-                            Favorite Map
+                            {getTranslation('profilecard.favoritemap')}
                         </TextComponent>
                         {topMap ? (
                             <Image
@@ -165,10 +173,12 @@ export const ProfileLeaderboardCard: React.FC<{
                         </TextComponent>
 
                         <TextComponent variant="header" color="brand">
-                            {!topMap?.wins || isNaN(topMap?.wins) ? '-' : ((topMap.wins / topMap.games) * 100).toFixed(0) + '%'} Winrate
+                            {getTranslation('profilecard.winrate', {
+                                percent: !topMap?.wins || isNaN(topMap?.wins) ? '-' : ((topMap.wins / topMap.games) * 100).toFixed(0) + '%',
+                            })}
                         </TextComponent>
 
-                        <TextComponent numberOfLines={1}>{topMap?.games} Matches</TextComponent>
+                        <TextComponent numberOfLines={1}>{getTranslation('profilecard.matches', { games: topMap?.games ?? '' })}</TextComponent>
                     </View>
                 </View>
             </Card>

@@ -6,12 +6,14 @@ import { useLanguage } from '@app/queries/all';
 import { CountryImage } from '@app/view/components/country-image';
 import { Link } from 'expo-router';
 import { SkeletonText } from './skeleton';
+import { useTranslation } from '@app/helper/translate';
 
 export const LeaderboardSnapshot: React.FC<{ leaderboardId: string | undefined; perPage?: number; clan?: string }> = ({
     leaderboardId,
     perPage = 5,
     clan,
 }) => {
+    const getTranslation = useTranslation();
     const language = useLanguage();
     const { data } = useQuery({
         enabled: !!language && !!leaderboardId,
@@ -33,24 +35,24 @@ export const LeaderboardSnapshot: React.FC<{ leaderboardId: string | undefined; 
         <View>
             {players.length === 0 ? (
                 <Text variant="body-lg" className="py-4" align="center">
-                    No Results Found
+                    {getTranslation('leaderboard.snapshot.noresults')}
                 </Text>
             ) : (
                 <View className="flex-row p-2 gap-4 items-center">
                     <Text variant="label-xs" className={clan ? 'w-16' : 'w-8'}>
-                        Rank
+                        {getTranslation('leaderboard.snapshot.heading.rank')}
                     </Text>
                     <Text variant="label-xs" className="flex-1">
-                        Name
+                        {getTranslation('leaderboard.snapshot.heading.name')}
                     </Text>
                     <Text variant="label-xs" className="w-12">
-                        Rating
+                        {getTranslation('leaderboard.snapshot.heading.rating')}
                     </Text>
                     <Text variant="label-xs" className="w-12">
-                        Games
+                        {getTranslation('leaderboard.snapshot.heading.games')}
                     </Text>
                     <Text variant="label-xs" className="w-12">
-                        Win %
+                        {getTranslation('leaderboard.snapshot.heading.winrate')}
                     </Text>
                 </View>
             )}

@@ -7,8 +7,10 @@ import { View } from 'react-native';
 import { Text } from './text';
 import Login from './login';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
+import { useTranslation } from '@app/helper/translate';
 
 export const LoginModal = ({ onClose, isVisible }: { isVisible: boolean; onClose: () => void }) => {
+    const getTranslation = useTranslation();
     const { isMedium } = useBreakpoints();
 
     return (
@@ -39,7 +41,7 @@ export const LoginModal = ({ onClose, isVisible }: { isVisible: boolean; onClose
                         >
                             <DialogPanel className="w-full max-w-2xl transform rounded-2xl bg-gold-50 dark:bg-blue-950 p-6 text-left align-middle shadow-xl transition-all flex flex-col relative gap-4 items-center">
                                 <Text variant={isMedium ? 'title' : 'header-lg'} color="brand" align="center">
-                                    Sign In Required
+                                    {getTranslation('login.required.title')}
                                 </Text>
 
                                 <PressableOpacity onPress={onClose} className="absolute top-5 right-5">
@@ -47,7 +49,7 @@ export const LoginModal = ({ onClose, isVisible }: { isVisible: boolean; onClose
                                 </PressableOpacity>
 
                                 <Text variant="body-lg" align="center">
-                                    An account lets you follow players and save your favorites. Your information syncs automatically across devices.
+                                    {getTranslation('login.required.description')}
                                 </Text>
 
                                 <View className="self-stretch">
@@ -55,7 +57,7 @@ export const LoginModal = ({ onClose, isVisible }: { isVisible: boolean; onClose
                                 </View>
 
                                 <Text className="italic" variant="body-sm" align="center">
-                                    No spam. No paywall. Just saves your stuff.
+                                    {getTranslation('login.required.note')}
                                 </Text>
                             </DialogPanel>
                         </TransitionChild>

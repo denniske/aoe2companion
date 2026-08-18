@@ -24,12 +24,14 @@ import { StyleSheet, View } from 'react-native';
 import { useAccountData } from '@app/queries/all';
 import SkiaLoader from '@app/components/skia-loader';
 import { useUniwind } from 'uniwind';
+import { useTranslation } from '@app/helper/translate';
 
 // Hoisted rather than written inline in JSX: React Compiler cannot lower a
 // dynamic `import()` expression and bails out on the whole component.
 const loadWinrateCharts = () => import('@app/view/components/winrate-charts');
 
 export default function CivDetails() {
+    const getTranslation = useTranslation();
     const { name } = useLocalSearchParams<{ name: Civ }>();
     const nameLower = name?.toLowerCase() ?? '';
     const { theme } = useUniwind();
@@ -60,14 +62,14 @@ export default function CivDetails() {
         >
             <Stack.Screen
                 options={{
-                    headerTitle: () => <HeaderTitle icon={getCivIconLocal(civ)} title={getCivNameById(civ)} subtitle="Statistics" />,
+                    headerTitle: () => <HeaderTitle icon={getCivIconLocal(civ)} title={getCivNameById(civ)} subtitle={getTranslation('winrates.subtitle')} />,
                 }}
             />
             <ScrollView className="flex-1" contentContainerClassName="p-4 gap-5">
                 <View className="flex-row gap-4" onLayout={(e) => setWidth(e.nativeEvent.layout.width)}>
                     <Card direction="vertical" className="px-4 py-3 flex-1">
                         <View className="flex-row justify-center items-center gap-2">
-                            <Text variant="header">Win Rate</Text>
+                            <Text variant="header">{getTranslation('winrates.winrate')}</Text>
 
                             <View className="flex-row items-center">
                                 <Text variant="label-sm">#{stats.rank}</Text>
@@ -82,16 +84,16 @@ export default function CivDetails() {
 
                         <ProgressBar percent={stats.win_rate * 100} status={stats.win_rate >= 0.5 ? 'positive' : 'negative'} />
 
-                        <Text className="self-center">{stats.wins.toLocaleString(language)} wins</Text>
+                        <Text className="self-center">{getTranslation('winrates.wins', { wins: stats.wins.toLocaleString(language) })}</Text>
                     </Card>
 
                     <Card direction="vertical" className="px-4 py-3 flex-1">
                         <Text variant="header" className="self-center">
-                            Play Rate
+                            {getTranslation('winrates.playrate')}
                         </Text>
 
                         <ProgressBar percent={stats.play_rate * 100} max={8} />
-                        <Text className="self-center">{stats.num_games.toLocaleString(language)} wins</Text>
+                        <Text className="self-center">{getTranslation('winrates.games', { games: stats.num_games.toLocaleString(language) })}</Text>
                     </Card>
                 </View>
 

@@ -11,8 +11,10 @@ import { ProgressBar } from '../progress-bar';
 import { Skeleton, SkeletonText } from '../skeleton';
 import { Text } from '../text';
 import { useAccountData } from '@app/queries/all';
+import { useTranslation } from '@app/helper/translate';
 
 export const CivWinrateCard = ({ civ, maxPlayrate = 8, clickable = true }: { civ?: WinrateCiv, maxPlayrate?: number, clickable?: boolean }) => {
+    const getTranslation = useTranslation();
     const language = useAccountData(data => data.language);
 
 
@@ -49,8 +51,8 @@ export const CivWinrateCard = ({ civ, maxPlayrate = 8, clickable = true }: { civ
                 <Image className="w-12 h-12" source={getCivIconLocal(capitalize(civ.civ_name) as Civ)} contentFit="contain" />
 
                 <View className="flex-1 gap-2">
-                    <ProgressBar label="Win Rate" percent={civ.win_rate * 100} status={civ.win_rate >= 0.5 ? 'positive' : 'negative'} />
-                    <ProgressBar label="Play Rate" percent={civ.play_rate * 100} max={maxPlayrate} />
+                    <ProgressBar label={getTranslation('winrates.winrate')} percent={civ.win_rate * 100} status={civ.win_rate >= 0.5 ? 'positive' : 'negative'} />
+                    <ProgressBar label={getTranslation('winrates.playrate')} percent={civ.play_rate * 100} max={maxPlayrate} />
                 </View>
             </View>
 
