@@ -39,28 +39,40 @@ export function LivePlayer({ player }: IPlayerProps) {
 
     const playerColor = aoe2PlayerColors[player.colorHex] ?? player.colorHex;
 
+    // AI and closed slots arrive as regular slots with a profileId of -1. They
+    // have no profile page, so the row must not link anywhere.
+    const hasProfile = !!player.profileId && player.profileId > 0;
+
+    const content = (
+        <>
+            {appConfig.game === 'aoe2' && (
+                <View className="w-5 h-5 items-center justify-center" style={{ backgroundColor: playerColor }}>
+                    <Text variant="header-xs" className="text-sm" color="text-white">
+                        {player.color}
+                    </Text>
+                </View>
+            )}
+            <MyText className="flex-1">{player.rating}</MyText>
+            <MyText className="flex-3" numberOfLines={1}>
+                {player.name}
+            </MyText>
+            <MyText className="flex-1 text-right">{!!player.games && player.games + ''}</MyText>
+            <MyText className="flex-1 text-right">
+                {!!player.games && !!player.wins && ((player.wins / player.games) * 100).toFixed(0) + ' %'}
+            </MyText>
+            <MyText className="flex-1 text-right">
+                {!!player.games && !!player.drops && ((player.drops / player.games) * 100).toFixed(0) + ' %'}
+            </MyText>
+        </>
+    );
+
+    if (!hasProfile) {
+        return <View className="flex-row items-center gap-2">{content}</View>;
+    }
+
     return (
         <Link asChild href={`/players/${player.profileId}`}>
-            <PressableOpacity className="flex-row items-center gap-2">
-                {appConfig.game === 'aoe2' && (
-                    <View className="w-5 h-5 items-center justify-center" style={{ backgroundColor: playerColor }}>
-                        <Text variant="header-xs" className="text-sm" color="text-white">
-                            {player.color}
-                        </Text>
-                    </View>
-                )}
-                <MyText className="flex-1">{player.rating}</MyText>
-                <MyText className="flex-3" numberOfLines={1}>
-                    {player.name}
-                </MyText>
-                <MyText className="flex-1 text-right">{!!player.games && player.games + ''}</MyText>
-                <MyText className="flex-1 text-right">
-                    {!!player.games && !!player.wins && ((player.wins / player.games) * 100).toFixed(0) + ' %'}
-                </MyText>
-                <MyText className="flex-1 text-right">
-                    {!!player.games && !!player.drops && ((player.drops / player.games) * 100).toFixed(0) + ' %'}
-                </MyText>
-            </PressableOpacity>
+            <PressableOpacity className="flex-row items-center gap-2">{content}</PressableOpacity>
         </Link>
     );
 }
