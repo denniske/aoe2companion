@@ -49,7 +49,7 @@ export default function MatchOptions(props: Props) {
                     </View>
                     <View className="flex-row items-center gap-1">
                         <Text className="w-[180px] flex-none">{getTranslation('match.cheats')}:</Text>
-                        <Text className="flex-1">{match.cheats ? 'Yes' : 'No'}</Text>
+                        <Text className="flex-1">{getTranslation(match.cheats ? 'common.yes' : 'common.no')}</Text>
                     </View>
                 </View>
             )}

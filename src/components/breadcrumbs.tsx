@@ -9,11 +9,34 @@ import { Fragment } from 'react';
 import { SkeletonText } from './skeleton';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
+import { useTranslation } from '@app/helper/translate';
+
+// Route segments shown in the breadcrumb trail. Anything not listed here falls
+// back to startCase(segment), which is English-only.
+const segmentTranslationKeys = {
+    players: 'players.title',
+    matches: 'matches.title',
+    explore: 'explore.title',
+    competitive: 'competitive.title',
+    statistics: 'statistics.title',
+    clans: 'breadcrumbs.clans',
+    live: 'breadcrumbs.live',
+    lobbies: 'lobbies.title',
+    tournaments: 'tournaments.title',
+    'build-orders': 'builds.title',
+    buildings: 'building.title',
+    civilizations: 'explore.civilizations',
+    maps: 'maps.title',
+    technologies: 'explore.technologies',
+    units: 'unit.title',
+    winrates: 'winrates.title',
+} as const;
 
 const replaceParamsInPath = (segment: string, params: Record<string, string | null>) =>
     Object.entries(params).reduce((acc, [key, value]) => acc.replace(`[${key}]`, value?.toString() ?? ''), segment.toString());
 
 export const Breadcrumbs: React.FC<{ title: string; paramReplacements?: Record<string, string | null> }> = ({ title, paramReplacements }) => {
+    const getTranslation = useTranslation();
     const params = useGlobalSearchParams<Record<string, string>>();
     const segments = useSegments();
     const screenNames = segments
@@ -21,10 +44,15 @@ export const Breadcrumbs: React.FC<{ title: string; paramReplacements?: Record<s
         .map((segment) => ({ key: segment.replace(/[\[\]']+/g, ''), value: replaceParamsInPath(segment, params) }));
     const TextComponent = title ? Text : SkeletonText;
 
+    const translateSegment = (key: string) => {
+        const translationKey = segmentTranslationKeys[key as keyof typeof segmentTranslationKeys];
+        return (translationKey ? getTranslation(translationKey) : undefined) ?? startCase(key);
+    };
+
     return (
         <View className={cn('flex-row items-center gap-1 py-1.5', containerClassName)}>
             <Link href="/" color="subtle">
-                Home
+                {getTranslation('nav.home')}
             </Link>
             <Icon icon={faChevronRight} size={12} />
 
@@ -57,7 +85,7 @@ export const Breadcrumbs: React.FC<{ title: string; paramReplacements?: Record<s
                             href={fullPath as Href}
                             color="subtle"
                         >
-                            {replacement ?? startCase(segment)}
+                            {replacement ?? translateSegment(key)}
                         </Link>
                         <Icon icon={faChevronRight} size={12} color="subtle" />
                     </Fragment>

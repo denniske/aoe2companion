@@ -36,9 +36,9 @@ export function teamRatio(match: IMatchNew) {
 export function matchCategory(match: IMatchNew) {
     const leaderboardId = match.leaderboardId ?? '';
     if (leaderboardId.startsWith('unranked')) return 'Unranked';
-    // aoe2 calls it Quick Play (qp_*), aoe4 calls it Quick Match (qm_*).
+    // aoe2 calls it Quick Play (qp_*), aoe4 calls it Quick Match (qm_*) but we display Ranked.
     if (leaderboardId.startsWith('qp_')) return 'Quick Play';
-    if (leaderboardId.startsWith('qm_')) return 'Quick Match';
+    // if (leaderboardId.startsWith('qm_')) return 'Quick Match';
     return 'Ranked';
 }
 

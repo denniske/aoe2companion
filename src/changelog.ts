@@ -10,6 +10,20 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
+    '41.0.0': [
+        {
+            type: 'minor',
+            title: 'Display match duration',
+        },
+        {
+            type: 'bugfix',
+            title: 'Added missing translations using AI',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix loading of translations',
+        },
+    ],
     '40.0.0': [
         {
             type: 'bugfix',

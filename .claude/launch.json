@@ -4,8 +4,20 @@
         {
             "name": "web",
             "runtimeExecutable": "sh",
-            "runtimeArgs": ["-c", "export GAME=aoe2; export TMPDIR=/tmp/metro-cache-aoe2; mkdir -p $TMPDIR; npx expo start -c --web -p 8081"],
+            "runtimeArgs": [
+                "-c",
+                "export GAME=aoe2; export TMPDIR=/tmp/metro-cache-aoe2; mkdir -p $TMPDIR; npx expo start -c --web -p 8081"
+            ],
             "port": 8081
+        },
+        {
+            "name": "web-aoe4",
+            "runtimeExecutable": "sh",
+            "runtimeArgs": [
+                "-c",
+                "export GAME=aoe4; export TMPDIR=/tmp/metro-cache-aoe4; mkdir -p $TMPDIR; npx expo start -c --web -p 8082"
+            ],
+            "port": 8082
         }
     ]
 }

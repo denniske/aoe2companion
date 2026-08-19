@@ -3,7 +3,7 @@ import { differenceInMilliseconds, differenceInSeconds, intervalToDuration } fro
 import { useMinuteRerender } from '@app/hooks/use-minute-rerender';
 import { Text } from '@app/components/text';
 import { formatAgo, getDuration } from '@nex/data';
-import { appConfig } from '@nex/dataset';
+import { useTranslation } from '@app/helper/translate';
 import Countdown from 'react-countdown';
 
 
@@ -24,12 +24,12 @@ interface ElapsedTimeOrDurationProps {
 }
 
 export const ElapsedTimeOrDuration: React.FC<ElapsedTimeOrDurationProps> = ({ match }) => {
+    const getTranslation = useTranslation();
     const finished = match.finished || new Date();
     let duration: string = '';
     if (match.started) {
         duration = getDuration(differenceInMilliseconds(finished, match.started), match.speedFactor);
     }
-    if (appConfig.game !== 'aoe2') duration = '';
 
     let matchState = 'none';
     if (match.started) {
@@ -53,8 +53,8 @@ export const ElapsedTimeOrDuration: React.FC<ElapsedTimeOrDurationProps> = ({ ma
                 ) : null
             }
             {matchState === 'finished' ? `${match.started ? formatAgo(match.started) : 'none'} - ${duration}` : null}
-            {matchState === 'abandoned' ? `${match.started ? formatAgo(match.started) : 'none'} - Abandoned` : null}
-            {matchState === 'timedout' ? `${match.started ? formatAgo(match.started) : 'none'} - Timed Out` : null}
+            {matchState === 'abandoned' ? `${match.started ? formatAgo(match.started) : 'none'} - ${getTranslation('match.abandoned')}` : null}
+            {matchState === 'timedout' ? `${match.started ? formatAgo(match.started) : 'none'} - ${getTranslation('match.timedout')}` : null}
         </Text>
     );
 };
