@@ -3,7 +3,8 @@ import { useRef, useState } from 'react';
 import { useFocusEffect } from 'expo-router';
 import { ICloseEvent, w3cwebsocket } from 'websocket';
 import { decamelizeKeys } from 'humps';
-import { getHost, makeQueryString } from '@nex/data';
+import { getHost, getLanguage, makeQueryString } from '@nex/data';
+import { useLanguage } from '@app/queries/all';
 import { produce } from 'immer';
 import { useIsFocused } from "expo-router/react-navigation";
 
@@ -38,6 +39,9 @@ function initConnection(handler: IConnectionHandler, profileIds?: number[], veri
     const queryString = makeQueryString(
         decamelizeKeys({
             handler: 'lobbies',
+            // The server localises map and game mode names, so it needs the
+            // language just like the REST endpoints do.
+            language: getLanguage(),
             profileIds,
             verified,
             matchIds,
@@ -181,10 +185,14 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
     const [isLoading, setIsLoading] = useState(true);
     const focused = useIsFocused();
     const socket = useRef<w3cwebsocket>(undefined);
+    // The server localises map and game mode names from the language on the
+    // connection. Connecting before the account has loaded would subscribe with
+    // the 'en' fallback and keep serving English names for the whole session.
+    const language = useLanguage();
 
     const connect = (_profileIds?: number[], _verified?: boolean, _matchIds?: number[]) => {
         // There is nothing to subscribe to, e.g. a subscription by match ids without any match id
-        if (!enabled) return;
+        if (!enabled || !language) return;
 
         // Reconnecting would otherwise leave the previous socket open
         socket.current?.close();
@@ -213,7 +221,7 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
     };
 
     useFocusEffect(() => {
-        if (enabled) {
+        if (enabled && language) {
             connect(profileIds, verified, matchIds);
             setIsLoading(true);
         }

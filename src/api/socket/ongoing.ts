@@ -1,4 +1,4 @@
-import { dateReviver, getHost } from '@nex/data';
+import { dateReviver, getHost, getLanguage } from '@nex/data';
 import { useFocusEffect } from 'expo-router';
 import { produce } from 'immer';
 import { useRef, useState } from 'react';
@@ -7,6 +7,7 @@ import { IMatchesMatch } from '../helper/api.types';
 import { makeQueryString } from '@app/api/helper/util';
 import { decamelizeKeys } from 'humps';
 import { useIsFocused } from "expo-router/react-navigation";
+import { useLanguage } from '@app/queries/all';
 import { cloneDeep } from 'lodash';
 
 interface IConnectionHandler {
@@ -23,6 +24,9 @@ function initConnection(handler: IConnectionHandler, profileIds?: number[], veri
     const queryString = makeQueryString(
         decamelizeKeys({
             handler: 'ongoing-matches',
+            // The server localises map and game mode names, so it needs the
+            // language just like the REST endpoints do.
+            language: getLanguage(),
             profileIds,
             verified,
         })
@@ -127,10 +131,14 @@ export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingPa
     const [isLoading, setIsLoading] = useState(true);
     const focused = useIsFocused();
     const socket = useRef<w3cwebsocket>(undefined);
+    // The server localises map and game mode names from the language on the
+    // connection. Connecting before the account has loaded would subscribe with
+    // the 'en' fallback and keep serving English names for the whole session.
+    const language = useLanguage();
 
     const connect = (_profileIds?: number[], _verified?: boolean) => {
         // There is nothing to subscribe to, e.g. a subscription by profile ids without any profile id
-        if (!enabled) return;
+        if (!enabled || !language) return;
 
         // Reconnecting would otherwise leave the previous socket open
         socket.current?.close();
@@ -158,7 +166,7 @@ export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingPa
     };
 
     useFocusEffect(() => {
-        if (enabled) {
+        if (enabled && language) {
             connect(profileIds, verified);
             setIsLoading(true);
         }

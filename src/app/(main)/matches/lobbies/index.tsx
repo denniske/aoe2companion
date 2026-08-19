@@ -63,8 +63,8 @@ export default function LiveLobbiesPage() {
 
                     <Text variant="label">
                         {isConnecting
-                            ? 'Fetching lobbies...'
-                            : `There are ${filteredData?.length} open lobbies${search ? ' that match your search ' : ''}`}
+                            ? getTranslation('lobbies.fetching')
+                            : getTranslation(search ? 'lobbies.count.search' : 'lobbies.count', { count: filteredData?.length })}
                     </Text>
                 </View>
 
