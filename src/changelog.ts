@@ -383,11 +383,13 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Added missing translations using AI',
         },
-    ],
-    '212.0.0': [
         {
             type: 'bugfix',
             title: 'Fix loading of translations',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix display when a match belongs to Quick Play vs AI',
         },
     ],
     '211.0.0': [

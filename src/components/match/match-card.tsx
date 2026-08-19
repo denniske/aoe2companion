@@ -1,8 +1,8 @@
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { getMapImage } from '@app/helper/maps';
-import { isMatchFreeForAll, teamRatio } from '@nex/data';
+import { isMatchFreeForAll, matchCategory, matchModeLabel, teamRatio } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { flatten, startCase, uniq } from 'lodash';
+import { flatten, uniq } from 'lodash';
 import React, { Fragment } from 'react';
 import { Platform, Pressable, View } from 'react-native';
 import { Card } from '../card';
@@ -35,27 +35,12 @@ export function MatchCard(props: MatchCardProps) {
     const user = props.user ?? getProfileIdFromHighlightedUsers(match, highlightedUsers);
 
     const consoleAffix = match.leaderboardId?.includes('console') ? '🎮 ' : '';
-    if (match.leaderboardName?.includes('Unranked')) {
-        attributes.push(consoleAffix + 'Unranked');
-    } else if (match.leaderboardName?.includes('Quick Play') || match.leaderboardName?.includes('Quick Match')) {
-        attributes.push(consoleAffix + 'Quick Play');
-    } else {
-        attributes.push(consoleAffix + 'Ranked');
-    }
+    attributes.push(consoleAffix + matchCategory(match));
 
-    if (match.gameModeName) {
-        if (match.leaderboardName && !match.leaderboardName.includes(match.gameModeName.toString())) {
-            attributes.push(match.leaderboardName.replace('1v1', '').replace('Team', ''));
-        } else {
-            attributes.push(startCase(match.gameModeName.toString()));
-        }
+    const modeLabel = matchModeLabel(match);
+    if (modeLabel) {
+        attributes.push(modeLabel);
     }
-
-    // console.log('match.gameModeName', match.gameModeName);
-    // console.log('match.leaderboardName', match.leaderboardName);
-    // console.log('match.1', match.leaderboardName?.replace('1v1', '').replace('Team', ''));
-    // console.log('match.2', startCase(match.gameModeName.toString()));
-    // console.log('attributes', attributes);
 
     attributes = uniq(attributes);
 
