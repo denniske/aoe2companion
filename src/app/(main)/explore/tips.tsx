@@ -227,7 +227,10 @@ function VideoTip(props: any) {
                     {
                         width: '100%',
                         aspectRatio: 16 / 9,
-                        height: Platform.OS === 'web' ? 252 : undefined,
+                        // Fills the 16/9 showcase box instead of a fixed 252px,
+                        // which was the height only at the max-w-md width and
+                        // overflowed onto the list on anything narrower.
+                        height: Platform.OS === 'web' ? '100%' : undefined,
                     },
                 ]}
             />

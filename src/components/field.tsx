@@ -35,16 +35,11 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
         email: {},
     };
 
-    const paddingMap = {
-        default: 'px-4',
-        search: 'px-8',
-        password: 'px-4',
-        email: 'pl-4 pr-8',
-        // password: 'px-9',
-        // email: 'px-9',
-    };
-
-    const padding = paddingMap[inputType];
+    // Padding follows the buttons that are actually rendered: reserving room on
+    // the right while no button is there just truncates the placeholder early.
+    const hasClearButton = inputType === 'search' && !!props.value;
+    const hasPasswordToggle = inputType === 'password';
+    const padding = cn(inputType === 'search' ? 'pl-8' : 'pl-4', hasClearButton || hasPasswordToggle ? 'pr-8' : 'pr-4');
 
     return (
         <View className="relative" style={style}>
@@ -63,12 +58,12 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
                     props.className
                 )}
             />
-            {inputType === 'search' && props.value ? (
+            {hasClearButton ? (
                 <PressableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => props.onChangeText?.('')}>
                     <Icon icon={faTimesCircle} />
                 </PressableOpacity>
             ) : null}
-            {inputType === 'password' ? (
+            {hasPasswordToggle ? (
                 <PressableOpacity className="absolute right-0 px-3 top-0 h-full justify-center" onPress={() => setSecureTextEntry((x) => !x)}>
                     <Icon icon={secureTextEntry ? faEye : faEyeSlash} color="subtle" />
                 </PressableOpacity>
