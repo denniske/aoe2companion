@@ -239,8 +239,16 @@ export function sanitizeGameDescription(description: string) {
 // and dropping it would glue two words together.
 const softHyphenationLanguages = ['de', 'en', 'it'];
 
+// German writes compounds as one word, so the game also breaks lines in the
+// middle of a word without a hyphen ("Bau<br>\nkran"). Turning that break into
+// a space would give "Bau kran". No other language in the data does this: a
+// lowercase continuation there is a real word boundary ("Archer<br>\ncomposite").
+const closedCompoundLanguages = ['de'];
+
 export function sanitizeGameName(name: string) {
-    const dropsHyphenAtLineBreak = softHyphenationLanguages.includes(getLanguage());
+    const language = getLanguage();
+    const dropsHyphenAtLineBreak = softHyphenationLanguages.includes(language);
+    const joinsWordAtLineBreak = closedCompoundLanguages.includes(language);
 
     return name
         .replace(/<br>/g, '')
@@ -250,6 +258,9 @@ export function sanitizeGameName(name: string) {
         // A hyphen followed by whitespace never joins two halves of one word.
         .replace(/-\n(?=[ \t])/g, '')
         .replace(/-\n/g, dropsHyphenAtLineBreak ? '' : '-')
+        // Only when the rest of the name is a single lowercase word: with more
+        // words after it the break is a normal space ("Wächter der\nweißen Feder").
+        .replace(/\n(?=\p{Ll}\S*$)/gu, joinsWordAtLineBreak ? '' : ' ')
         .replace(/\n/g, ' ');
 }
 
