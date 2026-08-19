@@ -38,6 +38,41 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
     const { liveTwitchAccounts } = useLiveTwitchAccounts();
     const twitch = !!player.socialTwitchChannel && liveTwitchAccounts?.find((twitch) => twitch.user_login === player.socialTwitchChannel);
 
+    // AI and closed slots come through with a profileId of -1, and a player can
+    // be missing a civ. `disabled` on expo-router's Link still renders a live
+    // anchor on web, so the row has to leave the link out entirely instead.
+    const hasProfile = !!player.profileId && player.profileId > 0;
+    const hasCiv = !!player.civ;
+
+    const civClassName = cn('flex-1 gap-1', reverse ? 'flex-row-reverse' : 'flex-row');
+    const nameClassName = cn('flex-1 gap-1 items-center', reverse ? 'flex-row-reverse' : 'flex-row');
+
+    const civContent = (
+        <>
+            <Image className={appConfig.game === 'aoe2' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="cover" />
+            <Text numberOfLines={1} variant={highlight ? 'label' : 'body'} className="flex-1" align={reverse ? 'right' : 'left'}>
+                {player.civName}
+            </Text>
+        </>
+    );
+
+    const nameContent = (
+        <>
+            <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1} className="shrink">
+                {player.name}
+            </Text>
+            {player.status === 'player' && player.verified && <Icon icon={faCheckCircle} color="brand" size={12} className="w-6" />}
+            {!!(twitch) && (
+                <View className={reverse ? 'mr-2' : 'ml-2'}>
+                    <TwitchBadge channelUrl={player?.socialTwitchChannelUrl} channel={player?.socialTwitchChannel} condensed />
+                </View>
+            )}
+            {player.status === 'player' && !player.verified && player.shared && (
+                <Icon icon={faFamily} color="brand" size={12} className="w-6" />
+            )}
+        </>
+    );
+
     return (
         <View
             className={cn('items-center gap-2 py-1.5 px-2 bg-clip-padding', reverse ? 'flex-row-reverse text-right' : 'flex-row', className)}
@@ -48,31 +83,25 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
                 }
             }
         >
-            <Link href={player.civ ? `/explore/civilizations/${getLocalCivEnum(player.civ)}` : '/'} disabled={!player.civ} asChild>
-                <PressableOpacity className={cn('flex-1 gap-1', reverse ? 'flex-row-reverse' : 'flex-row')} onPress={onClose}>
-                    <Image className={appConfig.game === 'aoe2' ? 'w-5 h-5' : 'w-8 h-5'} source={getCivIcon(player)} contentFit="cover" />
-                    <Text numberOfLines={1} variant={highlight ? 'label' : 'body'} className="flex-1" align={reverse ? 'right' : 'left'}>
-                        {player.civName}
-                    </Text>
-                </PressableOpacity>
-            </Link>
+            {hasCiv ? (
+                <Link href={`/explore/civilizations/${getLocalCivEnum(player.civ!)}`} asChild>
+                    <PressableOpacity className={civClassName} onPress={onClose}>
+                        {civContent}
+                    </PressableOpacity>
+                </Link>
+            ) : (
+                <View className={civClassName}>{civContent}</View>
+            )}
 
-            <Link href={`/players/${player.profileId}`} asChild disabled={player.profileId === -1}>
-                <PressableOpacity className={cn('flex-1 gap-1 items-center', reverse ? 'flex-row-reverse' : 'flex-row')} onPress={onClose}>
-                    <Text variant={highlight ? 'header-xs' : 'body'} numberOfLines={1} className="shrink">
-                        {player.name}
-                    </Text>
-                    {player.status === 'player' && player.verified && <Icon icon={faCheckCircle} color="brand" size={12} className="w-6" />}
-                    {!!(twitch) && (
-                        <View className={reverse ? 'mr-2' : 'ml-2'}>
-                            <TwitchBadge channelUrl={player?.socialTwitchChannelUrl} channel={player?.socialTwitchChannel} condensed />
-                        </View>
-                    )}
-                    {player.status === 'player' && !player.verified && player.shared && (
-                        <Icon icon={faFamily} color="brand" size={12} className="w-6" />
-                    )}
-                </PressableOpacity>
-            </Link>
+            {hasProfile ? (
+                <Link href={`/players/${player.profileId}`} asChild>
+                    <PressableOpacity className={nameClassName} onPress={onClose}>
+                        {nameContent}
+                    </PressableOpacity>
+                </Link>
+            ) : (
+                <View className={nameClassName}>{nameContent}</View>
+            )}
 
             {Platform.OS === 'web' && appConfig.game === 'aoe2' && canDownloadRec && (
                 <Pressable onPress={downloadRec}>
