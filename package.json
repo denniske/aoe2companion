@@ -19,6 +19,7 @@
         "ios": "expo run:ios",
         "postinstall": "patch-package",
         "deploy": "bash deploy.sh",
+        "upload:translations": "bash upload-translations.sh",
         "app-update-types": "expo-type-information module-interface -m modules/app-update",
         "log": "bash log.sh",
         "lint": "biome lint src",
