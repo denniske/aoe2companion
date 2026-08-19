@@ -232,10 +232,24 @@ export function sanitizeGameDescription(description: string) {
         .replace(/‹DEFAULT›/g, '');
 }
 
+// Languages whose game strings hyphenate a single word across a line break
+// ("Circum-\nnavigation", "Komposit-\nbogenschützen") — there the hyphen is
+// only a typographic artefact and has to go. Everywhere else a hyphen at a
+// break belongs to the name itself ("Chariot-fusée", "Застрельщик-гвардеец")
+// and dropping it would glue two words together.
+const softHyphenationLanguages = ['de', 'en', 'it'];
+
 export function sanitizeGameName(name: string) {
+    const dropsHyphenAtLineBreak = softHyphenationLanguages.includes(getLanguage());
+
     return name
         .replace(/<br>/g, '')
-        .replace(/-\n/g, '')
+        // A capital after the break is a real compound hyphen in every language
+        // ("Elite-\nElefantenreiter", "Alto-\nForno").
+        .replace(/-\n(?=\p{Lu})/gu, '-')
+        // A hyphen followed by whitespace never joins two halves of one word.
+        .replace(/-\n(?=[ \t])/g, '')
+        .replace(/-\n/g, dropsHyphenAtLineBreak ? '' : '-')
         .replace(/\n/g, ' ');
 }
 

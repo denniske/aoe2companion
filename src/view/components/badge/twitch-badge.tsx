@@ -82,7 +82,9 @@ export function ProfileLive({ data }: { data: IPlayerNew }) {
                 <>
                     <MyText style={{ color: '#e91a16' }}> ● </MyText>
                     <MyText>{playerTwitchLive.viewer_count} </MyText>
-                    <Icon icon={faTwitch} size={12} />
+                    {/* The icon sits inside a sentence: as a plain svg it becomes a
+                        block box on web and breaks the line before and after it. */}
+                    <Icon icon={faTwitch} size={12} className="inline-block align-middle" />
                     <MyText> </MyText>
                 </>
             )}

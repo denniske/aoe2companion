@@ -3287,14 +3287,18 @@ interface IAffectedUpgrades {
     upgrades: ITechEffect[];
 }
 
-export function getUpgradeList(tech: Tech, affectedUnitInfo: IAffectedUpgrades) {
+// `formatOnly` lets the app supply a translated "only <civ>" fragment; without
+// it the English wording is used, so callers outside the app still work.
+export function getUpgradeList(tech: Tech, affectedUnitInfo: IAffectedUpgrades, formatOnly?: (civ: string) => string) {
     const techInfo = techs[tech];
+    const onlyText = formatOnly ?? ((civ: string) => `only ${civ}`);
 
     const getEffectText = (u: ITechEffect, effect: Effect) => {
-        return u.effect[effect] + (u.civ && !techInfo.civ ? ' (only '+u.civ+')' : '');
+        return u.effect[effect] + (u.civ && !techInfo.civ ? ' (' + onlyText(u.civ) + ')' : '');
     };
 
     return keysOf(effectNames).map(effect => ({
+        effect,
         name: getEffectName(effect),
         upgrades: affectedUnitInfo.upgrades.filter(u => effect in u.effect).map(u => getEffectText(u, effect)),
     })).filter(g => g.upgrades.length > 0);

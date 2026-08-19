@@ -115,62 +115,62 @@ export default function MatchOptions(props: Props) {
                     </View>
 
                     <View className="flex-row gap-1 mt-2">
-                        <View className="flex-col gap-1 w-[50%]">
+                        <View className="flex-col gap-1 flex-1 min-w-0">
                             <Text className="mb-1">{getTranslation('match.teamSettings')}</Text>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.lockTeams ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.lockTeams')}</Text>
+                                <Text className="flex-1">{getTranslation('match.lockTeams')}</Text>
                             </View>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.teamTogether ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.teamTogether')}</Text>
+                                <Text className="flex-1">{getTranslation('match.teamTogether')}</Text>
                             </View>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.teamPositions ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.teamPositions')}</Text>
+                                <Text className="flex-1">{getTranslation('match.teamPositions')}</Text>
                             </View>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.sharedExploration ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.sharedExploration')}</Text>
+                                <Text className="flex-1">{getTranslation('match.sharedExploration')}</Text>
                             </View>
                         </View>
-                        <View className="flex-col gap-1">
+                        <View className="flex-col gap-1 flex-1 min-w-0">
                             <Text className="mb-1">{getTranslation('match.advancedSettings')}</Text>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.lockSpeed ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.lockSpeed')}</Text>
+                                <Text className="flex-1">{getTranslation('match.lockSpeed')}</Text>
                             </View>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.allowCheats ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.allowCheats')}</Text>
+                                <Text className="flex-1">{getTranslation('match.allowCheats')}</Text>
                             </View>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.turboMode ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.turboMode')}</Text>
+                                <Text className="flex-1">{getTranslation('match.turboMode')}</Text>
                             </View>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.fullTechTree ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.fullTechTree')}</Text>
+                                <Text className="flex-1">{getTranslation('match.fullTechTree')}</Text>
                             </View>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.empireWarsMode ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.empireWarsMode')}</Text>
+                                <Text className="flex-1">{getTranslation('match.empireWarsMode')}</Text>
                             </View>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.suddenDeathMode ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.suddenDeathMode')}</Text>
+                                <Text className="flex-1">{getTranslation('match.suddenDeathMode')}</Text>
                             </View>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.regicideMode ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.regicideMode')}</Text>
+                                <Text className="flex-1">{getTranslation('match.regicideMode')}</Text>
                             </View>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.antiquityMode ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.antiquityMode')}</Text>
+                                <Text className="flex-1">{getTranslation('match.antiquityMode')}</Text>
                             </View>
-                            <View className="flex-row items-center gap-1">
+                            <View className="flex-row items-start gap-1">
                                 <Icon icon={match.recordGame ? faCheckSquare : faSquare} size={14} />
-                                <Text>{getTranslation('match.recordGame')}</Text>
+                                <Text className="flex-1">{getTranslation('match.recordGame')}</Text>
                             </View>
                         </View>
                     </View>

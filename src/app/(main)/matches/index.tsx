@@ -263,8 +263,8 @@ export default function MatchesPage() {
                                                 </MyText>
                                             )}
                                             {Platform.OS === 'web' && !match.finished && appConfig.game === 'aoe2' && (
-                                                <Link className="pl-1" onPress={() => spectate(match.matchId)}>
-                                                    Spectate
+                                                <Link className="pl-1 whitespace-nowrap" onPress={() => spectate(match.matchId)}>
+                                                    {getTranslation('matches.spectate')}
                                                 </Link>
                                             )}
                                         </Text>

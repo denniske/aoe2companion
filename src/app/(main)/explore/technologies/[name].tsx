@@ -5,6 +5,8 @@ import {
     ageUpgrades,
     Building,
     buildings,
+    Civ,
+    getCivNameById,
     getAffectedBuildingInfos,
     getAffectedUnitInfos,
     getAgeFromAgeTech,
@@ -36,7 +38,7 @@ import { BuildingCompBig } from '../../../../view/building/building-comp';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import { HeaderTitle } from '@app/components/header-title';
-import { getTechIcon } from '@app/helper/techs';
+import { effectTranslationKeys, getTechIcon } from '@app/helper/techs';
 import { useTranslation } from '@app/helper/translate';
 import { Text } from '@app/components/text';
 import NotFound from '@app/app/(main)/+not-found';
@@ -48,6 +50,7 @@ function capitalizeFirstLetter(string: string | number) {
 
 export default function TechDetails() {
     const getTranslation = useTranslation();
+    const formatOnly = (civ: string) => `${getTranslation('unit.effect.only')} ${getCivNameById(civ as Civ)}`;
     const { name: tech } = useLocalSearchParams<{ name: Tech }>();
     if (!hasTechData(tech)) {
         return <NotFound />;
@@ -121,8 +124,8 @@ export default function TechDetails() {
                                     <UnitCompBig
                                         key={affectedUnit.unitId}
                                         unit={affectedUnit.unitId}
-                                        subtitle={getUpgradeList(tech, affectedUnit)
-                                            .map((g) => g.name + ': ' + capitalizeFirstLetter(g.upgrades.join(', ')))
+                                        subtitle={getUpgradeList(tech, affectedUnit, formatOnly)
+                                            .map((g) => getTranslation(effectTranslationKeys[g.effect]) + ': ' + capitalizeFirstLetter(g.upgrades.join(', ')))
                                             .join('\n')}
                                     />
                                 ))}
@@ -138,8 +141,8 @@ export default function TechDetails() {
                                     <BuildingCompBig
                                         key={affectedBuilding.buildingId}
                                         building={affectedBuilding.buildingId}
-                                        subtitle={getUpgradeList(tech, affectedBuilding)
-                                            .map((g) => g.name + ': ' + capitalizeFirstLetter(g.upgrades.join(', ')))
+                                        subtitle={getUpgradeList(tech, affectedBuilding, formatOnly)
+                                            .map((g) => getTranslation(effectTranslationKeys[g.effect]) + ': ' + capitalizeFirstLetter(g.upgrades.join(', ')))
                                             .join('\n')}
                                     />
                                 ))}

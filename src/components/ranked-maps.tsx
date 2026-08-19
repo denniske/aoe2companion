@@ -34,7 +34,7 @@ export const RankedMaps: React.FC = () => {
     return (
         <View>
             <Text variant="header-lg" className="pb-2">
-                {isMedium ? 'Ranked Ladder' : 'Ranked Maps'}
+                {getTranslation(isMedium ? 'maps.rankedladder' : 'maps.rankedmaps')}
             </Text>
 
             <AnimateIn skipFirstAnimation>

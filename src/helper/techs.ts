@@ -15,3 +15,23 @@ export function getTechIcon(tech: Tech): ImageSourcePropType {
 
     return techIconImageDict[tech];
 }
+
+// Upgrade groups on unit/building/tech pages are keyed by their effect prop.
+// `effectNames` in @nex/data only carries the English label, so the app maps the
+// prop to a translation key instead of rendering that label directly.
+export const effectTranslationKeys = {
+    carryCapacity: 'unit.effect.carrycapacity',
+    gatheringSpeed: 'unit.effect.gatheringspeed',
+    hitPoints: 'unit.effect.hitpoints',
+    attack: 'unit.effect.attack',
+    range: 'unit.effect.range',
+    firingRate: 'unit.effect.firingrate',
+    accuracy: 'unit.effect.accuracy',
+    armor: 'unit.effect.armor',
+    speed: 'unit.effect.speed',
+    sight: 'unit.effect.sight',
+    conversionDefense: 'unit.effect.conversiondefense',
+    creationSpeed: 'unit.effect.creationspeed',
+    capacity: 'unit.effect.capacity',
+    other: 'unit.effect.other',
+} as const;

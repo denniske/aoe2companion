@@ -7,6 +7,7 @@ import {
     civsAoeNet,
     effectNames,
     getCivHasTech,
+    getCivNameById,
     getEffectName,
     getTechName,
     getBuildingName,
@@ -23,7 +24,7 @@ import React from 'react';
 import { useTheme } from '../../theming';
 import { appVariants } from '../../styles';
 import Space from '../components/space';
-import { getTechIcon } from '../../helper/techs';
+import { effectTranslationKeys, getTechIcon } from '../../helper/techs';
 import { getEliteUniqueResearchIcon } from '../../helper/units';
 import { createStylesheet } from '../../theming-new';
 import { Image } from '@/src/components/uniwind/image';
@@ -82,7 +83,7 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
             {groups.map((group) => (
                 <View key={group.name}>
                     <View style={styles.row}>
-                        <MyText style={styles.header2}>{group.name}</MyText>
+                        <MyText style={styles.header2}>{getTranslation(effectTranslationKeys[group.prop])}</MyText>
                     </View>
                     {group.upgrades.map((upgrade) => (
                         <View style={[styles.row, { opacity: hasTech(upgrade.tech!) ? 1 : 0.5 }]} key={upgrade.name}>
@@ -100,10 +101,10 @@ export function BuildingUpgrades({ buildingLineId, buildingId }: Props) {
                                         {upgrade.effect[group.prop] && upgrade.civ ? ', ' : ''}
                                         {!!(upgrade.civ) && (
                                             <>
-                                                <MyText size="footnote">only </MyText>
+                                                <MyText size="footnote">{getTranslation('unit.effect.only')} </MyText>
                                                 <Link asChild href={`/explore/civilizations/${upgrade.civ}`}>
                                                     <MyText size="footnote" style={appStyles.link} className="hover:underline">
-                                                        {upgrade.civ}
+                                                        {getCivNameById(upgrade.civ as Civ)}
                                                     </MyText>
                                                 </Link>
                                             </>
