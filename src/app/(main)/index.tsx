@@ -301,7 +301,7 @@ export default function IndexPage() {
                             <Text variant="header-lg">
                                 {getTranslation(accountMostRecentMatch?.finished === null ? 'home.currentMatch' : 'home.mostRecentMatch')}
                             </Text>
-                            <Link href="/matches/live/mine">{getTranslation('home.openmydashboard')}</Link>
+                            <Link href="/matches/live/mine">{getTranslation('home.opendashboard')}</Link>
                         </View>
                         <View className="gap-2">
                             <Match

@@ -42,7 +42,7 @@ export const FollowedPlayers = () => {
             <View className={cn('flex-row justify-between items-center', containerClassName)}>
                 <Text variant="header-lg">{getTranslation('home.followedplayers')}</Text>
                 <UserLoginWrapper Component={Link} href="/matches/live/following">
-                    {getTranslation('home.openfollowingdashboard')}
+                    {getTranslation('home.opendashboard')}
                 </UserLoginWrapper>
             </View>
             <QueryBoundary loadingFallback={<FollowedPlayersList />} errorFallback={() => <FollowedPlayersList />}>
