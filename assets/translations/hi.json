@@ -382,7 +382,7 @@
     "updatesnackbar.update.updateavailableinstore": "अद्यतन {version} in {store}!",
     "updatesnackbar.store.ios": "ऐप स्टोर",
     "updatesnackbar.store.android": "खेल स्टोर",
-    "updatesnackbar.action.open": "खुला हुआ",
+    "updatesnackbar.action.open": "खोलें",
     "updatesnackbar.action.load": "लोड करें",
     "updatesnackbar.action.restart": "पुनः आरंभ करें",
     "lobbies.title": "लॉबी",

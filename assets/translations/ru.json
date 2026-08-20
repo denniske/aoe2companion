@@ -382,7 +382,7 @@
     "updatesnackbar.update.updateavailableinstore": "Обновите {version} in {store}!",
     "updatesnackbar.store.ios": "Магазин приложений",
     "updatesnackbar.store.android": "Магазин игр",
-    "updatesnackbar.action.open": "Открыто",
+    "updatesnackbar.action.open": "Открыть",
     "updatesnackbar.action.load": "Загрузить",
     "updatesnackbar.action.restart": "Рестарт",
     "lobbies.title": "Вестибюли",

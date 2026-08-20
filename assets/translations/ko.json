@@ -382,7 +382,7 @@
     "updatesnackbar.update.updateavailableinstore": "{version} in {store} 업데이트!",
     "updatesnackbar.store.ios": "앱 스토어",
     "updatesnackbar.store.android": "플레이 스토어",
-    "updatesnackbar.action.open": "열다",
+    "updatesnackbar.action.open": "열기",
     "updatesnackbar.action.load": "불러오기",
     "updatesnackbar.action.restart": "재시작",
     "lobbies.title": "로비",

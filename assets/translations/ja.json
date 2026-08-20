@@ -382,7 +382,7 @@
     "updatesnackbar.update.updateavailableinstore": "{version} in {store}を更新してください！",
     "updatesnackbar.store.ios": "App Store",
     "updatesnackbar.store.android": "プレイストア",
-    "updatesnackbar.action.open": "開いた",
+    "updatesnackbar.action.open": "開く",
     "updatesnackbar.action.load": "読み込む",
     "updatesnackbar.action.restart": "再起動",
     "lobbies.title": "ロビー",

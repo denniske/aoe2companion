@@ -382,7 +382,7 @@
     "updatesnackbar.update.updateavailableinstore": "{version} in {store} güncelleyin!",
     "updatesnackbar.store.ios": "Uygulama mağazası",
     "updatesnackbar.store.android": "Oyun mağazası",
-    "updatesnackbar.action.open": "Açık",
+    "updatesnackbar.action.open": "Aç",
     "updatesnackbar.action.load": "Yükle",
     "updatesnackbar.action.restart": "Tekrar başlat",
     "lobbies.title": "Lobiler",

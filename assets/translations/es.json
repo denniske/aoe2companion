@@ -382,7 +382,7 @@
     "updatesnackbar.update.updateavailableinstore": "¡Actualiza {version} en {store}!",
     "updatesnackbar.store.ios": "App Store",
     "updatesnackbar.store.android": "Play Store",
-    "updatesnackbar.action.open": "Abierto",
+    "updatesnackbar.action.open": "Abrir",
     "updatesnackbar.action.load": "Cargar",
     "updatesnackbar.action.restart": "Reanudar",
     "lobbies.title": "Lobbies",
