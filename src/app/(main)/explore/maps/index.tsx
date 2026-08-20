@@ -1,4 +1,5 @@
 import { PressableOpacity } from '@app/components/pressable-opacity';
+import { cdnImageUrl } from '@app/helper/maps';
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
@@ -29,7 +30,7 @@ export default function MapsIndex() {
             <Link href={`/explore/maps/${map.mapId}`} asChild key={map.mapId}>
                 <PressableOpacity>
                     <View className={`flex-row items-center py-1.5 -mx-4 px-4 ${text && index === 0 ? 'bg-gold-500 dark:bg-blue-900' : ''}`}>
-                        <Image className={`${appConfig.game === 'aoe2' ? 'w-8' : 'w-14'} h-8`} source={{ uri: map.imageUrl }} />
+                        <Image className={`${appConfig.game === 'aoe2' ? 'w-8' : 'w-14'} h-8`} source={{ uri: cdnImageUrl(map.imageUrl, 'thumb') }} />
                         <View className="flex-1 ml-2.5">
                             <Text variant="label">{map.mapName}</Text>
                             <Text variant="body-sm" color="subtle" numberOfLines={1}>

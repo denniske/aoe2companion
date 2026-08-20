@@ -1,4 +1,5 @@
 import {Civ, civs} from "@nex/data";
+import { cdnImageUrl } from '@app/helper/maps';
 import {dataset} from "@nex/dataset";
 
 
@@ -81,8 +82,11 @@ export const civImageRoRList = [
     require('../../assets/civilizations/ror/lacviet.png'),
 ];
 
+// Civ icons are already small at the source (150x84 for aoe4, 104x104 for aoe2)
+// and never render above ~80px, so there is nothing to resize -- 'full' only
+// swaps png for avif/webp.
 export function getCivIcon(data: { civ: any, civImageUrl: string }) {
-    return { uri: data.civImageUrl };
+    return { uri: cdnImageUrl(data.civImageUrl) };
 }
 
 export function getCivIconLocal(civ: string) {

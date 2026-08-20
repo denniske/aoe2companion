@@ -161,7 +161,7 @@ export const ProfileLeaderboardCard: React.FC<{
                         </TextComponent>
                         {topMap ? (
                             <Image
-                                source={getMapImage(topMap)}
+                                source={getMapImage(topMap, 'thumb')}
                                 className={cn('w-12 h-12', appConfig.game === 'aoe4' && 'border border-gold-500 rounded')}
                             />
                         ) : (

@@ -1,4 +1,5 @@
 import { ILobbiesMatch } from '@app/api/helper/api.types';
+import { cdnImageUrl } from '@app/helper/maps';
 import { differenceInMilliseconds, differenceInSeconds, formatISO, intervalToDuration } from 'date-fns';
 import { RatingDiff } from './rating-diff';
 import Countdown from 'react-countdown';
@@ -78,7 +79,7 @@ export const MatchCard = ({
                 {sortTeamByCurrentPlayer(match.players, userId).map((p) => (
                     <div className="flex overflow-hidden gap-1" key={p.profileId}>
                         <div className="flex gap-1.5 flex-1 overflow-hidden">
-                            <img src={p.civImageUrl} className="w-5 h-5" />
+                            <img src={cdnImageUrl(p.civImageUrl)} className="w-5 h-5" />
                             <span
                                 className={cn(
                                     'whitespace-nowrap overflow-hidden text-ellipsis flex-1',

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { cdnImageUrl } from '@app/helper/maps';
 import { View } from 'react-native';
 import { runOnJS, SharedValue, useAnimatedReaction } from 'react-native-reanimated';
 import { isEqual, last } from 'lodash';
@@ -62,7 +63,7 @@ export default function Uptimes({ time, teams }: Props) {
                 <View key={item.teamId} className="gap-0.5">
                     {item.players.map((player) => (
                         <View className="flex-row items-center gap-0" key={player.color}>
-                            <Image className={'w-4 h-4'} source={player.civImageUrl} contentFit="contain" />
+                            <Image className={'w-4 h-4'} source={cdnImageUrl(player.civImageUrl)} contentFit="contain" />
                             <Text variant="body-sm" className="w-[100px] px-1">
                                 {player.name}
                             </Text>

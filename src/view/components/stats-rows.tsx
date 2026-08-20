@@ -71,7 +71,7 @@ export function StatsRow({ type, data, onPress }: (IRowPropsCiv | IRowPropsMap |
             return getCivIcon(data);
         }
         if (type === 'map') {
-            return getMapImage(data);
+            return getMapImage(data, 'thumb');
         }
     };
 

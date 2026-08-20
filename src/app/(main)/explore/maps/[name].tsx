@@ -1,4 +1,5 @@
 import { ScrollView } from '@app/components/scroll-view';
+import { cdnImageUrl } from '@app/helper/maps';
 import { Image } from '@/src/components/uniwind/image';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React from 'react';
@@ -26,7 +27,7 @@ export default function MapDetails() {
             <ScrollView>
                 <View style={styles.detailsContainer}>
                     <MyText style={styles.content}>{map.description}</MyText>
-                    <Image source={{ uri: map.imageUrl }} style={styles.image} />
+                    <Image source={{ uri: cdnImageUrl(map.imageUrl) }} style={styles.image} />
                 </View>
             </ScrollView>
         </View>

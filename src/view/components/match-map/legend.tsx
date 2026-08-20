@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { cdnImageUrl } from '@app/helper/maps';
 import { View } from 'react-native';
 import { runOnJS, SharedValue, useAnimatedReaction } from 'react-native-reanimated';
 import { isEqual, last } from 'lodash';
@@ -135,7 +136,7 @@ export default function Legend({ time, legendInfo, match }: Props) {
                             >
                                 {player.name}
                             </Text>
-                            <Image className={'w-4 h-3 md:w-8 md:h-6'} source={player.civImageUrl} contentFit="contain" />
+                            <Image className={'w-4 h-3 md:w-8 md:h-6'} source={cdnImageUrl(player.civImageUrl)} contentFit="contain" />
                             <Image className={'w-4 h-3 md:w-8 md:h-6'} source={getAgeIcon(player.age as Age)} contentFit="contain" />
                         </View>
                     ))}

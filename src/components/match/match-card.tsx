@@ -57,7 +57,7 @@ export function MatchCard(props: MatchCardProps) {
                         <MapLinkComponent asChild href={`/explore/maps/${match.map}`}>
                             <PressableOpacity disabled={!linkMap}>
                                 <Image
-                                    source={getMapImage(match)}
+                                    source={getMapImage(match, 'thumb')}
                                     className={`w-14 h-14 md:w-20 md:h-20 ${appConfig.game === 'aoe2' ? '' : 'border border-gold-500 rounded'}`}
                                     contentFit="cover"
                                 />
