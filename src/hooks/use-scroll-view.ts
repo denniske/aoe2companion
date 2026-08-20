@@ -91,9 +91,8 @@ export const useScrollView = ({
         contentInset: { bottom: 0 }, // content inset gets reset after hot reload so we use padding bottom instead like on android
         scrollIndicatorInsets: { bottom: bottomOffset },
 
-        contentContainerStyle: !shouldDisableScroll && { paddingBottom, paddingTop },
         ref: (ref || scrollViewRef) as React.RefObject<any>,
-        style: [shouldDisableScroll && { overflow: 'visible', overflowX: 'clip' }, horizontal && { marginBottom: -10, marginTop: -10 }],
+        style: [shouldDisableScroll && { overflow: 'visible', overflowX: 'clip' }],
         scrollEnabled: !shouldDisableScroll && scrollEnabled,
         initialNumToRender: shouldDisableScroll ? 1000 : undefined,
     };

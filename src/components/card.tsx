@@ -30,7 +30,8 @@ export const Card: React.FC<CardProps> = ({ className, flat, onPress, header, ch
             <Component
                 onPress={onPress}
                 {...props}
-                className={`gap-2 ${alignmentStyles} ${colorStyles} ${paddingStyles} ${directionStyles} ${
+                // my-1 so the card shadow is always visible (it would be clipped by horizontal flatlists overflow hidden)
+                className={`gap-2 my-1 ${alignmentStyles} ${colorStyles} ${paddingStyles} ${directionStyles} ${
                     onPress || href ? 'hover:bg-gray-50 hover:dark:bg-blue-800 transition-colors' : ''
                 } ${className ?? ''} shadow-sm`}
             >
