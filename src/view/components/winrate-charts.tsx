@@ -5,6 +5,7 @@ import {
     WinrateGroupingResponse,
 } from '@app/api/winrates';
 import { Card } from '@app/components/card';
+import { useTranslation } from '@app/helper/translate';
 import { Text } from '@app/components/text';
 import { Slider2 } from '@app/view/components/slider2';
 import { formatDateShort, formatMonth, formatTime, formatYear } from '@nex/data';
@@ -30,11 +31,12 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
     civ,
 }) => {
     const appTheme = useAppTheme();
+    const getTranslation = useTranslation();
     const { theme } = useUniwind();
     const font = useChartFont();
     const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
-        { key: 'win_rate', label: 'Win Rate by Rating', domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
-        { key: 'play_rate', label: 'Play Rate by Rating', domain: [0, 0.08], tickFormat: (y) => `${Math.round(y * 100)}%` },
+        { key: 'win_rate', label: getTranslation('winrates.chart.winratebyrating'), domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
+        { key: 'play_rate', label: getTranslation('winrates.chart.playratebyrating'), domain: [0, 0.08], tickFormat: (y) => `${Math.round(y * 100)}%` },
     ];
 
     const colorGold200 = useCSSVariable('--color-gold-200') as string;
@@ -108,12 +110,13 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
 const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown; civ: string }> = ({ width, breakdown, civ }) => {
     const appTheme = useAppTheme();
     const { theme } = useUniwind();
+    const getTranslation = useTranslation();
     const { patches } = useWinratesPatches();
     const font = useChartFont();
     const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
-        { key: 'win_rate', label: 'Win Rate by Patch', domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
-        { key: 'play_rate', label: 'Play Rate by Patch', domain: [0, 0.08], tickFormat: (y) => `${Math.round(y * 100)}%` },
-        { key: 'rank', label: 'Rank by Patch', domain: [50, 0] },
+        { key: 'win_rate', label: getTranslation('winrates.chart.winratebypatch'), domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
+        { key: 'play_rate', label: getTranslation('winrates.chart.playratebypatch'), domain: [0, 0.08], tickFormat: (y) => `${Math.round(y * 100)}%` },
+        { key: 'rank', label: getTranslation('winrates.chart.rankbypatch'), domain: [50, 0] },
     ];
 
     const colorGold200 = useCSSVariable('--color-gold-200') as string;

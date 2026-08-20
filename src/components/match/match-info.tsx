@@ -75,15 +75,10 @@ export default function MatchInfo(props: Props) {
 
     return (
         <Card direction="vertical">
-            {/* Bleed past the Card's px-4 and carry that padding on the content
-                instead, so the row scrolls to the card edge rather than being
-                clipped 16px short of it -- which read as a missing right inset. */}
-            <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                className="-mx-4"
-                contentContainerClassName="items-center gap-4 pb-2 px-4"
-            >
+            {/* No pb here. It was making room for a scroll bar, which is now
+                hidden, and left the row sitting below the centre of the card.
+                The Card's own padding spaces it symmetrically. */}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerClassName="items-center gap-4">
                 {!!(tournament) && (
                     <Pressable
                         className="flex-row items-center gap-1"

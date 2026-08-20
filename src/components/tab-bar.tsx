@@ -163,7 +163,16 @@ export const TabBar: React.FC = () => {
                                 className={`justify-center items-center py-2 flex-1 ${isFocused && 'bg-blue-800 dark:bg-gold-700'} rounded-lg`}
                             >
                                 {!!(route.icon) && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon} />}
-                                <Text allowFontScaling={false} variant="nav" color={isFocused ? 'white' : 'brand'} className={`uppercase mt-2`}>
+                                {/* Six slots share the width, so a long label used to wrap and
+                                    push the row taller. Clip instead -- the translations below
+                                    are kept short enough that this rarely bites. */}
+                                <Text
+                                    allowFontScaling={false}
+                                    numberOfLines={1}
+                                    variant="nav"
+                                    color={isFocused ? 'white' : 'brand'}
+                                    className={`uppercase mt-2`}
+                                >
                                     {label}
                                 </Text>
                             </Pressable>

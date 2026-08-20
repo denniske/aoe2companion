@@ -124,7 +124,10 @@ export default function TournamentsList() {
                     contentContainerClassName="p-4 gap-2.5"
                     sections={filteredTournaments}
                     renderSectionHeader={({ section: { title } }) => (
-                        <View className="bg-gold-50 dark:bg-blue-950 pt-2.5 pb-1 flex-row items-center justify-between">
+                        // The sticky background has to be wider than the cards it covers,
+                        // otherwise their borders and shadows show past its edges as they
+                        // scroll underneath. Bleed past the list's p-4 and re-add it here.
+                        <View className="bg-gold-50 dark:bg-blue-950 pt-2.5 pb-1 flex-row items-center justify-between -mx-4 px-4">
                             <Text variant="header-lg">{title}</Text>
                             {!!(subtitleMap[title]) && (
                                 <Text color="brand" variant="body-xs">
