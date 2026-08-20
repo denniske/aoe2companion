@@ -13,9 +13,10 @@ export interface FieldProps extends BaseProps {
     type?: 'default' | 'search' | 'password' | 'email';
     style?: ViewStyle;
     iconColor?: string;
+    containerClassName?: string;
 }
 
-export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style, iconColor, ...props }) => {
+export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style, iconColor, containerClassName, ...props }) => {
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const color = textColors['default'];
     const typeOptions: Record<NonNullable<FieldProps['type']>, TextInputProps> = {
@@ -42,7 +43,7 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
     const padding = cn(inputType === 'search' ? 'pl-8' : 'pl-4', hasClearButton || hasPasswordToggle ? 'pr-8' : 'pr-4');
 
     return (
-        <View className="relative" style={style}>
+        <View className={cn('relative', containerClassName)} style={style}>
             {inputType === 'search' ? (
                 <View className="absolute left-3 top-0 h-full justify-center z-10">
                     <Icon icon={faSearch} color={iconColor ?? 'subtle'} />

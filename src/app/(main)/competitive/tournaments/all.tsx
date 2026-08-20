@@ -74,7 +74,7 @@ export default function AllTournaments() {
                     value={category}
                 />
                 <Field
-                    className="flex-1"
+                    containerClassName="flex-1"
                     type="search"
                     value={search}
                     onChangeText={setSearch}
