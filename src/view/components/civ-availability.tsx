@@ -94,7 +94,7 @@ const useStyles = createStylesheet((theme) =>
         row: {
             flexDirection: 'row',
             alignItems: 'center',
-            width: 110,
+            flex: 1,
             // backgroundColor: 'blue',
         },
         civListRow: {
