@@ -247,7 +247,10 @@ const useStyles = createStylesheet((theme) =>
             marginRight: 5,
         },
         unitDesc: {
-            lineHeight: 20,
+            // No lineHeight here: on iOS a lineHeight on a Text that has nested Text
+            // children makes the last line lay out unwrapped, so it renders on one line
+            // and gets clipped at the row's right edge. Only rows long enough to need an
+            // extra line show it - e.g. Paper Money on the Villager page.
             flex: 1,
         },
     } as const)
