@@ -705,7 +705,7 @@
     "tournaments.overview": "Overview",
     "tournaments.schedule": "Schedule",
     "tournaments.moreinfo": "More Info",
-    "tournaments.searchTierTournaments": "Search ${tier} Tournaments",
+    "tournaments.searchTierTournaments": "Search {tier} Tournaments",
     "tournaments.pastMatches": "Past Matches",
     "tournaments.nextScheduledMatches": "Next Scheduled Matches",
     "tournaments.prizes": "Prizes",
