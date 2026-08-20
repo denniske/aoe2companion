@@ -67,6 +67,12 @@ const sectionIconMap: Record<string, IconDefinition> = {
     'door-open': faDoorOpen,
 };
 
+// Web only: the list scrolls with the page instead of itself (see useScrollView's
+// shouldDisableScroll), so an unbounded result set renders every match and blows up the
+// page height - a single letter matched ~1000 items. Native scrolls the list itself and
+// virtualizes, so it stays uncapped.
+const maxSearchResults = Platform.OS === 'web' ? 20 : Infinity;
+
 type Item =
     | { name: Civ; title: string; type: 'civ'; image?: any }
     | { name: Unit; title: string; type: 'unit'; section: string; image?: any }
@@ -201,7 +207,7 @@ export default function Explore() {
         ? uniq([
               ...allData.filter((item) => item.title.toLowerCase().includes(search.toLowerCase())),
               ...allData.filter((item) => item.type !== 'civ' && item.section?.toLowerCase().includes(search.toLowerCase())),
-          ])
+          ]).slice(0, maxSearchResults)
         : [];
 
     if (appConfig.game !== 'aoe2') {

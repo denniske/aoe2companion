@@ -44,9 +44,13 @@ export function getEliteUniqueResearchIcon() {
 // Sheep and Boar have no data id, so they are missing from the auto-generated
 // unitIconImageDict even though their icons exist. Without these the build order
 // steps fall back to the elite unique research icon.
+// Monk and TradeCart are only in the dict under their per-civ picture names, so the
+// generic icons are needed whenever no civ is given.
 const extraUnitIcons: Record<string, ImageSourcePropType> = {
     'Sheep': require('../../assets/units/Sheep.png'),
     'Boar': require('../../assets/units/Boar.png'),
+    'Monk': require('../../assets/units/Monk.png'),
+    'TradeCart': require('../../assets/units/TradeCart.png'),
 };
 
 function getUnitIconImage(unit: string | undefined): ImageSourcePropType | undefined {
