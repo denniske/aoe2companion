@@ -57,7 +57,7 @@ export const NavBar: React.FC = () => {
 
     return (
         <View className="bg-[#F3EFE6] dark:bg-blue-900 relative z-50">
-            <View className={cn('flex flex-row py-4 justify-between items-center gap-2 xl:gap-3', containerClassName)}>
+            <View className={cn('flex flex-row py-4 justify-between gap-2 xl:gap-3', containerClassName)}>
                 <Link className="flex flex-row items-center gap-4 shrink-0 lg:pr-4 xl:pr-8" href="/">
                     <Image source={dataset.appIconData} className="w-12 h-12 rounded shadow-blue-50 shadow-xs dark:shadow-none" />
 
@@ -74,7 +74,7 @@ export const NavBar: React.FC = () => {
                             href={route.path}
                             key={route.key}
                             className={cn(
-                                'flex flex-row justify-center items-center gap-2.5 rounded-lg px-4 xl:px-6 shrink-0 whitespace-nowrap',
+                                'flex flex-row justify-center items-center gap-2.5 rounded-lg px-4 shrink-0 whitespace-nowrap',
                                 isFocused
                                     ? 'bg-blue-700 dark:bg-blue-950 text-white fill-white'
                                     : 'text-subtle fill-subtle hocus:bg-gold-50 dark:hocus:bg-blue-700'
