@@ -87,20 +87,30 @@ export default function IndexPage() {
     const { followedIds } = useFollowedTournaments();
     const showTabBar = useShowTabBar();
     const welcomeCards: { icon: IconDefinition; title: string; description: string; href: Href }[] = [
-        { icon: faSearch, title: 'Find Players', description: 'Search players and view match history, civs, and ratings', href: '/players/search' },
+        {
+            icon: faSearch,
+            title: getTranslation('home.card.findplayers.title'),
+            description: getTranslation('home.card.findplayers.description'),
+            href: '/players/search',
+        },
         {
             icon: faRankingStar,
-            title: 'Leaderboard',
-            description: 'Track top players, rankings, and current competitive ladders',
+            title: getTranslation('home.card.leaderboard.title'),
+            description: getTranslation('home.card.leaderboard.description'),
             href: '/statistics/leaderboard',
         },
         {
             icon: faDiagramSankey,
-            title: 'Tech Tree',
-            description: 'Explore civilizations, units, upgrades, and unique bonuses',
+            title: getTranslation('home.card.techtree.title'),
+            description: getTranslation('home.card.techtree.description'),
             href: '/explore',
         },
-        { icon: faBookmark, title: 'Sign in to Save', description: 'Follow players, save favorites, and sync across devices', href: '/more/account' },
+        {
+            icon: faBookmark,
+            title: getTranslation('home.card.signin.title'),
+            description: getTranslation('home.card.signin.description'),
+            href: '/more/account',
+        },
     ];
 
     const { isLarge, isMedium, isSmall } = useBreakpoints();

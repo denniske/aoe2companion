@@ -73,7 +73,7 @@ export default function UpdateSnackbar() {
             message = getTranslation('updatesnackbar.update.updateavailable', { version: `v${updateManifest?.extra?.expoClient?.version}` });
             actions = [
                 {
-                    label: 'Load',
+                    label: getTranslation('updatesnackbar.action.load'),
                     onPress: fetchUpdate,
                 },
                 {
@@ -93,12 +93,12 @@ export default function UpdateSnackbar() {
                     Platform.OS === 'android' ?
                         [
                             {
-                                label: 'Load',
+                                label: getTranslation('updatesnackbar.action.load'),
                                 onPress: doStoreUpdate,
                             },
                         ] : [
                             {
-                                label: 'Open',
+                                label: getTranslation('updatesnackbar.action.open'),
                                 onPress: openAppInStore,
                             },
                         ]

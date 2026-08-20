@@ -4,6 +4,7 @@ import Picker from '@app/view/components/picker';
 import React, { useEffect, useMemo } from 'react';
 import { useAppTheme } from '@app/theming';
 import { useLeaderboards } from '@app/queries/all';
+import { useTranslation } from '@app/helper/translate';
 import { isEqual } from 'lodash';
 import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
@@ -19,6 +20,7 @@ export function LeaderboardsSelect(props: Props) {
     const savedLeaderboards = usePrefData((state) => state?.selectedLeaderboards);
     const savePrefsMutation = useSavePrefsMutation();
 
+    const getTranslation = useTranslation();
     const { leaderboardIdList, onLeaderboardIdChange } = props;
     const theme = useAppTheme();
 
@@ -41,8 +43,9 @@ export function LeaderboardsSelect(props: Props) {
     }, [leaderboardIdList, leaderboards]);
 
     const formatLeaderboard = (x: ILeaderboardDef | string | null, inList?: boolean) => {
-        if (x == null) return inList ? 'All' : 'All Leaderboards';
-        if (typeof x === 'string') return inList ? 'All' : `All ${x}`;
+        if (x == null) return inList ? getTranslation('leaderboard.all') : getTranslation('leaderboard.allleaderboards');
+        // PC / Console are the section names and stay as-is.
+        if (typeof x === 'string') return inList ? getTranslation('leaderboard.all') : getTranslation('leaderboard.allof', { type: x });
         return x.abbreviationTitle + ' ' + x.abbreviationSubtitle;
     };
 

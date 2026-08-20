@@ -75,7 +75,15 @@ export default function MatchInfo(props: Props) {
 
     return (
         <Card direction="vertical">
-            <ScrollView horizontal contentContainerClassName="items-center gap-4 pb-2">
+            {/* Bleed past the Card's px-4 and carry that padding on the content
+                instead, so the row scrolls to the card edge rather than being
+                clipped 16px short of it -- which read as a missing right inset. */}
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                className="-mx-4"
+                contentContainerClassName="items-center gap-4 pb-2 px-4"
+            >
                 {!!(tournament) && (
                     <Pressable
                         className="flex-row items-center gap-1"
