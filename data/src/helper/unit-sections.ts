@@ -1,12 +1,13 @@
-import {flatMap, sortBy} from 'lodash';
-import {Civ, civDict, civs} from './civs';
+import {flatMap} from 'lodash';
+import {Civ, civDict, civList, civs} from './civs';
 import {getRelatedUnitLines, getUnitLineIdForUnit, Unit, UnitLine, unitLines} from './units';
 import {appConfig} from "@nex/dataset";
 
 
-interface IUnitSection {
-    title: string;
-    icon: string;
+export interface IUnitSection {
+    title?: string;
+    civ?: Civ;
+    icon?: string;
     data: (UnitLine | Unit)[];
 }
 
@@ -120,14 +121,28 @@ const unitSections: IUnitSection[] = [
                 'Missionary',
             ],
     },
+    // One section per civ, mirroring the unique tech sections. Every unique unit belongs
+    // to exactly one civ, so no unit shows up twice here.
     ...(appConfig.game === 'aoe2' ? [
-        {
+        ...civs.filter(c => c != 'Indians').map(civ => ({
+            civ: civ,
             icon: 'star',
-            title: 'unit.section.unique',
-            data: sortBy(flatMap(civs.filter(c => c != 'Indians'), civ => getUniqueUnitsForSection(civ))),
-        },
+            data: getUniqueUnitsForSection(civ),
+        })),
     ] : []) as any
 ];
+
+// unitLines only carries a `civ` for some of the unique units - the newer ones (Kona,
+// Bolas Rider, Ghulam, ...) and the ones handed out by a bonus rather than the castle
+// (Condottiero, Missionary, ...) never got one, so anything reading unitLine.civ showed
+// no civ for them. Derive it from the civ data instead, which covers every unique unit.
+const civByUniqueUnitLine: Partial<Record<UnitLine, Civ>> = Object.fromEntries(
+    flatMap(civList, civ => civ.uniqueUnits.map(unit => [getUnitLineIdForUnit(unit), civ.name]))
+);
+
+export function getCivForUniqueUnit(unit: Unit | UnitLine): Civ | undefined {
+    return civByUniqueUnitLine[unitLines[unit] ? (unit as UnitLine) : getUnitLineIdForUnit(unit as Unit)];
+}
 
 function getUniqueUnitsForSection(civ: Civ) {
     const excluded: Unit[] = [

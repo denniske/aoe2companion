@@ -23,6 +23,7 @@ import {
     getTechName,
     getUnitName,
     ITechSection,
+    IUnitSection,
     orderCivs,
     Tech,
     techSections,
@@ -145,6 +146,18 @@ export default function Explore() {
               },
           ];
 
+    const unitsList: (IUnitSection & { title?: string })[] = showTabBar
+        ? allUnitSections
+        : [
+              ...allUnitSections.filter((section) => !section.civ),
+              {
+                  title: 'unit.section.unique',
+                  icon: 'star',
+                  civ: undefined,
+                  data: allUnitSections.flatMap((section) => (section.civ ? section.data : [])),
+              },
+          ];
+
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBuilds({});
     const builds = data?.pages?.flatMap((p) => p.builds);
 
@@ -172,7 +185,7 @@ export default function Explore() {
                 title: getUnitName(unit),
                 image: getUnitIcon(unit),
                 type: 'unit',
-                section: getTranslation(section.title as any),
+                section: section.civ ? getCivNameById(section.civ) : getTranslation(section.title as any),
             }))
         ),
         ...buildingSections.flatMap((section) =>
@@ -288,16 +301,17 @@ export default function Explore() {
                                 className="flex-none"
                                 horizontal
                                 keyboardShouldPersistTaps="always"
-                                data={allUnitSections}
+                                data={unitsList}
                                 contentContainerClassName="gap-2.5 px-4"
-                                renderItem={({ item: { title, icon } }) => (
+                                renderItem={({ item: { title, civ, icon } }) => (
                                     <ExploreCard
-                                        icon={sectionIconMap[icon]}
-                                        text={getTranslation(title as any)}
-                                        href={`/explore/units?section=${title}`}
+                                        image={civ ? getCivIconLocal(civ) : undefined}
+                                        icon={civ ? undefined : sectionIconMap[icon!]}
+                                        text={civ ? getCivNameById(civ) : getTranslation(title as any)}
+                                        href={`/explore/units?section=${civ ?? title}`}
                                     />
                                 )}
-                                keyExtractor={(item) => item.title}
+                                keyExtractor={(item) => item.civ ?? item.title!}
                             />
                         </View>
 

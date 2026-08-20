@@ -5,7 +5,8 @@ import {
     ageUpgrades,
     allUnitSections,
     attackClasses,
-    Building, getAgeName,
+    Building, Civ, civs, getAgeName,
+    getCivNameById,
     getBuildingData,
     getBuildingName,
     getUnitClassName,
@@ -355,8 +356,8 @@ export function UnitStats({ unitId, unitLineId }: Props) {
                         container="sectionlist"
                         icon={icon}
                         value={comparisonUnit}
-                        sections={allUnitSections}
-                        sectionFormatter={(str) => getTranslation(str as any)}
+                        sections={allUnitSections.map((section) => ({ ...section, title: section.civ ?? section.title }))}
+                        sectionFormatter={(str) => ((civs as readonly string[]).includes(str) ? getCivNameById(str as Civ) : getTranslation(str as any))}
                         formatter={formatUnit}
                         onSelect={onComparisonUnitSelected}
                     />

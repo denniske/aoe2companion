@@ -2,6 +2,8 @@ import { HeaderTitle } from '@app/components/header-title';
 import { getUnitIcon } from '@app/helper/units';
 import {
     getAbilityEnabledForAllCivs,
+    getCivForUniqueUnit,
+    getCivNameById,
     getUnitDescription,
     getUnitLineIdForUnit,
     getUnitName,
@@ -39,6 +41,7 @@ export default function UnitDetails() {
 
     const unitLineId = getUnitLineIdForUnit(unitName);
     const unitLine = unitLines[unitLineId];
+    const uniqueUnitCiv = unitLine.civ ?? getCivForUniqueUnit(unitLineId);
 
     return (
         <ScrollView>
@@ -50,7 +53,7 @@ export default function UnitDetails() {
                             <HeaderTitle
                                 icon={getUnitIcon(unitName)}
                                 title={getUnitName(unitName)}
-                                subtitle={unitLine.civ ? unitLine.civ + ' ' + getTranslation('explore.units.uniqueunit') : undefined}
+                                subtitle={uniqueUnitCiv ? getCivNameById(uniqueUnitCiv) + ' ' + getTranslation('explore.units.uniqueunit') : undefined}
                             />
                         ),
                     }}
@@ -86,7 +89,7 @@ export default function UnitDetails() {
                     </Card>
                 </View>
 
-                <View className="flex lg:hidden">{!getAbilityEnabledForAllCivs({ unit: unitName }) && <CivAvailability unit={unitName} />}</View>
+                <View className="flex-col lg:hidden">{!getAbilityEnabledForAllCivs({ unit: unitName }) && <CivAvailability unit={unitName} />}</View>
 
                 <View className="flex-1" />
                 <Fandom articleName={getUnitName(unitName)} articleLink={getWikiLinkForUnit(unitName)} />
