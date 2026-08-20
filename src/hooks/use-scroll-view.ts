@@ -28,8 +28,7 @@ export const useScrollView = ({
     // const paddingBottom = ((style.paddingBottom || 0) as number) + (Platform.OS === 'ios' ? 0 : bottomOffset);
 
     const bottomOffset = horizontal || shouldDisableScroll ? 0 : bottom + 82;
-    const paddingTop = horizontal ? 10 : undefined;
-    const paddingBottom = (horizontal ? 10 : 20) + (Platform.OS === 'ios' ? bottomOffset - 20 : bottomOffset);
+    const paddingBottom = 20 + (Platform.OS === 'ios' ? bottomOffset - 20 : bottomOffset);
     const scrollToTop = useScrollToTop();
     const { setScrollPosition } = useMutateScroll();
     const [localScrollPosition, setLocalScrollPosition] = useState<number>();
@@ -91,6 +90,7 @@ export const useScrollView = ({
         contentInset: { bottom: 0 }, // content inset gets reset after hot reload so we use padding bottom instead like on android
         scrollIndicatorInsets: { bottom: bottomOffset },
 
+        contentContainerStyle: !shouldDisableScroll && !horizontal && { paddingBottom },
         ref: (ref || scrollViewRef) as React.RefObject<any>,
         style: [shouldDisableScroll && { overflow: 'visible', overflowX: 'clip' }],
         scrollEnabled: !shouldDisableScroll && scrollEnabled,
