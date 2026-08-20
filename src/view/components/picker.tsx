@@ -145,7 +145,6 @@ export default function Picker<T>(props: IPickerProps<T>) {
     const sectionWithTitleCount = sections ? sections.filter((s) => s.title != null).length : 0;
     const valuesCount = sections ? sections.flatMap(s => s.data).length : values ? values.length : 3;
     const valuesAndSectionsHeight = (sectionWithTitleCount + valuesCount) * (itemHeight || 40) + (sectionCount > 0 ? (sectionCount-1)*5 : 0);
-    const [isFocused, setIsFocused] = useState(false);
 
     const valueIndex = useMemo(() => {
         if (container === 'flatlist') {
@@ -165,9 +164,12 @@ export default function Picker<T>(props: IPickerProps<T>) {
     }, [values, value, sections, container]);
 
     if (Platform.OS === 'web') {
+        // A native <select> renders the selected <option>'s own text as the
+        // closed control, so there is no separate label to shorten: use the
+        // standalone form ("All Leaderboards"), never the in-list one ("All").
         const renderWebItem = (item: T, index: number | string) => (
             <option key={index} value={index}>
-                {formatter(item, isFocused) as string}
+                {formatter(item, false) as string}
             </option>
         );
 
@@ -175,8 +177,6 @@ export default function Picker<T>(props: IPickerProps<T>) {
             <View style={style} className="relative">
                 <select
                     value={valueIndex}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
                     className="px-2.5 py-1 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-blue-900 h-11 appearance-none shadow-xs"
                     style={anchorStyle as CSSProperties}
                     onChange={(e) => {

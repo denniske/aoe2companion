@@ -39,16 +39,20 @@ export const RankedMaps: React.FC = () => {
 
             <AnimateIn skipFirstAnimation>
                 {!!mapsPoll && (
-                    <View className="flex-row justify-between items-center mb-4">
+                    <View className="flex-row justify-between items-start gap-2 mb-4">
                         {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired }) ? (
-                            <Text variant="body">{getTranslation('maps.rotation.newon', { date: formatDayAndTime(mapsPoll.expired) })}</Text>
+                            <Text variant="body" className="flex-1 min-w-0">
+                                {getTranslation('maps.rotation.newon', { date: formatDayAndTime(mapsPoll.expired) })}
+                            </Text>
                         ) : (
-                            <Text variant="body">{getTranslation('maps.rotation.activesince', { date: formatDayAndTime(mapsPoll.expired) })}</Text>
+                            <Text variant="body" className="flex-1 min-w-0">
+                                {getTranslation('maps.rotation.activesince', { date: formatDayAndTime(mapsPoll.expired) })}
+                            </Text>
                         )}
                         {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ? (
-                            <Link href="/explore/maps/poll">{getTranslation('maps.poll.viewactive')}</Link>
+                            <Link href="/explore/maps/poll" className="shrink-0 text-right">{getTranslation('maps.poll.viewactive')}</Link>
                         ) : (
-                            <Link href="/explore/maps/poll">{getTranslation('maps.poll.viewresults')}</Link>
+                            <Link href="/explore/maps/poll" className="shrink-0 text-right">{getTranslation('maps.poll.viewresults')}</Link>
                         )}
                     </View>
                 )}

@@ -14,6 +14,26 @@ interface Props {
     match: IMatchNew;
 }
 
+interface CheckRowProps {
+    checked: boolean | undefined;
+    label: string | undefined;
+}
+
+// The label wraps (German compounds such as "Vollständiger Technologiebaum" run
+// to two lines), so the row is top-aligned. That would leave the 14px box
+// hanging above the first line, which is 20px tall -- centre it in a box of
+// that height so it lines up with the text either way.
+function CheckRow({ checked, label }: CheckRowProps) {
+    return (
+        <View className="flex-row items-start gap-1">
+            <View className="h-5 justify-center">
+                <Icon icon={checked ? faCheckSquare : faSquare} size={14} />
+            </View>
+            <Text className="flex-1">{label}</Text>
+        </View>
+    );
+}
+
 export default function MatchOptions(props: Props) {
     const { match } = props;
     const getTranslation = useTranslation();
@@ -117,61 +137,22 @@ export default function MatchOptions(props: Props) {
                     <View className="flex-row gap-1 mt-2">
                         <View className="flex-col gap-1 flex-1 min-w-0">
                             <Text className="mb-1">{getTranslation('match.teamSettings')}</Text>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.lockTeams ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.lockTeams')}</Text>
-                            </View>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.teamTogether ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.teamTogether')}</Text>
-                            </View>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.teamPositions ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.teamPositions')}</Text>
-                            </View>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.sharedExploration ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.sharedExploration')}</Text>
-                            </View>
+                            <CheckRow checked={match.lockTeams} label={getTranslation('match.lockTeams')} />
+                            <CheckRow checked={match.teamTogether} label={getTranslation('match.teamTogether')} />
+                            <CheckRow checked={match.teamPositions} label={getTranslation('match.teamPositions')} />
+                            <CheckRow checked={match.sharedExploration} label={getTranslation('match.sharedExploration')} />
                         </View>
                         <View className="flex-col gap-1 flex-1 min-w-0">
                             <Text className="mb-1">{getTranslation('match.advancedSettings')}</Text>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.lockSpeed ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.lockSpeed')}</Text>
-                            </View>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.allowCheats ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.allowCheats')}</Text>
-                            </View>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.turboMode ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.turboMode')}</Text>
-                            </View>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.fullTechTree ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.fullTechTree')}</Text>
-                            </View>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.empireWarsMode ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.empireWarsMode')}</Text>
-                            </View>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.suddenDeathMode ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.suddenDeathMode')}</Text>
-                            </View>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.regicideMode ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.regicideMode')}</Text>
-                            </View>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.antiquityMode ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.antiquityMode')}</Text>
-                            </View>
-                            <View className="flex-row items-start gap-1">
-                                <Icon icon={match.recordGame ? faCheckSquare : faSquare} size={14} />
-                                <Text className="flex-1">{getTranslation('match.recordGame')}</Text>
-                            </View>
+                            <CheckRow checked={match.lockSpeed} label={getTranslation('match.lockSpeed')} />
+                            <CheckRow checked={match.allowCheats} label={getTranslation('match.allowCheats')} />
+                            <CheckRow checked={match.turboMode} label={getTranslation('match.turboMode')} />
+                            <CheckRow checked={match.fullTechTree} label={getTranslation('match.fullTechTree')} />
+                            <CheckRow checked={match.empireWarsMode} label={getTranslation('match.empireWarsMode')} />
+                            <CheckRow checked={match.suddenDeathMode} label={getTranslation('match.suddenDeathMode')} />
+                            <CheckRow checked={match.regicideMode} label={getTranslation('match.regicideMode')} />
+                            <CheckRow checked={match.antiquityMode} label={getTranslation('match.antiquityMode')} />
+                            <CheckRow checked={match.recordGame} label={getTranslation('match.recordGame')} />
                         </View>
                     </View>
                 </View>

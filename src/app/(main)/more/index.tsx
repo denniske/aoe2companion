@@ -24,7 +24,7 @@ export default function More() {
     const getTranslation = useTranslation();
 
     const links: MoreLink[] = [
-        { icon: faUser, title: 'Account', path: '/more/account' },
+        { icon: faUser, title: getTranslation('account.title'), path: '/more/account' },
         { icon: faCog, title: getTranslation('settings.title'), path: '/more/settings' },
         { icon: faQuestionCircle, title: getTranslation('about.title'), path: '/more/about' },
         { icon: faExchangeAlt, title: getTranslation('changelog.title'), path: '/more/changelog' },
