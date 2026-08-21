@@ -15,7 +15,7 @@ import { IProfilesResultProfile } from '@app/api/helper/api.types';
 type ProfileIdListStr = 'select' | 'follow' | 'loading';
 
 const FollowedPlayersList = ({ list }: { list?: (ProfileIdListStr | IProfilesResultProfile)[] }) => (
-    <PlayerList variant="horizontal" showsHorizontalScrollIndicator={false} list={list || ['loading', 'loading']} />
+    <PlayerList variant="horizontal" wrap showsHorizontalScrollIndicator={false} list={list || ['loading', 'loading']} />
 );
 
 const FollowedPlayersSection = () => {

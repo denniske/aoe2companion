@@ -8,13 +8,14 @@ import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import { Href, Link } from 'expo-router';
 import React from 'react';
-import { View, ViewStyle } from 'react-native';
+import { Platform, View, ViewStyle } from 'react-native';
 import { Image } from '@/src/components/uniwind/image';
 import { useAuthProfileId } from '@app/queries/all';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 import { CustomFragment } from '@app/components/custom-fragment';
 import { useTranslation } from '@app/helper/translate';
+import cn from 'classnames';
 
 export interface IPlayerListPlayer {
     country?: string;
@@ -34,6 +35,7 @@ interface IPlayerProps<PlayerType extends IPlayerListPlayer> {
     footer?: (player?: PlayerType) => React.ReactNode;
     image?: (player?: PlayerType) => React.ReactNode;
     variant?: 'vertical' | 'horizontal';
+    wrap?: boolean;
     hideIcons?: boolean;
     playerStyle?: ViewStyle;
     shouldLink: boolean;
@@ -45,6 +47,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
     actionText,
     action,
     variant,
+    wrap,
     footer,
     image,
     hideIcons,
@@ -54,6 +57,9 @@ function Player<PlayerType extends IPlayerListPlayer>({
     const getTranslation = useTranslation();
     const { isMedium } = useBreakpoints();
     const authProfileId = useAuthProfileId();
+
+    // When wrapping, cards get a fixed width so the rows line up as a grid instead of a ragged flow.
+    const cardWidthClassName = wrap ? 'w-20 md:w-32' : undefined;
 
     const FullSkeleton = (
         <>
@@ -130,7 +136,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
         return (
             <Card
                 direction="vertical"
-                className="items-center justify-center gap-1! py-2 px-2.5 md:min-w-32 md:py-4"
+                className={cn('items-center justify-center gap-1! py-2 px-2.5 md:py-4', cardWidthClassName ?? 'md:min-w-32')}
                 style={playerStyle}
                 onPress={selectedUser ? () => selectedUser?.(player) : undefined}
                 href={href}
@@ -206,6 +212,10 @@ interface ISearchProps<PlayerType extends IPlayerListPlayer>
     footer?: (player?: PlayerType) => React.ReactNode;
     image?: (player?: PlayerType) => React.ReactNode;
     variant?: 'vertical' | 'horizontal';
+    /** On web, lay horizontal cards out as a wrapping grid instead of a horizontally scrolling row. */
+    wrap?: boolean;
+    /** In wrap mode, only render this many cards until the user presses "show more". */
+    collapseAfter?: number;
     flatListRef?: FlatListRef<PlayerType | 'select' | 'follow' | 'loading'>;
     hideIcons?: boolean;
     shouldLink?: boolean;
@@ -218,6 +228,8 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
     actionText,
     action,
     variant = 'vertical',
+    wrap,
+    collapseAfter,
     flatListRef,
     footer,
     image,
@@ -226,6 +238,48 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
     shouldLink = true,
     ...props
 }: ISearchProps<PlayerType>) {
+    const getTranslation = useTranslation();
+    const { isMedium } = useBreakpoints();
+    const [expanded, setExpanded] = React.useState(false);
+
+    const renderPlayer = (item: PlayerType | 'select' | 'follow' | 'loading') => (
+        <Player
+            player={item}
+            selectedUser={selectedUser}
+            actionText={actionText}
+            action={action}
+            footer={footer}
+            image={image}
+            variant={variant}
+            wrap={wrap}
+            hideIcons={hideIcons}
+            playerStyle={playerStyle}
+            shouldLink={shouldLink}
+        />
+    );
+
+    // Only wrap on wider web viewports: on a phone browser the cards are narrow enough that wrapping
+    // would turn a short row into many rows, so keep the horizontal scroller there.
+    if (wrap && variant === 'horizontal' && Platform.OS === 'web' && isMedium) {
+        const hiddenCount = collapseAfter && !expanded ? Math.max(list.length - collapseAfter, 0) : 0;
+        const visible = hiddenCount > 0 ? list.slice(0, collapseAfter) : list;
+
+        return (
+            <View className="px-4 gap-2 items-start">
+                <View className="flex-row flex-wrap gap-2">
+                    {visible.map((item, index) => (
+                        <React.Fragment key={index}>{renderPlayer(item)}</React.Fragment>
+                    ))}
+                </View>
+                {hiddenCount > 0 && (
+                    <Button size="small" onPress={() => setExpanded(true)}>
+                        {getTranslation('main.stats.showmore')}
+                    </Button>
+                )}
+            </View>
+        );
+    }
+
     return (
         <FlatList
             initialNumToRender={variant === 'horizontal' ? 5 : undefined}
@@ -238,22 +292,7 @@ export default function PlayerList<PlayerType extends IPlayerListPlayer>({
                 variant === 'vertical' ? <View className="h-px bg-gray-200 dark:bg-gray-800 w-full my-2.5" /> : <View className="w-2" />
             }
             contentContainerClassName="px-4"
-            renderItem={({ item }) => {
-                return (
-                    <Player
-                        player={item}
-                        selectedUser={selectedUser}
-                        actionText={actionText}
-                        action={action}
-                        footer={footer}
-                        image={image}
-                        variant={variant}
-                        hideIcons={hideIcons}
-                        playerStyle={playerStyle}
-                        shouldLink={shouldLink}
-                    />
-                );
-            }}
+            renderItem={({ item }) => renderPlayer(item)}
             keyExtractor={(_item, index) => index.toString()}
             className={variant === 'horizontal' ? 'flex-none' : ''}
             {...props}

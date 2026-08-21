@@ -18,6 +18,7 @@ import ButtonPicker from '@app/view/components/button-picker';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 
 const MAX_CLAN_PLAYERS = 100;
+const COLLAPSED_CLAN_PLAYERS = 24;
 
 type ClanPageParams = {
     clan: string;
@@ -50,7 +51,7 @@ export default function SearchPage() {
                 <View className={cn('flex-row justify-between items-center', containerClassName)}>
                     <Text variant="header-lg">{getTranslation('clan.members')}</Text>
                 </View>
-                <PlayerList list={profiles} variant="horizontal" />
+                <PlayerList list={profiles} variant="horizontal" wrap collapseAfter={COLLAPSED_CLAN_PLAYERS} />
             </View>
 
             <View className="gap-2">
