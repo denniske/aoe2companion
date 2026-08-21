@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import { sleep } from '@nex/data';
+import { sleep } from '@nex/data/lib/util';
 import { checkForUpdateAsync, fetchUpdateAsync } from 'expo-updates';
 // import { doAppUpdate, getAppUpdateInfo, UpdateAvailability } from 'expo-app-update';
 import { Linking, Platform } from 'react-native';

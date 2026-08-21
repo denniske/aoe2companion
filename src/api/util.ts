@@ -1,7 +1,8 @@
 import store from '../redux/store';
 import { exec, setError } from '../redux/reducer';
 import { sleep } from './helper/util';
-import { getHost, getSupabaseClient } from '@nex/data';
+import { getHost } from '@nex/data/lib/host';
+import { getSupabaseClient } from '@nex/data/helper/supabase';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 

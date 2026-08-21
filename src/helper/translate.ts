@@ -1,5 +1,5 @@
 import * as local001 from '../../assets/translations/en.json';
-import { getLanguage } from '@nex/data';
+import { getLanguage } from '@nex/data/lib/aoe-data';
 import { Platform } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '@app/service/query-client';

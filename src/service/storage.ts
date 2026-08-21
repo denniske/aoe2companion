@@ -1,4 +1,6 @@
-import { Civ, Flag, LeaderboardId } from '@nex/data';
+import { Civ } from '@nex/data/helper/civs';
+import { Flag } from '@nex/data/lib/flag';
+import { LeaderboardId } from '@nex/data/helper/leaderboards';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import { Image, Platform } from 'react-native';
