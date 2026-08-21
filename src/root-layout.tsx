@@ -620,7 +620,7 @@ function AppWrapper() {
                             zIndex: 9999,
                         }}
                     >
-                        {Platform.OS !== 'web' && <UpdateSnackbar />}
+                        {Platform.OS !== 'web' && !__DEV__ && <UpdateSnackbar />}
                         {Platform.OS !== 'web' && <ChangelogSnackbar />}
                         {/*<ErrorSnackbar />*/}
                     </View>
