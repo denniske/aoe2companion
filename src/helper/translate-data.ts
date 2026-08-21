@@ -1,4 +1,4 @@
-import { getLanguage } from '@nex/data/lib/aoe-data';
+import { getLanguage } from '@nex/data';
 import { getInternalAoeStrings } from '../redux/statecache';
 import { dataset } from '@nex/dataset';
 

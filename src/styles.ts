@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { makeVariants, useTheme } from './theming';
-import { FinalDarkMode, ITheme } from '@nex/data/lib/theming';
+import { FinalDarkMode, ITheme } from '@nex/data';
 
 // export const linkColor = '#397AF9';
 // export const linkColor = '#3498db';

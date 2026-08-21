@@ -24,8 +24,7 @@ import {
     IProfilesResult,
     IVideosResult,
 } from './api.types';
-import { dateReviver } from '@nex/data/lib/util';
-import { getHost } from '@nex/data/lib/host';
+import { dateReviver, getHost } from '@nex/data';
 import { fetchJson } from '@app/api/util';
 
 export async function fetchAssets() {

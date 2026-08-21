@@ -3,9 +3,6 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@nex/data/*": [
-        "./data/src/*"
-      ],
       "@nex/data/hooks": [
         "./data/src/index-hooks.ts"
       ],

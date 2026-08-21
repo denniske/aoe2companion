@@ -16,7 +16,7 @@ import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { appConfig } from '@nex/dataset';
-import { getSupabaseClient } from '@nex/data/helper/supabase';
+import { getSupabaseClient } from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IFetchProfilesParams } from '@app/api/helper/api.types';
 import { withCacheBust } from '@app/api/util';

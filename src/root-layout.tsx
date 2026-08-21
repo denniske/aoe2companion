@@ -10,11 +10,17 @@ import {
     Roboto_900Black,
     useFonts,
 } from '@expo-google-fonts/roboto';
-import { Environment, IHostService, OS } from '@nex/data/lib/host';
-import { getSupabaseClient, migrateSupabaseStorageToMMKV } from '@nex/data/helper/supabase';
-import { IHttpService } from '@nex/data/lib/fetch-json';
-import { ITranslationService } from '@nex/data/lib/aoe-data';
-import { registerService, SERVICE_NAME } from '@nex/data/lib/di';
+import {
+    Environment,
+    getSupabaseClient,
+    IHostService,
+    IHttpService,
+    ITranslationService,
+    migrateSupabaseStorageToMMKV,
+    OS,
+    registerService,
+    SERVICE_NAME,
+} from '@nex/data';
 import { DarkTheme, DefaultTheme, ThemeProvider, useNavigationState } from 'expo-router/react-navigation';
 import * as Sentry from '@sentry/react-native';
 import { focusManager, QueryClientProvider } from '@tanstack/react-query';

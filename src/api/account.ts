@@ -1,8 +1,6 @@
 import throttle from '@jcoreio/async-throttle';
 import { fetchJson } from './util';
-import { getHost } from '@nex/data/lib/host';
-import { makeQueryString } from '@nex/data/lib/util';
-import { getSupabaseClient } from '@nex/data/helper/supabase';
+import { getHost, makeQueryString, getSupabaseClient } from '@nex/data';
 import {
     IFollowingEntry,
     IPrefs,
