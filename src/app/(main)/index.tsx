@@ -371,13 +371,11 @@ export default function IndexPage() {
                 </QueryBoundary>
             </View>
 
-            {appConfig.game === 'aoe2' && (
-                <View className="pb-5 lg:pb-8">
-                    <RankedMaps />
-                </View>
-            )}
+            <View className="pb-5 lg:pb-8">
+                <RankedMaps />
+            </View>
 
-            {appConfig.game === 'aoe2' && <FeaturedVideos />}
+            <FeaturedVideos />
         </ScrollView>
     );
 }
