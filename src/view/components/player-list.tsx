@@ -144,11 +144,11 @@ function Player<PlayerType extends IPlayerListPlayer>({
                 {image ? image(player) : <Image source={{ uri: player.avatarMediumUrl }} className="w-7 h-7 md:w-12 md:h-12 rounded-full" />}
                 {!!player.name && (
                     <View className="flex-row gap-1 max-w-full items-center">
-                        {isMe && !hideIcons && <Icon color="brand" icon={faUser} size={12} />}
+                        {isMe && !hideIcons && <Icon className="shrink-0" color="brand" icon={faUser} size={12} />}
                         <Text numberOfLines={1} variant={isMedium ? 'label' : 'body-sm'} allowFontScaling={false}>
                             {player.name}
                         </Text>
-                        {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon={faCircleCheck} size={12} />}
+                        {!isMe && !hideIcons && player.profileId && player.verified && <Icon className="shrink-0" color="brand" icon={faCircleCheck} size={12} />}
                     </View>
                 )}
 
@@ -178,8 +178,8 @@ function Player<PlayerType extends IPlayerListPlayer>({
                         <Text numberOfLines={1} variant="label">
                             {player.name}
                         </Text>
-                        {isMe && !hideIcons && <Icon color="brand" icon={faUser} size={12} />}
-                        {!isMe && !hideIcons && player.profileId && player.verified && <Icon color="brand" icon={faCircleCheck} size={12} />}
+                        {isMe && !hideIcons && <Icon className="shrink-0" color="brand" icon={faUser} size={12} />}
+                        {!isMe && !hideIcons && player.profileId && player.verified && <Icon className="shrink-0" color="brand" icon={faCircleCheck} size={12} />}
                     </View>
                     {footer ? (
                         footer(player)
