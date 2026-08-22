@@ -2,6 +2,8 @@
 # EXAMPLE:
 # yarn deploy
 
+source ./scripts/load-fontawesome-token.sh
+
 echo "🔍 Checking components with react compiler..."
 if ! yarn lint:compiler --strict --failures-only; then
   echo "❌ React compiler check failed. Aborting deploy."
@@ -29,7 +31,7 @@ rm -rf $TMPDIR/metro-cache
 npx expo export -p web --clear
 
 docker buildx build \
-  --secret id=FONTAWESOME_NPM_AUTH_TOKEN,src=<(grep FONTAWESOME_NPM_AUTH_TOKEN .env | cut -d '=' -f2 | tr -d '"' | tr -d "'" | xargs) \
+  --secret id=FONTAWESOME_NPM_AUTH_TOKEN,src=<(printf '%s' "$FONTAWESOME_NPM_AUTH_TOKEN") \
   --platform $PLATFORM -f ./Dockerfile -t denniske/${GAME}companion-$SERVICE_NAME:$COMMIT_SHA1 .
 
 # -p as well as -c: without it doppler falls back to a per-directory scope in

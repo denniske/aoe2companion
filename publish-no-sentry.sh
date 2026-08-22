@@ -19,6 +19,8 @@ then
   exit 1
 fi
 
+source ./scripts/load-fontawesome-token.sh
+
 echo "🔍 Checking components with react compiler..."
 if ! yarn lint:compiler --strict --failures-only; then
   echo "❌ React compiler check failed. Aborting build."
