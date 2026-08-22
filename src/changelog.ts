@@ -12,6 +12,17 @@ export interface IChangelog {
 export const changelog4: IChangelog = {
     '41.0.0': [
         {
+            type: 'feature',
+            title: 'Map Polls',
+            content: 'Show ongoing polls for ranked map pool (You cannot vote from the app though)',
+        },
+        {
+            type: 'feature',
+            title: 'Map Pool',
+            content:
+                'See which maps are currently in the ranked map pool. As there is no official endpoint for map pool, this is calculated from the played maps in ranked leaderboards and might be inaccurate when a new patch is released.',
+        },
+        {
             type: 'minor',
             title: 'Display match duration',
         },
