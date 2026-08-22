@@ -25,6 +25,12 @@ export const RankedMaps: React.FC = () => {
     const values: string[] = mapsRanked?.leaderboards?.map((l) => l.leaderboardId) || [];
     const firstValue = mapsRanked?.leaderboards?.map((l) => l.leaderboardId)?.[0];
     const { isMedium } = useBreakpoints();
+    const selectedLeaderboard = mapsRanked?.leaderboards?.find((l) => l.leaderboardId === (rankedMapLeaderboard ?? firstValue));
+
+    // The poll only says something about the rotation while it is still open; once it has expired
+    // the pool it produced is live and the date to show comes from that pool instead.
+    const pollRunning = !!mapsPoll && isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired });
+
     const formatLeaderboard = (leaderboardId: string) => {
         const leaderboard = mapsRanked?.leaderboards?.find((l) => l.leaderboardId === leaderboardId);
 
@@ -36,27 +42,6 @@ export const RankedMaps: React.FC = () => {
             <Text variant="header-lg" className="pb-2">
                 {getTranslation(isMedium ? 'maps.rankedladder' : 'maps.rankedmaps')}
             </Text>
-
-            <AnimateIn skipFirstAnimation>
-                {!!mapsPoll && (
-                    <View className="flex-row justify-between items-start gap-2 mb-4">
-                        {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired }) ? (
-                            <Text variant="body" className="flex-1 min-w-0">
-                                {getTranslation('maps.rotation.newon', { date: formatDayAndTime(mapsPoll.expired) })}
-                            </Text>
-                        ) : (
-                            <Text variant="body" className="flex-1 min-w-0">
-                                {getTranslation('maps.rotation.activesince', { date: formatDayAndTime(mapsPoll.expired) })}
-                            </Text>
-                        )}
-                        {isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ? (
-                            <Link href="/explore/maps/poll" className="shrink-0 text-right">{getTranslation('maps.poll.viewactive')}</Link>
-                        ) : (
-                            <Link href="/explore/maps/poll" className="shrink-0 text-right">{getTranslation('maps.poll.viewresults')}</Link>
-                        )}
-                    </View>
-                )}
-            </AnimateIn>
 
             {((!!mapsRanked?.leaderboards && mapsRanked?.leaderboards?.length > 0) || isLoadingRankedMaps) && (
                 <>
@@ -74,6 +59,32 @@ export const RankedMaps: React.FC = () => {
                             />
                         )}
                     </View>
+
+                    <AnimateIn skipFirstAnimation>
+                        <View className="flex-row justify-between items-start gap-2 mb-4">
+                            {pollRunning ? (
+                                <Text variant="body" className="flex-1 min-w-0">
+                                    {getTranslation('maps.rotation.newon', { date: formatDayAndTime(mapsPoll!.expired) })}
+                                </Text>
+                            ) : selectedLeaderboard?.poolStarted ? (
+                                <Text variant="body" className="flex-1 min-w-0">
+                                    {getTranslation('maps.rotation.activesince', { date: formatDayAndTime(selectedLeaderboard.poolStarted) })}
+                                </Text>
+                            ) : (
+                                <View className="flex-1 min-w-0" />
+                            )}
+                            {!mapsPoll ? (
+                                <Text variant="body" color="subtle" className="shrink-0 text-right">
+                                    {getTranslation('maps.poll.none')}
+                                </Text>
+                            ) : isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ? (
+                                <Link href="/explore/maps/poll" className="shrink-0 text-right">{getTranslation('maps.poll.viewactive')}</Link>
+                            ) : (
+                                <Link href="/explore/maps/poll" className="shrink-0 text-right">{getTranslation('maps.poll.viewresults')}</Link>
+                            )}
+                        </View>
+                    </AnimateIn>
+
                     <View className="md:flex-row gap-4">
                         <View className="hidden md:flex md:flex-1">
                             <Text variant="header-xs" className="pb-2">
@@ -113,9 +124,7 @@ export const RankedMaps: React.FC = () => {
                                                   <SkeletonText variant="body-sm" className="text-center w-6!" alt />
                                               </View>
                                           ))
-                                    : mapsRanked?.leaderboards
-                                          ?.find((l) => l.leaderboardId == (rankedMapLeaderboard ?? firstValue))
-                                          ?.maps?.map((map) => (
+                                    : selectedLeaderboard?.maps?.map((map) => (
                                               <ExpoLink asChild href={`/explore/maps/${map.mapId}`} key={map.mapId}>
                                                   <PressableOpacity className="flex-col justify-between items-center w-[25%] mb-4">
                                                       <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />

@@ -185,6 +185,8 @@
     "maps.poll.devpicks": "Dev Picks",
     "maps.poll.viewactive": "View Active Poll",
     "maps.poll.viewresults": "View Poll Results",
+    "maps.poll.none": "No poll",
+    "maps.poll.won": "In the new pool",
     "maps.rotation.newon": "New Map Rotation on {date}",
     "maps.rotation.activesince": "Maps active since {date}",
     "maps.top5players": "Top 5 Players",

@@ -349,6 +349,8 @@ export type IMapsRankedResult = {
         leaderboardId: string
         leaderboardName: string
         abbreviation: string
+        // When the map pool this leaderboard is counted over went live.
+        poolStarted: Date
         maps: {
             mapId: string
             mapName: string
@@ -380,6 +382,9 @@ export type IMapsPollResult = {
             imageUrl: string
             voteCount: number
             percentage: number
+            // Whether this map made it into the pool the poll produced. null while that pool is not
+            // live yet, which is not the same as having lost.
+            won: boolean | null
         }[]
         devOptions: {
             optionId: number
@@ -389,6 +394,9 @@ export type IMapsPollResult = {
             imageUrl: string
             voteCount: number
             percentage: number
+            // Whether this map made it into the pool the poll produced. null while that pool is not
+            // live yet, which is not the same as having lost.
+            won: boolean | null
         }[]
     }[]
 }
