@@ -19,7 +19,8 @@ then
   exit 1
 fi
 
-NAME=$(ls -t *aoe2-dev.$EXT | head -n 1)
+# Matches the name publish-dev.sh writes: build-<date>-<game>-dev.<ext>
+NAME=$(ls -t *${GAME}-dev.$EXT | head -n 1)
 DEVICE=45161JEKB06496
 PACKAGE_NAME="com.${GAME}companion"
 
