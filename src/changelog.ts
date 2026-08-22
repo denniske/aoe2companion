@@ -10,7 +10,7 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
-    '41.0.0': [
+    '42.0.0': [
         {
             type: 'feature',
             title: 'Map Polls',
@@ -404,7 +404,7 @@ export const changelog: IChangelog = {
     //     },
     // ],
 
-    '213.0.0': [
+    '214.0.0': [
         {
             type: 'bugfix',
             title: 'Added missing translations using AI',
