@@ -1,8 +1,8 @@
 import { HStack, Image, Text, VStack, ZStack, Link, Button, Spacer, Grid } from '@expo/ui/swift-ui';
 import {
     background,
+    clipShape,
     containerBackground,
-    cornerRadius,
     font,
     foregroundColor,
     foregroundStyle,
@@ -12,6 +12,7 @@ import {
     multilineTextAlignment,
     padding,
     resizable,
+    shapes,
 } from '@expo/ui/swift-ui/modifiers';
 import { createLiveActivity, type LiveActivityEnvironment } from 'expo-widgets';
 
@@ -106,6 +107,33 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
     const imagePathInAppGroup = (url?: string, size?: number) =>
         `file:///var/mobile/Containers/Shared/AppGroup/${props.iosAppGroupFolder}/` + slugifyFilename(url, size);
 
+    // aoe4 map thumbnails are flat squares that need a frame to read against the widget background.
+    // The app gives them `border border-gold-500 rounded` (see match-card.tsx), so match that here.
+    // Read off the payload rather than a build flag: this file is compiled for both games, and the
+    // image urls are the one thing in a live activity that always says which game it is.
+    //
+    // Width 0 rather than a conditional modifier list -- the widget body is transpiled to SwiftUI,
+    // so a static list of modifiers is the safer shape.
+    const isAoe4 = (props.match.mapImageUrl ?? '').includes('/aoe4/');
+    const mapBorderWidth = isAoe4 ? 0.5 : 0;
+    const mapCornerRadius = isAoe4 ? 3 : 0;
+    // The dynamic island masks its content with its own rounded shape, so a square thumbnail sitting
+    // at the leading edge gets its corners shaved off. Round the image harder than in the banner so
+    // it sits inside that curve instead of fighting it.
+    const mapCornerRadiusIsland = isAoe4 ? 5 : 0;
+    // The compact leading area is about 24pt tall, so a 25pt thumbnail plus its ring overflowed and
+    // the island masked the difference -- which read as shaved corners and an image glued to the
+    // edge. 20pt sits inside that area, and the trailing gap keeps it off the island's curve.
+    const mapSizeIsland = 20;
+    // Transparent rather than a conditional modifier list: the widget body is transpiled to SwiftUI,
+    // so every image keeps the same static chain and aoe2 simply paints nothing.
+    const mapBorderColor = isAoe4 ? '#f9b806' : '#00000000';
+
+    // aoe4 civ icons are 150x84 banners, not the squares aoe2 ships. A square frame on a resizable
+    // image squashes them, so give them the asset's own ratio -- the app does the same with
+    // `w-14 h-8` (see explore/civilizations/index.tsx).
+    const civAspect = isAoe4 ? 1.7857 : 1;
+
     const opponents = props.match.teams.map((t) => String(t.players.length));
     const opponentsCount = opponents.join('v');
     const startTime = new Date(props.match.started);
@@ -129,7 +157,7 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
             <HStack spacing={0} modifiers={[frame({ maxWidth: Infinity, alignment: 'leading' })]}>
                 <Image
                     uiImage={imagePathInAppGroup(player.civImageUrl)}
-                    modifiers={[resizable(), frame({ width: imgSize, height: imgSize }), padding({ trailing: 4 })]}
+                    modifiers={[resizable(), frame({ width: imgSize * civAspect, height: imgSize }), padding({ trailing: 4 })]}
                 />
                 <Text modifiers={[font({ size, weight: bold ? 'semibold' : 'regular' }), lineLimit(1)]}>{player.name}</Text>
                 {showRating && player.rating != null && (
@@ -178,8 +206,14 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
                 {opponentsCount === '1v1' ? (
                     <HStack modifiers={[padding({ all: 0 })]}>
                         <Image
-                            uiImage={imagePathInAppGroup(props.match.mapImageUrl, 192)}
-                            modifiers={[resizable(), frame({ width: 64, height: 64 })]}
+                            uiImage={imagePathInAppGroup(props.match.mapImageUrl, 200)}
+                            modifiers={[
+                                resizable(),
+                                frame({ width: 64, height: 64 }),
+                                clipShape('roundedRectangle', mapCornerRadius),
+                                padding({ all: mapBorderWidth }),
+                                background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadius + mapBorderWidth, roundedCornerStyle: 'continuous' })),
+                            ]}
                         />
 
                         <VStack modifiers={[padding({ leading: 12 }), frame({ maxWidth: Infinity, alignment: 'topLeading' })]} spacing={12}>
@@ -219,8 +253,14 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
                         {/* Row 1: Map name + leaderboard/format */}
                         <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
                             <Image
-                                uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)}
-                                modifiers={[resizable(), frame({ width: 20, height: 20 })]}
+                                uiImage={imagePathInAppGroup(props.match.mapImageUrl, 200)}
+                                modifiers={[
+                                    resizable(),
+                                    frame({ width: 20, height: 20 }),
+                                    clipShape('roundedRectangle', mapCornerRadius),
+                                    padding({ all: mapBorderWidth }),
+                                    background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadius + mapBorderWidth, roundedCornerStyle: 'continuous' })),
+                                ]}
                             />
                             <Text modifiers={[font({ size: 18, weight: 'semibold' }), lineLimit(1)]}>{props.match.mapName}</Text>
                             <Spacer />
@@ -301,7 +341,17 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
 
         compactLeading: (
             <Link destination={deepLink}>
-                <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)} modifiers={[resizable(), frame({ width: 25, height: 25 })]} />
+                <Image
+                    uiImage={imagePathInAppGroup(props.match.mapImageUrl, 200)}
+                    modifiers={[
+                        resizable(),
+                        frame({ width: mapSizeIsland, height: mapSizeIsland }),
+                        clipShape('roundedRectangle', mapCornerRadiusIsland),
+                        padding({ all: mapBorderWidth }),
+                        background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadiusIsland + mapBorderWidth, roundedCornerStyle: 'continuous' })),
+                        padding({ leading: 2 }),
+                    ]}
+                />
             </Link>
         ),
 
@@ -325,14 +375,23 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
 
         minimal: (
             <Link destination={deepLink}>
-                <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)} modifiers={[resizable(), frame({ width: 25, height: 25 })]} />
+                <Image
+                    uiImage={imagePathInAppGroup(props.match.mapImageUrl, 200)}
+                    modifiers={[
+                        resizable(),
+                        frame({ width: mapSizeIsland, height: mapSizeIsland }),
+                        clipShape('roundedRectangle', mapCornerRadiusIsland),
+                        padding({ all: mapBorderWidth }),
+                        background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadiusIsland + mapBorderWidth, roundedCornerStyle: 'continuous' })),
+                    ]}
+                />
             </Link>
         ),
 
         expandedBottom: banner,
 
         // expandedLeading: (
-        //     <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)} modifiers={[resizable(), frame({ width: 25, height: 25 })]} />
+        //     <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl, 200)} modifiers={[resizable(), frame({ width: 25, height: 25 })]} />
         // ),
         //
         // expandedTrailing: (

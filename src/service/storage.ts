@@ -12,8 +12,8 @@ import { AvailableMainPage } from '@app/helper/routing';
 import { Directory, File, Paths } from 'expo-file-system';
 import { camelCase } from 'lodash';
 import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
+import { cdnImageUrl } from '@app/helper/maps';
 
-import { SaveFormat, ImageManipulator } from 'expo-image-manipulator';
 
 const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
@@ -177,24 +177,10 @@ const slugifyFilename = (url?: string, size?: number) => {
     return slugged + sizeStr + ext;
 };
 
-const processImageFast = async (uri: string, width: number) => {
-    try {
-        const start = new Date();
-
-        const manipResult = await ImageManipulator.manipulate(uri).resize({ width }).renderAsync();
-        const result = await manipResult.saveAsync({ format: SaveFormat.WEBP }); // compress: 0.7
-
-        const end = new Date();
-        console.log('MANIP', end.getTime() - start.getTime(), 'ms');
-
-        return result.uri;
-    } catch (error) {
-        console.error('Image manipulation failed:', error);
-    }
-};
-
-// Widths the live activity asks for. Keep in sync with AAMatchActivity.widget.tsx.
-const MAP_IMAGE_WIDTHS = [75, 192];
+// The width the live activity asks for. Keep in sync with AAMatchActivity.widget.tsx, and with the
+// 'thumb' preset in helper/maps.ts -- the CDN transform rules match one exact query string, so this
+// is only resized if 'thumb' stays width=200.
+const MAP_IMAGE_WIDTH = 200;
 
 // The crash of the app happens after the caching
 export const cacheLiveActivityAssets = async () => {
@@ -228,32 +214,20 @@ export const cacheLiveActivityAssets = async () => {
 
         for (const asset of assets) {
             // console.log('hasImage', asset.imageUrl, new Date());
-            const imagePath = Paths.join(widgetGroupDir, slugifyFilename(asset.imageUrl));
-            const imageSource = () => asset.imageUrl;
-            const url = await widgetSetFileIfNotExists(imagePath, imageSource);
-            // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
 
-            // Downscaled copies for the live activity: 75px (3 times 25px) for the dynamic island
-            // and the 20pt lock screen icon, 192px (3 times 64pt) for the 1v1 lock screen banner.
+            // Maps are cached at MAP_IMAGE_WIDTH, never at full size. The live activity is rendered
+            // out of process under a tight memory budget, and an aoe4 map (720x720, ~340KB)
+            // silently fails to draw there while a small copy of the very same file renders fine --
+            // aoe2's 420x420 maps happened to stay under the limit, which is why this only ever
+            // showed up on aoe4. 200px also covers the largest slot the activity draws (64pt at 3x).
             //
-            // The live activity never loads the full size map image. It is rendered out of process
-            // under a tight memory budget, and an aoe4 map (720x720, ~340KB) silently fails to draw
-            // there while the small copies of the very same file render fine -- aoe2's 420x420 maps
-            // happened to stay under the limit, which is why this only ever showed up on aoe4.
-            if (asset.imageUrl.includes('/maps')) {
-                for (const width of MAP_IMAGE_WIDTHS) {
-                    const smallImagePath = Paths.join(widgetGroupDir, slugifyFilename(asset.imageUrl, width));
-                    const smallImageFile = new File(smallImagePath);
-                    if (url && !smallImageFile.exists) {
-                        const tempImage = await processImageFast(url, width);
-                        if (tempImage) {
-                            const tempImageFile = new File(tempImage);
-                            tempImageFile.copySync(smallImageFile, { overwrite: true });
-                            console.log('cacheLiveActivityAssets small', smallImagePath, new Date());
-                        }
-                    }
-                }
-            }
+            // The CDN does the resizing, so nothing is decoded or re-encoded on the device, and the
+            // download drops from ~340KB to ~36KB (~10KB where the response negotiates to avif).
+            const isMap = asset.imageUrl.includes('/maps');
+            const imagePath = Paths.join(widgetGroupDir, slugifyFilename(asset.imageUrl, isMap ? MAP_IMAGE_WIDTH : undefined));
+            const imageSource = () => (isMap ? cdnImageUrl(asset.imageUrl, 'thumb') : asset.imageUrl);
+            await widgetSetFileIfNotExists(imagePath, imageSource);
+            // console.log('cacheLiveActivityAssets', asset.imageUrl, new Date());
 
             // const imagePathDI = Paths.join(widgetGroupDir, slugifyFilename(asset.imageUrl, 25));
             // const imageSourceDI = () => asset.imageUrl;
