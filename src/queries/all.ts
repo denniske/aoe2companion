@@ -248,7 +248,7 @@ export const useMapsRanked = () => {
     return useQuery({
         queryKey: ['maps-ranked', language],
         queryFn: () => fetchMapsRanked({ language: language! }),
-        enabled: !!language && appConfig.game === 'aoe2',
+        enabled: !!language,
     });
 };
 
@@ -257,7 +257,7 @@ export const useMapsPoll = () => {
     return useQuery({
         queryKey: ['maps-poll', language],
         queryFn: () => fetchMapsPoll({ language: language! }),
-        enabled: !!language && appConfig.game === 'aoe2',
+        enabled: !!language,
     });
 };
 
