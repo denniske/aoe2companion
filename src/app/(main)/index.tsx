@@ -36,16 +36,16 @@ import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import Head from 'expo-router/head';
 import { after, type LiveActivity } from 'expo-widgets';
-import { match1v1 } from '@app/widgets/demo-matches/match-1v1';
+import { match1v1 } from '@app/widgets/demo-matches/aoe2/match-1v1';
 import { widgetGroupDir } from '@app/service/storage';
 import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
-import { match2v2 } from '@app/widgets/demo-matches/match-2v2';
-import { match4v4 } from '@app/widgets/demo-matches/match-4v4';
+import { match2v2 } from '@app/widgets/demo-matches/aoe2/match-2v2';
+import { match4v4 } from '@app/widgets/demo-matches/aoe2/match-4v4';
 import { reducePayload } from '@app/widgets/demo-matches/demo-helper';
-import { matchUneven } from '@app/widgets/demo-matches/match-uneven';
-import { matchFFA } from '@app/widgets/demo-matches/match-ffa';
-import { match2v2v2v2 } from '@app/widgets/demo-matches/match-2v2v2v2';
-import { match2v2v1v1v1v1 } from '@app/widgets/demo-matches/match-2v2v1v1v1v1';
+import { matchUneven } from '@app/widgets/demo-matches/aoe2/match-uneven';
+import { matchFFA } from '@app/widgets/demo-matches/aoe2/match-ffa';
+import { match2v2v2v2 } from '@app/widgets/demo-matches/aoe2/match-2v2v2v2';
+import { match2v2v1v1v1v1 } from '@app/widgets/demo-matches/aoe2/match-2v2v1v1v1v1';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
@@ -117,81 +117,85 @@ export default function IndexPage() {
 
     const count = isLarge ? 3 : isMedium ? 2 : 1;
 
-    // const [matchActivity, setMatchActivity] = useState<LiveActivity<MatchActivityProps>>();
-    //
-    // console.log('folder', widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''));
-    //
-    // const testMatches = [
-    //     {
-    //         ...match2v2,
-    //         iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
-    //     },
-    //     // {
-    //     //     ...match4v4,
-    //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
-    //     // },
-    //     // {
-    //     //     ...matchUneven,
-    //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
-    //     // },
-    //     // {
-    //     //     ...matchFFA,
-    //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
-    //     // },
-    //     // {
-    //     //     ...match2v2v2v2,
-    //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
-    //     // },
-    //     // {
-    //     //     ...match2v2v1v1v1v1,
-    //     //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
-    //     // },
-    // ].map(reducePayload);
-    //
-    // const startDeliveryTracking = (i: number) => {
-    //     const firstPlayerProfileId = testMatches[i].match.teams[0].players[0].profileId;
-    //     const matchId = testMatches[i].match.matchId;
-    //     const link = `aoe2companion://players/${firstPlayerProfileId}/matches/${matchId}`;
-    //     console.log('LINK', link);
-    //     const instance = MatchActivity.start(testMatches[i]); //, link);
-    //     setMatchActivity(instance);
-    // };
-    //
-    // const updateDeliveryTrackingSingle = (activity: LiveActivity<MatchActivityProps>, i: number) => {
-    //     activity?.update(testMatches[i]);
-    // };
-    //
-    // const endDeliveryTracking = async () => {
-    //     // await matchActivity?.end(
-    //     //     after(new Date(Date.now() + 15 * 60 * 1000)),
-    //     //     {
-    //     //         etaMinutes: 0,
-    //     //         status: 'Delivered',
-    //     //     },
-    //     //     new Date()
-    //     // );
-    // };
-    //
-    // useEffect(() => {
-    //     console.log('EFFECT', MatchActivity.getInstances().length);
-    //
-    //     // const existingMatchActivity = MatchActivity.getInstances()[0];
-    //     // if (existingMatchActivity == null) {
-    //     //     startDeliveryTracking();
-    //     // } else {
-    //     //     updateDeliveryTrackingSingle(existingMatchActivity);
-    //     // }
-    //
-    //     for (let i = 0; i < testMatches.length; i++) {
-    //         const existingMatchActivity = MatchActivity.getInstances()[i];
-    //         if (existingMatchActivity == null) {
-    //             startDeliveryTracking(i);
-    //         } else {
-    //             updateDeliveryTrackingSingle(existingMatchActivity, i);
-    //         }
-    //     }
-    //
-    // }, [matchActivity]);
+
+
+    const [matchActivity, setMatchActivity] = useState<LiveActivity<MatchActivityProps>>();
+
+    console.log('folder', widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''));
+
+    const testMatches = [
+        {
+            ...match2v2,
+            iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+        },
+        // {
+        //     ...match4v4,
+        //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+        // },
+        // {
+        //     ...matchUneven,
+        //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+        // },
+        // {
+        //     ...matchFFA,
+        //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+        // },
+        // {
+        //     ...match2v2v2v2,
+        //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+        // },
+        // {
+        //     ...match2v2v1v1v1v1,
+        //     iosAppGroupFolder: widgetGroupDir?.uri.replace('file:///var/mobile/Containers/Shared/AppGroup/', '').replace('/', ''),
+        // },
+    ].map(reducePayload);
+
+    const startDeliveryTracking = (i: number) => {
+        const firstPlayerProfileId = testMatches[i].match.teams[0].players[0].profileId;
+        const matchId = testMatches[i].match.matchId;
+        const link = `aoe2companion://players/${firstPlayerProfileId}/matches/${matchId}`;
+        console.log('LINK', link);
+        const instance = MatchActivity.start(testMatches[i]); //, link);
+        setMatchActivity(instance);
+    };
+
+    const updateDeliveryTrackingSingle = (activity: LiveActivity<MatchActivityProps>, i: number) => {
+        activity?.update(testMatches[i]);
+    };
+
+    const endDeliveryTracking = async () => {
+        // await matchActivity?.end(
+        //     after(new Date(Date.now() + 15 * 60 * 1000)),
+        //     {
+        //         etaMinutes: 0,
+        //         status: 'Delivered',
+        //     },
+        //     new Date()
+        // );
+    };
+
+    useEffect(() => {
+        console.log('EFFECT', MatchActivity.getInstances().length);
+
+        // const existingMatchActivity = MatchActivity.getInstances()[0];
+        // if (existingMatchActivity == null) {
+        //     startDeliveryTracking();
+        // } else {
+        //     updateDeliveryTrackingSingle(existingMatchActivity);
+        // }
+
+        for (let i = 0; i < testMatches.length; i++) {
+            const existingMatchActivity = MatchActivity.getInstances()[i];
+            if (existingMatchActivity == null) {
+                startDeliveryTracking(i);
+            } else {
+                updateDeliveryTrackingSingle(existingMatchActivity, i);
+            }
+        }
+
+    }, [matchActivity]);
+
+
 
     return (
         <ScrollView contentContainerClassName="p-4 md:py-6">
