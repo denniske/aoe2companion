@@ -50,7 +50,6 @@ import { AvailableMainPage } from '@app/helper/routing';
 import { useCSSVariable } from 'uniwind';
 import { LoginPopupProvider } from '@app/providers/login-popup-provider';
 import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
-import { appConfig } from '@nex/dataset';
 import { cacheLiveActivityAssets, widgetGroupDir } from '@app/service/storage';
 import { addPushToStartTokenListener, ExpoWidgetsEvents } from 'expo-widgets';
 import { setAccountLiveActivityToken } from '@app/api/account';
@@ -354,7 +353,7 @@ function LiveActivityController() {
     }, [accountId]);
 
     useEffect(() => {
-        if (Platform.OS === 'ios' && appConfig.game === 'aoe2' && accountId) {
+        if (Platform.OS === 'ios' && accountId) {
             console.log('Registering LiveActivity for', accountId);
             cacheLiveActivityAssets();
         }

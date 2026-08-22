@@ -12,7 +12,7 @@ import expoLocalization from 'expo-localization/plugin';
 import expoWebBrowser from 'expo-web-browser/plugin';
 
 const versionAoe2 = '213.0.0';
-const versionAoe4 = '40.0.0';
+const versionAoe4 = '41.0.0';
 
 console.log('Building for', process.env.GAME, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);
 
@@ -128,7 +128,12 @@ const runtimeVersionCode = runtimeVersionParts[0] + runtimeVersionParts[1].padSt
 const isProdBuild = process.env.EAS_BUILD_PROFILE?.includes('production');
 const isRunningInEasCI = process.env.EAS_BUILD_RUNNER === 'eas-build';
 const sentry = isProdBuild ? [sentryConfigPlugin] : [];
-const widgets = process.env.GAME === 'aoe2' ? [widgetPlugin] : [];
+// Applied for every game, not just aoe2: the extension this creates hosts the MatchActivity Live
+// Activity, and without it iOS never issues a push-to-start token, so aoe4 could never show one.
+// The AABuilds home screen widget stays aoe2-only -- that is gated inside widgetPlugin's own
+// `widgets` list, which is empty for aoe4, leaving an extension that carries the Live Activity
+// alone.
+const widgets = [widgetPlugin];
 
 const gradleJvmArgs: ConfigPlugin = (config: ExpoConfig) => {
     return withGradleProperties(config, (config) => {
