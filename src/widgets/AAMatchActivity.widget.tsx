@@ -177,7 +177,10 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
             <VStack modifiers={[padding({ all: 15 }), containerBackground(style.backgroundColor, 'widget')]}>
                 {opponentsCount === '1v1' ? (
                     <HStack modifiers={[padding({ all: 0 })]}>
-                        <Image uiImage={imagePathInAppGroup(props.match.mapImageUrl)} modifiers={[resizable(), frame({ width: 64, height: 64 })]} />
+                        <Image
+                            uiImage={imagePathInAppGroup(props.match.mapImageUrl, 192)}
+                            modifiers={[resizable(), frame({ width: 64, height: 64 })]}
+                        />
 
                         <VStack modifiers={[padding({ leading: 12 }), frame({ maxWidth: Infinity, alignment: 'topLeading' })]} spacing={12}>
                             {/* Row 1: Map name + leaderboard/format */}
@@ -216,7 +219,7 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
                         {/* Row 1: Map name + leaderboard/format */}
                         <HStack modifiers={[frame({ maxWidth: Infinity })]} spacing={10}>
                             <Image
-                                uiImage={imagePathInAppGroup(props.match.mapImageUrl)}
+                                uiImage={imagePathInAppGroup(props.match.mapImageUrl, 75)}
                                 modifiers={[resizable(), frame({ width: 20, height: 20 })]}
                             />
                             <Text modifiers={[font({ size: 18, weight: 'semibold' }), lineLimit(1)]}>{props.match.mapName}</Text>

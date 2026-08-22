@@ -177,11 +177,11 @@ const slugifyFilename = (url?: string, size?: number) => {
     return slugged + sizeStr + ext;
 };
 
-const processImageFast = async (uri: string) => {
+const processImageFast = async (uri: string, width: number) => {
     try {
         const start = new Date();
 
-        const manipResult = await ImageManipulator.manipulate(uri).resize({ width: 75 }).renderAsync();
+        const manipResult = await ImageManipulator.manipulate(uri).resize({ width }).renderAsync();
         const result = await manipResult.saveAsync({ format: SaveFormat.WEBP }); // compress: 0.7
 
         const end = new Date();
@@ -192,6 +192,9 @@ const processImageFast = async (uri: string) => {
         console.error('Image manipulation failed:', error);
     }
 };
+
+// Widths the live activity asks for. Keep in sync with AAMatchActivity.widget.tsx.
+const MAP_IMAGE_WIDTHS = [75, 192];
 
 // The crash of the app happens after the caching
 export const cacheLiveActivityAssets = async () => {
@@ -230,16 +233,24 @@ export const cacheLiveActivityAssets = async () => {
             const url = await widgetSetFileIfNotExists(imagePath, imageSource);
             // console.log('cacheLiveActivityAssets', asset.imageUrl, url, new Date());
 
-            // 75px (3 times 25px) for dynamic island icon
+            // Downscaled copies for the live activity: 75px (3 times 25px) for the dynamic island
+            // and the 20pt lock screen icon, 192px (3 times 64pt) for the 1v1 lock screen banner.
+            //
+            // The live activity never loads the full size map image. It is rendered out of process
+            // under a tight memory budget, and an aoe4 map (720x720, ~340KB) silently fails to draw
+            // there while the small copies of the very same file render fine -- aoe2's 420x420 maps
+            // happened to stay under the limit, which is why this only ever showed up on aoe4.
             if (asset.imageUrl.includes('/maps')) {
-                const smallImagePath = Paths.join(widgetGroupDir, slugifyFilename(asset.imageUrl, 75));
-                const smallImageFile = new File(smallImagePath);
-                if (url && !smallImageFile.exists) {
-                    const tempImage = await processImageFast(url);
-                    if (tempImage) {
-                        const tempImageFile = new File(tempImage);
-                        tempImageFile.copySync(smallImageFile, { overwrite: true });
-                        console.log('cacheLiveActivityAssets small', smallImagePath, new Date());
+                for (const width of MAP_IMAGE_WIDTHS) {
+                    const smallImagePath = Paths.join(widgetGroupDir, slugifyFilename(asset.imageUrl, width));
+                    const smallImageFile = new File(smallImagePath);
+                    if (url && !smallImageFile.exists) {
+                        const tempImage = await processImageFast(url, width);
+                        if (tempImage) {
+                            const tempImageFile = new File(tempImage);
+                            tempImageFile.copySync(smallImageFile, { overwrite: true });
+                            console.log('cacheLiveActivityAssets small', smallImagePath, new Date());
+                        }
                     }
                 }
             }

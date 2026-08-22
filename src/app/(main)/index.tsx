@@ -36,16 +36,18 @@ import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import Head from 'expo-router/head';
 import { after, type LiveActivity } from 'expo-widgets';
-import { match1v1 } from '@app/widgets/demo-matches/aoe2/match-1v1';
 import { widgetGroupDir } from '@app/service/storage';
 import MatchActivity, { MatchActivityProps } from '@app/widgets/AAMatchActivity.widget';
-import { match2v2 } from '@app/widgets/demo-matches/aoe2/match-2v2';
-import { match4v4 } from '@app/widgets/demo-matches/aoe2/match-4v4';
-import { reducePayload } from '@app/widgets/demo-matches/demo-helper';
-import { matchUneven } from '@app/widgets/demo-matches/aoe2/match-uneven';
-import { matchFFA } from '@app/widgets/demo-matches/aoe2/match-ffa';
-import { match2v2v2v2 } from '@app/widgets/demo-matches/aoe2/match-2v2v2v2';
-import { match2v2v1v1v1v1 } from '@app/widgets/demo-matches/aoe2/match-2v2v1v1v1v1';
+import {
+    match1v1,
+    match2v2,
+    match2v2v1v1v1v1,
+    match2v2v2v2,
+    match4v4,
+    matchFFA,
+    matchUneven,
+    reducePayload,
+} from '@app/widgets/demo-matches';
 
 const FavoritedBuilds: React.FC<{ favoriteIds: string[] }> = ({ favoriteIds }) => {
     const getTranslation = useTranslation();
