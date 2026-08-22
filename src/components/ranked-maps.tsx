@@ -25,11 +25,19 @@ export const RankedMaps: React.FC = () => {
     const values: string[] = mapsRanked?.leaderboards?.map((l) => l.leaderboardId) || [];
     const firstValue = mapsRanked?.leaderboards?.map((l) => l.leaderboardId)?.[0];
     const { isMedium } = useBreakpoints();
-    const selectedLeaderboard = mapsRanked?.leaderboards?.find((l) => l.leaderboardId === (rankedMapLeaderboard ?? firstValue));
+    const selectedLeaderboardId = rankedMapLeaderboard ?? firstValue;
+    const selectedLeaderboard = mapsRanked?.leaderboards?.find((l) => l.leaderboardId === selectedLeaderboardId);
 
-    // The poll only says something about the rotation while it is still open; once it has expired
-    // the pool it produced is live and the date to show comes from that pool instead.
-    const pollRunning = !!mapsPoll && isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired });
+    // A poll only covers some of the leaderboards - aoe2 votes on the rm pools but not on the ew
+    // ones - so what matters is whether this leaderboard is on the ballot, not whether a poll
+    // exists at all. Linking to the results for a leaderboard the poll never asked about would
+    // open a page with nothing on it.
+    const pollQuestion = mapsPoll?.questions?.find((q) => q.leaderboardId === selectedLeaderboardId);
+
+    // While the vote is still open it is the poll that says when the pool changes next; once it has
+    // expired the pool it produced is live and the date comes from that pool instead.
+    const pollRunning = !!mapsPoll && !!pollQuestion && isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.expired });
+    const pollOpen = !!mapsPoll && !!pollQuestion && isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished });
 
     const formatLeaderboard = (leaderboardId: string) => {
         const leaderboard = mapsRanked?.leaderboards?.find((l) => l.leaderboardId === leaderboardId);
@@ -73,11 +81,11 @@ export const RankedMaps: React.FC = () => {
                             ) : (
                                 <View className="flex-1 min-w-0" />
                             )}
-                            {!mapsPoll ? (
+                            {!pollQuestion ? (
                                 <Text variant="body" color="subtle" className="shrink-0 text-right">
                                     {getTranslation('maps.poll.none')}
                                 </Text>
-                            ) : isWithinInterval(new Date(), { start: mapsPoll.started, end: mapsPoll.finished }) ? (
+                            ) : pollOpen ? (
                                 <Link href="/explore/maps/poll" className="shrink-0 text-right">{getTranslation('maps.poll.viewactive')}</Link>
                             ) : (
                                 <Link href="/explore/maps/poll" className="shrink-0 text-right">{getTranslation('maps.poll.viewresults')}</Link>
