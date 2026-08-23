@@ -10,12 +10,7 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
-    '42.0.0': [
-        {
-            type: 'feature',
-            title: 'Map Polls',
-            content: 'Show ongoing polls for ranked map pool (You cannot vote from the app though)',
-        },
+    '43.0.0': [
         {
             type: 'feature',
             title: 'Map Pool',

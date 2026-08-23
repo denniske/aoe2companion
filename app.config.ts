@@ -12,7 +12,7 @@ import expoLocalization from 'expo-localization/plugin';
 import expoWebBrowser from 'expo-web-browser/plugin';
 
 const versionAoe2 = '214.0.0';
-const versionAoe4 = '42.0.0';
+const versionAoe4 = '43.0.0';
 
 console.log('Building for', process.env.GAME, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);
 
