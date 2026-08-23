@@ -10,7 +10,7 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
-    '44.0.0': [
+    '45.0.0': [
         {
             type: 'feature',
             title: 'Map Pool',
@@ -26,6 +26,10 @@ export const changelog4: IChangelog = {
             title: 'Display match duration',
         },
         {
+            type: 'minor',
+            title: 'The server refetches long running matches to find out whether they have been finished or abandoned',
+        },
+        {
             type: 'bugfix',
             title: 'Added missing translations using AI',
         },
@@ -39,11 +43,6 @@ export const changelog4: IChangelog = {
             type: 'bugfix',
             title: 'Fix app crash on match page for Public Update Preview (PUP) matches',
         },
-        // Need to actually do this for aoe4
-        // {
-        //     type: 'minor',
-        //     title: 'The server refetches long running matches to find out whether they have been finished or abandoned',
-        // },
     ],
     '39.0.0': [
         {
@@ -403,7 +402,7 @@ export const changelog: IChangelog = {
     //     },
     // ],
 
-    '214.0.0': [
+    '215.0.0': [
         {
             type: 'bugfix',
             title: 'Added missing translations using AI',
