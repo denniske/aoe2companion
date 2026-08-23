@@ -540,7 +540,10 @@ function AppWrapper() {
     const onLayoutRootView = async () => {
         if (fontsLoaded && supabaseInitialized) {
             SplashScreen.hide();
-            markInteractive();
+            // markInteractive is typed void but actually returns the promise of a native async call. this prevents the error being logged to sentry.
+            try {
+                await (markInteractive as any)();
+            } catch {}
         }
     };
 
