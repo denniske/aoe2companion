@@ -117,6 +117,12 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
     const isAoe4 = (props.match.mapImageUrl ?? '').includes('/aoe4/');
     const mapBorderWidth = isAoe4 ? 0.5 : 0;
     const mapCornerRadius = isAoe4 ? 3 : 0;
+    // The gold ring is the background shape showing through mapBorderWidth of padding, so it is only
+    // an even ring while the inner and outer corners are the same curve. clipShape() takes no corner
+    // style and so always clips a circular RoundedRectangle -- pairing it with a `continuous` squircle
+    // background made the two curves diverge and the ring visibly fatten at the corners. Keep every
+    // background below on 'circular' to match.
+    const mapCornerStyle = 'circular' as const;
     // The dynamic island masks its content with its own rounded shape, so a square thumbnail sitting
     // at the leading edge gets its corners shaved off. Round the image harder than in the banner so
     // it sits inside that curve instead of fighting it.
@@ -212,7 +218,7 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
                                 frame({ width: 64, height: 64 }),
                                 clipShape('roundedRectangle', mapCornerRadius),
                                 padding({ all: mapBorderWidth }),
-                                background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadius + mapBorderWidth, roundedCornerStyle: 'continuous' })),
+                                background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadius + mapBorderWidth, roundedCornerStyle: mapCornerStyle })),
                             ]}
                         />
 
@@ -259,7 +265,7 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
                                     frame({ width: 20, height: 20 }),
                                     clipShape('roundedRectangle', mapCornerRadius),
                                     padding({ all: mapBorderWidth }),
-                                    background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadius + mapBorderWidth, roundedCornerStyle: 'continuous' })),
+                                    background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadius + mapBorderWidth, roundedCornerStyle: mapCornerStyle })),
                                 ]}
                             />
                             <Text modifiers={[font({ size: 18, weight: 'semibold' }), lineLimit(1)]}>{props.match.mapName}</Text>
@@ -348,7 +354,7 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
                         frame({ width: mapSizeIsland, height: mapSizeIsland }),
                         clipShape('roundedRectangle', mapCornerRadiusIsland),
                         padding({ all: mapBorderWidth }),
-                        background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadiusIsland + mapBorderWidth, roundedCornerStyle: 'continuous' })),
+                        background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadiusIsland + mapBorderWidth, roundedCornerStyle: mapCornerStyle })),
                         padding({ leading: 2 }),
                     ]}
                 />
@@ -382,7 +388,7 @@ const MatchActivity = (props: MatchActivityProps, environment: LiveActivityEnvir
                         frame({ width: mapSizeIsland, height: mapSizeIsland }),
                         clipShape('roundedRectangle', mapCornerRadiusIsland),
                         padding({ all: mapBorderWidth }),
-                        background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadiusIsland + mapBorderWidth, roundedCornerStyle: 'continuous' })),
+                        background(mapBorderColor, shapes.roundedRectangle({ cornerRadius: mapCornerRadiusIsland + mapBorderWidth, roundedCornerStyle: mapCornerStyle })),
                     ]}
                 />
             </Link>
