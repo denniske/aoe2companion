@@ -15,7 +15,6 @@ import { PlayoffPopup } from '@app/view/tournaments/playoffs/popup';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { TournamentMatch } from '@app/view/tournaments/tournament-match';
 import { matchAttributes } from '@nex/data';
-import { appConfig } from '@nex/dataset';
 import { Image } from '@/src/components/uniwind/image';
 import { Stack, useFocusEffect } from 'expo-router';
 import { PlayoffMatch } from 'liquipedia';
@@ -208,49 +207,47 @@ export default function Competitive() {
                 />
             )}
             <View className="flex-1 pt-4 gap-5">
-                {appConfig.game === 'aoe2' && (
-                    <View className="gap-2">
-                        <View className="flex-row justify-between items-center px-4">
-                            <Text variant="header-lg">{getTranslation('competitive.onlineVerifiedPlayers.title')}</Text>
-                            <Link href="/matches/live/competitive">{getTranslation('competitive.onlineVerifiedPlayers.viewGames')}</Link>
-                        </View>
-
-                        <PlayerList
-                            hideIcons
-                            list={
-                                activePlayers.length > 0
-                                    ? activePlayers
-                                    : ['loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading']
-                            }
-                            variant="horizontal"
-                            playerStyle={{ width: isMedium ? 128 : 100 }}
-                            footer={(player) =>
-                                player ? (
-                                    <>
-                                        <Text color="subtle" variant="body-xs" numberOfLines={1}>
-                                            {matchAttributes({
-                                                ...player.match,
-                                                teams: Object.entries(groupBy(player.match.players, 'team')).map(([teamId, players]) => ({
-                                                    teamId: Number(teamId),
-                                                    players,
-                                                })),
-                                            }).join(' - ')}
-                                        </Text>
-                                        <Text color="subtle" variant="body-xs" numberOfLines={1}>
-                                            {player.match.mapName}
-                                        </Text>
-                                        {player.isLive ? <View className="top-1 right-1 w-2 h-2 rounded-full bg-red-600 absolute" /> : null}
-                                    </>
-                                ) : (
-                                    <>
-                                        <SkeletonText variant="body-xs" />
-                                        <SkeletonText variant="body-xs" />
-                                    </>
-                                )
-                            }
-                        />
+                <View className="gap-2">
+                    <View className="flex-row justify-between items-center px-4">
+                        <Text variant="header-lg">{getTranslation('competitive.onlineVerifiedPlayers.title')}</Text>
+                        <Link href="/matches/live/competitive">{getTranslation('competitive.onlineVerifiedPlayers.viewGames')}</Link>
                     </View>
-                )}
+
+                    <PlayerList
+                        hideIcons
+                        list={
+                            activePlayers.length > 0
+                                ? activePlayers
+                                : ['loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading', 'loading']
+                        }
+                        variant="horizontal"
+                        playerStyle={{ width: isMedium ? 128 : 100 }}
+                        footer={(player) =>
+                            player ? (
+                                <>
+                                    <Text color="subtle" variant="body-xs" numberOfLines={1}>
+                                        {matchAttributes({
+                                            ...player.match,
+                                            teams: Object.entries(groupBy(player.match.players, 'team')).map(([teamId, players]) => ({
+                                                teamId: Number(teamId),
+                                                players,
+                                            })),
+                                        }).join(' - ')}
+                                    </Text>
+                                    <Text color="subtle" variant="body-xs" numberOfLines={1}>
+                                        {player.match.mapName}
+                                    </Text>
+                                    {player.isLive ? <View className="top-1 right-1 w-2 h-2 rounded-full bg-red-600 absolute" /> : null}
+                                </>
+                            ) : (
+                                <>
+                                    <SkeletonText variant="body-xs" />
+                                    <SkeletonText variant="body-xs" />
+                                </>
+                            )
+                        }
+                    />
+                </View>
 
                 {!!(tournamentsEnabled) && (
                     <View className="gap-2">
