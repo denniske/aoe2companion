@@ -10,12 +10,16 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
-    '43.0.0': [
+    '44.0.0': [
         {
             type: 'feature',
             title: 'Map Pool',
             content:
                 'See which maps are currently in the ranked map pool. As there is no official endpoint for map pool, this is calculated from the played maps in ranked leaderboards and might be inaccurate when a new patch is released.',
+        },
+        {
+            type: 'minor',
+            title: 'Get verified player list from liquipedia',
         },
         {
             type: 'minor',
