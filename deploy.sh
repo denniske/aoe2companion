@@ -65,4 +65,37 @@ ssh -o StrictHostKeyChecking=no root@$IP dokku domains:set $APP_NAME $DOMAIN www
 ssh -o StrictHostKeyChecking=no root@$IP dokku resource:limit --cpu 3 --memory 5000 $APP_NAME
 ssh -o StrictHostKeyChecking=no root@$IP dokku git:from-image $APP_NAME $IMAGE_NAME
 
+# Sentry release + commit association.
+#
+# One repo, two Sentry projects: a commit here can fix an aoe2companion issue or an aoe4companion
+# one, so the release is created for both regardless of which GAME is being deployed. That is what
+# makes "Fixes AOE2COMPANION-123" in a commit message resolve the issue -- Sentry only acts on the
+# reference once it has seen the commit, and it only sees commits attached to a release.
+#
+# Note the web build itself reports nothing: src/helper/sentry.ts disables Sentry on web. The
+# events in these two projects come from the mobile app, whose releases are created by the
+# @sentry/react-native expo plugin during publish. This step is about giving Sentry the commit
+# history, which is per-repo rather than per-platform.
+#
+# Non-fatal: bookkeeping must not fail a deploy that otherwise worked.
+export SENTRY_AUTH_TOKEN=$(doppler secrets get SENTRY_AUTH_TOKEN -p $DOPPLER_PROJECT -c dev_${GAME} --plain)
+export SENTRY_ORG=$(doppler secrets get SENTRY_ORG -p $DOPPLER_PROJECT -c dev_${GAME} --plain)
+
+if [ -n "$SENTRY_AUTH_TOKEN" ]
+then
+  echo "Creating Sentry release $COMMIT_SHA1 for aoe2companion + aoe4companion"
+  (
+    set +e
+    # sentry-cli comes from @sentry/react-native, already a dependency here.
+    # -o/-p belong after the subcommand group, not before it.
+    SENTRY_CLI="./node_modules/.bin/sentry-cli releases -o $SENTRY_ORG -p aoe2companion -p aoe4companion"
+    $SENTRY_CLI new "$COMMIT_SHA1" &&
+    $SENTRY_CLI set-commits "$COMMIT_SHA1" --commit "denniske/aoe2companion@$COMMIT_SHA1" &&
+    $SENTRY_CLI finalize "$COMMIT_SHA1" ||
+    echo "Sentry release failed -- deploy continues, commits for this build are not tracked"
+  )
+else
+  echo "SENTRY_AUTH_TOKEN not found in doppler -- skipping Sentry release"
+fi
+
 echo "Finished building for ${GAME}"
