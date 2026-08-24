@@ -170,6 +170,9 @@ export default function ApiPage() {
                         <View className="text-sm">
                             Leaderboard ID (Unranked=0, 1v1 Deathmatch=1, Team Deathmatch=2, 1v1 Random Map=3, Team Random Map=4, 1v1 Empire Wars=13, Team Empire Wars=14)
                         </View>
+                        <View className="text-sm">
+                            Alternatively the leaderboard enum as used by /api/matches (unranked, dm_1v1, dm_team, rm_1v1, rm_team, ew_1v1, ew_team, qp_rm_1v1, qp_rm_team, rm_1v1_console, rm_team_console, ...)
+                        </View>
                     </View>
                     <View className="">
                         <View className="text-base">
@@ -268,6 +271,9 @@ export default function ApiPage() {
                         </View>
                         <View className="text-sm">
                             Leaderboard ID can be used to restrict player result to a leaderboard (Unranked=0, 1v1 Deathmatch=1, Team Deathmatch=2, 1v1 Random Map=3, Team Random Map=4, 1v1 Empire Wars=13, Team Empire Wars=14)
+                        </View>
+                        <View className="text-sm">
+                            Alternatively the leaderboard enum as used by /api/matches (unranked, dm_1v1, dm_team, rm_1v1, rm_team, ew_1v1, ew_team, qp_rm_1v1, qp_rm_team, rm_1v1_console, rm_team_console, ...)
                         </View>
                     </View>
                     <View className="">
