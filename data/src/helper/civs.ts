@@ -353,7 +353,7 @@ export function getCivNameById(civ: Civ) {
     // through the regular translations and fall back to English. getUiTranslation
     // returns the key itself in key mode and a nbsp before a language is known, so
     // only an actual translation is allowed to win.
-    const key = `civ.name.${civ.toLowerCase()}`;
+    const key = `civ.name.${getCivEnum(civ)}`;
     const translated = getUiTranslation(key)?.trim();
     return translated && translated !== key ? translated : englishName;
 }
@@ -366,11 +366,20 @@ export function getCivIdByEnum(civEnum: string): Civ {
     return civEnumList[civEnum];
 }
 
+const civEnumByCiv: Record<string, string> = Object.fromEntries(
+    Object.entries(civEnumList).map(([civEnum, civ]) => [civ as string, civEnum])
+);
+
+// The snake_case enum the backend uses (holy_roman_empire), which is also what the
+// translation keys are keyed by. The inverse of civEnumList, so the two cannot drift.
+export function getCivEnum(civ: Civ): string {
+    return civEnumByCiv[civ as unknown as string];
+}
+
 export function getLocalCivEnum(serverCivEnum: string): string {
-    // jeanne_d_arc -> JeanneDArc
-    return serverCivEnum
-        .replace(/_(.)/g, (match, group1) => group1.toUpperCase())
-        .replace(/^(.)/, (match, group1) => group1.toUpperCase());
+    // A table lookup, not a string transform: jeanne_darc capitalises to JeanneDarc, which
+    // is not the JeanneDArc the rest of the app uses, and the same for zhu_xis_legacy.
+    return civEnumList[serverCivEnum] ?? serverCivEnum;
 }
 
 export function getCivDescription(civ: Civ) {

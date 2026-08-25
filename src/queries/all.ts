@@ -17,7 +17,7 @@ import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { appConfig } from '@nex/dataset';
-import { civs, getSupabaseClient } from '@nex/data';
+import { getCivIdByEnum, getSupabaseClient } from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ICivilization, IFetchProfilesParams } from '@app/api/helper/api.types';
 import { withCacheBust } from '@app/api/util';
@@ -298,13 +298,8 @@ export const useBuild = (buildId: string) => {
     });
 };
 
-// The backend spells civ enums snake_case (holy_roman_empire), the app CamelCase
-// (HolyRomanEmpire), and neither is a plain transform of the other (jeanne_darc vs
-// JeanneDArc). Comparing them without separators matches every civ and, unlike a hand
-// written table, does not need an entry when a civ is added.
-const civKey = (civ: string) => civ.replace(/[^a-z0-9]/gi, '').toLowerCase();
-
-// aoe4 only. Keyed by the app's Civ enum so screens can look a civ up directly.
+// aoe4 only. Keyed by the app's Civ enum so screens can look a civ up directly, with
+// getCivIdByEnum translating the backend's snake_case enum to it.
 export const useAoe4CivData = () => {
     const language = useLanguage();
 
@@ -313,12 +308,10 @@ export const useAoe4CivData = () => {
         queryFn: async () => {
             const { civilizations } = await fetchCivilizations(language!);
 
-            const byKey = new Map(civilizations.map((civ) => [civKey(civ.civ), civ]));
-
             return Object.fromEntries(
-                civs.flatMap((civ) => {
-                    const found = byKey.get(civKey(civ));
-                    return found ? [[civ, found] as const] : [];
+                civilizations.flatMap((civilization) => {
+                    const civ = getCivIdByEnum(civilization.civ);
+                    return civ ? [[civ, civilization] as const] : [];
                 })
             ) as Record<string, ICivilization>;
         },
