@@ -73,7 +73,7 @@ export default function CivList() {
     return (
         <KeyboardAvoidingView>
             <View className="flex-1">
-                <Stack.Screen options={{ title: isMedium ? getTranslation('explore.civilizations') : getTranslation('civs.title') }} />
+                <Stack.Screen options={{ title: getTranslation('explore.civilizations') }} />
 
                 {appConfig.game === 'aoe2' && (
                     <View className={cn('pt-4', containerClassName)}>

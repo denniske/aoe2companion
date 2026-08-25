@@ -2,7 +2,7 @@ import {Tech} from "./techs";
 import {Unit, units } from "./units";
 import {aoeData} from "../data/data";
 import {removeAccentsAndCase, sanitizeGameDescription, sanitizeGameName, unwrap} from "../lib/util";
-import {getAoeString} from '../lib/aoe-data';
+import {getAoeString, getUiTranslation} from '../lib/aoe-data';
 import {orderBy} from 'lodash';
 import {appConfig, dataset } from "@nex/dataset";
 
@@ -348,7 +348,14 @@ export function getCivNameById(civ: Civ) {
         const civNameKey = aoeData.civs[civ as any as keyof typeof aoeData.civs]?.name_string_id;
         return getAoeString(civNameKey?.toString());
     }
-    return aoe4CivNameDict[civs.indexOf(civ as any) as any as keyof typeof aoe4CivNameDict];
+    const englishName = aoe4CivNameDict[civs.indexOf(civ as any) as any as keyof typeof aoe4CivNameDict];
+    // aoe4 civ names have no in-app string table like aoe2 does, so they go
+    // through the regular translations and fall back to English. getUiTranslation
+    // returns the key itself in key mode and a nbsp before a language is known, so
+    // only an actual translation is allowed to win.
+    const key = `civ.name.${civ.toLowerCase()}`;
+    const translated = getUiTranslation(key)?.trim();
+    return translated && translated !== key ? translated : englishName;
 }
 
 // export function getCivEnumById(civ: Civ) {
