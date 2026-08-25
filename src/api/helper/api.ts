@@ -22,6 +22,7 @@ import {
     INewsResult,
     IProfileResult,
     IProfilesResult,
+    ICivilizationsResult,
     IVideosResult,
 } from './api.types';
 import { dateReviver, getHost } from '@nex/data';
@@ -120,6 +121,14 @@ export async function fetchLeaderboards(params: IFetchLeaderboardsParams) {
 export async function fetchNews() {
     const url = `${getHost('aoe2companion-data')}api/news`;
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as INewsResult;
+}
+
+// aoe4 only: the civ page text comes from the game's own localization, extracted by the
+// collector. It used to be fetched straight from aoe4world's GitHub repo, one request per
+// civ, and was English whatever language the app was in.
+export async function fetchCivilizations(language: string) {
+    const url = `${getHost('aoe2companion-data')}api/civilizations?language=${language}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as ICivilizationsResult;
 }
 
 export async function fetchFeaturedVideos(language: string) {

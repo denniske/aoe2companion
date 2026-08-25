@@ -1,6 +1,7 @@
 import { keepPreviousData, queryOptions, useInfiniteQuery, useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import {
     fetchBuilds,
+    fetchCivilizations,
     fetchLeaderboards,
     fetchMaps,
     fetchMapsPoll,
@@ -16,9 +17,9 @@ import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { appConfig } from '@nex/dataset';
-import { getSupabaseClient } from '@nex/data';
+import { civs, getSupabaseClient } from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { IFetchProfilesParams } from '@app/api/helper/api.types';
+import { ICivilization, IFetchProfilesParams } from '@app/api/helper/api.types';
 import { withCacheBust } from '@app/api/util';
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
@@ -297,49 +298,31 @@ export const useBuild = (buildId: string) => {
     });
 };
 
-const civDataFileMapping = {
-    AbbasidDynasty: 'abbasid',
-    Chinese: 'chinese',
-    DelhiSultanate: 'delhi',
-    English: 'english',
-    French: 'french',
-    HolyRomanEmpire: 'hre',
-    Mongols: 'mongols',
-    Rus: 'rus',
-    Malians: 'malians',
-    Ottomans: 'ottomans',
-    Byzantines: 'byzantines',
-    Japanese: 'japanese',
-    JeanneDArc: 'jeannedarc',
-    Ayyubids: 'ayyubids',
-    ZhuXiSLegacy: 'zhuxi',
-    OrderOfTheDragon: 'orderofthedragon',
-    HouseOfLancaster: 'lancaster',
-    KnightsTemplar: 'templar',
-    SengokuDaimyo: 'sengoku',
-    TughlaqDynasty: 'tughlaq',
-    GoldenHorde: 'goldenhorde',
-    MacedonianDynasty: 'macedonian',
-    JinDynasty: 'jindynasty',
-} as const;
+// The backend spells civ enums snake_case (holy_roman_empire), the app CamelCase
+// (HolyRomanEmpire), and neither is a plain transform of the other (jeanne_darc vs
+// JeanneDArc). Comparing them without separators matches every civ and, unlike a hand
+// written table, does not need an entry when a civ is added.
+const civKey = (civ: string) => civ.replace(/[^a-z0-9]/gi, '').toLowerCase();
 
-export const useAoe4CivData = () =>
-    useQuery({
-        queryKey: ['aoe4-civ-data'],
+// aoe4 only. Keyed by the app's Civ enum so screens can look a civ up directly.
+export const useAoe4CivData = () => {
+    const language = useLanguage();
+
+    return useQuery({
+        queryKey: ['aoe4-civ-data', language],
         queryFn: async () => {
-            const entries = Object.entries(civDataFileMapping);
+            const { civilizations } = await fetchCivilizations(language!);
 
-            const results = await Promise.all(
-                entries.map(async ([key, slug]) => {
-                    const res = await fetch(`https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${slug}.json`);
-                    if (!res.ok) throw new Error(`Failed to fetch ${slug}`);
-                    const data = await res.json();
-                    return [key, data] as const;
+            const byKey = new Map(civilizations.map((civ) => [civKey(civ.civ), civ]));
+
+            return Object.fromEntries(
+                civs.flatMap((civ) => {
+                    const found = byKey.get(civKey(civ));
+                    return found ? [[civ, found] as const] : [];
                 })
-            );
-
-            return Object.fromEntries(results) as Record<string, { classes: string }>;
+            ) as Record<string, ICivilization>;
         },
         staleTime: 3600 * 1000, // 1 hour
-        enabled: appConfig.game === 'aoe4',
+        enabled: appConfig.game === 'aoe4' && !!language,
     }).data;
+};

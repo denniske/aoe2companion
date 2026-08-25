@@ -12,11 +12,11 @@ import { MyText } from '../../../../view/components/my-text';
 import { TechTree } from '../../../../view/components/tech-tree';
 import { TechCompBig } from '../../../../view/tech/tech-comp';
 import { UnitCompBig } from '../../../../view/unit/unit-comp';
-import { useQuery } from '@tanstack/react-query';
 import { useUniwind } from 'uniwind';
 import NotFound from '@app/app/(main)/+not-found';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { useCivVideo } from '@app/utils/video';
+import { useAoe4CivData } from '@app/queries/all';
 import { Text } from '@app/components/text';
 import { useTranslation } from '@app/helper/translate';
 
@@ -119,44 +119,8 @@ export default function CivDetails() {
     );
 }
 
-interface ICivInfoItem {
-    title: string;
-    description?: string;
-    list?: string[];
-}
-
 export function Civ4Details({ civ }: { civ: Civ }) {
-    const civDataFileMapping = {
-        AbbasidDynasty: 'abbasid',
-        Chinese: 'chinese',
-        DelhiSultanate: 'delhi',
-        English: 'english',
-        French: 'french',
-        HolyRomanEmpire: 'hre',
-        Mongols: 'mongols',
-        Rus: 'rus',
-        Malians: 'malians',
-        Ottomans: 'ottomans',
-        Byzantines: 'byzantines',
-        Japanese: 'japanese',
-        JeanneDArc: 'jeannedarc',
-        Ayyubids: 'ayyubids',
-        ZhuXiSLegacy: 'zhuxi',
-        OrderOfTheDragon: 'orderofthedragon',
-        HouseOfLancaster: 'lancaster',
-        KnightsTemplar: 'templar',
-        SengokuDaimyo: 'sengoku',
-        TughlaqDynasty: 'tughlaq',
-        GoldenHorde: 'goldenhorde',
-        MacedonianDynasty: 'macedonian',
-        JinDynasty: 'jindynasty',
-    } as any;
-
-    const { data: civData } = useQuery({
-        queryKey: ['civ-infos', civ],
-        queryFn: async () =>
-            (await fetch(`https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${civDataFileMapping[civ]}.json`)).json(),
-    });
+    const civData = useAoe4CivData()?.[civ];
 
     if (!civData) return null;
 
@@ -169,9 +133,9 @@ export function Civ4Details({ civ }: { civ: Civ }) {
             />
             <ScrollView>
                 <View style={styles.detailsContainer}>
-                    <MyText style={styles.contentDescription}>{civData.description}</MyText>
+                    <MyText style={styles.contentDescription}>{civData.summary}</MyText>
 
-                    {civData.overview.map((item: ICivInfoItem, i: number) => (
+                    {civData.overview.map((item) => (
                         <Fragment key={item.title}>
                             <MyText style={styles.infoTitle}>{item.title}</MyText>
                             {item.description != null && <MyText style={styles.content}>{item.description}</MyText>}

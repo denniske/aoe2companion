@@ -321,6 +321,28 @@ export type INews = {
     link: string;
 };
 
+export interface ICivilizationOverviewItem {
+    title: string;
+    description?: string;
+    list?: string[];
+}
+
+export interface ICivilization {
+    // The civ enum as the backend spells it (english, holy_roman_empire, ...).
+    civ: string;
+    name: string;
+    summary: string;
+    // The three-word strength line ("Defense, Longbows, Farming").
+    classes: string;
+    // The historical era line ("850 - 1555 CE").
+    era?: string;
+    overview: ICivilizationOverviewItem[];
+}
+
+export interface ICivilizationsResult {
+    civilizations: ICivilization[];
+}
+
 export type IVideosResult = IVideo[];
 
 export interface IVideo {
