@@ -339,10 +339,6 @@ export interface ICivilization {
     overview: ICivilizationOverviewItem[];
 }
 
-export interface ICivilizationsResult {
-    civilizations: ICivilization[];
-}
-
 export type IVideosResult = IVideo[];
 
 export interface IVideo {

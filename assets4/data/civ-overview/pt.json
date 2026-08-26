@@ -1,0 +1,1199 @@
+{
+    "english": {
+        "summary": "Uma infantaria novata excepcional dá força aos ingleses, com o apoio da produção confiável de Comida nos campos.",
+        "classes": "Defesa, Arcos Longos, Agricultura",
+        "era": "850–1555 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Centros Urbanos, Postos Avançados, Torres e Torres de Menagem aumentam a velocidade de ataque de unidades próximas em +20% quando os inimigos estão ao alcance.",
+                    "A construção de Fazendas é -50% mais barata; Fazendas próximas a moinhos coletam +20/25/30/30% mais rápido por Era.",
+                    "Homem de Armas de Vanguarda na Era das Trevas (I)",
+                    "Produza o Homem de Armas +40% mais rápido que outras civilizações.",
+                    "Aldeões empunham arcos curtos ao atacar unidades inimigas.",
+                    "Torres de Menagem podem produzir todas as unidades militares.",
+                    "A produção de navios fica -10% mais barata.",
+                    "Batedores e Homens de Armas podem acender fogueiras para aumentar a linha de visão e melhorar a caça próxima em +10%."
+                ]
+            },
+            {
+                "title": "Rede de Castelos",
+                "description": "Proteja a fronteira com Centros Urbanos, Postos Avançados, Torres de Muralha de Pedra e Fortalezas que aumentam a velocidade de ataque de unidades próximas em +20% quando os inimigos estiverem dentro do alcance.\nPesquise a tecnologia da Rede de Cidadelas nas Fortalezas para aumentar ainda mais a velocidade de ataque em +30%."
+            },
+            {
+                "title": "Produção da Torre de Menagem",
+                "description": "As Torres de Menagem possuem a habilidade exclusiva de produzir todas as unidades militares."
+            },
+            {
+                "title": "Chamado às Armas",
+                "description": "Homem de armas da vanguarda disponível na Era das Trevas (I) — homens de armas ingleses são produzidos +40% mais rápido."
+            },
+            {
+                "title": "Burhs Defensivos",
+                "description": "O Centro Urbano da Capital dispara uma flecha adicional e os Aldeões empunham arcos curtos ao atacar unidades inimigas."
+            },
+            {
+                "title": "Ilha da Agricultura",
+                "description": "A construção de Fazendas fica 50% mais barata.\nPesquise a tecnologia Cercamentos na Era Imperial (IV) para permitir que os Aldeões gerem +1 de Ouro a cada 6 segundos ao trabalhar nas Fazendas."
+            },
+            {
+                "title": "Construtores Navais",
+                "description": "O condicionamento naval aumenta a eficiência das Docas, reduzindo os custos de construção de navios em -10%."
+            },
+            {
+                "title": "Influência",
+                "description": "A velocidade de colheita de Fazendas aumenta dentro da influência de um Moinho em +20/25/30/30% após cada avanço de era."
+            },
+            {
+                "title": "Mata do Rei",
+                "description": "Batedores e Homens de Armas podem criar uma Fogueira, que aumenta o alcance de visão de unidades próximas em +30% e a taxa de coleta de caçadores próximos em +10%."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Arqueiro de Arco Longo: Arqueiro com +2 de alcance e +1 de dano que vem com a habilidade de Estaca Defensiva para atordoar e causar dano à cavalaria inimiga."
+            }
+        ]
+    },
+    "mongols": {
+        "summary": "Mestres da mobilidade e das guerras a cavalo, os mongóis podem realocar facilmente seus acampamentos, além de obter benefícios econômicos ao se fixar perto de Afloramentos de Pedra e saquear construções inimigas. Os inimigos devem lidar com ataques de cavalaria desde os momentos iniciais do jogo.",
+        "classes": "Agressão, Cavalaria, Nômade",
+        "era": "1000–1500 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Comece com uma Ger cheio, limite máximo de população e sem necessidade de Casas.",
+                    "Todos as construções podem ser desmontadas e instaladas em um novo local.",
+                    "Saqueie +25 de Comida e Ouro incendiando construções inimigas.",
+                    "Estábulos disponíveis na Era das Trevas (I).",
+                    "Ginetes treinam +25% mais rápido.",
+                    "Postos Avançados aumentam a velocidade de movimento da cavalaria e dos Mercadores próximos em +15%.",
+                    "Produza unidades em dobro ou pesquise versões avançadas das tecnologias usando Pedra.",
+                    "Rota da Seda: Comerciantes geram +10% adicionais de Comida, Madeira e Ouro com 5/10/15 de Mercadores ativos.",
+                    "Navios de transporte têm +50% de vida e +15% de velocidade de movimento."
+                ]
+            },
+            {
+                "title": "Grande Domínio",
+                "description": "Todas as construções podem ser desmontadas e instaladas em um novo local.\nAbra mão da necessidade de construir Casas e comece o jogo com a população máxima.\nResponda rapidamente aos movimentos dos inimigos com uma rede de Postos Avançados que fornece +15% de velocidade de movimento para unidades de cavalaria e Mercadores próximos."
+            },
+            {
+                "title": "Canato",
+                "description": "Mobilize o poderoso Khan na Era das Trevas (I) para fornecer bônus poderosos a todas as unidades militares próximas com Flechas Sinalizadoras.\nKhans e Batedores podem usar a habilidade Falcão Batedor para vigiar a área ao redor."
+            },
+            {
+                "title": "Ginetes Especialistas",
+                "description": "Construa Estábulos já na Era das Trevas e treine Ginetes +25% mais rápido."
+            },
+            {
+                "title": "Coletores Nômades",
+                "description": "Construa Pastos em vez de Fazendas para criar Ovelhas para obter Comida — Pastagens produzem Ovelhas mais rapidamente dentro da influência de um Ovoo."
+            },
+            {
+                "title": "Tesouro de Pilhagem",
+                "description": "Saqueie construções inimigas por +25 de Comida e Ouro quando incendiada ou destruída em construção."
+            },
+            {
+                "title": "Transportes Aprimorados",
+                "description": "Unidades desembarcadas do Navio de Transporte ficam mais rápidas e duráveis, com +50% de vida e +15% de velocidade de movimento."
+            },
+            {
+                "title": "Rota da Seda",
+                "description": "Explore a Rota da Seda com Mercadores que recebem recursos extra do comércio com base no seu número total de Mercadores ativos.\n• 5+ Mercadores: +10% de Comida\n• 10+ Mercadores: +10% de Comida e Madeira\n• 15+ Mercadores: +10% de Comida, Madeira e Ouro"
+            },
+            {
+                "title": "Influência",
+                "description": "Construa o Ovoo sobre afloramentos de Pedra para gerar influência e coletar Pedra sem precisar usar Aldeões. Ovoos coletam +70, 100, 130, 160 de Pedra por minuto após cada avanço de era.\nConstruções dentro da influência de um Ovoo podem dobrar as unidades de produção ou pesquisar versões melhoradas de tecnologias usando Pedra."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Khan: arqueiro montado que aumenta sua força e desbloqueia as habilidades da Flecha Sinalizadora após cada avanço de era.\n• Flecha de Manobra: velocidade de movimento aumentada em +33%.\n• Flecha de Velocidade de Ataque: velocidade de ataque aumentada em +50%.\n• Flecha de Armadura: armadura aumentada em +2.\nMangudai: arqueiro montado que pode disparar enquanto se move em todas as direções.\nTrabuco de Tração: velocidade de movimento, instalação e ataque mais rápidos.\nKeshig: cavalaria pesada disponível na Era Feudal, regenera Vida a cada ataque."
+            }
+        ]
+    },
+    "french": {
+        "summary": "Os franceses mobilizam unidades poderosas de cavalaria e podem aumentar a produção em posições fortificadas. Os inimigos devem estar preparados para suportar as cargas de Cavaleiros Reais poderosos e outras unidades de armadura.",
+        "classes": "Comércio, Cavalaria, Torres de Menagem",
+        "era": "840–1559 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Cavaleiros Reais na Era Feudal (II).",
+                    "Taxa de trabalho dos Centros Urbanos aumenta por era +15%, +15%, +20%, +25%.",
+                    "Construções de entrega de recursos 50% mais baratas.",
+                    "Tecnologias econômicas 35% mais baratas.",
+                    "Feitorias são reveladas no minimapa.",
+                    "Mercadores podem entregar Comida, Madeira ou Ouro aos Mercados.",
+                    "Navios de Comércio retornam +20% de recursos.",
+                    "Ferrarias concedem tecnologias de dano corpo a corpo gratuitamente após cada era."
+                ]
+            },
+            {
+                "title": "Garanhões Reais",
+                "description": "Mobilize o Cavaleiro Real na Era Feudal (II) e pesquise tecnologias exclusivas poderosas para a cavalaria."
+            },
+            {
+                "title": "Economia do Continente",
+                "description": "Controle uma economia superior com -50%  entregas de recursos mais baratas e -35% tecnologias econômicas mais baratas.\nVelocidade de produção do Centro Urbano aumentada por era +15%, +15%, +20%, +25%."
+            },
+            {
+                "title": "Economia Comercial",
+                "description": "Escolha devolver Comida, Madeira ou Ouro aos Mercados com Mercadores e Navios de Comércio.\nNavios de Comércio devolvem +20% mais recursos.\nAs Feitorias são reveladas no minimapa no início do jogo.\nAs Docas fornecem espaço para populações."
+            },
+            {
+                "title": "Dádiva do Ferro",
+                "description": "Ferrarias concedem tecnologias de dano corpo a corpo gratuitamente após cada avanço de era."
+            },
+            {
+                "title": "Influência",
+                "description": "Mantenha ofensivas com Torres de Menagem -10% mais baratas que reduzem em -20% o custo das unidades produzidas nos Campos de Arqueiros e Estábulos sob sua influência."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Cavaleiro Real: Cavalaria Pesada que ganha +3 de dano bônus por 5 segundos após completar uma carga.\nBesteiro Francês: Besteiro com +1 de armadura contra corpo a corpo que pode plantar um Pavês defensivo que fornece +5 de armadura contra longo alcance e +1 de alcance de arma por 30 segundos.\nCanhão: substituto da Bombarda com mais dano, mobilidade e sem tempo de preparação.\nGaleaça: grande galé de guerra que tem uma bombarda de longo alcance montada na frente.\nCoca de Guerra: Navio Espingale único com custo reduzido e maior armadura contra longo alcance."
+            }
+        ]
+    },
+    "rus": {
+        "summary": "Os rus obtêm grande benefício da região rural, sendo que coletam mais facilmente recursos da caça e da floresta e são capazes de conceber fortes unidades de combate. Os inimigos enfrentarão fortificações resistentes desde o começo do jogo e uma economia diversificada, difícil de abalar.",
+        "classes": "Expansão, Cavalaria, Caça",
+        "era": "882–1547 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Construa Paliçadas Fortificadas com +100% de Vida.",
+                    "Construa Fortalezas de Madeira — Postos Avançados melhorados com +100% de Vida e +3 espaços de guarnição.",
+                    "Construa Cabanas de Caça — Moinhos melhorados que produzem Batedores e geram Ouro de florestas próximas.",
+                    "Coletar Comida de animais selvagens concede uma recompensa em Ouro, e a recompensa aumentada oferece bônus econômicos a Aldeões e Cabanas de Caça.",
+                    "Cavaleiro Novato disponível na Era Feudal (II).",
+                    "O Navio Lodya pode ser convertido em qualquer tipo de navio por um certo custo.",
+                    "Navios de Pesca não precisam voltar a uma doca para entregar Comida."
+                ]
+            },
+            {
+                "title": "Federação Florestal",
+                "description": "Fortifique a região rural com Fortalezas de Madeira que substituem Postos Avançados — elas possuem +100% de vida e +3 espaços de guarnição.\nConstrua a Paliçada Fortificada — possui +100% de vida e tempo de construção mais rápido."
+            },
+            {
+                "title": "Príncipes Caçadores",
+                "description": "Viva da terra com Batedores treinados em Cabanas de Caça. Essas Cabanas de Caça oferecem os mesmos benefícios de um Moinho padrão, mas com a habilidade de enxergar dentro de Florestas Furtivas e gerar Ouro com base no número de árvores próximas."
+            },
+            {
+                "title": "Séquito de Druzhina",
+                "description": "Coloque em campo o Cavaleiro Novato na Era Feudal (II)."
+            },
+            {
+                "title": "Reconstituição de Lodya",
+                "description": "O Navio Lodya pode ser convertido em qualquer tipo de navio por um custo.\nNavios de Pesca Lodya processam Comida diretamente na embarcação, não precisando mais voltar às Docas para entregar Comida."
+            },
+            {
+                "title": "Recompensas de Prêmio",
+                "description": "A coleta de animais selvagens concede uma recompensa em Ouro e atingir certas metas do total de recompensas oferece bônus econômicos para Aldeões e Cabanas de Caça. \n 100 Recompensa\n• +5% de coleta de alimentos\n• As Cabanas de Caça geram 10% mais de Ouro\n400 Recompensa\n• +10% taxa de coleta de comida\n• As Cabanas de Caça geram 25% mais de Ouro\n1000 Recompensa\n• +15% taxa de coleta de comida\n• As Cabanas de Caça geram 40% mais de Ouro"
+            },
+            {
+                "title": "Influência",
+                "description": "Supervisione iniciativas claras — Aldeões entregam +20% mais Madeira quando Campos Madeireiros e Centros Urbanos estão dentro da influência de uma Fortaleza de Madeira."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Monge Guerreiro: Unidade religiosa de cavalaria leve que inspira unidades próximas em combate, fornecendo +1 de armadura e +2 de dano.\nArqueiro Montado: Cavalaria de longo alcance leve com alta mobilidade e dano.\nAtiradores: Canhoneiro de Mão que fica mais forte quando está Imóvel e tem um ataque corpo a corpo de alto dano.\nNavios Lodya: Podem ser convertidos para qualquer tipo de navio."
+            }
+        ]
+    },
+    "holy_roman_empire": {
+        "summary": "Os Prelados melhoram a economia do Sacro Império Romano, enquanto unidades poderosas de infantaria formam o núcleo de sua força militar. Os inimigos devem enfrentar uma força capaz de se recuperar rapidamente de ataques e lançar contra-ataques fortes.",
+        "classes": "Infantaria, Religião, Defesa",
+        "era": "936–1517 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Coloque Relíquias em Postos Avançados, Torres de Pedra e Torres de Menagem para obter bônus defensivos e econômicos.",
+                    "Relíquias colocadas em Docas aumentam a velocidade de ataque dos navios em +5% por Relíquia (máximo de +25%).",
+                    "Homem de Armas Novato na Era Feudal (II).",
+                    "A infantaria se move 5% mais rápido na Era das Trevas (I) e 10% mais rápido na Era Feudal (II).",
+                    "Instalações ficam -25% mais baratas. Alcance de visão do Posto Avançado aumentado em +25%.",
+                    "Aldeões carregam +40% mais recursos.",
+                    "Prelados podem curar e usar Inspiração Sagrada na Era das Trevas (I) — Aldeões inspirados coletam +40% mais rápido por 30 segundos.",
+                    "Construções sob a influência de um Centro Urbano obtêm a habilidade Reparos Emergenciais, que pode ser ativada para reparar a construção."
+                ]
+            },
+            {
+                "title": "Fervor Religioso",
+                "description": "Demonstre o poder do império colocando Relíquias em Postos Avançados, Torres e Torres de Menagem, aumentando a armadura deles em +25%, o dano em +25%, o alcance em +25% e o campo de visão em +20%. \n Relíquias colocadas em Docas aumentam a velocidade de ataque de navios em +5% por Relíquia (Máx. +25%).\n Relíquias colocadas em construções geram +80 de Ouro por minuto."
+            },
+            {
+                "title": "Exército do Império",
+                "description": "A infantaria se move 5% mais rápido na Era das Trevas (I) e 10% mais rápido na Era Feudal (II). Melhore a infantaria com tecnologias impactantes e crie Homens de Armas Novatos na Era feudal (II)."
+            },
+            {
+                "title": "Arquitetura de Instalação",
+                "description": "Todas as tecnologias de colocação são -20% mais baratas. O alcance de visão do Posto Avançado aumentado em +20%."
+            },
+            {
+                "title": "Carrinhos de Mão",
+                "description": "Aldeões carregam +40% mais recursos do que os de outras civilizações."
+            },
+            {
+                "title": "Influência",
+                "description": "Construções dentro da influência de um Centro Urbano ganham a habilidade Reparos Emergenciais, que pode ser ativada para reparar a construção em +150 de vida por segundo durante 20 segundos."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Prelado: Use a habilidade Inspiração Sagrada nos Aldeões, aumentando sua taxa de coleta em +35% por 30 segundos.\nLansquenete: Infantaria corpo a corpo leve com uma grande espada de duas mãos capaz de causar danos significativos em área.\nCavaleiro Negro: Poderoso artilheiro blindado montado. A produção é limitada pelo número de Fortalezas construídas."
+            }
+        ]
+    },
+    "delhi_sultanate": {
+        "summary": "O Sultanato de Déli está sempre um passo à frente de seus inimigos com sua grande rede de estudiosos. Quando totalmente desenvolvidos, eles mobilizam o intimidante Elefante de Guerra para pisotear quem estiver em seu caminho.",
+        "classes": "Elefantes, Pesquisa, Religião",
+        "era": "879–1526 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Mesquita, Estudioso e tecnologias religiosas disponíveis na Era das Trevas (I).",
+                    "Unidades de infantaria podem construir Paliçadas.",
+                    "Todas as tecnologias são gratuitas, mas são concluídas muito mais lentamente. Abrigue Estudiosos em Mesquitas, Madraças ou Docas para aumentar a velocidade de pesquisa.",
+                    "É possível pausar e retomar a pesquisa das tecnologias.",
+                    "Moinhos construídos perto de Arbustos de Frutas Silvestres criam Pomares, aumentando a capacidade de Comida em +100.",
+                    "Colete +25% mais rápido de Arbustos de Frutas Silvestres, mas sem a possibilidade de coletar de Javalis.",
+                    "Capacidade de carga de Frutas Silvestres aumentada em +3.",
+                    "Navios de Pesca podem se defender com um ataque de longo alcance."
+                ]
+            },
+            {
+                "title": "Cultura Erudita",
+                "description": "Treine Estudiosos em Mesquitas na Era das Trevas (I). Pesquise e desbloqueie tecnologias religiosas mais cedo que outras civilizações."
+            },
+            {
+                "title": "Conquistas de Estudo",
+                "description": "Economize no custo de tecnologias e pesquise todas elas gratuitamente, mas muito mais lentamente — é possível pausar e retomar a pesquisa de tecnologias."
+            },
+            {
+                "title": "Fortificações da Fronteira",
+                "description": "Estabeleça assentamentos fortificados usando unidades de infantaria que podem construir Paliçadas. Construa o Marco Complexo do Defensor para estender essa habilidade às Muralhas de Pedra."
+            },
+            {
+                "title": "Ajudantes de Convés Defensivos",
+                "description": "Os navios de pesca podem se defender com ataque à distância e têm 50% de vida adicional."
+            },
+            {
+                "title": "Produção do Jardim",
+                "description": "Transforme Arbustos de Frutas Silvestres em Pomares construindo Moinhos perto deles, aumentando a capacidade de Comida em +100.\nAldeões coletam 25% mais rápido de Arbustos de Frutas Silvestres, mas não podem coletar de Javalis.\nOs aldeões carregam +3 de Comida de Arbustos de Frutas Silvestres."
+            },
+            {
+                "title": "Influência",
+                "description": "Estudiosos guarnecidos em uma Mesquita, Madraça ou Doca aumentarão a velocidade de pesquisa das construções que estão sob sua influência, com base em quantos Estudiosos estão guarnecidos globalmente. As Docas trabalham mais rápido quando guarnecidas por Estudiosos."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Estudioso: unidade religiosa com capacidade de cura na Era das Trevas (I).\nElefante de Guerra: cavalaria corpo a corpo pesada, montada por um Lanceiro que tem muita vida e causa muito dano com um forte ataque de cerco.\nElefante com Torre: cavalaria de longo alcance montada por dois Arqueiros que podem disparar enquanto ela se move.\nSaqueador Gazi: ginete rápido empunhando uma maça pesada"
+            }
+        ]
+    },
+    "chinese": {
+        "summary": "Os chineses podem mudar seu foco com o passar das eras, mobilizando muitas unidades exclusivas e construindo rapidamente. Os inimigos precisam se adaptar continuamente se quiserem acompanhá-los.",
+        "classes": "Dinastias, Pólvora, Impostos",
+        "era": "907–1644 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Comece na Dinastia Tang, aumentando a linha de visão de Batedores em +30% e fornecendo acesso à Aldeia.",
+                    "Unidades treinadas, tecnologias pesquisadas e recursos entregues geram impostos (Ouro) que podem ser coletados por Funcionários do Império.",
+                    "Entre em uma nova Dinastia ao construir os dois Marcos de uma Era para desbloquear bônus especiais, unidades exclusivas e construções.",
+                    "Aldeões constroem defesas +50% mais rápido e todas as outras construções +100% mais rápido.",
+                    "Tecnologia de química concedida gratuitamente na Era das Trevas (I) - Centros Urbanos, Torres de Menagem e Postos Avançados usam Fendas de Canhão de Mão em vez de Fendas de Flechas Defensivas.",
+                    "Docas trabalham +10% mais rápido."
+                ]
+            },
+            {
+                "title": "Grandes Dinastias",
+                "description": "Comece sua jornada na Dinastia Tang, aumenta a linha de visão dos Batedores +30%  e fornece acesso à vila.\nConstrua os dois Marcos de uma Era para iniciar as Dinastias com bônus especiais, construções exclusivas e unidades.\n• Dinastia Song: produza aldeões +33% mais rápidos, desbloqueia o Celeiro e Zhuge Nu.\n• Dinastia Yuan: velocidade de movimento de oficiais e unidades militares +15%, desbloqueia Pagode e Lanceiro Montado de Fogo.\n• Dinastia Ming: unidades militares +15% de vida, desbloqueia Granadeiro."
+            },
+            {
+                "title": "Fabricações Rápidas",
+                "description": "Aldeões constroem defesas + 50% mais rápido e todas as outras construções + 100% mais rápido. Docas trabalham +10% mais rápido."
+            },
+            {
+                "title": "Mestres da Pólvora",
+                "description": "Comece o jogo com a tecnologia Química concedida gratuitamente. Construções defensivas usam Fendas de Canhão de Mão em vez de Seteiras de Defesa."
+            },
+            {
+                "title": "Impostos",
+                "description": "Unidades treinadas, tecnologias pesquisadas e recursos entregues geram impostos (Ouro) que podem ser coletados por Funcionários do Império."
+            },
+            {
+                "title": "Influência",
+                "description": "Coloque construções militares e econômicas dentro da influência do marco Academia Imperial para gerar +100% de Ouro de impostos."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Funcionário do Império: Use a habilidade Supervisionar para aumentar a velocidade de produção de construções militares e de pesquisa em +150%; supervisionar construções econômicas aumenta a quantidade de recursos entregues pelos Aldeões em +20%.\nZhuge Nu: Infantaria de longo alcance leve com um ataque rápido eficaz contra unidades leves.\nGuarda do Palácio: Substituto do Homem de Armas. Infantaria corpo a corpo pesada que troca armadura por velocidade de movimento.\nNinho de Abelhas: Substituto da Manganela. Arma de cerco que dispara uma barragem de foguetes, causando dano em área.\nLanceiro Montado de Fogo: Cavalaria leve, eficaz contra armas de cerco e construções. Possui amplo raio de visão e um ataque de carga explosivo.\nGranadeiro: Infantaria de longo alcance leve que lança granadas, causando dano em área."
+            }
+        ]
+    },
+    "abbasid_dynasty": {
+        "summary": "A Dinastia Abássida busca uma próspera Era de Ouro ao concentrar estruturas em torno de sua Casa da Sabedoria, o que lhes permite obter vantagens econômicas significativas. A Casa da Sabedoria também impulsiona o progresso entre as Eras e concede acesso a tecnologia avançada. As unidades a camelo abássidas são especialistas em combater a cavalaria inimiga.",
+        "classes": "Tecnologia, Camelos, Planejamento Urbano",
+        "era": "750–1517 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Pesquise tecnologias exclusivas que beneficiam unidades de Camelos, Militares, Religiosas, Econômicas e Comerciais.",
+                    "Unidades a camelo reduzem em -20% o dano das unidades a cavalo inimigas próximas.",
+                    "Moinhos construídos perto de Arbustos de Frutas Silvestres criam Pomares, aumentando a capacidade de Comida em +100.",
+                    "Colete +25% mais rápido de Arbustos de Frutas Silvestres, mas sem a possibilidade de coletar de Javalis.",
+                    "Capacidade de carga de Frutas Silvestres aumentada em +3.",
+                    "Mercadores terrestres são -33% mais baratos.",
+                    "Docas são -50% mais baratas.",
+                    "Avance nas eras melhorando alas na Casa da Sabedoria, sem precisar de Aldeões.",
+                    "Entre em uma Era de Ouro colocando edificações dentro da influência da Casa da Sabedoria, o que acelera a taxa de coleta de recursos, o tempo de pesquisa e a velocidade de produção."
+                ]
+            },
+            {
+                "title": "Busca do Conhecimento",
+                "description": "Assuma a busca dos abássidas pelo conhecimento pesquisando tecnologias exclusivas que beneficiam unidades de Camelos, Militares, Religiosas, Econômicas e Comerciais.\nAvance pelas eras melhorando até 4 Alas da Casa da Sabedoria."
+            },
+            {
+                "title": "Guerreiros a Camelo",
+                "description": "Camelos assustam unidades a cavalo inimigas com sua presença, reduzindo o dano delas em -20%."
+            },
+            {
+                "title": "Especialistas em Cerco",
+                "description": "A infantaria pode construir Aríetes, Torres de Cerco, Espringales e Manganelas sem precisar da tecnologia de Engenharia de Cerco."
+            },
+            {
+                "title": "Grandes Pomares",
+                "description": "Transforme Arbustos de Frutas Silvestres em Pomares construindo Moinhos perto deles, aumentando a capacidade de Comida em +100.\nAldeões coletam 25% mais rápido de Arbustos de Frutas Silvestres, mas não podem coletar de Javalis.\nOs aldeões carregam +3 de Comida de Arbustos de Frutas Silvestres."
+            },
+            {
+                "title": "Economia Comercial",
+                "description": "Os Mercadores Terrestres são 33% mais baratos."
+            },
+            {
+                "title": "Estaleiros",
+                "description": "Docas podem ser construídas por -50% de Madeira."
+            },
+            {
+                "title": "Era de Ouro",
+                "description": "Construa para chegar à Era de Ouro, melhorando economia e tecnologia.\nEdificações dentro da influência da Casa da Sabedoria recebem +5 de armadura contra fogo e contribuem com um ponto para a Era de Ouro. Os limites para desbloqueio são de 10, 30 e 60 edificações.\n• Nível 1: +15% de taxa de coleta de Aldeão\n• Nível 2: +20% de velocidade de pesquisa\n• Nível 3: +20% de taxa de coleta de Aldeão para todos os recursos. +20% de velocidade de pesquisa. +20% de velocidade de produção."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Arqueiros a Camelo: cavalaria de longo alcance leve que causa dano bônus à infantaria corpo a corpo leve.\nCameleiros: cavalaria corpo a corpo leve que causa dano bônus à cavalaria.\nGhulam: infantaria resistente com ataque duplo."
+            }
+        ]
+    },
+    "ottomans": {
+        "summary": "O Exército Otomano pode ser expandido e dominar o campo de batalha com o apoio das Escolas Militares, que são capazes de produzir unidades continuamente para inchar as fileiras de suas formações. Para prestar auxílio a essas formações, os tambores de guerra Mehter sinalizam às tropas altamente treinadas o momento certo de ganhar vantagem de acordo com as circunstâncias.",
+        "classes": "Conselho Imperial, Escolas Militares, Cerco",
+        "era": "990 — 1566 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Treinar unidades e avançar eras dá experiência em direção aos Pontos de Vizir. Quanto maior o custo da ação, mais experiência é obtida. Ganhe até cinco Pontos de Vizir e gaste-os para desbloquear poderosos bônus otomanos exclusivos.",
+                    "As Escolas Militares podem produzir unidades continuamente sem custo.",
+                    "A influência dos Ferreiros e Universidades fornece maiores velocidades de produção de unidades militares após cada avanço de era.",
+                    "Construções militares e de tecnologia são mais baratas.",
+                    "Unidade canhoneiro de mão Janízaro disponível na Era dos Castelos (III). Capaz de reparar armas de cerco.",
+                    "O tocador de tambor de guerra Mehter aumenta o ataque e as defesas de unidades militares próximas.",
+                    "Coloque em campo a arma de cerco Grã-Bombarda com maior alcance e danos de área.",
+                    "Produza o navio Grã-Galé que pode se converter em uma Escola Militar flutuante.",
+                    "Velocidade de movimento de Navios de Comércio e de Transporte aumentada.",
+                    "Não é possível colher Javali."
+                ]
+            },
+            {
+                "title": "Treinamento da Escola Militar",
+                "description": "Construa a Escola Militar que pode produzir um tipo específico de unidade continuamente e sem custo. No entanto, elas são produzidas a um ritmo mais lento."
+            },
+            {
+                "title": "Conselho Imperial",
+                "description": "Treinar unidades e avançar eras dá experiência em direção aos Pontos de Vizir, quanto maior o custo da ação, mais experiência é obtida. Ganhe até cinco Pontos de Vizir e gaste-os para desbloquear poderosos bônus otomanos únicos."
+            },
+            {
+                "title": "Indução Militar",
+                "description": "Treine, aprimore e monte um exército com construções militares e tecnológicos mais baratas."
+            },
+            {
+                "title": "Rotas de Envio",
+                "description": "A velocidade de movimento dos Barcos de Pesca, Navios de Comércio e Navios de Transporte aumentou."
+            },
+            {
+                "title": "Influência",
+                "description": "Construções de produção militar criadas sob a influência de um Ferreiro ou Universidade ganham maior velocidade de produção a cada avanço de era."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Sipahi: Substituto de Ginete. Ative a habilidade de Fortaleza para atacar mais rápido, mas receba mais danos de armas corpo-a-corpo.\nMehter: tocador de tambor de guerra montado que fornece melhorias militares para unidades próximas ao acionar a habilidade de Tambores de Guerra.\n• Tambores de Ataque: Maior velocidade de ataque.\n• Tambores Contra Corpo-a-Corpo: Armadura contra corpo-a-corpo melhorada.\n• Tambores Contra Longo Alcance: Armadura contra longo alcance melhorada.\nJanízaro: Poderoso canhoneiro de mão que pode reparar armas de cerco e causar dano bônus a cavalarias.\nGrã-Galé: Grande galé de guerra que pode se converter em uma Escola Militar flutuante.\nGrã-Bombarda: Maior arma de cerco de pólvora que pode ser colocada em campo. Tem ataque de longo alcance e de dano de área.\nAkinji: Cavalaria de longo alcance que dispara duas flechas em rápida sucessão. Deve ser desbloqueado através do Conselho Imperial."
+            }
+        ]
+    },
+    "malians": {
+        "summary": "A economia maliana está repleta de opções de produção de ouro e comida. Ao reivindicar depósitos de ouro para suas Minas a Céu Aberto, eles aproveitam ao máximo esse crescimento para produzir unidades de infantaria exclusivas que atacam furtivamente e lançam azagaias contra inimigos.",
+        "classes": "Economia de Ouro, Infantaria, Gado",
+        "era": "1235 — 1670 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Construa Minas a Céu Aberto em Veios de Ouro para gerar Ouro sem esgotar o depósito.",
+                    "Produza Gado a partir de Moinhos na Era das Trevas (I). Aldeões Malianos coletam Comida de Gado mais rápido do que outras civilizações ou podem ser guarnecidos no Rancho de Gado para Comida ao longo do tempo.",
+                    "As unidades Musofadi podem usar a habilidade de Furtividade Ativa para armar ataques de emboscada.",
+                    "Cinco unidades únicas com uma versão diferente do sistema de contra-ataque.",
+                    "As tecnologias de unidades veteranas custam metade do tempo e do preço para serem pesquisadas.",
+                    "O Ouro coletado de rotas comerciais reduz o tempo de pesquisa de tecnologias futuras.",
+                    "Mercadores e Navios de Comércio que passam por Postos Avançados de Portagem fornecem instantaneamente bônus de Ouro baseado na quantidade de Ouro que está sendo transportada. Não gera nenhum imposto de bônus se um posto avançado de portagem for construído dentro do alcance de outro.",
+                    "Barcos de Pesca entregam 10% de sua Comida e Ouro.",
+                    "A velocidade de movimento de todos os navios é aumentada quando estão perto de Docas.",
+                    "Os Navios de Transporte atacam com azagaias para cada unidade guarnecida.",
+                    "As casas são construídas duas vezes mais rápido, mas pela metade do custo e fornecem metade da quantidade de População.",
+                    "Não é possível coletar de Javali."
+                ]
+            },
+            {
+                "title": "Minas a Céu Aberto",
+                "description": "Controle uma economia de Ouro superior e construa a Mina a Céu Aberto sobre Veios de Ouro na Era das Trevas (I) para gerar Ouro sem esgotar. Os Aldeões podem minerar Ouro enquanto a Mina está ativa.\nSe o Veio de Ouro estiver completamente esgotado, a Mina continuará a extrair Ouro do depósito."
+            },
+            {
+                "title": "Influência - Comunidades Mineiras",
+                "description": "Cada Casa e Campo de Mineração construído dentro da influência de Minas a Céu Aberto aumenta sua geração de Ouro:\nCentros Urbanos custam ouro em vez de pedra para construir."
+            },
+            {
+                "title": "Gado e Ranchos",
+                "description": "Produza Gado a partir de Moinhos na Era das Trevas (I). Aldeões Malianos coletam Comida do Gado mais rápido do que outras civilizações ou podem ser guarnecidos no Rancho de Gado para Comida ao longo do tempo."
+            },
+            {
+                "title": "Desbravadora Musofadi",
+                "description": "Unidades únicas Musofadi Guerreira e Musofadi Canhoneira podem usar a habilidade de Ativar Furtividade para se esgueirar e criar oportunidades de emboscada."
+            },
+            {
+                "title": "Conhecimento de Farari",
+                "description": "As tecnologias de unidades veteranas desbloqueadas na Idade dos Castelos (III) custam metade do tempo e do preço para serem pesquisadas."
+            },
+            {
+                "title": "Postos Avançados de Portagem",
+                "description": "Mercadores e Navios de Comércio que passam por Postos Avançados de Portagem fornecem recursos bônus instantâneos com base nos negócios atuais. Não gera nenhum imposto de bônus se um Posto Avançado de Portagem for construído no alcance de outro."
+            },
+            {
+                "title": "Comércio de Manuscritos",
+                "description": "O Ouro coletado a partir de rotas comerciais concluídas reduz o tempo de pesquisa de tecnologias futuras."
+            },
+            {
+                "title": "Processamento de Peixes",
+                "description": "Os Barcos de Pesca entregam 10% de sua Comida como Ouro."
+            },
+            {
+                "title": "Grupos de Terra",
+                "description": "A velocidade de movimento de todos os navios aumentou quando perto de suas Docas.\navios de transporte atacam com azagaias para cada unidade guarnecida."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "list": [
+                    "Donso: substituto de Lanceiro. Infantaria corpo a corpo leve, com vida e armadura corpo a corpo maiores, que pode lançar uma azagaia periodicamente.",
+                    "Batedor Guerreiro: cavalaria leve que pode aumentar o dano, a velocidade de movimento, a vida e a regeneração de vida.",
+                    "Musofadi Guerreira: infantaria rápida, leve e antiarmadura que pode usar a habilidade de Ativar Furtividade.",
+                    "Lançador de Azagaia: infantaria contra longo alcance que lança uma azagaia de alcance estendido.",
+                    "Sofa: cavalaria pesada mais rápida com custo, vida e armadura reduzidos.",
+                    "Musofadi Canhoneira: canhoneira de movimento mais rápido que pode usar a habilidade de Ativar Furtividade."
+                ]
+            }
+        ]
+    },
+    "byzantines": {
+        "summary": "Os bizantinos constroem extensas redes de aquedutos e cisternas que dão vida. Aproveite poderosas habilidades únicas e contrate mercenários com Azeite requintado. Os camponeses trabalham incansavelmente para fabricar Azeite para o império.",
+        "classes": "Planejamento de Cidade, Mercenários, Defesa",
+        "era": "330 - 1453 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "As cisternas podem ser alternadas para melhorar a influência da velocidade de produção da unidade, velocidade de pesquisa ou defesa da construção. Os bônus melhoram quando conectados com Aquedutos.",
+                    "Unidades de campo capazes de usar várias formas de Fogo Grego.",
+                    "Coleta Pedra bônus de cada edificação construída",
+                    "Coleta Azeite que é usado para produzir unidades Mercenárias.",
+                    "Produzem unidades exclusivas de outras civilizações como Mercenários da Casa Mercenária começando na Era Feudal (II).",
+                    "Trabalhadores geram Arbustos de Frutas Silvestres, Olivais e Peixes.",
+                    "Comerciantes fornecem Azeite em negociações bem-sucedidas.",
+                    "Mercados podem negociar Azeite.",
+                    "Navios de transporte aumentam temporariamente a velocidade de movimento de unidades ao descarregar."
+                ]
+            },
+            {
+                "title": "Azeite",
+                "description": "Colete um recurso exclusivo que é usado para contratar unidades Mercenárias. Aldeões coletam Azeite igual a 50% da Comida coletada por Arbustos de Frutas Silvestres, 20% dos Olivais e 10% de peixes da costa.\nBarcos de Pesca geram Azeite igual a 20% de Comida de Peixes e Mercadores fornecem 20% de Azeite com base na quantidade sendo negociada."
+            },
+            {
+                "title": "Mercenários",
+                "description": "Adquira contratos ou estabeleça o controle de Feitorias para recrutar unidades únicas de outras civilizações com Azeite na Casa Mercenária."
+            },
+            {
+                "title": "Cisternas e Aquedutos",
+                "description": "As cisternas fornecem aos Aldeões próximos taxas de coleta aumentadas e uma influência que aprimora as construções próximas, melhorando a velocidade de produção da unidade, a velocidade de pesquisa ou a defesa da construção. \nConstrua uma rede de Aquedutos e conecte-a às Cisternas para aumentar sua produção de bônus."
+            },
+            {
+                "title": "Pedras de Campo",
+                "description": "Coleta Pedra de cada construção construída. O tamanho da Construção determina a quantidade de Pedra coletada."
+            },
+            {
+                "title": "Fogo Grego",
+                "description": "Quirossifões, juntamente com Drómons e Trabucos melhorados, atiram Fogo Grego ao atacar, envolvendo a área em chamas e causando dano contínuo."
+            },
+            {
+                "title": "Localizações de Manganela",
+                "description": "Postos Avançados e Torres de Menagem podem ser melhoradas com instalações de Manganela. Torres de Muralha de Pedra vêm equipadas com instalações Manganelas em vez de Espringales."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Limítane: Substituto do Lanceiro. Infantaria corpo a corpo leve com a habilidade Parede de Escudos para aumentar a armadura de longo alcance ao custo da velocidade de movimento.\nGuarda Varangiana: Substituto do Homem de Armas. Use a habilidade Berserking para aumentar o dano ao custo da armadura. Pode construir Navios de Transporte e aumentar a armadura dos transportes quando guarnecidos. Ganha aumento de velocidade de movimento ao desembarcar de Navios de Transporte.\nCatafractário: Substituição do Cavaleiro. Cavalaria pesada com Atropelar, uma poderosa habilidade direcionada que atravessa e causa dano aos inimigos em seu caminho.\nQuirosifão: Um aríete equipado com um ataque de Fogo Grego de curto alcance.\nDrómon: Substituto do navio Espringale. Equipado com Fogo Grego."
+            }
+        ]
+    },
+    "japanese": {
+        "summary": "Governando as terras japonesas, o Daimyo melhora a agricultura e emprega Samurais para defender seu território. A Forja única funciona incansavelmente para melhorar suas lâminas e conseguir uma vantagem em batalha. Os Porta-Estandartes Samurais ferozes lideram seu exército de infantaria e cavalaria à vitória.",
+        "classes": "Agricultura, Porta-Estandartes, Infantaria",
+        "era": "794 - 1616 d.C.",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Você pode aprimorar Centros Urbanos para melhorar as defesas, as taxas de colheita das Fazendas próximas e o limite de produção dos Porta-Estandartes Samurais.",
+                    "Os Porta-Estandartes Samurais fornecem bônus a infantaria e cavalaria próximas.",
+                    "Os Samurais têm Armadura Defletiva que pode bloquear ataques de longo alcance e corpo a corpo.",
+                    "Quartéis são mais baratos para construir.",
+                    "Fazendas são locais de entrega de Comida, além de fornecerem População.",
+                    "As Forjas são locais de entrega de Ouro e Pedra, além de conterem melhorias militares.",
+                    "Ouro depositado por Aldeões gera bônus de Pedra e vice-versa.",
+                    "Aprimoramento de dano corpo a corpo extra pode ser acessado na Era das Trevas (I).",
+                    "Escolha entre Monges Budistas e Sacerdotes Xintoístas com o Marco da Era dos Castelos (III).",
+                    "Torres de Menagem vêm equipadas com Instalação de Foguetes e vida maior na Era Imperial (IV).",
+                    "Barcos de Pesca são mais baratos de produzir."
+                ]
+            },
+            {
+                "title": "Daimyo",
+                "description": "Centros Urbanos podem ser melhorados para construções especiais chamadas de Mansão Daimyo, Palácio Daimyo e Castelo de Xogunato. Essas construções fornecem bônus para Fazendas de Trabalho de Aldeões próximas em 20%, 40%, 60%, aumenta a capacidade de Samurai Porta-Estandarte em +1, +2, +3 e melhora suas defesas."
+            },
+            {
+                "title": "Samurai Hatamoto",
+                "description": "Mobilize Porta-Estandartes Samurais de Elite que aumentam o dano da infantaria próxima em +15% e da cavalaria em +10%. Porta-estandartes Samurais derrubam seus estandartes ao morrer, concedendo o mesmo efeito por um período de tempo."
+            },
+            {
+                "title": "Calmaria da Mente",
+                "description": "Produz Samurais na Era das Trevas (I). Samurais têm a habilidade Armadura Deflexiva, que pode bloquear periodicamente ataques corpo a corpo ou a distância."
+            },
+            {
+                "title": "Fazenda e Forja",
+                "description": "A Forja é um ponto de entrega de Ouro e Pedra e substitui o Campo de Mineração e a Ferraria. Além disso, fornece tecnologia de dano corpo a corpo adicional na Era das Trevas (I). A Fazenda fornece população e substitui o Moinho como ponto de entrega de Comida."
+            },
+            {
+                "title": "Fortaleza de Oda",
+                "description": "Acesse uma Torre de Menagem mais poderosa na Era Imperial (IV) que vem com a vida e as Localizações de Foguetes aumentadas por um custo maior. Os foguetes atacam rapidamente e causam grande dano em alvos únicos."
+            },
+            {
+                "title": "Mineração de Prata",
+                "description": "Quando Aldeões depositam Ouro, 20% de Pedra extra também é produzido e vice-versa."
+            },
+            {
+                "title": "Escolha Religiosa",
+                "description": "Selecione entre Xintoísmo e Budismo com sua escolha de Marco da Era III. Se escolher Xintoísmo, você desbloqueia o Sacerdote Xintoísta. Se escolher Budismo, você desbloqueia o Monge Budista. Essas unidades religiosas oferecem bônus exclusivos."
+            },
+            {
+                "title": "Distritos de Samurai",
+                "description": "Os Quartéis são 50% mais baratos de construir."
+            },
+            {
+                "title": "Vila dos Pescadores",
+                "description": "Os Barcos Pesqueiros são produzidos 25% mais barato."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "list": [
+                    "Samurai: substituto do Homem de Armas. Infantaria corpo a corpo pesada com Armadura Defletiva que pode bloquear ataques corpo a corpo e à distância.",
+                    "Samurai Montado: Substituto do Lanceiro. Cavalaria corpo a corpo pesada com Armadura Defletiva.",
+                    "Yumi Ashigaru: Arqueiro com velocidade de movimento aprimorada para redução de custo e vida.",
+                    "Onna-Bugeisha: Infantaria corpo a corpo leve que pode usar sua velocidade de movimento rápida e longo alcance de arma para manter seu oponente em alerta.",
+                    "Onna-Musha: Substitui o besteiro. Arqueiro em Cavalaria que pode usar maior mobilidade para atacar alvos pesados.",
+                    "Shinobi: Unidade de espionagem que pode atuar como espião, sabotar edifícios ou assassinar alvos. Produzido a partir do Marco do Município de Koka.",
+                    "Ozutsu: Infantaria pesada de pólvora de longo alcance que possui um enorme canhão de mão com alto dano de cerco e dano espalhado. Produzido a partir do Marco de Tanegashima Gunsmith."
+                ]
+            }
+        ]
+    },
+    "jeanne_darc": {
+        "summary": "Uma fagulha de esperança para o povo francês, Joana d'Arc leva para o campo de batalha e inspira coragem aos seus seguidores. Começando como uma humilde aldeã, Joana começa a Jornada de um Heroína na Idade das Trevas. A experiência transforma Joana em uma líder poderosa, ganhando acesso a companheiros confiáveis e habilidades poderosas que moldam o império que ela estava destinada a criar.",
+        "classes": "Comércio, Cavalaria, Herói",
+        "era": "1412 - 1431 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Joana d'Arc navega na Jornada de uma Heroína.",
+                    "Cavaleiros Reais na Era Feudal (II).",
+                    "As tecnologias econômicas são -35% mais baratas.",
+                    "As Feitorias são reveladas no minimapa.",
+                    "Os Comerciantes podem entregar Comida, Madeira ou Ouro para os Mercados.",
+                    "Navios de Comércio entregam +20% de recursos."
+                ]
+            },
+            {
+                "title": "Jornada de Um Herói",
+                "description": "Joane d'Arc chega no campo de batalha. Uma unidade heroica que ganha experiência ao concluir tarefas como reunir recursos, erguer construções e participar de combates.\nDepois de acumular experiência suficiente, Joana pode subir de nível para obter poderosas habilidades econômicas e de combate."
+            },
+            {
+                "title": "Garanhões Reais",
+                "description": "Mobilize o Cavaleiro Real na Era Feudal (II) e pesquise tecnologias exclusivas poderosas para a cavalaria."
+            },
+            {
+                "title": "Economia Galvanizada",
+                "description": "As pessoas trabalham mais sob a liderança de Joana d'Arc. Melhorias econômicas são 35% mais baratas."
+            },
+            {
+                "title": "Economia Comercial",
+                "description": "Escolha devolver Comida, Madeira ou Ouro aos Mercados com Mercadores e Navios de Comércio.\nNavios de Comércio devolvem +20% mais recursos.\nAs Feitorias são reveladas no minimapa no início do jogo.\nAs Docas fornecem espaço para populações."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Joana d'Arc: uma unidade heroica que começa como aldeão, Joana começa a Jornada de uma Heroína para conquistar habilidades poderosas.\nCavaleiro de Joana: Cavalaria Rápida eficaz em atacar, flanquear e combater Bestas, torna-se disponível assim que Joana atinge o nível 3.\nCampeão de Joana: infantaria forte que se destaca no combate a lanceiros, torna-se disponível assim que Joana atinge o nível 3.\nCavaleiro Real: Cavalaria pesada que ganha +3 de dano bônus por 5 segundos após completar uma carga.\nBesteiros Franceses: Besteiro com +1 de armadura corpo a corpo que pode plantar um Pavês defensivo para fornecer +5 de armadura de longo alcance e +1 de alcance de arma por 30 segundos.\nCanhão: Substituto da Bombarda com mais dano, mobilidade e sem tempo de preparação.\nGaleaça: grande galé de guerra que tem uma bombarda de longo alcance montada à frente. \nCoca de Guerra: Navio Espringale exclusivo com custo reduzido e maior penetração de armadura."
+            }
+        ]
+    },
+    "ayyubids": {
+        "summary": "Na confluência dos continentes, onde o comércio e a ciência se encontram, e onde impérios se enfrentam, os aiúbidas usam a busca pelo conhecimento para ficar em vantagem. A Casa da Sabedoria é o ponto focal dessa combinação de urbanização e ciência, desbloqueando poderosos bônus da Era de Ouro e avançando através das eras. Os aiúbidas se concentram em unidades versáteis para obter uma vantagem tática no campo de batalha.",
+        "classes": "Adaptável, Camelos, Planejamento Urbano",
+        "era": "750–1517 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Unidades a camelo reduzem o dano de unidades a cavalo inimigas próximas em -20%.",
+                    "Moinhos construídos perto de Arbustos Frutíferos criam Pomares, aumentando a capacidade de Comida em +100.",
+                    "Coleta de Arbustos Frutíferos +25% mais rápido, mas sem a possibilidade de coletar de Javalis.",
+                    "Capacidade de carga de Frutas Silvestres aumentada em +3.",
+                    "Mercadores terrestres são -33% mais baratos.",
+                    "Docas são -50% mais baratas.",
+                    "Avance para a próxima Era sem a necessidade de Aldeões ao melhorar as alas na Casa da Sabedoria.",
+                    "Escolha uma de 8 Alas, cada uma desbloqueando um bônus poderoso sem precisar de melhorias adicionais.",
+                    "O bônus fornecido por uma Ala aumenta em poder quando pesquisado em Eras posteriores.",
+                    "Acesse bônus especiais ao entrar em uma Era de Ouro erguendo construções sob a influência da Casa da Sabedoria."
+                ]
+            },
+            {
+                "title": "Comandante Adaptável",
+                "description": "Avance pelas eras escolhendo entre 8 Alas exclusivas na Casa da Sabedoria.\nGanhe acesso imediato a bônus nas áreas de Economia, Tecnologia e Militar sem precisar de qualquer melhoria para adaptar a civilização às necessidades da batalha.\nCada Ala fornece bônus mais poderosos quando construídas em Eras posteriores."
+            },
+            {
+                "title": "Guerreiros a Camelo",
+                "description": "Camelos assustam unidades a cavalo inimigas com sua presença, reduzindo o dano delas em -20%."
+            },
+            {
+                "title": "Mestres da Técnica de Cerco",
+                "description": "A infantaria pode construir Armas de Cerco no campo sem a necessidade da tecnologia Engenharia de Cerco.\nAcesso a duas armas de cerco exclusivas e uma melhoria de cerco exclusiva."
+            },
+            {
+                "title": "Grandes Pomares",
+                "description": "Transforme Arbustos de Frutas Silvestres em Pomares construindo Moinhos perto deles, aumentando a capacidade de Comida em +100.\nAldeões coletam 25% mais rápido de Arbustos de Frutas Silvestres, mas não podem coletar de Javalis.\nOs aldeões carregam +3 de Comida de Arbustos de Frutas Silvestres."
+            },
+            {
+                "title": "Economia Comercial",
+                "description": "Os Mercadores Terrestres são 33% mais baratos."
+            },
+            {
+                "title": "Estaleiros",
+                "description": "Docas podem ser construídas por -50% de Madeira."
+            },
+            {
+                "title": "Era de Ouro",
+                "description": "Construa para chegar à Era de Ouro, melhorando economia, tecnologia e exército.\nConstruções dentro da influência da Casa da Sabedoria recebem +5 de armadura de fogo e contribuem com um ponto para a Era de Ouro. Os limites para desbloqueios são de 10, 20, 30, 50 e 75 construções.\n• Nível 1: Taxa de coleta de Aldeões +10%\n• Nível 2: Velocidade de pesquisa +25%\n• Nível 3: Velocidade de produção +20%\n• Nível 4: Unidades de cerco custam 20% menos recursos para produzir\n• Nível 5: Unidades a camelo atacam 20% mais rápido."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Saqueador do Deserto: Cameleiro versátil que pode alternar entre os modos corpo a corpo e a distância.\nLanceiro a Camelo: Camelo pesado com um poderoso ataque de investida.\nDervixe: unidade religiosa montada com uma poderosa capacidade de cura.\nManjaniq: Manganela exclusiva que pode usar um modo Incendiário para causar dano em uma área muito aumentada.\nTorre do Sultão: Arma de cerco gigante tripulada por arqueiros e equipada com um aríete para dano devastador contra construções."
+            }
+        ]
+    },
+    "zhu_xis_legacy": {
+        "summary": "Os ensinamentos do filósofo Zhu Xi remodelam a civilização chinesa. Com o Legado de Zhu Xi, os chineses têm uma administração sofisticada com Funcionários do Império superiores e tecnologias avançadas. Os abundantes tesouros ajudam a estabelecer dinastias poderosas e pesquisar uma variedade de tecnologias exclusivas. Recrute Guardas do Palácio, Zhuge Nus e Granadeiros já no começo para proteger o Império.",
+        "classes": "Dinastias, Impostos, Tecnologia",
+        "era": "907–1644 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Comece na Dinastia Tang - os custos dos Marcos são reduzidos em -15% e a Aldeia está desbloqueada.",
+                    "Entre em uma nova Dinastia construindo os dois Marcos de uma Era para desbloquear bônus especiais e edificações.",
+                    "Unidades treinadas, tecnologias pesquisadas e recursos entregues geram impostos (Ouro) que podem ser coletados por Funcionários do Império.",
+                    "Tecnologias exclusivas melhoram massivamente Funcionários do Império, desbloqueiam novas unidades e impulsionam unidades militares.",
+                    "Os Guardas Novatos do Palácio estão disponíveis na Era Feudal.",
+                    "Acesse o Zhuge Nu e o Granadeiro sem entrar nas Dinastias.",
+                    "Aldeões constroem defesas +50% mais rápido e todas as outras edificações +100% mais rápido.",
+                    "Tecnologia de química concedida gratuitamente na Idade das Trevas - Centros Urbanos, Torres de Menagem e Postos Avançados usam Fendas de Canhão de Mão em vez de Fendas de Flechas Defensivas.",
+                    "Docas funcionam +10% mais rápido."
+                ]
+            },
+            {
+                "title": "Grandes Dinastias",
+                "description": "Comece sua jornada na Dinastia Tang - Os custos de Marcos são reduzidos em -15% e a Aldeia é desbloqueada.\nConstrua os dois Marcos de uma Era para iniciar as Dinastias com bônus especiais, edificações exclusivas e unidades.\n• Song: O custo em Madeira de construções de Economia e População têm desconto de -30%; desbloqueia a construção de celeiros.\n• Yuan: 10% de desconto em todas as unidades; desbloqueia a construção de Pagodes.\n• Ming: Unidades Exclusivas causam +20% de dano."
+            },
+            {
+                "title": "Impostos",
+                "description": "Unidades treinadas, tecnologias pesquisadas e recursos entregues geram impostos (Ouro) que podem ser coletados por Funcionários do Império. Tecnologias administrativas exclusivas da Academia Monte Lu e da Biblioteca de Zhu Xi melhoram significativamente os Funcionários do Império."
+            },
+            {
+                "title": "Unidades da Dinastia",
+                "description": "Acesse o Zhuge Nu e o Granadeiro sem dinastias estabelecidas. Marcos podem desbloquear poderosos Monges Shaolin, Saqueadores Yuan e Guardas Imperiais. Guardas do Palácio Novatos podem ser treinados na Era Feudal."
+            },
+            {
+                "title": "Mestres da Pólvora",
+                "description": "Comece o jogo com a tecnologia Química concedida gratuitamente. Construções defensivas usam Fendas de Canhão de Mão em vez de Seteiras de Defesa."
+            },
+            {
+                "title": "Fabricações Rápidas",
+                "description": "Aldeões constroem defesas + 50% mais rápido e todas as outras construções + 100% mais rápido. Docas trabalham +10% mais rápido."
+            },
+            {
+                "title": "Proteja o Palácio",
+                "description": "Treine Guardas do Palácio Novatos na Era Feudal (II) para proteger o imperador."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Funcionário do Império: Use a habilidade Supervisionar para aumentar a velocidade de produção de edificações militares e de pesquisa em +150% - supervisionar edificações econômicas aumenta a quantidade de recursos entregues pelos Aldeões em +20%.\nZhuge Nu: substitui Arqueiro. Infantaria leve de longo alcance com uma cadência rápida de ataque eficaz contra unidades leves.\nGuarda do Palácio: substitui Homem de Armas. Infantaria pesada corpo a corpo que troca armadura por velocidade de movimento.\nNinho de Abelhas: substitui Manganela. Arma de cerco que dispara uma barragem de foguetes, causando dano na área de efeito.\nGranadeiro: Infantaria leve de longo alcance usuária de pólvora que lança granadas, causando dano na área de efeito."
+            }
+        ]
+    },
+    "order_of_the_dragon": {
+        "summary": "A Ordem do Dragão é formada por uma opulenta elite selecionada a dedo para esmagar impérios hostis. Ao investir uma grande quantidade de recursos no treinamento de poucos guerreiros excepcionais, a Ordem obtém sucesso em criar um exército de elite como nenhum outro.",
+        "classes": "Qualidade, Infantaria, Defesa",
+        "era": "1408–1437 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Aldeões carregam +40% mais recursos, coletam +28% mais rápido, fazem e reparam construções +20% mais rápido.",
+                    "Unidades de infantaria e cavalaria são muito mais fortes, mas também mais caras para produzir e tomam o dobro de população",
+                    "Coloque Relíquias em Postos Avançados, Torres de Pedra e Torres de Menagem para bônus defensivos e econômicos.",
+                    "Relíquias colocadas em Docas aumentam a velocidade de ataque dos navios em +5% por Relíquia (Máx. de +20%).",
+                    "As instalações são -20% mais baratas. O alcance de visão do Posto Avançado é aumentado em+20%.",
+                    "Construções sob influência de um Centro Urbano ganham a habilidade Reparos Emergenciais, que pode ser ativada para reparar a construção."
+                ]
+            },
+            {
+                "title": "Aldeões Eficientes",
+                "description": "Aldeões coletam 28% mais rápido, constroem e reparam construções 20% mais rápido, mas custam 20% mais Comida para produzir."
+            },
+            {
+                "title": "Fervor Religioso",
+                "description": "Demonstre o poder do império colocando Relíquias em Postos Avançados, Torres e Torres de Menagem, aumentando a armadura deles em +25%, o dano em +25%, o alcance em +25% e o campo de visão em +20%. \n Relíquias colocadas em Docas aumentam a velocidade de ataque de navios em +5% por Relíquia (Máx. +25%).\n Relíquias colocadas em construções geram +80 de Ouro por minuto."
+            },
+            {
+                "title": "Equipamento de Elite",
+                "description": "Pesquise tecnologias como Tochas Pesadas, Armadura de Escamas e Cavalos de Guerra para fortalecer ainda mais o poder da Ordem."
+            },
+            {
+                "title": "Arquitetura de Instalação",
+                "description": "Todas as tecnologias de colocação são -20% mais baratas. O alcance de visão do Posto Avançado aumentado em +20%."
+            },
+            {
+                "title": "Carrinhos de Mão",
+                "description": "Aldeões carregam +40% mais recursos do que os de outras civilizações."
+            },
+            {
+                "title": "Influência",
+                "description": "Construções dentro da influência de um Centro Urbano ganham a habilidade Reparos Emergenciais, que pode ser ativada para reparar a construção em +150 de vida por segundo durante 20 segundos."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "As unidades de infantaria e cavalaria de elite da Ordem, como o Homem de Armas Dourado, o Cavaleiro Dourado e outros, têm quase o dobro da vida das unidades regulares e causam significativamente mais dano. No entanto, são muito mais custosas para treinar e exigem o dobro do espaço populacional."
+            }
+        ]
+    },
+    "knights_templar": {
+        "summary": "Criada para proteger os humildes e fatigados, os Cavaleiros Templários estabeleceram a Comenda por toda a Europa a fim de convocar seus aliados. Com um impressionante exército de tropas pesadas, os Templários lideram o avanço na batalha com disciplina e coragem. Fortalezas pontilham a paisagem cuidadosamente cultivada, oferecendo posições defensivas estratégicas e um refúgio seguro para os peregrinos que protegem.",
+        "classes": "Peregrinos, Comendas, Cavaleiros",
+        "era": "1119 - 1307 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Avance a Era no Centro Urbano estabelecendo uma Comenda.",
+                    "Comendas desbloqueiam unidades e bônus permanentemente.",
+                    "Peregrinos geram ouro viajando para Locais Sagrados.",
+                    "Construa Fortalezas na Era Feudal.",
+                    "Fortalezas aumentam o alcance de unidades próximas e a vida de Muralhas de Pedra próximas.",
+                    "Fortalezas agem como Marcos, mas podem ser totalmente destruídas.",
+                    "Lenhadores depositam madeira automaticamente e coletam mais rápido a cada Era.",
+                    "Oficinas de Cerco e Máquinas de Cerco custam menos madeira.",
+                    "Trabucos disparam um projétil adicional."
+                ]
+            },
+            {
+                "title": "Estabelecer Comendas",
+                "description": "Avance a Era no Centro Urbano estabelecendo uma das três Comendas únicas. Cada Comenda desbloqueia permanentemente uma unidade e um bônus exclusivos."
+            },
+            {
+                "title": "Esquemas Defensivos Francos",
+                "description": "Fortalezas substituem Torres de Menagem e estão disponíveis na Era Feudal.\nUnidades de longo alcance posicionadas perto de uma Fortaleza têm +15% de aumento no alcance de ataque, e Muralhas de Pedra colocadas sob a influência de uma Fortaleza ou do Quartel-General dos Templários têm +25% de aumento de vida e ganham uma flecha por padrão.\nFortalezas se comportam como Marcos, mas podem ser totalmente destruídas."
+            },
+            {
+                "title": "Peregrinação",
+                "description": "Os Cavaleiros Templários não podem treinar Comerciantes, em vez disso, eles geram ouro de peregrinações bem-sucedidas. Ao atingir a Era Feudal, os Cavaleiros Templários podem oferecer Passagem Segura para Peregrinos viajarem para um Local Sagrado.\nA cada 60 segundos, um grupo de Peregrinos viajará do Quartel-General dos Templários para o Local Sagrado selecionado, gerando ouro na chegada com base na distância percorrida. O tamanho do grupo é aumentado em 1 para cada Fortaleza ativa até um máximo de 10.\nLocais Sagrados e Relíquias são revelados no início do jogo."
+            },
+            {
+                "title": "Portos Costeiros",
+                "description": "Construa Portos em vez de Docas, que são mais caros, mas têm mais vida, uma base mais forte, mais espaço de guarnição para navios de pesca e aumentam a vida dos navios próximos."
+            },
+            {
+                "title": "Preservação da Paisagem",
+                "description": "Aldeões depositam madeira automaticamente sem um Campo Madeireiro.\nMadeira é coletada +20% mais rápido em cada Era e 20% da madeira coletada é produzida como comida adicional."
+            },
+            {
+                "title": "Especialistas em Cerco",
+                "description": "Trabucos disparam projéteis adicionais e podem ser mobilizados no topo das Fortalezas com uma localização única.\nOficinas de Cerco e Armas de Cerco custam -25% menos madeira."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Irmão Templário: Substituto de Cavaleiro. Mais caro que um Cavaleiro normal, mas tem vida e dano adicionais.\nEra Feudal\nComenda do Cavaleiro Hospitaleiro - Cavaleiro Hospitalário: Infantaria Pesada de Combate Corpo-a-corpo que pode curar unidades aliadas próximas.\nComenda do Reino da França - Cavaleiro Acompanhante: Cavalaria Pesada mais barata que um Cavaleiro normal. Ganha vida adicional para cada unidade de Cavalaria Pesada próxima.\nComenda do Principado de Antioquia - Sargento: Infantaria Pesada com boa armadura de combate corpo-a-corpo. Arremessa machados que causam dano corpo a corpo à distância.\nEra do Castelo\nComenda do Império Angevino - Lanceiro Pesado: Lanceiro Blindado que é mais forte em Fortalezas.\nComenda da República de Gênova - Besteiro Genovês: Besteiro caro que causa dano adicional à infantaria corpo a corpo.\nComenda do Reino de Castela - Genitor: Lançador de Dardo Montado que se destaca contra unidades de longo alcance.\nEra Imperial\nComenda do Reino da Polônia - Cavalaria Szlachta: Cavalaria de Elite com armadura de longo alcance excepcional. Atrasa os ataques dos inimigos e causa dano adicional à infantaria leve.\nComenda da Ordem Teutônica - Cavaleiro Teutônico: Infantaria Pesada Absurdamente Poderosa que ganha poder para cada inimigo abatido em combate. Reduz a armadura de inimigos próximos.\nComenda da República de Veneza - Condottiero: Infantaria rápida que custa apenas ouro. Forte contra unidades de pólvora.\nGaleia Veneziana: Grande embarcação a remo com um trabuco de longo alcance montado na frente.\nComerciante Veneziano: Comerciante caro, mas rápido. Limite máximo de construção de 5."
+            }
+        ]
+    },
+    "house_of_lancaster": {
+        "summary": "A Dinastia de Lencastre surge como uma poderosa ramificação da realeza inglesa. Palacetes formam a base da economia, sustentados por práticas sustentáveis. O poder militar de Lencastre destaca-se por sua vantagem tecnológica e táticas superiores no campo de batalha. Desmantele as formações inimigas com tropas de choque poderosas e, em seguida, elimine os sobreviventes com uma infantaria de longo alcance superior.",
+        "classes": "Palacete, Defesa, Economia",
+        "era": "1267 - 1471 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Os aldeões coletam de ovelhas +20% mais rápido.",
+                    "Construa Palacetes para gerar comida e madeira passivamente",
+                    "Os Centros Urbanos geram 4 ovelhas quando construídos.",
+                    "Torres de Menagem concedem 3 de Guardas do Conde gratuitos quando construídas.",
+                    "Torres de Menagem ativas melhoram o dano dos Guardas do Conde e Demilanceiros.",
+                    "Os aldeões empunham arcos curtos ao atacar unidades inimigas.",
+                    "Os navios são -10% mais baratos de produzir."
+                ]
+            },
+            {
+                "title": "Feudalismo",
+                "description": "Construa Palacetes para gerar renda passiva na Era Feudal. Palacetes funcionam como um depósito para todos os tipos de recursos e fornecem +10 de espaço populacional. Cada Palacete gera 30 de Comida e 10 de Madeira por minuto, além de 4 de Comida e 2 de Madeira adicionais para cada aldeão próximo. \nAumente o limite de construção de Palacetes com tecnologias exclusivas."
+            },
+            {
+                "title": "Indústrias da Lã",
+                "description": "Cada Centro Urbano gera 4 ovelhas após sua conclusão. Os aldeões coletam de ovelhas +20% mais rápido."
+            },
+            {
+                "title": "Burhs Defensivos",
+                "description": "O Centro Urbano da Capital dispara uma flecha adicional e os Aldeões empunham arcos curtos ao atacar unidades inimigas."
+            },
+            {
+                "title": "Uma Casa Unificada",
+                "description": "Torres de Menagem concedem 3 Guardas do Conde gratuitos ao serem construídas. Cada torre de menagem Ativa concede +1 de dano aos Guardas do Conde e Demilanceiros até um máximo de +4."
+            },
+            {
+                "title": "Construtores Navais",
+                "description": "O condicionamento naval aumenta a eficiência das Docas, reduzindo os custos de construção de navios em -10%."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "list": [
+                    "Camponês Armado: Substituição do Arqueiro. Infantaria de longo alcance com velocidade e alcance aumentados. Pode ser aprimorado para disparar uma saraivada devastadora de flechas na área alvo.",
+                    "Cavalaria Leve: Substituição do Cavaleiro. Cavalaria barata e descartável com muita armadura contra longo alcance.",
+                    "Guarda do Conde: Substituição do Homem de Armas. Infantaria de combate corpo a corpo pesada que lança adagas periodicamente.",
+                    "Demilanceiro: Cavalaria Pesada Especial. Acessado apenas através de Marcos, o Demilanceiro é uma unidade de cavalaria durável com baixo dano."
+                ]
+            }
+        ]
+    },
+    "sengoku_daimyo": {
+        "summary": "O Sengoku Jidai foi uma era de alianças inconstantes e guerras incessantes. Três clãs rivais podem ser apoiados para obter vantagens poderosas para sua infantaria de longo alcance, infantaria corpo a corpo ou cavalaria. Mesmo no meio da guerra, havia tempo para celebração; o festival Matsuri é o coração do comércio e da troca, proporcionando bônus poderosos à sua economia.",
+        "classes": "Agricultura, Daimyo, Planejamento Urbano",
+        "era": "794 - 1616 d.C.",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "As Propriedades Daimyo podem ser dedicadas a um clã para fornecer bônus para infantaria corpo a corpo, cavalaria ou infantaria de longo alcance.",
+                    "As Chácaras são locais de entrega de Comida, além de fornecer população.",
+                    "O Matsuri é um Mercado inicial exclusivo que pode recrutar Yatai, que pode coletar Comida passivamente de fontes de Comida próximas.",
+                    "Técnicas de Sobrevivência pesquisadas por padrão.",
+                    "Forjas são locais de entrega de Ouro e Pedra, além de conter melhorias militares.",
+                    "O Ouro depositado pelos Aldeões gera Pedra bônus e vice-versa.",
+                    "Melhoria de dano corpo a corpo extra acessível na Era das Trevas (I).",
+                    "Ikko-Ikki são monges de combate que podem ser recrutados de Mosteiros Budistas que curam enquanto atacam.",
+                    "Fortalezas vêm equipadas com Instalações de Foguetes e aumentam a vida na Era Imperial (IV).",
+                    "Os Barcos de Pesca são mais baratos para produzir.",
+                    "A localização de todos os Cervos e Javalis é revelada no mapa."
+                ]
+            },
+            {
+                "title": "Propriedade Daimyo",
+                "description": "As Propriedades Daimyo são construções exclusivas que podem ser dedicadas a um dos três clãs: clã Hojo, que aprimora a infantaria corpo a corpo; clã Oda, que aprimora a infantaria de ataque à distância; ou clã Takeda, que aprimora a cavalaria. As Propriedades Daimyo também têm uma influência que aumenta a velocidade de produção de construções militares."
+            },
+            {
+                "title": "Yatai e Matsuri",
+                "description": "O Matsuri é um Mercado Inicial único que pode produzir Yatai. O Yatai é uma unidade trabalhadora exclusiva que gera comida lentamente a partir de fontes de comida dentro de 2 dos painéis, sem matá-los ou consumi-los. Se o Yatai coletar comida suficiente, ele enviará um Comerciante de Comida de volta ao Matsuri, o que melhora uma aura que aumenta a taxa de coleta de aldeões próximos."
+            },
+            {
+                "title": "Fazenda e Forja",
+                "description": "A Forja é um ponto de entrega de Ouro e Pedra e substitui o Campo de Mineração e a Ferraria. Além disso, fornece tecnologia de dano corpo a corpo adicional na Era das Trevas (I). A Fazenda fornece população e substitui o Moinho como ponto de entrega de Comida."
+            },
+            {
+                "title": "Fortaleza de Oda",
+                "description": "Acesse uma Torre de Menagem mais poderosa na Era Imperial (IV) que vem com a vida e as Localizações de Foguetes aumentadas por um custo maior. Os foguetes atacam rapidamente e causam grande dano em alvos únicos."
+            },
+            {
+                "title": "Mineração de Prata",
+                "description": "Quando Aldeões depositam Ouro, 20% de Pedra extra também é produzido e vice-versa."
+            },
+            {
+                "title": "Vila dos Pescadores",
+                "description": "Os Barcos Pesqueiros são produzidos 25% mais barato."
+            },
+            {
+                "title": "Revelação de Cervo e Javali",
+                "description": "A localização de todos os Cervos e Javalis é revelada no mapa."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "list": [
+                    "Yatai: Unidade operária que coletará passivamente comida de fontes de Comida próximas sem matá-las ou consumi-las.",
+                    "Cavalaria Yari: Cavalaria rápida eficaz em atacar, flanquear e combater unidades de longo alcance. Bônus de dano contra cavalaria.",
+                    "Daimyo: Cavalaria corpo a corpo com alta vida e dano que fornece uma aura que aumenta a velocidade de ataque de unidades militares próximas. Eficaz contra unidades corpo a corpo. Limitado a um por construção na Propriedade Daimyo.",
+                    "Yumi Ashigaru: Arqueiro com velocidade de movimento aprimorada por custo e vida reduzidos.",
+                    "Monge Ikko-ikki: Monge Guerreiro com fortes capacidades de combate que cura unidades próximas ao atacar. Não tem uma habilidade de cura direcionada.",
+                    "Samurai Kanabo: Infantaria resistente com bom dano. Causa dano bônus com base na saúde máxima do inimigo.",
+                    "Ozutu Novato: Infantaria de pólvora pesada de longo alcance que possui um enorme canhão portátil com alto dano de cerco e espalhado."
+                ]
+            }
+        ]
+    },
+    "tughlaq_dynasty": {
+        "summary": "O reinado de Ghiyasuddin Tughlaq como Sultão estabeleceu a estrutura para o avanço nas artes, arquitetura e expansão da dinastia Tughlaq. Depois de comandar a construção do Forte Tughlaqabad, futuros sultões, amirões e governadores expandiram sua presença militar por meio da força e da demonstração de poder. A Dinastia Tughlaq exige a construção rápida de fortes adicionais, enquanto os governadores supervisionam elefantes e aldeões que trabalham duro.",
+        "classes": "Elefantes, Fortes, Governadores",
+        "era": "1320 - 1413 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Centros Urbanos, Elefantes Trabalhadores e Docas fornecem recursos bônus quando Aldeões e Navios de Pesca chegam.",
+                    "Os Elefantes Trabalhadores se movem livremente e agem como depósitos universais de recursos. \n•Toda a tecnologia encarece, mas a pesquisa é quase instantânea.",
+                    "Os Fortes Tughlaqabad atuam como fortalezas e estão disponíveis desde a Era Feudal (II).",
+                    "Os Fortes Tughlaqabad podem ser melhorados para aumentar as defesas e desbloquear Governadores.",
+                    "Selecione um Governador em qualquer forte para levar a dinastia a novos patamares.",
+                    "Os Governadores fornecem bônus de economia, ritmo, militares, de pesquisa e religiosos.",
+                    "Unidades de infantaria são capazes de construir Muralhas de Paliçada.",
+                    "Colete de Arbustos Frutíferos +30% mais rápido, mas não poderá coletar de Javali.",
+                    "Capacidade de carga de Frutas aumentada em +3.",
+                    "Navios de Pesca podem se defender com um ataque à distância."
+                ]
+            },
+            {
+                "title": "Companheiros de Trabalho",
+                "description": "Dê um descanso aos seus Aldeões com Elefantes Trabalhadores. Esses elefantes atuam como entregas universais e podem se movimentar livremente, economizando tempo e recursos para que os aldeões se concentrem no trabalho.\nElefantes Trabalhadores, Centros Urbanos e Docas fornecem recursos bônus quando Aldeões e Navios de Pesca entregam."
+            },
+            {
+                "title": "Erudição",
+                "description": "Buscando conhecimento e sabedoria, a Dinastia Tughlaq financia a pesquisa de tecnologias com mais recursos em favor de tempos de pesquisa quase instantâneos."
+            },
+            {
+                "title": "Fortes Lendários",
+                "description": "Cause medo em seus inimigos com o Forte Tughlaqabad. Disponível a partir da Era Feudal (II), esta construção defensiva pode ser atualizada para aumentar sua produção de dano, saúde e desbloquear sua escolha em um Governador."
+            },
+            {
+                "title": "Apoio do Governador",
+                "description": "Escolha entre um dos seis governadores no Forte Tughlaqabad para ajudar a levar a Dinastia Tughlaq a novos patamares. A força do governador aumenta a cada atualização de melhoria do Forte Tughlaqabad. Os governadores fornecem bônus em economia, ritmo, militares, pesquisa e religiosos. \nÉ permitido um Governador por forte."
+            },
+            {
+                "title": "Cestaria",
+                "description": "Os Aldeões coletam Arbustos Frutíferos 30% mais rápido, mas não podem coletar de Javalis.\nOs Aldeões carregam +3 de Comida de Arbustos Frutíferos."
+            },
+            {
+                "title": "Fortificações da Fronteira",
+                "description": "Estabeleça assentamentos fortificados usando unidades de infantaria que podem construir Paliçadas."
+            },
+            {
+                "title": "Ajudantes de Convés Defensivos",
+                "description": "Os navios de pesca podem se defender com ataque à distância e têm 50% de vida adicional."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Elefante Saqueador: Elefante rápido eficaz em atacar, flanquear e contra-atacar unidades de longo alcance. Pode atropelar para contornar qualquer unidade para causar dano em uma área.\nElefante Curandeiro: Elefante corpo a corpo blindado e com alta vida montado com dois Imãs que podem curar unidades individualmente. Causa mais dano para cada infantaria corpo a corpo próxima.\nElefante de Guerra: Cavalaria corpo a corpo pesada montada com um Lanceiro que tem alta vida e dano com um forte ataque de cerco.\nElefante Balista: Elefante de longo alcance montado com uma balista que é eficaz contra unidades corpo a corpo e pode perfurar vários alvos."
+            }
+        ]
+    },
+    "golden_horde": {
+        "summary": "Liderando a Horda Dourada para o oeste, Batu Khan expandiu o Império Mongol até o coração da Europa Oriental. A grande Tenda Dourada do Khan era o centro da rede de controle, com postos avançados que lhes permitiam manter um vasto território. Embora ainda fossem invasores poderosos, a Horda Dourada sacrificou a mobilidade de seus acampamentos para colocar em campo forças maiores necessárias para controlar seus estados vassalos.",
+        "classes": "Agressão, Cavalaria, Horda",
+        "era": "1000–1500 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Comece com o limite máximo de população.",
+                    "As unidades são sempre recrutadas em lotes.",
+                    "Currais são uma construção exclusiva que pode ser trabalhada por 4 aldeões e é um depósito de alimentos.",
+                    "Ovoos podem ser construídos em múltiplos depósitos de Pedra, aumentando a renda de Pedra.",
+                    "Tecnologias exclusivas que custam apenas Pedra.",
+                    "Estábulos disponíveis na Era das Trevas (I).",
+                    "Envelheça construindo e aprimorando a Tenda Dourada.",
+                    "Os Postos Avançados Fortificados fornecem bônus de influência ou aura com base no Decreto definido na Tenda Dourada.",
+                    "Rota da Seda: Os Comerciantes geram +10% de Comida, Madeira e Ouro adicionais com 5/10/15 comerciantes ativos.",
+                    "Os navios de transporte têm +50% de vida e +15% de velocidade de movimento.",
+                    "Batedores podem usar a habilidade Falcão Batedor para vigiar a área ao redor."
+                ]
+            },
+            {
+                "title": "Tenda Dourada",
+                "description": "A Tenda Dourada é o único ponto de referência da Horda Dourada, que pode ser aprimorado para avançar para a próxima era e aumentar a vida da construção. Um decreto pode ser escolhido na Tenda Dourada, o que altera a influência ou o bônus de aura concedidos pelos Postos Avançados Fortificados.\nO Khan dos Batu e Torguud podem ser recrutados na Tenda Dourada."
+            },
+            {
+                "title": "Hordas",
+                "description": "As unidades são produzidas em lotes de dois. É possível pesquisar tecnologias que melhorem a produção em lote."
+            },
+            {
+                "title": "Curral",
+                "description": "Construa o Curral em vez de Fazendas ou Pastos para obter Comida — os Currais têm carcaças de Ovelhas que podem ser coletadas e entregues diretamente no Curral."
+            },
+            {
+                "title": "Postos Avançados Fortificados",
+                "description": "Postos Avançados Fortificados têm mais vida e fornecem bônus de influência ou aura dependendo do Decreto escolhido na Tenda Dourada."
+            },
+            {
+                "title": "Transportes Aprimorados",
+                "description": "Unidades desembarcadas do Navio de Transporte ficam mais rápidas e duráveis, com +50% de vida e +15% de velocidade de movimento."
+            },
+            {
+                "title": "Rota da Seda",
+                "description": "Explore a Rota da Seda com Mercadores que recebem recursos extra do comércio com base no seu número total de Mercadores ativos.\n• 5+ Mercadores: +10% de Comida\n• 10+ Mercadores: +10% de Comida e Madeira\n• 15+ Mercadores: +10% de Comida, Madeira e Ouro"
+            },
+            {
+                "title": "Tecnologia de Pedra e Ovoos",
+                "description": "Construa Ovoos sobre afloramentos de Pedra para coletar Pedra sem a necessidade de Aldeões. O número máximo de Ovoos que podem ser construídos aumenta em +1 a cada avanço de era."
+            },
+            {
+                "title": "Falcão Batedor",
+                "description": "Os batedores podem mobilizar a habilidade Falcão Batedor para vigiar a área ao redor."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Khan da Horda Dourada: Cavalaria Pesada que aumenta em força com o avanço da era. Pode disparar uma flecha que aumenta o dano recebido pelos inimigos em uma área. O Khan também fornecerá uma aura de dano de ataque crescente quanto mais tempo o Khan estiver em combate.\nTorguud: Cavalaria Pesada que pode proteger o Khan, redirecionando qualquer dano recebido pelo Khan para o Torguud.\nQuipechaque: Unidades fracas de Infantaria Corpo a Corpo Leve que fornecem armadura para aliados próximos.\nMangudai: Arqueiro montado que dispara flechas de fogo que causam sangramento no alvo atingido.\nTrabuco de Tração: Velocidade de movimento, tempo de preparação e velocidade de ataque mais rápidos.\nKeshig: Cavalaria Pesada disponível na Era Feudal, regenera Vida após cada ataque."
+            }
+        ]
+    },
+    "macedonian_dynasty": {
+        "summary": "O imperador Basílio II empregou Varangianos para se defender de revoltas fomentadas por nobres bizantinos. Chegando em navios vindos do norte, esses guerreiros nascidos em terras estrangeiras não eram influenciados por políticas e culturas bizantinas, criando uma divisão de choque de elite que protegia imperadores por séculos. A Dinastia Macedônia cunha Prata como um recurso exclusivo para gastar no Arsenal Varangiano, afiando suas lâminas e aprimorando suas habilidades enquanto protegem o Imperador.",
+        "classes": "Varangianos, Prata, Tecnologia",
+        "era": "867 - 1056 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Os Aldeões extraem Prata do Ouro e da Pedra para pesquisar tecnologias exclusivas.",
+                    "Gere Prata passivamente em Campos de Mineração e Centros Urbanos com influência dos Arsenais Varangianos.",
+                    "Ultrapasse três níveis de tecnologias com o Arsenal Varangiano gastando Prata.",
+                    "Acesso à Guarda Varangiana Primitiva na Era Feudal (II).",
+                    "Produza todas as unidades Varangianas exclusivas da Fortaleza Varangiana.",
+                    "As unidades Varangianas têm habilidades exclusivas para melhorar sua eficácia em combate.",
+                    "Reforce gratuitamente os guerreiros que caem durante a luta com o Acampamento de Guerra Varangiano.",
+                    "Unidades de campo capazes de usar várias formas de fogo grego.",
+                    "Navios de Transporte aumentam temporariamente a velocidade de movimento das unidades ao descarregar."
+                ]
+            },
+            {
+                "title": "Coleta de Galena",
+                "description": "Os aldeões descobrem abundantes depósitos de galena entre Veios de Ouro e Afloramentos de Pedra e extraem Prata como um recurso exclusivo ao minerar.\nOs aldeões extraem Prata igual a 40% de Ouro ou Pedra extraída."
+            },
+            {
+                "title": "Influência - Cunhagem de Prata",
+                "description": "Os Arsenais Varangianos geram influência para que os Campos de Mineração e Centros Urbanos comecem a processar Prata ao longo do tempo. O valor de Prata processado é baseado no valor total de Prata depositado pelos Aldeões."
+            },
+            {
+                "title": "Ferraria Varangiana",
+                "description": "Pesquise tecnologias militares exclusivas no Arsenal Varangiano para conseguir Prata. Substitui o Ferreiro e a Universidade. A Dinastia Macedônia pode exceder três níveis de melhorias militares por categoria."
+            },
+            {
+                "title": "Fortalezas",
+                "description": "Fortifique o império com Fortalezas Varangianas que podem produzir todas as unidades Varangianas e se defender com flechas."
+            },
+            {
+                "title": "Acampamento de Guerra",
+                "description": "Escolha reforços no Acampamento de Guerra Varangiano. Uma vez que guerreiros suficientes caem na batalha, guerreiros Varangianos livres chegam ao acampamento de guerra para reforçar as fileiras perdidas.\nSe adjacentes à água, os barcos podem ser selecionados como reforços."
+            },
+            {
+                "title": "Pedras Rúnicas Varangianas",
+                "description": "Entalhe Pedras Rúnicas para homenagear vitórias passadas em combate. Depois que inimigos suficientes caírem para os Varangianos, uma Pedra Rúnica pode ser criada para inspirar os Varangianos próximos com bônus de combate em uma área."
+            },
+            {
+                "title": "Fogo Grego",
+                "description": "Quirossifões, juntamente com Drómons, Espringales e Trabucos melhorados, atiram Fogo Grego ao atacar, envolvendo a área em chamas e causando dano contínuo."
+            },
+            {
+                "title": "Localizações de Manganela",
+                "description": "Postos Avançados e Torres de Menagem podem ser melhoradas com instalações de Manganela. Torres de Muralha de Pedra vêm equipadas com instalações Manganelas em vez de Espringales."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "description": "Atgeirmaðr: Substituição de Lanceiro. Infantaria corpo a corpo leve com uma habilidade passiva que aumenta sua velocidade de ataque quando unidades varangianas estão próximas.\nBogmaðr: Substituição do Arqueiro. Infantaria leve de longo alcance com a capacidade de contornar a armadura ao custo da velocidade de movimento. \nGuarda Varangiano Novato: Substituição do Homem de Armas. Use a habilidade Berserking para aumentar o dano ao custo da armadura. Pode construir Navios de Transporte e aumentar a armadura dos transportes quando guarnecido.\nRiddari: Substituição do Cavaleiro. Cavalaria pesada com a capacidade de lançar machados à distância por um período de tempo.\nQuirosifão: Um aríete equipado com um ataque de fogo grego de curto alcance.\nDrómon: Substituição do navio Espringale. Equipado com Fogo Grego."
+            }
+        ]
+    },
+    "jin_dynasty": {
+        "summary": "A Dinastia Jin emerge como uma potência militar formidável no norte da China. Os Aldeões de Montaria se movem rapidamente para reivindicar novos recursos e terras. Aproveite oportunidades e reúna exércitos de cavalaria a qualquer momento para derrotar inimigos e esmagar a oposição. Suborne inimigos fracos para que desertem e estabeleça Estados Tributários lucrativos.",
+        "classes": "Cavalaria, Aldeões de Montaria, Tributários",
+        "era": "1115 - 1234 EC",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Treine até 20 Aldeões de Montaria, que coletam e se movem significativamente mais rápido que um aldeão padrão.",
+                    "Selecione entre três locais ao avançar de Era para construir uma Pastagem.",
+                    "Construa Estábulos de Guerra perto das Pastagens para produzir Cavalaria rapidamente com Cavalos.",
+                    "Emissários podem Estabelecer Tributários e Subornar soldados inimigos.",
+                    "Tributários geram Comida, melhoram a renda dos Mercadores em +15%, e aumentam o limite de construção de Aldeões de Montaria em +3.",
+                    "Localizações de Meng'an Mouke convocam defensores para proteger terras próximas.",
+                    "Balestras de Cerco estão disponíveis na Era Feudal, substituindo os Espringales."
+                ]
+            },
+            {
+                "title": "Pastagens",
+                "description": "Escolha entre 3 locais ao completar um Marco para construir Pastagens, que gradualmente geram até 5 Cavalos em seu campo. Cavalos aumentam a Vida de toda a Cavalaria Corpo a Corpo em +2 e de toda a Cavalaria à Distância em +1, ou podem ser usados por Estábulos dentro da Influência das Pastagens para treinar rapidamente qualquer unidade montada. Pastagens produzem um novo Cavalo a cada 90/60/45 segundos na Era Feudal/Castelos/Imperial."
+            },
+            {
+                "title": "Legado de Jurchén",
+                "description": "Ancestralidade nômade permite até 20 Aldeões Montados que se reúnem, constroem e se movem significativamente mais rápido, mas custam mais. Estabeleça Estados Tributários com Feitorias para aumentar o limite máximo de construção em +3."
+            },
+            {
+                "title": "Meng'an Mouke",
+                "description": "Aprimore estruturas defensivas com Localizações de Meng'an Mouke, que enviam defensores para proteger terras próximas. As Localizações também produzem defensores lentamente para repor perdas."
+            },
+            {
+                "title": "Emissários",
+                "description": "Treine até 2 de Emissários que vêm equipados com duas habilidades poderosas.\nEstabeleça Tributários em Povoados Comerciais Neutros para ganhar um aliado leal, que reúne comida em seu nome, aumenta o limite de construção de Aldeão de Montaria em +3 e aumenta a renda de seus comerciantes em +15%.\nLance Suborno em grupos de unidades inimigas, transformando inimigos em combatentes neutros que lutam contra tudo em seu caminho."
+            },
+            {
+                "title": "Experiência em Cerco",
+                "description": "Construa a Oficina de Máquinas na Era Feudal, concedendo acesso antecipado a Balestra de Cerco, um substituto do espringale que dispara dois projéteis contra formações inimigas. Localizações de Balestra de Cerco substituem Localizações de Espringale em todas as estruturas defensivas."
+            },
+            {
+                "title": "Unidades Exclusivas",
+                "list": [
+                    "Aldeão de Montaria - Aldeão único que coleta, constrói e se move significativamente mais rápido que um aldeão padrão.",
+                    "Emissário - Unidade de apoio que pode subornar soldados inimigos e estabelecer Estados Tributários.",
+                    "Pagode de Ferro - Cavalaria pesada totalmente revestida de armadura, causa dano em área a cada ataque.",
+                    "Balestra de Cerco - Substituto do Espringale que dispara uma rajada de projéteis de uma vez, disponível na Era Feudal.",
+                    "Eruptor - Substituto caro do Canhão de Mão que causa alto dano em alvo único.",
+                    "Membro da Tribo Mohe - Substituto arqueiro montado. Excepcional em táticas de ataque e fuga contra infantaria leve corpo a corpo.",
+                    "Espadachim Zhanma - Infantaria armada disponível apenas na Era Imperial, causa dano corpo a corpo impressionante com bônus contra cavalaria.",
+                    "Defensores Meng’an Mouke - Meng’an Mouke e Granadeiros Montados surgem de posições únicas para defender automaticamente o território Jin."
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,1200 @@
+{
+    "english": {
+        "summary": "Olağanüstü erken piyadeler, İngilizlere tarlalardan güvenilir bir Yiyecek üretimiyle desteklenmiş güçlü bir kuvvet sağlar.",
+        "classes": "Savunma, Uzun Yaylar, Çiftçilik",
+        "era": "M.S. 850 - 1555",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Şehir Merkezleri, Karakollar, Kuleler ve İç Kaleler, düşmanlar menzildeyken yakındaki birimlerin saldırı hızını %20 artırır.",
+                    "Tarlalar %50 daha ucuza inşa edilir. Değirmenlerin yakınındaki Tarlalar, Çağa göre %20/25/30/30 daha hızlı toplar.",
+                    "Karanlık Çağ’da (I) Keşif Kolu Silahşoru.",
+                    "Diğer medeniyetlerden %40 daha hızlı Silahşor üretir.",
+                    "Köylüler düşman birimlerine saldırırken kısa yay kullanır.",
+                    "İç Kaleler tüm askerî birimleri üretebilir.",
+                    "Gemi üretmek %10 daha ucuzdur.",
+                    "Gözcüler ve Silahşorlar, yakındaki birimlerin görüş menzilini ve avlanma hızını %10 artıran kamp ateşleri kurabilir."
+                ]
+            },
+            {
+                "title": "Kale Ağı",
+                "description": "Düşmanlar menzile girdiğinde yakındaki birimlerin saldırı hızını +%20  artıran Şehir Merkezleri, Karakollar, Taş Sur Kuleleri ve İç Kalelerle hududu koru.\nSaldırı hızını +%30 artırmak için İç Kaleler üzerinden Sığınak Ağı teknolojisini araştır."
+            },
+            {
+                "title": "İç Kale Üretimi",
+                "description": "İç Kalelerin tüm askeri birimleri üretme yeteneği vardır."
+            },
+            {
+                "title": "Askere Çağrı",
+                "description": "Keşif Kolu Silahşorları Karanlık Çağ'da (I) kullanılabilir. İngiliz Silahşorları +%40 daha hızlı üretir."
+            },
+            {
+                "title": "Savunmacı Byrig",
+                "description": "Başkent Şehir Merkezi fazladan bir ok atar ve Köylüler düşman birimlerine saldırırken kısa yay kullanır."
+            },
+            {
+                "title": "Tarım Adası",
+                "description": "Tarlalar, %50 daha ucuza inşa edilir.\nKöylülerin Tarlalarda çalışırken her 6 saniyede bir +1 Altın üretmesi için İmparatorluk Çağı’nda (IV) Çitler teknolojisini araştır."
+            },
+            {
+                "title": "Tersane İşçileri",
+                "description": "Deniz şartlandırması, Rıhtım verimliliğini artırarak gemi inşası maliyetlerini -%10 azaltır."
+            },
+            {
+                "title": "Nüfuz",
+                "description": "Bir Değirmen'in nüfuz alanındayken Tarla toplama hızı her çağ atlandığında +%20/25/30/30 artar"
+            },
+            {
+                "title": "Kral Odunu",
+                "description": "Gözcüler ve Silahşorlar, yakındaki birimlerin görüş menzilini %30, yakındaki avcıların toplama hızını %10 artıran bir Kamp Ateşi yakar."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Uzun Yaylı: Düşman süvarilerini sersemletip onlara hasar veren Savunma Kazığı yeteneğiyle birlikte gelen +2 menzilli ve +1 hasarlı okçu."
+            }
+        ]
+    },
+    "mongols": {
+        "summary": "Hareketliliğin ve atlı savaşın uzmanları olan Moğollar kolaylıkla kamplarının yerini değiştirebilir. Taş Çıkıntılarının yanına kurularak ve düşman binalarını yağmalayarak ekonomik avantajlar kazanabilirler. Düşmanlar oyunun başladığı dakikalardan itibaren süvari saldırılarıyla mücadele etmelidir.",
+        "classes": "Saldırganlık, Süvariler, Göçebe",
+        "era": "M.S. 1000 - 1500",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Toplanmış bir Yurt ve maksimum nüfus limitiyle başlarsın, Evlere gerek yoktur.",
+                    "Tüm binalar toplanabilir ve yeni bir yerde tekrar konuşlandırılabilir.",
+                    "İnşaat aşamasındaki düşman binalarını ateşe vererek ya da yok ederek +25 Yiyecek ve Altın yağmala.",
+                    "Ahırlar Karanlık Çağ'da (I) kullanılabilir.",
+                    "Atlılar +%25 daha hızlı eğitilir.",
+                    "Karakollar, yakındaki süvari ve Tüccarların hareket hızını +%15 artırır.",
+                    "Taş kullanarak çift birim üret ya da teknolojilerin gelişmiş versiyonlarını araştır.",
+                    "İpek Yolu: Tüccarlar 5/10/15 aktif Tüccar ile +%10 ek Yiyecek, Odun ve Altın üretir.",
+                    "Taşıma gemileri +%50 sağlık ve +%15 hareket hızına sahiptir."
+                ]
+            },
+            {
+                "title": "Büyük Hakimiyet",
+                "description": "Tüm binalar toplanıp başka bir yere konuşlandırılabilir.\nEv inşa etmene gerek kalmasına ve oyuna maksimum Nüfusla başla.\nYakındaki süvarilere ve Tüccarlara +15% hareket hızı sağlayan bir Karakol ağı ile düşman hareketlerini hızla yanıtla."
+            },
+            {
+                "title": "Hanlık",
+                "description": "Yakındaki tüm askeri birimlere İşaret Okları ile güçlü bonuslar sağlamak için Karanlık Çağ’da (I) kudretli Han’ı sahaya çıkar.\nHanlar ve Öncüler, çevredeki alanı gözetlemek için Öncü Doğan yeteneğini kullanabilirler."
+            },
+            {
+                "title": "Uzman Atlılar",
+                "description": "Karanlık Çağ'dan itibaren Ahırlar inşa et ve Atlılarını +%25 daha hızlı sahaya sür."
+            },
+            {
+                "title": "Göçebe Toplayıcılar",
+                "description": "Yiyecek sağlayan Koyun yetiştirmek için Tarla yerine Mera inşa et — Meralar, bir Ovo'nun nüfuz alanındayken daha hızlı Koyun üretir."
+            },
+            {
+                "title": "Baskın Ödülü",
+                "description": "İnşaat sırasında ateşe verildiğinde veya yok edildiğinde düşman binalarını yağmalayarak +25 Yiyecek ve Altın kazan."
+            },
+            {
+                "title": "Gelişmiş Taşıma",
+                "description": "Taşıma Gemisi inişleri, +%50 sağlık ve +%15 hareket hızı ile daha hızlı ve daha dayanıklıdır."
+            },
+            {
+                "title": "İpek Yolu",
+                "description": "Toplam etkin Tüccar sayına göre işlemlerden ekstra kaynak elde eden Tüccarlarla İpek Yolu'nu keşfet.\n• Tüccar sayısı 5'in üzerindeyse: +%10 Yiyecek\n• Tüccar sayısı 10'un üzerindeyse: +%10 Yiyecek, Odun\n• Tüccar sayısı 15'in üzerindeyse: +%10 Yiyecek, Odun, Altın"
+            },
+            {
+                "title": "Nüfuz",
+                "description": "Nüfuz oluşturmak ve Köylülere ihtiyaç duymadan Taş toplamak için Taş çıkıntıları üzerinde Ovo inşa et. Ovolar, her çağ atlandığında dakikada +70, 100, 130, 160 Taş toplar.\nOvoların etki alanına inşa edilmiş binalar iki kat daha fazla birim üretebilir veya Taş kullanarak teknolojilerin gelişmiş versiyonlarını araştırabilir."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Han: Her çağ atladığında gücü artan ve İşaret Oku yeteneklerinin kilidi açılan atlı okçu.\n• Manevra Oku: Hareket hızı, +%33 artar.\n• Saldırı Hızı Oku: Saldırı hızı +%50 artar.\n• Zırh Oku: Zırh +2 artar.\nManguday: Her yöne hareket ederken ateş edebilen atlı okçu.\nÇekiş Katapultu: Daha kısa kurulum süresinin yanı sıra daha fazla hareket hızı ve saldırı hızı.\nKeşik: Feodal Çağ'da kullanılabilen, her saldırıdan sonra Sağlık yenileyen Ağır Süvari."
+            }
+        ]
+    },
+    "french": {
+        "summary": "Fransızlar güçlü süvari birimleri mevzilendirip tahkimli konumlarda üretimi artırabilir. Düşmanlar, güçlü Kraliyet Şövalyelerinin ve diğer zırhlı birimlerin hücumlarına karşı koymaya hazır olmalıdır.",
+        "classes": "Ticaret, Süvariler, İç Kaleler",
+        "era": "M.S. 840 - 1559",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Feodal Çağ’da (II)15281695 Kraliyet Şövalyeleri.",
+                    "Şehir Merkezlerinin çalışma hızı çağ başına +%15, +%15, +%20, +%25 artar.",
+                    "Kaynak bırakma binaları -%50 daha ucuzdur.",
+                    "Ekonomi teknolojileri -%35 daha ucuzdur.",
+                    "Ticaret Merkezleri mini haritada görünür.",
+                    "Tüccarlar Marketlere Yiyecek, Odun veya Altın getirebilir.",
+                    "Ticaret Gemileri +%20 kaynak getirir.",
+                    "Demirciler, her çağ atlandığında ücretsiz olarak yakın dövüş hasarı teknolojisi verir."
+                ]
+            },
+            {
+                "title": "Kraliyet Aygırları",
+                "description": "Feodal Çağ'da (II) Kraliyet Şövalyesi mevzilendir ve süvari için güçlü özgün teknolojileri araştır."
+            },
+            {
+                "title": "Ana Kara Ekonomisi",
+                "description": "-%50 daha ucuz kaynak teslimi ve -%35 daha ucuz ekonomi teknolojileriyle üstün bir ekonomiye sahip ol.\nŞehir Merkezi üretim hızı her çağda sırasıyla +%15, +%15, +%20 ve +%25 artar."
+            },
+            {
+                "title": "Ticaret Ekonomisi",
+                "description": "Yiyecek, Odun veya Altını; Tüccarlar ve Ticaret Gemileri ile Marketlere getirmeyi seç.\nTicaret Gemileri +%20 daha fazla kaynak geri getirir.\nTicaret Merkezleri oyunun başında mini haritada gösterilir.\nRıhtımlar, nüfus alanı sağlar."
+            },
+            {
+                "title": "Smithy'nin Lütfu",
+                "description": "Demirciler, her çağ atlandığında ücretsiz olarak yakın dövüş hasarı teknolojisi verir."
+            },
+            {
+                "title": "Nüfuz",
+                "description": "Etki alanlarındaki Okçuluk Binalarından ve Ahırlardan üretilen birimlerin ücretini %20 düşüren ve %10 daha ucuza mal olan İç Kalelerle hücum gücünü koru."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Kraliyet Şövalyesi: Bir hücumu tamamladıktan sonra 5 saniye boyunca +3 ilave hasar kazanan Ağır Süvari.\nFransız Arbaletçi: 30 saniye boyunca +5 menzilli zırh ve +1 silah menzili sağlayan bir savunma Pavisesi yerleştirebilen +1 yakın dövüş zırhına sahip arbaletçi.\nTop: Daha fazla hasara ve hareketliliğe sahip, kurulum süresi gerektirmeyen bir Gülle Topu alternatifi.\nGalleass: Önüne monte edilmiş uzun menzilli bir gülle topu olan büyük savaş kadırgası.\nSavaş Teknesi: Düşük maliyetli ve artırılmış menzilli zırhı bulunan özel bir Springald Gemisi."
+            }
+        ]
+    },
+    "rus": {
+        "summary": "Ruslar kırsal kesimden büyük faydalar elde eder. Avlanma ve ormancılıktan rahatlıkla daha fazla kaynak toplayıp güçlü çarpışma birimleri mevzilendirebilirler. Düşmanlar güçlü erken oyun tahkimleri ve kolay kolay bozulamayan çok çeşitli bir ekonomiyle yüzleşir.",
+        "classes": "Genişletme, Süvariler, Avlanma",
+        "era": "M.S. 882 - 1547",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "+%100 sağlığa sahip Güçlendirilmiş Çit Surlar inşa et.",
+                    "Ahşap Hisarlar inşa et. İyileştirilmiş Karakollar +%100 sağlığa ve +3 garnizon yuvasına sahip olur.",
+                    "Öncüler ve çevredeki ormanlardan Altın üreten İyileştirilmiş Değirmenler olan Avcı Kulübelerini inşa et.",
+                    "Hayvanlardan toplama yapmak Altın ödülü kazandırır. Artan ödül ise Köylülere ve Avcı Kulübelerine ekonomik bonuslar sağlar.",
+                    "İlkel Şövalyeler Feodal Çağ'da (II) kullanılabilir.",
+                    "Lodya gemisi belirli bir maliyet karşılığında herhangi bir türdeki bir gemiye dönüştürülebilir.",
+                    "Balıkçılık Gemilerinin Yiyecek bırakmak için rıhtıma dönmesi gerekmez."
+                ]
+            },
+            {
+                "title": "Ormanlık Federasyonu",
+                "description": "Karakolların yerini alan Ahşap Hisarlar ile kırsalı güçlendir — +100% sağlık ve +3 garnizon yuvası ile birlikte gelir.\nGüçlendirilmiş Çit Sur’u inşa et +100% sağlık ve daha hızlı inşa süresi ile birlikte gelir."
+            },
+            {
+                "title": "Avcı Prensler",
+                "description": "Topraklarını Av Kulübelerinde eğitilmiş Öncülerle geçindir. Av Kulübeleri, standart bir Değirmen’in faydalarını sağlamasının yanı sıra Gizlilik Ormanlarını görme ve yakındaki ağaçların sayısına göre Altın üretme yeteneğine sahiptir."
+            },
+            {
+                "title": "Drujina Maiyeti",
+                "description": "Feodal Çağ’da (II) İlk Şövalye sahaya çıkar."
+            },
+            {
+                "title": "Lodya Yeniden Yapılandırması",
+                "description": "Lodya gemisi, bir maliyet karşılığında her türlü gemiye dönüştürülebilir.\nLodya Balıkçı Gemileri, Yiyecekleri doğrudan gemide işler - Yiyecek bırakmak için Rıhtıma dönmesine gerek yoktur."
+            },
+            {
+                "title": "Ödül Getirileri",
+                "description": "Hayvanlardan toplama yapmak bir miktar Altın kazandırır. Ayrıca belirli toplam ödül eşiklerine ulaşmak, Köylülere ve Av Kulübelerine ekonomi bonusu sağlar.\n100 Ödül\n• +%5 Yiyecek toplama hızı\n• Av Kulübeleri %10 daha fazla Altın üretir.\n400 Ödül\n• +%10 Yiyecek toplama hızı\n• Av Kabinleri %25 daha fazla Altın üretir.\n1000 Ödül\n• +%15 Yiyecek toplama hızı\n• Av Kabinleri %40 daha fazla Altın üretir."
+            },
+            {
+                "title": "Nüfuz",
+                "description": "Kesintisiz girişimleri denetle — Köylüler, Kereste Kampları ve Şehir Merkezleri bir Ahşap Hisar’ın nüfuz alanındayken +%20 daha fazla Odun bırakır."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Savaşçı Keşiş: Savaştayken yakındaki birimleri cesaretlendirip +1 zırh ve +2 hasar sağlayan dini hafif süvari birimi.\nAtlı Okçu: Yüksek hareketliliğe ve hasara sahip hafif menzilli süvari.\nStreltsıy: Hareketsiz kaldığında güçlenen ve yüksek hasarlı yakın dövüş saldırısına sahip bir Tüfekçi.\nLodya gemileri: Herhangi bir gemi türüne dönüştürülebilir."
+            }
+        ]
+    },
+    "holy_roman_empire": {
+        "summary": "Başrahipler, Kutsal Roma İmparatorluğu'nun ekonomisini güçlendirirken güçlü piyade birimleri de ordusunun çekirdeğini oluşturur. Düşmanlar, saldırılardan hızlıca toparlanabilen bir rakiple yüzleşmeli ve güçlü karşı saldırılar gerçekleştirmelidir.",
+        "classes": "Piyade, Din, Savunma",
+        "era": "M.S. 936 - 1517",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Savunma ve ekonomi bonusları için Kadim Eserleri Karakollara, Taş Kulelere ve İç Kalelere yerleştir.",
+                    "Rıhtımlara yerleştirilen Kadim Eserler, gemi saldırı hızını Kadim Eser başına +%5 artırır (Maks. +%25)",
+                    "Feodal Çağ'da (II) İlkel Silahşor.",
+                    "Piyadeler Karanlık Çağ'da (I) %5, Feodal Çağ'da (II) %10 daha hızlı hareket eder.",
+                    "Mevziler -%25 daha ucuzdur. Karakol görüş menzili +%25 artar.",
+                    "Köylüler +%40 daha fazla kaynak taşır.",
+                    "Başrahipler Karanlık Çağ’da (I) iyileştirme yapabilir ve Kutsal Cesaretlendirmeyi kullanabilir. Cesaretlendirilen Köylüler 30 saniye boyunca +%40 daha hızlı toplar.",
+                    "Şehir Merkezinin nüfuz alanındaki binalar, binayı onarmak için etkinleştirilebilen Acil Onarımlar yeteneğini kazanır."
+                ]
+            },
+            {
+                "title": "Dini Şevk",
+                "description": "Karakollara, Kulelere ve İç Kalelere Kadim Eserler yerleştirerek bu binaların zırhını +%25, hasarını +%25, menzilini +%25 ve görüş hattını +%20 artır ve imparatorluğunun gücünü göster.\nRıhtımlara yerleştirilen Kadim Eserler, Kadim Eser başına gemi saldırı hızını +%5 artırır (Maksimum +%25)\nBinalara yerleştirilen Kadim Eserler dakikada +80 Altın getirir."
+            },
+            {
+                "title": "İmparatorluk Ordusu",
+                "description": "Piyadeler Karanlık Çağ'da (I) %5, Feodal Çağ'da (II) %10 daha hızlı hareket eder. Piyadeleri etkili teknolojilerle yükselt ve İlkel Silahşor'u Feodal Çağ'da (II) sahaya çıkar."
+            },
+            {
+                "title": "Mevzi Mimarlığı",
+                "description": "Tüm mevzi teknolojileri -%20 daha ucuzdur. Karakol görüş menzili +%20 artar."
+            },
+            {
+                "title": "Çekçekler",
+                "description": "Köylüler, diğer medeniyetlerden +40% daha fazla kaynak taşır."
+            },
+            {
+                "title": "Nüfuz",
+                "description": "Şehir Merkezi etki alanında inşa edilmiş binalar Acil Onarımlar yeteneğini kazanır ve bu da binanın 20 saniye boyunca her saniye +150 sağlıkla onarılması için etkinleştirilebilir."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Başrahip: Köylülerin toplama hızını 30 saniye boyunca +%35 artıran Kutsal Cesaretlendirme yeteneğini kullan.\nLandsknecht: Önemli ölçüde alan hasarı verebilen iki elli büyük bir kılıca sahip hafif yakın dövüş piyadesi.\nKara Atlı: Güçlü bir zırhlı atlı atış birimidir. Üretim miktarı inşa edilen İç Kale sayısıyla sınırlıdır."
+            }
+        ]
+    },
+    "delhi_sultanate": {
+        "summary": "Delhi Sultanlığı, geniş alim ağlarıyla düşmanlarından çokça adım önde kalır. Tamamen aydınlandıklarında korkutucu Savaş Filini konuşlandırarak yollarına çıkanı ezerler.",
+        "classes": "Filler, Araştırma, Din",
+        "era": "M.S. 879 - 1526",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Karanlık Çağ'da (I) Cami, Alim ve dinî teknolojiler kullanılabilir.",
+                    "Piyade birimleri Çit Sur inşa edebilir.",
+                    "Tüm teknolojiler bedelsizdir ancak çok daha yavaş bir hızda tamamlanır. Araştırma hızı Cami, Medrese veya Rıhtımlara Alim konuşlandırarak hızlandırılabilir.",
+                    "Araştırılan teknolojiler duraklatılabilir ve devam ettirilebilir.",
+                    "Böğürtlenlerin yakınında inşa edilen Değirmenler Bahçe oluşturarak Yiyecek kapasitesini +100 artırır.",
+                    "Böğürtlen Çalılarından yiyecek toplama hızı +%25 artar fakat Yaban Domuzlarından toplama yapılamaz.",
+                    "Böğürtlen taşıma kapasitesi +3 artar.",
+                    "Balıkçı Gemileri, menzilli saldırılarla kendini savunabilir."
+                ]
+            },
+            {
+                "title": "İlmi Kültür",
+                "description": "Karanlık Çağ’da (I) Camilerden Alim eğit. Dini teknolojileri diğer medeniyetlerden daha önce araştır ve onların kilidini aç."
+            },
+            {
+                "title": "Skolastik Başarımlar",
+                "description": "Teknolojilerin maliyetinden tasarruf ederek tüm teknolojileri ücretsiz ancak çok daha yavaş araştır — Teknolojiler duraklatılabilir ve devam ettirilebilir."
+            },
+            {
+                "title": "Hudut Tahkimleri",
+                "description": "Çit Sur inşa edebilen piyade birimleri kullanarak tahkimli yerleşimler kur. Bu yeteneği Taş Surlara genişletmek için Savunmacı Kampı Simge’sini inşa et."
+            },
+            {
+                "title": "Savunma Güverte Tayfası",
+                "description": "Balıkçı Gemileri menzilli bir saldırıyla kendini savunabilir ve fazladan %50 sağlığa sahiptir."
+            },
+            {
+                "title": "Bahçe Ödülü",
+                "description": "Yakınlarına Değirmenler inşa edip Böğürtlen Çalılarını Bahçeye dönüştürerek Yiyecek kapasitesini +100 artır.\nKöylüler, Böğürtlen Çalılarını %25 daha hızlı toplar ancak Yaban Domuzundan Yiyecek toplayamaz.\nKöylüler, Böğürtlen Çalılarından +3 Yiyecek taşır."
+            },
+            {
+                "title": "Nüfuz",
+                "description": "Cami, Medrese veya Rıhtımda konuşlandırılmış Âlimler nüfuzları dâhilindeki binaların araştırma hızını genelde kaç Âlimin konuşlandırıldığına göre artırır. Âlimlerin konuşlandırıldığı Rıhtımlar daha hızlı çalışır."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Alim: Karanlık Çağ’da (I) iyileştirebilen dinî birim.\nSavaş Fili: Güçlü bir kuşatma saldırısı ile yüksek sağlığa ve hasara sahip bir Mızraklı Asker taşıyan ağır yakın dövüş süvarisi.\nKule Fili: Hareket ederken ateş edebilen iki Okçu taşıyan menzilli süvari.\nCihat Akıncısı: Ağır gürz kullanan hızlı bir Süvari."
+            }
+        ]
+    },
+    "chinese": {
+        "summary": "Çinliler odaklarını çağlar içinde değiştirerek hızlıca birçok özgün birim ve bina mevzilendirebilir. Düşmanlar yetişmek istiyorlarsa sürekli olarak uyum sağlamalıdır.",
+        "classes": "Hanedanlar, Barut, Vergiler",
+        "era": "M.S. 907 - 1644",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Tang Hanedanlığında başla - Öncülerin görüş hattı %30 artar ve Köye erişim sağlar.",
+                    "Eğitilen birimler, araştırılan teknolojiler ve bırakılan kaynaklar İmparatorluk Memurları tarafından toplanabilen vergi (Altın) üretir.",
+                    "Özel bonusların, özgün birimlerin ve binaların kilidini açmak için bir Çağda iki Simgeyi de inşa ederek yeni bir Hanedan kur.",
+                    "Köylüler, savunmaları %50 daha hızlı ve diğer tüm binaları %100 daha hızlı inşa eder.",
+                    "Kimya teknolojisi Karanlık Çağ'da (I) ücretsiz olarak verilir - Şehir Merkezleri, İç Kaleler ve Karakollar için Savunma Ok Yarıkları yerine Tüfek Yarıkları kullanır.",
+                    "Rıhtımlar %10 daha hızlı çalışır."
+                ]
+            },
+            {
+                "title": "Büyük Hanedanlar",
+                "description": "Yolculuğuna Tang Hanedanı’nda başla. Öncü görüş hattını +%30 artırır ve Köye erişim sağlar.\nÖzel bonuslara, özgün binalara ve birimlere sahip Hanedanlıklar başlatmak için bir Çağda her iki Simgeyi da inşa et.\n• Song Hanedanı: Köylüleri +%33 daha hızlı üretir. Ambarın ve Zhuge Nu'nun kilidini açar.\n• Yuan Hanedanı: Köylülerin, Memurların ve askerî birimlerin hareket hızı +%15 artar. Pagoda ve Alev Mızraklı Süvarinin kilidini açar.\n• Ming Hanedanı: Askeri birimlerin sağlığı +%15 artar. El Bombacısının kilidini açar."
+            },
+            {
+                "title": "Seri Üretimler",
+                "description": "Köylüler savunmaları +%50 daha hızlı ve diğer tüm binaları +%100 daha hızlı inşa eder. Rıhtımlar +%10 daha hızlı çalışır."
+            },
+            {
+                "title": "Barut Üstatları",
+                "description": "Oyuna ücretsiz verilen Kimya teknolojisi ile başla; savunma binalarında Savunma Ok Yarıkları yerine Tüfek Yarıkları kullanılır."
+            },
+            {
+                "title": "Vergiler",
+                "description": "Eğitilen birimler, araştırılan teknolojiler ve bırakılan kaynaklar, İmparatorluk Memurları tarafından toplanabilen Vergi (Altın) üretir."
+            },
+            {
+                "title": "Nüfuz",
+                "description": "+%100 vergi Altını üretmek için İmparatorluk Akademisi Simgesi’nin nüfuz alanında askeri binalar ve ekonomi binaları inşa et."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "İmparatorluk Memuru: Denetleme yeteneğini kullanarak araştırma ve askeriye binalarının üretim hızını +150% artır — Ekonomi binalarını denetlemek, Köylülerin bıraktığı kaynak miktarını +20% artırır.\nZhuge Nu: Hafif birimlere karşı etkili hızlı seri saldırıya sahip hafif menzilli piyade.\nSaray Muhafızı: Silahşor alternatifi. Hareket hızı yerine zırha sahip ağır yakın dövüş piyadesi.\nArı Kovanları: Mangonel alternatifi. Bir roket yağmuru ateşleyen ve alan etkisi hasarı veren kuşatma makinesi.\nAlev Mızraklı Süvari: Kuşatma makinelerine ve binalara karşı etkili hafif süvari. Geniş bir görüş menziline ve patlayıcı saldırı hücum saldırısına sahiptir.\nEl Bombacısı: Etki alanı hasarı veren el bombaları atan hafif menzilli barutlu piyade."
+            }
+        ]
+    },
+    "abbasid_dynasty": {
+        "summary": "Abbasi Hanedanı, yapılarını Beyt'ül Hikmet'in etrafında toplayarak, gelişen bir Altın Çağ'ı takip etmektedir, bu da onlara önemli ekonomik avantajların kilidini açmalarına olanak sağlar. Ayrıca Beyt'ül Hikmet, çağlar boyunca çeşitli ilerlemeler yaşayarak gelişmiş teknolojilere erişim sunar. Abbasi deve birimleri, düşman süvarilerini karşılık vermede uzmandır.",
+        "classes": "Teknoloji, Develer, Şehir Planlaması",
+        "era": "M.S. 750 - 1517",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Deve, Askeriye, Din, Ekonomi ve Ticaret faydası sağlayan özgün teknolojileri araştır.",
+                    "Deve birimleri, yakındaki düşman atlı süvarilerin verdiği hasarı -%20 azaltır.",
+                    "Böğürtlen Çalılarının yakınında inşa edilen Değirmenler Bahçe oluşturarak Yiyecek kapasitesini +100 artırır.",
+                    "Böğürtlen Çalılarından +%25 daha hızlı toplanır ancak Yaban Domuzundan yiyecek toplanamaz.",
+                    "Böğürtlen taşıma kapasitesi +3 artar.",
+                    "Kara Tüccarları -%33 daha ucuzdur.",
+                    "Rıhtımlar -%50 daha ucuzdur.",
+                    "Beyt'ül Hikmet’in kanatlarını yükselterek Köylülere ihtiyaç olmadan çağ atla.",
+                    "Beyt'ül Hikmet’in nüfuz alanında binalar inşa ederek bir Altın Çağ’a gir ve kaynak toplama hızını, araştırma sürelerini, üretim hızını artır."
+                ]
+            },
+            {
+                "title": "Bilgi Arayışı",
+                "description": "Develere, Askeriyeye, Dine, Ekonomiye ve Ticarete fayda sağlayan özgün teknolojileri araştırarak Abbasilerin bilgi arayışını sergile.\nBeyt'ül Hikmet’te en fazla 4 Kanat yükselterek çağları ilerlet."
+            },
+            {
+                "title": "Deve Dövüşçüleri",
+                "description": "Develer, düşman atlı süvarilerini varlıklarıyla korkutup verdikleri hasarı -%20 azaltır."
+            },
+            {
+                "title": "Kuşatma Uzmanları",
+                "description": "Piyadeler, Kuşatma Mühendisliği teknolojisine ihtiyaç duymadan Koçbaşı, Kuşatma Kulesi, Springald ve Mangonel inşa edebilir."
+            },
+            {
+                "title": "Büyük Bağlar",
+                "description": "Yakınlarına Değirmenler inşa edip Böğürtlen Çalılarını Bahçeye dönüştürerek Yiyecek kapasitesini +100 artır.\nKöylüler, Böğürtlen Çalılarını %25 daha hızlı toplar ancak Yaban Domuzundan Yiyecek toplayamaz.\nKöylüler, Böğürtlen Çalılarından +3 Yiyecek taşır."
+            },
+            {
+                "title": "Ticaret Ekonomisi",
+                "description": "Arazi Tüccarları %33 daha ucuzdur."
+            },
+            {
+                "title": "Tersaneler",
+                "description": "Rıhtımlar -%50 Odun karşılığında inşa edilebilir."
+            },
+            {
+                "title": "Altın Çağ",
+                "description": "Altın Çağı'na doğru ilerleyerek ekonomini ve teknolojini iyileştir.\nBeyt'ül Hikmet'in nüfuz alanındaki binalar +5 ateş zırhı kazanır ve Altın Çağ'a doğru bir puan kazandırır. Kilit açma eşikleri sırasıyla 10, 30 ve 60 binadır.\n• 1. Kademe: Köylü toplama hızı +%15\n• 2. Kademe: Araştırma hızı +%20\n• 3. Kademe: Tüm kaynaklar için Köylü toplama hızı +%20. Araştırma hızları +%20. Üretim hızları +%20."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Develi Okçular: Hafif yakın dövüş piyadesine bonus hasar veren hafif menzilli süvari.\nDeve Binicileri: Süvarilere bonus hasar veren hafif yakın dövüş süvarisi.\nGulam: Saldırı sırasında çift vuruş yapan çetin piyadeler."
+            }
+        ]
+    },
+    "ottomans": {
+        "summary": "Osmanlı Ordusu, dizilişlerinin saflarını şişirmek için sürekli olarak birimler üretebilen Askeri Okullarla desteklenip savaş alanına hükmedecek şekilde genişleyebilir. Bu dizilişleri destekleyen Mehter savaş davulları, iyi eğitimli birlikleri durumsal avantaj elde etmek üzere uyarır.",
+        "classes": "Divan-ı Hümayun, Askeri Okullar, Kuşatma",
+        "era": "M.S. 990 - 1566",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Birim eğitmek ve çağ atlamak Vezir Puanı için deneyim sağlar, eylemin maliyeti ne kadar yüksek olursa o kadar fazla deneyim kazanılır. Beşe kadar Vezir Puanı kazanın ve bunları güçlü özgün Osmanlı bonuslarının kilidini açmak için harcayın.",
+                    "Askeri Okullar ücretsiz olarak sürekli birim üretebilir.",
+                    "Demirciler ve Üniversitelerin nüfuzu, her çağ atladıktan sonra askeri birim üretim hızının artmasını sağlar.",
+                    "Askeri binalar ve teknoloji binaları daha ucuzdur.",
+                    "Kale Çağı'nda (III) Yeniçeri tüfekçi birimi üretilebilir. Bu birim kuşatma makinelerini tamir edebilir.",
+                    "Mehter savaş davulcusu, yakındaki askeri birimlerin saldırı ve savunmasını geliştirir.",
+                    "Daha uzun menzil ve alan hasarına sahip Şahi Topu kuşatma makinesini sahaya sürün.",
+                    "Yüzen bir Askeri Okula dönüşebilen Büyük Kadırga gemisini üretin.",
+                    "Ticaret Gemilerinin ve Nakliye Gemilerinin hareket hızı artar.",
+                    "Yaban Domuzundan yiyecek toplanamaz."
+                ]
+            },
+            {
+                "title": "Askeri Okul Eğitimi",
+                "description": "Belirli türde bir birimi sürekli olarak ücretsiz üretebilecek Askeri Okul inşa et, ancak üretim hızı daha yavaş olacak."
+            },
+            {
+                "title": "Divan-ı Hümayun",
+                "description": "Birim eğitmek ve çağ atlamak Vezir Puanı için deneyim sağlar, eylemin maliyeti ne kadar yüksek olursa, o kadar fazla deneyim kazanılır. Beş adede kadar Vezir Puanı kazan ve bunları güçlü özgün Osmanlı bonuslarının kilidini açmak için harca."
+            },
+            {
+                "title": "Askeri Teşvik",
+                "description": "Daha ucuz askeri ve teknolojik binalarla bir orduyu eğit, yükselt ve topla."
+            },
+            {
+                "title": "Nakliye Rotaları",
+                "description": "Ticaret Gemilerinin, Balıkçı Gemilerinin ve Nakliye Gemilerinin hareket hızı artar."
+            },
+            {
+                "title": "Nüfuz",
+                "description": "Bir Demirci veya Üniversite nüfuzu altında inşa edilen askeri üretim binaları, her çağ atlamayla artan üretim hızı kazanır."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Sipahi: Atlı yerine geçer. Metanet yeteneğini etkinleştirerek daha hızlı saldırır ancak yakın dövüş silahlarından aldığı hasar artar.\nMehter: Savaş Davulları yeteneğini açtığında yakındaki birimlere askerî iyileştirmeler sağlayan atlı savaş davulcusu.\n• Saldırı Davulları: Artırılmış saldırı hızı.\n• Yakın Dövüş Savunma Davulları: Artırılmış yakın dövüş zırhı.\n• Menzilli Savunma Davulları: Artırılmış menzilli zırh.\nYeniçeri: Kuşatma makinelerini tamir edebilen ve süvarilere bonus hasar verebilen güçlü tüfekçi.\nBüyük Kadırga: Yüzen bir Harbiye Mektebine dönüşebilen büyük savaş kadırgası.\nBüyük Gülle Topu: Sahaya sürülebilecek en büyük barutlu kuşatma makinesi. Uzun menzile ve alan hasarlı saldırıya sahiptir.\nAkıncı: Peş peşe hızlı bir şekilde iki ok atan uzun menzilli süvari. İmparatorluk Meclisinden kilidinin açılması gerekir."
+            }
+        ]
+    },
+    "malians": {
+        "summary": "Mali ekonomisi, altın ve yiyecek üretimi seçenekleriyle büyür. Açık Ocak Madenleri için altın yatakları talep ederek gizlice vuran ve düşmanlara cirit fırlatan özgün piyade birimleri üretmek için bu büyümeden yararlanırlar.",
+        "classes": "Altın Ekonomisi, Piyade, Sığır",
+        "era": "M.S. 1235 - 1670",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Yatağı tüketmeden Altın üretmek için Altın Damarları üzerinde Ocak Madenleri inşa et.",
+                    "Karanlık Çağda (I) Değirmenlerden Sığır üret. Malili Köylüler, diğer medeniyetlere göre Sığırlardan daha hızlı yiyecek elde eder veya zaman içinde Yiyecek toplamak için Sığır Çiftliğine konuşlandırılabilirler.",
+                    "Musofadi birimleri, Gizliliği Etkinleştir yeteneği ile pusu kurarak saldırı düzenleyebilir.",
+                    "Karşılık verme sistemini farklı şekillerde kullanan beş özgün birim mevcuttur.",
+                    "Kıdemli birim teknolojilerinin araştırma süresi ve maliyeti yarıya iner.",
+                    "Tüccar yollarından toplanan altın, gelecekteki teknolojilerin araştırma süresini azaltacaktır.",
+                    "Ücretli Karakollardan geçen Tüccarlar ve Ticaret Gemileri, taşıdıkları Altın miktarına göre anında ek Altın kazandırır. Bir Ücretli Karakolun menziline başka bir tane daha inşa edilirse fazladan vergi üretmez.",
+                    "Balıkçı Gemileri Yiyeceğinin %10 kadarını Altın olarak bırakır.",
+                    "Rıhtımların yakınındayken tüm gemilerin hareket hızı artar.",
+                    "Nakliye Gemileri, konuşlandırılan her birim başına ciritlerle saldırır.",
+                    "Evler iki kat daha hızlı inşa edilir ama maliyetleri ve sağladıkları Nüfus yarıya düşer.",
+                    "Yaban Domuzundan yiyecek toplanamaz."
+                ]
+            },
+            {
+                "title": "Açık Ocak Madenleri",
+                "description": "Üstün bir Altın ekonomisine sahip ol ve Karanlık Çağ'da (I) Altın Damarlarının üzerine Açık Ocak Madeni inşa ederek yatağı tüketmeden Altın üret. Köylüler, Açık Ocak Madeni aktifken Altın kazabilir.\nAltın Damarı tamamen tükenirse, Açık Ocak Madeni yataktan Altın çıkarmaya devam edecektir."
+            },
+            {
+                "title": "Nüfuz - Madencilik Toplulukları",
+                "description": "Ocak Madenlerinin etki alanında inşa edilen her Ev ve Maden Kampı, Altın üretimini artırır.\nŞehir Merkezi inşa etmek için taş yerine altın gerekir."
+            },
+            {
+                "title": "Sığır ve Çiftlikler",
+                "description": "Karanlık Çağda (I) Değirmenlerden Sığır üret. Malili Köylüler, diğer medeniyetlere göre Sığırlardan daha hızlı yiyecek toplar ya da Sığırlar, zamanla Yiyecek miktarlarının artması için Sığır Çiftliğine de konuşlandırılabilir."
+            },
+            {
+                "title": "Musofadi Yol Bulucu",
+                "description": "Musofadi Savaşçısı ve Musofadi Tüfekçisi özgün birimleri, Gizlenme yeteneğini aktifleştirerek etrafta gizlice dolaşıp pusu fırsatları yaratabilir."
+            },
+            {
+                "title": "Farari'nin Bilgeliği",
+                "description": "Kale Çağı'nda (III) kilidi açılan kıdemli birim teknolojilerinin araştırma maliyeti ve süresi yarıya iner."
+            },
+            {
+                "title": "Ücretli Karakollar",
+                "description": "Ücretli Karakollardan geçen Tüccarlar ve Ticaret Gemileri, mevcut ticaret hedefine göre anında ek kaynak sağlar. Bir Ücretli Karakolun menziline başka bir tane daha inşa edilirse fazladan vergi üretmez."
+            },
+            {
+                "title": "El Yazması Ticareti",
+                "description": "Tamamlanan Tüccar yollarından toplanan altın, gelecekteki teknolojilerin araştırma süresini azaltır."
+            },
+            {
+                "title": "Balık İşleme",
+                "description": "Balıkçı Tekneleri, Yiyeceklerinin %10 kadarını Altın olarak bırakır."
+            },
+            {
+                "title": "Çıkarma Birlikleri",
+                "description": "Tüm gemilerin hareket hızı, Rıhtımlarının yakınındayken arttı.\nKonuşlandırılan her birim için Nakliye Gemileri ciritlerle saldırır."
+            },
+            {
+                "title": "Özgün Birimler",
+                "list": [
+                    "Donso: Mızraklı Asker yerine geçer. Belirli aralıklarla cirit atabilen, artmış sağlık ve yakın dövüş zırhına sahip hafif yakın dövüş piyadesi.",
+                    "Savaşçı Öncü: Hasarı, hareket hızını, sağlığı ve sağlık yenilenmesini artırabilen hafif süvari.",
+                    "Musofadi Savaşçısı: Gizliliği Etkinleştir yeteneğini kullanabilen hızlı, hafif, zırh karşıtı piyade.",
+                    "Cirit Atıcı: Artırılmış menzilden cirit atan menzilli karşıtı piyade.",
+                    "Sofa: Düşük maliyet, sağlık ve zırha sahip daha hızlı ağır süvari.",
+                    "Musofadi Tüfekçisi: Gizliliği Etkinleştir yeteneğini kullanabilen daha hızlı hareket eden tüfekçi."
+                ]
+            }
+        ]
+    },
+    "byzantines": {
+        "summary": "Bizanslılar, dört bir yana yayılan ve hayat veren Su Kemeri ve Sarnıç kanalları inşa eder. Benzersiz yeteneklerden faydalan ve seçkin Zeytinyağı ile Paralı Asker tut. Köylüler, imparatorluk için durmak bilmeden Zeytinyağı üretir.",
+        "classes": "Şehir Planlaması, Paralı Askerler, Savunma",
+        "era": "M.S. 330 - 1453",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Sarnıçlar; birim üretim hızı, araştırma hızı veya bina savunmasının etkisini artırmak üzere ayarlanabilir. Su Kemerleri ile bağlandığında bonuslar artar.",
+                    "Çeşitli biçimlerde Yunan Ateşi kullanabilen saha birimleri.",
+                    "İnşa edilen her bina için bonus Taş alırsın.",
+                    "Paralı asker birimleri üretmek için kullanılan Zeytinyağını hasat et.",
+                    "Feodal Çağ'dan (II) itibaren Paralı Asker olarak Paralı Asker Binasıyla diğer medeniyetlere kıyasla benzersiz birimler üretebilir.",
+                    "İşçiler Böğürtlen Çalılarından, Zeytinliklerden ve Balıklardan Zeytinyağı üretir.",
+                    "Tüccarlar başarılı ticaret sonucunda Zeytinyağı sağlar.",
+                    "Marketler Zeytinyağı ticareti yapabilir.",
+                    "Taşıma Gemileri yük boşaltırken birimlerin hareket hızını geçici olarak artırır."
+                ]
+            },
+            {
+                "title": "Zeytinyağı",
+                "description": "Paralı Asker birimleri tutmak için kullanılan benzersiz bir kaynak topla. Köylüler, Böğürtlen Çalılarından toplanan Yiyeceğin %50, Zeytinliklerden toplananların %20 ve Kıyı Balıklarından toplananların %10 kadarına denk Zeytinyağı toplar.\nBalıkçı Tekneleri, Balıktan elde edilen Yiyeceğin %20 kadarına denk Zeytinyağı üretirken Tüccarlar ise ticareti yapılan miktara bağlı olarak %20 Zeytinyağı sağlar."
+            },
+            {
+                "title": "Paralı Askerler",
+                "description": "Paralı Asker Binasına Zeytinyağı ile diğer medeniyetlerden eşsiz birimler almak için sözleşmeler satın al veya Ticaret Merkezlerinin kontrolünü sağla."
+            },
+            {
+                "title": "Sarnıçlar ve Su Kemerleri",
+                "description": "Sarnıçlar, yakındaki Köylülere toplama oranlarında artış ve yakındaki binaları geliştiren, birim üretim hızını, araştırma hızını veya bina savunmasını artıran bir etki sağlar.\nBir Su Kemeri ağı inşa et ve bonus verimini artırmak için bunu Sarnıçlara bağla."
+            },
+            {
+                "title": "Meydan Taşları",
+                "description": "İnşa edilen her binadan Taş toplar. Bina boyutu, toplanan Taş miktarını belirler."
+            },
+            {
+                "title": "Yunan Ateşi",
+                "description": "Chierosiphonlar, yükseltilmiş Kadırgalar ve Katapultlar, saldırıları sırasında Yunan Ateşi ile alana zaman içinde hasar veren alev parçaları fırlatır."
+            },
+            {
+                "title": "Mangonel Mevzileri",
+                "description": "Karakollar ve İç Kaleler, Mangonel Mevzileriyle yükseltilebilir. Taş Sur Kuleleri, Springaldlar yerine Mangonel Mevzileriyle donatılmıştır."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Limitanei: Mızraklı Asker yerine geçer. Hareket hızı pahasına menzilli zırhı artıran Kalkan Duvarı yeteneğine sahip hafif yakın muharebe piyadesi.\nVareg Muhafızı: Silahşor yerine geçer. Zırh pahasına hasarı artırmak için Berserk yeteneğini kullan. Taşıma Gemileri inşa edebilir ve konuşlandırıldığında taşıtların zırhını artırabilir. Taşıma Gemilerinden inerken yüksek hareket hızı kazanır.\nKatafrakt: Şövalye yerine geçer. Yoluna çıkan düşmanları ezip geçen ve onlara hasar veren güçlü bir hedef yeteneği olan Ezme özelliğine sahip ağır süvari.\nCheirosiphon: Kısa menzilli Yunan Ateşi saldırısı ile donatılmış bir koçbaşı.\nKadırga: Springald Gemisinin yerine geçer. Yunan Ateşi ile donatılmıştır."
+            }
+        ]
+    },
+    "japanese": {
+        "summary": "Japon topraklarına hükmeden Daimyo, tarımı geliştirir ve topraklarını korumak için Samuray tutar. Benzersiz Demirhanesi, savaşta öne çıkmak için durmak bilmeden kılıçlarını bilemeye devam eder. Azılı Samuray Sancaktarları, kapsamlı piyade ve süvari ordusunu savaşta zafere götürür.",
+        "classes": "Tarım, Sancaktarlar, Piyade",
+        "era": "M.S. 794 - 1616",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Şehir Merkezlerinin savunmaları, yakındaki Tarlaların hasat oranlarını ve Samuray Sancaktarlarının üretim sınırını artırmak üzere yükseltilebilir.",
+                    "Samuray Sancaktarları yakındaki piyade ve süvarilere bonuslar sağlar.",
+                    "Samuraylar menzilli saldırıları veya yakın dövüş saldırılarını engelleyebilen Saptırıcı Zırha sahiptir.",
+                    "Kışlaların inşaat maliyeti daha ucuzdur.",
+                    "Çiftlik Evleri, Nüfus sağlamanın yanı sıra Yiyecek bırakma yerleri olarak da işlev görür.",
+                    "Demirhaneler, askerî yükseltmeler içermenin yanı sıra Altın ve Taş bırakma yerleri olarak da işlev görür.",
+                    "Köylüler tarafından bırakılan Altın, bonus Taş üretir ve bunun tersi de geçerlidir.",
+                    "Ekstra yakın dövüş hasarı yükseltmesine Karanlık Çağ'da (I) erişilebilir.",
+                    "Seçtiğin Kale Çağı (III) Simgesi ile Budist Rahipler veya Şinto Rahipleri arasında seçim yap.",
+                    "Kaleler, İmparatorluk Çağı'nda (IV) Roket Mevzileriyle ve artırılmış can ile donatılmış hâlde gelir.",
+                    "Balıkçı Tekneleri daha ucuza üretilir."
+                ]
+            },
+            {
+                "title": "Daimyo",
+                "description": "Şehir Merkezleri; Daimyo Köşkü, Daimyo Sarayı ve Şogun Köşkü adı verilen özel binalara yükseltilebilir. Bu binalar yakındaki Köylülerin üretime devam eden Tarlalarına %20, %40, %60 oranında bonus sağlar; Samuray Sancaktarlarının kapasitesini +1, +2, +3 artırır ve savunmalarını geliştirir."
+            },
+            {
+                "title": "Hatamoto Samurayı",
+                "description": "Yakınındaki piyadelerin hasarını +%15, süvarilerin hasarını +%10 artıran elit Samuray Sancaktarları sahaya sür. Samuray Sancaktarlar öldürüldüklerinde sancaklarını düşürerek bir süreliğine aynı etkiyi sağlarlar."
+            },
+            {
+                "title": "Sakin Zihin",
+                "description": "Karanlık Çağ'da (I) Samuray üret. Samuraylar, yakın dövüş veya menzilli saldırıları düzenli olarak engelleyebilen Saptırıcı Zırh yeteneğine sahiptir."
+            },
+            {
+                "title": "Çiftlik Evi ve Demirhane",
+                "description": "Demirhane, Altın ve Taş bırakma yeridir. Madencilik Kampı ve Demircinin yerini alır. Ek olarak Karanlık Çağ'da (I) fazladan yakın dövüş hasarı teknolojisi sağlar. Çiftlik Evi hem nüfus sağlar hem de yiyecek bırakma yeri olarak Değirmenin yerini alır."
+            },
+            {
+                "title": "Oda'nın Hisarı",
+                "description": "İmparatorluk Çağı'nda (IV) daha yüksek maliyet karşılığında artırılmış cana ve Roket Mevzilerine sahip daha güçlü İç Kaleye erişim sağlar. Roketler hızlı saldırılar yapar ve tekli hedeflere büyük hasarlar verir."
+            },
+            {
+                "title": "Gümüş Madenciliği",
+                "description": "Köylüler Altın biriktirdikçe %20 ilave Taş üretilir. Bu durumun tersi de geçerlidir."
+            },
+            {
+                "title": "Dinî Seçim",
+                "description": "Seçtiğin III. Çağ Simgesi ile Şinto ve Budizm arasında seçim yap. Şinto'yu seçersen Şinto Rahibinin kilidini açarsın. Budizm'i seçersen Budist Keşişin kilidini açarsın. Bu dinî birimler benzersiz bonuslar sunar."
+            },
+            {
+                "title": "Samuray Bölgeleri",
+                "description": "Kışlaları inşa etmek %50 daha ucuzdur."
+            },
+            {
+                "title": "Balıkçı Köyü",
+                "description": "Balıkçı Tekneleri %25 daha ucuza üretilir."
+            },
+            {
+                "title": "Özgün Birimler",
+                "list": [
+                    "Samuray: Silahşor yerine geçer. Yakın dövüş ve menzilli saldırıları engelleyebilen Saptırıcı Zırha sahip ağır yakın dövüş piyadesidir.",
+                    "Atlı Samuray: Mızraklı Süvari yerine geçer. Saptırıcı Zırhlı ağır yakın dövüş süvarisidir.",
+                    "Yumi Ashigaru: Düşük maliyet ve sağlık karşılığında artırılmış hareket hızına sahip okçudur.",
+                    "Onna-Bugeisha: Rakibini tetikte tutmak için yüksek hareket hızını ve uzun silah menzilini kullanabilen hafif yakın dövüş piyadesidir.",
+                    "Onna-Musha: Arbaletçinin yerine geçer. Artırılmış hareket kabiliyetini kullanarak ağır hedefleri hırpalayabilen Süvari Okçusudur.",
+                    "Shinobi: Casusluk yapabilen, binaları sabote edebilen veya hedeflere suikast düzenleyebilen casusluk birimidir. Koka Kasaba Simgesinden üretilir.",
+                    "Ozutsu: Yüksek kuşatma ve sıçrama hasarına sahip devasa bir tüfeğe sahip ağır menzilli barutlu piyadedir. Tanegashima Silah Ustası Simgesinden üretilir."
+                ]
+            }
+        ]
+    },
+    "jeanne_darc": {
+        "summary": "Fransız halkı için bir umut ışığı olan Jeanne d'Arc, savaş meydanına iniyor ve takipçilerini yüreklendiriyor. Mütevazı bir köylü olarak başlayan Jeanne, Karanlık Çağ'da Kahramanın Yolculuğuna başlar. Jeanne tecrübe kazandıkça güçlü bir önder hâline gelir. Yaratmak istediği imparatorluğu şekillendirmek için güvenilir yoldaşlara ve güçlü yeteneklere erişim kazanır.",
+        "classes": "Ticaret, Süvari, Kahraman",
+        "era": "M.S. 1412 - 1431",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Jeanne d'Arc, Kahramanın Yolculuğu'na çıkar.",
+                    "Feodal Çağ’da (II) Kraliyet Şövalyeleri.",
+                    "Ekonomik teknolojiler  -%35 daha ucuzdur.",
+                    "Ticaret Merkezleri mini haritada görünür.",
+                    "Tüccarlar Marketlere Yiyecek, Odun veya Altın getirebilir.",
+                    "Ticaret Gemileri +%20 kaynak getirir."
+                ]
+            },
+            {
+                "title": "Bir Kahramanın Yolculuğu",
+                "description": "Jeanne d'Arc savaş alanında. Kaynak toplama, bina inşa etme ve savaşa katılma gibi görevleri tamamlayarak tecrübe puanı kazanan bir kahraman birimidir.\nJeanne yeterince tecrübe puanı topladıktan sonra seviye atlayarak güçlü ekonomi ve savaş yetenekleri kazanabilir."
+            },
+            {
+                "title": "Kraliyet Aygırları",
+                "description": "Feodal Çağ'da (II) Kraliyet Şövalyesi mevzilendir ve süvari için güçlü özgün teknolojileri araştır."
+            },
+            {
+                "title": "Şahlanan Ekonomi",
+                "description": "Halk Jeanne d'Arc'ın liderliğinde daha sıkı çalışır. Ekonomik yükseltmeler %35 daha ucuz olur."
+            },
+            {
+                "title": "Ticaret Ekonomisi",
+                "description": "Yiyecek, Odun veya Altını; Tüccarlar ve Ticaret Gemileri ile Marketlere getirmeyi seç.\nTicaret Gemileri +%20 daha fazla kaynak geri getirir.\nTicaret Merkezleri oyunun başında mini haritada gösterilir.\nRıhtımlar, nüfus alanı sağlar."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Jeanne d'Arc: Köylü olarak başlayıp güçlü yetenekler kazanmak için Kahramanın Yolculuğuna başlayan bir kahraman birimidir.\nJeanne'ın Süvarisi: Baskın, kanatlardan saldırı ve Arbaletçilere karşı savaşma konusunda etkili olan ve Jeanne 3. seviyeye ulaştığında kullanılabilir olan Hızlı Süvari.\nJeanne'ın Şampiyonu: Mızraklı Askerlere karşı savaşma konusunda etkili olan ve Jeanne 3. seviyeye ulaştığında kullanılabilen sağlam piyade.\nKraliyet Şövalyesi: Bir hücumu tamamladıktan sonraki 5 saniye boyunca +3 bonus hasar kazanan Ağır Süvari.\nFransız Arbaletçi: 30 saniyeliğine +1 silah menzili ve +5 menzilli zırh sağlamak için bir savunma Pavisesi konuşlandırabilen +1 yakın dövüş zırhına sahip Arbaletçi.\nTop: Kurma süresi yoktur ve daha çok hasara ve hareketliliğe sahiptir, gülle topunun yerini alır.\nSavaş Gemisi: Ön kısımda uzun menzilli bir topa sahip büyük savaş gemisi.\nSavaş Teknesi: Düşük maliyetli ve delinmeye karşı zırhı geliştirilmiş özel bir Springald Gemisi."
+            }
+        ]
+    },
+    "ayyubids": {
+        "summary": "Kıtaların birleştiği, ticaretin bilimle buluştuğu ve imparatorluklar çarpıştığı noktada Eyyûbîler, avantajı kazanmak için bilgiye yatırım yapıyor. Şehirleşme ve bilimin temelinde yatan Beyt'ül Hikmet, Altın Çağ bonuslarının ve ileri çağlara geçmenin kilidini açar. Eyyûbîler, savaş meydanında taktik avantajlar kazanmak için çok yönlü birimlere odaklanır.",
+        "classes": "Teknoloji, Develer, Şehir Planlaması",
+        "era": "M.S. 750 - 1517",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Deve birimleri, yakındaki düşman atlı süvarilerin verdiği hasarı -%20 azaltır.",
+                    "Böğürtlen Çalılarının yakınında inşa edilen Değirmenler Bahçe oluşturarak Yiyecek kapasitesini +100 artırır.",
+                    "Böğürtlen Çalılarından +%25 daha hızlı toplanır ancak Yaban Domuzundan yiyecek toplanamaz.",
+                    "Böğürtlen Çalılarının taşıma kapasitesi +3 artar.",
+                    "Kara Tüccarları -%33 daha ucuzdur.",
+                    "Rıhtımlar -%50 daha ucuzdur.",
+                    "Beyt'ül Hikmet’in Kanatlarını yükselterek Köylülere ihtiyaç olmadan çağ atla.",
+                    "Herhangi bir ek yükseltmeye gerek olmadan güçlü bonusların kilidini açan 8 farklı Kanattan birini seç.",
+                    "Kanatlardan elde edilen bonuslar sonraki çağlarda araştırıldığında daha güçlü olur.",
+                    "Beyt'ül Hikmet’in etki alanında binalar inşa ederek bir Altın Çağ’a gir ve kaynak toplama hızını, araştırma hızını ve üretim hızını artır."
+                ]
+            },
+            {
+                "title": "Uyum Sağlayan Komutan",
+                "description": "Beyt'ül Hikmet'in 8 benzersiz Kanatlarından seçim yaparak çağ atla.\nMedeniyeti savaş gereksinimlerine hazır hâle getirmek için herhangi bir yükseltmeye ihtiyaç duymadan anında Ekonomi, Teknoloji ve Askerî bonuslar kazan.\nHer Kanat, sonraki çağlarda inşa edildiğinde daha güçlü bonuslar sağlar."
+            },
+            {
+                "title": "Deve Dövüşçüleri",
+                "description": "Develer, düşman atlı süvarilerini varlıklarıyla korkutup verdikleri hasarı -%20 azaltır."
+            },
+            {
+                "title": "Kuşatma İşçiliği Ustaları",
+                "description": "Piyadeler, Kuşatma Mühendisliği teknolojisine ihtiyaç duymadan Kuşatma Makinesi inşa edebilir.\nBenzersiz kuşatma silahlarına ve bir benzersiz kuşatma yükseltmesine erişim sağlayın."
+            },
+            {
+                "title": "Büyük Bağlar",
+                "description": "Yakınlarına Değirmenler inşa edip Böğürtlen Çalılarını Bahçeye dönüştürerek Yiyecek kapasitesini +100 artır.\nKöylüler, Böğürtlen Çalılarını %25 daha hızlı toplar ancak Yaban Domuzundan Yiyecek toplayamaz.\nKöylüler, Böğürtlen Çalılarından +3 Yiyecek taşır."
+            },
+            {
+                "title": "Ticaret Ekonomisi",
+                "description": "Arazi Tüccarları %33 daha ucuzdur."
+            },
+            {
+                "title": "Tersaneler",
+                "description": "Rıhtımlar -%50 Odun karşılığında inşa edilebilir."
+            },
+            {
+                "title": "Altın Çağ",
+                "description": "Altın Çağa ulaşmak için ilerleyerek ekonomiyi, teknolojiyi ve askeriyeyi iyileştirir.\nBeyt'ül Hikmet'in etki alanındaki binalar +5 ateş zırhı alır ve Altın Çağa bir puan katkıda bulunur. Kilit açma eşikleri sırasıyla 10, 20, 30, 50 ve 75 binadır.\n• 1. Kademe: Köylülerin toplama hızı +%10\n• 2. Kademe: Araştırma hızı +%25\n• 3. Kademe: Üretim hızı +%20\n• 4. Kademe: Kuşatma birimi üretmek %20 daha az maliyet gerektirir\n• 5. Kademe: Deve birimleri %20 daha hızlı saldırır."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Çöl Akıncısı: Menzilli ve Yakın Dövüş modları arasında geçiş yapabilen, çok amaçlı bir deve binicisi.\nDeveli Mızraklı Süvari: Güçlü hücum saldırıları yapabilen ağır deve.\nDerviş: Güçlü bir iyileştirme becerisine sahip binekli dinî birim.\nAteşli Mangonel: Genişletilmiş bir alana hasar vermek için Yanıcı modunu kullanabilen benzersiz bir Mangonel.\nSultan Kulesi: Binalara yıkıcı hasar veren bir koçbaşına sahip ve okçularla dolu devasa bir kuşatma silahı."
+            }
+        ]
+    },
+    "zhu_xis_legacy": {
+        "summary": "Filozof Zhu Xi'nin öğretileri Çin medeniyetini yeniden şekillendirir. Zhu Xi'nin Mirası ile Çinliler üstün İmparatorluk Memurlarının yanı sıra gelişmiş teknolojiler sayesinde karmaşık bir yönetime sahiptir. Git gide zenginleşen hazineyle güçlü hanedanlar kurulur ve özgün teknolojiler araştırılır. Saray Muhafızlarını, Zhuge Nu'ları ve El Bombacılarını orduna katarak İmparatorluğu koru.",
+        "classes": "Hanedanlar, Vergiler, Teknoloji",
+        "era": "M.S. 907 - 1644",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Tang Hanedanlığında başla - Simge maliyetleri -%15 azaltılır ve Köyün kilidi açılır.",
+                    "Özel bonusları ve binaları açmak için bir Çağdan iki Simge inşa ederek yeni bir Hanedanlığa gir.",
+                    "Eğitilen birimler, araştırılan teknolojiler ve bırakılan kaynaklar, İmparatorluk Memurları tarafından toplanabilecek vergileri (Altın) oluşturur.",
+                    "Özgün teknolojiler İmparatorluk Görevlilerini büyük ölçüde yükseltir, yeni birimlerin kilidini açar ve askerî birimleri güçlendirir.",
+                    "Feodal Çağda Erken Saray Muhafızları mevcuttur.",
+                    "Hanedanlıklara girmeden Zhuge Nu ve El Bombacısına eriş.",
+                    "Köylüler savunmaları +%50 hızlı ve diğer tüm binaları +%100 hızlı inşa eder.",
+                    "Kimya teknolojisi Karanlık Çağ'da ücretsiz olarak verilir - Şehir Merkezleri, Kaleler ve Karakollar Savunma Ok Yarıkları yerine Tüfek Yarıkları kullanır.",
+                    "Rıhtımlar +%10 hızlı çalışır."
+                ]
+            },
+            {
+                "title": "Büyük Hanedanlar",
+                "description": "Yolculuğuna Tang Hanedanlığında başla - Simge maliyetleri -%15 azalır ve Köyün kilidi açılır.\nÖzel bonuslar, özgün binalar ve birimlerle Hanedanlıklara başlamak için bir Çağda her iki Simgeyi da inşa et.\n• Song: Ekonomi ve Nüfus binalarının odun maliyetinde -%30 indirim - Ambarın inşasının kilidini açar.\n• Yuan: Tüm birimlerde %10 indirim - Pagoda'nın inşasının kilidini açar.\n• Ming: Özgün Birimler +%20 hasar verir."
+            },
+            {
+                "title": "Vergiler",
+                "description": "Eğitilen birimler, araştırılan teknolojiler ve bırakılan kaynaklar, İmparatorluk Memurları tarafından toplanabilecek vergiler (Altın) oluşturur. Lu Dağı Akademisi ve Zhu Xi'nin Kütüphanesinden gelen benzersiz idari teknolojiler, İmparatorluk Memurlarını büyük ölçüde geliştirir."
+            },
+            {
+                "title": "Hanedan Birimleri",
+                "description": "Hanedan kurmadan Zhuge Nu ve El Bombacısına eriş. Simgeler güçlü Shaolin Keşişlerinin, Yuan Akıncılarının ve İmparatorluk Muhafızlarının kilidini açabilir. İlkel Saray Muhafızları Feodal Çağ'da eğitilebilir."
+            },
+            {
+                "title": "Barut Üstatları",
+                "description": "Oyuna ücretsiz verilen Kimya teknolojisi ile başla; savunma binalarında Savunma Ok Yarıkları yerine Tüfek Yarıkları kullanılır."
+            },
+            {
+                "title": "Seri Üretimler",
+                "description": "Köylüler savunmaları +%50 daha hızlı ve diğer tüm binaları +%100 daha hızlı inşa eder. Rıhtımlar +%10 daha hızlı çalışır."
+            },
+            {
+                "title": "Sarayı Koru",
+                "description": "İmparatoru korumak için Feodal Çağ'da İlkel Saray Muhafızı eğit."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "İmparatorluk Memuru: Denetleme yeteneğini kullanarak araştırma ve askeriye binalarının üretim hızını +%150tır. Ekonomi binalarını denetlemek, Köylülerin bıraktığı kaynak miktarını +%20artırır.\nZhuge Nu: Okçuların yerini alır. Hafif birimlere karşı etkili hızlı seri saldırıya sahip hafif menzilli piyade.\nSaray Muhafızı: Silahşor alternatifi. Hareket hızı yerine zırha sahip ağır yakın dövüş piyadesi.\nArı Kovanları: Mangonel alternatifi. Bir roket yağmuru ateşleyen ve alan etkisi hasarı veren kuşatma makinesi.\nEl Bombacısı: Etki alanı hasarı veren el bombaları atan hafif menzilli barutlu piyade."
+            }
+        ]
+    },
+    "order_of_the_dragon": {
+        "summary": "Ejder Tarikatı, saldırgan imparatorlukları yerle bir etmek için özenle seçilmiş varlıklı elitler tarafından oluşturulmuştur. Yalnızca küçük bir sayıda eşsiz savaşçı yetiştirmek için büyük miktarda kaynak harcayan Tarikat, eşsiz bir elit ordu kurmuştur.",
+        "classes": "Kalite, Piyade, Savunma",
+        "era": "M.S. 1408 - 1437",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Köylüler +%40 daha fazla kaynak taşır, +%28 daha hızlı toplama yapar, binaları +%20 daha hızlı inşa eder ve tamir eder.",
+                    "Piyade ve süvari birimleri çok daha güçlü olur ancak aynı zamanda üretimleri de daha pahalıdır ve iki kat daha fazla nüfus kullanırlar.",
+                    "Savunma ve ekonomi bonusu almak için Kadim Eserleri Karakollara, Taş Kulelere ve İç Kalelere yerleştirebilirsin.",
+                    "Rıhtımlara yerleştirilen Kadim Eserler, gemi saldırı hızını Kadim Eser başına +%5 artırır (Maksimum +%20).",
+                    "Mevziler -%20 daha ucuzdur. Karakol görüş menzili +%20 artar.",
+                    "Bir Şehir Merkezinin etki alanındaki binalar Acil Onarım yeteneği kazanır. Bu yetenek, binaları onarmak üzere etkinleştirilebilir."
+                ]
+            },
+            {
+                "title": "Verimli Köylüler",
+                "description": "Köylüler %28 daha hızlı toplar, binaları %20 daha hızlı inşa eder ve onarır ancak üretmek için fazladan %20 Yiyecek gerektirir."
+            },
+            {
+                "title": "Dini Şevk",
+                "description": "Karakollara, Kulelere ve İç Kalelere Kadim Eserler yerleştirerek bu binaların zırhını +%25, hasarını +%25, menzilini +%25 ve görüş hattını +%20 artır ve imparatorluğunun gücünü göster.\nRıhtımlara yerleştirilen Kadim Eserler, Kadim Eser başına gemi saldırı hızını +%5 artırır (Maksimum +%25)\nBinalara yerleştirilen Kadim Eserler dakikada +80 Altın getirir."
+            },
+            {
+                "title": "Elit Ekipman",
+                "description": "Ağır Meşaleler, Pullu Zırh ve Savaş Atları gibi teknolojileri araştırarak Tarikatın gücüne güç kat."
+            },
+            {
+                "title": "Mevzi Mimarlığı",
+                "description": "Tüm mevzi teknolojileri -%20 daha ucuzdur. Karakol görüş menzili +%20 artar."
+            },
+            {
+                "title": "Çekçekler",
+                "description": "Köylüler, diğer medeniyetlerden +40% daha fazla kaynak taşır."
+            },
+            {
+                "title": "Nüfuz",
+                "description": "Şehir Merkezi etki alanında inşa edilmiş binalar Acil Onarımlar yeteneğini kazanır ve bu da binanın 20 saniye boyunca her saniye +150 sağlıkla onarılması için etkinleştirilebilir."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Yaldızlı Silahşor ve Yaldızlı Şövalye gibi Tarikatın elit piyade ve süvari birimlerinin sağlığı normal birimlere kıyasla neredeyse iki kat daha fazladır ve çok daha fazla hasar verir. Bununla birlikte bu birimleri eğitmek daha pahalıdır ve iki kat nüfus alanı gerektirir."
+            }
+        ]
+    },
+    "knights_templar": {
+        "summary": "Güçsüzleri ve bitkinleri korumak için kurulan Tapınak Şövalyeleri, müttefiklerini çağırmak için Avrupa'nın dört bir yanında Kumandanlıklar kurdu. Muhteşem bir dizi ağır birlikten oluşan Tapınakçılar, savaşa büyük bir cesaret ve disiplinle gider. Özenle bakılan arazilerde Hisarlar bulunur. Bunlar korudukları hacılar için önemli savunma noktaları oluşturur ve sığınak sağlar.",
+        "classes": "Hacılar, Kumandanlıklar, Şövalyeler",
+        "era": "MS 1119 - 1307",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Bir Kumandanlık kurarak Şehir Merkezinde çağ atla.",
+                    "Kumandanlıklar birimlerin ve bonusların kilidini kalıcı olarak açar.",
+                    "Hacılar Kutsal Mekânlara seyahat ederek altın kazandırır.",
+                    "Feodal Çağ'da Hisarlar inşa et.",
+                    "Hisarlar yakındaki birimlerin menzilini ve yakındaki Taş Surların canını artırır.",
+                    "Hisarlar birer Simge görevi görür ancak tamamen yok edilebilirler.",
+                    "Oduncular otomatik olarak odunları depolayabilir ve her Çağda daha hızlı toplar.",
+                    "Kuşatma Atölyeleri ve Kuşatma Makineleri daha az odun ister.",
+                    "Katapultlar fazladan bir atış daha yapar."
+                ]
+            },
+            {
+                "title": "Kumandanlık kur",
+                "description": "Üç benzersiz Kumandanlıktan birini kurarak Şehir Merkezinde Çağ Atla. Her Kumandanlık kalıcı olarak benzersiz bir birimin ve bonusun kilidini açar."
+            },
+            {
+                "title": "Frank Savunma Planları",
+                "description": "Hisarlar, İç Kalelerin yerini alır ve Feodal Çağ'da kullanılabilir.\nBir Hisarın yakınında konumlandırılmış menzilli birimler %15 saldırı menziline, bir Hisarın etkisi veya Tapınakçı Karargâhının içerisine yerleştirilmiş Taş Surlar ise %25 cana ve varsayılan oka sahip olur.\nHisarlar birer Simge görevi görür ancak tamamen yok edilebilirler."
+            },
+            {
+                "title": "Hac",
+                "description": "Tapınak Şövalyeleri Tüccar eğitemez. Onun yerine, başarılı geçen dinî yolculuklardan altın üretirler. Feodal Çağ'a ulaştığında Tapınak Şövalyeleri, Hacıların Kutsal Mekânlara seyahat edebilmesi için Güvenlik sağlayabilir.\nHer 60 saniyede bir grup Hacı, Tapınakçı Karargâhlarından seçili Kutsal Mekâna doğru seyahat eder ve katettiği mesafeye bağlı olarak vardığında altın kazandırır. Maksimum 10 olacak şekilde grubun büyüklüğü her etkin Hisar başına 1 artar.\nKutsal Mekânlar ve Kadim Eserlerin konumu oyunun başında ortaya çıkar."
+            },
+            {
+                "title": "Kıyı Limanları",
+                "description": "Rıhtımlar yerine Limanlar inşa et. Daha maliyetlidir ancak daha yüksek cana, daha güçlü mevziye ve balıkçı gemileri için daha fazla garnizon alanına sahiptir. Yakınlardaki gemilerin canını artırır."
+            },
+            {
+                "title": "Çevre Korumacılığı",
+                "description": "Köylüler bir Kereste Kampı olmadan otomatik olarak odun depolar.\nOdun her çağda %20 daha hızlı toplanır ve toplanan odunun %20 kadarı ek yiyecek olarak geri döner."
+            },
+            {
+                "title": "Kuşatma Uzmanları",
+                "description": "Katapultlar fazladan atış yapar ve benzersiz bir mevziyle birlikte Hisarların tepesinde konuşlandırılabilir.\nKuşatma Atölyeleri ve Kuşatma Makineleri %25 daha az odun gerektirir."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Tapınak Şövalyesi: Şövalye yerine geçer. Normal Şövalyeden daha pahalıdır fakat fazladan cana ve hasara sahiptir.\nFeodal Çağ\nHospitalier Şövalyeleri Kumandanlığı - Hospitalier Şövalyesi: Çevredeki dost birimleri iyileştirebilen Ağır Yakın Dövüş Piyadeleridir.\nFransa Krallığı Kumandanlığı - Yoldaş Şövalye: Normal Şövalyeden daha ucuz olan Ağır Süvarilerdir. Çevredeki her bir Ağır Süvari birimi başına ek can kazanırlar.\nAntakya Prensliği Kumandanlığı - Çavuş: Yüksek yakın dövüş zırhına sahip Ağır Piyadelerdir. Belirli bir menzilden yakın dövüş hasarı veren baltalar fırlatırlar.\nKale Çağı\nAngevin İmparatorluğu Kumandanlığı - Norman Ağır Mızraklı Askeri: Hisarların yanında daha güçlü olan Zırhlı Mızraklı Askerlerdir.\nCenova Cumhuriyeti Kumandanlığı - Cenovalı Arbaletçi: Yakın dövüş piyadelerine fazladan hasar veren pahalı Arbaletçilerdir.\nKastilya Krallığı Kumandanlığı - Genitour: Menzilli birimlere karşı etkili olan Atlı Cirit Atıcılardır.\nİmparatorluk Çağı\nPolonya Krallığı Kumandanlığı - Szlachta Süvarisi: Olağanüstü bir menzilli zırha sahip Elit Süvarilerdir. Hasar verdiği düşmanların saldırılarını yavaşlatır ve hafif piyadelere fazladan hasar verir.\nTöton Şövalyeleri Kumandanlığı - Töton Şövalyesi: Muharebe sırasında ölen her bir düşman başına güç kazanan çok güçlü Ağır Piyadelerdir. Çevredeki düşmanların zırhını azaltırlar.\nVenedik Cumhuriyeti Kumandanlığı - Condottiero: Yalnızca altın maliyeti bulunan hızlı piyadelerdir. Barutlu birimlere karşı güçlüdür.\nVenedik Kadırgası: Ön tarafa monte edilmiş bir Katapultu bulunan büyük kürekli gemilerdir.\nVenedik Tüccarı: Pahalı ancak hızlı hareket eden bir tüccardır. Maksimum 5 adet bulunabilir."
+            }
+        ]
+    },
+    "house_of_lancaster": {
+        "summary": "Lancaster Hanedanı, İngiliz kraliyetinin güçlü bir kolu olarak ortaya çıkmıştır. Malikâneler, sürdürülebilir ekonomi çözümleriyle ekonominin belkemiğini oluşturur. Lancasterların askerî alandaki kudreti savaş meydanındaki teknolojik avantajlarından ve üstün taktiklerinden gelir. Düşman hatlarını güçlü hücum kıtalarıyla dağıtır ve ardından, dağılan askerleri üstün menzilli piyadeleriyle avlarlar.",
+        "classes": "Malikâneler, Savunma, Ekonomi",
+        "era": "MS 1267 - 1471",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Köylüler koyunlardan %20 daha hızlı toplama yapar.",
+                    "Pasif olarak yiyecek ve odun üretmek için Malikâneler inşa et.",
+                    "Şehir Merkezleri inşa edildiğinde 4 koyun ortaya çıkar.",
+                    "İç Kaleler inşa edildiğinde maliyetsiz olarak 3 Kontun Muhafızı kazandırır.",
+                    "Etkin İç Kaleler Kontun Muhafızlarının ve Yarım Mızraklıların hasarını artırır.",
+                    "Köylüler düşman birimlerine saldırırken kısa yaylar kullanır.",
+                    "Gemi üretmek %10 daha ucuzdur."
+                ]
+            },
+            {
+                "title": "Feodalizm",
+                "description": "Feodal Çağ'da pasif gelir elde etmek için Malikâne inşa et. Malikâneler tüm kaynak türleri için bir bırakma binası görevi görür ve +10 nüfus alanı sağlar. Her bir Malikâne dakikada 30 yiyecek ve 10 odun üretir. Yakındaki her köylü için ilave 4 yiyecek ve 2 odun üretir.\nEşsiz teknolojilerle Malikânelerin inşaat sınırını artır."
+            },
+            {
+                "title": "Yün Sanayisi",
+                "description": "Her Şehir Merkezi, tamamlandığında 4 koyun ortaya çıkarır. Köylüler koyunlardan %20 daha hızlı toplama yapar."
+            },
+            {
+                "title": "Savunmacı Byrig",
+                "description": "Başkent Şehir Merkezi fazladan bir ok atar ve Köylüler düşman birimlerine saldırırken kısa yay kullanır."
+            },
+            {
+                "title": "Birleşen Hanedanlık",
+                "description": "İç Kaleler inşa edildikten sonra maliyetsiz 3 Kontun Muhafızı kazandırır. Etkin her İç Kale, Kontun Muhafızlarına 1 ve Yarım Mızraklılara maksimum 4 olacak şekilde hasar kazandırır."
+            },
+            {
+                "title": "Tersane İşçileri",
+                "description": "Deniz şartlandırması, Rıhtım verimliliğini artırarak gemi inşası maliyetlerini -%10 azaltır."
+            },
+            {
+                "title": "Özgün Birimler",
+                "list": [
+                    "Yeoman: Okçuların yerini alır. Artırılmış hıza ve menzile sahip menzilli piyadelerdir. Hedef bölgeye ölümcül ok yağmurları yağdıracak şekilde yükseltilebilir.",
+                    "Hobelar: Atlıların yerini alır. Yüksek menzilli zırha sahip ucuz ve gözden çıkarılabilir süvari birimleridir.",
+                    "Kontun Muhafızı: Silahşorun yerini alır. Düzenli olarak hançer fırlatan Ağır Yakın Dövüş Piyadeleridir.",
+                    "Yarım Mızraklı: Özel Ağır Süvarilerdir. Yalnızca simgeler aracılığıyla erişilebilen Yarım Mızraklılar düşük hasara sahip dayanıklı süvari birimleridir."
+                ]
+            }
+        ]
+    },
+    "sengoku_daimyo": {
+        "summary": "Sengoku Jidai; ittifakların değiştiği, savaşların durmak bilmeden devam ettiği bir dönemdi. Birbirine düşman bu üç klanı destekleyerek menzilli piyadelerine, yakın dövüş piyadelerine veya süvarilerine güçlü avantajlar kazandırabilirsin. Savaşın ortasında bile kutlamalar devam ediyordu. Alışveriş ve ticaretin kalbi Matsuri festivali de ekonomiye güçlü bonuslar kazandırıyordu.",
+        "classes": "Tarım, Daimyo, Şehir Planlaması",
+        "era": "M.S. 794 - 1616",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Daimyo Konakları yakın dövüşçü piyadelere, süvarilere veya menzilli piyadelere bonuslar sağlaması için bir klana tayin edilebilir.",
+                    "Çiftlik Evleri hem Nüfus sağlar hem de Yiyecek bırakma noktasıdır.",
+                    "Matsuri, yakındaki Yiyecek kaynaklarından pasif bir şekilde toplama yapabilen Yatai'leri vazifelendirebileceğin eşsiz bir ilkel Markettir.",
+                    "Varsayılan olarak Hayatta Kalma Teknikleri araştırılır.",
+                    "Demirhaneler, askerî yükseltmelere ek olarak bir Altın ve Taş bırakma noktasıdır.",
+                    "Köylüler tarafından bırakılan Altınlar bonus Taş veya tam tersini sağlar.",
+                    "Karanlık Çağ'da (I) ekstra yakın dövüş hasarı yükseltmesi kullanılabilir.",
+                    "Ikko-Ikki, saldırırken iyileşebilen ve Budist Manastırlarından vazifelendirilebilen dövüşçü keşişlerdir.",
+                    "İç Kaleler Roket Mevzileriyle birlikte gelir ve İmparatorluk Çağı'nda (IV) fazladan cana sahip olur.",
+                    "Balıkçı Teknelerini üretmek daha ucuzdur.",
+                    "Tüm Geyiklerin ve Yaban Domuzlarının konumları haritada gösterilir."
+                ]
+            },
+            {
+                "title": "Daimyo Evi",
+                "description": "Daimyo Konakları eşsiz binalardır ve üç klandan birine tayin edilebilirler. Hojo klanı yakın dövüşçü piyadeleri geliştirir, Oda klanı menzilli piyadeleri geliştirir ve Takeda klanı süvarileri geliştirir. Daimyo Konağı aynı zamanda askerî binaların üretim hızını artıran bir nüfuza sahiptir."
+            },
+            {
+                "title": "Yatai ve Matsuri",
+                "description": "Matsuri, Yatai üretebilen eşsiz bir erken dönem Pazarıdır. Yatai'ler, 2 kutucuk içerisindeki Yiyecek kaynaklarından onları öldürmeden veya tüketmeden pasif bir şekilde yavaşça yiyecek üreten eşsiz işçi birimidir. Yatai yeterli miktarda Yiyecek toplarsa Matsuri'ye Yiyecek Tüccarı yollar ve bu da çevredeki Köylülerin toplama hızını artıran aurayı iyileştirir."
+            },
+            {
+                "title": "Çiftlik Evi ve Demirhane",
+                "description": "Demirhane, Altın ve Taş bırakma yeridir. Madencilik Kampı ve Demircinin yerini alır. Ek olarak Karanlık Çağ'da (I) fazladan yakın dövüş hasarı teknolojisi sağlar. Çiftlik Evi hem nüfus sağlar hem de yiyecek bırakma yeri olarak Değirmenin yerini alır."
+            },
+            {
+                "title": "Oda'nın Hisarı",
+                "description": "İmparatorluk Çağı'nda (IV) daha yüksek maliyet karşılığında artırılmış cana ve Roket Mevzilerine sahip daha güçlü İç Kaleye erişim sağlar. Roketler hızlı saldırılar yapar ve tekli hedeflere büyük hasarlar verir."
+            },
+            {
+                "title": "Gümüş Madenciliği",
+                "description": "Köylüler Altın biriktirdikçe %20 ilave Taş üretilir. Bu durumun tersi de geçerlidir."
+            },
+            {
+                "title": "Balıkçı Köyü",
+                "description": "Balıkçı Tekneleri %25 daha ucuza üretilir."
+            },
+            {
+                "title": "Geyik ve Yaban Domuzu Bulma",
+                "description": "Haritadaki tüm Geyiklerin ve Yaban Domuzlarının konumu ortaya çıkarılır."
+            },
+            {
+                "title": "Özgün Birimler",
+                "list": [
+                    "Yatai: Çevredeki Yiyecek kaynaklarını tüketmeden veya hayvanları öldürmeden pasif bir şekilde toplama yapabilen İşçi birimidir.",
+                    "Yari Süvarisi: Baskında, kanatlardan saldırmada ve menzilli birimlere karşı savaşmada etkili hızlı süvarilerdir.",
+                    "Daimyo: Çevredeki askerî birimlerin saldırı hızı artıran bir auraya, yüksek cana ve hasara sahip yakın dövüşçü süvarilerdir. Yakın dövüşçü birimlere karşı etkilidir. İnşa edilen her Daimyo Konağı başına bir tane ile sınırlıdır.",
+                    "Yumi Ashigaru: Daha düşük maliyeti ve canı karşılığında fazladan hareket hızına sahip okçulardır.",
+                    "Ikko-Ikki Keşişi: Saldırırken çevredeki birimleri iyileştiren, güçlü savaş kabiliyetlerine sahip Savaşçı Keşişlerdir. Belirli bir hedefi iyileştirme kabiliyetleri bulunmaz.",
+                    "Kanabo Samurayı: İyi hasara sahip dayanıklı piyadelerdir. Düşmanın maksimum canına bağlı olarak bonus hasar verirler.",
+                    "İlkel Ozutsu: Yüksek kuşatma ve saçılma hasarına sahip büyük bir tüfek taşıyan menzilli, barut kullanan ağır piyadelerdir."
+                ]
+            }
+        ]
+    },
+    "tughlaq_dynasty": {
+        "summary": "Gıyaseddin Tuğluk'un Sultan olarak hüküm sürmesi; Tuğluk Hanedanlığında sanat, mimari ve toprak genişletme gibi alanlarda ilerlemelerin temelini atmıştır. Tuğlukabad Kalesi'nin inşa edilmesini emrettikten sonra geleceğin Sultanları, Emirleri ve valileri bu sayede hanedanlığın askerî varlığını kuvvetlendirmiş ve güç gösterisi yapmıştır. Tuğluk Hanedanlığı, ek kalelerin hızlı bir şekilde inşa edilmesini emretmiş; valiler de var gücüyle çalışan filleri ve köylüleri denetim altında tutmuştur.",
+        "classes": "Filler, Hisarlar, Valiler",
+        "era": "M.S. 1320 - 1413",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Şehir Merkezleri, İşçi Filler ve Rıhtımlar; Köylüler ve Balıkçı Gemileri kaynak bıraktığında fazladan kaynak sağlar.",
+                    "İşçi Filler istediği gibi hareket edebilir ve genel bir bırakma noktası görevi görür.",
+                    "Tüm teknolojiler daha pahalı olur ama araştırmalar neredeyse anında tamamlanır.",
+                    "Tuğlukabad Kaleleri, İç Kale görevi görür ve Feodal Çağ'dan (II) itibaren inşa edilebilir.",
+                    "Tuğlukabad Kaleleri savunma kabiliyetini iyileştirmek adına geliştirilebilir ve Valilerin kilidini açar.",
+                    "Herhangi bir kaleden bir Vali seçebilir, böylece hanedanlığı yeni zirvelere taşıyabilirsin.",
+                    "Valiler ekonomi, tempo, askeriye, araştırma ve din alanlarında çeşitli bonuslar sağlar.",
+                    "Piyade birimleri Çit Sur inşa edebilir.",
+                    "Böğürtlen Çalılarından +%30 daha hızlı toplama yapılır fakat Yaban Domuzlarından toplama yapılamaz.",
+                    "Böğürtlen taşıma kapasitesi +3 artar.",
+                    "Balıkçı Gemileri, menzilli saldırı yaparak kendini koruyabilir."
+                ]
+            },
+            {
+                "title": "İş Yoldaşları",
+                "description": "İşçi Filleri kullanarak Köylülerinin omuzlarındaki yükü hafifletebilirsin. Bu filler genel bir kaynak bırakma noktası görevi görür ve etrafta serbestçe ilerleyebilir. Köylülerin zamandan ve kaynaktan tasarruf etmesini sağlar, böylece Köylüler çalışmaya odaklanabilir.\nİşçi Filler, Şehir Merkezleri ve Rıhtımlar; Köylüler ve Balıkçı Gemileri kaynak bıraktığında fazladan kaynak sağlar."
+            },
+            {
+                "title": "Bilginlik",
+                "description": "İlim ve irfan arayışındaki Tuğluk Hanedanı, araştırma teknolojilerine daha fazla kaynak sunar ve araştırmaların neredeyse anında tamamlanmasını sağlar."
+            },
+            {
+                "title": "Efsanevi Hisarlar",
+                "description": "Tuğlukabad Kalesiyle düşmanlarına korku saç. Feodal Çağ'dan (II) itibaren inşa edilebilen bu savunma binası geliştirildiğinde canı ve verdiği hasar miktarı artar, ayrıca sana Vali seçimi yapma hakkı sunar."
+            },
+            {
+                "title": "Vali Desteği",
+                "description": "Tuğluk Hanedanı'nın gücüne güç katmak için Tuğlukabad Kalesindeki altı Validen birini seç. Valinin gücü her Tuğlukabad Kalesi geliştirmesiyle artar. Valiler ekonomi, tempo, askeriye, araştırma ve din alanlarında çeşitli bonuslar verir.\nKale başına yalnızca bir Vali etkin olabilir."
+            },
+            {
+                "title": "Sepetçilik",
+                "description": "Köylüler, Böğürtlenleri %30 daha hızlı toplar fakat Yaban Domuzlarından Yiyecek elde edemez.\nKöylüler, Böğürtlen Çalılarından +3 daha fazla Yiyecek alıp taşır"
+            },
+            {
+                "title": "Hudut Tahkimleri",
+                "description": "Çit Sur inşa edebilen piyade birimlerini kullanarak güçlendirilmiş yerleşim yerleri kur."
+            },
+            {
+                "title": "Savunma Güverte Tayfası",
+                "description": "Balıkçı Gemileri menzilli bir saldırıyla kendini savunabilir ve fazladan %50 sağlığa sahiptir."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Akıncı Fil: Akınlarda, kanatlardan saldırmada ve menzilli birimlere karşı yapılan saldırılarda etkili olan hızlı filler. Bölgedeki tüm birimleri ezip geçerek alana hasar verebilir.\nŞifacı Fil: Yüksek cana ve zırha sahip, üzerinde taşıdığı iki İmamla birimleri bireysel olarak iyileştirebilen yakın muharebe birimi.\nSavaş Fili: Yüksek cana, hasara ve güçlü bir kuşatma saldırısına sahip; üzerinde bir Mızraklı Asker taşıyan ağır yakın dövüş süvari birimi.\nBalista Fili: Taşıdığı balistayla yakın dövüş birimlerine karşı etkili, birden fazla hedefi delip geçebilen saldırılar gerçekleştiren menzilli fil."
+            }
+        ]
+    },
+    "golden_horde": {
+        "summary": "Altın Ordu'ya liderlik eden Batu Han, Moğol İmparatorluğu'nu Doğu Avrupa'nın kalbine kadar genişletmişti. Han'ın büyük Altın Yurdu, bu kontrol ağının merkezinde durmaktaydı. Karakolları sayesinde de uçsuz bucaksız sınırları idare edebiliyordu. Altın Ordu, güçlü akıncılara sahip olmasına karşın mandası altındaki devletleri kontrol edebilmek uğruna kamplarının hareket kabiliyetinden feragat etmek zorunda kalmıştı.",
+        "classes": "Saldırganlık, Süvari, Ordu",
+        "era": "M.S. 1000 - 1500",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Maksimum nüfus limitiyle başlarsın.",
+                    "Birimler her zaman gruplar hâlinde vazifelendirilir.",
+                    "Ağıllar 4 köylünün çalışabildiği ve yiyecek bırakma noktası olarak görev gören eşsiz binalardır.",
+                    "Taş kaynaklarının üzerine birden fazla Ovo inşa edilebilir ve bu da Taş gelirini artırır.",
+                    "Eşsiz teknolojiler yalnızca Taş gerektirir.",
+                    "Karanlık Çağ'da (I) ahır kullanılabilir.",
+                    "Altın Yurt'u inşa ederek ve yükselterek çağ atlayabilirsin.",
+                    "Müstahkem Karakollar, Altın Yurt'ta belirlenen Fermana göre nüfuz veya aura bonusları sağlar.",
+                    "İpek Yolu: Tüccarlar, 5/10/15 aktif Tüccarla birlikte +%10 ek Yiyecek, Odun ve Altın üretir.",
+                    "Taşıma gemileri +%50 cana ve +%15 hareket hızına sahip olur.",
+                    "Gözcüler çevre bölgeyi gözlemeye devam edebilmek için Öncü Doğan kabiliyetini kullanabilir."
+                ]
+            },
+            {
+                "title": "Altın Yurt",
+                "description": "Altın Yurt, Altın Ordu'nun tek simgesidir ve yükseltildiğinde sonraki çağa geçilmesini sağlar ve binanın canını artırır. Altın Yurt'ta nüfuzu veya Müstahkem Karakollar tarafından sağlanan aura bonusunu değiştirebilen bir ferman seçilebilir.\nBatu Han ve Turgutlar Altın Yurt'tan vazifelendirilebilir."
+            },
+            {
+                "title": "Ordular",
+                "description": "Birimler ikili gruplar hâlinde üretilir. Grup üretimini iyileştirmek için teknoloji araştırması yapılabilir."
+            },
+            {
+                "title": "Ağıl",
+                "description": "Yiyecek için Çiftlik veya Mera inşa etmek yerine Ağıl inşa et. Ağıllarda, toplanıp doğrudan Ağıla bırakılabilen Koyun etleri bulunur."
+            },
+            {
+                "title": "Müstahkem Karakollar",
+                "description": "Müstahkem Karakollar daha fazla cana sahiptir ve Altın Yurt'ta seçilen Fermana bağlı olarak nüfuz veya aura bonusları sağlar."
+            },
+            {
+                "title": "Gelişmiş Taşıma",
+                "description": "Taşıma Gemisi inişleri, +%50 sağlık ve +%15 hareket hızı ile daha hızlı ve daha dayanıklıdır."
+            },
+            {
+                "title": "İpek Yolu",
+                "description": "Toplam etkin Tüccar sayına göre işlemlerden ekstra kaynak elde eden Tüccarlarla İpek Yolu'nu keşfet.\n• Tüccar sayısı 5'in üzerindeyse: +%10 Yiyecek\n• Tüccar sayısı 10'un üzerindeyse: +%10 Yiyecek, Odun\n• Tüccar sayısı 15'in üzerindeyse: +%10 Yiyecek, Odun, Altın"
+            },
+            {
+                "title": "Taş Teknolojisi ve Ovolar",
+                "description": "Köylüye ihtiyaç duymadan Taş toplamak için Taş çıkıntılarına Ovoo inşa et. İnşa edilebilen maksimum Ovoo sayısı çağ başına +1 artar."
+            },
+            {
+                "title": "Öncü Doğan",
+                "description": "Öncüler, çevredeki alanı gözetlemek için Öncü Doğan yeteneğini kullanabilirler."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Altın Ordu Hanı: Çağ atlandığında güçlenen Ağır Süvaridir. Belli bir alana attığı okuyla o alandaki düşmanların aldığı hasarı artırır. Han aynı zamanda savaşta kaldığı süre boyunca giderek daha fazla saldırı hasarı aurası sağlar.\nTurgutlar: Han'ı koruyabilen Ağır Süvaridir. Han'ın aldığı hasarlar Turgutlara yöneltilir.\nKharash: Çevredeki müttefiklere zırh sağlayan Zayıf Hafif Yakın Dövüşçü Piyade birimleridir.\nKıpçak: Vurduğu hedefin kanamasına yol açan oklar atabilen atlı okçulardır.\nÇekişli Katapult: Daha hızlı hareket hızı, kurma süresi ve saldırı hızı.\nKeşik: Feodal Çağ'da kullanılabilen Ağır Süvaridir. Her saldırıda Can yeniler."
+            }
+        ]
+    },
+    "macedonian_dynasty": {
+        "summary": "İmparator II. Basileios, Bizans asilzadelerinin kışkırttığı isyanlarla mücadele etmek için Varegleri kullanmaya karar verir. Kuzeyden gemilerle gelen bu yabancı savaşçılar, Bizans politikasından ve kültüründen etkilenmeden yüzyıllar boyunca seçkin bir ani saldırı birliği olarak imparatorları korur. Makedonya Hanedanlığı, özel bir kaynak olarak darphanelerinde Gümüş işler ve bunları Vareg Cephaneliklerinde harcayarak imparatoru koruyan askerlerin kılıçlarını ve becerilerini keskin tutar.",
+        "classes": "Varegler, Gümüş, Teknoloji",
+        "era": "M.S. 867 - 1056",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Köylüler, Altından ve Taştan Gümüş çıkararak eşsiz teknolojiler araştırabilir.",
+                    "Vareg Cephaneliklerinin nüfuzu altındaki Maden Kamplarında ve Şehir Merkezlerinde pasif olarak Gümüş oluşturulur.",
+                    "Gümüş harcayarak Vareg Cephaneliğiyle üç kademe teknoloji araştırılabilir.",
+                    "Feodal Çağ'da (II) İlkel Vareg Muhafızlarına erişim sağlanır.",
+                    "Vareg Sığınağında tüm eşsiz Vareg birimleri üretilebilir.",
+                    "Vareg birimleri, savaş becerilerini artıran özel yeteneklere sahiptir.",
+                    "Vareg Savaş Kampı ile savaşta düşen savaşçılar maliyetsiz olarak takviye edilebilir.",
+                    "Çeşitli Yunan Ateşi türlerini kullanabilen savaş birimleri konuşlandırılabilir.",
+                    "Taşıma Gemileri, yük indirirken geçici olarak birimlerin hareket hızını artırır."
+                ]
+            },
+            {
+                "title": "Galenit Toplama",
+                "description": "Köylüler; Altın Damarları ve Taş Çıkıntıları arasında bol miktarda galenit yatağı bulur ve buralarda madencilik yaparken özel kaynak olarak Gümüş çıkarır.\nKöylüler, çıkarılan Altın veya Taş miktarının %40 kadarına denk Gümüş çıkarır."
+            },
+            {
+                "title": "Nüfuz - Gümüş Darphanesi",
+                "description": "Vareg Cephanelikleri, nüfuzu altındaki Maden Kamplarının ve Şehir Merkezlerinin zaman içinde Gümüş işlemesini sağlar. İşlenen Gümüş miktarı, Köylülerin biriktirdiği toplam Gümüş miktarına bağlı olarak değişir."
+            },
+            {
+                "title": "Vareg Demirciliği",
+                "description": "Vareg Cephaneliğinde Gümüş karşılığında eşsiz askerî teknolojiler araştırabilirsin. Demircinin ve Üniversitenin yerine geçer. Makedonya Hanedanlığı, kategori başına üç kademeden fazla askerî geliştirme yapabilir."
+            },
+            {
+                "title": "Kaleler",
+                "description": "İmparatorluğu tüm Vareg birimlerini üretebilen ve oklarla savunma yapabilen Vareg Sığınaklarıyla güçlendir."
+            },
+            {
+                "title": "Savaş Kampı",
+                "description": "Vareg Savaş Kampında takviyeleri seç. Savaşta yeteri kadar savaşçı öldüğünde savaş kampında safları doldurmak için ücretsiz yeni Vareg savaşçıları belirir.\nBitişiğinde su varsa takviye olarak tekne de seçilebilir."
+            },
+            {
+                "title": "Vareg Rün Taşları",
+                "description": "Geçmiş muharebelerde kazanılan zaferleri onurlandırmak için Rün Taşları oy. Vareg yeteri kadar düşman öldürürse belirli bir alanda çevredeki Vareglere muharebe bonusları kazandıran bir Rün Taşı oluşturulabilir."
+            },
+            {
+                "title": "Yunan Ateşi",
+                "description": "Cheirosiphonlar, yükseltilmiş Dromonlar, Springaldlar ve Katapultlar; saldırı sırasında Yunan Ateşi ile alana zaman içinde hasar veren alev parçaları fırlatır."
+            },
+            {
+                "title": "Mangonel Mevzileri",
+                "description": "Karakollar ve İç Kaleler, Mangonel Mevzileriyle yükseltilebilir. Taş Sur Kuleleri, Springaldlar yerine Mangonel Mevzileriyle donatılmıştır."
+            },
+            {
+                "title": "Özgün Birimler",
+                "description": "Atgeir: Mızraklı Asker yerine geçer. Yakınlarda Vareg birimleri varken saldırı hızını artıran pasif bir yeteneğe sahip hafif yakın dövüş piyadesi.\nBogmaðr: Okçu yerine geçer. Hareket hızından feragat ederek zırh delebilmesini sağlayan bir yeteneğe sahip hafif menzilli piyade. \nİlkel Vareg Muhafızı: Silahşor yerine geçer. Zırh pahasına hasarı artırmak adına Berserk yeteneği kullanılabilir. Taşıma Gemisi inşa edebilir ve konuşlandırıldığında taşıtların zırhını artırır.\nRiddari: Şövalye yerine geçer. Belirli bir süre boyunca uzak mesafeden balta atma yeteneğine sahip olan ağır süvari.\nCheirosiphon: Kısa menzilli Yunan Ateşi saldırısına sahip bir koçbaşı.\nDromon: Springald Gemisi yerine geçer. Yunan Ateşiyle donatılmıştır."
+            }
+        ]
+    },
+    "jin_dynasty": {
+        "summary": "Jin Hanedanı, Çin'in kuzeyinden kudretli bir askerî güç olarak savaşa giriyor. Atlı Köylüler daha hızlı hareket ederek eline yeni kaynaklar ve topraklar geçirebilir. Fırsatları kullan, süvarilerinle ansızın düşmanlara saldırıp sana karşı duranları ezip geç. İradesi zayıf düşmanları rüşvetle savaştan uzaklaştır ve kârı yüksek Haraçgüzar Devletler kur.",
+        "classes": "Süvari, Atlı Köylüler, Haraç",
+        "era": "MS 1115 - 1234",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "En fazla 20 Atlı Köylü eğitmeni sağlar. Atlı Köylüler, standart köylülere kıyasla daha hızlı kaynak toplar ve hareket eder.",
+                    "Çağ atlandıktan sonra bir Çayır inşa etmek için üç konumdan birini seç.",
+                    "Çayırların yakınına Savaş Ahırları inşa ederek ve Atlarla hızlı bir şekilde Süvari üretebilirsin.",
+                    "Elçiler Haraçgüzarlar oluşturabilir ve düşman askerlerine Rüşvet verebilir.",
+                    "Haraçgüzarlar Yiyecek üretir, Tüccar gelirini %15 artırır ve Atlı Köylü inşa sınırını +3 yükseltir.",
+                    "Meng'an Mouke Mevzileri, yakındaki toprakları korumak için savunmacıları yardıma çağırır.",
+                    "Sabit Arbaletler, Feodal Çağ'da Springaldların yerini alır."
+                ]
+            },
+            {
+                "title": "Çayır",
+                "description": "Çayır inşa etmek için bir Simgeyi tamamladıktan sonra 3 konum arasından seçim yap. Çayırlarda zaman içinde 5 adede kadar At oluşturulur. Atlar tüm Yakın Dövüş Süvari birimlerinin canını 2, tüm Menzilli Süvarilerin canını 1 artırır veya herhangi bir atlı birimi hızlı bir şekilde eğitmek için Çayırların Nüfuzu içindeki Ahırlar tarafından kullanılabilir. Çayırlarda Feodal Çağ'da her 90, Kale Çağı'nnda her 60 ve İmparatorluk Çağı'nda her 45 saniyede bir yeni bir At oluşturulur."
+            },
+            {
+                "title": "Jurchen Mirası",
+                "description": "Göçebe soyu kaynak toplayabilen, inşaat yapabilen ve daha hızlı hareket eden ancak daha maliyetli olan Atlı Köylü sağlar. 20 adetle sınırlıdır. Ticaret Merkezleri olan Haraçgüzar Devletler oluşturarak maksimum inşaat sınırını +3 artır."
+            },
+            {
+                "title": "Meng'an Mouke",
+                "description": "Savunma yapılarını, savunmacı göndererek yakındaki toprakları koruyan Meng'an Mouke Mevzileriyle yükselt. Mevziler ayrıca kayıpları telafi etmek için zamanla savunmacı üretir."
+            },
+            {
+                "title": "Elçiler",
+                "description": "İki güçlü yetenekle donatılmış en fazla 2 Elçi üretir.\nTarafsız Ticaret Yerleşimlerinde senin yerine yiyecek toplayabilen, Atlı Köylü inşa sınırını +3 artıran ve tüccar gelirini +%15 artıran sadık bir müttefik kazanmak için Haraçgüzarlar oluştur.\nDüşman gruplarına Rüşvet vererek onları karşılarına çıkan her şeye saldıran tarafsız savaşçılara dönüştür."
+            },
+            {
+                "title": "Kuşatma Uzmanlığı",
+                "description": "Feodal Çağ'da Silah Atölyesi inşa etmeni ve springald yerine geçerek düşman hattına iki vuruşta bulunan Sabit Arbaletlere erkenden erişmeni sağlar. Sabit Arbalet Mevzileri, tüm savunma yapılarında Springald Mevzilerinin yerini alır."
+            },
+            {
+                "title": "Özgün Birimler",
+                "list": [
+                    "Atlı Köylü - Standart köylülerden çok daha hızlı kaynak toplayan, inşaat yapan ve hareket eden eşsiz köylü.",
+                    "Elçi - Düşman askerlerine rüşvet verebilen ve Haraçgüzar Devletler kuran destek birimi.",
+                    "Demir Pagoda - Baştan aşağı zırhla kuşanan, her saldırıda alan hasarı veren Ağır Süvari.",
+                    "Sabit Arbalet - Tek seferde güçlü bir ok salvosuyla saldırır. Feodal Çağ'da kullanılabilir. Springaldların yerini alır.",
+                    "Ateş Saçan - Tek hedefe yüksek hasar veren pahalı bir birim. Tüfekçinin yerini alır.",
+                    "Mohe Kabile Üyesi - Atlı okçuların yerin alır. Hafif yakın dövüşçü piyadelere karşı güçlü vur kaç taktiklerinde kullanılabilir.",
+                    "Zhanma Kılıç Ustası - Yalnızca İmparatorluk Çağı'nda kullanılabilen zırhlı piyade birimi. Yüksek saldırı gücüne sahiptir. Süvarilere karşı bonus saldırı gücüne sahiptir.",
+                    "Meng'an Mouke Savunmacıları - Meng'an Mouke ve Atlı El Bombacıları eşsiz mevzilerden çıkarak otomatik olarak Jin bölgesini savunur."
+                ]
+            }
+        ]
+    }
+}

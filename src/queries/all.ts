@@ -1,7 +1,6 @@
 import { keepPreviousData, queryOptions, useInfiniteQuery, useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import {
     fetchBuilds,
-    fetchCivilizations,
     fetchLeaderboards,
     fetchMaps,
     fetchMapsPoll,
@@ -15,11 +14,12 @@ import {
 import { fetchAccount, IAccount } from '@app/api/account';
 import { compact, uniq } from 'lodash';
 import type { UseQueryResult } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { appConfig } from '@nex/dataset';
-import { getCivIdByEnum, getSupabaseClient } from '@nex/data';
+import { getCivIdByEnum, getCivNameById, getSupabaseClient } from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ICivilization, IFetchProfilesParams } from '@app/api/helper/api.types';
+import { loadCivOverview } from '@app/helper/civ-overview';
 import { withCacheBust } from '@app/api/util';
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
@@ -298,24 +298,26 @@ export const useBuild = (buildId: string) => {
     });
 };
 
-// aoe4 only. Keyed by the app's Civ enum so screens can look a civ up directly, with
-// getCivIdByEnum translating the backend's snake_case enum to it.
+// aoe4 only. Keyed by the app's Civ enum so screens can look a civ up directly.
+//
+// The text comes from the game's own localization, extracted by the collector and
+// bundled here as one file per language. Same shape the /api/civilizations endpoint
+// returns, so moving to it later is a swap of this function body.
 export const useAoe4CivData = () => {
     const language = useLanguage();
 
-    return useQuery({
-        queryKey: ['aoe4-civ-data', language],
-        queryFn: async () => {
-            const { civilizations } = await fetchCivilizations(language!);
+    return useMemo(() => {
+        if (appConfig.game !== 'aoe4') return undefined;
 
-            return Object.fromEntries(
-                civilizations.flatMap((civilization) => {
-                    const civ = getCivIdByEnum(civilization.civ);
-                    return civ ? [[civ, civilization] as const] : [];
-                })
-            ) as Record<string, ICivilization>;
-        },
-        staleTime: 3600 * 1000, // 1 hour
-        enabled: appConfig.game === 'aoe4' && !!language,
-    }).data;
+        const overviews = loadCivOverview(language);
+
+        return Object.fromEntries(
+            Object.entries(overviews).flatMap(([civEnum, overview]) => {
+                const civ = getCivIdByEnum(civEnum);
+                if (!civ) return [];
+
+                return [[civ, { ...overview, civ: civEnum, name: getCivNameById(civ) }] as const];
+            })
+        ) as Record<string, ICivilization>;
+    }, [language]);
 };

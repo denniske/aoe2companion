@@ -1,0 +1,1179 @@
+{
+    "english": {
+        "summary": "Ausgezeichnete frühe Infanterieeinheiten sowie eine verlässliche Nahrungsproduktion durch Felder verschaffen den Engländern früh einen militärischen und wirtschaftlichen Vorteil.",
+        "classes": "Verteidigung, Langbögen, Landwirtschaft",
+        "era": "850–1555 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Dorfzentren, Außenposten, Türme und Bergfriede erhöhen die Angriffsgeschwindigkeit von Einheiten in der Nähe um +20%, wenn Gegner in Reichweite sind.",
+                    "Das Anlegen von Feldern ist um 50% günstiger. Felder in der Nähe von Mühlen haben je nach Zeitalter eine um +20/25/30/30% schnellere Sammelrate.",
+                    "Waffenknecht der Vorhut in der Dunklen Zeit (I).",
+                    "Bildet Waffenknechte um +40% schneller aus als andere Zivilisationen.",
+                    "Die Dorfbewohner nutzen Kurzbögen, wenn sie gegnerische Einheiten angreifen.",
+                    "Bergfriede können alle Militäreinheiten ausbilden.",
+                    "Die Produktion von Schiffen ist um -10% günstiger.",
+                    "Späher und Waffenknechte können Lagerfeuer entzünden, um die Sichtweite zu steigern und die Jagd in der Nähe um 10% zu verbessern."
+                ]
+            },
+            {
+                "title": "Netz aus Burgen",
+                "description": "Schützen Sie die Grenze mit Dorfzentren, Außenposten, Steintürmen und Bergfrieden, mit denen Sie die Angriffsgeschwindigkeit der Einheiten in der Nähe um +20% erhöhen, wenn Feinde in Reichweite sind.\nEntwickeln Sie in Bergfrieden die Technologie „Netz aus Zitadellen“, um die Angriffsgeschwindigkeit um +30% zu erhöhen."
+            },
+            {
+                "title": "Bergfriedproduktion",
+                "description": "Bergfriede können alle militärischen Einheiten produzieren."
+            },
+            {
+                "title": "Ruf zu den Waffen",
+                "description": "In der Dunklen Zeit (I) verfügbarer Vorhut-Waffenknecht – englische Waffenknechte werden +40% schneller ausgebildet."
+            },
+            {
+                "title": "Defensiv-Byrig",
+                "description": "Das Dorfzentrum der Hauptstadt feuert einen zusätzlichen Pfeil ab und Dorfbewohner sind mit Kurzbögen ausgerüstet, wenn sie gegnerische Einheiten angreifen."
+            },
+            {
+                "title": "Insel der Landwirtschaft",
+                "description": "Das Anlegen von Feldern ist um 50% günstiger.\nEntwickeln Sie in der Imperialzeit (IV) die Umzäunungstechnologie, damit Dorfbewohner während der Feldarbeit alle 6 Sekunden +1 Gold generieren."
+            },
+            {
+                "title": "Schiffsbauer",
+                "description": "Die Marineaufbereitung erhöht die Effizienz von Häfen und reduziert die Kosten für den Schiffsbau um -10%."
+            },
+            {
+                "title": "Einfluss",
+                "description": "Die Ernterate von Feldern, die sich im Einflussbereich einer Mühle befinden, erhöht sich nach jedem Zeitalter-Aufstieg um +20/25/30/30%."
+            },
+            {
+                "title": "Königswald",
+                "description": "Späher und Waffenknechte können Lagerfeuer erschaffen, welche die Sichtweite von Einheiten in der Nähe um +30% und die Sammelrate von Jägern in der Nähe um 10% erhöhen."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Langbogenschütze: Bogenschütze mit +2 Reichweite und +1 Schaden, der über die Verteidigungspfahl-Fähigkeit verfügt und damit gegnerische Kavallerie betäuben und verletzen kann."
+            }
+        ]
+    },
+    "mongols": {
+        "summary": "Die Mongolen sind wahre Meister des Kampfes zu Pferd und können ihre Lager problemlos versetzen. Nahe gelegene Steinvorkommen und Überfälle auf feindliche Gebäude beflügeln die mongolische Wirtschaft. Ihre Feinde müssen sich gleich zu Beginn einer Partie auf Blitzangriffe durch die Kavallerie gefasst machen.",
+        "classes": "Aggressivität, Kavallerie, Nomadentum",
+        "era": "1000–1500 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Beginnen Sie mit gepacktem Ger, maximalem Bevölkerungslimit, Häuser sind nicht notwendig.",
+                    "Alle Gebäude können eingepackt und an anderer Stelle wiederaufgebaut werden.",
+                    "Plündern Sie +25 Nahrung und Gold, wenn Sie ein unfertiges gegnerisches Gebäude in Brand setzen oder zerstören.",
+                    "Ställe in der Dunklen Zeit (I) verfügbar.",
+                    "Reiter werden +25% schneller ausgebildet.",
+                    "Außenposten erhöhen die Bewegungsgeschwindigkeit von Kavallerie und Händlern in der Nähe um +15%.",
+                    "Doppelte Produktion von Einheiten oder Entwickeln fortschrittlicher Technologieversionen mit Steinen.",
+                    "Seidenstraße: Händler erzeugen bei 5/10/15 aktiven Händlern +10% zusätzliche Nahrung, Holz und Gold.",
+                    "Transportschiffe haben +50% TP und +15% Bewegungsgeschwindigkeit."
+                ]
+            },
+            {
+                "title": "Große Herrschaft",
+                "description": "Alle Gebäude können eingepackt und an anderer Stelle wiederaufgebaut werden.\nBeginnen Sie das Spiel mit maximaler Bevölkerung, ohne Häuser bauen zu müssen.\nReagieren Sie mit einem Netzwerk von Außenposten, die die Bewegungsgeschwindigkeit von Kavallerie und Händlern in der Nähe um +15% erhöhen, schnell auf gegnerische Bewegungen."
+            },
+            {
+                "title": "Khanat",
+                "description": "Führen Sie den mächtigen Khan in der Dunklen Zeit (I) aufs Feld, um allen Militäreinheiten in der Nähe mächtige Boni mit Signalpfeilen zu gewähren.\nKhane und Späher können die Fähigkeit „Spähfalke“ einsetzen, um die Umgebung zu bewachen."
+            },
+            {
+                "title": "Expertenreiter",
+                "description": "Errichten Sie Ställe bereits zur Dunklen Zeit und führen Sie Reiter +25% schneller ins Feld."
+            },
+            {
+                "title": "Nomadische Erntehelfer",
+                "description": "Legen Sie statt Feldern Weiden an, um Schafe für Nahrung zu züchten – Weiden produzieren Schafe schneller, wenn sie im Einflussbereich eines Obos liegen."
+            },
+            {
+                "title": "Plünderbeute",
+                "description": "Plündert feindliche Gebäude für +25 Nahrung und Gold, wenn sie während der Errichtung angezündet oder zerstört werden."
+            },
+            {
+                "title": "Verbesserte Transporte",
+                "description": "Transportschiffslandungen sind mit +50% TP und +15% Bewegungsgeschwindigkeit schneller und widerstandsfähiger."
+            },
+            {
+                "title": "Seidenstraße",
+                "description": "Erkunden Sie die Seidenstraße mit Händlern, die entsprechend der Gesamtzahl Ihrer aktiven Händler zusätzliche Rohstoffe aus dem Handel erhalten.\n• 5+ Händler: +10% Nahrung\n• 10+ Händler: +10% Nahrung, Holz\n• 15+ Händler: +10% Nahrung, Holz, Gold"
+            },
+            {
+                "title": "Einfluss",
+                "description": "Errichten Sie den Obo auf Steinvorkommen, um an Einfluss zu gewinnen und Steine abzubauen, ohne dafür Dorfbewohner zu benötigen. Obos bauen nach jedem Zeitalter-Aufstieg +70, 100, 130, 160 Steine pro Minute ab.\nGebäude im Einflussbereich eines Obos können die Produktion von Einheiten verdoppeln oder verbesserte Technologieversionen mit Steinen erforschen."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Khan: Berittener Bogenschütze, der nach jedem Zeitalter-Aufstieg stärker wird und die Signalpfeil-Fähigkeiten freischaltet.\n• Manöverpfeil: Bewegungsgeschwindigkeit +33% erhöht.\nSturmpfeil: Angriffsgeschwindigkeit um +50% erhöht.\n• Rüstungspfeil: Rüstung um +2 erhöht.\nMangudai: Berittener Bogenschütze, der aus der Bewegung heraus in alle Richtungen feuern kann.\nMangonel: Höhere Bewegungsgeschwindigkeit, Vorbereitungszeit und Angriffsgeschwindigkeit.\nKeshig: Schwere Kavallerie, verfügbar in der Feudalzeit, regeneriert TP nach jedem Angriff."
+            }
+        ]
+    },
+    "french": {
+        "summary": "Die Franzosen führen mächtige Kavallerieeinheiten ins Feld und können ihre Produktion an befestigten Stellungen verstärken. Ihre Feinde müssen sich auf Sturmangriffe durch die gefährlichen königlichen Ritter und andere gepanzerte Einheiten einstellen.",
+        "classes": "Handel, Kavallerie, Bergfriede",
+        "era": "840–1559 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Königliche Ritter in der Feudalzeit (II).",
+                    "Die Arbeitsrate von Dorfzentren erhöht sich pro Zeitalter-Aufstieg um +15%, +15%, +20%, +25%.",
+                    "Rohstoffsammelgebäude um -50% günstiger.",
+                    "Wirtschaftstechnologien sind um -35% günstiger.",
+                    "Die Handelsposten werden auf der Minikarte angezeigt.",
+                    "Die Händler können Nahrung, Holz oder Gold zu Marktplätzen zurückbringen.",
+                    "Handelsschiffe liefern +20% mehr Rohstoffe.",
+                    "Schmieden gewähren nach jedem Zeitalter-Aufstieg kostenlos Technologien mit Nahkampfschaden."
+                ]
+            },
+            {
+                "title": "Königliche Hengste",
+                "description": "Setzen Sie den Königlichen Ritter in der Feudalzeit (II) ein und entwickeln Sie mächtige einzigartige Technologien für die Kavallerie."
+            },
+            {
+                "title": "Kontinentale Wirtschaft",
+                "description": "Profitieren Sie von einer überlegenen Wirtschaft mit -50 günstigeren Ablieferplätzen für Rohstoffe und -35 günstigeren Wirtschaftstechnologien.\nDie Produktionsrate von Dorfzentren erhöht sich pro Zeitalter um +15%, +15%, +20%, +25%."
+            },
+            {
+                "title": "Handelswirtschaft",
+                "description": "Liefern Sie mit Händlern und Handelsschiffen Nahrung, Holz oder Gold an Marktplätze.\nHandelsschiffe gewähren +20% mehr Rohstoffe.\nHandelsposten werden zu Beginn des Spiels auf der Minikarte enthüllt.\nHäfen bieten der Bevölkerung mehr Platz."
+            },
+            {
+                "title": "Die Gunst des Schmieds",
+                "description": "Schmieden gewähren Nahkampfschaden-Technologien nach jedem Zeitalter-Aufstieg gratis."
+            },
+            {
+                "title": "Einfluss",
+                "description": "Unterstützen Sie Offensiven mit -10% billigeren Bergfrieden, die die Kosten von Einheiten, die von Bogenschießplätzen und Ställen in ihrem Einflussbereich produziert werden, um -20% reduzieren."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Königlicher Ritter: Schwere Kavallerie, die nach einem Sturmangriff 5 Sekunden lang +3 Bonusschaden erhält.\nArbalétrier: Armbrustschütze mit +1 Nahkampfrüstung, der zur Verteidigung eine Pavese einsetzen kann, die 30 Sekunden lang +5 Fernkampfrüstung und +1 Waffenreichweite verleiht.\nKanone: Ersatz für die Bombarde mit mehr Schaden, Mobilität und ohne Vorbereitungszeit.\nGaleasse: Große Kriegsgaleere mit nach vorn gerichteten Bombarden mit hoher Reichweite.\nKriegskogge: Einzigartiges Rutte-Schiff mit verringerten Kosten und erhöhter Fernkampfrüstung."
+            }
+        ]
+    },
+    "rus": {
+        "summary": "Die Rus machen sich ihre Umgebung in vollem Umfang zu Nutze. Sie sammeln Rohstoffe bei der Jagd und dem Fällen von Bäumen beständiger als andere Völker, um dann im späteren Spielverlauf starke Kampfeinheiten auszubilden. Ihre Feinde müssen es zu Beginn einer Partie mit starken Befestigungsanlagen und einer diversifizierten Wirtschaft aufnehmen, die sich nur schwer aus dem Takt bringen lässt.",
+        "classes": "Expansion, Kavallerie, Jagd",
+        "era": "882–1547 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Errichten Sie Verstärkte Palisadenwälle mit +100% Gesundheit.",
+                    "Errichten Sie Hölzernen Festungen, verbesserte Außenposten mit +100% Gesundheit und +3 Einquartierungsplätzen.",
+                    "Errichten Sie Jagdhütten – verbesserte Mühlen, die Späher ausbilden und Gold aus nahegelegenen Wäldern generieren.",
+                    "Sammeln von Tieren bringt Goldprämien ein – vermehrte Prämien bieten wirtschaftliche Boni für Dorfbewohner und Jagdhütten.",
+                    "Früher Ritter in der Feudalzeit (II) verfügbar.",
+                    "Lodja-Schiffe können gegen Bezahlung in jede Art von Schiff umgewandelt werden.",
+                    "Fischkutter müssen nicht mehr zu einem Hafen zurückkehren, um Nahrung abzuladen."
+                ]
+            },
+            {
+                "title": "Hölzerner Bund",
+                "description": "Befestigen Sie das umliegende Land mit Hölzernen Festungen, die Außenposten ersetzen – gewährt +100% TP und +3 Einquartierungsplätze.\nErrichten Sie den befestigten Palisadenwall – gewährt +100% TP und eine schnellere Bauzeit."
+            },
+            {
+                "title": "Jagdgesellschaft",
+                "description": "Leben Sie vom Land dank Spähern, die in Jagdhütten ausgebildet werden. Jagdhütten bieten die Vorteile einer herkömmlichen Mühle, können aber Waldtarnung durchschauen und erzeugen basierend auf der Anzahl der nahe gelegenen Bäume Gold."
+            },
+            {
+                "title": "Druschina-Gefolge",
+                "description": "Führen Sie in der Feudalzeit (II) den frühen Ritter ins Feld."
+            },
+            {
+                "title": "Lodja-Wiederherstellung",
+                "description": "Lodja-Schiffe können gegen Bezahlung in eine beliebige Art von Schiff verwandelt werden.\nLodja-Fischkutter verarbeiten Nahrung direkt an Bord – Sie müssen nicht zum Hafen zurückkehren, um die Nahrung abzuliefern."
+            },
+            {
+                "title": "Prämienbelohnungen",
+                "description": "Das Sammeln von Tieren gewährt eine Goldprämie. Erreicht die Gesamtzahl der Prämien eine bestimmte Höhe, erhalten Dorfbewohner und Jagdhütten Wirtschaftsboni.\n100 Prämie\n• +5% Nahrungssammelrate\n• Jagdhütten generieren 10% mehr Gold\n400 Prämie\n• +10% Nahrungssammelrate\n• Jagdhütten generieren 25% mehr Gold\n1000 Prämie\n• +15% Nahrungssammelrate\n• Jagdhütten generieren 40% mehr Gold"
+            },
+            {
+                "title": "Einfluss",
+                "description": "Überwachen von Abholzungsaktionen – Dorfbewohner liefern +20% mehr Holz, wenn sich Holzfällerlager und Dorfzentren im Einflussbereich einer Hölzernen Festung befinden."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Kriegermönch: Religiöse, leichte Kavallerieeinheit, die nahe gelegene Einheiten im Kampf inspiriert und ihnen +1 Rüstung sowie +2 Schaden gewährt.\nBerittener Bogenschütze: Leichte Fernkampfkavallerie mit hoher Beweglichkeit und hohem Schaden.\nStrelize: Handrohrschütze, der stationär stärker wird und über einen Nahkampfangriff mit hohem Schaden verfügt.\nLodja-Schiffe: Können in eine beliebige Art von Schiff verwandelt werden."
+            }
+        ]
+    },
+    "holy_roman_empire": {
+        "summary": "Prälate verbessern die Wirtschaft des Heiligen Römischen Reiches, während mächtige Infanterieeinheiten den Kern des Militärapparats bilden. Seine Feinde bekommen es mit einem Gegner zu tun, der sich schnell von Angriffen erholen und vernichtende Gegenangriffe ausführen kann.",
+        "classes": "Infanterie, Religion, Verteidigung",
+        "era": "936–1517 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Platzieren Sie Reliquien in Außenposten, Steintürmen und Bergfrieden, um Verteidigungs- und Wirtschaftsboni zu erhalten.",
+                    "In Häfen platzierte Reliquien erhöhen die Angriffsgeschwindigkeit von Schiffen um +5% pro Reliquie (maximal +25%).",
+                    "Frühe Waffenknechte in der Feudalzeit (II).",
+                    "Infanterieeinheiten bewegen sich um 5% schneller in der Dunklen Zeit (I) und um 10% schneller ab der Feudalzeit (II).",
+                    "Stellungen sind um -25% günstiger. Die Außenposten-Sichtweite erhöht sich um +25%.",
+                    "Dorfbewohner können um +40% mehr Rohstoffe tragen.",
+                    "Prälaten können in der Dunklen Zeit (I) heilen und Heilige Inspiration verwenden. Inspirierte Dorfbewohner sammeln um +40% schneller für 30 Sekunden.",
+                    "Gebäude im Einflussbereich eines Dorfzentrums erhalten die Fähigkeit „Notreparaturen“, die aktiviert werden kann, um das Gebäude zu reparieren."
+                ]
+            },
+            {
+                "title": "Religiöser Eifer",
+                "description": "Demonstrieren Sie die Macht des Reiches, indem Sie Reliquien in Außenposten, Türmen und Bergfrieden platzieren – und ihre Rüstung um + 25%, den Schaden um + 25%, die Reichweite um + 25% und die Sichtweite um + 20% % erhöhen. \nIn Häfen platzierte Reliquien erhöhen die Angriffsgeschwindigkeit von Schiffen um + 5% pro Reliquie (Max. + 25%).\nIn Gebäuden platzierte Reliquien erzeugen + 80 Gold pro Minute."
+            },
+            {
+                "title": "Armee des Kaiserreichs",
+                "description": "Infanterieeinheiten bewegen sich 5% schneller in der Dunklen Zeit (I) und 10% schneller in der Feudalzeit (II). Rüsten Sie Infanterieeinheiten mit wirkungsvollen Technologien auf und setzen Sie den frühen Waffenknecht in der Feudalzeit (II) ein."
+            },
+            {
+                "title": "Stellungsarchitektur",
+                "description": "Alle Stellungstechnologien sind um -20% günstiger. Sichtweite von Außenposten um +20% erhöht."
+            },
+            {
+                "title": "Handwagen",
+                "description": "Dorfbewohner können +40% mehr Rohstoffe als andere Zivilisationen tragen."
+            },
+            {
+                "title": "Einfluss",
+                "description": "Gebäude, die im Einflussbereich eines Dorfzentrums errichtet wurden, erhalten die Fähigkeit „Notfallreparaturen“, die aktiviert werden kann, um das Gebäude 20 Sekunden lang um +150 TP pro Sekunde zu reparieren."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Prälat: Verwenden Sie die Fähigkeit „Heilige Inspiration“ bei Dorfbewohnern, um ihre Sammelrate 30 Sekunden lang um +35% zu erhöhen.\nLandsknecht: leichte Nahkampf-Infanterieeinheit mit einem großen Zweihandschwert, das hohen Flächenschaden verursachen kann.\nSchwarzer Reiter: starker berittener Kanonier mit Rüstung. Die Ausbildung ist abhängig von der Zahl der errichteten Bergfriede."
+            }
+        ]
+    },
+    "delhi_sultanate": {
+        "summary": "Das Delhi-Sultanat ist seinen Feinden durch ein gigantisches Netzwerk an Gelehrten immer einige Schritte voraus. Wenn es erst einmal ins Rollen kommt, trampelt es mit seinen furchteinflößenden Kriegselefanten alles nieder, was ihm im Wege steht.",
+        "classes": "Elefanten, Entwicklung, Religion",
+        "era": "879–1526 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Die Moschee, der Gelehrte und religiöse Technologien sind im Dunklen Zeitalter (I) verfügbar.\n- Infanterieeinheiten sind in der Lage, Palisadenwälle zu bauen.",
+                    "Alle Technologien sind kostenlos, werden aber viel langsamer abgeschlossen. Quartieren Sie Gelehrte in Moscheen, Madrasas oder Häfen ein, um die Forschungsgeschwindigkeit zu erhöhen.",
+                    "Technologien, die gerade entwickelt werden, können unterbrochen und wieder aufgenommen werden.",
+                    "In der Nähe von Beerensträuchern errichtete Mühlen erschaffen Gärten, wodurch die Nahrungsmittelkapazität um 100 Punkte erhöht wird.",
+                    "Das Sammeln erfolgt von Beerensträuchern um 25% schneller, von Wildschweinen können Sie aber nichts sammeln.",
+                    "Die Tragekapazität für Beeren ist um 3 erhöht.",
+                    "Fischkutter können sich mit einem Fernkampfangriff verteidigen."
+                ]
+            },
+            {
+                "title": "Gelehrtenkultur",
+                "description": "Bilden Sie in der Dunklen Zeit Gelehrte (I) in Moscheen aus. Sie können religiöse Technologien früher als andere Zivilisationen entwickeln und freischalten."
+            },
+            {
+                "title": "Akademische Errungenschaften",
+                "description": "Sparen Sie die Kosten für Technologien und entwickeln Sie alle Technologien gratis, allerdings geht dies deutlich langsamer vonstatten – Technologien können pausiert und fortgesetzt werden."
+            },
+            {
+                "title": "Grenzbefestigungen",
+                "description": "Errichten Sie befestigte Siedlungen mit Infanterieeinheiten, die Palisadenwälle bauen können. Errichten Sie das Wahrzeichen „Komplex des Verteidigers“, um diese Fähigkeit auf Steinmauern auszuweiten."
+            },
+            {
+                "title": "Defensive Deckmannschaft",
+                "description": "Fischkutter können sich selbst mit einem Fernangriff verteidigen und haben 50% zusätzliche TP."
+            },
+            {
+                "title": "Gartenpflege",
+                "description": "Beerensträucher werden zu Obstgärten, wenn Sie in der Nähe Mühlen errichten, wodurch die Nahrungskapazität um 100 Punkte erhöht wird.\nDorfbewohner sammeln Beerensträucher um 25% schneller, können aber von Wildschweinen nichts sammeln.\nDorfbewohner können 3 Einheiten Nahrung von Beerensträuchern tragen."
+            },
+            {
+                "title": "Einfluss",
+                "description": "In einer Moschee, Madrasa oder einem Hafen einquartierte Gelehrte erhöhen die Forschungsgeschwindigkeit von Gebäuden in ihrem Einflussbereich, je nachdem, wie viele Gelehrte insgesamt einquartiert. Häfen arbeiten schneller, wenn darin Gelehrten einquartiert sind."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Gelehrter: Religiöse Einheit mit Heilfähigkeit in der Dunklen Zeit (I).\nKriegselefant: Schwere Nahkampfkavallerie, wird von einem Speerkämpfer mit hohen TP, hohem Schaden und starkem Belagerungsangriff geritten.\nTurmelefant: Fernkampfkavallerie, wird von zwei Bogenschützen geritten, die aus der Bewegung heraus feuern können.\nGhazi-Plünderer: Schneller Reiter, der einen schweren Streitkolben schwingt."
+            }
+        ]
+    },
+    "chinese": {
+        "summary": "Die Chinesen können ihren Fokus über die Zeitalter verlagern, setzen eine Vielzahl einzigartiger Einheiten ein und errichten Gebäude besonders schnell. Ihre Feinde müssen sich ständig anpassen, wenn sie nicht abgehängt werden wollen.",
+        "classes": "Dynastien, Schießpulver, Steuern",
+        "era": "907–1644 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Beginnen Sie in der Tang-Dynastie – erhöhen Sie die Sichtweite von Spähern um +30% und erhalten Zugang zum Dorfbewohner.",
+                    "Einheiten ausgebildet, Technologien entwickelt und Rohstoffe erzeugen Steuern (Gold), die von Imperialen Beamten gesammelt werden können.\nGeben Sie eine neue Dynastie ein, indem Sie beide Wahrzeichen eines Zeitalters errichten, um spezielle Boni, einzigartige Einheiten und Gebäude freizuschalten.\n•Dorfbewohner errichten Verteidigungsanlagen + 50% schneller und alle anderen Gebäude + 100% schneller.\n•In der Dunklen Zeit (I), Bergfriede, in der Dunklen Zeit (I), in Bergfrieden, kostenlos und Außenposten nutzen Handrohrscharten statt Verteidigung.",
+                    "Häfen arbeiten +10% schneller."
+                ]
+            },
+            {
+                "title": "Große Dynastien",
+                "description": "Beginnen Sie Ihre Reise in der Tang-Dynastie – erhöht die Sichtweite des Spähers um +30% und ermöglicht Zugang zu Dörfern.\nErrichten Sie beide Wahrzeichen in einem Zeitalter, um Dynastien mit Spezialboni, Spezialgebäuden und Spezialeinheiten zu beginnen.\n• Song-Dynastie: Dorfbewohner werden um +33% schneller produziert – schaltet Kornspeicher und Zhugenu frei.\n• Yuan-Dynastie: Bewegungsgeschwindigkeit von Dorfbewohnern, Beamten und Militäreinheiten +15% – schaltet Pagode und Feuerlanzenreiter frei.\n• Ming-Dynastie: Militäreinheiten +15% Gesundheit – schaltet Grenadier frei."
+            },
+            {
+                "title": "Schnelle Herstellung",
+                "description": "Dorfbewohner errichten Verteidigungsanlagen um +50% und alle anderen Gebäude um +1100% schneller. Häfen arbeiten um +10% schneller."
+            },
+            {
+                "title": "Meister des Schießpulvers",
+                "description": "Beginnen Sie das Spiel mit der bereits kostenlos freigeschalteten Technologie „Chemie“ – defensive Gebäude verwenden Handrohrscharten anstelle von defensiven Schießscharten."
+            },
+            {
+                "title": "Steuern",
+                "description": "Ausgebildete Einheiten, entwickelte Technologien und abgelieferte Rohstoffe generieren Steuern (Gold), die von Reichsbeamten erhoben werden können."
+            },
+            {
+                "title": "Einfluss",
+                "description": "Errichten Sie Militär- und Wirtschaftsgebäude im Einflussbereich des Wahrzeichens Kaiserliche Akademie, um +100% mehr Steuergold zu generieren."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Reichsbeamter: Verwenden Sie die Fähigkeit „Überwachen“, um die Produktionsrate von Forschungs- und Militärgebäuden um +150% zu erhöhen – das Überwachen von Wirtschaftsgebäuden erhöht die Menge der von Dorfbewohnern abgelieferten Rohstoffe um +20%.\nZhugenu: Leichte Fernkampfinfanterie mit schnellem Stoßangriff, der gegen leichte Einheiten effektiv ist.\nPalastwache: Ersatz für Waffenknecht. Schwere Nahkampfinfanterie, die Rüstung gegen Bewegungsgeschwindigkeit eintauscht.\nBienennest: Ersatz für Mange. Belagerungsmaschine, die Raketensalven abfeuert und damit Flächenschaden verursacht.\nFeuerlanzenreiter: Leichte Kavallerie, effektiv gegen Belagerungsmaschinen und Gebäude. Verfügt über erweiterte Sichtweite und einen explosionsartigen Sturmangriff.\nGrenadier: Leichte Schießpulverinfanterie, die Granaten wirft und damit Flächenschaden verursacht."
+            }
+        ]
+    },
+    "abbasid_dynasty": {
+        "summary": "Die Abbasiden-Dynastie erreicht ein blühendes Goldenes Zeitalter, indem sie Gebäude rund um ihr Haus der Weisheit konzentriert. Dies ermöglicht es ihnen, erhebliche wirtschaftliche Vorteile freizuschalten. Das Haus der Weisheit bestimmt auch das Voranschreiten zum nächsten Zeitalter und gewährt Zugang zu fortschrittlicher Technologie. Die Kameleinheiten der Abbasiden sind darauf spezialisiert, gegnerische Kavallerie zu kontern.",
+        "classes": "Technologie, Kamele, Stadtplanung",
+        "era": "750–1517 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Kameleinheiten reduzieren den Schaden gegnerischer Kavallerien um 20%.",
+                    "In der Nähe von Beerensträuchern errichtete Mühlen erschaffen Obstgärten, wodurch die Nahrungskapazität um 100 Punkte erhöht wird.",
+                    "Sie sammeln um 25% schneller von Beerensträuchern, können aber von Wildschweinen nichts sammeln.",
+                    "Die Tragekapazität von Beeren ist um 3 Punkte erhöht.",
+                    "Händler auf dem Landweg sind um 33% günstiger.",
+                    "Häfen sind um 50% günstiger.",
+                    "Sie schreiten zum nächsten Zeitalter voran, indem Sie im Haus der Weisheit Flügel aufwerten, ohne dafür Dorfbewohner zu benötigen.",
+                    "Starten Sie in ein Goldenes Zeitalter, indem Sie Gebäude im Einflussbereich des Hauses der Weisheit errichten und so die Rohstoffsammelrate, Forschungsrate und Produktionsrate erhöhen."
+                ]
+            },
+            {
+                "title": "Streben nach Wissen",
+                "description": "Machen Sie sich das Streben der Abbasiden nach Wissen durch die Erforschung einzigartiger Technologien zu eigen, von denen Kamele, Militär, Religion, Wirtschaft und Handel profitieren.\nSchreiten Sie durch die Aufwertung von bis zu 4 Flügeln im Haus der Weisheit zum nächsten Zeitalter voran."
+            },
+            {
+                "title": "Kamelkämpfer",
+                "description": "Kamele erschrecken durch ihre Anwesenheit gegnerische Kavalleriepferde und reduzieren deren Schaden somit um -20%."
+            },
+            {
+                "title": "Belagerungsexperten",
+                "description": "Infanterie kann Rammen, Belagerungstürme, Rutten und Mangen bauen, ohne dafür Belagerungstechnik zu benötigen."
+            },
+            {
+                "title": "Große Obstgärten",
+                "description": "Beerensträucher werden zu Obstgärten, wenn Sie in der Nähe Mühlen errichten, wodurch die Nahrungskapazität um 100 Punkte erhöht wird.\nDorfbewohner sammeln Beerensträucher um 25% schneller, können aber von Wildschweinen nichts sammeln.\nDorfbewohner können 3 Einheiten Nahrung von Beerensträuchern tragen."
+            },
+            {
+                "title": "Handelswirtschaft",
+                "description": "Händler an Land sind 33% kostengünstiger."
+            },
+            {
+                "title": "Schiffswerften",
+                "description": "Häfen können für -50% weniger Holz gebaut werden."
+            },
+            {
+                "title": "Goldenes Zeitalter",
+                "description": "Arbeiten Sie auf Ihr Goldenes Zeitalter hin – verbessern Sie Wirtschaft und Technologie.\nGebäude im Einflussbereich des Hauses der Weisheit erhalten +5 Brandschutz und tragen einen Punkt zum Erreichen des Goldenen Zeitalters bei. Die Schwellenwerte für die Freischaltung liegen bei 10, 30 und 60 Gebäuden.\n- Stufe 1: Sammelrate der Dorfbewohner +15%\n- Stufe 2: Forschungsrate +20%\n- Stufe 3: Sammelrate der Dorfbewohner +20% für alle Rohstoffe. Forschungsraten +20%, Produktionsraten +20%."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Kamelbogenschützen: Leichte Fernkampfkavallerie, die leichter Nahkampfinfanterie Bonusschaden zufügt.\nKamelreiter: Leichte Nahkampfkavallerie, die Kavallerie Bonusschaden zufügt.\nGhulam: Zähe Infanterie mit einem Doppelschlag-Angriff."
+            }
+        ]
+    },
+    "ottomans": {
+        "summary": "Die osmanische Armee kann sich vergrößern, um das Schlachtfeld zu dominieren – unterstützt von Militärschulen, die ununterbrochen Einheiten ausbilden können und somit die Reihen ihrer Formationen anwachsen lassen. Die Mehter-Kriegstrommeln unterstützen diese Formationen ebenfalls und signalisieren den bestausgebildeten Truppen, die Gunst der Stunde zu nutzen.",
+        "classes": "Reichsrat, Militärschulen, Belagerung",
+        "era": "990–1566 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Die Ausbildung von Einheiten und Fortschritte hinsichtlich der Zeitalter gewähren Erfahrung für Wesir-Punkte. Je höher die Kosten einer Aktion, desto mehr Erfahrung wird gewährt. Sammle bis zu fünf Wesir-Punkte und gib diese aus, um mächtige, einzigartige osmanische Boni freizuschalten.",
+                    "Militärschulen können kontinuierlich und kostenlos Einheiten produzieren.",
+                    "Der Einfluss von Schmieden und Universitäten sorgt für erhöhte Produktionsraten für militärische Einheiten nach jedem Zeitalter-Fortschritt.",
+                    "Militär- und Technologiegebäude sind billiger.",
+                    "Janitscharen-Einheit mit Handkanonen sind im Burgzeitalter (III) verfügbar. Können Belagerungsmaschinen reparieren.",
+                    "Mehter-Kriegstrommler verbessert den Angriff und die Verteidigung naher Militäreinheiten.",
+                    "Setze die Große Bombarde als Belagerungsmaschine mit größerer Reichweite und Flächenschaden ein.",
+                    "Baue die Große Galeere, die sich in eine schwimmende Militärschule verwandeln kann.",
+                    "Bewegungsgeschwindigkeit von Handelsschiffen und Transportschiffen erhöht.",
+                    "Es kann keine Beute von Wildschweinen gesammelt werden."
+                ]
+            },
+            {
+                "title": "Militärschulausbildung",
+                "description": "Die Militärschule ist ein einzigartiges Gebäude, das beauftragt werden kann, einen bestimmten Einheitentyp kontinuierlich ohne Kosten auszubilden, jedoch mit langsamerer Produktionsrate."
+            },
+            {
+                "title": "Reichsrat",
+                "description": "Die Ausbildung von Einheiten und Fortschritte durch die Zeitalter gewährt Erfahrung für Wesir-Punkte. Je höher die Kosten einer Aktion, desto mehr Erfahrung wird gewährt. Sammeln Sie bis zu fünf Wesir-Punkte und geben Sie diese aus, um mächtige, einzigartige osmanische Boni freizuschalten."
+            },
+            {
+                "title": "Militärische Anreize",
+                "description": "Trainieren, verbessern und stellen Sie eine Armee mit billigeren Militär- und Technologiegebäuden zusammen."
+            },
+            {
+                "title": "Lieferrouten",
+                "description": "Die Bewegungsgeschwindigkeit von Handelsschiffen, Fischerbooten und Transportschiffen wird erhöht."
+            },
+            {
+                "title": "Einfluss",
+                "description": "Militärische Produktionsgebäude, die im Einflussgebiet einer Schmiede oder Universität errichtet wurden, erhalten mit zunehmendem Alter höhere Produktionsrate."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Sipahi: Ersatz für Reiter. Aktiviert die Fähigkeit „Tapferkeit“, um schneller anzugreifen. Gleichzeitig steigt aber auch der erlittene Schaden durch Nahkampfwaffen.\nMehter: Berittener Kriegstrommler, der Einheiten in der Nähe militärische Verbesserungen bietet, wenn die Fähigkeit „Kriegstrommel“ umgeschaltet wird.\n• Angriffstrommeln: erhöhte Angriffsgeschwindigkeit\n• Nahkampf-Verteidigungstrommeln: verbesserte Nahkampfrüstung.\n• Fernkampf-Verteidigungstrommel: verbesserte Fernkampfrüstung.\nJanitschar: mächtiger Handrohrschütze, der Belagerungsmaschinen reparieren und Kavallerie Bonusschaden zufügen kann.\nGroße Galeere: Große Kriegsgaleere, die sich in eine schwimmende Militärschule verwandeln kann.\nGroße Bombarde: Größte verfügbare Schießpulver-Belagerungsmaschine. Verursacht Fernkampf- und Flächenschaden.\nAkinji: Fernkampfkavallerie mit hoher Reichweite, die schnell hintereinander zwei Pfeile abfeuern kann. Muss durch den Kaiserlichen Rat freigeschaltet werden."
+            }
+        ]
+    },
+    "malians": {
+        "summary": "Die malische Wirtschaft floriert dank ihrer Möglichkeiten zur Gold- und Nahrungsproduktion. Durch die Beanspruchung von Goldvorkommen für ihre Baugruben machen sie sich dieses Wachstum zunutze und bilden einzigartige Infanterieeinheiten aus, die aus dem Hinterhalt angreifen und Speere auf Gegner schleudern.",
+        "classes": "Goldwirtschaft, Infanterie, Rinder",
+        "era": "1235–1670 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Bauen Sie Baugruben auf Goldadern, um Gold zu gewinnen, ohne das Vorkommen zu erschöpfen.\n- Züchten Sie Rinder aus Mühlen in der Dunklen Zeit (I). Rinder können schneller von malischen Dorfbewohnern zu Nahrung verarbeitet werden, als von anderen Zivilisationen, oder sie können in einer Rinderfarm als kontinuierliche Nahrungsquelle einquartiert werden.",
+                    "Musofadi-Einheiten können die Fähigkeit „Tarnung aktivieren\" nutzen, um Angriffe aus dem Hinterhalt auszuführen.",
+                    "Fünf einzigartige Einheiten mit einer anderen Herangehensweise an das Kontersystem.",
+                    "Technologien für Veteraneneinheiten werden halb so schnell entwickelt und kosten die Hälfte.",
+                    "Gold, das auf Handelsrouten gesammelt wird, reduziert die Forschungszeit für zukünftige Technologien.",
+                    "Händler und Handelsschiffe, die Zoll-Außenposten passieren, gewähren sofort Bonus-Gold, basierend auf der Menge des mitgeführten Goldes. Erzeugt keine zusätzliche Steuer, wenn ein Zoll-Außenposten in Reichweite eines anderen errichtet wird.",
+                    "Fischerboote geben 10% ihrer Nahrung als Gold ab.",
+                    "Die Bewegungsgeschwindigkeit aller Schiffe wird in der Nähe von Häfen erhöht.",
+                    "Transportschiffe greifen mit Speeren pro einquartierter Einheit an.",
+                    "Häuser werden doppelt so schnell gebaut, sind aber nur halb so teuer und liefern nur die halbe Bevölkerungszahl.",
+                    "Es kann keine Beute von Wildschweinen gesammelt werden"
+                ]
+            },
+            {
+                "title": "Baugruben",
+                "description": "Profitieren Sie von überlegener Goldwirtschaft und bauen Sie in der dunklen Zeit (I) die Baugrube über Goldadern, um Gold zu erzeugen, ohne es zu erschöpfen. Dorfbewohner können Gold abbauen, während die Baugrube aktiv ist.\nIst die Goldader erschöpft, fördert die Baugrube weiterhin Gold aus der Ader."
+            },
+            {
+                "title": "Einfluss – Bergbaugemeinden",
+                "description": "Jedes Haus und Bergarbeiterlager, das im Einflussbereich von Tagebaugruben errichtet wurde, erhöht die Goldgenerierung. \nDorfzentren kosten beim Errichten Gold statt Stein."
+            },
+            {
+                "title": "Rinder & Farmen",
+                "description": "Züchten Sie Rinder aus Mühlen in der dunklen Zeit (I). Rindern können schneller von malischen Dorfbewohnern zu Nahrung verarbeitet werden, als von anderen Zivilisationen, oder sie können in einer Rinderfarm für kontinuierliche Nahrung einquartiert werden."
+            },
+            {
+                "title": "Musofadi-Spurensucher",
+                "description": "Die einzigartigen Musofadi-Krieger- und -Kanonier-Einheiten können die Tarnfähigkeit verwenden, um die Gegend zu erkunden und Hinterhalte zu legen."
+            },
+            {
+                "title": "Fararis Wissen",
+                "description": "Veteranen-Einheitentechnologien, die im Burgzeitalter (III) freigeschaltet wurden, kosten die Hälfte."
+            },
+            {
+                "title": "Zoll-Außenposten",
+                "description": "Händler und Handelsschiffe, die Zoll-Außenposten passieren, gewähren basierend auf dem aktuellen Handelsziel sofort Bonus-Rohstoffe. Erzeugt keine zusätzliche Steuer, wenn ein Zoll-Außenposten in Reichweite eines anderen errichtet wird."
+            },
+            {
+                "title": "Manuskripthandel",
+                "description": "Auf abgeschlossenen Handelsrouten gesammeltes Gold verringert die Entwicklungszeit zukünftiger Technologien."
+            },
+            {
+                "title": "Fischverarbeitung",
+                "description": "Fischerboote geben 10% ihrer Nahrung als Gold ab."
+            },
+            {
+                "title": "Landungstrupps",
+                "description": "Die Bewegungsgeschwindigkeit aller Schiffe wird in der Nähe von Docks erhöht.\nTransportschiffe greifen mit Speeren pro einquartierter Einheit an."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "list": [
+                    "Donso: Speerkämpfer-Ersatz. Leichte Nahkampfinfanterie mit erhöhter Gesundheit und Nahkampfrüstung, die regelmäßig einen Speer werfen kann.",
+                    "Kriegerspäher: Leichte Kavallerie, die Schaden, Bewegungsgeschwindigkeit, Gesundheit und Gesundheitsregeneration verbessern kann.",
+                    "Musofadi-Krieger: Schnelle, leichte, panzerbrechende Infanterie, die die aktive Tarnfähigkeit verwenden kann.",
+                    "Speerwerfer: Anti-Fernkampfinfanterie, die einen Speer aus größerer Reichweite wirft.",
+                    "Sofa: Schnellere schwere Kavallerie mit reduzierten Kosten, Gesundheit und Rüstung.",
+                    "Musofadi-Kanonier: Schneller Handrohrschütze, der die aktive Tarnfähigkeit verwenden kann."
+                ]
+            }
+        ]
+    },
+    "byzantines": {
+        "summary": "Die Byzantiner errichten weitläufige Wassernetzwerke von Aquädukten und Zisternen. Nutzen Sie mächtige einzigartige Fähigkeiten und heuern Sie Söldner mit exquisitem Olivenöl an. Bauern arbeiten unermüdlich an der Herstellung von Olivenöl für das Reich.",
+        "classes": "Stadtplanung, Söldner, Verteidigung",
+        "era": "330 - 1453 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Zisternen können umgeschaltet werden, um den Einfluss der Einheiten-Produktionsrate, der Forschungsrate oder der Gebäudeverteidigung aufzuwerten. Die Boni verbessern sich, wenn die Gebäude mit Aquädukten verbunden werden.",
+                    "Feldeinheiten, die verschiedene Formen des Griechischen Feuers verwenden können.",
+                    "Zusätzlicher Stein wird von allen gebauten Gebäuden gesammelt.",
+                    "Olivenöl ernten, das zur Produktion von Söldnereinheiten verwendet wird.",
+                    "Ab Feudalzeit (II) werden einzigartige Einheiten anderer Zivilisationen als Söldner aus dem Söldnerhaus produziert.",
+                    "Arbeiter erzeugen Olivenöl von Beerensträuchern, Olivenhainen und Fischen.",
+                    "Händler liefern Olivenöl bei erfolgreichem Handel.",
+                    "Marktplätze können mit Olivenöl handeln.",
+                    "Transportschiffe erhöhen vorübergehend die Bewegungsgeschwindigkeit von Einheiten beim Entladen."
+                ]
+            },
+            {
+                "title": "Olivenöl",
+                "description": "Sammeln Sie einen einzigartigen Rohstoff, um mit ihm Söldnereinheiten anzuwerben. Dorfbewohner sammeln Olivenöl, das 50% der Nahrung aus Beerensträuchern, 20% aus Olivenhainen und 10% aus Küstenfischen entspricht.\nFischerboote erzeugen Olivenöl, das 20% der Nahrung aus Fischen entspricht, und Händler liefern 20% Olivenöl basierend auf der gehandelten Menge."
+            },
+            {
+                "title": "Söldner",
+                "description": "Kaufen Sie Verträge oder errichten Sie die Kontrolle über Handelsposten, um einzigartige Einheiten anderer Zivilisationen mit Olivenöl im Söldnerhaus zu rekrutieren."
+            },
+            {
+                "title": "Zisternen und Aquädukte",
+                "description": "Zisternen bieten Dorfbewohnern in der Nähe erhöhte Nahrungssammelraten und einen Einfluss, der die Einheiten-Produktionsrate, die Forschungsrate oder die Gebäudeverteidigung verbessert.\nKonstruieren Sie ein Aquädukt-Netzwerk und verbinden Sie es mit Zisternen, um seinen erzeugten Bonus zu erhöhen."
+            },
+            {
+                "title": "Feldsteine",
+                "description": "Sammeln Sie Steine von jedem errichteten Gebäude. Die Größe des Gebäudes bestimmt die Menge des gesammelten Steins."
+            },
+            {
+                "title": "Griechisches Feuer",
+                "description": "Cheirosiphone, Dromonen und verbesserte Triboke schleudern bei ihren Angriffen griechisches Feuer, die das Gebiet in Flammen hüllen, um mit der Zeit Schaden zu verursachen."
+            },
+            {
+                "title": "Mangenstellungen",
+                "description": "Außenposten und Bergfriede können mit Mangenstellungen aufgerüstet werden. Steinmauertürme werden mit Mangenstellungen anstelle von Rutten ausgestattet."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Limitanei: Ersatz für Speerkämpfer. Leichte Nahkampf-Infanterieeinheit mit der Fähigkeit Schildmauer, welche die Fernkampf-Rüstung auf Kosten der Bewegungsgeschwindigkeit erhöht.\nWarägergarde: Ersatz für Waffenknecht. Verwendet die Fähigkeit Berserker, um den Schaden auf Kosten der Rüstung zu erhöhen. Kann Transportschiffe bauen und die Rüstung von Transporten erhöhen, wenn sie einquartiert ist. Erhält erhöhte Bewegungsgeschwindigkeit nach der Landung von Transportschiffen.\nKataphrakt: Ersatz für Ritter. Schwere Kavallerie mit der machtvollen zielgerichteten Fähigkeit „Trampeln“, mit der Feinden durch Hindurchstürmen Schaden zufügt wird.\nCheirosiphon: Ein Rammbock, der mit einem Griechischen Feuerangriff mit kurzer Reichweite ausgestattet ist.\nDromone: Ersatz für die Rutte. Ausgerüstet mit Griechischem Feuer."
+            }
+        ]
+    },
+    "japanese": {
+        "summary": "Als Herrscher über das japanische Land fördert der Daimyo die Landwirtschaft und setzt Samurai zur Verteidigung seines Territoriums ein. Die einzigartige Esse arbeitet unermüdlich daran, ihre Klingen zu schärfen, um ihnen einen Vorteil im Kampf zu verschaffen. Kräftige Samurai-Bannermänner führen ihre vielfältige Armee aus Infanterie und Kavallerie zum Sieg.",
+        "classes": "Landwirtschaft, Bannermänner, Infanterie",
+        "era": "794 - 1616 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Dorfzentren können aufgewertet werden, um die Verteidigung und die Ernteraten nahegelegener Felder und die Produktionsobergrenze von Samurai-Bannerträgern zu verbessern.",
+                    "Samurai-Bannerträger bieten Boni für nahe gelegene Infanterieeinheiten und Kavallerie.",
+                    "Samurai verfügen über Rüstung mit Schussablenkung, die Nahkampf- oder Fernkampfangriffe abblocken kann.",
+                    "Baracken sind günstiger im Bau.",
+                    "Bauernhäuser sind Abgabestellen für Nahrung und versorgen darüber hinaus die Bevölkerung.",
+                    "Schmieden sind Abgabestellen für Gold und Stein, die zusätzlich militärische Aufwertungen bieten.",
+                    "Gold, das von Dorfbewohnern eingelagert wird, generiert zusätzlichen Stein und umgekehrt.",
+                    "Zusätzliche Nahkampfschaden-Aufwertungen sind in der Dunklen Zeit (I) verfügbar.",
+                    "Entscheiden Sie sich bei Auswahl des Wahrzeichens für die Ritterzeit (III) zwischen buddhistischen Mönchen oder Shinto-Priestern.",
+                    "Bergfriede sind in der Imperialzeit (IV) mit Raketenstellungen ausgestattet und verfügen über eine höhere Gesundheit.",
+                    "Die Herstellung von Fischerbooten ist günstiger."
+                ]
+            },
+            {
+                "title": "Daimyo",
+                "description": "Dorfzentren können zu besonderen Gebäuden aufgewertet werden, die Daimyo-Anwesen, Daimyo-Palast und Shogunat-Burg genannt werden. Diese Gebäude bieten den Feldern der Dorfbewohner in der Nähe einen Bonus von 20%, 40%, 60%, erhöhen die Kapazität von Samurai-Bannermännern um +1, +2, +3 und verbessern ihre Verteidigung."
+            },
+            {
+                "title": "Hatamoto-Samurai",
+                "description": "Elite-Feldsamurai-Bannerträger, die den Schaden von Infanterieeinheiten in der Nähe um +15% und von Kavallerie um +10% erhöhen. Samurai-Bannerträger lassen ihre Banner fallen, wenn sie getötet werden und stellen dann für eine gewisse Zeit den gleichen Effekt bereit."
+            },
+            {
+                "title": "Ruhe des Gemüts",
+                "description": "Bilden Sie Samurai in der Dunklen Zeit (I) aus. Samurai haben die Fähigkeit „Ablenkenden Rüstung“, mit der sie regelmäßig Nah- oder Fernkampfangriffe abblocken können."
+            },
+            {
+                "title": "Bauernhaus und Esse",
+                "description": "Die Esse ist eine Ablieferungsstelle für Gold und Steine und ersetzt das Bergarbeiterlager und die Schmiede. Außerdem bietet sie zusätzliche Nahkampfschaden-Technologie in der Dunklen Zeit (I). Das Bauernhaus sorgt für Bevölkerung und ersetzt die Mühle als Ablieferungsstelle für Nahrung."
+            },
+            {
+                "title": "Odas Festung",
+                "description": "In der Imperialzeit (IV) haben Sie Zugang zu einem mächtigeren Bergfried mit erhöhter Gesundheit und Raketenstellungen zu einem höheren Preis. Raketen greifen schnell an und fügen einzelnen Zielen massiven Schaden zu."
+            },
+            {
+                "title": "Silberbergbau",
+                "description": "Wenn Dorfbewohner Gold abliefern, wird 20% zusätzlich Stein produziert und umgekehrt."
+            },
+            {
+                "title": "Religiöse Wahl",
+                "description": "Wählen Sie zwischen Shintoismus und Buddhismus mit Ihrer Wahl des Wahrzeichens des III. Zeitalters. Wenn Sie Shintoismus wählen, schalten Sie den Shinto-Priester frei. Wenn Sie sich für den Buddhismus entscheiden, schalten Sie den buddhistischen Mönch frei. Diese religiösen Einheiten bieten Spezialboni."
+            },
+            {
+                "title": "Samurai-Gebiete",
+                "description": "Kasernen lassen sich 50% günstiger bauen."
+            },
+            {
+                "title": "Fischerdorf",
+                "description": "Fischerboote werden 25% günstiger hergestellt."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "list": [
+                    "Samurai: Ersatz für Waffenknecht. Schwere Nahkampfinfanterieeinheit, die über „Ablenkende Rüstung“ verfügt, die Nah- und Fernkampfangriffe abblocken kann.",
+                    "Berittene Samurai: Ersatz für Lanzenreiter. Schwere Nahkampfkavallerie mit „Ablenkender Rüstung“.",
+                    "Yumi Ashigaru: Bogenschütze mit verbesserter Bewegungsgeschwindigkeit bei reduzierten Kosten und Gesundheit.",
+                    "Onna-Bugeisha: Leichte Nahkampfinfanterieeinheit, die ihre hohe Bewegungsgeschwindigkeit und große Waffenreichweite nutzen kann, um den Gegner auf Trab zu halten.",
+                    "Onna-Musha: Ersatz für Armbrustschützen. Berittener Bogenschütze, der mit erhöhter Mobilität schwere Ziele bedrängen kann.",
+                    "Shinobi: Spionageeinheit, die als Spion agieren, Gebäude sabotieren oder Ziele ermorden kann. Wird von dem Koka-Gemeinde-Wahrzeichen ausgebildet.",
+                    "Ozutsu: Schwere Schießpulverinfanterie, die über eine riesige Handkanone mit hohem Belagerungs- und Flächenschaden verfügt. Wird von dem Tanegashima-Büchsenmacher-Wahrzeichen ausgebildet."
+                ]
+            }
+        ]
+    },
+    "jeanne_darc": {
+        "summary": "Als Funke der Hoffnung für das französische Volk zieht Johanna von Orléans auf das Schlachtfeld und flößt ihren Anhängern Mut ein. Johanna beginnt als bescheidene Dorfbewohnerin und begibt sich in der Dunklen Zeit auf die Reise eines Helden. Die Erfahrung formt Jeanne zu einer mächtigen Anführerin, die Zugang zu vertrauenswürdigen Gefährten und mächtigen Fähigkeiten erhält, die das Reich formen, das sie erschaffen sollte.",
+        "classes": "Handel, Kavallerie, Held",
+        "era": "1412 – 1431 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Jeanne d’Arc geht auf Heldenreise.",
+                    "Königliche Ritter in der Feudalzeit (II).",
+                    "Wirtschaftliche Technologien sind -35% billiger.",
+                    "Handelsposten werden auf der Minikarte angezeigt.",
+                    "Händler können Nahrung, Holz oder Gold an Marktplätze zurückgeben.",
+                    "Handelsschiffe geben +20% Rohstoffe zurück."
+                ]
+            },
+            {
+                "title": "Die Reise eines Helden",
+                "description": "Jeanne d‘Arc kündigt sich auf dem Schlachtfeld an. Eine heldenhafte Einheit, die Erfahrung für die Erfüllung von Aufgaben wie das Sammeln von Rohstoffen, den Bau von Gebäuden und die Teilnahme am Kampf erhält.\nNachdem sie genug Erfahrung gesammelt hat, kann Jeanne aufsteigen, um mächtige wirtschaftliche und kämpferische Fähigkeiten zu erhalten."
+            },
+            {
+                "title": "Königliche Hengste",
+                "description": "Setzen Sie den Königlichen Ritter in der Feudalzeit (II) ein und entwickeln Sie mächtige einzigartige Technologien für die Kavallerie."
+            },
+            {
+                "title": "Verbundene Wirtschaft",
+                "description": "Unter der Führung von Jeanne d‘Arc arbeiten die Leute härter. Wirtschaftliche Aufwertungen sind 35% günstiger."
+            },
+            {
+                "title": "Handelswirtschaft",
+                "description": "Liefern Sie mit Händlern und Handelsschiffen Nahrung, Holz oder Gold an Marktplätze.\nHandelsschiffe gewähren +20% mehr Rohstoffe.\nHandelsposten werden zu Beginn des Spiels auf der Minikarte enthüllt.\nHäfen bieten der Bevölkerung mehr Platz."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Jeanne d‘Arc: eine Heldeneinheit, die als Dorfbewohnerin beginnt. Jeanne muss die „Die Reise eines Helden“ durchlaufen, um mächtige Fähigkeiten zu erlangen.\nJeannes Reiter: Schnelle Kavallerie, die bei Plünderungen, Flankenangriffen und dem Kontern von Armbrüsten effektiv ist, wird verfügbar, sobald Jeanne Stufe 3 erreicht.\nJeannes Elitekämpfer: Zähe Infanterieeinheit, die sich hervorragend gegen Speerkämpfer eignet, wird verfügbar, sobald Jeanne Stufe 3 erreicht.\nKöniglicher Ritter: Schwere Kavallerie, die 5 Sekunden lang nach Abschluss eines Sturmangriffs +3 Extraschaden erhält.\nArbalétrier: Armbrustschütze mit +1 Nahkampfrüstung, der eine defensive Pavese einsetzen kann, um 30 Sekunden lang +5 Fernkampfrüstung und +1 Waffenreichweite bereitzustellen.\nKanone: Ersatz für Bombarden mit mehr Schaden, Mobilität und ohne Vorbereitungszeit.\nGaleasse: Große Kriegsgaleere mit einer vorwärts montierten Bombarde mit großer Reichweite.\nKriegskogge: Einzigartiges Rutteschiff mit reduzierten Kosten und erhöhter Durchschlagspanzerung."
+            }
+        ]
+    },
+    "ayyubids": {
+        "summary": "Am Zusammenfluss der Kontinente, wo Handel und Wissenschaft aufeinandertreffen und Reiche aufeinanderprallen, nutzen die Ayyubiden ihr Streben nach Wissen, um die Oberhand zu gewinnen. Das Haus der Weisheit ist der Mittelpunkt dieser Kombination aus Urbanisierung und Wissenschaft, die mächtige Boni für das Goldene Zeitalter freischaltet und den Aufstieg durch die Zeitalter ermöglicht. Die Ayyubiden setzt auf vielseitige Einheiten, um einen taktischen Vorteil auf dem Schlachtfeld zu erlangen.",
+        "classes": "Anpassungsfähig, Kamele, Stadtplanung",
+        "era": "750–1517 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Kameleinheiten reduzieren den Schaden von gegnerischen Kavalleriepferden in der Nähe um -20%.",
+                    "In der Nähe von Beerensträuchern errichtete Mühlen erschaffen Gärten, wodurch die Nahrungskapazität um +100 erhöht wird.\n- Sammeln Sie +25% schneller von Beerensträuchern, aber es kann nicht von Wildschweinen gesammelt werde.\n- Die Tragfähigkeit von Beeren wird um +3 erhöht.\n- Händler zu Land sind um -33% günstiger.\n- Häfen sind um -50% günstiger.\n- Schreiten Sie zum nächsten Zeitalter durch Aufwerten von Flügeln im Haus der Weisheit voran, ohne dafür Dorfbewohner zu benötigen.\n- Wählen Sie aus 8 verschiedenen Flügeln, von denen jeder einen mächtigen Bonus freischaltet, ohne dass eine zusätzliches Aufwertung erforderlich ist.",
+                    "Der Bonus eines Flügels wird mächtiger, wenn er in späteren Zeitaltern entwickelt wird.\n- Erhalten Sie besondere Boni, wenn Sie ein Goldenes Zeitalter betreten, indem Sie Gebäude im Einflussbereich des Hauses der Weisheit errichten."
+                ]
+            },
+            {
+                "title": "Anpassungsfähiger Kommandant",
+                "description": "Schreiten Sie durch die Zeitalter voran, indem Sie 8 einzigartige Flügel im Haus der Weisheit auswählen.\nErhalten Sie sofortigen Zugang zu Boni für Wirtschaft, Technologie und Militär, ohne dass ein Aufwertung erforderlich ist, um die Zivilisation an die Bedürfnisse der Schlacht anzupassen.\nJeder Flügel bietet mächtigere Boni, wenn er in späteren Zeitaltern gebaut wird."
+            },
+            {
+                "title": "Kamelkämpfer",
+                "description": "Kamele erschrecken durch ihre Anwesenheit gegnerische Kavalleriepferde und reduzieren deren Schaden somit um -20%."
+            },
+            {
+                "title": "Belagerungsmeister",
+                "description": "Infanterie kann Belagerungsmaschinen auf dem Feld konstruieren, ohne die Technologie der Belagerungstechnik zu benötigen.\nZugang zu zwei einzigartigen Belagerungswaffen und einer einzigartigen Belagerungsaufwertung."
+            },
+            {
+                "title": "Große Obstgärten",
+                "description": "Beerensträucher werden zu Obstgärten, wenn Sie in der Nähe Mühlen errichten, wodurch die Nahrungskapazität um 100 Punkte erhöht wird.\nDorfbewohner sammeln Beerensträucher um 25% schneller, können aber von Wildschweinen nichts sammeln.\nDorfbewohner können 3 Einheiten Nahrung von Beerensträuchern tragen."
+            },
+            {
+                "title": "Handelswirtschaft",
+                "description": "Händler an Land sind 33% kostengünstiger."
+            },
+            {
+                "title": "Schiffswerften",
+                "description": "Häfen können für -50% weniger Holz gebaut werden."
+            },
+            {
+                "title": "Goldenes Zeitalter",
+                "description": "Arbeiten Sie auf Ihr Goldenes Zeitalter hin: Verbessern Sie Wirtschaft, Technologie und Militär.\nGebäude im Einflussbereich des Hauses der Weisheit erhalten +5 Brandschutz und tragen einen Punkt zum Goldenen Zeitalter bei. Die Schwellenwerte für die Freischaltung liegen bei 10, 20, 30, 50 und 75 Gebäuden. \n- Stufe 1: Sammelrate der Dorfbewohner +10%\n- Stufe 2: Forschungsrate +25%\n- Stufe 3: Produktionsrate +20%\n- Stufe 4: Belagerungseinheiten kosten 20% weniger Rohstoffe in der Produktion.\n- Stufe 5: Kameleinheiten greifen 20% schneller an."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Wüstenplünderer: Vielseitiger Kamelreiter, der zwischen Fern- und Nahkampfmodus wechseln kann.\nKamellanzenreiter: Schweres Kamel mit einem mächtigen Sturmangriff.\nDerwisch: Berittene religiöse Einheit mit einer mächtigen Heilungsfähigkeit.\nManjaniq: Einzigartige Mange, die einen Brandmodus verwenden kann, um Schaden in einem stark vergrößerten Bereich zu verursachen.\nTurm des Sultans: Eine riesige Belagerungswaffe, die mit Bogenschützen besetzt und mit einem Rammbock ausgestattet ist, der verheerenden Schaden an Gebäuden anrichtet."
+            }
+        ]
+    },
+    "zhu_xis_legacy": {
+        "summary": "Die Lehren des Philosophen Zhu Xi formen die chinesische Zivilisation neu. Dank Zhu Xis Vermächtnisses verfügen die Chinesen über eine hochentwickelte Verwaltung mit hervorragenden Reichsbeamten und fortschrittlichen Technologien. Die prall gefüllte Schatzkammer hilft bei der Gründung mächtiger Dynastien und der Erforschung vieler einzigartiger Technologien. Rekrutieren Sie schon früh Palastwachen, Zhugenus und Grenadiere, um das Reich zu schützen.",
+        "classes": "Dynastien, Steuern, Technologie",
+        "era": "907–1644 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Beginnen Sie in der Tang-Dynastie – die Kosten für Wahrzeichen werden um -15% reduziert und das Dorf wird freigeschaltet.",
+                    "Beginnen Sie eine neue Dynastie, indem Sie beide Wahrzeichen eines Zeitalters bauen, um spezielle Boni und Gebäude freizuschalten.",
+                    "Ausgebildete Einheiten, erforschteTechnologien und abgelieferte Rohstoffe generieren Steuern (Gold), die von Reichsbeamten erhoben werden können.",
+                    "Einzigartige Technologien werten Reichsbeamte erheblich auf, schalten neue Einheiten frei und verstärken militärische Einheiten.",
+                    "Frühe Palastwachen sind im Feudalzeitalter verfügbar.",
+                    "Greifen Sie auf Zhugenu und Grenadier zu, ohne Dynastien zu beginnen.",
+                    "Dorfbewohner errichten Verteidigungsanlagen +50% schneller und alle anderen Gebäude +100% schneller.",
+                    "Chemie-Technologie wird kostenlos in der Dunklen Zeit gewährt – Dorfzentren, Bergfriede und Außenposten verwenden Handrohrscharten anstelle von defensiven Schießscharten.",
+                    "Häfen arbeiten +10% schneller."
+                ]
+            },
+            {
+                "title": "Große Dynastien",
+                "description": "Beginnen Sie Ihre Reise in der Tang-Dynastie – die Kosten für Wahrzeichen werden um -15% reduziert und das Dorf wird freigeschaltet.\nBauen Sie beide Wahrzeichen in einem Zeitalter, um Dynastien mit speziellen Boni, einzigartigen Gebäuden und Einheiten zu starten.\n– Song: Holzkosten für Wirtschafts- und Bevölkerungsgebäude werden um -30% reduziert – schaltet den Bau des Kornspeichers frei.\n– Yuan: 10% Rabatt auf alle Einheiten – schaltet den Bau der Pagode frei.\n– Ming: Einzigartige Einheiten verursachen +20% Schaden."
+            },
+            {
+                "title": "Steuern",
+                "description": "Ausgebildete Einheiten, entwickelte Technologien und abgelieferte Rohstoffe erzeugen Steuern (Gold), die von Reichsbeamten erhoben werden können. Einzigartige Verwaltungstechnologien aus der Lu Shan-Akademie und Zhu Xis Bibliothek werten die Reichsbeamten erheblich auf."
+            },
+            {
+                "title": "Dynastie-Einheiten",
+                "description": "Greifen Sie auf den Zhugenu und den Grenadier zu, ohne eine Dynastie zu gründen. Wahrzeichen können mächtige Shaolin-Mönche, Yuan-Plünderer und Kaiserliche Garde freischalten. Frühe Palastwachen können in der Feudalzeit ausgebildet werden."
+            },
+            {
+                "title": "Meister des Schießpulvers",
+                "description": "Beginnen Sie das Spiel mit der bereits kostenlos freigeschalteten Technologie „Chemie“ – defensive Gebäude verwenden Handrohrscharten anstelle von defensiven Schießscharten."
+            },
+            {
+                "title": "Schnelle Herstellung",
+                "description": "Dorfbewohner errichten Verteidigungsanlagen um +50% und alle anderen Gebäude um +1100% schneller. Häfen arbeiten um +10% schneller."
+            },
+            {
+                "title": "Beschützen Sie den Palast",
+                "description": "Bilden Sie in der Feudalzeit (II) frühe Palastwachen aus, um den Kaiser zu schützen."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Reichsbeamter: Verwenden die Fähigkeit „Überwachen“, um die Produktionsrate von Forschungs- und Militärgebäuden um +150% zu erhöhen – das Überwachen von Wirtschaftsgebäuden erhöht die Menge der von Dorfbewohnern abgelieferten Rohstoffe um +20%.\nZhugenu: Ersatz für Bogenschützen. Leichte Fernkampfinfanterieeinheit mit schnellem Stoßangriff, der gegen leichte Einheiten effektiv ist.\nPalastwache: Ersatz für Waffenknecht. Schwere Nahkampfinfanterieeinheit, die Rüstung gegen Bewegungsgeschwindigkeit eintauscht.\nBienennest: Ersatz für Mange. Belagerungsmaschine, die Raketensalven abfeuert und damit Flächenschaden verursacht.\nGrenadier: Leichte Schießpulverinfanterieeinheit, die Granaten wirft und damit Flächenschaden verursacht."
+            }
+        ]
+    },
+    "order_of_the_dragon": {
+        "summary": "Der Orden des Drachen wird von handverlesenen wohlhabenden Eliten gegründet, um feindliche Imperien zu vernichten. Der Orden investiert große Mengen an Rohstoffe in die Ausbildung einiger weniger außergewöhnlicher Krieger und schafft es so, eine Elite-Armee aufzustellen, die ihresgleichen sucht.",
+        "classes": "Qualität, Infanterie, Verteidigung",
+        "era": "1408–1437 n. Chr",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Dorfbewohner tragen +40% mehr Ressourcen, sammeln +28% schneller und bauen und reparieren Gebäude +20% schneller.",
+                    "Infanterie- und Kavallerieeinheiten sind viel stärker, aber auch teurer in der Produktion und benötigen die doppelte Bevölkerungszahl",
+                    "Reliquien können in Außenposten, Steintürmen und Bergfrieden platziert werden, um defensive und wirtschaftliche Boni zu erhalten.",
+                    "Reliquien, die in Häfen platziert werden, erhöhen die Angriffsgeschwindigkeit von Schiffen um +5% pro Reliquie (max. +20%).",
+                    "Stellungen sind -20% billiger. Die Sichtweite von Außenposten wurde um +20% erhöht.",
+                    "Gebäude im Einflussbereich eines Dorfzentrums erhalten die Notfallreparaturen-Fähigkeit, die aktiviert werden kann, um das Gebäude zu reparieren."
+                ]
+            },
+            {
+                "title": "Effiziente Dorfbewohner",
+                "description": "Dorfbewohner sammeln 28% schneller, errichten und reparieren Gebäude 20% schneller, aber kosten 20% mehr Nahrung in der Ausbildung."
+            },
+            {
+                "title": "Religiöser Eifer",
+                "description": "Demonstrieren Sie die Macht des Reiches, indem Sie Reliquien in Außenposten, Türmen und Bergfrieden platzieren – und ihre Rüstung um + 25%, den Schaden um + 25%, die Reichweite um + 25% und die Sichtweite um + 20% % erhöhen. \nIn Häfen platzierte Reliquien erhöhen die Angriffsgeschwindigkeit von Schiffen um + 5% pro Reliquie (Max. + 25%).\nIn Gebäuden platzierte Reliquien erzeugen + 80 Gold pro Minute."
+            },
+            {
+                "title": "Elite-Ausrüstung",
+                "description": "Erforschen Sie Technologien wie schwere Fackeln, Schuppenrüstungen und Kriegspferde, um die Macht des Ordens weiter zu stärken."
+            },
+            {
+                "title": "Stellungsarchitektur",
+                "description": "Alle Stellungstechnologien sind um -20% günstiger. Sichtweite von Außenposten um +20% erhöht."
+            },
+            {
+                "title": "Handwagen",
+                "description": "Dorfbewohner können +40% mehr Rohstoffe als andere Zivilisationen tragen."
+            },
+            {
+                "title": "Einfluss",
+                "description": "Gebäude, die im Einflussbereich eines Dorfzentrums errichtet wurden, erhalten die Fähigkeit „Notfallreparaturen“, die aktiviert werden kann, um das Gebäude 20 Sekunden lang um +150 TP pro Sekunde zu reparieren."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Die Elite-Infanterie- und Kavallerie-Einheiten des Ordens – wie etwa der vergoldete Waffenknecht, der vergoldete Ritter und andere – haben fast doppelt so viele Gesundheit wie reguläre Einheiten und richten deutlich mehr Schaden an. Allerdings ist ihre Ausbildung sehr viel kostspieliger und sie verbrauchen doppelt so viel des Bevölkerungslimits."
+            }
+        ]
+    },
+    "knights_templar": {
+        "summary": "Gegründet, um die Sanftmütigen und Müden zu schützen, errichten die Tempelritter Kommende in ganz Europa, um ihre Verbündeten um sich zu scharen. Mit einem spektakulären Aufgebot schwerer Truppen ziehen die Templer beherzt und diszipliniert in die Schlacht. Festungen sind in der sorgfältig gepflegten Landschaft verstreut und bieten den Pilgern, die dadurch beschützt werden, wichtige Verteidigungspositionen und einen sicheren Zufluchtsort.",
+        "classes": "Pilger, Kommende, Ritter",
+        "era": "1119 –1307 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Steigen Sie im Dorfzentrum ins nächste Zeitalter auf, indem Sie eine Kommende errichten.",
+                    "Kommenden schalten dauerhaft Einheiten und Boni frei.",
+                    "Pilger erzeugen Gold, indem sie zu geweihten Stätten reisen.",
+                    "Errichten Sie Festungen im Feudalzeitalter.",
+                    "Festungen erhöhen die Reichweite von Einheiten der Nähe und die Gesundheit von Steinmauern in der Nähe.",
+                    "Festungen fungieren als Wahrzeichen, können aber vollständig zerstört werden.",
+                    "Holzfäller liefern automatisch Holz und sammeln mit jedem Zeitalter schneller.",
+                    "Belagerungswerkstätten und Belagerungsmaschinen kosten weniger Holz.",
+                    "Triboke feuern ein zusätzliches Geschoss ab."
+                ]
+            },
+            {
+                "title": "Kommende errichten",
+                "description": "Steigen Sie im Dorfzentrum ins nächste Zeitalter auf, indem Sie eine von drei einzigartigen Kommenden bauen. Jede Kommende schaltet eine Spezialeinheit und einen Bonus permanent frei."
+            },
+            {
+                "title": "Fränkische Verteidigungsstrategien",
+                "description": "Festungen ersetzen Bergfriede und sind in der Feudalzeit verfügbar.\nFernkampfeinheiten in der Nähe einer Festung haben eine um +15% erhöhte Angriffsreichweite. Steinmauern im Einflussbereich einer Festung oder des Tempelritter-Hauptquartiers verfügen über +25% Gesundheit und einen zusätzlichen Standardpfeil.\nFestungen verhalten sich wie Wahrzeichen, können aber vollständig zerstört werden."
+            },
+            {
+                "title": "Wallfahrt",
+                "description": "Die Tempelritter können keine Händler ausbilden. Sie bringen stattdessen Gold durch erfolgreiche Pilgerfahrten ein. Sobald Sie die Feudalzeit erreichen, können die Tempelritter sicheres Geleit für Pilger sein, wenn diese zu einer geweihten Stätte reisen. \nAlle 60 Sekunden reist eine Gruppe Pilger vom Hauptquartier der Templer zur ausgewählten geweihten Stätte und generiert bei ihrer Ankunft je nach zurückgelegter Distanz mehr oder weniger Gold. Die Größe der Gruppe wird mit jeder aktiven Festung um 1 erhöht, bis zu maximal 10.\nZu Beginn des Spiels werden die geweihten Städten und die Reliquien angezeigt."
+            },
+            {
+                "title": "Küsten-Kriegshäfen",
+                "description": "Bauen Sie Kriegshäfen anstelle von Häfen. Sie sind teurer, bieten aber mehr Gesundheit, eine stärkere Stellung und mehr Garnisonsplatz für Fischkutter, während sie die Gesundheit von Schiffen in der Nähe verbessern."
+            },
+            {
+                "title": "Bewahrung der Landschaft",
+                "description": "Dorfbewohner lagern Holz automatisch ohne Holzfällerlager ein.\nHolz wird in jedem Zeitalter 20% schneller gesammelt, und 20% des gesammelten Holzes wird in zusätzliche Nahrung umgewandelt."
+            },
+            {
+                "title": "Belagerungsexperten",
+                "description": "Triboke feuern zusätzliche Projektile ab und können mit einer einzigartigen Stellung auf Festungen aufgestellt werden.\nBelagerungswerkstätten und Belagerungsmaschinen kosten 25% weniger Holz."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Tempelbruder: Ersatz für Ritter. Teurer als ein normaler Ritter, verfügt aber über zusätzliche Gesundheit und zusätzlichen Schaden.\nFeudalzeit\nKommende der Malteser-Ritter – Malteser-Ritter: schwere Nahkampf-Infanterieeinheit, die befreundete Einheiten in der Nähe heilen kann.\nKommende des Königreichs von Frankreich – Ritterbruder: schwere Kavallerie, die günstiger ist als normale Ritter. Generiert für jeden Ritterbruder in der Nähe zusätzliche Gesundheit.\nKommende des Fürstentums Antiochia – Unteroffizier: schwere Infanterieeinheit mit starker Nahkampfrüstung. Wirft mit Äxten, die aus der Ferne Nahkampfschaden verursachen.\nRitterzeit\nKommende des angevinischen Reichs – schwerer Speerkämpfer: gepanzerter Speerkämpfer, der in der Nähe von Festungen stärker ist.\nKommende der Republik Genua – Genuesischer Armbrustschütze: teurer Armbrustschütze, der Nahkampf-Infanterieeinheiten zusätzlichen Schaden zufügt.\nKommende des Königreichs Kastilien – Jinete: berittener Speerkämpfer, der gegen Fernkampfeinheiten brilliert.\nImperialzeit\nKommende des Königreichs Polen – Szlachta-Kavallerie: Elite-Kavallerie mit hervorragender Fernkampfrüstung. Verlangsamt die Angriffe getroffener Feinde und verursacht bei leichten Infanterieeinheiten zusätzlichen Schaden.\nKommende des Deutschen Ordens – Deutscher Ritter: extrem mächtige schwere Infanterieeinheit, die mit jedem im Kampf bezwungenen Feind an Macht gewinnt. Schwächt die Rüstung von Feinden in der Nähe.\nKommende der Republik Venedig – Condottiere: schnelle Infanterieeinheit, die nur Gold kostet. Stark im Kampf gegen Schießpulvereinheiten.\nVenezianische Galeere: großes Schiff mit Rudern und frontal montiertem Fernkampftribok.\nVenezianischer Händler: teurer aber schneller Händler mit einem maximalen Baulimit von 5."
+            }
+        ]
+    },
+    "house_of_lancaster": {
+        "summary": "Das Haus Lancaster tritt als mächtiger Zweig der englischen Adeligen in Erscheinung. Landsitze sind das Rückgrat der Wirtschaft, weil sie für nachhaltige wirtschaftliche Praktiken sorgen. Die Militärmacht der Lancasters liegt im technologischen Vorteil und der überlegenen Taktik auf dem Schlachtfeld begründet. Zerstören Sie feindliche Formationen mit mächtigen Stoßtruppen und nehmen Sie sie anschließend mit überlegenden Fernkampfinfanterieeinheiten auseinander.",
+        "classes": "Landsitze, Verteidigung, Wirtschaft",
+        "era": "1267–1471 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Die Dorfbewohner sammeln Ressourcen von Schafen um 20% schneller.",
+                    "Bauen Sie Landsitze, um passiv Nahrung und Holz zu erzeugen.",
+                    "Dorfzentren produzieren nach dem Bau 4 Schafe.",
+                    "Bergfriede bringen nach dem Bau 3 kostenlose Grafenwächter.",
+                    "Aktive Bergfriede erhöhen den Schaden der Grafenwächter und der Halblanzierer.",
+                    "Die Dorfbewohner führen Kurzbögen, wenn sie feindliche Einheiten angreifen.",
+                    "Die Schiffe sind 10% günstiger in der Produktion."
+                ]
+            },
+            {
+                "title": "Feudalsystem",
+                "description": "Errichten Sie Landsitze, um in der Feudalzeit passives Einkommen zu generieren. Die Landsitze dienen als Sammelgebäude für alle Rohstoffe und liefern +10 zusätzlichen Raum für die Bevölkerung. Jeder Landsitz generiert 30 Nahrung und 10 Holz pro Minute sowie weitere 4 Nahrung und 2 Holz für jeden Dorfbewohner in der Nähe. \nErhöhen Sie mit einzigartigen Technologien das Baulimit der Landsitze."
+            },
+            {
+                "title": "Wolle-Industrie",
+                "description": "Jedes Dorfzentrum erzeugt nach Fertigstellung 4 Schafe. Dorfbewohner sammeln Ressourcen von Schafen um 20% schneller."
+            },
+            {
+                "title": "Defensiv-Byrig",
+                "description": "Das Dorfzentrum der Hauptstadt feuert einen zusätzlichen Pfeil ab und Dorfbewohner sind mit Kurzbögen ausgerüstet, wenn sie gegnerische Einheiten angreifen."
+            },
+            {
+                "title": "Ein vereintes Haus",
+                "description": "Bergfriede bringen nach dem Bau %1% kostenlose Grafenwächter. Jeder aktive Bergfried gewährt Grafenwächtern und Halblanzierern +1 Schaden bis maximal +4."
+            },
+            {
+                "title": "Schiffsbauer",
+                "description": "Die Marineaufbereitung erhöht die Effizienz von Häfen und reduziert die Kosten für den Schiffsbau um -10%."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "list": [
+                    "Freisass: Ersatz für Bogenschütze. Fernkampfinfanterieeinheit mit erhöhter Geschwindigkeit und Reichweite. Kann aufgewertet werden, um eine verheerende Salve aus Pfeilen auf das Zielgebiet zu feuern.",
+                    "Hobelar: Ersatz für Reiter. Günstige und erweiterbare Kavallerie mit Rüstung für Fernkampfeinsatze mit großer Distanz.",
+                    "Grafenwächter: Ersatz für Waffenknecht. Schwere Nahkampfinfanterieeinheit, die regelmäßig Dolche wirft.",
+                    "Halblanzierer: spezielle schwere Kavallerie. Die nur über Wahrzeichen zugänglichen Halblanzierer sind eine robuste Kavallerieeinheit mit geringer Schadenswirkung."
+                ]
+            }
+        ]
+    },
+    "sengoku_daimyo": {
+        "summary": "Die Sengoku Jidai war eine Ära wechselnder Allianzen und unaufhörlicher Kriege. Drei rivalisierende Clans können unterstützt werden, um mächtige Vorteile für Fernkampfinfanterieeinheiten, Nahkampfinfanterieeinheiten oder Kavallerie zu erhalten. Selbst mitten im Krieg gab es Zeit zum Feiern, das Matsuri-Fest ist das Herz des Handels, was der Wirtschaft mächtige Boni verleiht.",
+        "classes": "Landwirtschaft, Daimyo, Stadtplanung",
+        "era": "794 - 1616 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Daimyo-Anwesen können einem Clan gewidmet werden, um Nahkampf-Infanterieeinheiten, Kavallerie oder Fernkampf-Infanterieeinheiten Boni zu gewähren.",
+                    "Bauernhäuser sind Ablieferungsstellen und erhöhen die Bevölkerung.",
+                    "Der Matsuri ist der Vorläufer eines Marktplatzes, der Yatai rekrutieren kann, die von Nahrungsquellen in der Nähe passiv Nahrung sammeln können.",
+                    "Überlebenstechniken werden standardmäßig entwickelt.",
+                    "Essen sind Ablieferungsstellen für Gold und Steine und beinhalten zusätzliche Militär-Weiterentwicklungen.",
+                    "Gold, das von Dorfbewohnern abgelegt wurde, generiert zusätzliche Steine und umgekehrt.",
+                    "In der Dunklen Zeit (I) ist zusätzlich Weiterentwicklung des Nahkampfschadens verfügbar.",
+                    "Ikko-ikki sind Kampfmönche, die in buddhistischen Klöstern rekrutiert werden und während des Angriffs heilen können.",
+                    "Bergfriede sind in der Imperialzeit (IV) mit Raketenstellungen und erhöhter Gesundheit ausgestattet.",
+                    "Fischerboote sind günstiger in der Herstellung.",
+                    "Die Standorte aller Hirsche und Wildschweine sind auf der Karte zu sehen."
+                ]
+            },
+            {
+                "title": "Daimyo-Anwesen",
+                "description": "Daimyo-Anwesen sind einzigartige Gebäude, die einem der drei Clans gewidmet werden können. Der Hojo-Clan verbessert Nahkampf-Infanterieeinheiten, der Oda-Clan Fernkampf-Infanterieeinheiten, der Takeda-Clan verbessert die Kavallerie. Das Daimyo-Anwesen hat auch einen Einfluss auf die Produktionsrate von Militärgebäuden."
+            },
+            {
+                "title": "Yatai und Matsuri",
+                "description": "Der Matsuri ist ein einzigartiger Vorläufer eines Marktplatzes, der Yatai hervorbringen kann. Der Yatai ist eine Arbeiter-Spezialeinheit, die langsam Nahrung aus Nahrungsquellen innerhalb von 2 Feldern erzeugt, ohne sie zu töten oder zu verzehren. Wenn ein Yatai genug Nahrung gesammelt hat, schickt er einen Nahrungshändler zurück zum Matsuri. Dies steigert die Sammelrate von Dorfbewohnern in der Nähe."
+            },
+            {
+                "title": "Bauernhaus und Esse",
+                "description": "Die Esse ist eine Ablieferungsstelle für Gold und Steine und ersetzt das Bergarbeiterlager und die Schmiede. Außerdem bietet sie zusätzliche Nahkampfschaden-Technologie in der Dunklen Zeit (I). Das Bauernhaus sorgt für Bevölkerung und ersetzt die Mühle als Ablieferungsstelle für Nahrung."
+            },
+            {
+                "title": "Odas Festung",
+                "description": "In der Imperialzeit (IV) haben Sie Zugang zu einem mächtigeren Bergfried mit erhöhter Gesundheit und Raketenstellungen zu einem höheren Preis. Raketen greifen schnell an und fügen einzelnen Zielen massiven Schaden zu."
+            },
+            {
+                "title": "Silberbergbau",
+                "description": "Wenn Dorfbewohner Gold abliefern, wird 20% zusätzlich Stein produziert und umgekehrt."
+            },
+            {
+                "title": "Fischerdorf",
+                "description": "Fischerboote werden 25% günstiger hergestellt."
+            },
+            {
+                "title": "Wildradar",
+                "description": "Die Position aller Hirsche und Wildschweine wird auf der Karte angezeigt."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "•Yatai: Arbeiter, die passiv Nahrung von Nahrungsquellen in der Nähe sammeln, ohne sie zu töten oder zu verbrauchen.\n• Yari-Kavallerie: Schnelle Kavallerie, effektiv beim Plündern, bei Flankenangriffen und bei Kontern im Kampf gegen Fernkampfeinheiten. Zusätzlicher Schaden gegen Kavallerie.\n• Daimyo: Nahkampf-Kavallerie mit starker Gesundheit und Schadenswirkung, die eine Aura bereitstellt, welche die Angriffsgeschwindigkeit von Militäreinheiten in der Nähe erhöht. Effektiv gegen Nahkampfeinheiten. Auf ein einziges Daimyo-Anwesen begrenzt.\n• Yumi Ashigaru: Bogenschütze mit verbesserte Bewegungsgeschwindigkeit mit gleichzeitiger Verringerung von Kosten und Gesundheit.\n• Ichko-ikki-Mönch: Kriegermönch mit starken Kampffähigkeiten, der Einheiten in der Nähe beim Angriff heilt. Verfügt über keine gezielte Heilfähigkeit.\n• Kanabo-Samurai: Zähe Infanterie mit guter Schadenswirkung. Verursacht zusätzlichen Schaden basierend auf der maximalen Gesundheit des Gegners.\n• Früher Ozutsu: Schwere Schießpulver-Infanterieeinheit für den Fernkampf, die über eine große manuelle Kanone mit hoher Belagerungs- und Flächenwirkung verfügt."
+            }
+        ]
+    },
+    "tughlaq_dynasty": {
+        "summary": "Unter seiner Herrschaft legte der Sultan Ghiyasuddin Tughluq den Grundstein für die Fortschritte in der Kunst, Architektur und Expansion der Tughluq-Dynastie. Nachdem er den Bau des Tughlaqabad-Forts in Auftrag gegeben hatten, erweiterten die zukünftigen Sultane, Emire und Gouverneure ihre militärische Präsenz mit Gewalt und der Demonstration ihrer Macht. Die Tughluq-Dynastie erforderte den schnellen Bau weiterer Festungen, während die Gouverneure die hart arbeitenden Elefanten und Dorfbewohner beaufsichtigen.",
+        "classes": "Elefanten, Forts, Regierungen",
+        "era": "1320 - 1413 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Dorfzentren, Arbeitselefanten und Häfen bringen zusätzliche Rohstoffe, wenn Dorfbewohner und Fischerboote dort etwas abliefern.",
+                    "Arbeitselefanten fungieren als universelle Ablieferungsstellen und können sich frei bewegen.",
+                    "Alle Technologien sind teurer, werden aber praktisch ohne Verzögerung entwickelt.",
+                    "Tughlaqabad-Forts fungieren als Bergfriede und sind ab der Feudalzeit (II) verfügbar.",
+                    "Tughlaqabad-Forts können weiterentwickelt werden, sodass sie die Verteidigung stärken und Gouverneure freischalten.",
+                    "Wählen Sie in einem beliebigen Fort einen Gouverneur aus, um der Dynastie zu neuem Aufschwung zu verhelfen.",
+                    "Gouverneure bieten Boni für Wirtschaft, Tempo, Militär, Forschung sowie religiöse Boni.",
+                    "Infanterieeinheiten können Palisadenmauern errichten.",
+                    "Sie sammeln Rohstoffe von Beerensträuchern um +30% schneller, können jedoch keine Rohstoffe von Wildschweinen sammeln.",
+                    "Tragfähigkeit von Beeren um +3 Einheiten erhöht.",
+                    "Fischkutter können sich selbst mit einem Fernangriff verteidigen."
+                ]
+            },
+            {
+                "title": "Arbeitsgefährten",
+                "description": "Mit Arbeitselefanten können Sie Ihre Dorfbewohnern etwas entlasten. Diese Elefanten fungieren als universelle Ablieferungsstellen und können sich frei bewegen. Dadurch sparen Ihre Dorfbewohner Zeit und Rohstoffe, um sich auf ihre Arbeit zu konzentrieren.\nArbeitselefanten, Dorfzentren und Häfen bringen zusätzliche Rohstoffe, wenn Dorfbewohner und Fischkutter dort etwas abliefern."
+            },
+            {
+                "title": "Gelehrsamkeit",
+                "description": "Die Tughluq-Dynastie sucht nach Erkenntnissen und Wissen. Daher finanziert sie Technologien zur Erforschung durch eine erhöhte Anzahl an Rohstoffen. Das Resultat ist eine praktisch nicht existente Entwicklungsdauer."
+            },
+            {
+                "title": "Legendäre Forts",
+                "description": "Verbreiten Sie mit dem Tughlaqabad-Fort Angst und Schrecken unter Ihren Feinden. Das ab der Feudalzeit (II) verfügbare Defensiv-Gebäude können Sie verbessern, um seine Schadenswirkung und seine Gesundheit zu steigern. Außerdem eröffnet Ihnen das Gebäude die Wahl eines Gouverneurs."
+            },
+            {
+                "title": "Statthalter-Gehilfe",
+                "description": "Wählen Sie einen der sechs Gouverneure im Tughlaqabad-Fort, um der Tughluq-Dynastie zu einem neuen Aufschwung zu verhelfen. Die Stärke der Gouverneur erhöht sich mit jeder Weiterentwicklung des Tughlaqabad-Forts. Die Gouverneure unterstützen die Wirtschaft, die Geschwindigkeit, das Militär und die Forschung und bringen religiöse Extras.\nJedes Fort kann durch einen Gouverneur besetzt werden."
+            },
+            {
+                "title": "Korbflechten",
+                "description": "Die Dorfbewohner sammeln von Beerensträuchern um 30% schneller, können aber keine Ressourcen von Wildschweinen sammeln.\nDie Dorfbewohner führen +3 Nahrungseinheiten von Beerensträuchern mit sich."
+            },
+            {
+                "title": "Grenzbefestigungen",
+                "description": "Errichten Sie befestigte Siedlungen mit Infanterieeinheiten, die Palisadenwälle bauen können."
+            },
+            {
+                "title": "Defensive Deckmannschaft",
+                "description": "Fischkutter können sich selbst mit einem Fernangriff verteidigen und haben 50% zusätzliche TP."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Plündernder Elefant: Schneller Elefant, der effektiv im Kampf gegen Fernkampfeinheiten sowie im Flankieren und Kontern von Fernkampfeinheiten ist. Kann Einheiten durch Trampeln überwinden und in einem gewissen Bereich Schäden verursachen.\nHeilender Elefant: Gepanzerter Nahkampf-Elefanten mit starker Gesundheit und zwei Imamen als Reiter, die Einheiten einzeln heilen können. Zunehmende Schadenswirkung mit jeder Nahkampfinfanterie in der Nähe. \nKriegselefant: Schwere Nahkampfkavallerie mit einem Speerkämpfer als Reiter, der über eine starke Gesundheit und einen Belagerungsangriff verfügt.\nBalliste-Elefant: Fernkampfelefant mit Balliste, der effektiv gegen Nahkampfeinheiten ist und mehrere Ziele durchschlagen kann."
+            }
+        ]
+    },
+    "golden_horde": {
+        "summary": "Batu Khan führte die Goldene Horde nach Westen und dehnte das mongolische Reich bis ins Herz Osteuropas aus. Das große Goldene Zelt des Khans war das Zentrum des Kontrollnetzwerks, mit Außenposten, die es ermöglichten, ein riesiges Territorium zu halten. Obwohl die Goldene Horde aus mächtigen Plünderern bestand, opferte sie die Beweglichkeit ihrer Lager, um größere Truppen aufzustellen, die sie zur Kontrolle ihrer Vasallenstaaten benötigte.",
+        "classes": "Aggressivität, Kavallerie, Horde",
+        "era": "1000–1500 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Beginnen Sie mit dem maximalen Bevölkerungslimit.",
+                    "Die Einheiten werden immer in Gruppen rekrutiert.",
+                    "Die Koppelhöfe sind einzigartige Gebäude, die von 4 Dorfbewohnern betrieben werden können und als Ablieferungsstellen für Nahrung dienen.",
+                    "Obos können auf mehreren Steinvorkommen errichtet werden, wodurch sie die Steinausbeute erhöhen.",
+                    "Spezialtechnologien kosten nur Steine.",
+                    "Ställe sind in der Dunklen Zeit (I) verfügbar.",
+                    "Zeitalter-Aufstieg durch Bau und Weiterentwickung des goldenen Zelts.",
+                    "Befestigte Außenposten sorgen für zusätzlichen Einfluss oder zusätzliche Aura, je nach dem im goldenen Zelt ausgegebenen Edikt.",
+                    "Seidenstraße: Die Händler generieren +10% an Nahrung, Holz und Gold bei 5/10/15 aktiven Händlern.",
+                    "Transportschiffe verfügen über eine Gesundheit von +50% und eine Bewegungsgeschwindigkeit von +15%.",
+                    "Späher können die Fähigkeit „Spähfalke“ einsetzen, um die Umgebung zu überwachen."
+                ]
+            },
+            {
+                "title": "Goldenes Zelt",
+                "description": "Das goldene Zelt ist das einzige Wahrzeichen der Goldenen Horde, das weiterentwickelt werden kann, um zum nächsten Zeitalter voranzuschreiten und die Gesundheit des Gebäudes zu erhöhen. Im goldenen Zelt kann ein Edikt ausgewählen werden, das den zusätzlichen Einfluss oder die zusätzliche Aura verändert, welche befestigte Außenposten bereitstellen.\nDer Batu-Khan und die Torguten können im goldenen Zelt rekrutiert werden."
+            },
+            {
+                "title": "Horden",
+                "description": "Die Einheiten entstehen in Zweiergruppen. Sie können Technologien erforschen, um die Serienproduktion zu verbessern."
+            },
+            {
+                "title": "Koppelhof",
+                "description": "Bauen Sie den Koppelhof anstelle von Feldern oder Weiden, um Nahrung zu erhalten. Koppelhöfe verfügen über Schafe, die gesammelt und direkt am Koppelhof abgeladen werden können."
+            },
+            {
+                "title": "Befestigte Außenposten",
+                "description": "Befestigte Außenposten verfügen über mehr Gesundheit und gewähren zusätzlichen Einfluss oder eine zusätzliche Aura, je nachdem, welches Edikt im goldenen Zelt ausgewählt ist."
+            },
+            {
+                "title": "Verbesserte Transporte",
+                "description": "Transportschiffslandungen sind mit +50% TP und +15% Bewegungsgeschwindigkeit schneller und widerstandsfähiger."
+            },
+            {
+                "title": "Seidenstraße",
+                "description": "Erkunden Sie die Seidenstraße mit Händlern, die entsprechend der Gesamtzahl Ihrer aktiven Händler zusätzliche Rohstoffe aus dem Handel erhalten.\n• 5+ Händler: +10% Nahrung\n• 10+ Händler: +10% Nahrung, Holz\n• 15+ Händler: +10% Nahrung, Holz, Gold"
+            },
+            {
+                "title": "Steintechnologien und Obos",
+                "description": "Errichten Sie Obos über Steinvorkommen, um Steine zu sammeln, ohne Dorfbewohner zu benötigen. Die maximale Anzahl von Obos, die gebaut werden kann, erhöht sich pro Zeitalter um +1."
+            },
+            {
+                "title": "Spähfalke",
+                "description": "Späher können die Fähigkeit „Spähfalke“ einsetzen, um die Umgebung zu überwachen."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Khan der Goldenen Horde: Schwere Kavallerie, die nach jedem Zeitalter-Aufstieg stärker wird. Kann einen Pfeil abfeuern, der den Schaden erhöht, den Gegner in einem Bereich erleiden. Der Khan sorgt außerdem für eine Angriffsschadens-Aura, je länger der Khan sich im Kampf befindet.\nTorguten: Schwere Kavallerie, die den Khan beschützen und jeglichen vom Khan erlittenen Schaden auf die Torguten umleiten kann.\nKharash: Schwache leichte Nahkampfinfanterieeinheiten, die Verbündete in der Nähe mit Rüstung versorgen.\nMangudai: Berittener Bogenschütze, der getroffene Ziele bluten lässt.\nMangonel: Höhere Bewegungsgeschwindigkeit, Vorbereitungszeit und Angriffsgeschwindigkeit.\nKeshig: Schwere Kavallerie, verfügbar in der Feudalzeit, regeneriert Gesundheit nach jedem Angriff."
+            }
+        ]
+    },
+    "macedonian_dynasty": {
+        "summary": "Kaiser Basil II. setzte Waräger ein, um Revolten niederzuschlagen, die byzantinische Adlige eingefädelt hatten. Die im Ausland geborenen Krieger kamen mit Schiffen aus dem Norden. Die byzantinische Politik und Kultur konnte sie nicht beeindrucken. Sie stellten ein schnelles Elite-Überfallkommando, das die Kaiser über die Jahrhunderte hinweg beschützte. Die makedonische Dynastie prägte Silber als einzigartigen Rohstoff. Während sie den Kaiser schützten, konnten die Kämpfer die Währung in Waräger-Arsenalen zum Schärfen ihrer Klingen und zur Verbesserung ihrer Fähigkeiten ausgeben.",
+        "classes": "Waräger, Silber, Technologie",
+        "era": "867 - 1056 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Die Dorfbewohner gewinnen Silber aus Gold und Steinen, um spezielle Technologien zu entwickeln.",
+                    "Gewinnen Sie in den Bergarbeiterlagern und Dorfzentren durch den Einfluss der Waräger-Arsenale passiv Silber.",
+                    "Durchlaufen Sie die drei Technologiestufen mit dem Waräger-Arsenal, indem Sie Silber ausgeben.",
+                    "Erhalten Sie in der Feudalzeit (II) Zugriff auf die frühe Waräger-Wache.",
+                    "Bringen Sie aus der Waräger-Festung heraus alle Waräger-Spezialeinheiten hervor.",
+                    "Waräger-Einheiten verfügen über einzigartige Fähigkeiten, mit denen sie ihre Effektivität im Kampf verbessern.",
+                    "Verstärken Sie mit dem Waräger-Kriegslager gratis die Krieger, die an der Schlacht teilnehmen.",
+                    "Setzen Sie Einheiten ein, die dazu in der Lage sind, verschiedene Formen des griechischen Feuers zu verwenden.",
+                    "Transportschiffe erhöhen beim Ausladen vorübergehend die Bewegungsgeschwindigkeit von Einheiten."
+                ]
+            },
+            {
+                "title": "Galenit sammeln",
+                "description": "Die Dorfbewohner entdecken unter Goldadern und Steinvorkommen große Galenit-Ablagerungen und gewinnen beim Abbau Silber als Spezialrohstoff.\nDie Dorfbewohner gewinnen Silber in Höhe von 40% des abgebauten Goldes oder Steines."
+            },
+            {
+                "title": "Einfluss - Silberprägung",
+                "description": "Waräger-Arsenale verleihen Bergarbeiterlagern und Dorfzentren Einfluss, sodass sie schrittweise beginnen, Silber zu verarbeiten. Die verarbeitete Silbermenge hängt von der Gesamtmenge des von Dorfbewohnern deponierten Silbers ab."
+            },
+            {
+                "title": "Warägerverarbeitung",
+                "description": "Entwickeln Sie für Silber im Waräger-Arsenal einzigartige Militärtechnologien. Ersetzt die Schmiede und die Universität. Die makedonische Dynastie kann drei Stufen militärischer Aufwertungen abdecken."
+            },
+            {
+                "title": "Festungen",
+                "description": "Befestigen Sie das Reich mit Waräger-Festungen, die alle Waräger-Einheiten ausbilden und Pfeile zur Verteidigung einsetzen können."
+            },
+            {
+                "title": "Kriegslager",
+                "description": "Wählen Sie im Waräger-Kriegerlager Ihrer Verstärkung. Sobald genug Krieger in der Schlacht gefallen sind, treffen kostenlos Waräger-Krieger im Kriegslager ein, um die ausgedünnten Reihen aufzustocken.\nWenn ein Gewässer angrenzt, können Sie Boote als Verstärkung auswählen."
+            },
+            {
+                "title": "Waräger-Runensteine",
+                "description": "Schnitzen Sie Runensteine in Erinnerung an vergangene Siege. Sobald genug Gegner den Warägern zum Opfer gefallen sind, kann ein Runenstein erschaffen werden, der Waräger in der Nähe mit Kampfboni in einem Gebiet inspiriert."
+            },
+            {
+                "title": "Griechisches Feuer",
+                "description": "Cheirosiphone, verbesserte Dromonen, Rutten und Triboke schleudern bei ihren Angriffen griechisches Feuer auf den Feind, die das Zielgebiet in Flammen hüllen, um über eine bestimmte Zeit Schäden zu verursachen."
+            },
+            {
+                "title": "Mangenstellungen",
+                "description": "Außenposten und Bergfriede können mit Mangenstellungen aufgerüstet werden. Steinmauertürme werden mit Mangenstellungen anstelle von Rutten ausgestattet."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "description": "Atgeirmaðr: Ersatz für den Speerkämpfer. Leichte Nahkampfinfanterie mit einer passiven Fähigkeit, die ihre Angriffsgeschwindigkeit erhöht, wenn sich Waräger-Einheiten in der Nähe befinden.\nBogmaður: Ersatz für Bogenschützen. Leichte Fernkampf-Infanterieeinheit mit der Fähigkeit, auf Kosten der Bewegungsgeschwindigkeit die Wirkung der Rüstung auszusetzen.\nFrühe Warägerwache: Ersatz für Waffenknechte. Verwenden Sie die Berserker-Fähigkeit, um die Schadenswirkung auf Kosten von Rüstungen zu steigern. Kann Transportschiffe bauen und die Rüstung der Transportschiffe erhöhen, wenn die Einheit einquartiert ist.\nRiddari: Ritter-Ersatz. Schwere Kavallerie mit der Fähigkeit, eine Zeitlang aus der Ferne Äxte auf den Gegner abzufeuern.\nCheirosiphon: Ein Rammbock mit kurzer Reichweite, der mit einem griechischen Feuerangriff ausgestattet ist.\nDromone: Ersatz für die Rutte. Mit griechischem Feuer ausgestattet."
+            }
+        ]
+    },
+    "jin_dynasty": {
+        "summary": "Die Jin-Dynastie entwickelt sich zu einer beeindruckenden militärischen Macht im Norden Chinas. Die berittenen Dorfbewohner bewegen sich schnell, um neue Rohstoffe und Gebiete zu beanspruchen. Nutzen Sie alle Gelegenheiten, um in kürzester Zeit Scharen von Kavallerie zu versammeln, um Ihre Feinde zu vertreiben und Ihre Gegner zu zermalmen. Bewegen Sie willensschwache Feinde durch Bestechung dazu zu desertieren und etablieren Sie profitable Tributstaaten.",
+        "classes": "Kavallerie, berittene Dorfbewohner, Tributpflichten",
+        "era": "1115–1234 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Bilden Sie bis zu 20 berittene Dorfbewohner aus, die deutlich schneller sammeln und sich deutlich schneller bewegen als ein normaler Dorfbewohner.",
+                    "Wählen Sie nach dem Zeitalter-Aufstieg einen von drei Orten aus, um ein Grasland zu errichten.",
+                    "Bauen Sie in der Nähe von Grasländern Marställe, um mithilfe von Pferden schnell Kavallerie zu erzeugen.",
+                    "Abgesandte können die Tributpflicht etablieren und feindliche Soldaten bestechen.",
+                    "Tributstaaten generieren Nahrung. Sie verbessern außerdem das Händlereinkommen um +15% und erhöhen das Baulimit für berittene Dorfbewohner um +3.",
+                    "Meng'an-Mouke-Stellungen rufen Verteidiger zum Schutz von Gebieten in der Nähe herbei.",
+                    "Die Großballisten sind in der Feudalzeit verfügbar und ersetzen die Rutten."
+                ]
+            },
+            {
+                "title": "Grasländer",
+                "description": "Wählen Sie nach Fertigstellung eines Wahrzeichens einen von 3 Standorten, um Grasländer zu erstellen, die allmählich bis zu 5 Pferde auf ihrem Feld bereitstellen. Pferde erhöhen die Gesundheit aller Nahkampfkavallerieeinheiten um +2 und die von Fernkampfkavallerie um +1 oder können von Ställen im Einflussbereich der Grasländer verwendet werden, um berittene Einheiten schnell auszubilden. Grasländer erzeugen in der Feudal-/Ritter-/Imperialzeit alle 90/60/45 Sekunden ein neues Pferd."
+            },
+            {
+                "title": "Jurchen-Vermächtnis",
+                "description": "Die nomadische Abstammung gibt Ihnen Zugriff auf bis zu 20 berittene Dorfbewohner, die deutlich schneller sammeln und bauen, sich spürbar schneller bewegen, aber teurer sind. Etablieren Sie Tributstaaten mit Handelsposten, um das maximale Baulimit um %2% zu erhöhen."
+            },
+            {
+                "title": "Meng'an-Mouke",
+                "description": "Werten Sie Verteidigungsgebäude mit den Meng'an-Mouke-Stellungen auf, welche Verteidiger zum Schutz von Gebieten in der Nähe entsenden. Stellungen erzeugen zudem langsam Verteidiger, um Verluste auszugleichen."
+            },
+            {
+                "title": "Abgesandte",
+                "description": "Bilden Sie bis zu 2 Abgesandte aus, die mit zwei mächtigen Fähigkeiten ausgestattet sind.\nVerwenden Sie bei neutralen Handelssiedlungen die entsprechende Funktion, um eine Tributpflicht zu etablieren und einen loyalen Verbündeten für sich zu gewinnen, der für Sie Nahrung sammelt, das Baulimit für berittene Dorfbewohner um +3 erhöht und das Einkommen Ihrer Händler um +15% steigert.\nNutzen Sie die Bestechungsfunktion bei Gruppen feindlicher Einheiten, um Feinde in neutrale Kämpfer umzuwandeln, die alles beiseiteräumen, was sich ihnen in den Weg stellt."
+            },
+            {
+                "title": "Belagerungsexpertise",
+                "description": "Bauen Sie in der Feudalzeit die Werkhalle, um frühzeitig Großballisten nutzen zu können, die ein Ersatz für Rutten sind und gegnerische Formationen mit zwei Projektilen beschießen. Großballistenstellungen ersetzen an allen Verteidigungsanlagen die Ruttenstellungen."
+            },
+            {
+                "title": "Spezialeinheiten",
+                "list": [
+                    "Berittener Dorfbewohner: Dorfbewohner-Spezialeinheit, die viel schneller sammelt, baut und sich spürbar schneller bewegt als ein normaler Dorfbewohner.",
+                    "Abgesandter: Unterstützungseinheit, die feindliche Soldaten bestechen und die Tributpflicht etablieren kann.",
+                    "Eisenpagode: Schwere Kavallerie, von Kopf bis Fuß in Rüstung, die bei jedem Angriff Flächenschaden verursacht.",
+                    "Großballiste: Rutten-Ersatz, der mit einem Schuss eine Salve von Projektilen abfeuert und in der Feudalzeit verfügbar ist.",
+                    "Eruptor: Teurer Handrohr-Ersatz, der an einzelnen Zielen hohen Schaden verursacht.",
+                    "Stammesangehöriger der Mohe: Ersatz für berittene Bogenschützen. Außergewöhnlich bei Überfallangriffen gegen leichte Nahkampfinfanterie.",
+                    "Zhanma-Schwertkämpfer: Gepanzerte Infanterie, nur in der Imperialzeit verfügbar, verursacht beeindruckenden Nahkampfschaden mit Zusatzschaden gegen Kavallerie.",
+                    "Meng'an-Mouke-Verteidiger: Meng'an-Mouke-Grenadiere und berittene Grenadiere spawnen aus Spezial-Stellungen, um automatisch Jin-Gebiet zu verteidigen."
+                ]
+            }
+        ]
+    }
+}

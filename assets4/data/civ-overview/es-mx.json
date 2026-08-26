@@ -1,0 +1,1198 @@
+{
+    "english": {
+        "summary": "Infantería temprana excepcional que le da a los ingleses una poderosa capacidad de ataque respaldada por una buena producción de comida en los campos.",
+        "classes": "Defensa, Arcos largos, Agricultura",
+        "era": "850 - 1555 CE",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Los centros urbanos, los puestos de avanzada, las torres y los fuertes aumentan la velocidad de ataque de las unidades cercanas +20% cuando los enemigos están al alcance.",
+                    "Las granjas -50% más baratas de construir — Las granjas cerca de los molinos recolectan +20/25/30/30% más rápido por Edad.",
+                    "Hombres de armas de vanguardia en la Alta Edad Media (I).",
+                    "Entrena hombres de armas +40% más rápido que otras civilizaciones.",
+                    "Los aldeanos empuñan arcos cortos cuando atacan a las unidades enemigas.",
+                    "Los fuertes pueden entrenar todas las unidades militares.",
+                    "Los barcos son -10% más baratos.",
+                    "Los exploradores y los hombres de armas pueden encender fogatas para aumentar la línea de visión y mejorar la caza cercana +10%."
+                ]
+            },
+            {
+                "title": "Red de castillos",
+                "description": "Protege la frontera con centros urbanos, puestos de avanzada, torres de muro de piedra y torres que aumentan la velocidad de ataque de las unidades cercanas en +20% cuando los enemigos están dentro del alcance.\nDesarrolla la tecnología Red de ciudadelas para aumentar la velocidad de ataque en +30%."
+            },
+            {
+                "title": "Producción de torre",
+                "description": "Las torres tienen la capacidad única de producir todas las unidades militares."
+            },
+            {
+                "title": "Llamada a las armas",
+                "description": "Hombre de armas de vanguardia disponible en la Alta Edad Media I. El Hombre de armas inglés produce +40% más rápido."
+            },
+            {
+                "title": "Byrig defensivo",
+                "description": "El Centro urbano de la capital dispara una flecha adicional y los aldeanos usan arcos cortos cuando atacan a las unidades enemigas."
+            },
+            {
+                "title": "Isla de Agricultura",
+                "description": "Las granjas son 50% más baratas de construir.\nDesarrolla la tecnología Recinto en la Edad Imperial (IV) para que los aldeanos generen +1 de oro cada 6 segundos mientras trabajan en las granjas."
+            },
+            {
+                "title": "Carpintero naval",
+                "description": "El acondicionamiento naval aumenta la eficiencia de los muelles, lo que reduce el costo de construcción de los buques en un -10%."
+            },
+            {
+                "title": "Influencia",
+                "description": "La velocidad de cosecha de la granja aumenta dentro de la influencia de un molino en un +20/25/30/30% después de cada avance de edad."
+            },
+            {
+                "title": "Bosque del rey",
+                "description": "Los exploradores y los hombres de armas pueden crear fogatas, lo que aumenta el alcance de visión de las unidades cercanas +30% y la velocidad de recolección de los cazadores cercanos +10%."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Arquero con arco largo: Arquero con +2 de alcance y +1 de daño que tiene la habilidad de empalizada defensiva para aturdir y dañar a la caballería enemiga."
+            }
+        ]
+    },
+    "mongols": {
+        "summary": "Los mongoles son maestros de la movilidad y la guerra a caballo. Ellos pueden reubicar sus campamentos con facilidad, obtienen beneficios económicos por asentarse cerca de depósitos de piedra y por saquear edificios enemigos. Sus oponentes deben lidiar con incursiones a caballo desde los primeros momentos de la partida.",
+        "classes": "Agresión, Caballería, Nómada",
+        "era": "1000 - 1500 CE",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Comienza con una Ger empacada, el límite máximo de espacio de población y no necesitan construir casas.",
+                    "Todos los edificios pueden empacarse y desplegarse en una nueva ubicación.",
+                    "Saquea +25 de comida y oro al incendiar o destruir edificios enemigos en construcción.",
+                    "Establos disponibles desde la Alta Edad Media (I).",
+                    "Entrena jinetes +25% más rápido.",
+                    "Los puestos de avanzada aumentan la velocidad de movimiento de la caballería y los comerciantes cercanos en un +15%.",
+                    "Duplica el entrenamiento de unidades o desarrolla versiones avanzadas de tecnologías usando piedra.",
+                    "Ruta de la seda: Los comerciantes generan +10% extra de comida, madera y oro cuando hay 5/10/15 comerciantes activos.",
+                    "Los barcos de transporte tienen +50% de salud y +15% de velocidad de movimiento."
+                ]
+            },
+            {
+                "title": "Gran dominio",
+                "description": "Todos los edificios pueden guardarse y trasladarse a una ubicación nueva.\nRenuncia a la necesidad de construir casas y comienza el juego con la Población máxima.\nResponde rápidamente a los movimientos del enemigo con una red de puestos de avanzada que proporcionan +15% de velocidad de movimiento a la caballería y los comerciantes cercanos."
+            },
+            {
+                "title": "Kanato",
+                "description": "Despliega al poderoso Khan en la Edad Oscura I para proporcionar bonificaciones poderosas a todas las unidades militares cercanas con Flechas de señales.\nLos Khans y los exploradores pueden desplegar la habilidad de Halcón explorador para vigilar los alrededores."
+            },
+            {
+                "title": "Jinetes expertos",
+                "description": "Construye establos desde la Alta Edad Media y despliega jinetes + 25% más rápido."
+            },
+            {
+                "title": "Cosechadores nómadas",
+                "description": "Construye pastos en lugar de granjas para criar ovejas como alimento. Los pastos producen ovejas más rápido cuando están bajo la influencia de un Ovoo."
+            },
+            {
+                "title": "Recompensa de la redada",
+                "description": "Saquea los edificios enemigos por +25 Alimentos y Oro cuando se incendien o se destruyen si están en construcción."
+            },
+            {
+                "title": "Transportes aumentados",
+                "description": "Los desembarcos de las naves de transporte son más rápidos y duraderos con +50% de salud y +15% de velocidad de movimiento."
+            },
+            {
+                "title": "Ruta de la seda",
+                "description": "Explora la ruta de la seda con comerciantes que reciben recursos adicionales de las operaciones según la cantidad total de comerciantes activos.\n• 5+ comerciantes: +10% de comida\n• 10+ comerciantes: +10% de comida, madera\n• 15+ comerciantes: +10% de comida, madera y oro"
+            },
+            {
+                "title": "Influencia",
+                "description": "Construye el Ovoo sobre canteras para generar influencia y recolectar piedra sin necesidad de aldeanos. Los Ovoos recolectan +70, 100, 130, 160 de piedra por minuto tras cada progreso de edad.\nLos edificios dentro de la influencia de un Ovoo pueden entrenar unidades al doble o desarrollar versiones mejoradas de tecnologías usando piedra."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Khan: Arquero a caballo que aumenta en fuerza y desbloquea las habilidades de Flecha de señal con cada cambio de Edad.\n• Flecha de maniobra: Velocidad de movimiento +33%.\n• Flecha de velocidad de ataque: Velocidad de ataque +50%.\n• Flecha de armadura: Armadura +2.\nMangudai: Arquero a caballo que puede disparar en todas las direcciones mientras se desplaza.\nTrebuchet de tracción: Mayor velocidad de movimiento, de instalación y de ataque.\nKeshik: Caballería pesada disponible en la Edad Feudal que puede regenerar salud tras cada ataque."
+            }
+        ]
+    },
+    "french": {
+        "summary": "Los franceses despliegan poderosas unidades de caballería y pueden aumentar el entrenamiento en posiciones fortificadas. Sus enemigos deben estar preparados para resistir cargas de poderosos caballeros reales y otras unidades con armadura.",
+        "classes": "Comercio, Caballería, Torres",
+        "era": "840 - 1559 CE",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Caballeros Reales en la Edad Feudal (II).",
+                    "La velocidad de trabajo de los centros urbanos aumenta cada vez que avanzas de Edad: +15%, +15%, +20%, +25%.",
+                    "Edificios de entrega de recursos son 50% más baratos.",
+                    "Tecnología económica es 35% más barata.",
+                    "Los puestos comerciales se ven en el minimapa.",
+                    "Los comerciantes pueden entregar comida, madera u oro en los mercados.",
+                    "Los barcos comerciales regresan con +20% de recursos.",
+                    "Los herreros otorgan tecnologías de daño cuerpo a cuerpo de forma gratuita después de cada edad."
+                ]
+            },
+            {
+                "title": "Sementales reales",
+                "description": "Despliega la unidad única de Caballero Real en la Edad Feudal II e investiga tecnologías poderosas únicas para la caballería."
+            },
+            {
+                "title": "Economía continental",
+                "description": "Maneja una economía superior con entregas de recursos -50% más baratas y tecnologías económicas -35% más baratas.\nLa velocidad de producción del centro urbano aumenta en cada edad +15%, +15%, +20%, +25%."
+            },
+            {
+                "title": "Economía comercial",
+                "description": "Elige devolver comida, madera u oro a los mercados con los comerciantes y los barcos mercantes.\nLos barcos mercantes devuelven un +20% de recursos.\nLos puestos de intercambio se revelan en el minimapa al inicio del juego.\nLos muelles proporcionan espacio para población."
+            },
+            {
+                "title": "La gracia del herrero",
+                "description": "Los herreros otorgan tecnologías de daño cuerpo a cuerpo de forma gratuita después de cada aumento de edad."
+            },
+            {
+                "title": "Influencia",
+                "description": "Mantén las ofensivas con fuertes (-10% más baratos) que reducen el costo de unidades en un -20% producidas en galerías de tiro con arco y establos dentro de su influencia."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Caballero Real: Caballería pesada que aumenta +3 de daño adicional durante 5 segundos después de completar una carga.\nArbalestero: Ballestero con +1 de armadura cuerpo a cuerpo que puede desplegar un escudo pavés para proporcionar +5 de armadura a distancia y +1 de alcance de arma durante 30 segundos.\nCañón: Sustituye a la bombarda; con más daño, movilidad y sin tiempo de preparación.\nGaleaza: Una galera de guerra más grande que tiene un cañón de largo alcance montada en la proa.\nCoca de guerra: Barco especial armado con una espingarda, costo reducido y mayor armadura a distancia."
+            }
+        ]
+    },
+    "rus": {
+        "summary": "Los rus obtienen muchos beneficios del campo. Pueden recolectar recursos del bosque y la cacería rápidamente para desplegar fuertes unidades de combate. Sus enemigos enfrentarán duras fortificaciones desde el inicio de la partida, y una economía diversa con la que es difícil interferir.",
+        "classes": "Expansión, Caballería, Caza",
+        "era": "882 - 1547 CE",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Construye muros empalizados fortificados con +100% de salud.",
+                    "Construye fortalezas de madera: puestos de avanzada mejorados con +100% de salud y +3 ranuras de resguardo.",
+                    "Construye Cabañas de caza. Molinos mejorados que producen exploradores y generan oro de los bosques cercanos.",
+                    "La recolección de animales salvajes proporciona una recompensa de oro, el aumento de la recompensa proporciona bonificaciones económicas a los aldeanos y a las cabañas de caza.",
+                    "Los Caballeros tempranos están disponibles en la Edad Feudal II.",
+                    "El barco Lodya puede convertirse en cualquier tipo de barco por un costo.",
+                    "Los barcos pesqueros no tienen que volver a un muelle para dejar comida."
+                ]
+            },
+            {
+                "title": "Federación del Bosque",
+                "description": "Refuerza el campo con fortalezas de madera que sustituyen a los puestos de avanzada. Incluyen +100% de salud y +3 ranuras de cuartel.\nConstruye muros empalizados fortificados, incluyen +100% de salud y un tiempo de construcción más rápido."
+            },
+            {
+                "title": "Príncipes cazadores",
+                "description": "Vive de la tierra con los exploradores entrenados en las cabañas de caza. Las cabañas de caza otorgan los beneficios de un molino estándar, pero con la capacidad de ver en los Bosques sigilosos y generar oro según la cantidad de árboles cercanos."
+            },
+            {
+                "title": "Séquito Druzhina",
+                "description": "Despliega al Caballero antiguo en la Edad Feudal II."
+            },
+            {
+                "title": "Reconstitución del Lodya",
+                "description": "El barco Lodya puede convertirse en cualquier tipo de barco por un costo.\nLos barcos pesqueros de Lodya procesan los alimentos en el barco, sin necesidad de volver a los muelles para dejarlos."
+            },
+            {
+                "title": "Recompensas de botín",
+                "description": "La caza de animales salvajes otorga una recompensa de oro y alcanzar ciertos límites de recompensa total otorga bonificaciones económicas a los aldeanos y a las cabañas de caza.\n100 de recompensa\n• +5% a la tasa de recolección de comida\n• Las cabañas de caza generan 10% más oro\n400 de recompensa\n• +10% a la tasa de recolección de comida\n• Las cabañas de caza generan 25% más oro\n1000 de recompensa\n• +15% a la tasa de recolección de comida\n• Las cabañas de caza generan 40% más oro"
+            },
+            {
+                "title": "Influencia",
+                "description": "Supervisa las iniciativas de tala rasa. Los aldeanos dejan +20% más de madera cuando los campamentos de madera y los centros urbanos están dentro de la influencia de una fortaleza de madera."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Monje guerrero: unidad de caballería ligera religiosa que inspira a las unidades cercanas cuando está en combate, proporciona +1 de armadura y +2 de daño.\nArquero a caballo: Caballería ligera a distancia con gran movilidad y daño.\nStrelet: El cañón de mano se hace más fuerte cuando está parado y tiene un ataque de combate cuerpo a cuerpo.\nLos barcos Lodya: se pueden convertir en cualquier tipo de barco."
+            }
+        ]
+    },
+    "holy_roman_empire": {
+        "summary": "Los prelados mejoran la economía del Sacro Imperio Romano Germánico, mientras que  el núcleo de su fuerza militar está formado por poderosas unidades de infantería. Sus enemigos enfrentarán a un rival que se recupera rápidamente de los ataques y que contraataca con fuerza.",
+        "classes": "Infantería, religión, defensa",
+        "era": "907 - 1644 CE",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Coloca reliquias en puestos de avanzada, torres de piedra y fuertes para obtener bonificaciones defensivas y económicas..",
+                    "Las reliquias colocadas en los muelles aumentan la velocidad de ataque de los barcos en un +5% por reliquia (máx. +25%).",
+                    "Hombres de armas tempranos en la Edad Feudal (II).",
+                    "La infantería se mueve 5% más rápido en la Alta Edad Media (I) y 10% más rápido que en la Edad Feudal (II).\nLos emplazamientos son -25% más baratos. Los puestos de avanzada aumentan su campo de visión un +25%.",
+                    "Los aldeanos llevan +40% más de recursos.",
+                    "Los prelados pueden curar y usar la Inspiración sagrada en la Alta Edad Media (I). Los aldeanos inspirados recolectan +40% más rápido durante 30 segundos.",
+                    "Los edificios que se encuentran dentro de la influencia de un centro urbano obtienen la habilidad Reparaciones de emergencia que puede activarse para reparar el edificio."
+                ]
+            },
+            {
+                "title": "Fervor religioso",
+                "description": "Demuestra el poderío del imperio al colocar reliquias en puestos de avanzada, torres y torres de homenaje para aumentar su armadura en +25%, el daño en +25%, el alcance en +25% y el campo de visión en +20%.\nLas reliquias colocadas en los muelles aumentan la velocidad de ataque del barco en +5% por reliquia (máx. +25%).\nLas reliquias colocadas en los edificios generan +80 de oro por minuto."
+            },
+            {
+                "title": "Ejército del Imperio",
+                "description": "La infantería se mueve 5% más rápido durante la Alta Edad Media (I) y 10% más que en la Edad Feudal (II). Mejora la infantería con tecnologías de impacto y despliega a los Primeros hombres de armas en la Edad Feudal (II)."
+            },
+            {
+                "title": "Arquitectura de emplazamiento",
+                "description": "Todas las tecnologías de emplazamiento son -20% más baratas. El campo de visión de los puestos de avanzada aumenta +20%."
+            },
+            {
+                "title": "Carretillas",
+                "description": "Los aldeanos llevan +40% más de recursos que otras civilizaciones."
+            },
+            {
+                "title": "Influencia",
+                "description": "Los edificios construidos dentro de la influencia de un centro urbano obtienen la habilidad Reparaciones de emergencia, que puede activarse para reparar el edificio con +150 de salud cada segundo durante 20 segundos."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Prelado: Utiliza la habilidad de Inspiración Divina en los aldeanos y aumenta su velocidad de recolección en +35% durante 30 segundos.\nLandsknecht: Infantería ligera de combate cuerpo a cuerpo con una gran espada de dos manos, capaz de hacer daño de área significativo.\nJinete oscuro: Un artillero poderoso montado con armadura. Su producción se limita por el número de fuertes construidos."
+            }
+        ]
+    },
+    "delhi_sultanate": {
+        "summary": "Los Sultanatos de Delhi se mantienen varios pasos adelante de sus enemigos gracias sus grandes redes de eruditos. En su esplendor, despliegan al intimidante elefante de guerra para que aplaste a cualquiera que se atraviese en su camino.",
+        "classes": "Elefantes, Investigación, Religión",
+        "era": "879 - 1526 CE",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Mezquita, académicos y tecnologías religiosas disponibles en la Alta Edad Media (I).",
+                    "Las unidades de infantería pueden construir empalizadas.",
+                    "Toda la tecnología es gratuita, pero se completa a un ritmo mucho más lento; resguarda a los académicos en las mezquitas, madrasas o muelles para aumentar la velocidad de desarrollo.",
+                    "Las tecnologías que se desarrollan pueden pausarse y reanudarse.",
+                    "Los molinos construidos cerca de los arbustos con bayas crean huertos y aumentan la capacidad de comida en +100.",
+                    "Recolecta de los arbustos con bayas un 25% más rápido, pero no puede recolectar de los jabalíes.",
+                    "La capacidad de carga de bayas aumenta +3.",
+                    "Los pesqueros pueden defenderse con un ataque a distancia."
+                ]
+            },
+            {
+                "title": "Cultura académica",
+                "description": "Capacitar a los eruditos de las mezquitas en la Alta Edad Media I. Investiga y desbloquea las tecnologías religiosas antes que otras civilizaciones."
+            },
+            {
+                "title": "Logros académicos",
+                "description": "Ahorra en el costo de las tecnologías y la investigación de toda la tecnología libre, pero avanza a un ritmo mucho más lento. Las tecnologías se pueden pausar y reanudar."
+            },
+            {
+                "title": "Fortificaciones fronterizas",
+                "description": "Establece asentamientos fortificados utilizando unidades de infantería que puedan construir empalizadas. Construye el punto de referencia del Defensor para extender esta habilidad a los muros de piedra."
+            },
+            {
+                "title": "Marineros defensivos",
+                "description": "Los barcos pesqueros pueden defenderse con un ataque a distancia y tienen un 50% de salud adicional."
+            },
+            {
+                "title": "Recompensa por jardín",
+                "description": "Cultiva arbustos con bayas en huertos al construir molinos cerca de ellos. Esto aumenta la capacidad de comida en +100.\nLos aldeanos recolectan arbustos con bayas un 25% más rápido, pero no pueden recolectar de los jabalíes.\nLos aldeanos llevan +3 de comida de los arbustos con bayas."
+            },
+            {
+                "title": "Influencia",
+                "description": "Los académicos resguardados en una mezquita o madrasa aumentarán la velocidad de desarrollo de los edificios dentro de su influencia según la cantidad de académicos resguardados globalmente. Los muelles funcionan más rápido cuando hay académicos resguardados."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Erudito: Unidad religiosa capaz de curar en la Edad Oscura (I).\nElefante de guerra: Unidad de caballería pesada que combate cuerpo a cuerpo, montada por un lancero, cuenta con mucha salud y causa un fuerte daño de asedio.\nElefante con torre: Unidad de caballería a distancia, montada por dos arqueros que disparan mientras se desplaza el elefante.\nIncursor Ghazi: Jinete veloz que ataca con una enorme maza."
+            }
+        ]
+    },
+    "chinese": {
+        "summary": "Los chinos pueden cambiar su enfoque a lo largo de las edades, desplegando muchas unidades únicas y construyendo con velocidad. Sus enemigos deben adaptarse constantemente para seguir el paso.",
+        "classes": "Dinastías, Pólvora, Impuestos",
+        "era": "907 - 1644 EC",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Comenzar en la dinastía Tang: aumenta la línea de visión de los exploradores en +30% y proporciona acceso a la aldea.",
+                    "Las unidades entrenadas, las tecnologías desarrolladas y los recursos entregados generan impuestos (oro) que pueden ser recolectados por los funcionarios imperiales.",
+                    "Construye ambos monumentos de una Edad para entrar en una nueva dinastía y desbloquear bonificaciones, unidades y edificios únicos.",
+                    "Los aldeanos construyen defensas +50% más rápido y todos los demás edificios +100% más rápido.",
+                    "La tecnología química se obtiene gratis en la Alta Edad Media — Los centros urbanos, los fuertes y los puestos de avanzada se defienden con artilleros manuales en lugar de flechas.",
+                    "Los muelles funcionan un +10% más rápido."
+                ]
+            },
+            {
+                "title": "Grandes dinastías",
+                "description": "Comienza tu viaje en la dinastía Tang: aumenta la línea de visión de los exploradores +30% y proporciona acceso a la aldea.\nConstruye ambos monumentos en una edad para iniciar dinastías con bonificaciones especiales, edificios únicos y unidades.\n• Dinastía Song: Produce aldeanos +33% más rápido; desbloquea el Granero y al Zhuge Nu.\n• Dinastía Yuan: Velocidad de movimiento de aldeanos, oficiales y unidades militares +15%; desbloquea la pagoda y al lancero incendiario.\n• Dinastía Ming:  Unidades militares +15% de salud; desbloquea al granadero."
+            },
+            {
+                "title": "Fabricaciones rápidas",
+                "description": "Los aldeanos construyen defensas + 50% más rápido y todos los demás edificios +100% más pronto. Los muelles funcionan + 10% más rápido."
+            },
+            {
+                "title": "Maestros de la pólvora",
+                "description": "Comienza la partida con la tecnología Química ya desarrollada gratis: los edificios defensivos utilizan troneras para artilleros manuales en lugar de aspilleras defensivas."
+            },
+            {
+                "title": "Impuestos",
+                "description": "Las unidades entrenadas, las tecnologías investigadas y los recursos entregados generan impuestos (oro) que los oficiales imperiales pueden recolectar."
+            },
+            {
+                "title": "Influencia",
+                "description": "Construye edificios militares y económicos dentro de la influencia del punto de referencia de la Academia Imperial para generar +100% de oro de impuestos."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Oficial imperial: Utiliza la habilidad Supervisión para aumentar la velocidad de producción de los edificios de investigación y militares en un +150%. La supervisión de los edificios económicos aumenta la cantidad de recursos que dejan los aldeanos en un +20%.\nZhuge Nu: Infantería ligera a distancia con un ataque de ráfaga rápido efectivo contra unidades ligeras.\nGuardia de Palacio: Reemplazo de hombre de armas. Infantería pesada cuerpo a cuerpo que cambia la armadura por la velocidad de movimiento.\nNido de abejas: Reemplazo de mangonel. Máquina de asedio que dispara una barrera de cohetes que causan daño de área de efecto.\nLanza de fuego: La caballería ligera es eficaz contra las máquinas de asedio y los edificios. Tiene un amplio rango de visión y un ataque con carga explosiva.\nGrenadier: Infantería ligera de pólvora que lanza granadas que causan daño de área de efecto."
+            }
+        ]
+    },
+    "abbasid_dynasty": {
+        "summary": "La dinastía abasí anhela una Edad de Oro próspera, y para ello, buscan concentrar estructuras cerca de la Casa de la Sabiduría, lo cual les permitirá desbloquear ventajas económicas significativas. La Casa de la Sabiduría también impulsa el progreso a través de las edades y otorga acceso a tecnologías avanzadas. Los camellos abasíes son expertos en contrarrestar a la caballería enemiga.",
+        "classes": "Tecnología, Camellos, Urbanismo",
+        "era": "907 - 1644 CE",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Desarrolla tecnologías únicas que benefician a los camellos, al ejército, la religión, la economía y al comercio.",
+                    "Las unidades de camellos reducen el daño en un 20% a la caballería enemiga cercana.",
+                    "Los molinos construidos cerca de los arbustos con bayas crean huertos y aumentan la capacidad de comida a +100.",
+                    "Recolecta de los arbustos con bayas 25% más rápido, pero no puede recolectarse de los jabalíes.",
+                    "Aumento de la capacidad de carga de bayas +3.",
+                    "Los comerciantes de tierra son 33% más baratos.",
+                    "Los muelles son un 50% más baratos.",
+                    "Avanza de edad sin aldeanos al mejorar las alas de la Casa de la sabiduría.",
+                    "Entra a la Edad de Oro al construir edificios en la influencia de la Casa de la sabiduría, aumentando la tasa de recolección de recursos, los tiempos de desarrollo y la velocidad de producción."
+                ]
+            },
+            {
+                "title": "Búsqueda del conocimiento",
+                "description": "Aprovecha el deseo de conocimiento de los abasíes a través del desarrollo de tecnologías únicas que benefician a los camellos, al ejército, la religión, la economía y el comercio.\nAvanza en las edades al mejorar hasta 4 Alas en la Casa de la sabiduría."
+            },
+            {
+                "title": "Luchadores en camellos",
+                "description": "Los camellos asustan a la caballería enemiga con su presencia, reduciendo su daño en un -20%."
+            },
+            {
+                "title": "Expertos en asedio",
+                "description": "La infantería puede construir arietes, torres de asedio, espingardas y manganas sin necesidad de la tecnología de ingeniería de asedio."
+            },
+            {
+                "title": "Huertos magníficos",
+                "description": "Cultiva arbustos con bayas en huertos al construir molinos cerca de ellos. Esto aumenta la capacidad de comida en +100.\nLos aldeanos recolectan arbustos con bayas un 25% más rápido, pero no pueden recolectar de los jabalíes.\nLos aldeanos llevan +3 de comida de los arbustos con bayas."
+            },
+            {
+                "title": "Economía comercial",
+                "description": "Los comerciantes de tierras son 33% más baratos."
+            },
+            {
+                "title": "Astilleros",
+                "description": "Los muelles se pueden construir con -50% de madera."
+            },
+            {
+                "title": "Edad de Oro",
+                "description": "Construye con miras a tu Edad de Oro mejorando la economía y la tecnología.\nLos edificios dentro de la influencia de la Casa de la Sabiduría reciben +5 de armadura contra el fuego y contribuyen con un punto a la Edad de Oro. El umbral para desbloquear son 10, 30 y 60 edificios.\n• Nivel 1: Vel. de recolección de aldeanos +15%\n• Nivel 2: Vel. de desarrollo+20%\n• Nivel 3: Vel. de recolección de aldeanos +20%, para todos los recursos. Velocidades de desarrollo +20%. Velocidades de producción +20%."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Arqueros en camellos: Caballería ligera que causa daño a distancia y que inflige daño adicional a la infantería ligera cuerpo a cuerpo.\nJinetes de camellos: Caballería ligera de combate cuerpo a cuerpo que causa daño adicional a los caballos.\nGhulam: Infantería resistente con un ataque de doble impacto."
+            }
+        ]
+    },
+    "ottomans": {
+        "summary": "El ejército otomano puede expandirse para dominar el campo de batalla, apoyado por Escuelas Militares que pueden entrenar continuamente unidades para engrosar las filas de sus formaciones. Apoyando a esas formaciones, los tambores de guerra de los mehters indican a las tropas altamente entrenadas que aprovechen sus ventajas en cada situación.",
+        "classes": "Consejo Imperial, Escuelas Militares, Asedio",
+        "era": "990 - 1566 d. C.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Entrenar unidades y avanzar a la siguiente edad son acciones que otorgan experiencia para obtener Puntos de Visir: cuanto más alto sea el costo de la acción, más experiencia ganarás. Puedes ganar hasta cinco Puntos de Visir y usarlos para desbloquear bonificaciones únicas (¡y poderosas!) de los otomanos.",
+                    "En los colegios militares puedes entrenar tropas de manera constante y sin costo.",
+                    "Cada vez que avanzas a la siguiente edad, la influencia de las herrerías y universidades aumenta la velocidad de entrenamiento de unidades militares.",
+                    "Los edificios militares y tecnológicos son más baratos.",
+                    "El jenízaro (unidad de artillería manual) está disponible a partir de la Edad de los Castillos (III) y puede reparar máquinas de asedio.",
+                    "El tambor de guerra Mehter aumenta el ataque y la defensa de las unidades militares cercanas.",
+                    "Despliega la temible máquina de asedio Gran bombardero, con un mayor alcance y daño de área.",
+                    "Se puede producir la gran galera, un barco que puede servir como escuela militar flotante.",
+                    "Aumenta la velocidad de movimiento de las barcas mercantes y los barcos de transporte.",
+                    "No se pueden cazar los jabalíes como fuente de comida."
+                ]
+            },
+            {
+                "title": "Entrenamiento en Escuelas Militares",
+                "description": "Construye el edificio de Escuela Militar que puede producir un tipo específico de unidad sin costo alguno, sin embargo se producen a un ritmo más lento."
+            },
+            {
+                "title": "Consejo Imperial",
+                "description": "Las unidades de entrenamiento y el avance a través de las edades otorgarán experiencia hacia los Puntos Visir, cuanto mayor sea el costo de la acción, más experiencia ganarás. Gana hasta cinco puntos Visir y gástalos para desbloquear poderosos bonos otomanos únicos."
+            },
+            {
+                "title": "Inducción militar",
+                "description": "Entrena, mejora y reúne un ejército con edificios militares y tecnológicos más baratos."
+            },
+            {
+                "title": "Rutas de envío",
+                "description": "La velocidad de movimiento de los barcos comerciales, de pesca y de transporte aumentó."
+            },
+            {
+                "title": "Influencia",
+                "description": "Los edificios de producción militar construidos bajo la influencia de un herrero o una universidad ganan una mayor velocidad de producción con cada edad."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Cipayo: Reemplazo del jinete. Activa la habilidad Fortaleza para atacar más rápido, pero recibe más daño de las armas cuerpo a cuerpo.\nMehteran: Tambor de guerra montado que proporciona mejoras militares a las unidades cercanas al activar la habilidad de Tambores de guerra.\n• Tambores de ataque: Mayor velocidad de ataque.\n• Tambores de defensa cuerpo a cuerpo: Mayor armadura cuerpo a cuerpo.\n• Tambores de defensa a distancia: Mayor armadura a distancia.\nJenízaro: Poderoso artillero manual que puede reparar máquinas de asedio y causar daño adicional a la caballería.\nGran galera: Galera de guerra grande que puede convertirse en una Escuela Militar flotante.\nGran bombarda: La máquina de asedio de pólvora más grande que se puede desplegar. Tiene un ataque de largo alcance y provoca daño de área.\nAkinji: Caballería de largo alcance que dispara dos flechas en rápida sucesión. Hay que desbloquear a esta unidad en el Consejo Imperial."
+            }
+        ]
+    },
+    "malians": {
+        "summary": "La economía maliense se desarrolla con opciones para la producción de oro y comida. Necesitan reclamar depósitos de oro para sus minas de pozo y aprovechar ese crecimiento para entrenar unidades de infantería únicas que atacan desde el sigilo y lanzan jabalinas a los enemigos.",
+        "classes": "Economía de oro, infantería, ganado",
+        "era": "1235 - 1670 d. C.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Construye minas de pozo en vetas de oro para generar oro sin agotar el depósito.",
+                    "Produce ganado en molinos en la Alta Edad Media (I). Los aldeanos malienses recolectan comida del ganado más rápido que otras civilizaciones, o bien, el ganado se puede enviar a los ranchos ganaderos para obtener comida con el tiempo.",
+                    "Las unidades Musofadi pueden usar la habilidad Activar sigilo para tender emboscadas.",
+                    "Cinco unidades únicas con una versión diferente del sistema de contrarresto.",
+                    "Las tecnologías de las unidades veteranas se desarrollan por la mitad del tiempo y costo normales.",
+                    "El oro recolectado de las rutas de comercio reduce el tiempo de desarrollo de tecnologías futuras.",
+                    "Los comerciantes y los barcos mercantes que pasan por los puestos de peaje proporcionan oro adicional al instante con base en la cantidad de oro que transporten. No se generan impuestos adicionales si se construye un puesto de peaje dentro del alcance de otro.",
+                    "Las barcas de pesca entregan 10% de su comida como oro.",
+                    "La velocidad de movimiento de todos los barcos aumenta cuando están cerca de los muelles.",
+                    "Los barcos de transporte atacan con jabalinas por cada unidad que vaya a bordo.",
+                    "Las casas se construyen el doble de rápido y a la mitad de su costo, pero proporcionan la mitad del espacio de población normal.",
+                    "No se puede recolectar comida de jabalíes."
+                ]
+            },
+            {
+                "title": "Minas de pozo",
+                "description": "Maneja una economía de oro superior y construye la mina de pozo sobre las vetas de oro en la Edad Oscura (I) para generar oro sin agotarlo. Los aldeanos pueden extraer oro mientras la mina de pozo está activa.\nSi la veta de oro está completamente agotada, la mina de pozo continuará extrayendo oro del depósito."
+            },
+            {
+                "title": "Influencia - Comunidades Mineras",
+                "description": "Cada casa y campamento minero construido bajo la influencia de minas de pozo aumenta su generación de oro.\nLos centros urbanos cuestan oro en lugar de piedra para construirse."
+            },
+            {
+                "title": "Ganado y Ranchos",
+                "description": "Produce ganado en molinos durante la Edad Oscura (I). Los aldeanos malienses cosechan alimentos del ganado más rápido que otras civilizaciones o pueden ser resguardados en un rancho ganadero para generar comida con el tiempo."
+            },
+            {
+                "title": "Conquistador Musofadi",
+                "description": "Las unidades únicas guerrero musofadi y artillero musofadi pueden usar la habilidad Activar sigilo para escabullirse y crear oportunidades de emboscada."
+            },
+            {
+                "title": "El conocimiento de Farari",
+                "description": "Las tecnologías de unidades veteranas desbloqueadas en la Edad de los Castillos (III) se investigan por la mitad del tiempo y costo."
+            },
+            {
+                "title": "Puestos de avanzada de peaje",
+                "description": "Los comerciantes y barcos mercantes que pasan por los puestos de peaje proporcionan al instante una bonificación de recursos con base en los objetivos comerciales actuales. No genera impuestos adicionales si se construye un puesto de peaje dentro del alcance de otro."
+            },
+            {
+                "title": "Comercio de manuscritos",
+                "description": "El oro recolectado de las rutas de mercaderes completadas reduce el tiempo de investigación de tecnologías futuras."
+            },
+            {
+                "title": "Procesamiento de pesca",
+                "description": "Los barcos de pesca entregan 10% de su comida como oro."
+            },
+            {
+                "title": "Grupos de desembarco",
+                "description": "La velocidad de movimiento de todos los barcos aumenta cuando se acercan a sus muelles.\nLos barcos de transporte disparan jabalinas por cada unidad que llevan a bordo."
+            },
+            {
+                "title": "Unidades únicas",
+                "list": [
+                    "Donso: Reemplazo de lancero. Infantería cuerpo a cuerpo ligera con mayor salud y armadura cuerpo a cuerpo que puede lanzar periódicamente una jabalina.",
+                    "Explorador guerrero: Caballería ligera que puede mejorar el daño, la velocidad de movimiento, la salud y la regeneración de la salud.",
+                    "Guerrero Musofadi: Infantería rápida, ligera y antiblindaje que puede usar la habilidad Activar sigilo.",
+                    "Lanzador de jabalina: Infantería anti-alcance que lanza una jabalina desde un rango extendido.",
+                    "Sofá: Caballería pesada más rápida con costo, salud y armadura reducidos.",
+                    "Artillero Musofadi: Cañonero de movimiento más rápido que puede usar la habilidad Activar sigilo."
+                ]
+            }
+        ]
+    },
+    "byzantines": {
+        "summary": "Los bizantinos construyen extensas y vitales redes de acueductos y cisternas. Aprovecha las poderosas habilidades únicas y contrata a mercenarios con exquisito aceite de oliva. Los campesinos trabajan incansablemente para crear aceite de oliva para el imperio.",
+        "classes": "Urbanismo, mercenarios, defensa",
+        "era": "330 - 1453 e. c.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Las cisternas se pueden alternar para mejorar la influencia de la velocidad de producción de unidades, la velocidad de investigación o la defensa de los edificios. Las bonificaciones mejoran cuando están conectadas con acueductos.",
+                    "Unidades de campo capaces de usar diversas formas de fuego griego.",
+                    "Recolecta piedra adicional por cada edificio construido.",
+                    "Cosecha aceite de oliva que se usa para producir unidades mercenarias.",
+                    "Puedes entrenar unidades únicas de otras civilizaciones como mercenarios de la Casa de mercenarios a partir de la Edad Feudal (II).",
+                    "Los trabajadores generan aceite de oliva de los arbustos de bayas, olivares y pescado.",
+                    "Los comerciantes proporcionan aceite de oliva al comerciar con éxito.",
+                    "Los mercados pueden intercambiar aceite de oliva.",
+                    "Los barcos de transporte aumentan temporalmente la velocidad de movimiento de las unidades al descargar."
+                ]
+            },
+            {
+                "title": "Aceite de oliva",
+                "description": "Recolecta un recurso único que se usa para contratar unidades mercenarias. Los aldeanos recolectan aceite de oliva equivalente al 50% de la comida recolectada de los arbustos con bayas, el 20% de los olivares y el 10% de los peces de la orilla.\nLos barcos de pesca generan aceite de oliva equivalente al 20% de la comida obtenida de la pesca y los comerciantes proporcionan un 20% de aceite de oliva según la cantidad de su comercio."
+            },
+            {
+                "title": "Mercenarios",
+                "description": "Compra contratos o establece el control de los puestos comerciales para reclutar unidades únicas de otras civilizaciones con aceite de oliva en la Casa de mercenarios."
+            },
+            {
+                "title": "Cisternas y acueductos",
+                "description": "Las cisternas proporcionan a los aldeanos cercanos velocidad de recolección mejorada y una influencia que mejora a los edificios cercanos, también mejora la velocidad de producción de unidades, velocidad de investigación o construcción de defensas.\n Construye una red de acueductos y conéctala con las cisternas para aumentar su bonificación."
+            },
+            {
+                "title": "Piedras de campo",
+                "description": "Recolecta piedra de cada edificio construido. El tamaño del edificio determina la cantidad de piedra recolectada."
+            },
+            {
+                "title": "Fuego griego",
+                "description": "Los Querosifones, Dromones y Trebuchets mejorados lanzan fuego griego en sus ataques, dejando el área en llamas para causar daño con el tiempo."
+            },
+            {
+                "title": "Emplazamientos de manganas",
+                "description": "Puedes mejorar los puestos de avanzada y las torres de homenaje con emplazamientos de manganas. Las torres de muro de piedra están equipadas con emplazamientos de manganas en lugar de espingardas."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Limitanei: Reemplaza a los lanceros. Infantería ligera cuerpo a cuerpo con la habilidad muro de escudos para aumentar la armadura a distancia a costa de velocidad de movimiento.\n Guardia varego: Sustituye al Hombre de armas. Usa la habilidad de Berserk para aumentar el daño a costa de la armadura. Puede construir barcos de transporte y aumentar la armadura de esos barcos al abordarlos. Obtiene más velocidad de movimiento cuando desembarca de barcos de transporte.\n Catafracta: Reemplaza a los caballeros. Caballería pesada con Pisoteo, una poderosa habilidad objetivo que aplasta y daña a los enemigos en su camino.\nQuerosifón: Un ariete equipado con un ataque de fuego griego de corta distancia.\n Dromon: Reemplaza al barco espingarda. Equipado con fuego griego."
+            }
+        ]
+    },
+    "japanese": {
+        "summary": "El Daimyo, gobernador de los japoneses, mejora la agricultura y emplea a los samurais para defender su territorio. La forja única funciona incansablemente para afilar sus cuchillas y dar ventaja en batalla. Los feroces portaestandartes samurai dirigen a su diversa infantería y caballería a la victoria.",
+        "classes": "Agricultura, portaestandartes e infantería",
+        "era": "794 - 1616 e. c.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Los centros urbanos se pueden mejorar para incrementar las defensas, la velocidad de cosecha de las granjas cercanas y el límite de producción de los Samurai portaestandarte",
+                    "Los Samurai portaestandarte otorgan bonificaciones a la infantería y caballería cercanas.",
+                    "Los samurai portan una armadura deflectora que puede bloquear algunos ataques a distancia o cuerpo a cuerpo.",
+                    "Los cuarteles son más baratos de construir.",
+                    "Los graneros son lugares de entrega de comida que también aumentan el límite de población.",
+                    "Las forjas son lugares de entrega de oro y piedra que también ofrecen mejoras militares.",
+                    "El oro que depositan los aldeanos genera piedra de bonificación y viceversa.",
+                    "Tienes acceso a mejoras adicionales de daño cuerpo a cuerpo desde la Alta Edad Media (I) .\n •Elige entre monjes budistas o sacerdotes sintoístas con tus opciones de sitio distintivo de la Edad de los Castillos (III).",
+                    "Las torres del homenaje vienen equipadas con emplazamientos para cohetes y mayor salud en la Edad Imperial (IV).",
+                    "Los barcos pesqueros son más baratos de producir."
+                ]
+            },
+            {
+                "title": "Daimyo",
+                "description": "Los centros urbanos se pueden convertir en edificios especiales llamados “Mansión del daimyo”, “Palacio del daimyo” y “Castillo del shogunato”. Estos edificios otorgan bonificaciones a los aldeanos cercanos que trabajan en granjas en 20%, 40%, 60%, aumentan la capacidad de los samurai portaestandarte en +1, +2, +3 y mejoran sus defensas."
+            },
+            {
+                "title": "Samurai Hatamoto",
+                "description": "Samurai portaestandarte de élite que proporciona +15% de daño adicional a la infantería y +10% a caballería cercanas. Los samurais portaestandarte sueltan los estandartes cuando mueren, pero su efecto se conserva durante un tiempo."
+            },
+            {
+                "title": "Mente tranquila",
+                "description": "Produce samurais en la Alta Edad Media (I). Los samurais portan una armadura deflectora que puede bloquear algunos ataques cuerpo a cuerpo o a distancia."
+            },
+            {
+                "title": "Granja y herrería",
+                "description": "La forja es un punto de entrega de oro y piedra que reemplaza el campamento minero y la herrería. Además, proporciona una tecnología de daño cuerpo a cuerpo adicional en la Alta Edad Media (I). La granja proporciona población y sustituye el molino como punto de entrega de comida."
+            },
+            {
+                "title": "Fortaleza de Oda",
+                "description": "Accede a una torre del homenaje más poderosa en la Edad Imperial (IV) que incluye más salud y emplazamientos de cohetes por un mayor costo. Los cohetes atacan rápidamente e infligen daño masivo a los objetivos individuales."
+            },
+            {
+                "title": "Minería de plata",
+                "description": "Cuando los aldeanos entregan oro, también se produce 20% de piedra adicional y viceversa."
+            },
+            {
+                "title": "Elección religiosa",
+                "description": "Selecciona entre sintoísmo y budismo con tus opciones de sitio distintivo de la Edad III. Si eliges el sintoísmo, desbloquearás al Sacerdote sintoísta. Si eliges el budismo, desbloquearás al monje budista. Estas unidades religiosas ofrecen bonificaciones únicas."
+            },
+            {
+                "title": "Distritos Samurai",
+                "description": "Los cuarteles son 50% más baratos de construir."
+            },
+            {
+                "title": "Aldea de pescadores",
+                "description": "La producción de los barcos pesqueros es 25% más barata."
+            },
+            {
+                "title": "Unidades únicas",
+                "list": [
+                    "Samurai: reemplaza al Hombre de armas. Infantería pesada cuerpo a cuerpo que porta una armadura deflectora capaz de bloquear algunos ataques cuerpo a cuerpo y a distancia.",
+                    "Samurai montado: reemplaza al lancero a caballo. Caballería pesada cuerpo a cuerpo que porta una armadura deflectora.",
+                    "Yumi Ashigaru: arquero con velocidad de movimiento mejorada a cambio de una reducción de costo y salud.",
+                    "Onna-Bugeisha: infantería ligera de combate cuerpo a cuerpo que puede aprovechar su velocidad y largo alcance para mantener a su oponente en alerta.",
+                    "Onna-Musha: reemplaza al ballestero. Arquera a caballo que aprovecha su agilidad para hostigar a objetivos pesados.",
+                    "Shinobi: unidad de espionaje que puede actuar como espía, sabotear edificios o asesinar objetivos. Se entrena en el sitio distintivo del pueblo de Koka.",
+                    "Ozutsu: infantería pesada de ataque a distancia que usa un enorme cañón de mano para causar mucho daño de asedio y por explosión. Se entrena en el sitio distintivo del Armero Tanegashima."
+                ]
+            }
+        ]
+    },
+    "jeanne_darc": {
+        "summary": "Juana de Arco, una chispa de esperanza para los franceses, llega al campo de batalla e inspira valor a sus seguidores. Al comenzar como una humilde aldeana, Juana comienza una travesía heroica en la Edad Oscura. La experiencia convierte a Juana en una poderosa líder, obteniendo acceso a compañeros de confianza y poderosas habilidades que dan forma al imperio que estaba destinada a crear.",
+        "classes": "Comercio, Caballería, Héroe",
+        "era": "1412-1431 d. C.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Juana de Arco realizará una travesía heroica.",
+                    "Caballeros reales en la Edad Feudal (II).",
+                    "Las tecnologías económicas son 35% más baratas.",
+                    "Los puestos de intercambio se ven en el minimapa.",
+                    "Los comerciantes pueden llevar comida, madera u oro a los mercados.",
+                    "Los barcos mercantes entregan +20% recursos."
+                ]
+            },
+            {
+                "title": "Una travesía heroica",
+                "description": "Juana de Arco llega al campo de batalla. Es una unidad heroica que gana experiencia al completar tareas como recolectar recursos, construir edificios y participar en combate.\nDespués de acumular suficiente experiencia, Juana puede subir de nivel para obtener poderosas habilidades económicas y de combate."
+            },
+            {
+                "title": "Sementales reales",
+                "description": "Despliega la unidad única de Caballero Real en la Edad Feudal II e investiga tecnologías poderosas únicas para la caballería."
+            },
+            {
+                "title": "Economía reforzada",
+                "description": "La gente trabaja más duro bajo el liderazgo de Juana de Arco. Las mejoras económicas son 35% más baratas."
+            },
+            {
+                "title": "Economía comercial",
+                "description": "Elige devolver comida, madera u oro a los mercados con los comerciantes y los barcos mercantes.\nLos barcos mercantes devuelven un +20% de recursos.\nLos puestos de intercambio se revelan en el minimapa al inicio del juego.\nLos muelles proporcionan espacio para población."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Juana de Arco es una unidad heroica que comienza como aldeana y debe realizar una travesía heroica para obtener habilidades poderosas.\nJinete de Juana: Caballería rápida y efectiva para realizar incursiones y flanqueos y buena contra las ballestas; disponible una vez que Juana alcanza el nivel 3.\nCampeón de Juana: infantería resistente excelente para contrarrestar lanceros, disponible una vez que Juana alcanza el nivel 3.\nCaballero Real: Caballería pesada que obtiene +3 de daño adicional durante 5 segundos después de completar una carga.\nArbalestero: ballestero con +1 de armadura cuerpo a cuerpo; puede desplegar un escudo pavés que proporciona +5 puntos de armadura a distancia y +1 de alcance del arma durante 30 segundos.\nCañón: remplaza a la bombarda y causa más daño, tiene mayor movilidad y no requiere tiempo para instalarse.\nGaleaza: galera de guerra grande que tiene una bombarda de largo alcance montada en proa.\nCoca de guerra: nave espingarda única de bajo costo y con buena armadura contra perforación."
+            }
+        ]
+    },
+    "ayyubids": {
+        "summary": "En la confluencia de continentes, donde el comercio y la ciencia se encuentran, y donde los imperios se enfrentan, los ayubíes usan su búsqueda de conocimiento para obtener la ventaja. La Casa de la Sabiduría es el punto central de esta combinación de urbanización y ciencia, desbloquea poderosas bonificaciones de la Edad de Oro y avanza a través de las edades. Los ayubíes se enfocan en unidades versátiles para obtener una ventaja táctica en el campo de batalla.",
+        "classes": "Adaptable, Camellos, Urbanismo",
+        "era": "907 - 1644 CE",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Las unidades a camello reducen el daño recibido de la caballería enemiga cercana en un -20%.",
+                    "Los molinos construidos cerca de los arbustos con bayas forman huertos y aumentan la capacidad de comida en +100.",
+                    "La recolección de los arbustos con bayas es 25% más rápida, pero no se pueden recolectar de jabalíes.",
+                    "La capacidad de carga de bayas aumenta +3.",
+                    "Los comerciantes terrestres son 33% más baratos.",
+                    "Los muelles son 50% más baratos.",
+                    "Avanza de edad sin necesidad de aldeanos al mejorar las alas de la Casa de la sabiduría.",
+                    "Elige entre 8 alas diferentes y cada una desbloquea una bonificación poderosa sin necesidad de alguna mejora adicional.",
+                    "La bonificación otorgada por un ala aumenta de poder al desarrollarla en edades futuras.",
+                    "Accede a bonificaciones especiales al llegar a la Edad de Oro al construir edificios dentro de la influencia de la Casa de la Sabiduría."
+                ]
+            },
+            {
+                "title": "Comandante adaptable",
+                "description": "Avanza por las edades al escoger entre 8 alas únicas en la Casa de la Sabiduría.\nObtén acceso inmediato a bonificaciones de economía, tecnología y militar sin necesidad de tener mejoras para adaptar a tu civilización a las necesidades de la batalla.\n Cada ala ofrece bonificaciones más poderosas al construirlas en edades posteriores."
+            },
+            {
+                "title": "Luchadores en camellos",
+                "description": "Los camellos asustan a la caballería enemiga con su presencia, reduciendo su daño en un -20%."
+            },
+            {
+                "title": "Maestros de tácticas de asedio",
+                "description": "La infantería puede construir máquinas de asedio en el campo sin necesidad de la tecnología de ingeniería de asedio.\nAccede a dos armas de asedio y una mejora de asedio única."
+            },
+            {
+                "title": "Huertos magníficos",
+                "description": "Cultiva arbustos con bayas en huertos al construir molinos cerca de ellos. Esto aumenta la capacidad de comida en +100.\nLos aldeanos recolectan arbustos con bayas un 25% más rápido, pero no pueden recolectar de los jabalíes.\nLos aldeanos llevan +3 de comida de los arbustos con bayas."
+            },
+            {
+                "title": "Economía comercial",
+                "description": "Los comerciantes de tierras son 33% más baratos."
+            },
+            {
+                "title": "Astilleros",
+                "description": "Los muelles se pueden construir con -50% de madera."
+            },
+            {
+                "title": "Edad de Oro",
+                "description": "Construye con miras a tu Edad de Oro mejorando la economía, la tecnología y el ejército.\nLos edificios dentro de la influencia de la casa de la sabiduría reciben +5 de resistencia al fuego y contribuyen un punto a la Edad de Oro. El umbral para desbloquear son 10, 20, 30, 50 y 75 edificios.\n• Grado 1: Velocidad de recolección de aldeanos +10%.\n• Grado 2: Velocidad de desarrollo +25%.\n• Grado 3: Velocidad de producción +20%.\n• Grado 4: Las unidades de asedio cuestan 20% menos recursos.\n• Grado 5: Las unidades a camello atacan 20% más rápido."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Incursor desértico: jinete a camello versátil que puede alternar entre combate a distancia y cuerpo a cuerpo.\nLancero a camello: camello pesado con un ataque de carga poderoso.\nDerviche: Unidad religiosa montada con una poderosa habilidad de curación.\nMangana: Un mangonel único que puede usar un modo incendiario para infligir daño en un área muy grande.\nTorre del sultán: Arma de asedio enorme llena de arqueros y equipada con un ariete para causar daño devastador a los edificios."
+            }
+        ]
+    },
+    "zhu_xis_legacy": {
+        "summary": "Las enseñanzas del filósofo Zhu Xi reformaron la civilización china. Con el legado de Zhu Xi, los chinos lograron obtener una sofisticada administración con oficiales imperiales y tecnología avanzada. Las desbordantes arcas del tesoro ayudaron a cimentar poderosas dinastías y a desarrollar una amplia variedad de tecnologías únicas. Comienza reclutando Guardias del Palacio, Zhuge Nus y Granaderos para proteger el Imperio.",
+        "classes": "Dinastías, impuestos y tecnología",
+        "era": "907 - 1644 EC",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Comienza en la dinastía Tang. Los costos de los monumentos distintivos disminuyen -15% y se desbloquea la Aldea.",
+                    "Comienza una nueva dinastía al construir ambos monumentos distintivos de una edad para desbloquear bonificaciones especiales y edificios únicos.",
+                    "Las unidades entrenadas, las tecnologías desarrolladas y los recursos que se entregan generan impuestos (oro) que los Oficiales imperiales puedes recolectar.",
+                    "Las tecnologías únicas mejoran bastante a los Oficiales imperiales, desbloquean nuevas unidades y mejoran a las unidades militares.",
+                    "Los primeros Guardias del Palacio están disponibles desde la Edad Feudal.",
+                    "Tienes acceso a las unidades Zhuge Nu y Granadero sin necesidad de comenzar Dinastías.",
+                    "Los aldeanos construyen defensas +50% más rápido y todos los demás edificios +100% más pronto.",
+                    "La tecnología Química se obtiene gratis en la Alta Edad Media. Los centros urbanos, las torres del homenaje y los puestos de avanzada tienen lugar para artilleros manuales en lugar de aspilleras defensivas.",
+                    "Los muelles funcionan +10% más rápido."
+                ]
+            },
+            {
+                "title": "Grandes dinastías",
+                "description": "Comienza tu travesía en la dinastía Tang. Los costos de los monumentos disminuyen en -15% y la Aldea se desbloquea .\nConstruye ambos monumentos de una Edad para comenzar dinastías con bonificaciones especiales, edificios y unidades únicas.\n• Song: El costo en madera de los edificios de economía y población disminuye en -30% y permite la construcción del granero.\n• Yuan: 10% de descuento en todas las unidades y permite la construcción de la Pagoda.\n• Ming: Las unidades únicas infligen +20% de daño."
+            },
+            {
+                "title": "Impuestos",
+                "description": "Las unidades entrenadas, las tecnologías investigadas y los recursos entregados generan impuestos (oro) que los Oficiales imperiales pueden recolectar. Las tecnologías administrativas únicas de la Academia del Monte Lu y la Biblioteca de Zhu Xi otorgan mejoras importantes para los Oficiales imperiales."
+            },
+            {
+                "title": "Unidades de dinastías",
+                "description": "Obtén al Zhuge Nu y al Granadero sin necesidad de comenzar Dinastías. Los sitios distintivos pueden desbloquear a los poderosos monjes Shaolin, Incursores Yuan y Guardias imperiales. Los primeros Guardias del Palacio se pueden entrenar desde la Edad Feudal."
+            },
+            {
+                "title": "Maestros de la pólvora",
+                "description": "Comienza la partida con la tecnología Química ya desarrollada gratis: los edificios defensivos utilizan troneras para artilleros manuales en lugar de aspilleras defensivas."
+            },
+            {
+                "title": "Fabricaciones rápidas",
+                "description": "Los aldeanos construyen defensas + 50% más rápido y todos los demás edificios +100% más pronto. Los muelles funcionan + 10% más rápido."
+            },
+            {
+                "title": "Protege el palacio",
+                "description": "Entrena a los primeros guardias del palacio en la Edad Feudal (II) para proteger al emperador."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Oficial imperial: Utiliza la habilidad Supervisión para aumentar la velocidad de producción de los edificios militares y de investigación en +150%. La supervisión de los edificios económicos aumenta la cantidad de recursos que entregan los aldeanos en +20%.\nZhuge Nu: Remplaza a los arqueros. Infantería ligera a distancia con un ataque de ráfaga rápido y efectivo contra unidades ligeras.\nGuardia del Palacio: reemplaza al Hombre de armas. Infantería pesada cuerpo a cuerpo que canjea armadura por velocidad de movimiento.\nNido de abejas: reemplaza a la mangana. Máquina de asedio que dispara una andanada de cohetes que causan daño de área de efecto.\nGranadero: infantería ligera que usa pólvora y lanza granadas que causan daño de área de efecto."
+            }
+        ]
+    },
+    "order_of_the_dragon": {
+        "summary": "La Orden del Dragón está establecida por élites acaudaladas para aplastar imperios hostiles. Al invertir grandes cantidades de recursos para entrenar solo a unos pocos guerreros excepcionales, la Orden logra formar un ejército de élite como ningún otro.",
+        "classes": "Calidad, infantería, defensa",
+        "era": "1408 - 1437 e.c.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Los aldeanos transportan + 40% más de recursos, recolectan + 28% más rápido y construyen y reparan edificios + 20% más rápido.",
+                    "Las unidades de infantería y caballería son mucho más fuertes, pero también son más costosas para producirse y toman el doble de población",
+                    "Coloca reliquias en puestos de avanzada, torres de piedra y torres de homenaje para bonificaciones defensivas y económicas.",
+                    "Las reliquias que coloques en muelles aumentan la velocidad de ataque de los barcos en +5% por cada reliquia (máx. + 20%).",
+                    "Los emplazamientos son -20% más baratos. El rango de visión de los puestos de avanzada aumenta + 20%.",
+                    "Los edificios dentro del área de influencia de un centro urbano obtienen la habilidad Reparaciones de emergencia que se puede activar para reparar el edificio."
+                ]
+            },
+            {
+                "title": "Aldeanos eficientes",
+                "description": "Los aldeanos recolectan 28% más rápido, construyen y reparan edificios 20% más rápido, pero cuestan 20% más de comida para producir."
+            },
+            {
+                "title": "Fervor religioso",
+                "description": "Demuestra el poderío del imperio al colocar reliquias en puestos de avanzada, torres y torres de homenaje para aumentar su armadura en +25%, el daño en +25%, el alcance en +25% y el campo de visión en +20%.\nLas reliquias colocadas en los muelles aumentan la velocidad de ataque del barco en +5% por reliquia (máx. +25%).\nLas reliquias colocadas en los edificios generan +80 de oro por minuto."
+            },
+            {
+                "title": "Equipo de élite",
+                "description": "Desarrolla tecnologías como antorchas pesadas, armadura de escamas y caballos de guerra para fortalecer aún más el poder de la Orden."
+            },
+            {
+                "title": "Arquitectura de emplazamiento",
+                "description": "Todas las tecnologías de emplazamiento son -20% más baratas. El campo de visión de los puestos de avanzada aumenta +20%."
+            },
+            {
+                "title": "Carretillas",
+                "description": "Los aldeanos llevan +40% más de recursos que otras civilizaciones."
+            },
+            {
+                "title": "Influencia",
+                "description": "Los edificios construidos dentro de la influencia de un centro urbano obtienen la habilidad Reparaciones de emergencia, que puede activarse para reparar el edificio con +150 de salud cada segundo durante 20 segundos."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "La infantería de élite y las unidades de caballería de la Orden, como los hombres de armas dorados, los caballeros dorados y otros, tienen casi el doble de salud que las unidades regulares e infligen mucho más daño. Sin embargo, son mucho más costosos de entrenar y ocupan el doble de espacio de población."
+            }
+        ]
+    },
+    "knights_templar": {
+        "summary": "Los Caballeros templarios fueron fundados para proteger a los débiles y cansados y establecieron encomiendas por toda Europa para convocar a sus aliados. Gracias a un impresionante despliegue de tropas pesadas, los templarios lideran la carga a la batalla con disciplina y corazón. Las fortalezas cubren el paisaje cuidadosamente cultivado, proporcionando buenas posiciones defensivas y refugio seguro a los peregrinos que protegen.",
+        "classes": "Peregrinos, encomiendas, caballeros",
+        "era": "1119 a 1307 e. c.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Avanza de edad en el centro urbano al establecer una Encomienda.",
+                    "Las encomiendas desbloquean unidades y bonificaciones permanentes.",
+                    "Los peregrinos generan oro al viajar a lugares sagrados.",
+                    "Construye fortalezas en la Edad Feudal.",
+                    "Las fortalezas aumentan el alcance de las unidades cercanas y la salud de los muros de piedra cercanos",
+                    "Las fortalezas funcionan como monumentos, pero pueden ser destruidas por completo.",
+                    "Los leñadores depositan madera automáticamente y la recolectan más rápido cada vez que avanzas de Edad.",
+                    "Los talleres de asedio y las máquinas de asedio cuestan menos madera.",
+                    "Los trebuchets disparan un proyectil adicional."
+                ]
+            },
+            {
+                "title": "Establece encomiendas",
+                "description": "Avanza de edad en el centro urbano al establecer una de las tres encomiendas únicas. Cada encomienda desbloquea una unidad y una bonificación única de forma permanente."
+            },
+            {
+                "title": "Planes defensivos de los francos",
+                "description": "Las fortalezas reemplazan a los fuertes y están disponibles en la Edad Feudal.\nLas unidades a distancia colocadas cerca de una fortaleza obtienen un aumento de alcance de ataque de +15% y los muros de piedra colocados dentro del área de influencia de una fortaleza o Cuartel general templario obtienen +25% de salud y una flecha por defecto.\nLas fortalezas funcionan como monumentos, pero las pueden destruir por completo."
+            },
+            {
+                "title": "Peregrinaje",
+                "description": "Los Caballeros templarios no pueden producir comerciantes, pero generan oro mediante peregrinajes exitosos. Al llegar a la Edad Feudal, los Caballeros templarios pueden ofrecer a los peregrinos un pasaje seguro para que viajen a un lugar sagrado.\nCada 60 segundos, un grupo de peregrinos viajará desde el cuartel general de los Templarios hasta el lugar sagrado seleccionado, generando oro al llegar dependiendo la distancia viajada. El tamaño del grupo aumenta en 1 por cada fortaleza activa hasta un máximo de 10.\nLos lugares sagrados y reliquias se revelan al inicio de la partida."
+            },
+            {
+                "title": "Puertos costeros",
+                "description": "Construye puertos en lugar de muelles, que son más caros, pero tienen mayor salud, un emplazamiento más fuerte, más espacio de resguardo para barcos pesqueros y aumentan la salud de los barcos cercanos."
+            },
+            {
+                "title": "Preservación del paisaje",
+                "description": "Los aldeanos depositan madera de forma automática y sin necesidad de un campamento maderero.\nLa recolección de madera es +20% más rápida en cada Edad y un 20% de la madera recolectada se convierte en comida adicional."
+            },
+            {
+                "title": "Expertos en asedio",
+                "description": "Los trebuchets disparan proyectiles adicionales y se pueden desplegar sobre las fortalezas con un emplazamiento único.\nLos talleres de asedio y las máquinas de asedio cuestan -25% de madera."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Hermano templario: reemplazo de caballero. Es más costoso que un caballero normal, pero tiene más salud y causa más daño.\nEdad Feudal\nEncomienda de caballero hospitalario - Caballero hospitalario: Infantería pesada cuerpo a cuerpo que puede curar a unidades aliadas cercanas.\nEncomienda del reino de Francia - Caballero acompañante: Caballería pesada más barata que un caballero regular. Obtiene salud adicional por cada unidad de caballería pesada cercana.\nEncomienda del principado de Antioquía - Serjeant: Infantería pesada con gran armadura cuerpo a cuerpo. Lanza hachas a distancia que infligen daño cuerpo a cuerpo.\nEdad de los castillos\nEncomienda del imperio Angevino - Lancero pesado: Lancero con armadura que es más fuerte cerca de las fortalezas.\nEncomienda de la República de Génova - Ballestero genovés: Ballestero costoso que inflige daño adicional a infantería cuerpo a cuerpo.\nEncomienda del reino de Castilla - Genitour: Jabalinero montado que destaca contra unidades a distancia.\nEdad Imperial\nEncomienda del reino de Polonia - Caballería szlachta: Caballería de élite con armadura a distancia excepcional. Frena los ataques enemigos a los que daña y ocasiona daño adicional a la infantería ligera.\nEncomienda de la Orden Teutónica - Caballero teutónico: Infantería pesada absurdamente poderosa que obtiene poder por cada enemigo derrotado en combate. Reduce la armadura de enemigos cercanos.\nEncomienda de la República de Venecia - Condotiero: Infantería rápida que cuesta oro. Fuerte contra unidades de pólvora.\nGalera veneciana: Gran embarcación con remos y un trebuchet montado en la parte delantera con gran alcance.\nComerciante veneciano: Costoso, pero muy rápido. Con un límite de construcción máximo de 5."
+            }
+        ]
+    },
+    "house_of_lancaster": {
+        "summary": "La Casa de Lancaster emerge como una poderosa rama de la realeza inglesa. Las casas señoriales son la columna vertebral de la economía al otorgar prácticas económicas sustentables. El poderío militar de Lancaster se basa en la ventaja tecnológica y las tácticas superiores en el campo de batalla. Desmantela formaciones enemigas con poderosas tropas de choque para después destruirlas con una infantería de ataque a distancia superior.",
+        "classes": "Casas señoriales, defensa, economía",
+        "era": "1267 - 1471 e. c.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Los aldeanos recolectan ovejas +20% más rápido.",
+                    "Construye casas señoriales para generar comida y madera de forma pasiva.",
+                    "Los centros urbanos generan 4 ovejas al finalizar su construcción.",
+                    "Los fuertes otorgan 3 guardias del conde gratis al finalizar su construcción.",
+                    "Los fuertes activos aumentan el daño de los guardias del conde y demilanceros.",
+                    "Los aldeanos usan arcos cortos cuando atacan a las unidades enemigas.",
+                    "Los barcos son -10% más baratos de producir."
+                ]
+            },
+            {
+                "title": "Feudalismo",
+                "description": "Construye casas señoriales para generar ingresos pasivos en la Edad Feudal. Las casas señoriales actúan como un edificio de entrega para todos los tipos de recursos y proporcionan +10 de espacio de población. Cada casa señorial genera 30 de comida y 10 de madera por minuto y un 4 adicional de comida y 2 de madera por cada aldeano cercano.\nAumenta el límite de construcción de casas señoriales con tecnologías únicas."
+            },
+            {
+                "title": "Industrias de lana",
+                "description": "Cada centro urbano genera 4 ovejas al finalizar su construcción. Los aldeanos recolectan carne de oveja +20% más rápido."
+            },
+            {
+                "title": "Byrig defensivo",
+                "description": "El Centro urbano de la capital dispara una flecha adicional y los aldeanos usan arcos cortos cuando atacan a las unidades enemigas."
+            },
+            {
+                "title": "Una casa unificada",
+                "description": "Los fuertes otorgan 3 guardias del conde gratis al finalizar su construcción. Cada fuerte activo otorga +1 de daño a los guardias del conde y demilanceros hasta un máximo de +4."
+            },
+            {
+                "title": "Carpintero naval",
+                "description": "El acondicionamiento naval aumenta la eficiencia de los muelles, lo que reduce el costo de construcción de los buques en un -10%."
+            },
+            {
+                "title": "Unidades únicas",
+                "list": [
+                    "Yeoman: reemplaza a los arqueros. Infantería a distancia con mayor velocidad y alcance. Puedes mejorarlos para que disparen una devastadora andanada de flechas a un área objetivo.",
+                    "Hobelar: reemplaza a los jinetes. Caballería barata y rápida con buena armadura contra ataques a distancia.",
+                    "Guardia del conde: reemplaza al hombre de armas. Infantería pesada cuerpo a cuerpo que, cada cierto tiempo, arroja dagas.",
+                    "Demilancero: caballería pesada especial, de alta resistencia y poco daño, que solo se puede entrenar en los monumentos."
+                ]
+            }
+        ]
+    },
+    "sengoku_daimyo": {
+        "summary": "Sengoku Jidai fue una época de alianzas cambiantes y guerras incesantes. Puedes apoyar a uno de tres clanes rivales para obtener poderosas ventajas para tu infantería a distancia, infantería cuerpo a cuerpo o caballería. Pero, incluso en medio de la guerra, hubo tiempo para celebrar, el festival matsuri es el centro del comercio e intercambio y proporciona poderosas bonificaciones a su economía.",
+        "classes": "Agricultura, Daimyo, Urbanismo",
+        "era": "794 - 1616 e. c.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Las mansiones de los daimyos se pueden dedicar a un clan para proporcionar bonificaciones a la infantería cuerpo a cuerpo, a la caballería o a la infantería a distancia.",
+                    "Las granjas son sitios de entrega de comida además de que aumentan la población.",
+                    "El Matsuri es un mercado rudimentario único que puede producir un yatai, estos pueden recolectar comida pasivamente de fuentes de alimento cercanas.",
+                    "Técnicas de supervivencia desarrolladas por defecto.",
+                    "Las forjas son sitios de entrega de oro y piedra, y además contienen mejoras militares.",
+                    "El oro depositado por los aldeanos genera piedra adicional y viceversa.",
+                    "Mejora adicional de daño cuerpo a cuerpo accesible en la Alta Edad Media (I).",
+                    "Los monjes Ikko-ikki son monjes de combate que se pueden reclutar en los monasterios budistas y que curan mientras atacan.",
+                    "Las fortalezas vienen equipadas con emplazamientos para cohetes y mayor salud en la Edad Imperial (IV).",
+                    "La producción de barcas pesqueras es más barata.",
+                    "Se revela la ubicación de todos los ciervos y jabalíes."
+                ]
+            },
+            {
+                "title": "Propiedad del Daimyo",
+                "description": "Las mansiones de los daimyo son edificios únicos que se pueden dedicar a uno de los tres clanes: Hojo mejora la infantería cuerpo a cuerpo, Oda mejora la infantería a distancia o Takeda mejora la caballería. La mansión del daimyo también tiene una influencia que aumenta la velocidad de producción de los edificios militares."
+            },
+            {
+                "title": "Yatai y matsuri",
+                "description": "El matsuri es un mercado rudimentario único que puede producir yatai. Los yatai son una unidad de trabajador única que generará lentamente comida a partir de las fuentes de comida dentro de un rango de 2 casillas sin cazarlas ni consumirlas. Si los yatai recolectan comida suficiente, enviarán a un comerciante de comida al matsuri para mejorar el aura de velocidad de recolección de los aldeanos cercanos."
+            },
+            {
+                "title": "Granja y herrería",
+                "description": "La forja es un punto de entrega de oro y piedra que reemplaza el campamento minero y la herrería. Además, proporciona una tecnología de daño cuerpo a cuerpo adicional en la Alta Edad Media (I). La granja proporciona población y sustituye el molino como punto de entrega de comida."
+            },
+            {
+                "title": "Fortaleza de Oda",
+                "description": "Accede a una torre del homenaje más poderosa en la Edad Imperial (IV) que incluye más salud y emplazamientos de cohetes por un mayor costo. Los cohetes atacan rápidamente e infligen daño masivo a los objetivos individuales."
+            },
+            {
+                "title": "Minería de plata",
+                "description": "Cuando los aldeanos entregan oro, también se produce 20% de piedra adicional y viceversa."
+            },
+            {
+                "title": "Aldea de pescadores",
+                "description": "La producción de los barcos pesqueros es 25% más barata."
+            },
+            {
+                "title": "Revelar ciervos y jabalíes",
+                "description": "La ubicación de todos los ciervos y jabalíes se revela en el mapa."
+            },
+            {
+                "title": "Unidades únicas",
+                "list": [
+                    "Yatai: Unidad de trabajo que recolecta pasivamente comida de las fuentes cercanas sin matarlas ni consumirlas.",
+                    "Caballería yari: Caballería rápida eficaz para asaltar, flanquear y contrarrestar unidades a distancia. Daño adicional contra caballería.",
+                    "Daimyo: Caballería cuerpo a cuerpo con mucha salud y daño que proporciona un aura para aumentar la velocidad de ataque de las unidades militares cercanas. Eficaz contra unidades cuerpo a cuerpo. Límite de uno por cada mansión del Daimyo construida.",
+                    "Ashigaru con yumi: Arquero con velocidad de movimiento mejorada a cambio de reducir su costo y salud.",
+                    "Monje Ikko Ikki: Monje guerrero con fuertes capacidades combativas que cura a las unidades cercanas cuando ataca. No tiene una habilidad de curación dirigida.",
+                    "Samurai con kanabo: Infantería resistente que inflige mucho daño. Causa daño adicional con base en la salud máxima del enemigo.",
+                    "Ozutsu temprano: Infantería pesada a distancia que usa pólvora y tiene un enorme cañón de mano. Causa mucho daño de asedio y por explosión."
+                ]
+            }
+        ]
+    },
+    "tughlaq_dynasty": {
+        "summary": "El reinado de Ghiyasuddin Tughlaq como sultán sentó las bases para el avance en las artes, la arquitectura y la expansión de la dinastía Tughlaq. Tras comandar la construcción del Fuerte de Tughlaqabad, los futuros sultanes, emires y gobernadores expandieron su presencia militar por medio de la fuerza y demostraciones de poder. La dinastía Tughlaq requiere la construcción rápida de fuertes adicionales, mientras que los gobernadores supervisan las arduas labores de elefantes y aldeanos.",
+        "classes": "Elefantes, fuertes y gobernadores",
+        "era": "1320 - 1413 e. c.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Los elefantes de trabajo, centros urbanos y muelles proporcionan bonificaciones de recursos al recibir entregas de los aldeanos y pesqueros.",
+                    "Los elefantes obreros se mueven libremente y sirven como puntos de entrega universales para recursos.",
+                    "Toda la tecnología es más cara, pero su desarrollo es casi instantáneo.",
+                    "Los fuertes de Tughlaqabad funcionan como fuertes y están disponibles desde la Edad Feudal (II).",
+                    "Los fuertes de Tughlaqabad pueden mejorar para aumentar sus defensas y desbloquear el acceso a los gobernadores.",
+                    "Elige un gobernador en cualquier fuerte para llevar a la dinastía a mayores alturas.",
+                    "Los gobernadores otorgan bonificaciones de muchos tipos: económicas, militares, religiosas, de ritmo y de desarrollo.",
+                    "Las unidades de infantería pueden construir empalizadas.",
+                    "Recolectan de arbustos con bayas +30% más rápido, pero no pueden recolectar carne de jabalí.",
+                    "Incrementan en +3 la capacidad de cargar bayas.",
+                    "Los barcos pesqueros se pueden defender vs. ataques a distancia."
+                ]
+            },
+            {
+                "title": "Compañeros de trabajo",
+                "description": "Ayuda a tus aldeanos con elefantes de trabajo. Estos elefantes funcionan como un punto de entrega universal y pueden moverse libremente, ahorrando tiempo y recursos para que tus aldeanos se enfoquen en trabajar.\nLos elefantes obreros, centros urbanos y muelles otorgan bonificaciones de recursos con cada entrega de aldeanos y pesqueros."
+            },
+            {
+                "title": "Erudición",
+                "description": "En busca de conocimiento y sabiduría, la dinastía Tughlaq dedica más fondos a la investigación de tecnologías para obtener resultados casi instantáneos."
+            },
+            {
+                "title": "Fuertes legendarios",
+                "description": "Haz que tus enemigos tiemblen de miedo con el fuerte de Tughlaqabad. Está disponible desde la Edad Feudal (II) y puede mejorar para aumentar el daño que inflige y su propia salud. Además, desbloquea la elección de gobernador."
+            },
+            {
+                "title": "Apoyo del gobernador",
+                "description": "Elige a uno de los seis gobernadores para el fuerte de Tughlaqabad de modo que te ayude a llevar a la dinastía Tughlaq a nuevas alturas. La fuerza del gobernador aumenta con cada mejora que se le haga al fuerte. Los gobernadores otorgan bonificaciones de muchos tipos: económicas, militares, religiosas, de ritmo y de investigación. \nSolo un gobernador puede estar activo en cada fuerte."
+            },
+            {
+                "title": "Cestería",
+                "description": "Los aldeanos recolectan arbustos con bayas 30% más rápido, pero no pueden recolectar jabalíes.\nLos aldeanos cargan +3 de comida de los arbustos con bayas."
+            },
+            {
+                "title": "Fortificaciones fronterizas",
+                "description": "Establece asentamientos fortificados utilizando unidades de infantería que puedan construir empalizadas."
+            },
+            {
+                "title": "Marineros defensivos",
+                "description": "Los barcos pesqueros pueden defenderse con un ataque a distancia y tienen un 50% de salud adicional."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Elefante de asalto: Elefante rápido y efectivo para asaltar, flanquear y contraatacar unidades a distancia. Puede pisotear para eludir a cualquier unidad e infligir daño en el área.\nElefante curandero: Elefante con mucha salud y armadura cuerpo a cuerpo. Va montado por dos imanes que pueden sanar individualmente a las unidades. Inflige más daño por cada infantería cuerpo a cuerpo cercana.\nElefante de guerra: Caballería pesada cuerpo a cuerpo. Va montada por un lancero y tiene mucha salud. Inflige mucho daño y tiene un elevado ataque de asedio.\nElefante con balista: Elefante con ataque a distancia. Porta una balista en el lomo que es efectiva contra unidades cuerpo a cuerpo y cuyo dardo es capaz de perforar a varios objetivos."
+            }
+        ]
+    },
+    "golden_horde": {
+        "summary": "Liderando a la Horda dorada hacia el oeste, Batu Khan expandió el Imperio mongol hasta el corazón de Europa oriental. La gran Tienda dorada del khan era el centro de la red de control, con puestos de avanzada que les permitían controlar un vasto territorio. Aunque seguían siendo poderosos invasores, la Horda dorada sacrificó la movilidad de sus campamentos para desplegar fuerzas más grandes, necesarias para controlar sus estados vasallos.",
+        "classes": "Agresión, caballería y hordas",
+        "era": "1000 - 1500 CE",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Comienzas con el límite máximo de población.",
+                    "Las unidades siempre se reclutan por lotes.",
+                    "Los corrales ganaderos son edificios únicos donde pueden trabajar 4 aldeanos y funciona como punto de entrega de comida.",
+                    "Se pueden construir varios Ovoos en depósitos de piedra para aumentar el ingreso de ese recurso.",
+                    "Las tecnologías únicas solo cuestan piedra.",
+                    "Establos disponibles desde la Alta Edad Media (I).",
+                    "Para avanzar de edad, construye y mejora la Tienda dorada.",
+                    "Los puestos de avanzada fortificados otorgan bonificaciones de influencia o aura con base en el edicto establecido en la Tienda dorada.",
+                    "Ruta de la seda: Los comerciantes generan +10% adicional de comida, madera y oro con 5/10/15 comerciantes activos.",
+                    "Los barcos de transporte tienen +50% de salud y +15% de velocidad de movimiento.",
+                    "Los exploradores pueden usar la habilidad Halcón explorador para vigilar el área cercana."
+                ]
+            },
+            {
+                "title": "Tienda dorada",
+                "description": "La Tienda dorada es el único monumento de la Horda dorada. Se puede mejorar para avanzar a la siguiente edad y aumentar su salud. Se puede elegir un edicto en la Tienda dorada para cambiar la influencia o la bonificación de aura que otorgan los puestos de avanzada fortificados.\nBatu Khan y los Torgut se pueden reclutar desde la Tienda dorada."
+            },
+            {
+                "title": "Hordas",
+                "description": "Las unidades se producen en lotes de dos. Se pueden desarrollar tecnologías para mejorar la producción por lotes."
+            },
+            {
+                "title": "Corral ganadero",
+                "description": "Construye el corral ganadero en lugar de granjas o pasturas para obtener comida. Los corrales ganaderos tienen cadáveres de ovejas que se pueden recolectar y dejar en el corral ganadero directamente."
+            },
+            {
+                "title": "Puestos de avanzada fortificados",
+                "description": "Los puestos de avanzada fortificados tienen más salud y proporcionan bonificaciones de influencia o aura dependiendo del edicto definido en la Tienda dorada."
+            },
+            {
+                "title": "Transportes aumentados",
+                "description": "Los desembarcos de las naves de transporte son más rápidos y duraderos con +50% de salud y +15% de velocidad de movimiento."
+            },
+            {
+                "title": "Ruta de la seda",
+                "description": "Explora la ruta de la seda con comerciantes que reciben recursos adicionales de las operaciones según la cantidad total de comerciantes activos.\n• 5+ comerciantes: +10% de comida\n• 10+ comerciantes: +10% de comida, madera\n• 15+ comerciantes: +10% de comida, madera y oro"
+            },
+            {
+                "title": "Tecnología de piedra y Ovoos",
+                "description": "Construye Ovoos sobre los depósitos de piedra para recolectar piedra sin necesidad de aldeanos. El número máximo de Ovoos que se pueden construir aumenta +1 por Edad."
+            },
+            {
+                "title": "Halcón explorador",
+                "description": "Los exploradores pueden usar la habilidad Halcón explorador para vigilar los alrededores."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Khan de la Horda dorada: caballería pesada que aumenta su fuerza a medida que se avanza de edad. Puede disparar una flecha que aumenta el daño recibido por los enemigos en un área. El khan también proporcionará un aura de daño de ataque creciente cuanto más tiempo esté en combate.\nTorgut: caballería pesada que, cuando está cerca del khan, puede protegerlo al redirigir al torgut el daño recibido por el khan.\nKharash: unidades de infantería cuerpo a cuerpo ligeras y débiles que proporcionan armadura a los aliados cercanos.\nKipchak: arquero a caballo que puede disparar flechas de fuego las cuales causan sangrado en los objetivos.\nTrebuchet de tracción: mayor velocidad de movimiento, de armado y de ataque.\nKeshik: caballería pesada disponible en la Edad Feudal. Regenera salud después de cada ataque."
+            }
+        ]
+    },
+    "macedonian_dynasty": {
+        "summary": "El emperador Basilio II utilizó a los varangios para defenderse contra las revueltas apoyadas por la nobleza bizantina. Estos guerreros extranjeros del norte no estaban influenciados por la política y cultura bizantina y actuaron como una división de élite para proteger a los emperadores. La dinastía macedonia acuña plata como su único recurso para gastar en los arsenales varangios, afilando sus hojas y perfeccionando sus habilidades mientras protegen al emperador.",
+        "classes": "Varangios, plata y tecnología",
+        "era": "867 - 1056 e. c.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Los aldeanos extraen plata del oro y la piedra para desarrollar tecnologías únicas.",
+                    "Generan plata de forma pasiva en los campamentos mineros y centros urbanos que estén bajo la influencia de los arsenales varangios.",
+                    "Superan tres niveles de tecnologías con el arsenal varangio al gastar plata.",
+                    "Acceso al primer guardia varangio en la Edad Feudal (II).",
+                    "Entrena todas las unidades varangias exclusivas del bastión varangio.",
+                    "Las unidades varangias tienen habilidades únicas para mejorar su efectividad en combate.",
+                    "Refuerza gratis a los guerreros que caen en la batalla con el campamento guerrero varangio.",
+                    "Unidades de campaña capaces de usar diferentes formas de fuego griego.",
+                    "Los barcos de transporte aumentan temporalmente la velocidad de movimiento de las unidades que están desembarcando."
+                ]
+            },
+            {
+                "title": "Recolección de galena",
+                "description": "Los aldeanos descubren abundantes depósitos de galena entre las vetas de oro y las canteras, y extraen plata como un recurso único al minar en esos sitios.\nLos aldeanos extraen plata equivalente a 40% de oro o piedra minada."
+            },
+            {
+                "title": "Influencia: Acuñación de plata",
+                "description": "Los arsenales varangios generan influencia en los campamentos mineros y en los centros urbanos para empezar a procesar plata con el tiempo. La cantidad procesada se basa en la cantidad total de plata depositada por los aldeanos."
+            },
+            {
+                "title": "Herrería varangia",
+                "description": "Desarrolla tecnologías militares únicas en el arsenal varangio a cambio de plata. Reemplazo de la herrería y la universidad. La dinastía macedonia puede superar tres niveles de mejoras militares por categoría."
+            },
+            {
+                "title": "Fortalezas",
+                "description": "Fortifica al imperio con Fuertes varangios donde entrenan todas las unidades varangias y se defienden con flechas."
+            },
+            {
+                "title": "Campamento de guerra",
+                "description": "Elige refuerzos en el campamento de guerra varangio. Una vez que caigan suficientes guerreros en batalla, los guerreros varangios libres llegarán al campamento de guerra para reforzar las filas faltantes.\nSi están adyacentes al agua, podrás seleccionar botes como refuerzos."
+            },
+            {
+                "title": "Piedras rúnicas varangias",
+                "description": "Talla piedras rúnicas para honrar victorias pasadas en combate. Cuando suficientes enemigos hayan caído ante los varangios, podrás crear una piedra rúnica que inspire a los varangios cercanos con bonificaciones de combate en un área."
+            },
+            {
+                "title": "Fuego griego",
+                "description": "Los querosifones, junto con los dromones, las espingardas y los trebuchets mejorados, arrojan fuego griego con sus ataques, envolviendo el área en llamas y causando daños a lo largo del tiempo."
+            },
+            {
+                "title": "Emplazamientos de manganas",
+                "description": "Puedes mejorar los puestos de avanzada y las torres de homenaje con emplazamientos de manganas. Las torres de muro de piedra están equipadas con emplazamientos de manganas en lugar de espingardas."
+            },
+            {
+                "title": "Unidades únicas",
+                "description": "Atgeirmaðr: Reemplazo del lancero. Infantería ligera cuerpo a cuerpo con la habilidad automática de aumentar su velocidad de ataque cuando hay unidades varangias cerca.\nBogmaðr: Reemplazo del arquero. Infantería ligera a distancia con la habilidad de eludir las armaduras a costa de su velocidad de movimiento. \nPrimeros guardias varangios: Reemplazo del hombre de armas. Usa la habilidad Berserker para aumentar el daño a costa de su armadura. Puede construir barcos de transporte y aumentar su armadura al resguardarse en ellos.\nRiddari: Reemplazo del caballero. Caballería pesada con la habilidad de lanzar hachas a distancia por un periodo.\nQuerosifón: Un ariete equipado con un ataque de fuego griego a corta distancia.\nDromon: Reemplazo de la espingarda. Equipado con fuego griego."
+            }
+        ]
+    },
+    "jin_dynasty": {
+        "summary": "La dinastía Jin surge como una potencia militar formidable en el norte de China. Los aldeanos montados se mueven rápidamente para reclamar nuevos recursos y territorios. Aprovecha las oportunidades y reúne ejércitos numerosos de caballería en cualquier momento para derrotar a los enemigos y aplastar a la oposición. Soborna a los débiles para que deserten y funda estados vasallos que te otorguen riqueza.",
+        "classes": "Caballería, aldeanos montados, vasallajes",
+        "era": "1115 - 1234 e. c.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Entrena hasta 20 aldeanos montados, que recolectan y se mueven significativamente más rápido que un aldeano normal.",
+                    "Al avanzar de edad, selecciona entre tres ubicaciones para construir un pastizal.",
+                    "Construye establos de guerra cerca de los pastizales y usa los caballos que se generan para entrenar rápidamente unidades de caballería.",
+                    "Los emisarios pueden fundar estados vasallos y sobornar soldados enemigos.",
+                    "Los estados de vasallaje generan comida, mejoran los ingresos de los comerciantes +15% y aumentan el límite de construcción de los aldeanos montados +3.",
+                    "Los emplazamientos Meng'an Mouke despliegan defensores para proteger el área cercana.",
+                    "Las ballestas de bastidor están disponibles a partir de la Edad Feudal, sustituyendo a las espingardas."
+                ]
+            },
+            {
+                "title": "Pastizales",
+                "description": "Selecciona entre 3 ubicaciones al completar un Monumento para construir pastizales, que gradualmente generarán hasta 5 caballos en su campo. Los caballos aumentan la salud de todas las unidades de caballería cuerpo a cuerpo +2 y de las de caballería a distancia +1, o los puedes usar en los establos dentro del área de influencia de los pastizales para entrenar rápidamente a cualquier unidad montada. Los pastizales generan un caballo nuevo cada 90/60/45 segundos en la Edad Feudal/Castillos/Imperial, respectivamente."
+            },
+            {
+                "title": "Legado Jurchen",
+                "description": "Ascendencia nómada te permite tener hasta 20 aldeanos montados, que recolectan, construyen y se mueven mucho más rápido, pero cuestan más. Establece vasallajes en puestos de intercambio para aumentar el límite a un máximo de +3."
+            },
+            {
+                "title": "Meng'an Mouke",
+                "description": "Mejora las estructuras defensivas con emplazamientos Meng'an Mouke, que despliegan defensores para proteger las tierras cercanas. Los emplazamientos también entrenan defensores poco a poco para reponer las pérdidas."
+            },
+            {
+                "title": "Emisarios",
+                "description": "Entrena hasta 2 emisario(s) equipado(s) con dos habilidades poderosas.\nPueden establecer vasallajes en asentamientos comerciales neutrales para ganar aliados leales que recolectarán comida en tu nombre, aumentarán el límite de construcción de los aldeanos montados +3, y aumentarán los ingresos de tus comerciantes +15%.\nPueden sobornar a grupos de unidades enemigas para convertir a los enemigos en guerreros neutrales que combatirán contra cualquiera que se les cruce en el camino."
+            },
+            {
+                "title": "Maestría de asedio",
+                "description": "Construye el taller de maquinaria en la Edad Feudal para obtener acceso anticipado a las ballestas bastidor, un sustituto de la espingarda que dispara dos proyectiles contra formaciones enemigas. Los emplazamientos de ballestas de bastidor sustituyen a los de espingardas en todas las estructuras defensivas."
+            },
+            {
+                "title": "Unidades únicas",
+                "list": [
+                    "Aldeano montado: Aldeano único que recolecta, construye y se mueve significativamente más rápido que un aldeano normal.",
+                    "Emisario: Unidad de apoyo que puede sobornar a soldados enemigos y establecer estados de vasallaje.",
+                    "Pagoda de hierro: Caballería pesada enfundada de pies a cabeza en armadura que inflige daño de área en cada ataque.",
+                    "Ballesta de bastidor: Sustituto de la espingarda que dispara una andanada de proyectiles a la vez,  disponible en la Era Feudal.",
+                    "Eruptor: Sustituto costoso de los cañones de mano que inflige gran daño a un solo objetivo.",
+                    "Guerrero Mohe: Sustituto de arquero montado. Excepcional en tácticas de ataque y huida contra la infantería ligera cuerpo a cuerpo.",
+                    "Espadachín de Zhanmadao: Infantería blindada disponible solo en la Edad Imperial, inflige un daño cuerpo a cuerpo impresionante con bonificación contra la caballería.",
+                    "Defensores Meng'an Mouke: Los Meng'an Mouke y los granaderos montados aparecen desde emplazamientos únicos para defender en automático el territorio Jin."
+                ]
+            }
+        ]
+    }
+}

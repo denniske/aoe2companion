@@ -1,0 +1,1200 @@
+{
+    "english": {
+        "summary": "Exceptional early infantry provide the English with a powerful punch backed up by reliable Food production from the fields.",
+        "classes": "Defense, Longbows, Farming",
+        "era": "850 - 1555 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Town Centers, Outposts, Towers, and Keeps increase attack speed of nearby units by +20% when enemies are in range.",
+                    "Farms are -50% cheaper to construct — Farms near mills gather +20/25/30/30% faster by Age.",
+                    "Vanguard Man-at-Arms in the Dark Age (I).",
+                    "Produce Man-at-Arms +40% faster than other civilizations.",
+                    "Villagers wield short bows when attacking enemy units.",
+                    "Keeps can produce all military units.",
+                    "Ships are -10% cheaper to produce.",
+                    "Scouts and Men-at-Arms can setup campfires to increase line-of-sight and improve nearby hunting by +10%."
+                ]
+            },
+            {
+                "title": "Network of Castles",
+                "description": "Protect the frontier with Town Centers, Outposts, Stone Wall Towers, and Keeps that increase attack speed of nearby units by +20% when enemies are in range.\nResearch the Network of Citadels technology from Keeps to further increase attack speed by +30%."
+            },
+            {
+                "title": "Keep Production",
+                "description": "Keeps have the unique ability to produce all military units."
+            },
+            {
+                "title": "Call to Arms",
+                "description": "Vanguard Man-at-Arms available in the Dark Age (I) — English Man-at-Arms produce +40% faster."
+            },
+            {
+                "title": "Defensive Byrig",
+                "description": "Capital Town Center fires an extra arrow and Villagers wield short bows when attacking enemy units."
+            },
+            {
+                "title": "Island of Agriculture",
+                "description": "Farms are -50% cheaper to construct.\nResearch the Enclosures technology in the Imperial Age (IV) to allow Villagers to generate +1 Gold every 6 seconds when working Farms."
+            },
+            {
+                "title": "Shipwrights",
+                "description": "Naval conditioning increases Dock efficiency, reducing ship construction costs by -10%."
+            },
+            {
+                "title": "Influence",
+                "description": "Farm harvest rates increase within the influence of a Mill by +20/25/30/30% after each age up."
+            },
+            {
+                "title": "Kingswood",
+                "description": "Scouts and Men-at-Arms can create a Campfire, which increases the sight range of nearby units by +30% and the gather rate of nearby hunters by +10%."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Longbowman: Archer with +2 range and +1 damage that comes with the Defensive Paling ability to stun and damage enemy cavalry."
+            }
+        ]
+    },
+    "mongols": {
+        "summary": "Masters of mobility and mounted warfare, the Mongols can easily relocate their camps. They gain economic benefits from setting up near Stone Outcroppings and from raiding enemy buildings. Enemies must deal with cavalry attacks from the opening moments of play.",
+        "classes": "Aggression, Cavalry, Nomadic",
+        "era": "1000 - 1500 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Start with a packed Ger, maximum population limit, and no need for Houses.",
+                    "All buildings can be packed up and redeployed to a new location.",
+                    "Plunder +25 Food and Gold by igniting or destroying enemy buildings under construction.",
+                    "Stables available in the Dark Age (I).",
+                    "Horsemen train +25% faster.",
+                    "Outposts increase move speed of nearby cavalry and Traders by +15%.",
+                    "Double produce units or research advanced versions of technologies using Stone.",
+                    "Silk Road: Traders generate +10% additional Food, Wood and Gold with 5/10/15 active Traders.",
+                    "Transport ships have +50% health and +15% move speed."
+                ]
+            },
+            {
+                "title": "Great Dominion",
+                "description": "All buildings can be packed up and redeployed to a new location.\nForgo the need to build Houses and begin the game with maximum Population.\nRespond to enemy movements quickly with a network of Outposts which provide +15% move speed to nearby cavalry and Traders."
+            },
+            {
+                "title": "Khanate",
+                "description": "Field the mighty Khan in the Dark Age (I) to provide powerful bonuses to all nearby military units with Signal Arrows.\nKhans and Scouts can deploy the Scouting Falcon ability to keep watch over the surrounding area."
+            },
+            {
+                "title": "Expert Horsemen",
+                "description": "Construct Stables as early as the Dark Age and field Horsemen +25% faster."
+            },
+            {
+                "title": "Nomadic Harvesters",
+                "description": "Construct Pastures instead of Farms to raise Sheep for Food — Pastures produce Sheep quicker when within the influence of an Ovoo."
+            },
+            {
+                "title": "Raid Bounty",
+                "description": "Plunder enemy buildings for +25 Food and Gold when ignited or destroyed under construction."
+            },
+            {
+                "title": "Augmented Transports",
+                "description": "Transport Ship landings are faster and more durable with +50% health and +15% move speed."
+            },
+            {
+                "title": "Silk Road",
+                "description": "Explore the Silk Road with Traders that receive extra resources from trades based on your total number of active Traders.\n• 5+ Traders: +10% Food\n• 10+ Traders: +10% Food, Wood\n• 15+ Traders: +10% Food, Wood, Gold"
+            },
+            {
+                "title": "Influence",
+                "description": "Construct the Ovoo over Stone outcroppings to generate influence and harvest Stone without the need for Villagers. Ovoos harvest +70, 100, 130, 160 Stone per minute after each age up.\nBuildings within the influence of an Ovoo are able to double produce units or research improved versions of technologies using Stone."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Khan: Horse archer that scales in strength and unlocks the Signal Arrow abilities after each age up.\n• Maneuver Arrow: Move speed increased +33%.\n• Attack Speed Arrow: Attack speed increased +50%.\n• Armor Arrow: Armor increased +2.\nMangudai: Horse archer that can fire while moving in all directions.\nTraction Trebuchet: Faster move speed, setup time and attack speed.\nKeshik: Heavy Cavalry available in Feudal Age, regenerates Health after every attack."
+            }
+        ]
+    },
+    "french": {
+        "summary": "The French deploy powerful cavalry units and can boost production in fortified positions. Enemies must be prepared to withstand the charges of powerful Royal Knights and other armored units.",
+        "classes": "Trade, Cavalry, Keeps",
+        "era": "840 - 1559 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Royal Knights in the Feudal Age (II).",
+                    "Town Centers work rate increased per age up +15%, +15%, +20%, +25%.",
+                    "Resource drop off buildings -50% cheaper.",
+                    "Economic technologies are -35% cheaper.",
+                    "Trade Posts are revealed on the minimap.",
+                    "Traders can return Food, Wood, or Gold to Markets.",
+                    "Trade Ships return +20% resources.",
+                    "Blacksmiths grant melee damage technologies for free after each age up."
+                ]
+            },
+            {
+                "title": "Royal Stallions",
+                "description": "Deploy the Royal Knight in the Feudal Age (II) and research powerful unique technologies for cavalry."
+            },
+            {
+                "title": "Mainland Economy",
+                "description": "Wield a superior economy with -50% cheaper resource drop-offs and -35% cheaper economic technologies.\nTown Center production speed increased per age +15%, +15%, +20%, +25%."
+            },
+            {
+                "title": "Trade Economy",
+                "description": "Choose to return Food, Wood, or Gold to Markets with Traders and Trade Ships.\nTrade Ships return +20% more resources.\nTrade Posts are revealed on the minimap at the start of the game.\nDocks provide populations space."
+            },
+            {
+                "title": "Smithy's Grace",
+                "description": "Blacksmiths grant melee damage technologies for free after each age up."
+            },
+            {
+                "title": "Influence",
+                "description": "Maintain offensives with -10% cheaper Keeps that reduce the cost of units produced from Archery Ranges and Stables within their influence by -20%."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Royal Knight: Heavy Cavalry that gains +3 bonus damage for 5 seconds after completing a charge.\nArbalétrier: Crossbowman with +1 melee armor that can deploy a defensive Pavise to provide +5 ranged armor and +1 weapon range for 30 seconds.\nCannon: Bombard replacement with more damage, mobility and no setup time.\nGalleass: Large war galley that has a long range forward mounted bombard.\nWar Cog: Unique Springald Ship with reduced cost and increased ranged armor."
+            }
+        ]
+    },
+    "rus": {
+        "summary": "The Rus derive great benefit from the countryside. They are able to gather resources more readily from hunting and forestry and can field strong combat units. Enemies face strong early game fortifications and a diverse economy that cannot easily be disrupted.",
+        "classes": "Expansion, Cavalry, Hunting",
+        "era": "882 - 1547 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Construct Fortified Palisade Walls with +100% health.",
+                    "Construct Wooden Fortresses — improved Outposts with +100% health and +3 garrison slots.",
+                    "Construct Hunting Cabins — improved Mills that produce Scouts and generate Gold from nearby forests.",
+                    "Gathering from animals earns a bounty of Gold — increased bounty provides economic bonuses to Villagers and Hunting Cabins.",
+                    "Early Knight available in the Feudal Age (II).",
+                    "Lodya ship can convert into any type of ship for a cost.",
+                    "Fishing Ships don't have to return to a dock to drop off Food."
+                ]
+            },
+            {
+                "title": "Woodland Federation",
+                "description": "Fortify the countryside with Wooden Fortresses that replace Outposts — comes with +100% health and +3 garrison slots.\nConstruct the Fortified Palisade Wall — comes with +100% health and faster build time."
+            },
+            {
+                "title": "Hunter Princes",
+                "description": "Live off the land with Scouts trained from Hunting Cabins. Hunting Cabins provide the benefits of a standard Mill but with the ability to see into Stealth Forests and generate Gold based on the number of nearby trees."
+            },
+            {
+                "title": "Druzhina Retinue",
+                "description": "Field the Early Knight in the Feudal Age (II)."
+            },
+            {
+                "title": "Lodya Reconstitution",
+                "description": "Lodya ship can convert into any type of ship for a cost.\nLodya Fishing Ships process Food directly on the vessel — forgoing the need to return to Docks to drop off Food."
+            },
+            {
+                "title": "Bounty Rewards",
+                "description": "Gathering from animals earns a bounty of Gold and reaching certain thresholds of total bounty provides economic bonuses to Villagers and Hunting Cabins.\n100 Bounty\n• +5% Food gather rate\n• Hunting Cabins generate 10% more Gold\n400 Bounty\n• +10% Food gather rate\n• Hunting Cabins generate 25% more Gold\n1000 Bounty\n• +15% Food gather rate\n• Hunting Cabins generate 40% more Gold"
+            },
+            {
+                "title": "Influence",
+                "description": "Oversee clear-cutting initiatives — Villagers drop off +20% more Wood when Lumber Camps and Town Centers are within a Wooden Fortress's influence."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Warrior Monk: Religious light cavalry unit that inspires nearby units when in combat, providing +1 armor and +2 damage.\nHorse Archer: Light ranged cavalry with high mobility and damage.\nStreltsy: Handcannoneer which gets stronger when stationary and has a high damage melee attack.\nLodya ships: Can be converted into any type of ship."
+            }
+        ]
+    },
+    "holy_roman_empire": {
+        "summary": "Prelates enhance the economy of the Holy Roman Empire, while powerful infantry units form the core of its military. Enemies must face an opponent able to rapidly recover from attacks and field strong counterattacks.",
+        "classes": "Infantry, Religion, Defense",
+        "era": "936 - 1517 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Place Relics in Outposts, Stone Towers and Keeps for defensive and economic bonuses.",
+                    "Relics placed in Docks increase ship attack speed by +5% per Relic (Max +25%).",
+                    "Early Man-at-Arms in the Feudal Age (II).",
+                    "Infantry move 5% faster in the Dark Age (I) and 10% faster from the Feudal Age (II).",
+                    "Emplacements are -20% cheaper. Outpost sight range increased by +20%.",
+                    "Villagers carry +40% more resources.",
+                    "Prelates can heal and use Holy Inspiration in the Dark Age (I) — inspired Villagers gather +35% faster for 30 seconds.",
+                    "Buildings within influence of a Town Center gain the Emergency Repairs ability which can be activated to repair the building."
+                ]
+            },
+            {
+                "title": "Religious Zeal",
+                "description": "Demonstrate the might of the empire by placing Relics in Outposts, Towers, and Keeps - increasing their armor by +25%, damage by +25%, range by +25%, and line of sight by +20%.\nRelics placed in Docks increase ship attack speed by +5% per Relic (Max +25%).\nRelics placed in buildings generate +80 Gold per minute."
+            },
+            {
+                "title": "Army of the Empire",
+                "description": "Infantry move 5% faster in the Dark Age (I) and 10% faster from the Feudal Age (II). Upgrade infantry with impactful technologies and field the Early Man-at-Arms in the Feudal Age (II)."
+            },
+            {
+                "title": "Emplacement Architecture",
+                "description": "All emplacement technologies are -20% cheaper. Outpost sight range increased by +20%."
+            },
+            {
+                "title": "Pushcarts",
+                "description": "Villagers carry +40% more resources than other civilizations."
+            },
+            {
+                "title": "Influence",
+                "description": "Buildings constructed within the influence of a Town Center gain the Emergency Repairs ability which can be activated to repair the building for +150 health every second for 20 seconds."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Prelate: Use the Holy Inspiration ability on Villagers increasing their gather rate by +35% for 30 seconds.\nLandsknecht: Light melee infantry with a large two-handed sword capable of doing significant area damage.\nBlack Rider: Powerful armored mounted gunner. Production is limited by the number of constructed Keeps."
+            }
+        ]
+    },
+    "delhi_sultanate": {
+        "summary": "The Delhi Sultanate stays many steps ahead of their enemies with great networks of scholars. Fully realized, they field the intimidating War Elephant and trample those in their path.",
+        "classes": "Elephants, Research, Religion",
+        "era": "879 - 1526 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Mosque, Scholar, and religious technologies available in the Dark Age (I).",
+                    "Infantry units are able to construct Palisade Walls.",
+                    "All technology is free but completes at a much slower rate. Garrison Scholars in Mosques, Madrasas, or Docks to increase research speed.",
+                    "Technologies being researched can be paused and resumed.",
+                    "Mills constructed near Berry Bushes create Orchards, increasing Food capacity by +100.",
+                    "Gather from Berry Bushes +25% faster but cannot gather from Boar.",
+                    "Berry carry capacity increased +3.",
+                    "Fishing Ships can defend themselves with a ranged attack."
+                ]
+            },
+            {
+                "title": "Scholarly Culture",
+                "description": "Train Scholars from Mosques in the Dark Age (I). Research and unlock religious technologies earlier than other civilizations."
+            },
+            {
+                "title": "Scholastic Achievements",
+                "description": "Save on the cost of technologies and research all technology free but progresses at a much slower rate — technologies can be paused and resumed."
+            },
+            {
+                "title": "Frontier Fortifications",
+                "description": "Establish fortified settlements using infantry units that can build Palisade Walls. Construct the Compound of the Defender Landmark to extend this ability to Stone Walls."
+            },
+            {
+                "title": "Defensive Deckhands",
+                "description": "Fishing Ships can defend themselves with a ranged attack and have 50% additional health."
+            },
+            {
+                "title": "Garden Bounty",
+                "description": "Cultivate Berry Bushes into Orchards by building Mills near them, increasing Food capacity by +100.\nVillagers gather Berry Bushes 25% faster but cannot gather from Boar.\nVillagers carry +3 Food from Berry Bushes."
+            },
+            {
+                "title": "Influence",
+                "description": "Scholars garrisoned in a Mosque, Madrasa, or Dock will increase the research speed of buildings within their influence, based on how many Scholars are garrisoned globally. Docks work faster when garrisoned by Scholars."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Scholar: Religious unit capable of healing in the Dark Age (I).\nWar Elephant: Heavy melee cavalry mounted with a Spearman that has high health and damage with a strong siege attack.\nTower Elephant: Ranged cavalry mounted with two Archers that can fire while moving.\nGhazi Raider: Fast Horseman wielding a heavy mace."
+            }
+        ]
+    },
+    "chinese": {
+        "summary": "The Chinese can shift their focus across the ages, deploying many unique units and building rapidly. Enemies must continually adapt if they want to keep up.",
+        "classes": "Dynasties, Gunpowder, Taxes",
+        "era": "907 - 1644 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Begin in the Tang Dynasty - increasing Scouts line of sight by +30% and provides access to the Village.",
+                    "Units trained, technologies researched, and resources dropped off generate tax (Gold) that can be collected by Imperial Officials.",
+                    "Enter a new Dynasty by building both Landmarks from an Age to unlock special bonuses, unique units, and buildings.",
+                    "Villagers construct defenses +50% faster and all other buildings +100% faster.",
+                    "Chemistry technology granted for free in the Dark Age (I) — Town Centers, Keeps, and Outposts use Handcannon Slits instead of Defensive Arrowslits.",
+                    "Docks work +10% faster."
+                ]
+            },
+            {
+                "title": "Great Dynasties",
+                "description": "Start your journey in the Tang Dynasty — increases Scout line of sight +30% and provides access to the Village.\nConstruct both Landmarks in an Age to start Dynasties with special bonuses, unique buildings, and units.\n• Song Dynasty: Produce Villagers +33% faster — unlocks Granary and Zhuge Nu.\n• Yuan Dynasty: Villagers, Officials and military unit move speed +15% — unlocks Pagoda and Fire Lancer.\n• Ming Dynasty: Military units +15% health — unlocks Grenadier."
+            },
+            {
+                "title": "Rapid Fabrications",
+                "description": "Villagers construct defenses +50% faster and all other buildings +100% faster. Docks work +10% faster."
+            },
+            {
+                "title": "Masters of Gunpowder",
+                "description": "Begin the game with Chemistry technology granted for free - defensive buildings use Handcannon Slits over Defensive Arrowslits."
+            },
+            {
+                "title": "Taxes",
+                "description": "Units trained, technologies researched, and resources dropped off generate Tax (Gold) that can be collected by Imperial Officials."
+            },
+            {
+                "title": "Influence",
+                "description": "Construct military and economic buildings within the Imperial Academy Landmark's influence to generate +100% tax Gold."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Imperial Official: Use the Supervise ability to boost production speed of research and military buildings by +150% — supervising economic buildings increases the amount of resources dropped off by Villagers by +20%.\nZhuge Nu: Light ranged infantry with a rapid burst attack effective vs. light units.\nPalace Guard: Man-at-Arms replacement. Heavy melee infantry that exchanges armor for move speed.\nNest of Bees: Mangonel replacement. Siege engine that fires a barrage of rockets, doing area of effect damage.\nFire Lancer: Light cavalry effective vs. siege engines and buildings. Comes with extensive sight range and an explosive charge attack.\nGrenadier: Light ranged gunpowder infantry that throws grenades dealing area of effect damage."
+            }
+        ]
+    },
+    "abbasid_dynasty": {
+        "summary": "The Abbasid Dynasty pursues a flourishing Golden Age by concentrating structures around their House of Wisdom, allowing them to unlock significant economic advantages. The House of Wisdom also drives progress through the Ages and grants access to advanced technology. Abbasid camel units are expert at countering enemy cavalry.",
+        "classes": "Technology, Camels, City Planning",
+        "era": "750 - 1517 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Research unique technologies that benefit Camels, Military, Religion, Economy, and Trade.",
+                    "Camel units reduce damage by -20% to nearby enemy horse cavalry.",
+                    "Mills constructed near Berry Bushes create Orchards, increasing Food capacity by +100.",
+                    "Gather from Berry Bushes +25% faster but cannot gather from Boar.",
+                    "Berry carry capacity increased +3.",
+                    "Land Traders are -33% cheaper.",
+                    "Docks are -50% cheaper.",
+                    "Age up without the need for Villagers by upgrading wings on the House of Wisdom.",
+                    "Enter a Golden Age by constructing buildings in the House of Wisdoms influence, increasing resource gather rate, research times, and production speed."
+                ]
+            },
+            {
+                "title": "Pursuit of Knowledge",
+                "description": "Embrace the Abbasids' pursuit of knowledge through researching unique technologies that benefit Camels, Military, Religion, Economy, and Trade.\nAdvance the ages by upgrading up to 4 Wings on the House of Wisdom."
+            },
+            {
+                "title": "Camel Fighters",
+                "description": "Camels spook enemy horse cavalry with their presence, reducing their damage by -20%."
+            },
+            {
+                "title": "Siege Experts",
+                "description": "Infantry can construct Rams, Siege Towers, Springalds, and Mangonels without the need for Siege Engineering technology."
+            },
+            {
+                "title": "Grand Orchards",
+                "description": "Cultivate Berry Bushes into Orchards by building Mills near them, increasing Food capacity by +100.\nVillagers gather Berry Bushes 25% faster but cannot gather from Boar.\nVillagers carry +3 Food from Berry Bushes."
+            },
+            {
+                "title": "Trade Economy",
+                "description": "Land Traders are 33% cheaper."
+            },
+            {
+                "title": "Dockyards",
+                "description": "Docks can be constructed for -50% Wood."
+            },
+            {
+                "title": "Golden Age",
+                "description": "Build towards your Golden Age – improving economy and technology.\nBuildings within the House of Wisdom's influence receive +5 fire armor and contribute one point towards the Golden Age. The threshold for unlocks are 10, 30, and 60 buildings.\n• Tier 1: Villager gather rate +15%\n• Tier 2: Research speed +20%\n• Tier 3: Villager gathering rate +20% for all resources. Research speeds +20%. Production speeds +20%."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Camel Archers: Light ranged cavalry that deals bonus damage to light melee infantry.\nCamel Riders: Light melee cavalry that deals bonus damage to cavalry.\nGhulam: Tough infantry with a double strike attack."
+            }
+        ]
+    },
+    "ottomans": {
+        "summary": "The Ottoman Army can expand to dominate the battlefield, supported by Military Schools that are able to continuously produce units to swell the ranks of their formations. Supporting those formations, the Mehter war drums signal the highly trained troops to take situational advantage.",
+        "classes": "Imperial Council, Military Schools, Siege",
+        "era": "990 - 1566 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Training units and advancing the ages grant experience towards Vizier Points, the higher cost of the action, the more experience is earned. Gain up to five Vizier Points and spend them to unlock powerful unique Ottoman bonuses.",
+                    "Military Schools can produce units continuously at no cost.",
+                    "Influence from Blacksmiths and Universities provide increased military unit production speeds after each age up.",
+                    "Military and technology buildings are cheaper.",
+                    "Janissary handcannoneer unit available in the Castle Age (III). Able to repair siege engines.",
+                    "Mehter war drummer enhances the attack and defenses of nearby military units.",
+                    "Field the Great Bombard siege engine with longer range and area damage.",
+                    "Produce the Grand Galley ship that can convert into a floating Military School.",
+                    "Movement speed of Trade Ships and Transport Ships increased.",
+                    "Cannot harvest Boar."
+                ]
+            },
+            {
+                "title": "Military School Training",
+                "description": "Construct the Military School building that can produce a specific type of unit continuously at no cost, however they are produced at a slower rate."
+            },
+            {
+                "title": "Imperial Council",
+                "description": "Training units and advancing through the ages will grant experience towards Vizier Points, the higher cost of the action, the more experience earned. Gain up to five Vizier Points and spend them to unlock powerful unique Ottoman bonuses."
+            },
+            {
+                "title": "Military Inducement",
+                "description": "Train, upgrade, and assemble an army with cheaper military and technology buildings."
+            },
+            {
+                "title": "Shipping Routes",
+                "description": "Movement speed of Trade Ships, Fishing Boats, and Transport Ships increased."
+            },
+            {
+                "title": "Influence",
+                "description": "Military production buildings constructed within the influence of a Blacksmith or University gain increased production speed with each age up."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Sipahi: Horseman replacement. Activate the Fortitude ability to attack faster but receive more damage from melee weapons.\nMehter: Mounted war drummer that provides military enhancements to nearby units when toggling the War Drums ability.\n• Attack Drums: Increased attack speed.\n• Melee Defense Drums: Increased melee armor.\n• Ranged Defense Drums: Increased ranged armor.\nJanissary: Powerful handcannoneer that can repair siege engines and deal bonus damage to cavalry.\nGrand Galley: Large war galley that can convert into a floating Military School.\nGreat Bombard: Largest gunpowder siege engine that can be fielded. Has long range and area damage attack.\nAkinji: Long-ranged cavalry which fires two arrows in quick succession. Must be unlocked through the Imperial Council."
+            }
+        ]
+    },
+    "malians": {
+        "summary": "The Malian economy booms with options for gold and food production. Claiming gold deposits for their Pit Mines, they leverage that growth to produce unique infantry units that strike from stealth and hurl javelins at enemies.",
+        "classes": "Gold Economy, Infantry, Cattle",
+        "era": "1235 - 1670 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Construct Pit Mines on Gold Veins to generate Gold without depleting the deposit.",
+                    "Produce Cattle from Mills in the Dark Age (I). Malian Villagers harvest Food from Cattle faster than other civilizations or they can be garrisoned in a Cattle Ranch for Food over time.",
+                    "Musofadi units can use the Activate Stealth ability to setup ambush attacks.",
+                    "Five unique units with a different take on the counter system.",
+                    "Veteran unit technologies are researched in half the time and cost.",
+                    "Gold collected from Trader routes reduce the research time of future technologies.",
+                    "Traders and Trade Ships that pass by Toll Outposts instantly provide bonus Gold based on the amount of Gold being carried. Does not generate any bonus tax if a toll outpost is built within range of another one.",
+                    "Fishing Boats drop off 10% of their Food as Gold.",
+                    "Movement speed of all ships is increased when near Docks.",
+                    "Transport Ships attack with javelins for each unit garrisoned.",
+                    "Houses construct twice as fast, but are half cost and provide half the amount of Population.",
+                    "Cannot harvest Boar"
+                ]
+            },
+            {
+                "title": "Pit Mines",
+                "description": "Wield a superior Gold economy and construct the Pit Mine over top of Gold Veins in the Dark Age (I) to generate Gold without depleting it. Villagers can mine Gold while the Pit Mine is active.\nIf the Gold Vein is completely exhausted, the Pit Mine will continue to extract Gold from the deposit."
+            },
+            {
+                "title": "Influence - Mining Communities",
+                "description": "Each House and Mining Camp constructed within the influence of Pit Mines increases its Gold generation.\nTown Centers cost gold instead of stone to construct."
+            },
+            {
+                "title": "Cattle & Ranches",
+                "description": "Produce Cattle from Mills in the Dark Age (I). Malian Villagers harvest Food from Cattle faster than other civilizations or they can be garrisoned in a Cattle Ranch for Food over time."
+            },
+            {
+                "title": "Musofadi Pathfinder",
+                "description": "Musofadi Warrior and Musofadi Gunner unique units can use the Activate Stealth ability to sneak around and create ambush opportunities."
+            },
+            {
+                "title": "Farari's Knowledge",
+                "description": "Veteran unit technologies unlocked in the Castle Age (III) are researched at half the time and cost."
+            },
+            {
+                "title": "Toll Outposts",
+                "description": "Traders and Trade Ships that pass by Toll Outposts instantly provide bonus resources based on the current trade targets. Does not generate any bonus tax if a Toll Outpost is built within range of another one."
+            },
+            {
+                "title": "Manuscript Trade",
+                "description": "Gold collected from completed Trader routes lower the research time of future technologies."
+            },
+            {
+                "title": "Fish Processing",
+                "description": "Fishing Boats drop off 10% of their Food as Gold."
+            },
+            {
+                "title": "Landing Parties",
+                "description": "Movement speed of all ships increased when near their Docks.\nTransport Ships attack with javelins for each unit garrisoned."
+            },
+            {
+                "title": "Unique Units",
+                "list": [
+                    "Donso: Spearman replacement. Light melee infantry with increased health and melee armor that can periodically throw a javelin.",
+                    "Warrior Scout: Light cavalry that can improve damage, move speed, health, and health regeneration.",
+                    "Musofadi Warrior: Fast, light, anti-armor infantry that can use the Activate Stealth ability.",
+                    "Javelin Thrower: Anti-ranged infantry that throws a javelin from extended range.",
+                    "Sofa: Faster heavy cavalry with reduced cost, health, and armor.",
+                    "Musofadi Gunner: Faster moving handcannoneer that can use the Activate Stealth ability."
+                ]
+            }
+        ]
+    },
+    "byzantines": {
+        "summary": "The Byzantines construct sprawling networks of life-giving Aqueducts and Cisterns. Leverage powerful unique abilities and hire Mercenaries with exquisite Olive Oil. Peasants work tirelessly to manufacture Olive Oil for the empire.",
+        "classes": "City Planning, Mercenaries, Defense",
+        "era": "330 - 1453 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Cisterns can be toggled to improve influence of unit production speed, research speed, or building defense. Bonuses improve when connected with Aqueducts.",
+                    "Field units capable of using various forms of Greek Fire.",
+                    "Collect bonus Stone from every building constructed.",
+                    "Harvest Olive Oil that is used to produce Mercenary units.",
+                    "Produce unique units from other civilizations as Mercenaries from the Mercenary House starting in Feudal Age (II).",
+                    "Workers generate Olive Oil from Berry Bushes, Olive Groves, and Fish.",
+                    "Traders provide Olive Oil on successful trades.",
+                    "Markets can trade Olive Oil.",
+                    "Transport Ships temporarily increase the move speed of units when unloading."
+                ]
+            },
+            {
+                "title": "Olive Oil",
+                "description": "Collect a unique resource that is used to hire Mercenary units. Villagers gather Olive Oil equal to 50% of Food gathered from Berry Bushes, 20% from Olive Groves, and 10% from Shore Fish.\nFishing Boats generate Olive Oil equal to 20% of Food from Fish and Traders provide 20% Olive Oil based on the amount being traded."
+            },
+            {
+                "title": "Mercenaries",
+                "description": "Purchase contracts or establish control of Trade Posts to recruit unique units from other civilizations with Olive Oil at the Mercenary House."
+            },
+            {
+                "title": "Cisterns and Aqueducts",
+                "description": "Cisterns provide nearby Villagers with boosted gather rates and an influence that enhances nearby buildings, improving unit production speed, research speed, or building defense.\nConstruct an Aqueduct network and connect them to Cisterns to increase its bonus output."
+            },
+            {
+                "title": "Field Stones",
+                "description": "Gather Stone from every building constructed. Building size determines the amount of Stone collected."
+            },
+            {
+                "title": "Greek Fire",
+                "description": "Cheirosiphons along with upgraded Dromons and Trebuchets fling Greek Fire with their attacks, engulfing the area in flames for damage over time."
+            },
+            {
+                "title": "Mangonel Emplacements",
+                "description": "Outposts and Keeps can be upgraded with Mangonel Emplacements. Stone Wall Towers come equipped with Mangonel Emplacements instead of Springalds."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Limitanei: Spearman replacement. Light melee infantry with the Shield Wall ability to increase ranged armor at the cost of move speed.\nVarangian Guard: Man-at-Arms replacement. Use the Berserking ability to increase damage at the cost of armor. Can construct Transport Ships and increase armor of transports when garrisoned. Gains increased movement speed when disembarking from Transport Ships.\nCataphract: Knight replacement. Heavy cavalry with Trample, a powerful targeted ability that runs through and damages enemies in its path.\nCheirosiphon: A ram equipped with a short ranged Greek Fire attack.\nDromon: Springald Ship replacement. Equipped with Greek Fire."
+            }
+        ]
+    },
+    "japanese": {
+        "summary": "Ruling over the Japanese land, the Daimyo enhances agriculture and employs Samurai to defend their territory. The unique Forge works tirelessly to sharpen their blades to give an edge in battle. Fierce Samurai Bannermen lead their diverse army of infantry and cavalry to victory.",
+        "classes": "Agriculture, Bannermen, Infantry",
+        "era": "794 - 1616 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Town Centers can be upgraded to improve defenses, harvest rates of nearby Farms, and the production cap of Samurai Bannermen.",
+                    "Samurai Bannermen provide bonuses to nearby infantry and cavalry.",
+                    "Samurai have Deflective Armor that can block ranged or melee attacks.",
+                    "Barracks are cheaper to build.",
+                    "Farmhouses are Food drop-off sites in addition to providing Population.",
+                    "Forges are Gold and Stone drop-off sites in addition to containing military upgrades.",
+                    "Gold deposited by Villagers generates bonus Stone and vice versa.",
+                    "Extra melee damage upgrade accessible in the Dark Age (I).",
+                    "Choose between Buddhist Monks or Shinto Priests with your choice of Castle Age (III) Landmark.",
+                    "Keeps come equipped with Rocket Emplacements and increased health in the Imperial Age (IV).",
+                    "Fishing Boats are cheaper to produce."
+                ]
+            },
+            {
+                "title": "Daimyo",
+                "description": "Town Centers can be upgraded into special buildings called the Daimyo Manor, Daimyo Palace, and Shogunate Castle. These buildings provide bonuses to nearby Villagers working Farms by 20%, 40%, 60%, increases the capacity of Samurai Bannerman by +1, +2, +3, and improves its defenses."
+            },
+            {
+                "title": "Hatamoto Samurai",
+                "description": "Field elite Samurai Bannermen that increase the damage of nearby infantry by +15% and cavalry by +10%. Bannermen Samurai drop their banners when killed, providing the same effect for a duration."
+            },
+            {
+                "title": "Calm of Mind",
+                "description": "Produce Samurai in the Dark Age (I). Samurai have the Deflective Armor ability which can periodically block melee or ranged attacks."
+            },
+            {
+                "title": "Farmhouse & Forge",
+                "description": "The Forge is a Gold and Stone drop-off and replaces the Mining Camp and Blacksmith. Additionally, it provides extra melee damage technology in the Dark Age (I). The Farmhouse both provides population and replaces the Mill as a Food drop-off."
+            },
+            {
+                "title": "Oda's Fortress",
+                "description": "Access a more powerful Keep in the Imperial Age (IV) that comes with increased health and Rocket Emplacements for a higher cost. Rockets attack quickly and deal massive damage to single targets."
+            },
+            {
+                "title": "Silver Mining",
+                "description": "When Villagers deposit Gold, 20% extra Stone is also produced and vice versa."
+            },
+            {
+                "title": "Religious Choice",
+                "description": "Select between Shinto and Buddhism with your choice of Age III Landmark. If choosing Shinto, you unlock the Shinto Priest. If choosing Buddhism, you unlock the Buddhist Monk. These religious units offer unique bonuses."
+            },
+            {
+                "title": "Samurai Districts",
+                "description": "Barracks are 50% cheaper to construct."
+            },
+            {
+                "title": "Fishing Village",
+                "description": "Fishing Boats are produced 25% cheaper."
+            },
+            {
+                "title": "Unique Units",
+                "list": [
+                    "Samurai: Man-at-Arms replacement. Heavy melee infantry that have Deflective Armor which can block melee and ranged attacks.",
+                    "Mounted Samurai: Lancer replacement. Heavy melee cavalry with Deflective Armor.",
+                    "Yumi Ashigaru: Archer with improved move speed for reduced cost and health.",
+                    "Onna-Bugeisha: Light melee infantry that can use their fast move speed and long weapon range to keep their opponent on alert.",
+                    "Onna-Musha: Crossbowman replacement. Cavalry Archer that can use increased mobility to harass heavy targets.",
+                    "Shinobi: Espionage unit that can act as a spy, sabotage buildings, or assassinate targets. Produced from the Koka Township Landmark.",
+                    "Ozutsu: Heavy ranged gunpowder infantry that has a huge handheld cannon with high siege and splash damage. Produced from the Tanegashima Gunsmith Landmark."
+                ]
+            }
+        ]
+    },
+    "jeanne_darc": {
+        "summary": "A spark of hope for the French people, Jeanne d'Arc takes to the battlefield and inspires courage to her followers. Starting as a humble villager, Jeanne begins the Journey of a Hero in the Dark Age. Experience forges Jeanne into a powerful leader, gaining access to trusted companions and powerful abilities which shape the empire she was destined to create.",
+        "classes": "Trade, Cavalry, Hero",
+        "era": "1412 - 1431 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Jeanne d'Arc navigates the Journey of a Hero.",
+                    "Royal Knights in the Feudal Age (II).",
+                    "Economic technologies are -35% cheaper.",
+                    "Trade Posts are revealed on the minimap.",
+                    "Traders can return Food, Wood, or Gold to Markets.",
+                    "Trade Ships return +20% resources."
+                ]
+            },
+            {
+                "title": "Journey of a Hero",
+                "description": "Jeanne d'Arc is present on the battlefield. A heroic unit who gains experience for completing tasks such as gathering resources, constructing buildings, and participating in combat.\nAfter accruing enough experience, Jeanne may level up to obtain powerful economic and combat abilities."
+            },
+            {
+                "title": "Royal Stallions",
+                "description": "Deploy the Royal Knight in the Feudal Age (II) and research powerful unique technologies for cavalry."
+            },
+            {
+                "title": "Galvanized Economy",
+                "description": "The people work harder under Jeanne d'Arc's leadership. Economic upgrades are 35% cheaper."
+            },
+            {
+                "title": "Trade Economy",
+                "description": "Choose to return Food, Wood, or Gold to Markets with Traders and Trade Ships.\nTrade Ships return +20% more resources.\nTrade Posts are revealed on the minimap at the start of the game.\nDocks provide populations space."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Jeanne d'Arc: A hero unit that starts as a villager, Jeanne begins the Journey of a Hero to gain powerful abilities.\nJeanne's Rider: Fast Cavalry effective at raiding, flanking, and countering Crossbows, becomes available once Jeanne achieves level 3.\nJeanne's Champion: Tough infantry that excels at countering Spearmen, becomes available once Jeanne achieves level 3.\nRoyal Knight: Heavy Cavalry that gains +3 bonus damage for 5 seconds after completing a charge.\nArbalétrier: Crossbowman with +1 melee armor that can deploy a defensive Pavise to provide +5 ranged armor and +1 weapon range for 30 seconds.\nCannon: Bombard replacement with more damage, mobility and no setup time.\nGalleass: Large war galley that has a long range forward mounted bombard.\nWar Cog: Unique Springald Ship with reduced cost and increased pierce armor."
+            }
+        ]
+    },
+    "ayyubids": {
+        "summary": "At the confluence of continents, where trade and science meet, and where empires clash, the Ayyubids use their pursuit of knowledge to gain the upper hand. The House of Wisdom is the focal point of this combination of urbanization and science, unlocking powerful Golden Age bonuses and advancing through the ages. The Ayyubids focus on versatile units to gain a tactical advantage on the battlefield.",
+        "classes": "Adaptable, Camels, City Planning",
+        "era": "750 - 1517 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Camel units reduce damage from nearby enemy horse cavalry by -20%.",
+                    "Mills constructed near Berry Bushes create Orchards, increasing Food capacity by +100.",
+                    "Gather from Berry Bushes +25% faster but cannot gather from Boar.",
+                    "Berry carry capacity increased +3.",
+                    "Land Traders are -33% cheaper.",
+                    "Docks are -50% cheaper.",
+                    "Advance to the next Age without the need for Villagers by upgrading wings on the House of Wisdom.",
+                    "Choose from 8 different Wings with each unlocking a powerful bonus without requiring any additional upgrade.",
+                    "The bonus provided by a Wing grows in power when researched in later Ages.",
+                    "Access special bonuses when entering a Golden Age by constructing buildings within the House of Wisdom's influence."
+                ]
+            },
+            {
+                "title": "Adaptable Commander",
+                "description": "Advance through the ages by choosing from 8 unique Wings on the House of Wisdom.\nGain immediate access to bonuses for Economy, Technology, and Military without requiring any upgrade in order to adapt the civilization to the needs of battle.\nEach Wing provides more powerful bonuses when constructed in later Ages."
+            },
+            {
+                "title": "Camel Fighters",
+                "description": "Camels spook enemy horse cavalry with their presence, reducing their damage by -20%."
+            },
+            {
+                "title": "Siegecraft Masters",
+                "description": "Infantry can construct Siege Engines on the field without the need for Siege Engineering technology.\nAccess to two unique siege weapons and one unique siege upgrade."
+            },
+            {
+                "title": "Grand Orchards",
+                "description": "Cultivate Berry Bushes into Orchards by building Mills near them, increasing Food capacity by +100.\nVillagers gather Berry Bushes 25% faster but cannot gather from Boar.\nVillagers carry +3 Food from Berry Bushes."
+            },
+            {
+                "title": "Trade Economy",
+                "description": "Land Traders are 33% cheaper."
+            },
+            {
+                "title": "Dockyards",
+                "description": "Docks can be constructed for -50% Wood."
+            },
+            {
+                "title": "Golden Age",
+                "description": "Build towards your Golden Age – improving economy, technology, and military.\nBuildings within the House of Wisdom's influence receive +5 fire armor and contribute one point towards the Golden Age. The threshold for unlocks are 10, 20, 30, 50, and 75 buildings.\n• Tier 1: Villager gather rate +10%\n• Tier 2: Research speed +25%\n• Tier 3: Production speed +20%\n• Tier 4: Siege units cost 20% less resources to produce\n• Tier 5: Camel units attack 20% faster."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Desert Raider: Versatile camel rider who can switch between ranged and melee modes.\nCamel Lancer: Heavy camel with a powerful charge attack.\nDervish: Mounted religious unit with a powerful heal ability.\nManjaniq: Unique Mangonel which can use an Incendiary mode to deal damage in a greatly increased area.\nTower of the Sultan: Behemoth siege weapon crewed by archers and equipped with a battering ram for devastating damage against buildings."
+            }
+        ]
+    },
+    "zhu_xis_legacy": {
+        "summary": "The teachings of philosopher Zhu Xi reshape the Chinese civilization. With Zhu Xi’s Legacy, the Chinese boast a sophisticated administration with superior Imperial Officials and advanced technologies. The brimming treasury helps to establish powerful dynasties and research a breadth of unique technologies. Recruit Palace Guards, Zhuge Nus, and Grenadiers early on to protect the Empire.",
+        "classes": "Dynasties, Taxes, Technology",
+        "era": "907 - 1644 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Begin in the Tang Dynasty - Landmark costs are reduced by -15% and the Village is unlocked.",
+                    "Enter a new Dynasty by building both Landmarks from an Age to unlock special bonuses and buildings.",
+                    "Units trained, technologies researched, and resources dropped off generate tax (Gold) that can be collected by Imperial Officials.",
+                    "Unique technologies massively upgrade Imperial Officials, unlock new units and boost military units.",
+                    "Early Palace Guards are available in the Feudal Age.",
+                    "Access the Zhuge Nu and Grenadier without entering Dynasties.",
+                    "Villagers construct defenses +50% faster and all other buildings +100% faster.",
+                    "Chemistry technology granted for free in the Dark Age - Town Centers, Keeps, and Outposts use Handcannon Slits instead of Defensive Arrowslits.",
+                    "Docks work +10% faster."
+                ]
+            },
+            {
+                "title": "Great Dynasties",
+                "description": "Start your journey in the Tang Dynasty - Landmark costs are reduced by -15% and the Village is unlocked.\nConstruct both Landmarks in an Age to start Dynasties with special bonuses, unique buildings, and units.\n• Song: Wood cost of Economy and Population buildings is discounted by -30% - unlocks construction of the Granary.\n• Yuan: 10% discount on all units - unlocks construction of the Pagoda.\n• Ming: Unique Units deal +20% damage."
+            },
+            {
+                "title": "Taxes",
+                "description": "Units trained, technologies researched, and resources dropped off generate tax (Gold) that can be collected by Imperial Officials. Unique administrative technologies from the Mount Lu Academy and Zhu Xi's Library vastly improve Imperial Officials."
+            },
+            {
+                "title": "Dynasty Units",
+                "description": "Access the Zhuge Nu and the Grenadier without establishing dynasties. Landmarks can unlock powerful Shaolin Monks, Yuan Raiders, and Imperial Guards. Early Palace Guards can be trained in the Feudal Age."
+            },
+            {
+                "title": "Masters of Gunpowder",
+                "description": "Begin the game with Chemistry technology granted for free - defensive buildings use Handcannon Slits over Defensive Arrowslits."
+            },
+            {
+                "title": "Rapid Fabrications",
+                "description": "Villagers construct defenses +50% faster and all other buildings +100% faster. Docks work +10% faster."
+            },
+            {
+                "title": "Protect the Palace",
+                "description": "Train Early Palace Guards in the Feudal Age (II) to protect the emperor."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Imperial Official: Use the Supervise ability to boost the production speed of research and military buildings by +150% - supervising economic buildings increases the amount of resources dropped off by Villagers by +20%.\nZhuge Nu: Archer replacement. Light ranged infantry with a rapid burst attack effective vs. light units.\nPalace Guard: Man-at-Arms replacement. Heavy melee infantry that exchanges armor for move speed.\nNest of Bees: Mangonel replacement. Siege engine that fires a barrage of rockets, doing area of effect damage.\nGrenadier: Light ranged gunpowder infantry that throws grenades dealing area of effect damage."
+            }
+        ]
+    },
+    "order_of_the_dragon": {
+        "summary": "The Order of the Dragon is established by handpicked wealthy elites to crush hostile empires. Investing large amounts of resources into training only a few exceptional warriors, the Order succeeds in raising an elite army unlike any other.",
+        "classes": "Quality, Infantry, Defense",
+        "era": "1408 - 1437 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Villagers carry +40% more resources, gather +28% faster, and construct and repair buildings +20% faster.",
+                    "Infantry and cavalry units are much stronger, but also more expensive to produce and take twice the population",
+                    "Place Relics in Outposts, Stone Towers and Keeps for defensive and economic bonuses.",
+                    "Relics placed in Docks increase ship attack speed by +5% per Relic (Max +20%).",
+                    "Emplacements are -20% cheaper. Outpost sight range increased by +20%.",
+                    "Buildings within influence of a Town Center gain the Emergency Repairs ability which can be activated to repair the building."
+                ]
+            },
+            {
+                "title": "Efficient Villagers",
+                "description": "Villagers gather 28% quicker, construct and repair buildings 20% faster, but cost 20% more Food to produce."
+            },
+            {
+                "title": "Religious Zeal",
+                "description": "Demonstrate the might of the empire by placing Relics in Outposts, Towers, and Keeps - increasing their armor by +25%, damage by +25%, range by +25%, and line of sight by +20%.\nRelics placed in Docks increase ship attack speed by +5% per Relic (Max +25%).\nRelics placed in buildings generate +80 Gold per minute."
+            },
+            {
+                "title": "Elite Equipment",
+                "description": "Research technologies like Heavy Torches, Scale Armor, and War Horses to further strengthen the might of the Order."
+            },
+            {
+                "title": "Emplacement Architecture",
+                "description": "All emplacement technologies are -20% cheaper. Outpost sight range increased by +20%."
+            },
+            {
+                "title": "Pushcarts",
+                "description": "Villagers carry +40% more resources than other civilizations."
+            },
+            {
+                "title": "Influence",
+                "description": "Buildings constructed within the influence of a Town Center gain the Emergency Repairs ability which can be activated to repair the building for +150 health every second for 20 seconds."
+            },
+            {
+                "title": "Unique Units",
+                "description": "The elite infantry and cavalry units of the Order - such as the Gilded Man-at-Arms, the Gilded Knight and others - have nearly twice the health of regular units and deal significantly more damage. However, they are much more costly to train and take up double the population space."
+            }
+        ]
+    },
+    "knights_templar": {
+        "summary": "Founded to protect the meek and weary, the Knights Templar establish Commanderies throughout Europe to call on their allies. Fielding a spectacular array of heavy troops, the Templars lead the charge into battle with discipline and heart. Fortresses dot the carefully cultivated landscape, providing key defensive positions and safe haven to the pilgrims they protect.",
+        "classes": "Pilgrims, Commanderies, Knights",
+        "era": "1119 - 1307 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Age Up at the Town Center by establishing a Commanderie.",
+                    "Commanderies permanently unlock units and bonuses.",
+                    "Pilgrims generate gold by traveling to Sacred Sites.",
+                    "Build Fortresses in the Feudal Age.",
+                    "Fortresses increase the range of nearby units and health of nearby Stone Walls.",
+                    "Fortresses act as Landmarks, but can be fully destroyed.",
+                    "Lumberjacks deposit wood automatically and gather faster with each Age.",
+                    "Siege Workshops and Siege Engines cost less wood.",
+                    "Trebuchets fire an additional projectile."
+                ]
+            },
+            {
+                "title": "Establish Commanderies",
+                "description": "Age Up at the Town Center by establishing one of three unique Commanderies. Each Commanderie permanently unlocks a unique unit and bonus."
+            },
+            {
+                "title": "Frankish Defensive Schemes",
+                "description": "Fortresses replace Keeps and are available in the Feudal Age.\nRanged units positioned near a Fortress have +15% increased attack range, and Stone Walls placed within the influence of a Fortress or the Templar Headquarters have +25% increased health and gain a default arrow.\nFortresses behave as Landmarks but can be fully destroyed."
+            },
+            {
+                "title": "Pilgrimage",
+                "description": "The Knights Templar cannot train Traders, instead they generate gold from successful pilgrimages. Upon reaching the Feudal Age, the Knights Templar may offer Safe Passage for Pilgrims to travel to a Sacred Site.\nEvery 60 seconds, a group of Pilgrims will travel from the Templar Headquarters to the selected Sacred Site, generating gold upon arrival based on the distance traveled. The size of the group is increased by 1 for each active Fortress up to a maximum of 10.\nSacred Sites and Relics are revealed at the start of the game."
+            },
+            {
+                "title": "Coastal Harbors",
+                "description": "Build Harbors instead of Docks, which are more expensive but have increased health, a stronger emplacement, more garrison space for fishing ships, and increase the health of nearby ships."
+            },
+            {
+                "title": "Landscape Preservation",
+                "description": "Villagers automatically deposit wood without a Lumber Camp.\nWood is gathered +20% faster in each Age and 20% of the wood gathered is produced as additional food."
+            },
+            {
+                "title": "Siege Experts",
+                "description": "Trebuchets fire additional projectiles and can be deployed atop Fortresses with a unique emplacement.\nSiege Workshops and Siege Engines cost -25% less wood."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Templar Brother: Knight replacement. More expensive than a regular Knight, but has additional health and damage.\nFeudal Age\nKnight Hospitaller Commanderie - Hospitaller Knight: Heavy Melee Infantry that can heal nearby friendly units.\nKingdom of France Commanderie - Chevalier Confrere: Heavy Cavalry that is cheaper than a regular Knight. Gains additional health for each nearby Heavy Cavalry unit.\nPrincipality of Antioch Commanderie - Serjeant: Heavy Infantry with high melee armor. Throws axes which deal melee damage from range.\nCastle Age\nAngevin Empire Commanderie - Heavy Spearman: Armored Spearman that is stronger around Fortresses.\nRepublic of Genoa Commanderie - Genoese Crossbowman: Expensive Crossbowman that deals additional damage to melee infantry.\nKingdom of Castile Commanderie - Genitour: Mounted Javelineer that excels against ranged units.\nImperial Age\nKingdom of Poland Commanderie - Szlachta Cavalry: Elite Cavalry with exceptional ranged armor. Slows the attacks of enemies it damages and deals additional damage to light infantry.\nTeutonic Order Commanderie - Teutonic Knight: Absurdly Powerful Heavy Infantry that gains power for each enemy felled in combat. Reduces the armor of nearby enemies.\nRepublic of Venice Commanderie - Condottiero: Fast infantry that costs only gold. Strong against Gunpowder units.\nVenetian Galley: Large oared vessel with a long range forward mounted Trebuchet.\nVenetian Trader: Expensive but fast moving trader. Max Build limit of 5."
+            }
+        ]
+    },
+    "house_of_lancaster": {
+        "summary": "The House of Lancaster emerges as a powerful branch of English royalty. Manors are the backbone of the economy by providing sustainable economic practices. Lancaster military might is of technological advantage and superior tactics on the battlefield. Dismantle enemy formations with potent shock troops then pick them apart with superior ranged infantry.",
+        "classes": "Manors, Defense, Economy",
+        "era": "1267 - 1471 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Villagers gather from sheep +20% faster.",
+                    "Build Manors to passively generate food and wood.",
+                    "Town Centers spawn 4 sheep when built.",
+                    "Keeps grant 3 free Earl's Guards when built.",
+                    "Active Keeps improve the damage of Earl's Guards and Demilancers.",
+                    "Villagers wield short bows when attacking enemy units.",
+                    "Ships are -10% cheaper to produce."
+                ]
+            },
+            {
+                "title": "Feudalism",
+                "description": "Build Manors to generate passive income in the Feudal Age. Manors act as a drop off building for all resource types and provide +10 population space. Each Manor generates 30 food and 10 wood per minute, and an additional 4 food and 2 wood for each nearby villager.\nIncrease the build limit of Manors with unique technologies."
+            },
+            {
+                "title": "Wool Industries",
+                "description": "Each Town Center spawns 4 sheep upon completion. Villagers gather from sheep +20% faster."
+            },
+            {
+                "title": "Defensive Byrig",
+                "description": "Capital Town Center fires an extra arrow and Villagers wield short bows when attacking enemy units."
+            },
+            {
+                "title": "A House Unified",
+                "description": "Keeps grant 3 free Earl's Guards upon being built. Each Active keep grants +1 damage to Earl's Guards and Demilancers up to a maximum of +4."
+            },
+            {
+                "title": "Shipwrights",
+                "description": "Naval conditioning increases Dock efficiency, reducing ship construction costs by -10%."
+            },
+            {
+                "title": "Unique Units",
+                "list": [
+                    "Yeoman: Archer Replacement. Ranged infantry with increased speed and range. Can be upgraded to fire a devastating volley of arrows into the targeted area.",
+                    "Hobelar: Horseman Replacement. Cheap and expendable cavalry with high ranged armor.",
+                    "Earl's Guard: Man-at-Arms Replacement. Heavy Melee Infantry that periodically throws daggers.",
+                    "Demilancer: Special Heavy Cavalry. Accessed only via landmarks, the Demilancer is a durable cavalry unit with low damage."
+                ]
+            }
+        ]
+    },
+    "sengoku_daimyo": {
+        "summary": "The Sengoku Jidai was an era of shifting alliances and ceaseless warfare. Three rival clans can be supported to gain powerful advantages to your ranged infantry, melee infantry or cavalry. Even in the midst of war there was time for celebration; the Matsuri festival is the heart of commerce and trade providing powerful bonuses to their economy.",
+        "classes": "Agriculture, Daimyo, City Planning",
+        "era": "794 - 1616 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Daimyo Estates can be dedicated to a clan to provide bonuses to melee infantry, cavalry or ranged infantry.",
+                    "Farmhouses are Food drop-off sites in addition to providing Population.",
+                    "The Matsuri is a unique early Market that can recruit Yatai which can passively gather food from nearby Food sources.",
+                    "Survival Techniques researched by default.",
+                    "Forges are Gold and Stone drop-off sites in addition to containing military upgrades.",
+                    "Gold deposited by Villagers generates bonus Stone and vice versa.",
+                    "Extra melee damage upgrade accessible in the Dark Age (I).",
+                    "Ikko-ikki are combat monks that can be recruited from Buddhist Monasteries that heal while attacking.",
+                    "Keeps come equipped with Rocket Emplacements and increased health in the Imperial Age (IV).",
+                    "Fishing Boats are cheaper to produce.",
+                    "The location of all Deer and Boar are revealed on the map."
+                ]
+            },
+            {
+                "title": "Daimyo Estate",
+                "description": "Daimyo Estates are unique buildings that can be dedicated to one of three clans. Hojo clan which improves melee infantry, Oda clan which improves ranged infantry, or Takeda clan which improves cavalry. The Daimyo Estate also has an influence that increases production speed of military buildings."
+            },
+            {
+                "title": "Yatai and Matsuri",
+                "description": "The Matsuri is a unique early Market that can produce Yatai. The Yatai is a unique worker unit that will slowly generate food from Food sources within 2 tiles without killing or consuming them. If the Yatai collects enough Food it will send a Food Trader back to the Matsuri which improves an aura that increases the gather rate of nearby villagers."
+            },
+            {
+                "title": "Farmhouse & Forge",
+                "description": "The Forge is a Gold and Stone drop-off and replaces the Mining Camp and Blacksmith. Additionally, it provides extra melee damage technology in the Dark Age (I). The Farmhouse both provides population and replaces the Mill as a Food drop-off."
+            },
+            {
+                "title": "Oda's Fortress",
+                "description": "Access a more powerful Keep in the Imperial Age (IV) that comes with increased health and Rocket Emplacements for a higher cost. Rockets attack quickly and deal massive damage to single targets."
+            },
+            {
+                "title": "Silver Mining",
+                "description": "When Villagers deposit Gold, 20% extra Stone is also produced and vice versa."
+            },
+            {
+                "title": "Fishing Village",
+                "description": "Fishing Boats are produced 25% cheaper."
+            },
+            {
+                "title": "Deer and Boar Reveal",
+                "description": "The location of all Deer and Boar are revealed on the map."
+            },
+            {
+                "title": "Unique Units",
+                "list": [
+                    "Yatai: Worker unit that will passively collect food from nearby Food sources without killing or consuming them.",
+                    "Yari Cavalry: Fast cavalry effective at raiding, flanking, and countering ranged units. Bonus damage against cavalry.",
+                    "Daimyo: High health and damage melee cavalry that provides an aura that increases attack speed of nearby military units. Effective against melee units. Limited to one per Daimyo Estate built.",
+                    "Yumi Ashigaru: Archer with improved move speed for reduced cost and health.",
+                    "Ikko-ikki Monk: Warrior Monk with strong combat capabilities that heals nearby units when attacking. Does not have a targeted heal ability.",
+                    "Kanabo Samurai: Tough infantry with good damage. Deals bonus damage based on the max health of the enemy.",
+                    "Early Ozutsu: Heavy ranged gunpowder infantry that has a huge handheld cannon with high siege and splash damage."
+                ]
+            }
+        ]
+    },
+    "tughlaq_dynasty": {
+        "summary": "Ghiyasuddin Tughlaq’s reign as Sultan laid the framework for advancement in arts, architecture, and expansion of the Tughlaq Dynasty. After commanding the construction of the Tughlaqabad Fort, future Sultans, Amirs, and governors expanded their military presence through force and show of power. The Tughlaq Dynasty calls for quick construction of additional forts while governors oversee hard working elephants and villagers.",
+        "classes": "Elephants, Forts, Governors",
+        "era": "1320 - 1413 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Town Centers, Worker Elephants, and Docks provide bonus resources when Villagers and Fishing Ships drop off.",
+                    "Worker Elephants move freely and act as universal resource drop-offs.",
+                    "All technology is more expensive but research near instantly.",
+                    "Tughlaqabad Forts act as Keeps and are available from the Feudal Age (II).",
+                    "Tughlaqabad Forts can be upgraded to increase defenses and unlocks Governors.",
+                    "Select a Governor at any fort to take the dynasty to new heights.",
+                    "Governors provide economy, tempo, military, research, and religious bonuses.",
+                    "Infantry units are able to construct Palisade Walls.",
+                    "Gather from Berry Bushes +30% faster but cannot gather from Boar.",
+                    "Berry carry capacity increased +3.",
+                    "Fishing Ships can defend themselves with a ranged attack."
+                ]
+            },
+            {
+                "title": "Working Companions",
+                "description": "Take the load off your Villagers back with Worker Elephants. These elephants act as a universal drop-off and can move around freely, saving time and resources for Villagers to focus on working.\nWorker Elephants, Town Centers, and Docks provide bonus resources when Villagers and Fishing Ships drop off."
+            },
+            {
+                "title": "Erudition",
+                "description": "Seeking knowledge and wisdom the Tughlaq Dynasty funds researching technologies with more resources in favor of near instant research times."
+            },
+            {
+                "title": "Legendary Forts",
+                "description": "Strike fear into your enemies with the Tughlaqabad Fort. Available from the Feudal Age (II), this defensive building can be upgraded to increase its damage output, health, and unlocks your choice in a Governor."
+            },
+            {
+                "title": "Governor Support",
+                "description": "Choose between one of any six Governors at the Tughlaqabad Fort to help lead the Tughlaq Dynasty to new heights. Governor strength increases with each Tughlaqabad Fort improvement upgrade. Governors provide economy, tempo, military, research, and religious bonuses. \nOne Governor may be active per fort."
+            },
+            {
+                "title": "Basketry",
+                "description": "Villagers gather Berry Bushes 30% faster but cannot gather from Boar.\nVillagers carry +3 Food from Berry Bushes."
+            },
+            {
+                "title": "Frontier Fortifications",
+                "description": "Establish fortified settlements using infantry units that can build Palisade Walls."
+            },
+            {
+                "title": "Defensive Deckhands",
+                "description": "Fishing Ships can defend themselves with a ranged attack and have 50% additional health."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Raiding Elephant: Fast elephant effective at raiding, flanking, and countering ranged units. Can trample to bypass any unit to deal damage in an area.\nHealer Elephant: High health and armored melee elephant mounted with two Imams that can heal units individually. Deals more damage for each nearby melee infantry.\nWar Elephant: Heavy melee cavalry mounted with a Spearman that has high health and damage with a strong siege attack.\nBallista Elephant: Ranged elephant mounted with a ballista thats effective against melee units and can pierce multiple targets."
+            }
+        ]
+    },
+    "golden_horde": {
+        "summary": "Leading the Golden Horde westwards, Batu Khan expanded the Mongolian Empire right into the heart of Eastern Europe. The Khan’s great Golden Tent was the center of network of control, with outposts that allowed them to maintain a vast territory. While still powerful raiders, the Golden Horde sacrificed the mobility of their camps to field larger forces needed to control their vassal states.",
+        "classes": "Aggression, Cavalry, Horde",
+        "era": "1000 - 1500 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Start with maximum population limit.",
+                    "Units are always recruited in batches.",
+                    "Stockyards are a unique building that can be worked by 4 villagers and is a food drop-off.",
+                    "Ovoos can be built on multiple Stone deposits increasing Stone income.",
+                    "Unique technologies costing only Stone.",
+                    "Stables available in the Dark Age (I).",
+                    "Age up by building and upgrading the Golden Tent.",
+                    "Fortified Outposts provide influence or aura bonuses based on the Edict set in the Golden Tent.",
+                    "Silk Road: Traders generate +10% additional Food, Wood and Gold with 5/10/15 active Traders.",
+                    "Transport ships have +50% health and +15% move speed.",
+                    "Scouts can deploy the Scouting Falcon ability to keep watch over the surrounding area."
+                ]
+            },
+            {
+                "title": "Golden Tent",
+                "description": "The Golden Tent is the only landmark for the Golden Horde, which can be upgraded to advance to the next age and increase the health of the building. An edict can be chosen on the Golden Tent, which changes the influence or aura bonus provided by Fortified Outposts.\nThe Batu Khan and Torguud can be recruited from the Golden Tent."
+            },
+            {
+                "title": "Hordes",
+                "description": "Units are produced in batches of two. Technologies can be researched that improve batch production."
+            },
+            {
+                "title": "Stockyard",
+                "description": "Construct the Stockyard instead of Farms or Pastures for Food — Stockyards have Sheep carcasses which can be gathered and dropped off at the Stockyard directly."
+            },
+            {
+                "title": "Fortified Outposts",
+                "description": "Fortified Outposts have more health and provide influence or aura bonuses depending on the Edict chosen on the Golden Tent."
+            },
+            {
+                "title": "Augmented Transports",
+                "description": "Transport Ship landings are faster and more durable with +50% health and +15% move speed."
+            },
+            {
+                "title": "Silk Road",
+                "description": "Explore the Silk Road with Traders that receive extra resources from trades based on your total number of active Traders.\n• 5+ Traders: +10% Food\n• 10+ Traders: +10% Food, Wood\n• 15+ Traders: +10% Food, Wood, Gold"
+            },
+            {
+                "title": "Stone Tech and Ovoos",
+                "description": "Construct Ovoo over Stone outcroppings to harvest Stone without the need for Villagers. The maximum number of Ovoos that can be built is increased +1 per age up."
+            },
+            {
+                "title": "Scouting Falcon",
+                "description": "Scouts can deploy the Scouting Falcon ability to keep watch over the surrounding area."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Golden Horde Khan: Heavy Cavalry that scales in strength on age up. Can fire an arrow that increases the damage taken by enemies in an area. The Khan will also provide an increasing attack damage aura the longer the Khan is in combat.\nTorguud: Heavy Cavalry which can protect the Khan, redirecting any damage taken by the Khan to the Torguud.\nKharash: Weak Light Melee Infantry units that provide armor to nearby allies.\nKipchak: Horse archer that can fire arrows which cause the target hit to bleed.\nTraction Trebuchet: Faster move speed, setup time and attack speed.\nKeshik: Heavy Cavalry available in Feudal Age, regenerates Health after every attack."
+            }
+        ]
+    },
+    "macedonian_dynasty": {
+        "summary": "Emperor Basil II employed Varangians to defend against revolts fomented by Byzantine nobles. Arriving on ships from the north, these foreign-born warriors were not swayed by Byzantine politics and culture, creating an elite shock division protecting emperors for centuries to come. The Macedonian Dynasty mints Silver as a unique resource to spend at Varangian Arsenals, sharpening their blades and honing their skills while they protect the Emperor.",
+        "classes": "Varangians, Silver, Technology",
+        "era": "867 - 1056 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Villagers extract Silver from Gold and Stone to research unique technologies.",
+                    "Generate Silver passively on Mining Camps and Town Centers with influence of Varangian Arsenals.",
+                    "Exceed three tiers of technologies with the Varangian Arsenal by spending Silver.",
+                    "Access to Early Varangian Guard in the Feudal Age (II).",
+                    "Produce all unique Varangian units from the Varangian Stronghold.",
+                    "Varangian units have unique abilities to improve their combat effectiveness.",
+                    "Reinforce warriors that fall in battle for free with the Varangian Warcamp.",
+                    "Field units capable of using various forms of Greek Fire.",
+                    "Transport Ships temporarily increase the move speed of units when unloading."
+                ]
+            },
+            {
+                "title": "Galena Gathering",
+                "description": "Villagers discover abundant galena deposits among Gold Veins and Stone Outcroppings and extract Silver as a unique resource when mining from them.\nVillagers extract Silver equal to 40% of Gold or Stone mined."
+            },
+            {
+                "title": "Influence - Silver Minting",
+                "description": "Varangian Arsenals generate influence for Mining Camps and Town Centers to begin processing Silver over time. The amount of Silver processed is based on the total amount of Silver deposited by Villagers."
+            },
+            {
+                "title": "Varangian Smithing",
+                "description": "Research unique military technologies at the Varangian Arsenal for Silver. Replaces the Blacksmith and University. Macedonian Dynasty can exceed three tiers of military upgrades per category."
+            },
+            {
+                "title": "Strongholds",
+                "description": "Fortify the empire with Varangian Strongholds that can produce all Varangian units and defend with arrows."
+            },
+            {
+                "title": "Warcamp",
+                "description": "Choose reinforcements at the Varangian Warcamp. Once enough warriors fall in battle, free Varangian warriors arrive at the warcamp to bolster missing ranks.\nIf adjacent to water, boats can be selected as reinforcements."
+            },
+            {
+                "title": "Varangian Runestones",
+                "description": "Carve Runestones to honor past victories in combat. After enough enemies have fallen to Varangians, a Runestone may be created that inspires nearby Varangians with combat bonuses in an area."
+            },
+            {
+                "title": "Greek Fire",
+                "description": "Cheirosiphons along with upgraded Dromons, Springalds, and Trebuchets fling Greek Fire with their attacks, engulfing the area in flames for damage over time."
+            },
+            {
+                "title": "Mangonel Emplacements",
+                "description": "Outposts and Keeps can be upgraded with Mangonel Emplacements. Stone Wall Towers come equipped with Mangonel Emplacements instead of Springalds."
+            },
+            {
+                "title": "Unique Units",
+                "description": "Atgeirmaðr: Spearman replacement. Light melee infantry with a passive ability that increases their attack speed when Varangian units are nearby.\nBogmaðr: Archer replacement. Light ranged infantry with an ability to bypass armor at the cost of move speed. \nEarly Varangian Guard: Man-at-Arms replacement. Use the Berserking ability to increase damage at the cost of armor. Can construct Transport Ships and increase armor of transports when garrisoned.\nRiddari: Knight replacement. Heavy cavalry with an ability to throw axes from range for a period of time.\nCheirosiphon: A ram equipped with a short ranged Greek Fire attack.\nDromon: Springald Ship replacement. Equipped with Greek Fire."
+            }
+        ]
+    },
+    "jin_dynasty": {
+        "summary": "The Jin Dynasty emerges as a formidable military power in northern China. Mounted Villagers move swiftly to claim new resources and land. Seize opportunities and rally hosts of cavalry at a moment's notice to rout enemies and crush opposition. Bribe weak-willed enemies into desertion and establish profitable Tributary States.",
+        "classes": "Cavalry, Mounted Villagers, Tributaries",
+        "era": "1115 - 1234 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Train up to 20 Mounted Villagers, which gather and move significantly faster than a standard villager.",
+                    "Select from three locations upon age up to build a Grassland.",
+                    "Build War Stables near Grasslands to quickly produce Cavalry with Horses.",
+                    "Emissaries can Establish Tributaries and Bribe enemy soldiers.",
+                    "Tributaries generate Food, improve Trader income by +15%, and increase Mounted Villager build limit by +3.",
+                    "Meng'an Mouke emplacements call upon defenders to protect nearby land.",
+                    "Bed Crossbows are available in Feudal Age, replacing Springalds."
+                ]
+            },
+            {
+                "title": "Grasslands",
+                "description": "Select from 3 locations upon completing a Landmark to build Grasslands, which gradually spawn up to 5 Horses in their field. Horses increase the health of all Melee Cavalry units by +2 and all Ranged Cavalry by +1, or can be used by Stables within the Influence of the Grasslands to quickly train any mounted unit. Grasslands produce a new Horse every 90/60/45 seconds in the Feudal/Castle/Imperial Ages."
+            },
+            {
+                "title": "Jurchen Legacy",
+                "description": "Nomadic ancestry allows up to 20 Mounted Villagers which gather, construct, and move significantly faster but cost more. Establish Tributary States with Trade Posts to increase the maximum build limit by +3."
+            },
+            {
+                "title": "Meng'an Mouke",
+                "description": "Upgrade defensive structures with the Meng'an Mouke Emplacements, which send out defenders to protect nearby lands. Emplacements also slowly produce defenders to replenish losses."
+            },
+            {
+                "title": "Emissaries",
+                "description": "Train up to 2 Emissaries which come equipped with two powerful abilities.\nEstablish Tributaries on Neutral Trade Settlements to gain a loyal ally, which will gather food on your behalf, increases Mounted Villager build limit by +3, and increases your traders income by +15%.\nCast Bribe on groups of enemy units, turning foes into neutral fighters who will combat anything in their way."
+            },
+            {
+                "title": "Siege Expertise",
+                "description": "Build the Machine Workshop in Feudal Age granting early access to Bed Crossbows, a springald replacement which fires two projectiles into enemy formations. Bed Crossbow Emplacements replace Springald Emplacements at all defensive structures."
+            },
+            {
+                "title": "Unique Units",
+                "list": [
+                    "Mounted Villager - Unique villager that gathers, builds, and moves significantly faster than a standard villager.",
+                    "Emissary - Support unit which can bribe enemy soldiers and establish Tributary States.",
+                    "Iron Pagoda - Heavy Cavalry encased from head to toe in armor, deals area damage on every attack.",
+                    "Bed Crossbow - Springald replacement that fires a volley of projectiles at once, available in the Feudal Age.",
+                    "Eruptor - Expensive Handcannon replacement that deals high single target damage.",
+                    "Mohe Tribesman - Mounted archer replacement. Exceptional at hit and run tactics against light melee infantry.",
+                    "Zhanma Swordsman - Armored Infantry available only in Imperial Age, deals impressive melee damage with bonus against cavalry.",
+                    "Meng'an Mouke Defenders - Meng'an Mouke & Mounted Grenadiers spawn from unique emplacements to automatically defend Jin territory."
+                ]
+            }
+        ]
+    }
+}

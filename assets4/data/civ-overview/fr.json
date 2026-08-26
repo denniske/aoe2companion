@@ -1,0 +1,1184 @@
+{
+    "english": {
+        "summary": "Une infanterie primitive exceptionnelle donne un élan puissant aux Anglais soutenu par une production alimentaire fiable issue des champs.",
+        "classes": "Défense, arcs longs, agriculture",
+        "era": "850 - 1555 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Les forums, les postes avancés, les tours et les donjons augmentent de +20% la vitesse d'attaque des unités à proximité lorsque des ennemis sont à portée.",
+                    "Le coût de construction des fermes est réduit de -50%. Les fermes situées à proximité de moulins collectent des ressources +20/25/30/30% plus vite au fil des âges.",
+                    "Hommes d'armes d'avant-garde à l'âge sombre (I).",
+                    "Produit des hommes d'armes +40% plus rapidement que les autres civilisations.",
+                    "Les villageois manient des arcs courts lorsqu'ils attaquent des unités ennemies.",
+                    "Les donjons peuvent produire toutes les unités militaires.",
+                    "Le coût de production des navires est réduit de -10%.",
+                    "Les éclaireurs et les hommes d'armes peuvent allumer des feux de camp qui augmentent la ligne de mire ainsi que la productivité des activités de chasse à proximité de +10%."
+                ]
+            },
+            {
+                "title": "Réseau de châteaux",
+                "description": "Protégez la frontière avec des forums, des postes avancés, des tours en pierre et des donjons qui augmentent la vitesse d'attaque des unités à proximité de +20% lorsque des ennemis sont à portée.\nDéveloppez la technologie Réseau de citadelles dans les donjons pour augmenter davantage la vitesse d'attaque de +30%."
+            },
+            {
+                "title": "Production des donjons",
+                "description": "Les donjons ont la capacité unique de produire toutes les unités militaires."
+            },
+            {
+                "title": "Appel aux armes",
+                "description": "Les hommes d'armes d'avant-garde sont disponibles à l'Âge sombre (I). Les hommes d'armes anglais produisent 40% plus vite."
+            },
+            {
+                "title": "Byrig défensifs",
+                "description": "Le forum de la capitale tire une flèche supplémentaire et les villageois manient des arcs courts lorsqu'ils attaquent des unités ennemies."
+            },
+            {
+                "title": "Île d'agriculture",
+                "description": "La construction de fermes coûte 50% moins cher.\nDéveloppez la technologie des enclos à l'Âge impérial (IV) pour permettre aux villageois de générer +1 d'or toutes les 6 secondes lorsqu'ils travaillent dans les fermes."
+            },
+            {
+                "title": "Chantier naval",
+                "description": "L'organisation navale augmente l'efficacité des quais, réduisant le coût de construction des navires de 10%."
+            },
+            {
+                "title": "Influence",
+                "description": "La vitesse de récolte des fermes est augmentée de +20/25/30/30% à chaque changement d’âge sous l’influence d’un moulin."
+            },
+            {
+                "title": "Forêt royale",
+                "description": "Les éclaireurs et les hommes d'armes peuvent allumer des feux de camp, qui augmentent la portée de visibilité des unités à proximité de +30% ainsi que la vitesse de collecte des chasseurs alentours de +10%."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Fantassin à arc long : archer possédant une portée de +2 et infligeant +1 de dégâts. Équipé de la capacité palis défensifs qui lui permet d'assommer et d'infliger des dégâts à la cavalerie ennemie."
+            }
+        ]
+    },
+    "mongols": {
+        "summary": "Experts en mobilité et en combat à cheval, les Mongols peuvent facilement déplacer leurs camps. Ils tirent des avantages économiques de leur installation à proximité des affleurements de pierres et des descentes dans les bâtiments ennemis. Les ennemis doivent faire face à des attaques de cavalerie dès le début de la partie.",
+        "classes": "Agression, cavalerie, nomade",
+        "era": "1000 - 1500 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Commencez avec un ger entièrement approvisionné, une limite de population maximale et sans besoin d'habitations.",
+                    "Tous les bâtiments peuvent être démantelés et redéployés vers un nouvel emplacement.",
+                    "Obtenez +25 unité(s) de nourriture et d'or supplémentaire(s) en incendiant ou en détruisant les bâtiments ennemis en cours de construction.",
+                    "Les écuries sont disponibles à l'âge sombre (I).",
+                    "Les cavaliers se forment 25% plus vite.",
+                    "Les avant-postes augmentent la vitesse de déplacement de la cavalerie et des marchands à proximité de +15%.",
+                    "Doublez la production d'unités ou développez des versions avancées de technologies en utilisant la pierre.",
+                    "Route de la soie : les marchands génèrent 10% de nourriture, de bois et d'or supplémentaires avec 5/10/15 marchands actifs.",
+                    "Les navires de transport bénéficient de +50% de santé et +15% de vitesse de déplacement."
+                ]
+            },
+            {
+                "title": "Grand territoire",
+                "description": "Tous les bâtiments peuvent être démontés et déplacés à un nouvel emplacement.\nRenoncez au besoin de construire des habitations et commencez avec une population maximum.\nRéagissez rapidement aux mouvements des troupes ennemies grâce à un réseau de postes avancés qui octroient 15% de vitesse de déplacement à la cavalerie et aux marchands à proximité."
+            },
+            {
+                "title": "Khanat",
+                "description": "Déployez le redoutable Khan à l'âge sombre (I) pour accorder de puissants bonus à toutes les unités militaires à proximité avec des flèches sifflantes.\nLes khans et les éclaireurs avec la vision du faucon peuvent surveiller les zones alentour."
+            },
+            {
+                "title": "Cavaliers experts",
+                "description": "Permet de construire des écuries dès l'âge sombre et de déployer des cavaliers 25% plus rapidement."
+            },
+            {
+                "title": "Cueilleurs nomades",
+                "description": "Construisez des pâturages à la place des fermes pour élever des moutons pour la nourriture. Les pâturages produisent des moutons plus rapidement lorsqu'ils sont sous l'influence d'un ovoo."
+            },
+            {
+                "title": "Récompense de raid",
+                "description": "Pillez les bâtiments ennemis. Vous recevrez +25 unités de nourriture et d'or lorsqu'ils sont enflammés ou détruits en cours de construction."
+            },
+            {
+                "title": "Transports améliorés",
+                "description": "Les débarquements de navires de transport sont plus rapides et les navires plus durables avec +50% de santé et +15% de vitesse de déplacement."
+            },
+            {
+                "title": "Route de la soie",
+                "description": "Explorez la Route de la soie avec des marchands. Ils obtiennent des ressources supplémentaires à chaque transaction en fonction de votre nombre total de marchands actifs.\n• 5+ marchands : +10% de nourriture\n• 10+ marchands : +10% de nourriture et de bois\n• 15+ marchands : +10% de nourriture, de bois et d'or"
+            },
+            {
+                "title": "Influence",
+                "description": "Construisez les ovoos sur les affleurements de pierre pour extraire de la pierre sans villageois et générer de l'influence. Les ovoos récoltent +70, 100, 130, 160 unité(s) de pierre par minute en fonction de l'âge.\nLes bâtiments construits dans la zone d'influence d'un ovoo sont capables de doubler leur production d'unités ou de développer des versions améliorées de technologies en utilisant de la pierre."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Khan : archer de cavalerie qui, à chaque nouvel Âge, voit sa force augmenter et débloque la compétence Flèche sifflante.\n• Flèche de manœuvre : augmente la vitesse de déplacement de +33%.\n• Flèche de vitesse d'attaque : augmente la vitesse d'attaque de +50%.\n• Flèche d'armure : augmente l'armure de +2.\nMangudaï : archer de cavalerie capable de tirer tout en se déplaçant dans toutes les directions.\nTrébuchet à traction : vitesse de déplacement, temps de montage et vitesse d'attaque améliorés.\nKheshig : cavalerie lourde disponible à l'Âge féodal, régénère de la santé après chaque attaque."
+            }
+        ]
+    },
+    "french": {
+        "summary": "Les Français déploient de puissantes unités de cavalerie et peuvent augmenter la production dans leurs fortifications. Les ennemis doivent être prêts à résister aux charges de chevaliers royaux puissants et d'autres unités en armure.",
+        "classes": "Commerce, cavalerie, donjons",
+        "era": "840 - 1559 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Chevaliers royaux à l’Âge féodal (II).",
+                    "Le taux de production des forums augmente avec chaque changement d'âge, augmentant respectivement de +15%, +15%, +20%, +25% par âge.",
+                    "Les bâtiments de dépôt de ressources coûtent -50% moins cher.",
+                    "Les technologies économiques coûtent -35% moins cher.",
+                    "Les comptoirs apparaissent sur la minicarte.",
+                    "Les marchands peuvent rapporter de la nourriture, du bois ou de l’or aux marchés.",
+                    "Les navires de commerce rapportent +20% de ressources en plus.",
+                    "Les ateliers de forgeron octroient gratuitement des technologies de dégâts de mêlée après chaque changement d’âge."
+                ]
+            },
+            {
+                "title": "Étalons royaux",
+                "description": "Déployez le chevalier royal à l'âge féodal (II) et recherchez de puissantes technologies exclusives pour la cavalerie."
+            },
+            {
+                "title": "Économie continentale",
+                "description": "Bénéficiez d'une économie supérieure avec des coûts de dépôt de ressources réduits de -50% et des coûts de technologie réduits de  -35%.\nLa vitesse de production des forums est augmentée à chaque âge de +15%, +15%, +20% et +25%."
+            },
+            {
+                "title": "Économie et commerce",
+                "description": "Choisissez de raporter de la nourriture, du bois ou de l'or aux marchés avec des marchands et des navires de commerce.\nLes navires de commerce reviennent avec +20% de ressources en plus.\nLes comptoirs sont indiqués sur la minicarte en début de partie.\nLes ports génèrent de l'espace de population supplémentaire."
+            },
+            {
+                "title": "Bénédiction du forgeron",
+                "description": "Les ateliers de forgeron octroient gratuitement des technologies de dégâts au corps-à-corps gratuites."
+            },
+            {
+                "title": "Influence",
+                "description": "Continuez vos attaques grâce à des donjons 10% moins chers. Réduit de 20% le coût des unités produites par les camps de tir à l'arc et les écuries qui se trouvent dans leur zone d'influence."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Chevalier royal : unité de cavalerie lourde. Inflige +3 de dégâts supplémentaires pendant 5 secondes après avoir effectué une charge.\nArbalétrier : unité à distance avec +1 d'armure de mêlée capable de déployer un pavois défensif qui fournit +5 d'armure à distance et +1 de portée d'arme pendant 30 secondes.\nCanon : remplace la bombarde. Inflige plus de dégâts, possède une plus grande mobilité et ne nécessite pas de temps d'installation.\nGaléasse : grande galère de guerre équipée d'une bombarde longue portée montée à l'avant.\nCogue de guerre : navire avec espringale unique moins cher et aux dégâts à distance plus élevés."
+            }
+        ]
+    },
+    "rus": {
+        "summary": "Les Rus' tirent un grand avantage de la campagne. Ils sont capables de collecter plus facilement les ressources issues de la chasse et de la sylviculture, puis de déployer de puissantes unités de combat. Les ennemis devront faire face très tôt à de solides fortifications et à une économie diversifiée qui ne sera pas facilement ébranlée.",
+        "classes": "Expansion, cavalerie, chasse",
+        "era": "882 - 1547 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Construisez des palissades fortifiées avec 100% de santé en plus.\n• Construisez des forteresses en bois possédant 100% de santé en plus et 3 emplacements supplémentaires de garnison.\n• Construisez des cabanes de chasse : un moulin amélioré capable de produire des éclaireurs et de générer de l'or depuis les forêts à proximité.\n• Récolter de la nourriture sur des animaux génère une prime d'or, qui fournit des bonus économiques aux villageois et aux cabanes de chasse.\n• Les chevaliers primitifs sont disponibles à l'Âge féodal (II).\n• Les navires lodya peuvent être convertis en n'importe quel autre type de navires moyennant un coût.\n• Les bateaux de pêche ne sont pas obligés de revenir à un port pour déposer de la nourriture."
+                ]
+            },
+            {
+                "title": "Fédération du bois",
+                "description": "Fortifiez la campagne avec des forteresses en bois qui remplacent les postes avancés. Elles sont dotées de 100% points de santé et de 3 emplacements de garnison supplémentaires.\nConstruisez la palissade fortifiée. Elle est dotée de 100% points de santé supplémentaires et d'un temps de construction plus rapide."
+            },
+            {
+                "title": "Princes chasseurs",
+                "description": "Vivez de la terre grâce à aux éclaireurs entraînés dans des cabanes de chasse. Les cabanes de chasse offrent tous les avantages d'un moulin ordinaire, mais avec la possibilité de voir dans les forêts denses et de générer un revenu en or en fonction du nombre d'arbres."
+            },
+            {
+                "title": "Cortège druzhina",
+                "description": "Déployez les chevaliers primitifs à l'âge féodal (II)."
+            },
+            {
+                "title": "Reconversion de Lodya",
+                "description": "Les navires lodya peuvent être convertis en n'importe quel autre type de navires, en échange d'un coût.\nLes navires de pêche Lodya traitent la nourriture directement sur le navire. Ils n'ont pas besoin de rentrer au port pour déposer de la nourriture."
+            },
+            {
+                "title": "Récompenses de prime",
+                "description": "Récolter de la nourriture sur des animaux génère une prime d'or. Atteindre certains paliers octroie des bonus économiques aux villageois et aux cabanes de chasse.\n100 de prime d'or\n• +5% de taux de collecte de nourriture\n• Les cabanes de chasse génèrent 10% d'or supplémentaire\n400 de prime d'or\n• +10% de taux de collecte de nourriture\n• Les cabanes de chasse génèrent 25% d'or supplémentaire\n1000 de prime d'or\n• +15% de taux de collecte de nourriture\n• Les cabanes de chasse génèrent 40% d'or supplémentaire"
+            },
+            {
+                "title": "Influence",
+                "description": "Savoir trancher : les villageois déposent 20% d'unité de bois en plus quand les camps de bûcherons et les centres-villes sont construits dans la zone d’influence d’une forteresse."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Moine-guerrier : unité de cavalerie légère religieuse. Inspire les unités à proximité lorsqu’elles sont au combat, leur donnant +1 d'armure et +2 de dégâts.\nArcher de cavalerie : unité de cavalerie légère à distance douée d'une grande mobilité et infligeant de lourds dégâts.\nStreltsy : unité de poudre à canon qui devient plus forte lorsqu’elle est stationnaire et a une attaque au corps-à-corps élevée.\nNavires lodya : peuvent être convertie en n'importe quel autre type de navires."
+            }
+        ]
+    },
+    "holy_roman_empire": {
+        "summary": "Les prélats renforcent l'économie du Saint-Empire romain, tandis que de puissantes unités d'infanterie forment le noyau de son armée. Les ennemis doivent faire face à un adversaire capable de se remettre rapidement de ses attaques et de déployer de fortes contre-attaques.",
+        "classes": "Infanterie, religion, défense",
+        "era": "936 - 1517 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Placez des reliques dans des postes avancés, des donjons ou des tours de pierre pour profiter d'avantages défensifs et économiques.",
+                    "Les reliques placées dans les ports augmentent la vitesse d'attaque des navires de +5% par relique (max. +25%).",
+                    "Les hommes d'armes primitifs à l'Âge féodal (II).",
+                    "L'infanterie se déplace 5% plus vite à l'Âge sombre (I) et 10% plus vite à l'Âge féodal (II).",
+                    "Les fortifications coûtent 25% moins cher. La ligne de mire des postes avancés est augmentée de +25%.",
+                    "Les villageois transportent +40% de ressources supplémentaires.",
+                    "Les prélats peuvent soigner et utiliser Inspiration sacrée à l'Âge sombre (I). Les villageois inspirés collectent des ressources +40% plus rapidement pendant 30 secondes.",
+                    "Les bâtiments dans la zone d'influence d'un forum bénéficient de la capacité Réparations d'urgence qui peut être activée pour réparer un bâtiment."
+                ]
+            },
+            {
+                "title": "Zèle religieux",
+                "description": "Montrez la puissance de l'empire en plaçant des reliques dans les postes avancés, les tours et les donjons, ce qui augmente leur armure de +25%, leurs dégâts de +25%, leur portée de +25% et leur ligne de mire de +20%.\nLes reliques placées dans les ports augmentent la vitesse d'attaque des navires de +5% par relique (Max +25%).\nLes reliques placées dans les bâtiments génèrent +80 d'or par minute."
+            },
+            {
+                "title": "Armée de l'empire",
+                "description": "L'infanterie se déplace 5% plus rapidement à l'Âge sombre (I) et 10% plus rapidement à partir de l'Âge féodal (II). Améliorez l'infanterie avec des technologies percutantes et déployez les hommes d'armes primitifs à l'Âge féodal (II)."
+            },
+            {
+                "title": "Architecture urbaine",
+                "description": "Toutes les technologies d'emplacement coûtent 20% moins cher. La ligne de mire des postes avancés augmente de 20%."
+            },
+            {
+                "title": "Charrette à bras",
+                "description": "Les villageois transportent +40% plus de ressources que les autres civilisations."
+            },
+            {
+                "title": "Influence",
+                "description": "Les bâtiments construits dans la zone d'influence d'un forum obtiennent la capacité Réparations d’urgence qui peut être activée pour réparer le bâtiment et restaurer 150 points de santé par seconde, pendant 20 secondes."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Prélat : utilisez la capacité Inspiration sacrée sur les villageois pour augmenter leur taux de collecte de +35% pendant 30 secondes.\nLansquenet : unité d’infanterie légère au corps-à-corps équipée d’une grande épée à deux mains capable d’infliger d’importants dégâts de zone.\nCavalier noir : puissant artilleur en armure monté dont la production est limitée par le nombre de donjons construits."
+            }
+        ]
+    },
+    "delhi_sultanate": {
+        "summary": "Le sultanat de Delhi garde une longueur d'avance sur ses ennemis grâce à de grands réseaux d'érudits. Pleinement conscient de son rôle, il déploie le redoutable éléphant de guerre et piétine tous ceux qui se trouvent sur son chemin.",
+        "classes": "Éléphants, développement, religion",
+        "era": "879 - 1526 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "description": "• Mosquées, érudits et technologies religieuses disponibles à l'âge sombre (I).\n• Les unités d'infanterie peuvent construire des palissades.\n• Toutes les technologies sont gratuites, mais progressent à une vitesse beaucoup plus lente. Mettez des érudits en garnison dans une mosquée, une médersa ou un port pour augmenter la vitesse de développement.\n• Il est possible de mettre un développement de technologie en pause et de le rependre plus tard.\n• Les moulins construits à proximité de buissons de baies produisent des vergers, augmentant la limite de nourriture de 100.\n• Les buissons de baies sont récoltés +25% plus rapidement, mais la récolte de la viande de sanglier est impossible.\n• La capacité de transport des baies est augmentée de 3.\n• Les navires de pêche peuvent se défendre avec une attaque à distance."
+            },
+            {
+                "title": "Culture érudite",
+                "description": "Former des érudits des mosquées à l'âge sombre (I). Développez et débloquez les technologies religieuses plus tôt que les autres civilisations."
+            },
+            {
+                "title": "Réussite scolaire",
+                "description": "Économisez sur le coût des technologies et recherchez toutes les technologies gratuitement, mais elles progresseront à une vitesse beaucoup plus lente. Il est possible de mettre une recherche de technologie en pause et de la rependre plus tard."
+            },
+            {
+                "title": "Fortifications de frontière",
+                "description": "Établissez des villages fortifiés grâce à des unités d'infanterie capables de construire des palissades. Construisez l'enceinte du défenseur pour étendre cette capacité aux murs de pierre."
+            },
+            {
+                "title": "Matelots robustes",
+                "description": "Les navires de pêche peuvent se défendre avec une attaque à distance et ont 50% de santé supplémentaire."
+            },
+            {
+                "title": "Prime de jardin",
+                "description": "Convertissez les buissons de baies en vergers en construisant des moulins à proximité. La limite de nourriture est augmentée de 100.\nLes villageois récoltent sur les buissons de baies 25% plus rapidement, mais la récolte de la viande de sanglier est impossible.\nLes villageois transportent +3 unités de nourriture depuis les buissons de baies."
+            },
+            {
+                "title": "Influence",
+                "description": "Les érudits en garnison dans une mosquée, une médersa ou un port augmenteront la vitesse de développement des bâtiments sous leur influence en fonction du nombre total d'érudits en garnison. Les ports travaillent plus vite lorsque des érudits y sont en garnison."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Érudit : unité religieuse capable de guérir à l'Âge sombre (I).\nÉléphant de guerre : unité de cavalerie au corps-à-corps lourde montée par un lancier et possédant une santé et des dégâts élevés avec une attaque de siège puissante.\nÉléphant avec tour : unité de cavalerie à distance montée par deux archers capables de tirer tout en se déplaçant.\nPilleur ghazi : cavalier rapide équipé d'une masse lourde."
+            }
+        ]
+    },
+    "chinese": {
+        "summary": "Les Chinois peuvent déplacer leur attention à travers les âges en déployant de nombreuses unités uniques et en les construisant rapidement. Les ennemis doivent continuellement s'adapter s'ils veulent rester dans la course.",
+        "classes": "Dynasties, poudre à canon, impôts",
+        "era": "907 - 1644 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Débutez durant la dynastie Tang, ce qui augmente la ligne de vue des éclaireurs de 30% et permet d'accéder au village.",
+                    "Les unités formées, les technologies développées et les ressources déposées génèrent des taxes (or) qui peuvent être collectées par les officiers impériaux.",
+                    "Entrez dans une nouvelle dynastie en construisant les deux monuments d'un Âge pour débloquer des bonus spéciaux, des unités uniques et des bâtiments.",
+                    "Les villageois construisent des défenses 50% plus vite et tous les autres bâtiments 100% plus vite.",
+                    "Technologie de chimie accordée gratuitement à l'Âge sombre (I) - Les forums, les donjons et les postes avancés utilisent des meurtrières à couleuvrine au lieu de meurtrières défensives.",
+                    "Les ports fonctionnent 10% plus vite."
+                ]
+            },
+            {
+                "title": "Grandes dynasties",
+                "description": "Commencez la partie avec la dynastie Tang. Portée de la vision des unités de reconnaissance augmentée de +30% et villages débloqués.\nEntrez dans une dynastie en construisant les deux monuments d'un âge pour avoir accès à des bonus spéciaux, des unités et bâtiments uniques.\n• Dynastie Song : les villageois sont produits +33% plus rapidement. Silos à grain et chu ko nus débloqués.\n• Dynastie Yuan : les villageois, les officiers et les unités militaires se déplacent +15% plus rapidement. Pagodes et lanciers de feu débloqués.\n• Dynastie Ming : +15% de santé pour les unités militaires. Grenadiers débloqués."
+            },
+            {
+                "title": "Constructions rapides",
+                "description": "Les villageois construisent des défenses 50% plus rapidement et tous les autres bâtiments 100% plus vite. Les docks fonctionnent 10% plus rapidement."
+            },
+            {
+                "title": "Maîtres de la poudre à canon",
+                "description": "Commencez la partie avec la technologie de chimie accordée gracieusement. Les bâtiments défensifs utilisent des canonnières plutôt que des archères de défense."
+            },
+            {
+                "title": "Impôts",
+                "description": "Unités formées, technologies développées et ressources déposées génèrent des impôts (or), qui peuvent être collectés par les officiers impériaux."
+            },
+            {
+                "title": "Influence",
+                "description": "Construire des bâtiments militaires et économiques dans la zone d'influence de l'académie impériale permet de générer 100% d'or des impôts."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Officier impérial : utilisez la capacité Superviser pour augmenter la vitesse de production des bâtiments de recherche et militaires de 150%. Superviser les bâtiments économiques augmente la quantité de ressources déposées par les villageois de 20%.\nChu ko nu : unité d'infanterie légère à distance possédant une attaque explosive en rafale efficace contre les unités légères.\nGarde du palais : remplace les hommes d'armes. Unité d'infanterie lourde au corps-à-corps qui sacrifie son armure pour une plus grande vitesse de déplacement.\nNid d'abeilles : remplace les mangonneaux. Engin de siège capable d'envoyer un tir de barrage de roquettes, infligeant des dégâts de zone.\nLancier de feu : unité de cavalerie légère efficace contre les engins de siège et les bâtiments. Possède une grande portée de la vision et une charge explosive.\nGrenadier : unité d'infanterie légère à poudre à canon à distance qui lance des grenades pour infliger des dégâts de zone."
+            }
+        ]
+    },
+    "abbasid_dynasty": {
+        "summary": "La dynastie abbasside poursuit un âge d’or florissant en concentrant les structures autour de la maison de la sagesse, lui permettant de débloquer des avantages économiques considérables. La maison de la sagesse permet également de progresser au travers des âges et donne accès à des technologies avancées. Les unités abbassides avec des chameaux sont idéales pour contrer la cavalerie ennemie.",
+        "classes": "Technologie, chameaux, urbanisme",
+        "era": "750 - 1517 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Développez des technologies uniques qui profiteront aux chameaux, à l'armée, à la religion, à l'économie et au commerce.",
+                    "Les unités à chameaux réduisent les dégâts des unités de cavalerie ennemies à proximité de 20%.",
+                    "Construire des moulins à proximité de buissons de baies les transforme en vergers et augmente la limite de nourriture de 100.",
+                    "Les buissons de baies sont récoltés +25% plus rapidement, mais la récolte de la viande de sanglier est impossible.",
+                    "La capacité de transport des baies est augmentée de 3.",
+                    "Les marchands coûtent 33% moins cher.",
+                    "Les ports coûtent 50% moins cher.",
+                    "Passez à l'âge suivant sans l'aide des villageois en améliorant les ailes de la maison de la sagesse.",
+                    "Entrez dans un âge d'or en construisant des bâtiments dans la zone d'influence de la maison de la sagesse, en augmentant le taux de collecte des ressources, les temps de développement et la vitesse de production."
+                ]
+            },
+            {
+                "title": "Quête de savoir",
+                "description": "Adoptez la soif de savoir des Abbassides en développant des technologies uniques qui profiteront aux chameaux, à l'armée, à la religion, à l'économie et au commerce.\nProgressez à l'âge suivant en améliorant jusqu'à quatre ailes du savoir de la Maison de la sagesse."
+            },
+            {
+                "title": "Guerriers sur chameaux",
+                "description": "Les chameaux effraient la cavalerie ennemie de leur présence, réduisant leurs dégâts de 20%."
+            },
+            {
+                "title": "Experts de siège",
+                "description": "L’infanterie peut construire des béliers, des tours de siège, des espringales et des mangonneaux sans la technologie Expertise de siège."
+            },
+            {
+                "title": "Grands vergers",
+                "description": "Convertissez les buissons de baies en vergers en construisant des moulins à proximité. La limite de nourriture est augmentée de 100.\nLes villageois récoltent sur les buissons de baies 25% plus rapidement, mais la récolte de la viande de sanglier est impossible.\nLes villageois transportent +3 unités de nourriture depuis les buissons de baies."
+            },
+            {
+                "title": "Économie et commerce",
+                "description": "Les commerçants fonciers sont 33% moins chers."
+            },
+            {
+                "title": "Chantiers navals",
+                "description": "La construction des quais consomme 50% de bois en moins."
+            },
+            {
+                "title": "Âge d'or",
+                "description": "Tentez d'atteindre l'âge d'or de votre civilisation en améliorant l'économie et la technologie.\nLes bâtiments dans la zone d'influence de la Maison de la sagesse obtiennent +5 en armure de feu et contribuent à atteindre l'âge d'or. Les seuils de déverrouillage sont de 10, 30 et 60 bâtiments.\n• Rang 1 : +15% de taux de collecte des villageois\n• Rang 2 : +20% de vitesse de développement\n• Rang 3 : +20% de taux de collecte des villageois pour toutes les ressources. +20% de vitesse de développement. +20% de vitesse de production."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Archers sur chameaux : unités de cavalerie à distance légère qui inflige des dégâts supplémentaires aux unités d'infanterie au corps-à-corps légère.\nChameliers : unités de cavalerie au corps-à-corps légère qui inflige des dégâts supplémentaires à la cavalerie.\nGhulam : unité d'infanterie robuste capable de lancer une double frappe."
+            }
+        ]
+    },
+    "ottomans": {
+        "summary": "L'armée ottomane peut s'étendre pour dominer le champ de bataille, avec le soutien des écoles militaires capables de produire continuellement des unités pour gonfler les rangs de leurs formations. Les tambours de guerre mehters soutiennent ces formations et signalent aux troupes hautement entraînées de prendre l'avantage de la situation.",
+        "classes": "Conseil impérial, écoles militaires, siège",
+        "era": "990 - 1566 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "La formation d'unités et l'avancement en âge permettent d'acquérir de l'expérience pour obtenir des points de vizir. Plus le coût de l'action est élevé, plus le gain d'expérience est important. Gagnez jusqu'à cinq points de vizir et dépensez-les pour débloquer de puissants bonus ottomans uniques.",
+                    "Les écoles militaires peuvent produire des unités en continu et gratuitement.",
+                    "L'influence des ateliers de forgeron et des universités permet d'augmenter la vitesse de production des unités militaires après chaque montée en âge.",
+                    "Les bâtiments militaires et technologiques sont moins chers.",
+                    "L'unité d'escopettier janissaire est disponible à l'âge des châteaux (III). Elle est capable de réparer les engins de siège.",
+                    "Le batteur de guerre mehter améliore l'attaque et la défense des unités militaires à proximité.",
+                    "L'engin de siège la « Grande bombarde » a une plus grande portée et des dégâts plus étendus.",
+                    "Le navire la « Grande galère » peut être converti en école militaire flottante.",
+                    "La vitesse de déplacement des navires de commerce et de transport est augmentée.",
+                    "Impossible de récolter des sangliers."
+                ]
+            },
+            {
+                "title": "Formation à l'école militaire",
+                "description": "Construisez le bâtiment de l'école militaire, qui peut produire un type spécifique d'unité en continu et gratuitement. Cependant, celles-ci sont produites à un rythme plus faible."
+            },
+            {
+                "title": "Conseil impérial",
+                "description": "L'entraînement des unités et la progression à travers les âges vous permettront d'acquérir de l'expérience en points de vizir. Plus le coût de l'action est élevé, plus l'expérience gagnée est importante. Gagnez jusqu'à cinq points de vizir et dépensez-les pour débloquer de puissants bonus ottomans uniques."
+            },
+            {
+                "title": "Incitation militaire",
+                "description": "Entraînez, améliorez et assemblez une armée avec des bâtiments militaires et technologiques moins chers."
+            },
+            {
+                "title": "Itinéraires d'expédition",
+                "description": "La vitesse de déplacement des navires de commerce, des bateaux de pêche et des navires de transport a augmenté."
+            },
+            {
+                "title": "Influence",
+                "description": "Les bâtiments de production militaire construits sous l'influence d'un atelier de forgeron ou d'une université gagnent une vitesse de production augmentée à chaque montée en âge."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Sipahi : cavalier de remplacement. Active la capacité Force morale, augmentant sa vitesse d'attaque, mais le rendant plus vulnérable aux armes de corps-à-corps.\nMehter : batteur de guerre à cheval qui fournit des améliorations militaires aux unités proches lorsqu'il active la capacité Tambours de guerre.\n• Tambours d'attaque : augmente la vitesse d'attaque.\n• Tambours de défense au corps-à-corps : augmente l'armure au corps-à-corps.\n• Tambours de défense à distance : augmente l'armure à distance.\nJanissaire : puissant escopettier capable de réparer les engins de siège et d'infliger des dégâts supplémentaires à la cavalerie.\nGrande galère : grande galère de guerre capable de se transformer en école militaire flottante.\nGrande bombarde : le plus grand engin de siège à poudre à canon pouvant être déployé. Il bénéficie d'une longue portée et de dégâts de zone.\nAkindji : cavalerie à longue portée tirant deux flèches en succession rapide. Doit être débloquée via le conseil impérial."
+            }
+        ]
+    },
+    "malians": {
+        "summary": "L'économie malienne regorge de possibilités pour produire de l'or et de la nourriture. Les Maliens prennent possession de gisements d'or pour leurs mines à ciel ouvert et tirent parti de cette croissance pour produire des unités d'infanterie uniques qui frappent furtivement et lancent des javelots sur les ennemis.",
+        "classes": "Économie d'or, infanterie, bétail",
+        "era": "1235 - 1670 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Construisez des mines à ciel ouvert sur des filons d'or pour générer de l'or sans épuiser le gisement.",
+                    "Produisez du bétail à partir de moulins à l'Âge sombre (I). Les villageois maliens récoltent de la nourriture à partir du bétail plus rapidement que les autres civilisations, ou ils peuvent être mis en garnison dans un ranch de bétail pour obtenir de la nourriture au fil du temps.",
+                    "Les unités musofadi peuvent utiliser la capacité Furtivité active pour attaquer en embuscade.",
+                    "Cinq unités uniques avec un système de contre différent.",
+                    "Les technologies d'unités de vétérans sont développées deux fois plus vite et coûtent moitié moins chères.",
+                    "L'or récolté sur les routes marchandes réduit le temps de développement des futures technologies",
+                    "Les marchands et les navires de commerce qui passent près des postes à péage offrent instantanément un bonus d'or en fonction de la quantité d'or transportée. Ne génère pas d'impôts supplémentaires si un poste à péage est construit à portée d'un autre.",
+                    "Les bateaux de pêche transforment 10% de leur nourriture en or.",
+                    "La vitesse de déplacement de tous les navires est augmentée lorsqu'ils se trouvent à proximité de ports.",
+                    "Les navires de transport attaquent avec des javelots pour chaque unité en garnison.\n•Les habitations se construisent deux fois plus vite, coûtent moitié moins cher, mais fournissent moitié moins de population.",
+                    "Impossible d'élever des sangliers"
+                ]
+            },
+            {
+                "title": "Mines à ciel ouvert",
+                "description": "Menez une économie d'or supérieure et construisez la mine au-dessus des filons d'or de l'âge sombre (I) pour générer de l'or sans l'épuiser. Les villageois peuvent extraire de l'or tant que la mine est active.\nSi le filon d'or est complètement épuisé, la mine continuera à extraire de l'or du dépôt."
+            },
+            {
+                "title": "Influence - Communautés minières",
+                "description": "Chaque habitation et camp de mineurs construits dans la zone d'influence des mines augmente sa production d'or.\nLa construction des forums coûte de l'or à la place de la pierre."
+            },
+            {
+                "title": "Bovins et ranchs",
+                "description": "Produisez du bétail à partir de moulins à l'âge sombre (I). Les villageois maliens récoltent de la nourriture à partir du bétail plus rapidement que les autres civilisations ou ils peuvent être mis en garnison dans un ranch de bétail pour obtenir de la nourriture au fil du temps."
+            },
+            {
+                "title": "Pionnière musofadi",
+                "description": "Les unités uniques de guerrières et d'artilleuses musofadi peuvent utiliser la capacité Furtivité active pour se faufiler et créer des opportunités d'embuscade."
+            },
+            {
+                "title": "Savoir de Farari",
+                "description": "Les technologies d'unités de vétérans débloquées à l'âge des châteaux (III) sont développées deux fois plus vite et moitié moins chères."
+            },
+            {
+                "title": "Postes à péage",
+                "description": "Les marchands et les navires de commerce qui passent près des postes à péage fournissent instantanément des ressources supplémentaires en fonction des cibles commerciales actuelles. Ne génère pas d'impôts supplémentaires si un poste à péage est construit à portée d'un autre."
+            },
+            {
+                "title": "Commerce de manuscrits",
+                "description": "L'or collecté à partir des routes commerciales achevées réduit le temps de développement des technologies futures."
+            },
+            {
+                "title": "Mareyage",
+                "description": "Les bateaux de pêche déposent 10% de leur nourriture sous forme d'or."
+            },
+            {
+                "title": "Compagnies de débarquement",
+                "description": "La vitesse de déplacement de tous les navires à proximité des ports est augmentée.\n Les navires de transport attaquent avec des javelots pour chaque unité transportée."
+            },
+            {
+                "title": "Unités uniques",
+                "list": [
+                    "Donso : Remplacement des lanciers. Infanterie légère de corps-à-corps dont la santé et l'armure au corps-à-corps sont augmentées et qui peut périodiquement lancer un javelot.",
+                    "Éclaireur guerrier : Cavalerie légère qui peut améliorer ses dégâts, sa vitesse de déplacement, sa santé et sa régénération de santé.",
+                    "Guerrière Musofadi : Infanterie rapide, légère et anti-armure pouvant utiliser la capacité Furtivité active.",
+                    "Lanceur de javelots : Infanterie anti-distance qui lance un javelot à longue portée.",
+                    "Sofa : Cavalerie lourde plus rapide dont le coût, la santé et l'armure sont réduits.",
+                    "Artilleuses Musofadi : Escopettier qui se déplace plus rapidement et pouvant utiliser la capacité Furtivité active."
+                ]
+            }
+        ]
+    },
+    "byzantines": {
+        "summary": "Les Byzantins construisent de vastes réseaux d'aqueducs et de citernes vitaux. Tirez parti de puissantes capacités uniques et engagez des mercenaires avec de l'huile d'olive exquise. Les paysans travaillent sans relâche pour produire de l'huile d'olive pour l'empire.",
+        "classes": "Urbanisme, mercenaires, défense",
+        "era": "330 - 1453 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Les citernes peuvent être activées pour augmenter leur influence sur la vitesse de production des unités, la vitesse de développement ou la défense des bâtiments. Ces bonus sont décuplés quand les citernes sont reliées à des aqueducs.",
+                    "Unités de terrain capables d'utiliser plusieurs formes de feu grégeois.",
+                    "Récoltez de la pierre en plus pour chaque bâtiment construit.",
+                    "Collectez de l'huile d'olive, utilisée pour produire des unités mercenaires.",
+                    "Produisez des unités uniques d'autres civilisations comme les mercenaires de la maison des mercenaires à partir de l'âge féodal (II).",
+                    "Les travailleurs génèrent de l'huile d'olive avec les buissons de baies, les oliveraies et les poissons.",
+                    "Les marchands génèrent de l'huile d'olive à chaque échange réussi.",
+                    "Les marchés peuvent échanger de l'huile d’olive.",
+                    "Les navires de transport augmentent temporairement la vitesse de déplacement des unités au déchargement."
+                ]
+            },
+            {
+                "title": "Huile d’olive",
+                "description": "Collectez une ressource unique utilisée pour engager des unités mercenaires. Les villageois produisent une quantité d'huile d'olive équivalente à 50% de la nourriture récoltée sur les buissons de baies, 20% de la nourriture récoltée dans les oliveraies et 10% de la nourriture obtenue sur les poissons pêchés près de la côte.\nLes bateaux de pêche génèrent une quantité d'huile d'olive équivalente à 20% de la nourriture issue de la pêche et les marchands génèrent une quantité d'huile d'olive équivalente à 20% de la quantité de ressources échangée."
+            },
+            {
+                "title": "Mercenaires",
+                "description": "Achetez des contrats ou prenez le contrôle de comptoirs afin de recruter des unités uniques d’autres civilisations à la maison des mercenaires en échange d’huile d’olive."
+            },
+            {
+                "title": "Citernes et aqueducs",
+                "description": "Les citernes augmentent le taux de collecte des villageois à proximité et améliorent la vitesse de production, la vitesse de développement ou la défense des bâtiments.\nConstruisez un réseau d’aqueducs relié aux citernes pour augmenter leurs bonus."
+            },
+            {
+                "title": "Pierres des champs",
+                "description": "Collectez de la pierre de chaque bâtiment construit. La taille du bâtiment détermine la quantité de pierre collectée."
+            },
+            {
+                "title": "Feu grégeois",
+                "description": "Les cheirosiphons ainsi que les dromons et les trébuchets améliorés lancent du feu grégeois avec leurs attaques, engloutissant la zone dans des flammes infligeant des dégâts au fil du temps."
+            },
+            {
+                "title": "Emplacements de mangonneau",
+                "description": "Les postes avancés et les donjons peuvent être équipés d'emplacements de mangonneaux. Les tours en pierre sont directement équipées d'emplacements de mangonneaux au lieu d'espringales."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Limitanei : remplacent les lanciers. Infanterie au corps-à-corps légère avec la capacité Mur de boucliers qui permet d’augmenter leur armure à distance au détriment de leur vitesse de déplacement.\nGardes varègues : remplacent les hommes d’armes. Utilisez la capacité Fureur guerrière pour augmenter leurs dégâts au détriment de leur armure. Peuvent construire des navires de transport et augmenter l’armure des transports une fois en garnison. Leur vitesse de déplacement est améliorée lorsqu’ils débarquent d’un navire de transport.\nCataphractaires : remplacent les chevaliers. Cavalerie lourde avec la capacité Piétinement, une puissante attaque ciblée qui permet de charger l’ennemi et d’infliger des dégâts aux unités sur la trajectoire de l’attaque.\nCheirosiphons : béliers capables de lancer une attaque de feu grégeois à courte portée.\nDromons : remplacent les navires avec espringale. Équipés de feu grégeois."
+            }
+        ]
+    },
+    "japanese": {
+        "summary": "Régnant sur les terres japonaises, les Daimyos améliorent l'agriculture et emploient des samouraïs pour défendre leur territoire. La forge, unique en son genre, travaille sans relâche pour affûter leurs lames et leur donner un avantage au combat. Les féroces samouraïs porte-bannières mènent leur armée constituée d'infanterie et de cavalerie vers la victoire.",
+        "classes": "Agriculture, porte-bannière, infanterie",
+        "era": "794 - 1616 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Les forums peuvent être améliorés pour augmenter les défenses, les taux de récolte des fermes à proximité et le plafond de production des samouraïs porte-bannières.",
+                    "Les samouraïs porte-bannières procurent des bonus aux unités d’infanterie et de cavalerie à proximité.",
+                    "Les samouraïs possèdent une armure déflectrice qui peut bloquer les attaques à distance ou au corps-à-corps.",
+                    "Les casernes sont moins chères à construire.",
+                    "Les fermes sont des sites de dépôt de nourriture en plus de fournir de la population.",
+                    "Les forges sont des sites de dépôt d’or et de pierre en plus de contenir des améliorations militaires.",
+                    "L’or déposé par les villageois génère de la pierre et vice versa.",
+                    "Améliorations supplémentaires des dégâts au corps-à-corps accessibles à l’Âge sombre (I).",
+                    "Sélectionnez les moines bouddhistes ou les prêtres shinto avec votre choix de monument de l’Âge des châteaux (III).",
+                    "Les donjons sont équipés d’emplacements de fusées et d’une santé augmentée à l’Âge impérial.",
+                    "Les bateaux de pêche sont moins chers à produire."
+                ]
+            },
+            {
+                "title": "Daimyo",
+                "description": "Les forums peuvent être convertis en bâtiments spéciaux, respectivement appelés manoir du daimyo, palais du daimyo et château du shogunat. Ces bâtiments procurent des bonus de 20%, 40%, 60% aux villageois à proximité travaillant dans des fermes, accroissent de +1, +2, +3 la faculté du samouraï porte-bannière et améliorent ses défenses."
+            },
+            {
+                "title": "Samouraï hatamoto",
+                "description": "Des porte-bannières samouraïs d'élite de terrain qui augmentent les dégâts de l'infanterie à proximité de +15% et de la cavalerie de +10%. Les porte-bannières samouraïs lâchent leurs bannières lorsqu'il sont tués, ce qui octroie le même effet pendant un certain temps."
+            },
+            {
+                "title": "Calme d’esprit",
+                "description": "Produisez des samouraïs à l’Âge sombre (I). Les samouraïs ont la capacité d’armure déflectrice qui peut bloquer périodiquement des attaques au corps-à-corps ou à distance."
+            },
+            {
+                "title": "Ferme et Forge",
+                "description": "La forge est un site de dépôt d'or et de pierre qui remplace le camp de mineurs et l’atelier de forgeron. De plus, elle fournit une technologie de dégâts au corps-à-corps supplémentaire dans l'âge sombre (I). La ferme fournit de la population et remplace le moulin comme site de dépôt de nourriture."
+            },
+            {
+                "title": "Forteresse d'Oda",
+                "description": "Accédez à un donjon plus puissant à l'âge impérial (IV) comprenant des emplacements de santé et de fusées accrus pour un coût plus élevé. Les fusées attaquent rapidement et infligent des dégâts importants aux cibles uniques."
+            },
+            {
+                "title": "Mines d’argent",
+                "description": "Lorsque les villageois déposent de l'or, 20% de pierre supplémentaire est également produite, et vice versa."
+            },
+            {
+                "title": "Choix religieux",
+                "description": "Sélectionnez le shintoïsme ou le bouddhisme avec votre choix de monument de l’âge III. Si vous choisissez le shintoïsme, vous débloquez le prêtre shinto. Si vous choisissez le bouddhisme, vous débloquez le moine bouddhiste. Ces unités religieuses offrent des bonus uniques."
+            },
+            {
+                "title": "District de samouraïs",
+                "description": "Les casernes sont 50% moins chères à construire."
+            },
+            {
+                "title": "Village de pêcheurs",
+                "description": "Les bateaux de pêche sont produits pour 25% moins cher."
+            },
+            {
+                "title": "Unités uniques",
+                "list": [
+                    "Samouraï : remplacement de l’homme d’armes. Infanterie de corps-à-corps lourde, qui dispose d’une armure déflectrice capable de bloquer des attaques au corps-à-corps et à distance.",
+                    "Samouraï monté : remplacement du lancier. Cavalerie lourde au corps-à-corps à armure déflectrice.",
+                    "Ashigaru à Yumi : archer à la vitesse de déplacement améliorée, moyennant un coût et une santé réduits.",
+                    "Onna-bugeisha : infanterie de corps-à-corps légère, tirant parti de sa vélocité de déplacement et de sa longue portée pour maintenir l'ennemi sur le qui-vive.",
+                    "Onna-musha : remplacement des arbalétriers. Archère de cavalerie capable d'utiliser une mobilité accrue pour harceler des cibles lourdes.",
+                    "Shinobi : unité spéciale agissant en espion, sabotant des bâtiments ou assassinant des cibles. Produite depuis le monument de la commune de Koka.",
+                    "Ozutsu : infanterie lourde à poudre à canon à distance, dotée d’un énorme canon portatif à dégâts de siège et de zone. Produite depuis le monument de l’armurerie de Tanegashima."
+                ]
+            }
+        ]
+    },
+    "jeanne_darc": {
+        "summary": "Rayon d'espoir pour le peuple français, Jeanne d'Arc s'engage sur le champ de bataille, insufflant courage et inspiration à ses partisans. Modeste villageoise au départ, Jeanne entame un voyage qui la conduira à devenir une héroïne en cet âge sombre. Cette expérience transforme Jeanne en une leader puissante, lui permettant d'avoir des compagnons de confiance et des capacités impressionnantes qui façonneront l'empire qu'elle était destinée à créer.",
+        "classes": "Commerce, cavalerie, héros",
+        "era": "1412 - 1431 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Jeanne d’Arc entreprend le voyage héroïque.",
+                    "Chevaliers royaux à l’Âge féodal (II).",
+                    "Les technologies économiques coûtent -35% moins cher.",
+                    "Les comptoirs apparaissent sur la mini-carte.",
+                    "Les marchands peuvent rapporter de la nourriture, du bois ou de l’or aux marchés.",
+                    "Les navires de commerce rapportent +20% de ressources."
+                ]
+            },
+            {
+                "title": "Le voyage héroïque",
+                "description": "Jeanne d'Arc est présente sur le champ de bataille. Une unité héroïque qui gagne de l'expérience en accomplissant des tâches telles que la collecte de ressources, en construisant des bâtiments et en livrant bataille.\nAprès avoir acquis suffisamment d'expérience, Jeanne peut passer au niveau supérieur pour obtenir de puissantes capacités économiques et martiales."
+            },
+            {
+                "title": "Étalons royaux",
+                "description": "Déployez le chevalier royal à l'âge féodal (II) et recherchez de puissantes technologies exclusives pour la cavalerie."
+            },
+            {
+                "title": "Économie dynamisée",
+                "description": "Les habitants travaillent plus dur sous le commandement de Jeanne d'Arc. Les améliorations économiques coûtent 35% fois moins cher."
+            },
+            {
+                "title": "Économie et commerce",
+                "description": "Choisissez de raporter de la nourriture, du bois ou de l'or aux marchés avec des marchands et des navires de commerce.\nLes navires de commerce reviennent avec +20% de ressources en plus.\nLes comptoirs sont indiqués sur la minicarte en début de partie.\nLes ports génèrent de l'espace de population supplémentaire."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Jeanne d'Arc : unité héroïque débutant comme une villageoise. Jeanne doit entreprendre le voyage héroïque pour acquérir de puissantes capacités.\nCavalier de Jeanne : cavalerie rapide efficace pour les pillages, les assaults et pour contrer les arbalétriers. Disponible à partir du niveau 3 de Jeanne.\nChampion de Jeanne : infanterie robuste qui excelle à contrer les lanciers. Disponible à partir du niveau 3 de Jeanne.\nChevalier royal : unité de cavalerie lourde. Inflige +3 de dégâts supplémentaires pendant 5 secondes après avoir effectué une charge.\nArbalétrier : unité de tir à distance munie d'une arbalète, disposant de +1 de points d'armure au corps-à-corps et capable de déployer un pavois défensif assurant +5 de points d'armure à distance ainsi que +1 de portée d'arme pendant 30 secondes.\nCanon : remplace la bombarde. Inflige plus de dégâts, possède une plus grande mobilité et ne nécessite pas de temps d'installation.\nGalléasse : grande galère de guerre équipée d'une bombarde de proue à longue portée.\nCogue de guerre : bateau avec espringale unique au coût moins élevé et plus efficace pour percer les armures."
+            }
+        ]
+    },
+    "ayyubids": {
+        "summary": "Au croisement des continents, là où le commerce et la science se rejoignent, tandis que les empires s’affrontent, les Ayyoubides exploitent leur quête du savoir pour prendre l’ascendant. La Maison de la sagesse incarne le point névralgique de cette fusion entre urbanisation et science, permettant de débloquer d’importants avantages de l’âge d'or et de progresser à travers les âges. Les Ayyoubides misent sur des unités polyvalentes pour obtenir un avantage tactique sur le champ de bataille.",
+        "classes": "Adaptable, chameaux, urbanisme",
+        "era": "750 - 1517 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Les unités à chameaux réduisent les dégâts des unités de cavalerie ennemies à proximité de 20%.",
+                    "Construire des moulins à proximité de buissons de baies les transforme en vergers et augmente la limite de nourriture de 100.",
+                    "Les buissons de baies sont récoltés 25% plus vite, mais la collecte de viande de sanglier devient impossible.",
+                    "La capacité de transport des baies est augmentée de 3.",
+                    "Les marchands coûtent 33% moins cher.",
+                    "Les ports coûtent 50% moins cher.",
+                    "Passez à l'âge suivant sans l'aide des villageois en améliorant les ailes de la maison de la sagesse.",
+                    "Choisissez parmi 8 ailes différentes. Chacune débloquera un puissant bonus sans nécessiter d'amélioration supplémentaire.",
+                    "L'effet du bonus pourvu par une aile augmente lorsqu'il est développé aux âges suivants.",
+                    "Accédez à des bonus spéciaux lorsque vous entrez dans un âge d'or en construisant des bâtiments dans la zone d'influence de la maison de la sagesse."
+                ]
+            },
+            {
+                "title": "Commandant adaptable",
+                "description": "Progressez d'âge en âge en choisissant parmi 8 ailes uniques de la Maison de la sagesse.\nAccédez immédiatement à divers bonus économiques, technologiques et militaires sans requérir d'amélioration afin de remodeler la civilisation en fonction du combat.\nChaque aile fournit des bonus plus puissants si elle est construite dans les derniers âges."
+            },
+            {
+                "title": "Guerriers sur chameaux",
+                "description": "Les chameaux effraient la cavalerie ennemie de leur présence, réduisant leurs dégâts de 20%."
+            },
+            {
+                "title": "Maîtres de tactiques de siège",
+                "description": "L'infanterie peut construire des engins de siège sur le terrain sans avoir besoin de la technologie Expertise de siège.\nAccès à deux armes de siège uniques et à une amélioration de siège unique."
+            },
+            {
+                "title": "Grands vergers",
+                "description": "Convertissez les buissons de baies en vergers en construisant des moulins à proximité. La limite de nourriture est augmentée de 100.\nLes villageois récoltent sur les buissons de baies 25% plus rapidement, mais la récolte de la viande de sanglier est impossible.\nLes villageois transportent +3 unités de nourriture depuis les buissons de baies."
+            },
+            {
+                "title": "Économie et commerce",
+                "description": "Les commerçants fonciers sont 33% moins chers."
+            },
+            {
+                "title": "Chantiers navals",
+                "description": "La construction des quais consomme 50% de bois en moins."
+            },
+            {
+                "title": "Âge d'or",
+                "description": "Bâtissez la voie vers l'âge d'or en améliorant votre économie, votre technologie et votre armée.\nLa résistance au feu des bâtiments construits dans la zone d'influence de la Maison de la sagesse augmente de +5 et contribue de 1 point à l'âge d'or. Les seuils de déblocage sont de 10, 20, 30, 50 et 75 bâtiments.\n• Niveau 1 : taux de collecte des villageois +10%\n• Niveau 2 : vitesse de développement +25%\n• Niveau 3 : vitesse de production +20%\n• Niveau 4 : les unités de siège coûtent 20% de ressources en moins à produire\n• Niveau 5 : les unités à chameaux attaquent 20% plus vite."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Pilleur du désert : chamelier polyvalent pouvant passer du mode à distance au mode au corps-à-corps.\nLancier chamelier : chamellerie lourde avec une puissante charge offensive.\nDerviche : unité religieuse montée à la puissante capacité de soin.\nManjaniq : mangonneau unique qui peut avoir recours à un mode incendiaire pour infliger des dégâts sur une zone bien plus grande.\nTour du sultan : gigantesque arme de siège embarquant des archers et équipée d'un bélier infligeant des dégâts dévastateurs aux bâtiments."
+            }
+        ]
+    },
+    "zhu_xis_legacy": {
+        "summary": "Les enseignements du philosophe Zhu Xi laissent une empreinte profonde sur la civilisation chinoise. Grâce à l’héritage de Zhu Xi, la Chine développe une administration sophistiquée, avec des officiers impériaux de haut rang et des avancées technologiques. Les richesses abondantes permettent d’établir des dynasties puissantes et de développer de nombreux domaines technologiques uniques. Ne tardez pas pour recruter des gardes du palais, des chu ko nu et des grenadiers et assurez la protection de l’Empire.",
+        "classes": "Dynasties, impôts, technologie",
+        "era": "907 - 1644 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Commencez la partie avec la dynastie Tang : les coûts des monuments sont réduits de 15% et le village est débloqué.",
+                    "Entrez dans une nouvelle dynastie en construisant les deux monuments d'un âge pour avoir accès à des bonus et des bâtiments spéciaux.",
+                    "Les unités entraînées, technologies développées et ressources déposées génèrent de l'impôt (en or) que les officiers impériaux sont habilités à collecter.",
+                    "Des technologies uniques améliorent considérablement les officiers impériaux, débloquent de nouvelles unités et renforcent des unités militaires.",
+                    "Les gardes du palais primitifs sont disponibles à l’Âge féodal.",
+                    "Accédez au chu ko nu et au grenadier sans passer par les dynasties.",
+                    "Les villageois construisent des défenses 50% plus rapidement et les autres bâtiments 100% plus vite.",
+                    "La technologie de chimie accordée gratuitement durant l’Âge sombre. Les forums, donjons et avant-postes exploitent des canonnières au lieu d’archères de défense.",
+                    "Les docks fonctionnent 10% plus rapidement."
+                ]
+            },
+            {
+                "title": "Grandes dynasties",
+                "description": "Commencez votre voyage dans la dynastie Tang. Les coûts des monuments sont réduits de 15% et le village est débloqué.\nConstruisez les deux monuments d'un âge pour commencer les dynasties avec des bonus spéciaux, des bâtiments uniques et des unités.\n• Song : le coût en bois des bâtiments économiques et de population est réduit de 30%. Débloque la construction du silo à grain.\n• Yuan : réduction de 10% sur toutes les unités. Débloque la construction de la pagode. \n• Ming : les unités uniques infligent +20% de dégâts."
+            },
+            {
+                "title": "Impôts",
+                "description": "Unités entraînées, technologies développées et ressources déposées génèrent de l’impôt (en or) que les officiers impériaux sont habilités à collecter. Les technologies administratives uniques de l’académie du mont Lu et de la bibliothèque de Zhu Xi améliorent grandement les officiers impériaux."
+            },
+            {
+                "title": "Unités de dynastie",
+                "description": "Accédez au chu ko nu et au grenadier sans établir de dynasties. Les monuments peuvent débloquer les puissantes unités de moines Shaolin, de pilleurs Yuan et de gardes impériaux. Les gardes du palais primitifs peuvent êtres formés à l’Âge féodal."
+            },
+            {
+                "title": "Maîtres de la poudre à canon",
+                "description": "Commencez la partie avec la technologie de chimie accordée gracieusement. Les bâtiments défensifs utilisent des canonnières plutôt que des archères de défense."
+            },
+            {
+                "title": "Constructions rapides",
+                "description": "Les villageois construisent des défenses 50% plus rapidement et tous les autres bâtiments 100% plus vite. Les docks fonctionnent 10% plus rapidement."
+            },
+            {
+                "title": "Protégez le palais",
+                "description": "Formez les gardes du palais primitifs à l'âge féodal (II) pour protéger l'empereur."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Officier impérial : utilisez la capacité Superviser pour augmenter la vitesse de production des bâtiments de développement et militaires de 150%. - Superviser les bâtiments économiques augmente la quantité de ressources déposées par les villageois de 20%.\nChu ko nu : remplace les archers. Unité d'infanterie légère à distance qui possède une attaque explosive en rafale efficace contre les unités légères.\nGarde du palais : remplace les hommes d’armes. Unité d'infanterie lourde au corps-à-corps qui sacrifie son armure pour une plus grande vitesse de déplacement.\nNid d’abeilles : remplace les mangonneaux. Engin de siège capable d’envoyer un tir de barrage de fusées, infligeant des dégâts de zone.\nGrenadier : unité d’infanterie lourde à poudre à canon à distance qui lance des grenades pour infliger des dégâts de zone."
+            }
+        ]
+    },
+    "order_of_the_dragon": {
+        "summary": "L'ordre du Dragon est établi par de riches élites minutieusement choisies afin d'écraser les empires hostiles. En investissant de grandes quantités de ressources pour ne former que quelques guerriers exceptionnels, l'Ordre réussit à élever une armée d'élite inégalée.",
+        "classes": "Qualité, infanterie, défense",
+        "era": "1408 - 1437 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Les villageois transportent +40% de ressources en plus, rassemblent les ressources 28% plus rapidement et construisent et réparent des bâtiments 20% plus rapidement.",
+                    "Les unités d'infanterie et de cavalerie sont bien plus puissantes, mais également plus chères à produire et consomment deux emplacements de population",
+                    "Placez des reliques dans les postes avancés, les tours en pierre et les donjons pour obtenir des bonus défensifs et économiques.",
+                    "Les reliques placées dans les ports augmentent la vitesse d'attaque des navires de +5% par relique (Max +20%).",
+                    "Les emplacements sont -20% moins chers. La ligne de mire des postes avancés augmente de +20%.",
+                    "Les bâtiments situés dans la zone d'influence d'un forum gagnent la capacité Réparations d'urgence qui peut être activée pour réparer le bâtiment."
+                ]
+            },
+            {
+                "title": "Villageois efficaces",
+                "description": "Les villageois collectent des ressources 28% plus rapidement, construisent et réparent des bâtiments 20% plus rapidement, mais coûtent 20% de nourriture en plus à produire."
+            },
+            {
+                "title": "Zèle religieux",
+                "description": "Montrez la puissance de l'empire en plaçant des reliques dans les postes avancés, les tours et les donjons, ce qui augmente leur armure de +25%, leurs dégâts de +25%, leur portée de +25% et leur ligne de mire de +20%.\nLes reliques placées dans les ports augmentent la vitesse d'attaque des navires de +5% par relique (Max +25%).\nLes reliques placées dans les bâtiments génèrent +80 d'or par minute."
+            },
+            {
+                "title": "Équipement d'élite",
+                "description": "Développez des technologies comme Torches lourdes, Armure à écailles, et Destriers pour renforcer la puissance de l’Ordre."
+            },
+            {
+                "title": "Architecture urbaine",
+                "description": "Toutes les technologies d'emplacement coûtent 20% moins cher. La ligne de mire des postes avancés augmente de 20%."
+            },
+            {
+                "title": "Charrette à bras",
+                "description": "Les villageois transportent +40% plus de ressources que les autres civilisations."
+            },
+            {
+                "title": "Influence",
+                "description": "Les bâtiments construits dans la zone d'influence d'un forum obtiennent la capacité Réparations d’urgence qui peut être activée pour réparer le bâtiment et restaurer 150 points de santé par seconde, pendant 20 secondes."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "L'infanterie d’élite et les unités de cavalerie de l’Ordre, comme l’homme d’armes doré, le chevalier doré, et d’autres, ont presque deux fois plus de santé que les unités ordinaires et infligent beaucoup plus de dégâts. Cependant, ils sont beaucoup plus coûteux à former et prennent deux fois plus d’espace de population."
+            }
+        ]
+    },
+    "knights_templar": {
+        "summary": "Fondés afin de protéger les humbles et les fatigués, les Templiers établissent des commanderies dans toute l’Europe pour faire appel à leurs alliés. Alignant un éventail spectaculaire de troupes lourdes, les Templiers mènent la charge avec discipline et grand cœur. Des forteresses parsèment le paysage soigneusement cultivé, offrant des positions défensives clés et des refuges sûrs pour les pèlerins qu’elles protègent.",
+        "classes": "Pèlerins, commanderies, chevaliers",
+        "era": "1119 - 1307 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Changez d’âge au forum en établissant une commanderie.",
+                    "Les commanderies débloquent de façon permanente des unités et des bonus.",
+                    "Les pèlerins génèrent de l’or en se rendant sur des lieux sacrés.",
+                    "Construisez des forteresses à l’âge féodal.",
+                    "Les forteresses augmentent la portée des unités proches et la santé des murs de pierre à proximité.",
+                    "Les forteresses agissent comme des monuments, mais peuvent être entièrement détruites.",
+                    "Les bûcherons déposent automatiquement du bois et en récoltent plus rapidement à chaque âge.",
+                    "Les travaux de siège et les engins de siège coûtent moins de bois.",
+                    "Les trébuchets tirent un projectile supplémentaire."
+                ]
+            },
+            {
+                "title": "Etablissez des commanderies",
+                "description": "Changez d’âge au forum en établissant l’une des trois commanderies uniques. Chaque commanderie débloque de façon permanente une unité et un bonus uniques."
+            },
+            {
+                "title": "Schémas défensifs francs",
+                "description": "Les forteresses remplacent les donjons et deviennent disponibles à l'âge féodal.\nLes unités à distance positionnées près d'une forteresse bénéficient d'une portée d'attaque augmentée de +15%, tandis que les murs de pierre placés sous l'influence d'une forteresse ou du quartier général des Templiers voient leur santé accrue de +25% et gagnent une flèche par défaut.\nLes forteresses fonctionnent comme des monuments, mais peuvent être entièrement détruites."
+            },
+            {
+                "title": "Pèlerinage",
+                "description": "Les Templiers ne peuvent pas former de marchands. À la place, ils génèrent de l'or grâce aux pèlerinages réussis. En atteignant l'âge féodal, les Templiers peuvent offrir un passage sûr aux pèlerins pour se rendre sur un lieu sacré.\nToutes les 60 secondes, un groupe de pèlerins se rendra du quartier général des Templiers au lieu sacré sélectionné, générant de l'or à l'arrivée en fonction de la distance parcourue. La taille du groupe augmente de 1 pour chaque forteresse active jusqu'à un maximum de 10.\nLes lieux sacrés et les reliques sont révélés au début de la partie."
+            },
+            {
+                "title": "Ports côtiers",
+                "description": "Construisez des ports plutôt que des quais. Ils coûtent plus cher, mais augmentent la santé des navires à proximité et bénéficient d'une santé accrue, d'une fortification renforcée et d'un plus grand espace de garnison pour les bateaux de pêche."
+            },
+            {
+                "title": "Préservation du paysage",
+                "description": "Les villageois déposent automatiquement du bois sans camp de bûcherons.\nLe bois est récolté +20% plus rapidement à chaque âge et 20% du bois récolté est produit comme nourriture supplémentaire."
+            },
+            {
+                "title": "Experts de siège",
+                "description": "Les trébuchets tirent des projectiles supplémentaires et peuvent être déployés au sommet des forteresses avec un emplacement unique.\nLes ateliers de siège et les engins de siège coûtent -25% de bois en moins."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Frère Templier : remplace le chevalier. Plus cher qu'un chevalier normal, mais doté de points de vie et de dégâts plus importants.\nÂge féodal\nCommanderie de chevaliers hospitaliers - Chevalier hospitalier : unité d'infanterie lourde au corps-à-corps qui peut soigner les unités alliées à proximité.\nCommanderie du royaume de France - Chevalier compagnon : cavalerie lourde moins chère qu'un chevalier normal. Gagne des points de vie supplémentaires pour chaque unité de cavalerie lourde à proximité.\nCommanderie de la principauté d'Antioche- Sergeant : infanterie lourde bénéficiant d'une armure de corps-à-corps élevée. Lance des haches qui infligent des dégâts de corps-à-corps à distance.\nÂge des châteaux\nCommanderie de l'empire Plantagenêt - Lancier lourd : lancier en armure bénéficiant d'une force accrue à proximité des forteresses.\nCommanderie de la république de Gênes - Arbalétrier génois : arbalétrier coûteux qui inflige des dégâts supplémentaires à l'infanterie de corps-à-corps.\nCommanderie du royaume de Castille - Génitour : peltaste monté qui excelle contre les unités à distance.\nÂge impérial\nCommanderie du royaume de Pologne - Cavalerie Szlachta : cavalerie d'élite bénéficiant d'une armure à distance exceptionnelle. Ralentit les attaques des ennemis qu'il combat et inflige des dégâts supplémentaires à l'infanterie légère.\nCommanderie de l'ordre Teutonique - Chevalier teutonique : infanterie lourde extrêmement puissante qui gagne en puissance pour chaque ennemi abattu au combat. Réduit l'armure des ennemis proches.\nCommanderie de la république de Venise - Condottiere : infanterie rapide qui ne coûte que de l'or. Puissant contre les unités à poudre à canon.\nGalère vénitienne : grand navire à rames avec un trébuchet à longue portée monté à l'avant.\nCommerçant vénitien : marchand coûteux mais rapide. Limite de construction maximale de 5."
+            }
+        ]
+    },
+    "house_of_lancaster": {
+        "summary": "La maison de Lancastre est une branche puissante de la royauté anglaise. Les manoirs sont le pivot de l’économie, car ils fournissent des pratiques économiques durables. La puissance militaire de Lancastre repose sur un avantage technologique et des tactiques supérieures sur le champ de bataille. Démantelez les formations ennemies avec de puissantes troupes de choc, puis détruisez-les avec une infanterie à distance supérieure.",
+        "classes": "Manoirs, défense, économie",
+        "era": "1267 - 1471 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Les villageois récoltent la production des moutons 20% plus vite.",
+                    "Bâtir des manoirs permet de générer passivement nourriture et bois.",
+                    "Les forums génèrent 4 mouton(s) lors de leur construction.",
+                    "Les donjons octroient 3 garde(s) du Comte lors de leur construction.",
+                    "Les donjons actifs améliorent les dégâts des gardes du Comte et des demi-lancier.",
+                    "Les villageois manient des arcs courts lors des attaques sur les unités ennemies.",
+                    "La production des navires est 10% moins coûteuse."
+                ]
+            },
+            {
+                "title": "La féodalité",
+                "description": "Construisez des manoirs pour générer des revenus passifs à l'âge féodal. Les manoirs font office de bâtiments de dépôt pour tous les types de ressources et fournissent +10 d'espace de population. Chaque manoir génère 30 unité(s) de nourriture et 10 unité(s) de bois par minute, ainsi que 4 unité(s) de nourriture et 2 unité(s) de bois supplémentaire(s) pour chaque villageois à proximité.\nAugmentez la limite de construction des manoirs avec des technologies uniques."
+            },
+            {
+                "title": "Industries lainières",
+                "description": "Chaque forum génère 4 mouton(s) lors de sa construction. Les villageois récoltent la production des moutons +20% plus vite."
+            },
+            {
+                "title": "Byrig défensifs",
+                "description": "Le forum de la capitale tire une flèche supplémentaire et les villageois manient des arcs courts lorsqu'ils attaquent des unités ennemies."
+            },
+            {
+                "title": "Une maison unifiée",
+                "description": "Les donjons accordent 3 gardes du Comte gratuits lors de leur construction. Chaque donjon actif augmente les dégâts des gardes du Comte et des demi-lanciers de +1, jusqu'à un maximum de +4."
+            },
+            {
+                "title": "Chantier naval",
+                "description": "L'organisation navale augmente l'efficacité des quais, réduisant le coût de construction des navires de 10%."
+            },
+            {
+                "title": "Unités uniques",
+                "list": [
+                    "Yeoman : remplaçant de l'archer. Infanterie à distance avec vitesse et portée accrues. Peut être améliorée pour tirer une volée de flèches dévastatrices sur la zone cible.",
+                    "Hobelar : remplaçant du cavalier. Cavalerie peu coûteuse et facilement sacrifiable avec armure pour attaques de longue portée.",
+                    "Garde du Comte : remplaçant de l'homme d'armes. Infanterie de cavalerie lourde qui lance des dagues périodiquement.",
+                    "Demi-lancier : cavalerie lourde spéciale. Ne s'obtenant qu'à l'aide des monuments, le demi-lancier est une unité de cavalerie à faibles dégâts."
+                ]
+            }
+        ]
+    },
+    "sengoku_daimyo": {
+        "summary": "Le Sengoku Jidai était une ère d'alliances changeantes et de guerres incessantes. Trois clans rivaux peuvent être soutenus pour obtenir de puissants avantages applicables à votre infanterie à distance, votre infanterie de corps-à-corps ou votre cavalerie. Même en pleine guerre, du temps était consacré aux célébrations : le festival Matsuri constitue le cœur du commerce et des échanges, et offre de puissants bonus économiques.",
+        "classes": "Agriculture, daimyo, urbanisme",
+        "era": "794 - 1616 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Les domaines de daimyos peuvent être dédiés à un clan, conférant des bonus à l'infanterie de corps-à-corps, à la cavalerie ou à l'infanterie à distance.",
+                    "Les fermes font office de sites de dépôt de nourriture, en plus d'augmenter la population.",
+                    "Le matsuri est un marché précoce et unique, capable de recruter des yatai qui collectent passivement de la nourriture à partir des sources proches.",
+                    "Techniques de survie développées par défaut.",
+                    "Les forges font office de sites de dépôt pour l'or et la pierre, en plus de proposer des améliorations militaires.",
+                    "L'or déposé par les villageois génère de la pierre supplémentaire, et vice versa.",
+                    "Amélioration supplémentaire des dégâts de corps-à-corps accessible à l'âge sombre (I).",
+                    "Les Ikko-ikki sont des moines combattants recrutés dans les monastères bouddhistes, capables de soigner tout en attaquant.",
+                    "Les donjons bénéficient de fortifications de fusées et d'une santé accrue à l'âge impérial (IV) .",
+                    "Les bateaux de pêche coûtent moins cher à produire.",
+                    "Les emplacements de tous les chevreuils et sangliers sont affichés sur la carte."
+                ]
+            },
+            {
+                "title": "Domaine de daimyo",
+                "description": "Les domaines de daimyo sont des bâtiments uniques pouvant être dédiés à l'un des trois clans. Le clan Hojo, qui améliore l'infanterie de corps-à-corps ; le clan Oda, qui renforce l'infanterie à distance ; ou le clan Takeda, qui améliore la cavalerie. Le domaine de daimyo exerce également une influence qui augmente la vitesse de production des bâtiments militaires."
+            },
+            {
+                "title": "Yatai et matsuri",
+                "description": "Le matsuri est un marché précoce unique capable de produire des yatai. Le yatai est une unité ouvrière unique qui génère lentement de la nourriture à partir de sources de nourriture se trouvant dans un rayon de 2 parcelles, et ce sans les tuer ni les consommer. Une fois qu'un yatai a accumulé assez de nourriture, un marchand de nourriture sera renvoyé au matsuri, améliorant une aura qui augmente la vitesse de collecte des villageois à proximité."
+            },
+            {
+                "title": "Ferme et Forge",
+                "description": "La forge est un site de dépôt d'or et de pierre qui remplace le camp de mineurs et l’atelier de forgeron. De plus, elle fournit une technologie de dégâts au corps-à-corps supplémentaire dans l'âge sombre (I). La ferme fournit de la population et remplace le moulin comme site de dépôt de nourriture."
+            },
+            {
+                "title": "Forteresse d'Oda",
+                "description": "Accédez à un donjon plus puissant à l'âge impérial (IV) comprenant des emplacements de santé et de fusées accrus pour un coût plus élevé. Les fusées attaquent rapidement et infligent des dégâts importants aux cibles uniques."
+            },
+            {
+                "title": "Mines d’argent",
+                "description": "Lorsque les villageois déposent de l'or, 20% de pierre supplémentaire est également produite, et vice versa."
+            },
+            {
+                "title": "Village de pêcheurs",
+                "description": "Les bateaux de pêche sont produits pour 25% moins cher."
+            },
+            {
+                "title": "Révéler les chevreuils et sangliers",
+                "description": "L'emplacement de tous les chevreuils et les sangliers est révélé sur la carte."
+            },
+            {
+                "title": "Unités uniques",
+                "list": [
+                    "Yatai : unité ouvrière capable de collecter passivement de la nourriture à partir de sources de nourriture à proximité sans les tuer ou les consommer.",
+                    "Cavalerie à yari : cavalerie rapide capable d'attaquer, de contourner et de contrer les unités à distance. Inflige des dégâts supplémentaires contres les unités de cavalerie.",
+                    "Daimyo : unité de cavalerie de corps-à-corps à la santé et aux dégâts élevés, capable de générer une aura qui augmente la vitesse d'attaque des unités militaires à proximité. Efficace contre les unités de corps-à-corps. Limitée à un par domaine de daimyo construit.",
+                    "Ashigaru à yumi : archer rapide et peu coûteux, au détriment de sa santé.",
+                    "Moine Ikko-ikki : moine guerrier très doué pour le combat, capable de soigner les unités à proximité en attaquant. Ne dispose d'aucune capacité de soin ciblée.",
+                    "Samouraï à kanabo : unité d'infanterie robuste infligeant de lourds dégâts. Inflige des dégâts supplémentaires en fonction de la santé maximale de l'ennemi.",
+                    "Ozutsu précoce : unité d'infanterie lourde à poudre à canon à distance équipée d'un énorme canon portatif qui inflige d'importants dégâts de siège et de zone."
+                ]
+            }
+        ]
+    },
+    "tughlaq_dynasty": {
+        "summary": "Le sultanat de Ghiyath al-Din Tughlûq posa les fondations des avancées artistiques, architecturales et expansionnistes qui marquèrent la dynastie des Tughlûq. Après avoir ordonné la construction du fort de Tughlaqabad, les sultans, émirs et gouverneurs qui lui succédèrent étendirent leur présence militaire par la force et la contrainte. La dynastie des Tughlûq se distingue par sa capacité à ériger rapidement de nombreux forts, tandis que les gouverneurs supervisent le dur labeur accompli par les éléphants et les villageois.",
+        "classes": "Éléphants, forts, gouverneurs",
+        "era": "1320 - 1413 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Les forums, éléphants de trait et ports fournissent des ressources supplémentaires lorsque les villageois et bateaux de pêche effectuent des dépôts.",
+                    "Les éléphants de trait se déplacement librement et servent de points de dépôt universels.",
+                    "Toutes les technologies coûtent plus cher, mais le développement est presque instantané.",
+                    "Les forts de Tughlaqabad agissent comme des donjons et sont disponibles à partir de l'âge féodal (II).",
+                    "Les forts de Tughlaqabad peuvent être améliorés pour augmenter les défenses et débloquer des gouverneurs.",
+                    "Sélectionnez un gouverneur dans n'importe quel fort pour guider la dynastie vers de nouveaux sommets.",
+                    "Les gouverneurs offrent des bonus économiques, de rythme, militaires, de développement et religieux.",
+                    "Les unités d'infanterie peuvent construire des palissades.",
+                    "Vous pouvez récolter à partir des buissons de baies 30% plus rapidement, mais ne pouvez pas obtenir de nourriture à partir des sangliers.",
+                    "Capacité de transport de baies augmentée +3.",
+                    "Les navires de pêche peuvent se défendre avec une attaque à distance."
+                ]
+            },
+            {
+                "title": "Compagnons travailleurs",
+                "description": "Allégez la charge de travail de vos villageois grâce à des éléphants de trait. Ces éléphants servent de points de dépôt universels et sont capables de se déplacer partout, ce qui vous fera économiser du temps et des ressources et permettra aux villageois de se concentrer sur leur travail.\nLes éléphants de trait, forums et ports fournissent des ressources supplémentaires lorsque les villageois et bateaux de pêche effectuent des dépôts."
+            },
+            {
+                "title": "Érudition",
+                "description": "En quête de connaissance et de sagesse, la dynastie des Tughlûq consacre davantage de ressources aux technologies avec des temps de développement quasi instantanés."
+            },
+            {
+                "title": "Forts légendaires",
+                "description": "Intimidez vos ennemis avec le fort de Tughlaqabad. Disponible dès l'âge féodal (II), ce bâtiment défensif peut être amélioré pour augmenter ses dégâts, sa santé, et débloquer le gouverneur de votre choix."
+            },
+            {
+                "title": "Soutien du gouverneur",
+                "description": "Choisissez l'un des six gouverneurs du fort de Tughlaqabad pour guider la dynastie des Tughlûq vers de nouveaux sommets. La puissance du gouverneur augmente à chaque amélioration du fort. Les gouverneurs offrent des bonus économiques, de rythme, militaires, de développement et religieux. \nUn gouverneur peut être actif dans chaque fort."
+            },
+            {
+                "title": "Vannerie",
+                "description": "Les villageois récoltent à partir des buissons de baies 30% plus rapidement, mais ne peuvent pas rassembler de nourriture à partir des sangliers.\nLes villageois transportent +3 de nourriture à partir des buissons de baies."
+            },
+            {
+                "title": "Fortifications de frontière",
+                "description": "Établissez des colonies fortifiées grâce à des unités d'infanterie capables de construire des palissades."
+            },
+            {
+                "title": "Matelots robustes",
+                "description": "Les navires de pêche peuvent se défendre avec une attaque à distance et ont 50% de santé supplémentaire."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Éléphant de combat : éléphant rapide capable d’attaquer, de contourner et de contrer les unités à distance. Capable de passer outre n’importe quelle unité en la piétinant, infligeant des dégâts de zone au passage.\nÉléphant soigneur : éléphant de corps-à-corps blindé à la santé élevée, monté par deux imams capables de soigner les unités individuelles. Inflige des dégâts supplémentaires pour chaque unité d’infanterie au corps-à-corps à proximité.\nÉléphant de guerre : unité de cavalerie lourde montée par un lancier à la santé et aux dégâts élevés doté d’une puissante attaque de siège.\nÉléphant à baliste : éléphant à distance monté d’une baliste, efficace contre les unités de corps-à-corps, capable de transpercer plusieurs cibles."
+            }
+        ]
+    },
+    "golden_horde": {
+        "summary": "En menant la Horde d'Or vers l'ouest, Batu Khan étendit l'Empire mongol jusqu'au cœur de l'Europe de l'Est. La grande tente dorée du Khan était le centre du réseau de contrôle, avec des avant-postes qui leur permettaient de maintenir un vaste territoire. Bien qu'elle fut encore constituée de puissants pillards, la Horde d'Or sacrifia la mobilité de ses camps pour déployer des forces plus importantes nécessaires au contrôle de ses États vassaux.",
+        "classes": "Agression, cavalerie, horde",
+        "era": "1000 - 1500 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Commencez avec la population maximale la plus élevée.",
+                    "Les unités sont toujours recrutées en groupes.",
+                    "L'enclos à bétail est un bâtiment unique pouvant accueillir jusqu'à 4 villageois et faisant office de site de dépôt de nourriture.",
+                    "Les ovoos peuvent être construits sur plusieurs mines de pierre, augmentant ainsi la production de pierre.",
+                    "Les technologies uniques ne coûtent que de la pierre.",
+                    "Les écuries sont disponibles à l'âge sombre (I).",
+                    "Changez d'âge en construisant et en améliorant la tente dorée.",
+                    "Les postes avancés fortifiés fournissent des bonus d'influence ou d'aura en fonction de l'édit défini dans la tente dorée.",
+                    "Route de la soie : les marchands génèrent +10% de nourriture, de bois et d'or avec 5/10/15 marchands actifs.",
+                    "Les navires de transport bénéficient de +50% de santé et +15% de vitesse de déplacement.",
+                    "Les éclaireurs peuvent utiliser la capacité Faucon éclaireur afin de garder un œil sur les environs."
+                ]
+            },
+            {
+                "title": "Tente dorée",
+                "description": "La tente dorée est le seul monument de la horde d'or. Elle peut être améliorée pour passer à l'âge supérieur et augmenter la santé du bâtiment. Un édit peut y être choisi, modifiant le bonus d'influence ou d'aura accordé par les postes avancés fortifiés.\nLe Batu Khan et les Torguuds peuvent être recrutés depuis la tente dorée."
+            },
+            {
+                "title": "Hordes",
+                "description": "Les unités sont produites par groupes de deux. Des technologies peuvent être développées pour améliorer cette production groupée."
+            },
+            {
+                "title": "Enclos à bétail",
+                "description": "Construisez des enclos à bétail plutôt que des fermes ou des pâturages pour produire de la nourriture : les enclos contiennent des carcasses de mouton pouvant être collectées et déposées à l'enclos à bétail directement."
+            },
+            {
+                "title": "Postes avancés fortifiés",
+                "description": "Les postes avancés fortifiés ont plus de santé et octroient des bonus d'influence ou d'aura en fonction de l'édit choisi à la tente dorée."
+            },
+            {
+                "title": "Transports améliorés",
+                "description": "Les débarquements de navires de transport sont plus rapides et les navires plus durables avec +50% de santé et +15% de vitesse de déplacement."
+            },
+            {
+                "title": "Route de la soie",
+                "description": "Explorez la Route de la soie avec des marchands. Ils obtiennent des ressources supplémentaires à chaque transaction en fonction de votre nombre total de marchands actifs.\n• 5+ marchands : +10% de nourriture\n• 10+ marchands : +10% de nourriture et de bois\n• 15+ marchands : +10% de nourriture, de bois et d'or"
+            },
+            {
+                "title": "Technologie de pierre et ovoos",
+                "description": "Construisez des ovoos sur des affleurements de pierre pour collecter de la pierre sans nécessiter de villageois. Le nombre maximum d’ovoos pouvant être construits augmente de 1 chaque fois que vous passez à l’âge suivant."
+            },
+            {
+                "title": "Faucon éclaireur",
+                "description": "Les éclaireurs peuvent déployer la capacité Faucon éclaireur pour surveiller les environs."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Khan de la horde d'or : unité de cavalerie lourde dont la force augmente au fil des âges. Capable de tirer une flèche qui augmente les dégâts subis par les ennemis dans une zone. Le khan génère également une aura de dégâts d'attaque croissants à mesure que le khan reste en combat.\nTorguud : unité de cavalerie lourde chargée de protéger le khan en subissant tous les dégâts subis par le khan à sa place.\nKharash : faibles unités d'infanterie légère de corps-à-corps, qui augmentent l'armure des alliés à proximité.\nKipchak : archer de cavalerie capable de tirer des flèches qui déclenchent un saignement chez la cible.\nTrébuchet à traction : vitesse de déplacement, durée de mise en place et vitesse d'attaque augmentées.\nKheshig : unité de cavalerie lourde disponible à partir de l'âge féodal. Régénère de la santé après chaque attaque."
+            }
+        ]
+    },
+    "macedonian_dynasty": {
+        "summary": "L'empereur Basile II fit appel aux Varègues pour se défendre contre les révoltes fomentées par les nobles byzantins. Arrivés sur des navires venus du nord, ces guerriers d'origine étrangère, imperméables à la politique et à la culture byzantines, formèrent une division de choc d'élite protégeant les empereurs pour les siècles à venir. La dynastie macédonienne frappe de l'argent comme une ressource unique à dépenser dans les arsenaux varègues, aiguisant leurs lames et perfectionnant leurs compétences au service de la protection de l'empereur.",
+        "classes": "Varègues, argent, technologie",
+        "era": "867 - 1056 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Les villageois extraient de l'argent de l'or et de la pierre pour développer des technologies uniques.",
+                    "Générez de l'argent passivement dans les camps de mineurs et forums sous l'influence des arsenaux varègues.",
+                    "Dépassez trois niveaux de technologies grâce à l'arsenal varègue en dépensant de l'argent.",
+                    "Accédez à la garde varègue précoce à l'âge féodal (II).",
+                    "Produisez toutes les unités varègues uniques à partir de la citadelle varègue.",
+                    "Les unités varègues ont des capacités uniques pour améliorer leur efficacité au combat.",
+                    "Renforcez les guerriers qui tombent au combat gratuitement grâce au camp de guerre varègue.",
+                    "Unités de terrain capables d'utiliser diverses formes de feu grégeois.",
+                    "Les navires de transport augmentent temporairement la vitesse de déplacement des unités lors du déchargement."
+                ]
+            },
+            {
+                "title": "Collecte de galène",
+                "description": "Les villageois découvrent d'abondants gisements de galène parmi les filons d'or et les affleurements de pierre, et extraient de l'argent comme ressource unique en les exploitant.\nLes villageois extraient de l'argent égal à 40% de l'or ou de la pierre extraite."
+            },
+            {
+                "title": "Influence - Frappe de l'argent",
+                "description": "Les arsenaux varègues génèrent de l'influence, permettant aux camps de mineurs et aux forums de commencer à traiter l'argent au fil du temps. La quantité d'argent traitée dépend du montant total d'argent déposé par les villageois."
+            },
+            {
+                "title": "Forge varègue",
+                "description": "Développez des technologies militaires uniques à l'arsenal varègue en échange d'argent. Remplace l’atelier de forgeron et l'université. La dynastie macédonienne peut dépasser trois niveaux d'améliorations militaires par catégorie."
+            },
+            {
+                "title": "Bases",
+                "description": "Fortifiez l'empire avec des citadelles varègues capables de produire toutes les unités varègues et de se défendre à l'aide de flèches."
+            },
+            {
+                "title": "Camp de guerre",
+                "description": "Choisissez des renforts au camp de guerre varègue. Une fois qu'un nombre suffisant de guerriers sont tombés au combat, des guerriers varègues gratuits arrivent au camp pour combler les rangs.\nSi le camp de guerre est adjacent à l'eau, les bateaux peuvent être sélectionnés comme renforts."
+            },
+            {
+                "title": "Pierres runiques varègues",
+                "description": "Sculptez des pierres runiques pour commémorer les victoires passées. Une fois qu’un nombre suffisant d’ennemis tombent aux mains des Varègues, une pierre runique peut être créée pour inspirer les Varègues à proximité avec des bonus de combat dans une zone."
+            },
+            {
+                "title": "Feu grégeois",
+                "description": "Les cheirosiphons ainsi que les dromons, les espringales et les trébuchets améliorés lancent du feu grégeois avec leurs attaques, engloutissant la zone dans des flammes infligeant des dégâts au fil du temps."
+            },
+            {
+                "title": "Emplacements de mangonneau",
+                "description": "Les postes avancés et les donjons peuvent être équipés d'emplacements de mangonneaux. Les tours en pierre sont directement équipées d'emplacements de mangonneaux au lieu d'espringales."
+            },
+            {
+                "title": "Unités uniques",
+                "description": "Atgeirmaðr : remplacement du lancier. Infanterie légère de mêlée dotée d'une capacité passive augmentant sa vitesse d'attaque lorsque des unités varègues se trouvent à proximité.\nBogmaðr : remplacement de l'archer. Infanterie à distance légère avec la capacité d'ignorer l'armure au détriment de sa vitesse de déplacement. \nGarde varègue précoce : remplacement de l'homme d'armes. Utilisez la capacité Fureur guerrière pour augmenter vos dégâts au détriment de votre armure. Permet de construire des navires de transport et d'augmenter l'armure des transports lorsqu'il est en garnison.\nRiddari : remplacement des chevaliers. Cavalerie lourde avec la capacité de lancer des haches à distance pendant un certain temps.\nCheirosiphon : un bélier équipé d'une attaque de feu grégeois à courte portée.\nDromon : remplacement du navire à espringale. Équipé du feu grégeois."
+            }
+        ]
+    },
+    "jin_dynasty": {
+        "summary": "La dynastie Jin émerge comme une puissance militaire redoutable dans le nord de la Chine. Les villageois à cheval se déplacent rapidement pour s'emparer de nouvelles ressources et terres. Saisissez les opportunités et rassemblez des armées de cavalerie à tout moment pour mettre en déroute les ennemis et écraser l'opposition. Soudoyez les ennemis faibles pour les forcer à déserter et établir des États tributaires rentables.",
+        "classes": "Cavalerie, villageois montés, tributaires",
+        "era": "1115 - 1234 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "list": [
+                    "Formez jusqu'à 20 villageois à cheval qui récoltent et se déplacent beaucoup plus vite qu'un villageois ordinaire.",
+                    "Choisissez parmi trois emplacements lors du changement d'âge pour construire une prairie.",
+                    "Construisez des écuries de guerre près des prairies pour produire rapidement de la cavalerie à cheval.",
+                    "Les émissaires peuvent établir des tributaires et soudoyer les soldats ennemis.",
+                    "Les tributaires génèrent de la nourriture, améliorent le revenu des marchands de +15% et augmentent la limite de construction des villageois à cheval de +3.",
+                    "Les emplacements Meng'an Mouke font appel à des défenseurs pour protéger les terres à proximité.",
+                    "Les arbalètes à support sont disponibles à l'âge féodal et remplacent les espringales."
+                ]
+            },
+            {
+                "title": "Prairies",
+                "description": "Choisissez parmi 3 emplacements après avoir terminé un monument pour y construire des prairies, qui font progressivement apparaître jusqu'à 5 chevaux dans leur champ. Les chevaux augmentent la santé de toutes les unités de cavalerie de corps-à-corps de +2 ainsi que celle des unités de cavalerie à distance de +1, et peuvent être utilisés par les écuries sous l'influence des prairies pour former rapidement n'importe quelle unité montée. Les prairies produisent un nouveau cheval toutes les 90/60/45 secondes aux âges féodal/des châteaux/impérial."
+            },
+            {
+                "title": "Héritage jürchen",
+                "description": "L'ascendance nomade permet d'avoir jusqu'à 20 villageois à cheval capables de récolter, construire et se déplacer beaucoup plus rapidement, mais à un coût plus élevé. Établissez des États tributaires avec des comptoirs pour augmenter la limite de construction maximale de +3."
+            },
+            {
+                "title": "Meng'an Mouke",
+                "description": "Améliorez les structures défensives avec les emplacements Meng'an Mouke, qui envoient des défenseurs pour protéger les terres voisines. Les emplacements produisent aussi lentement des défenseurs pour compenser les pertes."
+            },
+            {
+                "title": "Émissaires",
+                "description": "Formez jusqu'à 2 émissaires dotés de deux capacités puissantes.\nÉtablissez des tributaires sur les colonies commerciales neutres pour gagner un allié loyal, qui récoltera de la nourriture en votre nom, augmentera la limite de construction des villageois à cheval de +3, et accroîtra les revenus de vos marchands de +15%.\nLancez Soudoyer sur des groupes d'unités ennemies, qui sont alors transformées en combattants neutres prêts à affronter tout ce qui se trouve sur leur passage."
+            },
+            {
+                "title": "Expertise de siège",
+                "description": "Construisez l'atelier de machines dès l'Âge féodal pour accéder rapidement aux arbalètes à support, un remplacement des espringales qui tirent deux projectiles sur les formations ennemies. Les emplacements d'arbalète à support remplacent les emplacements d'espringale dans toutes les structures défensives."
+            },
+            {
+                "title": "Unités uniques",
+                "list": [
+                    "Villageois à cheval : villageois unique qui récolte, construit et se déplace beaucoup plus vite qu'un villageois ordinaire.",
+                    "Émissaire : unité de soutien capable de soudoyer les soldats ennemis et d'établir des États tributaires.",
+                    "Pagode de fer : cavalerie lourde protégée de la tête aux pieds par une armure, infligeant des dégâts de zone à chaque attaque.",
+                    "Arbalète à support : remplacement de l'espringale qui tire une volée de projectiles simultanément, disponible à l'âge féodal.",
+                    "Érupteur : remplacement coûteux de la couleuvrine à main, infligeant de lourds dégâts à une seule cible.",
+                    "Membre de la tribu Mohe : remplacement de l'archer monté. Exceptionnellement efficace dans les tactiques d'assauts rapides contre l'infanterie de corps-à-corps légère.",
+                    "Fantassin à zhanma : infanterie blindée disponible uniquement à l'âge impérial, infligeant des dégâts de corps-à-corps impressionnants avec un bonus contre la cavalerie.",
+                    "Défenseurs Meng'an Mouke : les Meng'an Mouke et les grenadiers montés apparaissent depuis des emplacements uniques pour défendre automatiquement le territoire des Jin."
+                ]
+            }
+        ]
+    }
+}
