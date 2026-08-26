@@ -14071,8 +14071,8 @@ __metadata:
   linkType: hard
 
 "victory-native-date@file:/Users/dennis/Projects/victory-native-datefix.tgz::locator=aoe2companion%40workspace%3A.":
-  version: 41.26.0
-  resolution: "victory-native-date@file:/Users/dennis/Projects/victory-native-datefix.tgz#/Users/dennis/Projects/victory-native-datefix.tgz::hash=74aafe&locator=aoe2companion%40workspace%3A."
+  version: 42.0.0
+  resolution: "victory-native-date@file:/Users/dennis/Projects/victory-native-datefix.tgz#/Users/dennis/Projects/victory-native-datefix.tgz::hash=60231b&locator=aoe2companion%40workspace%3A."
   dependencies:
     d3-scale: "npm:^4.0.2"
     d3-shape: "npm:^3.2.0"
@@ -14080,12 +14080,12 @@ __metadata:
     its-fine: "npm:^1.2.5"
     react-fast-compare: "npm:^3.2.2"
   peerDependencies:
-    "@shopify/react-native-skia": ">=1.2.3 <3.0.0"
+    "@shopify/react-native-skia": ">=2.6.0 <3.0.0"
     react: "*"
     react-native: "*"
     react-native-gesture-handler: ">=2.0.0"
-    react-native-reanimated: ">=3.0.0"
-  checksum: 10/da555b8b4c439afd292e8c2379a3cc8db586caa0041fe5954ba11313fb0bb428e9b62b2873561692c9f3caf18590299b1bb24049a2db671af7fe5ab79602cfc3
+    react-native-reanimated: ">=3.19.1"
+  checksum: 10/d945bf3905e0b76685c7a666b3792445441225deb8dfa90959051d9369b80543f59813465fd7d419c2b4078d418c57107f2bf579c4147673145d95b143e3b2ef
   languageName: node
   linkType: hard
 
