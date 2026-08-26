@@ -10,6 +10,12 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
+    '46.0.0': [
+        {
+            type: 'feature',
+            title: 'Translation of civ infos',
+        },
+    ],
     '45.0.0': [
         {
             type: 'feature',
