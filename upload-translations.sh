@@ -11,6 +11,9 @@
 # By default the upload has to be purely additive: if it would remove or change
 # a key that is already live, the script aborts and prints what would change.
 # Pass --force when a removal or a wording change is actually intended.
+#
+# Only the files whose keys differ from what is live get uploaded — a file that
+# is already equivalent on R2 is left untouched.
 
 set -euo pipefail
 
@@ -82,15 +85,20 @@ s3 cp "s3://$BUCKET/$PREFIX/" "$TMP/current/" --recursive --only-show-errors
 cat > "$TMP/compare.js" <<'NODE'
 const fs = require("fs"), path = require("path");
 const [localDir, currentDir, force] = process.argv.slice(2);
+// The human-readable report goes to stderr so stdout can carry just the list of
+// files that need uploading, which the shell captures.
+const log = (...a) => console.error(...a);
 const read = (p) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")) : null);
 
 let added = 0, removed = 0, changed = 0, destructive = false;
+const toUpload = [];
 for (const file of fs.readdirSync(localDir).filter((f) => f.endsWith(".json")).sort()) {
   const local = read(path.join(localDir, file));
   const live = read(path.join(currentDir, file));
   if (live === null) {
     added += Object.keys(local).length;
-    console.log(`  ${file.replace(".json", "").padEnd(8)} new file, ${Object.keys(local).length} keys`);
+    log(`  ${file.replace(".json", "").padEnd(8)} new file, ${Object.keys(local).length} keys`);
+    toUpload.push(file);
     continue;
   }
   const gone = Object.keys(live).filter((k) => !(k in local));
@@ -98,38 +106,48 @@ for (const file of fs.readdirSync(localDir).filter((f) => f.endsWith(".json")).s
   const fresh = Object.keys(local).filter((k) => !(k in live));
   added += fresh.length; removed += gone.length; changed += diff.length;
   if (gone.length || diff.length) destructive = true;
+  if (fresh.length || gone.length || diff.length) toUpload.push(file);
   const flag = gone.length || diff.length ? "  <-- not additive" : "";
-  console.log(
+  log(
     `  ${file.replace(".json", "").padEnd(8)} live=${String(Object.keys(live).length).padStart(5)}` +
       ` -> ${String(Object.keys(local).length).padStart(5)} | +${String(fresh.length).padStart(3)} added,` +
       ` -${String(gone.length).padStart(3)} removed, ${String(diff.length).padStart(3)} changed${flag}`
   );
-  if (gone.length) console.log(`      removed: ${gone.slice(0, 6).join(", ")}${gone.length > 6 ? " ..." : ""}`);
-  if (diff.length) console.log(`      changed: ${diff.slice(0, 6).join(", ")}${diff.length > 6 ? " ..." : ""}`);
+  if (gone.length) log(`      removed: ${gone.slice(0, 6).join(", ")}${gone.length > 6 ? " ..." : ""}`);
+  if (diff.length) log(`      changed: ${diff.slice(0, 6).join(", ")}${diff.length > 6 ? " ..." : ""}`);
 }
-console.log(`\n  TOTAL: +${added} added, -${removed} removed, ${changed} changed`);
+log(`\n  TOTAL: +${added} added, -${removed} removed, ${changed} changed`);
 if (destructive && force !== "true") {
   console.error("\n❌ This upload would remove or change keys that are already live.");
   console.error("   Re-run with --force if that is intended.");
   process.exit(1);
 }
-if (!added && !removed && !changed) console.log("  Nothing to do — the CDN already matches.");
+if (!added && !removed && !changed) log("  Nothing to do — the CDN already matches.");
+// Only the files whose keys actually differ; the rest are equivalent to what is
+// live, so re-putting them would only churn the bucket.
+console.log(toUpload.join("\n"));
 NODE
 
 echo "📋 Comparing with live..."
-node "$TMP/compare.js" "$SOURCE_DIR" "$TMP/current" "$FORCE"
+TO_UPLOAD=$(node "$TMP/compare.js" "$SOURCE_DIR" "$TMP/current" "$FORCE")
 
 if [ "$DRY_RUN" = true ]; then
   echo "✅ Dry run — nothing uploaded."
   exit 0
 fi
 
+if [ -z "$TO_UPLOAD" ]; then
+  echo "✅ Nothing to upload — every file on R2 is already equivalent."
+  exit 0
+fi
+
 echo "⬆️  Uploading..."
-for f in "$SOURCE_DIR"/*.json; do
-  lang=$(basename "$f" .json)
-  s3 cp "$f" "s3://$BUCKET/$PREFIX/$lang.json" --content-type application/json --only-show-errors
+while IFS= read -r file; do
+  [ -n "$file" ] || continue
+  lang=$(basename "$file" .json)
+  s3 cp "$SOURCE_DIR/$file" "s3://$BUCKET/$PREFIX/$lang.json" --content-type application/json --only-show-errors
   echo "  uploaded $lang"
-done
+done <<< "$TO_UPLOAD"
 
 echo "🔍 Verifying..."
 mkdir -p "$TMP/after"
@@ -139,9 +157,14 @@ const fs = require("fs"), path = require("path");
 const [localDir, afterDir] = process.argv.slice(1);
 let bad = 0;
 for (const f of fs.readdirSync(localDir).filter((x) => x.endsWith(".json")).sort()) {
-  const a = fs.readFileSync(path.join(localDir, f), "utf8");
-  const b = fs.existsSync(path.join(afterDir, f)) ? fs.readFileSync(path.join(afterDir, f), "utf8") : null;
-  if (a !== b) { console.error(`  MISMATCH ${f}`); bad++; }
+  // Files that were skipped may differ in formatting while holding the same
+  // keys, so compare the parsed content rather than the raw bytes.
+  const a = JSON.parse(fs.readFileSync(path.join(localDir, f), "utf8"));
+  const p = path.join(afterDir, f);
+  const b = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")) : null;
+  const keys = a && b ? Object.keys(a) : null;
+  const same = b !== null && keys.length === Object.keys(b).length && keys.every((k) => a[k] === b[k]);
+  if (!same) { console.error(`  MISMATCH ${f}`); bad++; }
 }
 if (bad) { console.error(`❌ ${bad} file(s) do not match what was uploaded.`); process.exit(1); }
 console.log("  Every file on R2 matches the local copy.");
