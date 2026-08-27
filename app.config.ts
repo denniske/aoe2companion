@@ -38,20 +38,6 @@ const app = process.env.GAME === 'aoe2' ? {
     experienceId: "@denniske1001/aoe2companion",
     projectId: "668efd6d-8482-4ad8-8235-e1e94b7d508e",
     updateUrl: "https://u.expo.dev/668efd6d-8482-4ad8-8235-e1e94b7d508e",
-    assetBundlePatterns: [
-        "node_modules/**",
-        "assets/civilizations/**",
-        "assets/data/**",
-        "assets/font/**",
-        "assets/legal/**",
-        "assets/buildings/**",
-        "assets/techs/**",
-        "assets/units/**",
-        "assets/tips/icon/**",
-        "assets/tips/poster/**",
-        "assets/translations/**",
-        "assets/*"
-    ],
     splashBackgroundColor: "#ffebc7",
     splashBackgroundColorDark: "#181C29",
     adaptiveIconBackgroundColor: "#fbebd3",
@@ -78,14 +64,6 @@ const app = process.env.GAME === 'aoe2' ? {
     experienceId: "@denniske1001/aoe4companion",
     projectId: "d8d79ec3-2477-4026-8c8a-456f79fc2f20",
     updateUrl: "https://u.expo.dev/d8d79ec3-2477-4026-8c8a-456f79fc2f20",
-    assetBundlePatterns: [
-        "node_modules/**",
-        "assets/font/**",
-        "assets/legal/**",
-        "assets/translations/**",
-        "app4/assets/civilizations/**",
-        "app4/assets/*"
-    ],
     splashBackgroundColor: "#000000",
     splashBackgroundColorDark: "#121212",
     adaptiveIconBackgroundColor: "#000000",
@@ -195,7 +173,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
                   fallbackToCacheTimeout: 0,
                   url: app.updateUrl,
               },
-    assetBundlePatterns: app.assetBundlePatterns,
     plugins: [
         expoRouter({
             unstable_useServerRendering: true,
