@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react-native';
 import store from '../redux/store';
 import { exec, setError } from '../redux/reducer';
 import { sleep } from './helper/util';
@@ -15,6 +16,21 @@ export class FetchNotOkError extends Error {
     ) {
         super(message);
         this.name = 'FetchNotOkError';
+    }
+}
+
+// getSession() refreshes an access token that is at or near expiry. When that refresh fails it
+// hands back no session at all, and the request used to go out unauthenticated -- coming back as a
+// 401 that looked like an expired token rather than a failed refresh. This is thrown instead so the
+// cause is visible.
+export class FetchAuthError extends Error {
+    constructor(
+        message: string,
+        public url?: string,
+        public cause?: unknown,
+    ) {
+        super(message);
+        this.name = 'FetchAuthError';
     }
 }
 
@@ -128,12 +144,23 @@ export async function fetchJson(input: RequestInfo, init?: RequestInit, reviver?
     };
 
     if (needsAuth(getUrl(input))) {
-        const { data: session } = await getSupabaseClient().auth.getSession();
-        const accessToken = session?.session?.access_token;
+        const { data, error } = await getSupabaseClient().auth.getSession();
+        const accessToken = data?.session?.access_token;
         // Logged out this used to send the literal string `bearer undefined`.
         if (accessToken) {
             headers['Authorization'] = `bearer ${accessToken}`;
+        } else if (error) {
+            // A token refresh failed. Reported here because the request that follows would be sent
+            // anonymously and answered with a 401, which says nothing about why. Note supabase drops
+            // the stored session on a non-retryable refresh failure, so this can also be the moment
+            // a user is silently logged out.
+            Sentry.captureException(error, {
+                tags: { authRefresh: 'failed' },
+                extra: { url: getUrl(input) },
+            });
+            throw new FetchAuthError(error.message ?? 'Auth token refresh failed', getUrl(input), error);
         }
+        // No token and no error simply means logged out -- the request goes out anonymously.
     }
 
     let response: Response;
