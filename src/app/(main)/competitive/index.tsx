@@ -24,7 +24,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Linking, Platform, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { useTranslation } from '@app/helper/translate';
-import { openLinkWithCheck } from '@app/helper/url';
+import { openLink } from '@app/helper/url';
 import { showAlert } from '@app/helper/alert';
 import { Button } from '@app/components/button';
 import { faPlayCircle } from '@fortawesome/sharp-solid-svg-icons';
@@ -115,7 +115,7 @@ export default function Competitive() {
             if (canOpenInApp) {
                 await Linking.openURL(liveTwitchAppUrl!);
             } else {
-                await openLinkWithCheck(liveTwitchUrl!);
+                await openLink(liveTwitchUrl!);
             }
         } catch (e: any) {
             showAlert(e.message);
