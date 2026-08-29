@@ -182,6 +182,24 @@ const slugifyFilename = (url?: string, size?: number) => {
 // is only resized if 'thumb' stays width=200.
 const MAP_IMAGE_WIDTH = 200;
 
+// Transient connectivity failures out of expo-file-system's downloader. The prefetch below is
+// best-effort -- it runs on app start, often while backgrounded, and simply retries next launch --
+// so these are noise rather than bugs. Anything not listed here is still rethrown so it reaches
+// Sentry.
+const transientDownloadErrors = [
+    'The network connection was lost.',
+    'The Internet connection appears to be offline.',
+    'The request timed out.',
+    'A TLS error caused the secure connection to fail.',
+    'An SSL error has occurred and a secure connection to the server cannot be made.',
+    'Could not connect to the server.',
+];
+
+const isTransientDownloadError = (error: unknown) => {
+    const message = error instanceof Error ? error.message : String(error);
+    return transientDownloadErrors.some((known) => message.includes(known));
+};
+
 // The crash of the app happens after the caching
 export const cacheLiveActivityAssets = async () => {
     try {
@@ -244,6 +262,8 @@ export const cacheLiveActivityAssets = async () => {
     } catch (error) {
         if (__DEV__) {
             console.error('cacheLiveActivityAssets error', error);
+        } else if (isTransientDownloadError(error)) {
+            console.log('cacheLiveActivityAssets transient error', error);
         } else {
             throw error;
         }

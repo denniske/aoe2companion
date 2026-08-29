@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/react-native';
+import { showAlert } from '@app/helper/alert';
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import React, { useState } from 'react';
 import { Linking, Platform, View } from 'react-native';
@@ -83,11 +85,7 @@ export default function AboutPage() {
     };
 
     const incrementVersionClickCount = () => {
-        // setVersionClickCount(errorPageClickCount + 1);
-        // if (errorPageClickCount > 5) {
-        // navigation.navigate('Donation', { debug: true });
-        // navigation.navigate('Error');
-        // }
+        setVersionClickCount(versionClickCount + 1);
 
         // Resolved outside the try: a logical expression inside a try/catch makes
         // React Compiler bail out on the whole component.
@@ -96,6 +94,23 @@ export default function AboutPage() {
             // delete Constants.expoConfig?.assets;
             setDebugManifest(JSON.stringify(manifest, null, 4));
         } catch (e) {}
+    };
+
+    // Sentry is only enabled in release builds on native (see helper/sentry.ts), so
+    // these do nothing visible in dev or on web.
+    const sendSentryTestError = () => {
+        Sentry.captureException(new Error(`Sentry test error (captured) ${new Date().toISOString()}`));
+        showAlert('Sentry', 'Captured error sent.');
+    };
+
+    const throwSentryTestError = () => {
+        throw new Error(`Sentry test error (thrown) ${new Date().toISOString()}`);
+    };
+
+    const rejectSentryTestError = () => {
+        // Deliberately not awaited: reproduces the unhandled rejection path.
+        Promise.reject(new Error(`Sentry test error (unhandled rejection) ${new Date().toISOString()}`));
+        showAlert('Sentry', 'Unhandled rejection triggered.');
     };
 
     const openAoe2CompanionInStore = async () => {
@@ -290,6 +305,17 @@ export default function AboutPage() {
                 </PressableOpacity>
 
                 {!!(updateId) && <MyText>{updateId}</MyText>}
+
+                {/* Hidden Sentry test triggers: tap the version 7 times to reveal. */}
+                {versionClickCount >= 7 && (
+                    <View className="items-center gap-y-1">
+                        <Space />
+                        <Text variant="header-xs">Sentry</Text>
+                        <Button onPress={sendSentryTestError}>Send captured error</Button>
+                        <Button onPress={throwSentryTestError}>Throw error</Button>
+                        <Button onPress={rejectSentryTestError}>Unhandled rejection</Button>
+                    </View>
+                )}
 
                 {/*<MyText>{(Constants.expoConfig2?.metadata as any)?.branchName || 'dev'}</MyText>*/}
                 {/*<MyText>{(Constants.expoConfig2?.metadata as any)?.updateGroup || 'dev'}</MyText>*/}
