@@ -10,7 +10,7 @@ import { AppState, Platform } from 'react-native';
 // so drop the noise instead of reporting it.
 const PROTECTED_DATA_PREFIXES = ['Failed to read storage file', 'Failed to write storage file', 'Failed to create storage directory'];
 
-function isProtectedDataUnavailable(message: string | undefined) {
+function isProtectedDataUnavailableError(message: string | undefined) {
     if (Platform.OS !== 'ios' || !message) return false;
     if (!message.includes('Operation not permitted')) return false;
     if (!PROTECTED_DATA_PREFIXES.some((prefix) => message.startsWith(prefix))) return false;
@@ -36,7 +36,7 @@ export default function initSentry() {
                 event.tags = { ...event.tags, httpStatus: String(error.status) };
             }
 
-            if (isProtectedDataUnavailable(error?.message ?? event.exception?.values?.[0]?.value)) {
+            if (isProtectedDataUnavailableError(error?.message ?? event.exception?.values?.[0]?.value)) {
                 return null;
             }
 
