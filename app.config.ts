@@ -235,7 +235,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             LSApplicationQueriesSchemes: ['itms-apps', 'twitch'],
             NSSupportsLiveActivities: true,
             NSUserActivityTypes: ['BuildsConfigurationIntent'],
-            UIBackgroundModes: ['remote-notification'],
         },
         associatedDomains: app.associatedDomains,
         appleTeamId: 'HAFGZBHF9M',
