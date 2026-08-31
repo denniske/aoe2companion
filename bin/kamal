@@ -5,4 +5,6 @@
 #   GAME               picks the dataset and domains; the pre-build hook needs it too
 set -eo pipefail
 export GAME=${GAME:-aoe2}
-exec doppler run -p aoecompanion -c dev_${GAME} -- env RUBYOPT="-rlogger" GAME=$GAME kamal "$@"
+CONFIG_ARGS=()
+[ "$GAME" = "aoe4" ] && CONFIG_ARGS=(-c config/deploy.aoe4.yml)
+exec doppler run -p aoecompanion -c dev_${GAME} -- env RUBYOPT="-rlogger" GAME=$GAME kamal "$@" "${CONFIG_ARGS[@]}"

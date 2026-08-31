@@ -1,0 +1,63 @@
+# Kamal deployment for the aoe2companion web front end.
+#
+# Mirrors deploy.sh: expo exports to dist/, the image copies dist/ + server.ts, and the container
+# runs `node server.ts`. GAME comes from the environment and picks the dataset and the domains,
+# so aoe4 uses config/deploy.aoe4.yml (a destination) rather than a second file here.
+# Shared with the collector and mgz repos on purpose. Docker label filters are exact, so a common
+# service name is what lets `kamal app stop` / `logs` in any of the three folders reach all of
+# them -- convenient for a whole-host action, and worth knowing before a routine single-service
+# restart, because the blast radius is not visible in the command you typed.
+service: aoe4
+image: denniske/aoe4companion-web
+
+servers:
+  web:
+    hosts:
+      - 23.88.13.76
+    # Matches `dokku resource:limit --cpu 3 --memory 5000 aoe2-web`.
+    options:
+      cpus: 3
+      memory: 5000m
+    proxy:
+      # All three names the dokku app answers on. In prod these become aoe2companion.com,
+      # www.aoe2companion.com and app.aoe2companion.com -- server.ts redirects the bare domain to
+      # www itself, so the bare name must be registered here or the redirect never runs.
+      hosts:
+        - aoe4companion.com
+        - www.aoe4companion.com
+        - app.aoe4companion.com
+      app_port: 3000
+      # Let's Encrypt HTTP-01. All three names are grey-clouded A records -- a proxied
+      # (orange-cloud) record cannot complete the challenge.
+      ssl: true
+      healthcheck:
+        path: /ready
+        interval: 2
+        timeout: 30
+    env:
+      clear:
+        SERVICE_NAME: web
+        GAME: aoe4
+        PORT: 3000
+
+registry:
+  server: docker.io
+  username:
+    - DOCKERHUB_USERNAME
+  password:
+    - DOCKERHUB_PASSWORD
+
+builder:
+  arch: amd64
+  remote: ssh://root@2.29.21.80
+  dockerfile: Dockerfile
+  context: .
+
+logging:
+  driver: json-file
+  options:
+    max-size: 100m
+    max-file: "3"
+
+primary_role: web
+stop_timeout: 20
