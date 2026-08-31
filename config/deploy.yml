@@ -13,7 +13,7 @@ image: denniske/aoe2companion-web
 servers:
   web:
     hosts:
-      - 2.29.21.80
+      - 23.88.13.76
     # Matches `dokku resource:limit --cpu 3 --memory 5000 aoe2-web`.
     options:
       cpus: 3
@@ -23,9 +23,9 @@ servers:
       # www.aoe2companion.com and app.aoe2companion.com -- server.ts redirects the bare domain to
       # www itself, so the bare name must be registered here or the redirect never runs.
       hosts:
-        - kamal-web-test.aoe2companion.com
-        - www.kamal-web-test.aoe2companion.com
-        - app.kamal-web-test.aoe2companion.com
+        - aoe2companion.com
+        - www.aoe2companion.com
+        - app.aoe2companion.com
       app_port: 3000
       # Let's Encrypt HTTP-01. All three names are grey-clouded A records -- a proxied
       # (orange-cloud) record cannot complete the challenge.
