@@ -72,3 +72,6 @@ __pycache__
 
 expo-env.d.ts
 # @end expo-cli
+# kamal
+.kamal/secrets
+.dockerignore.bak

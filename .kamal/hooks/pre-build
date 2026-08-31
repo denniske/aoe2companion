@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# The image COPYs dist/, which only exists after an expo export. Same steps deploy.sh runs before
+# its `docker buildx build`.
+set -eo pipefail
+cd "$(dirname "$0")/../.."
+
+# .yarnrc.yml interpolates this for the fontawesome registry, so every yarn call fails without it
+# -- and fails as a yarn usage error, which reads like a broken react-compiler check.
+source ./scripts/load-fontawesome-token.sh
+
+if [ "${SKIP_COMPILER_CHECK:-}" != "1" ]; then
+  echo "[pre-build] react compiler check"
+  yarn lint:compiler --strict --failures-only
+fi
+
+export TMPDIR=/tmp/metro-cache-${GAME:-aoe2}
+mkdir -p "$TMPDIR"
+rm -rf "$TMPDIR"/haste-map-* "$TMPDIR"/metro-cache
+
+echo "[pre-build] expo export -p web (GAME=${GAME:-aoe2})"
+npx expo export -p web --clear
+
+echo "[pre-build] done"

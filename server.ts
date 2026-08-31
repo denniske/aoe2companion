@@ -19,6 +19,15 @@ app.use(compression());
 // http://expressjs.com/en/advanced/best-practice-security.html#at-a-minimum-disable-x-powered-by-header
 app.disable('x-powered-by');
 
+// Before the www redirect below, deliberately. A proxy health-checks the container directly, so
+// the Host is the container id -- which matches neither exemption and would be redirected to
+// https://www.<container-id>, a name that cannot resolve. The checker follows the redirect and
+// fails on DNS, so the container never becomes healthy and the deploy times out with the app
+// itself running perfectly. A health endpoint must answer, not redirect.
+app.get('/ready', (req: any, res: any) => {
+    res.status(200).type('text/plain').send('Ready.');
+});
+
 app.use((req: any, res: any, next: any) => {
     const host = req.headers.host;
     if (host && !host.startsWith('www.') && !host.includes('app.')) {

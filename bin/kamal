@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# kamal, with what this machine needs:
+#   RUBYOPT=-rlogger   ruby 3.1 + activesupport load-order bug
+#   doppler run        .kamal/secrets reads every value from the environment
+#   GAME               picks the dataset and domains; the pre-build hook needs it too
+set -eo pipefail
+export GAME=${GAME:-aoe2}
+exec doppler run -p aoecompanion -c dev_${GAME} -- env RUBYOPT="-rlogger" GAME=$GAME kamal "$@"

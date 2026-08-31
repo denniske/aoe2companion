@@ -32,3 +32,24 @@ node_modules
 !dist/client/assets/node_modules/**
 
 private-key.pem
+
+# --- kamal ---
+# The image only COPYs: yarn.lock, .yarnrc.docker.yml, .yarn/releases, dist/, server.ts.
+# Everything below is context that costs upload time and nothing else -- it was ~1.5G, which is
+# survivable for a local daemon and fatal for a remote builder.
+/ios
+/android
+/assets
+/assets4
+/data
+/dataset2
+/modules
+/widget
+/update
+/scripts
+/src
+/public
+*.ipa
+*.aab
+*.p8
+*.json.bak
