@@ -3,7 +3,7 @@ import { Card } from './card';
 import { IProfileRatingsLeaderboard, IStatNew , IProfileLeaderboardResult } from '@app/api/helper/api.types';
 import { Skeleton, SkeletonText } from './skeleton';
 import { Text } from './text';
-import { first, orderBy, reverse } from 'lodash';
+import { first, orderBy, reverse, sumBy } from 'lodash';
 import { getCivIcon } from '../helper/civs';
 import { Image } from './uniwind/image';
 import { getMapImage } from '@app/helper/maps';
@@ -38,6 +38,10 @@ export const ProfileLeaderboardCard: React.FC<{
     // Rank is only recalculated for active players, so an inactive card shows how
     // long ago they dropped off instead of a rank that stopped being true.
     const isInactive = leaderboard?.active === false;
+    // leaderboard_row counts wins and losses from the rating table, which holds
+    // nothing for some old ladders even though their matches were collected. The
+    // civ stats count those matches, so use them rather than claiming 0 games.
+    const games = leaderboard?.games || (stats ? sumBy(stats.civ, (c) => c.games) : 0) || undefined;
 
     return (
         <>
@@ -57,7 +61,7 @@ export const ProfileLeaderboardCard: React.FC<{
                     <View className="w-px bg-border self-stretch hidden lg:flex" />
 
                     <TextComponent variant="label-lg" color="subtle" className="hidden lg:flex">
-                        {getTranslation('profilecard.games', { games: leaderboard?.games?.toLocaleString(language) ?? '' })}
+                        {getTranslation('profilecard.games', { games: games?.toLocaleString(language) ?? '' })}
                     </TextComponent>
 
                     <View className="flex-1" />
@@ -66,7 +70,7 @@ export const ProfileLeaderboardCard: React.FC<{
                 </View>
 
                 <TextComponent variant="label-lg" color="subtle" className={cn('flex lg:hidden -my-2', !leaderboard && 'max-w-24')}>
-                    {getTranslation('profilecard.games', { games: leaderboard?.games?.toLocaleString(language) ?? '' })}
+                    {getTranslation('profilecard.games', { games: games?.toLocaleString(language) ?? '' })}
                 </TextComponent>
 
                 <View className="flex-row gap-4 items-center">
