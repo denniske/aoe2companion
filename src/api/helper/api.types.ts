@@ -159,6 +159,9 @@ export interface IProfileLeaderboardResult {
     abbreviation: string
     profileId: number
     name: string
+    // false once the player has not played this leaderboard for 14 days. Their
+    // rank is no longer maintained then, so it can be stale or missing entirely.
+    active: boolean
     rank: number
     rating: number
     lastMatchTime: string
