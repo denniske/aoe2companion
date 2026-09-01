@@ -408,6 +408,12 @@ export const changelog: IChangelog = {
     //     },
     // ],
 
+    '216.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Hide civs without winrate data (Khitans, Jurchens) in winrate stats',
+        },
+    ],
     '215.0.0': [
         {
             type: 'bugfix',

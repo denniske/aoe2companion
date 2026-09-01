@@ -114,7 +114,13 @@ export const useWinrates = (params?: WinrateParams) => {
     return {
         winrates:
             winrates && civStats && mapStats && openingStats
-                ? { civs: Object.values(civStats), maps: Object.values(mapStats), openings: Object.values(openingStats) }
+                ? {
+                      // Civs without any games (e.g. unreleased ones aoestats already lists) have no
+                      // meaningful winrate, so keep them out of the lists entirely.
+                      civs: Object.values(civStats).filter((civ) => civ.num_games > 0),
+                      maps: Object.values(mapStats),
+                      openings: Object.values(openingStats),
+                  }
                 : undefined,
         ...rest,
     };
