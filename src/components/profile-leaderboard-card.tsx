@@ -124,6 +124,9 @@ export const ProfileLeaderboardCard: React.FC<{
                         <TextComponent variant="label-sm">
                             {getTranslation(streak < 0 ? 'profilecard.streak.losing' : 'profilecard.streak.winning', { count: Math.abs(streak) })}
                         </TextComponent>
+                        {/* last10MatchesWon comes back empty for a leaderboard nobody has
+                            played in a while, which would render as five blank circles. */}
+                        {!isInactive && (
                         <View className="flex-row gap-2">
                             {last5MatchesWon?.map((match, i) =>
                                 match === null ? (
@@ -144,6 +147,7 @@ export const ProfileLeaderboardCard: React.FC<{
                                 )
                             )}
                         </View>
+                        )}
                     </View>
 
                     <View className="w-px bg-border self-stretch hidden lg:flex" />
