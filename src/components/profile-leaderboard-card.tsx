@@ -15,6 +15,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { appConfig } from '@nex/dataset';
 import { useLanguage } from '@app/queries/all';
+import { formatAgo } from '@nex/data';
 import { useTranslation } from '@app/helper/translate';
 
 export const ProfileLeaderboardCard: React.FC<{
@@ -34,6 +35,9 @@ export const ProfileLeaderboardCard: React.FC<{
     const streak = leaderboard?.streak ?? 0;
     const showTabBar = useShowTabBar();
     const canOpenModal = !showTabBar && leaderboard && stats && ratings;
+    // Rank is only recalculated for active players, so an inactive card shows how
+    // long ago they dropped off instead of a rank that stopped being true.
+    const isInactive = leaderboard?.active === false;
 
     return (
         <>
@@ -67,19 +71,32 @@ export const ProfileLeaderboardCard: React.FC<{
 
                 <View className="flex-row gap-4 items-center">
                     <View className="gap-2 items-center lg:flex-1">
-                        <View className="items-center">
-                            <TextComponent variant="title" color="brand">
-                                #{leaderboard?.rank}
-                            </TextComponent>
-                            <TextComponent variant="body-xs" className="min-w-24 -mt-0.5 whitespace-nowrap" color="subtle">
-                                {getTranslation('profilecard.toppercent', {
-                                    percent: (
-                                        leaderboard && leaderboard.total ? Math.max(1, (leaderboard.rank / leaderboard.total) * 100) : 0
-                                    ).toFixed(),
-                                })}
-                                <span className=""> {getTranslation('profilecard.ofplayers', { total: leaderboard?.total.toLocaleString(language) ?? '' })}</span>
-                            </TextComponent>
-                        </View>
+                        {isInactive ? (
+                            <View className="items-center">
+                                <TextComponent variant="header-lg" color="subtle" className="min-h-10 pt-2">
+                                    {getTranslation('profilecard.inactive')}
+                                </TextComponent>
+                                <TextComponent variant="body-xs" className="min-w-24 -mt-0.5 whitespace-nowrap" color="subtle">
+                                    {leaderboard?.lastMatchTime
+                                        ? getTranslation('profilecard.lastplayed', { time: formatAgo(new Date(leaderboard.lastMatchTime)) })
+                                        : ''}
+                                </TextComponent>
+                            </View>
+                        ) : (
+                            <View className="items-center">
+                                <TextComponent variant="title" color="brand">
+                                    #{leaderboard?.rank}
+                                </TextComponent>
+                                <TextComponent variant="body-xs" className="min-w-24 -mt-0.5 whitespace-nowrap" color="subtle">
+                                    {getTranslation('profilecard.toppercent', {
+                                        percent: (
+                                            leaderboard && leaderboard.total ? Math.max(1, (leaderboard.rank / leaderboard.total) * 100) : 0
+                                        ).toFixed(),
+                                    })}
+                                    <span className=""> {getTranslation('profilecard.ofplayers', { total: leaderboard?.total.toLocaleString(language) ?? '' })}</span>
+                                </TextComponent>
+                            </View>
+                        )}
 
                         <View className="items-center">
                             <TextComponent variant="label-sm">{getTranslation('profilecard.rating')}</TextComponent>
