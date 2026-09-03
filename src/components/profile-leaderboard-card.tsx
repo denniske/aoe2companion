@@ -88,17 +88,6 @@ export const ProfileLeaderboardCard: React.FC<{
                     {!!onPress && <Icon icon={faAngleRight} size={24} color="brand" />}
                 </View>
 
-                <View className="flex-row items-baseline gap-2 flex lg:hidden -my-2">
-                    <TextComponent variant="label-lg" color="subtle" className={cn(!leaderboard && 'max-w-24')}>
-                        {getTranslation('profilecard.games', { games: games?.toLocaleString(language) ?? '' })}
-                    </TextComponent>
-                    {!!leaderboard && (
-                        <Text variant="body-sm" color="subtle">
-                            {getTranslation('main.profile.drops', { drops: leaderboard.drops?.toLocaleString(language) ?? '0' })}
-                        </Text>
-                    )}
-                </View>
-
                 <View className="flex-row gap-4 items-center">
                     <View className="flex-row lg:flex-col w-full lg:w-auto gap-4 lg:gap-2 items-center lg:flex-1">
                         {isInactive ? (
@@ -114,6 +103,16 @@ export const ProfileLeaderboardCard: React.FC<{
                             </View>
                         ) : (
                             <View className="items-center flex-1 lg:flex-none">
+                                <View className="flex-row items-baseline gap-2 flex lg:hidden">
+                                    <TextComponent variant="label" color="subtle" className={cn(!leaderboard && 'max-w-24')}>
+                                        {getTranslation('profilecard.games', { games: games?.toLocaleString(language) ?? '' })}
+                                    </TextComponent>
+                                    {!!leaderboard && (
+                                        <Text variant="body-xs" color="subtle">
+                                            {getTranslation('main.profile.drops', { drops: leaderboard.drops?.toLocaleString(language) ?? '0' })}
+                                        </Text>
+                                    )}
+                                </View>
                                 <TextComponent variant="title" color="brand">
                                     #{leaderboard?.rank}
                                 </TextComponent>

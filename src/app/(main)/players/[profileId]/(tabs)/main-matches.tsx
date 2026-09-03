@@ -8,6 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Platform, StyleSheet, View, FlatList as RNFlatList } from 'react-native';
 import { useAuthProfileId, useLanguage, useLeaderboards, useProfile } from '@app/queries/all';
 import { Stack, useLocalSearchParams } from 'expo-router';
+import { HeaderTitle } from '@app/components/header-title';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
 import { useTranslation } from '@app/helper/translate';
@@ -130,7 +131,19 @@ export default function MainMatches(props: MainMatchesProps) {
 
     return (
         <View className="flex-1">
-            {!props.leaderboardIds && <Stack.Screen options={{ title: getTranslation('main.heading.matches') }} />}
+            {!props.leaderboardIds && (
+                <Stack.Screen
+                    options={{
+                        title: getTranslation('main.heading.matches'),
+                        headerTitle: () => (
+                            <HeaderTitle
+                                title={getTranslation('main.heading.matches')}
+                                subtitle={profile ? getTranslation('profilecard.games', { games: Number(profile.games).toLocaleString(language) }) : ''}
+                            />
+                        ),
+                    }}
+                />
+            )}
             {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
             {!props.leaderboardIds && (
                 <View style={styles.pickerRow} className={containerClassName}>

@@ -30,6 +30,7 @@ import { containerScrollClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 import { Skeleton } from '@app/components/skeleton';
+import { Header } from '@app/components/header';
 
 import { faCheckCircle, faFamily, faHeart as faHeartSolid, faLink, faUserTimes } from '@fortawesome/sharp-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/sharp-regular-svg-icons';
@@ -312,7 +313,15 @@ export default function UserPage() {
     // main-stats / main-matches are pushed onto it. The header comes from the parent
     // stack (set above), so this one renders none of its own.
     return (
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack
+            screenOptions={{
+                headerShown: false,
+                // The same header the parent stack renders, so the pushed screens match it
+                // in background, height and behaviour instead of getting the platform
+                // default (which on ios comes with its own material).
+                header: (props) => <Header {...props} />,
+            }}
+        >
             <Stack.Screen name="main-profile" initialParams={{ profileId }} options={{ title: appName }} />
             <Stack.Screen name="main-stats" initialParams={{ profileId }} options={{ headerShown: true }} />
             <Stack.Screen name="main-matches" initialParams={{ profileId }} options={{ headerShown: true }} />

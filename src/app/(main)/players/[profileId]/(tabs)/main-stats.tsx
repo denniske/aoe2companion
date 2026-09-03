@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList as RNFlatList, LayoutChangeEvent, Platform, StyleSheet, View } from 'react-native';
 import { useLeaderboards, useProfileWithStats, useWithRefetching } from '@app/queries/all';
 import { Stack, useLocalSearchParams } from 'expo-router';
+import { HeaderTitle } from '@app/components/header-title';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 import { useTranslation } from '@app/helper/translate';
 import { useWebRefresh } from '@app/hooks/use-web-refresh';
@@ -139,7 +140,17 @@ export default function MainStats() {
 
     return (
         <View className="flex-1">
-            <Stack.Screen options={{ title: leaderboardTitle ?? getTranslation('main.heading.stats') }} />
+            <Stack.Screen
+                options={{
+                    title: leaderboardTitle ?? getTranslation('main.heading.stats'),
+                    headerTitle: () => (
+                        <HeaderTitle
+                            title={leaderboardTitle ?? getTranslation('main.heading.stats')}
+                            subtitle={profileWithStats?.name ?? ''}
+                        />
+                    ),
+                }}
+            />
             {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
             <FlatList
                 ref={listRef}
