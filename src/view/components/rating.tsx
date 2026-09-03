@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { StyleSheet, View } from 'react-native';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -20,9 +21,12 @@ interface IRatingProps {
     ratingHistories?: IProfileRatingsLeaderboard[] | null;
     profile?: IProfileResult | null;
     ready: boolean;
+    // The screen can own the timespan instead, so its selector can sit in a row
+    // with the other filters rather than inside the chart card.
+    ratingHistoryDuration?: string;
 }
 
-export default function Rating({ ratingHistories, profile, ready }: IRatingProps) {
+export default function Rating({ ratingHistories, profile, ready, ratingHistoryDuration: durationProp }: IRatingProps) {
     const [width, setWidth] = useState(0)
     const getTranslation = useTranslation();
     const effectiveRatingHistories = ready ? ratingHistories : null;
@@ -50,7 +54,8 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 
     // Changing the pref will trigger a rerender on every chart. Should we do this?
     // const ratingHistoryDuration = useSelector((state) => state.prefs.ratingHistoryDuration) || 'max';
-    const [ratingHistoryDuration, setRatingHistoryDuration] = useState<string>('max');
+    const [ownDuration, setOwnDuration] = useState<string>('max');
+    const ratingHistoryDuration = durationProp ?? ownDuration;
 
     const toggleLeaderboard = (leaderboardId: LeaderboardId) => {
         let ids = [];
@@ -98,9 +103,11 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 
     return (
         <View onLayout={(e) => setWidth(e.nativeEvent.layout.width)} className='w-full'>
-            <View className="flex-row justify-end mb-4">
-                <TimespanSelect ratingHistoryDuration={ratingHistoryDuration} setRatingHistoryDuration={setRatingHistoryDuration}/>
-            </View>
+            {durationProp === undefined && (
+                <View className="flex-row justify-end mb-4">
+                    <TimespanSelect ratingHistoryDuration={ownDuration} setRatingHistoryDuration={setOwnDuration} />
+                </View>
+            )}
 
             <ViewLoader ready={hasData}>
                 <View style={{ width: width, height: 300 }}>
@@ -117,6 +124,8 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                 </View>
             </ViewLoader>
 
+            {/* One series needs no legend to tell it apart. */}
+            {(filteredRatingHistories?.length ?? 0) > 1 && (
             <View className="flex-row justify-evenly flex-wrap -mx-2 mt-3">
                 {(filteredRatingHistories || Array(2).fill(0)).map((ratingHistory, i) => (
                     <PressableOpacity key={'legend-' + i} onPress={() => toggleLeaderboard(ratingHistory.leaderboardId)}>
@@ -137,6 +146,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
                     </PressableOpacity>
                 ))}
             </View>
+            )}
         </View>
     );
 }

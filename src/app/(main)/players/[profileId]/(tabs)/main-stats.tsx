@@ -14,6 +14,7 @@ import { StatsHeader, StatsRow } from '@app/view/components/stats-rows';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { createStylesheet } from '@app/theming-new';
 import Rating from '@app/view/components/rating';
+import { TimespanSelect } from '@app/components/select/timespan-select';
 
 export default function MainStats() {
     const getTranslation = useTranslation();
@@ -68,6 +69,10 @@ export default function MainStats() {
     // exist. The list is a flat array, so the target is the index of its header.
     const listRef = useRef<RNFlatList<any>>(null);
     const [hasScrolledToSection, setHasScrolledToSection] = useState(false);
+    // Owned here so the selector can sit beside the leaderboard one. It drives the
+    // chart only -- the stats below are all-time aggregates from the api, which
+    // takes no date range, so they cannot follow it without a backend change.
+    const [ratingHistoryDuration, setRatingHistoryDuration] = useState<string>('max');
     const sectionIndex = params.scrollTo
         ? list.findIndex(
               (item) =>
@@ -128,15 +133,24 @@ export default function MainStats() {
                         case 'stats-header':
                             return (
                                 <View>
-                                    <View style={styles.pickerRow}>
+                                    <View style={styles.pickerRow} className="justify-between gap-4">
                                         <LeaderboardSelect
                                             leaderboardId={leaderboardId}
                                             onLeaderboardIdChange={(x) => setLeaderboardId(x ?? undefined)}
                                         />
+                                        <TimespanSelect
+                                            ratingHistoryDuration={ratingHistoryDuration}
+                                            setRatingHistoryDuration={setRatingHistoryDuration}
+                                        />
                                     </View>
                                     {!!ratingHistories?.length && (
                                         <View className="mb-6">
-                                            <Rating ratingHistories={ratingHistories} profile={profileWithStats} ready={profileWithStats != null} />
+                                            <Rating
+                                                ratingHistories={ratingHistories}
+                                                profile={profileWithStats}
+                                                ready={profileWithStats != null}
+                                                ratingHistoryDuration={ratingHistoryDuration}
+                                            />
                                         </View>
                                     )}
                                     {statsLoaded && !hasStats && <MyText style={styles.info}>{getTranslation('main.stats.nomatches')}</MyText>}
@@ -155,7 +169,7 @@ export default function MainStats() {
                     // then ask again a few times as the measurements come in.
                     listRef.current?.scrollToOffset({ offset: index * averageItemLength, animated: false });
                     for (const delay of [150, 400, 900]) {
-                        setTimeout(() => listRef.current?.scrollToIndex({ index, animated: true, viewPosition: 0 }), delay);
+                        setTimeout(() => listRef.current?.scrollToIndex({ index, animated: false, viewPosition: 0 }), delay);
                     }
                 }}
                 refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}

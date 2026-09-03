@@ -185,6 +185,13 @@ export default function RatingChartSkia(props: IRatingChartProps) {
         return <View />;
     }
 
+    // On web the typeface is fetched, so `useChartFont` is null for the first
+    // render(s). Drawing then paints a chart with no axis labels, which pop in a
+    // moment later -- wait for the font so the chart appears once, complete.
+    if (!font) {
+        return <View style={{ flex: 1, width: '100%', height: '100%' }} />;
+    }
+
     return (
         <View ref={containerRef} style={{ flex: 1, width: '100%', height: '100%' }}>
             <CartesianChart
