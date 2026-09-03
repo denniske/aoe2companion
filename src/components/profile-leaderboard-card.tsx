@@ -74,14 +74,25 @@ export const ProfileLeaderboardCard: React.FC<{
                         {getTranslation('profilecard.games', { games: games?.toLocaleString(language) ?? '' })}
                     </TextComponent>
 
+                    <TextComponent variant="body-sm" color="subtle" className="hidden lg:flex">
+                        {getTranslation('main.profile.drops', { drops: leaderboard?.drops?.toLocaleString(language) ?? '' })}
+                    </TextComponent>
+
                     <View className="flex-1" />
 
                     {!!onPress && <Icon icon={faAngleRight} size={24} color="brand" />}
                 </View>
 
-                <TextComponent variant="label-lg" color="subtle" className={cn('flex lg:hidden -my-2', !leaderboard && 'max-w-24')}>
-                    {getTranslation('profilecard.games', { games: games?.toLocaleString(language) ?? '' })}
-                </TextComponent>
+                <View className="flex-row items-baseline gap-2 flex lg:hidden -my-2">
+                    <TextComponent variant="label-lg" color="subtle" className={cn(!leaderboard && 'max-w-24')}>
+                        {getTranslation('profilecard.games', { games: games?.toLocaleString(language) ?? '' })}
+                    </TextComponent>
+                    {!!leaderboard && (
+                        <Text variant="body-sm" color="subtle">
+                            {getTranslation('main.profile.drops', { drops: leaderboard.drops?.toLocaleString(language) ?? '0' })}
+                        </Text>
+                    )}
+                </View>
 
                 <View className="flex-row gap-4 items-center">
                     <View className="gap-2 items-center lg:flex-1">
@@ -222,6 +233,60 @@ export const ProfileLeaderboardCard: React.FC<{
                         </TextComponent>
 
                         <TextComponent numberOfLines={1}>{getTranslation('profilecard.matches', { games: topMap?.games ?? '' })}</TextComponent>
+                    </View>
+                </View>
+
+                {/* Web has room for the two panels above; on a phone the same favourites
+                    fit as one compact row under the rating. */}
+                <View className="flex lg:hidden w-full gap-3">
+                    <View className="h-px bg-border w-full" />
+                    <View className="flex-row items-center gap-3">
+                        <View className="flex-row items-center gap-2 flex-1">
+                            {topCiv ? (
+                                <Image source={getCivIcon(topCiv)} className={cn('w-8 h-8', appConfig.game === 'aoe4' && 'h-8 w-12')} />
+                            ) : (
+                                <Skeleton className={cn('w-8 h-8', appConfig.game === 'aoe4' && 'h-8 w-12')} />
+                            )}
+                            <View className="flex-1">
+                                <TextComponent variant="label-sm" numberOfLines={1}>
+                                    {topCiv?.civName}
+                                </TextComponent>
+                                <View className="flex-row items-baseline gap-1">
+                                    <TextComponent variant="body-xs" color="brand">
+                                        {!topCiv?.wins || isNaN(topCiv?.wins) ? '-' : ((topCiv.wins / topCiv.games) * 100).toFixed(0) + '%'}
+                                    </TextComponent>
+                                    <TextComponent variant="body-xs" color="subtle" numberOfLines={1}>
+                                        {getTranslation('profilecard.matches', { games: topCiv?.games ?? '' })}
+                                    </TextComponent>
+                                </View>
+                            </View>
+                        </View>
+
+                        <View className="w-px bg-border self-stretch" />
+
+                        <View className="flex-row items-center gap-2 flex-1">
+                            {topMap ? (
+                                <Image
+                                    source={getMapImage(topMap, 'thumb')}
+                                    className={cn('w-8 h-8', appConfig.game === 'aoe4' && 'border border-gold-500 rounded')}
+                                />
+                            ) : (
+                                <Skeleton className="w-8 h-8" />
+                            )}
+                            <View className="flex-1">
+                                <TextComponent variant="label-sm" numberOfLines={1}>
+                                    {topMap?.mapName}
+                                </TextComponent>
+                                <View className="flex-row items-baseline gap-1">
+                                    <TextComponent variant="body-xs" color="brand">
+                                        {!topMap?.wins || isNaN(topMap?.wins) ? '-' : ((topMap.wins / topMap.games) * 100).toFixed(0) + '%'}
+                                    </TextComponent>
+                                    <TextComponent variant="body-xs" color="subtle" numberOfLines={1}>
+                                        {getTranslation('profilecard.matches', { games: topMap?.games ?? '' })}
+                                    </TextComponent>
+                                </View>
+                            </View>
+                        </View>
                     </View>
                 </View>
             </Card>

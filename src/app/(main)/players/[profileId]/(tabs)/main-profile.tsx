@@ -14,6 +14,7 @@ import Profile from '@app/view/components/profile';
 import { ProfileLeaderboards } from '@app/components/profile-leaderboards';
 import { Match } from '@app/components/match/match';
 import { Card } from '@app/components/card';
+import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Text } from '@app/components/text';
 import { Icon } from '@app/components/icon';
 import { Field } from '@app/components/field';
@@ -72,9 +73,9 @@ export default function MainProfile() {
 
                     {/* Tapping this opens the matches screen with its search focused, rather
                         than raising a keyboard over a page the user is still scrolling. */}
-                    <Card flat onPress={() => openMatches(true)} className="py-0">
+                    <PressableOpacity onPress={() => openMatches(true)}>
                         <Field type="search" placeholder={getTranslation('main.matches.search.placeholder')} editable={false} pointerEvents="none" />
-                    </Card>
+                    </PressableOpacity>
 
                     {recentMatches.map((match, i) => (
                         <Match key={match?.matchId ?? i} match={match} highlightedUsers={[profileId]} user={profileId} />

@@ -15,11 +15,10 @@ import { Text } from '@app/components/text';
 import { Icon } from '@app/components/icon';
 import { faBolt, faChessRook, faSkull, faSwords } from '@fortawesome/sharp-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { reverse, sumBy } from 'lodash';
+import { reverse } from 'lodash';
 import useAuth from '@/data/src/hooks/use-auth';
 import { Skeleton } from '@app/view/components/loader/skeleton';
 import { AnimateIn } from '@app/components/animate-in';
-import { faComputerMouse, faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from '@app/helper/translate';
 import { Translated } from '@app/components/translated';
 
@@ -163,11 +162,7 @@ export default function Profile({ data, ready, profileId, showLeaderboardRows = 
     const leaderboardsPC = data?.leaderboards?.filter((l) => !l.leaderboardId?.includes('_console'));
     const leaderboardsConsole = data?.leaderboards?.filter((l) => l.leaderboardId?.includes('_console'));
 
-    const pcGames = sumBy(leaderboardsPC, x => x.games);
-    const consoleGames = sumBy(leaderboardsConsole, x => x.games);
 
-    const pcDrops = sumBy(leaderboardsPC, x => x.drops);
-    const consoleDrops = sumBy(leaderboardsConsole, x => x.drops);
 
     return (
         <View className="gap-y-3 min-w-xs">
@@ -204,43 +199,11 @@ export default function Profile({ data, ready, profileId, showLeaderboardRows = 
                 </>
             )}
 
-            {(!!leaderboardsPC?.length || leaderboardsConsole?.length === 0) && (
-                <View className="flex-row items-center py-0.5 mt-2 gap-x-4">
-                    <View className="flex-col w-8 items-center">
-                        <Icon icon={faComputerMouse} size={16} />
-                    </View>
-                    <View className="flex-col">
-                        <Text variant="body">{pcGames}</Text>
-                        <Text variant="body-xs">games</Text>
-                    </View>
-                    <View className="flex-col">
-                        <Text variant="body">{pcGames === 0 ? '0' : ((pcDrops / pcGames) * 100).toFixed(2)} %</Text>
-                        <Text variant="body-xs">drops</Text>
-                    </View>
-                </View>
-            )}
-
             {!!leaderboardsPC?.length && showLeaderboardRows && (
                 <View className="py-1 gap-y-2">
                     {leaderboardsPC.map((leaderboard) => (
                         <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />
                     ))}
-                </View>
-            )}
-
-            {!!leaderboardsConsole?.length && (
-                <View className="flex-row items-center py-0.5 mt-2 gap-x-4">
-                    <View className="flex-col w-8 items-center">
-                        <Icon icon={faGamepad} size={20} />
-                    </View>
-                    <View className="flex-col w-10">
-                        <Text variant="body">{consoleGames}</Text>
-                        <Text variant="body-xs">games</Text>
-                    </View>
-                    <View className="flex-col w-12">
-                        <Text variant="body">{(((consoleDrops as any) / (consoleGames as any)) * 100).toFixed(2)} %</Text>
-                        <Text variant="body-xs">drops</Text>
-                    </View>
                 </View>
             )}
 

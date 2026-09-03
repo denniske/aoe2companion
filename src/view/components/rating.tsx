@@ -14,7 +14,6 @@ import { useSavePrefsMutation } from '@app/mutations/save-account';
 import { useTranslation } from '@app/helper/translate';
 import { getRatingTimespan } from '@app/utils/rating';
 import { TimespanSelect } from '@app/components/select/timespan-select';
-import { PlatformSelect } from '@app/components/select/platform-select';
 import RatingChart from '@app/view/components/rating-chart';
 
 interface IRatingProps {
@@ -51,7 +50,6 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 
     // Changing the pref will trigger a rerender on every chart. Should we do this?
     // const ratingHistoryDuration = useSelector((state) => state.prefs.ratingHistoryDuration) || 'max';
-    const [platform, setPlatform] = useState<string>('pc');
     const [ratingHistoryDuration, setRatingHistoryDuration] = useState<string>('max');
 
     const toggleLeaderboard = (leaderboardId: LeaderboardId) => {
@@ -85,13 +83,14 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
     const filteredRatingHistories = useMemo(() => {
         const since = getRatingTimespan(ratingHistoryDuration);
 
-        return effectiveRatingHistories?.filter(r => (!r.leaderboardId.includes('_console') && platform != 'console') || (r.leaderboardId.includes('_console') && platform == 'console'))?.map((r) => ({
+        // No pc/console split here any more: the caller passes the histories it wants
+        // charted, which for a leaderboard screen is that one leaderboard.
+        return effectiveRatingHistories?.map((r) => ({
             ...r,
             leaderboardId: r.leaderboardId,
             ratings: r.ratings.filter((d) => since == null || isAfter(d.date!, since)),
-        }))
-            ;
-    }, [effectiveRatingHistories, ratingHistoryDuration, platform]);
+        }));
+    }, [effectiveRatingHistories, ratingHistoryDuration]);
 
     const hasData = filteredRatingHistories?.some((rh) => rh.ratings.length > 0);
 
@@ -99,8 +98,7 @@ export default function Rating({ ratingHistories, profile, ready }: IRatingProps
 
     return (
         <View onLayout={(e) => setWidth(e.nativeEvent.layout.width)} className='w-full'>
-            <View className="flex-row justify-between mb-4">
-                <PlatformSelect platform={platform} setPlatform={setPlatform}/>
+            <View className="flex-row justify-end mb-4">
                 <TimespanSelect ratingHistoryDuration={ratingHistoryDuration} setRatingHistoryDuration={setRatingHistoryDuration}/>
             </View>
 
