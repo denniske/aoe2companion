@@ -100,9 +100,9 @@ export const ProfileLeaderboardCard: React.FC<{
                 </View>
 
                 <View className="flex-row gap-4 items-center">
-                    <View className="gap-2 items-center lg:flex-1">
+                    <View className="flex-row lg:flex-col w-full lg:w-auto gap-4 lg:gap-2 items-center lg:flex-1">
                         {isInactive ? (
-                            <View className="items-center">
+                            <View className="items-center flex-1 lg:flex-none">
                                 <TextComponent variant="header-lg" color="subtle" className="min-h-10 pt-2">
                                     {getTranslation('profilecard.inactive')}
                                 </TextComponent>
@@ -113,7 +113,7 @@ export const ProfileLeaderboardCard: React.FC<{
                                 </TextComponent>
                             </View>
                         ) : (
-                            <View className="items-center">
+                            <View className="items-center flex-1 lg:flex-none">
                                 <TextComponent variant="title" color="brand">
                                     #{leaderboard?.rank}
                                 </TextComponent>
@@ -133,6 +133,7 @@ export const ProfileLeaderboardCard: React.FC<{
                             </View>
                         )}
 
+                        <View className="items-center gap-2 flex-1 lg:flex-none lg:w-full">
                         <View className="items-center">
                             <TextComponent variant="label-sm">{getTranslation('profilecard.rating')}</TextComponent>
                             <View className="flex-row gap-4">
@@ -186,6 +187,7 @@ export const ProfileLeaderboardCard: React.FC<{
                             )}
                         </View>
                         )}
+                        </View>
                     </View>
 
                     <View className="w-px bg-border self-stretch hidden lg:flex" />

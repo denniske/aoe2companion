@@ -109,8 +109,9 @@ export default function Rating({ ratingHistories, profile, ready, ratingHistoryD
                 </View>
             )}
 
+            {/* The selectors sit right above; give the plot room to breathe. */}
             <ViewLoader ready={hasData}>
-                <View style={{ width: width, height: 300 }}>
+                <View style={{ width: width, height: 300 }} className="mt-4">
                     {
                         hasData &&
                         <RatingChart

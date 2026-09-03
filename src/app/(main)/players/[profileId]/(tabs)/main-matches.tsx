@@ -7,7 +7,7 @@ import { flatten } from 'lodash';
 import React, { useEffect, useRef, useState } from 'react';
 import { Platform, StyleSheet, View, FlatList as RNFlatList } from 'react-native';
 import { useAuthProfileId, useLanguage, useLeaderboards, useProfile } from '@app/queries/all';
-import { useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
 import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
 import { useTranslation } from '@app/helper/translate';
@@ -130,6 +130,7 @@ export default function MainMatches(props: MainMatchesProps) {
 
     return (
         <View className="flex-1">
+            {!props.leaderboardIds && <Stack.Screen options={{ title: getTranslation('main.heading.matches') }} />}
             {/*<Button onPress={onRefresh}>REFRESH</Button>*/}
             {!props.leaderboardIds && (
                 <View style={styles.pickerRow} className={containerClassName}>

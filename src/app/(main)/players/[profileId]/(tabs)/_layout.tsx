@@ -1,7 +1,7 @@
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { IProfileResult, IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
-import { Link, Redirect, Stack, useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
+import { Link, Redirect, Stack, useLocalSearchParams, useNavigation, usePathname, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
@@ -284,16 +284,23 @@ export default function UserPage() {
     const appName = Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name;
     const { theme } = useUniwind();
     const navigation = useNavigation();
+    // main-stats and main-matches are pushed on top of the profile. They get their
+    // own header from the inner stack, whose back button pops back to the profile;
+    // the profile's own header (which belongs to the parent stack, and whose back
+    // button leaves the profile entirely) is hidden while one of them is open.
+    const pathname = usePathname();
+    const isSubScreen = pathname.includes('/main-stats') || pathname.includes('/main-matches');
 
     const { data: profile } = useProfileFast(profileId);
     const { data: fullProfile } = useProfile(profileId);
 
     useEffect(() => {
         navigation.setOptions({
+            headerShown: !isSubScreen,
             headerTitle: () => <UserTitle profile={profile} />,
             headerRight: () => <UserMenu profile={profile} fullProfile={fullProfile} />,
         });
-    }, [profile, fullProfile]);
+    }, [profile, fullProfile, isSubScreen]);
 
     // console.log('PROFILE LAYOUT', profileId);
 
@@ -307,8 +314,8 @@ export default function UserPage() {
     return (
         <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="main-profile" initialParams={{ profileId }} options={{ title: appName }} />
-            <Stack.Screen name="main-stats" initialParams={{ profileId }} options={{ title: appName }} />
-            <Stack.Screen name="main-matches" initialParams={{ profileId }} options={{ title: appName }} />
+            <Stack.Screen name="main-stats" initialParams={{ profileId }} options={{ headerShown: true }} />
+            <Stack.Screen name="main-matches" initialParams={{ profileId }} options={{ headerShown: true }} />
         </Stack>
     );
 }

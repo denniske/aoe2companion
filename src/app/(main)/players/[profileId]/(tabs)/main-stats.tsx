@@ -1,10 +1,10 @@
 import { FlatList } from '@app/components/flat-list';
 import { leaderboardIdsByType } from '@app/helper/leaderboard';
 import { useIsFocused, useNavigationState, useRoute } from "expo-router/react-navigation";
-import React, { useEffect, useRef, useState } from 'react';
-import { FlatList as RNFlatList, Platform, StyleSheet, View } from 'react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { FlatList as RNFlatList, LayoutChangeEvent, Platform, StyleSheet, View } from 'react-native';
 import { useLeaderboards, useProfileWithStats, useWithRefetching } from '@app/queries/all';
-import { useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 import { useTranslation } from '@app/helper/translate';
 import { useWebRefresh } from '@app/hooks/use-web-refresh';
@@ -73,6 +73,28 @@ export default function MainStats() {
     // chart only -- the stats below are all-time aggregates from the api, which
     // takes no date range, so they cannot follow it without a backend change.
     const [ratingHistoryDuration, setRatingHistoryDuration] = useState<string>('max');
+
+    // getItemLayout has to answer synchronously, but none of these heights are
+    // constants in the styles -- so measure one of each shape as it renders and
+    // feed those back. The defaults only apply for the first frame.
+    const [itemHeights, setItemHeights] = useState({ statsHeader: 420, header: 44, row: 36 });
+    const measure = (key: 'statsHeader' | 'header' | 'row') => (e: LayoutChangeEvent) => {
+        const height = e.nativeEvent.layout.height;
+        if (!height) return;
+        setItemHeights((current) => (Math.abs(current[key] - height) < 1 ? current : { ...current, [key]: height }));
+    };
+
+    const heightOf = (item: (typeof list)[number]) =>
+        item.type === 'stats-header' ? itemHeights.statsHeader : item.type === 'header' ? itemHeights.header : itemHeights.row;
+
+    const itemOffsets = useMemo(() => {
+        let offset = 0;
+        return list.map((item) => {
+            const start = offset;
+            offset += heightOf(item);
+            return start;
+        });
+    }, [list, itemHeights]);
     const sectionIndex = params.scrollTo
         ? list.findIndex(
               (item) =>
@@ -117,6 +139,7 @@ export default function MainStats() {
 
     return (
         <View className="flex-1">
+            <Stack.Screen options={{ title: leaderboardTitle ?? getTranslation('main.heading.stats') }} />
             {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
             <FlatList
                 ref={listRef}
@@ -132,7 +155,7 @@ export default function MainStats() {
                     switch (item.type) {
                         case 'stats-header':
                             return (
-                                <View>
+                                <View onLayout={measure('statsHeader')}>
                                     <View style={styles.pickerRow} className="justify-between gap-4">
                                         <LeaderboardSelect
                                             leaderboardId={leaderboardId}
@@ -157,9 +180,17 @@ export default function MainStats() {
                                 </View>
                             );
                         case 'header':
-                            return <StatsHeader title={item.title} />;
+                            return (
+                                <View onLayout={measure('header')}>
+                                    <StatsHeader title={item.title} />
+                                </View>
+                            );
                         default:
-                            return <StatsRow data={item.data} type={item.type} />;
+                            return (
+                                <View onLayout={measure('row')}>
+                                    <StatsRow data={item.data} type={item.type} />
+                                </View>
+                            );
                     }
                 }}
                 keyExtractor={(item, index) => index.toString()}

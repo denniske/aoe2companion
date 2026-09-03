@@ -1,4 +1,5 @@
 import { StyleSheet, TextInput, View } from 'react-native';
+import { Skeleton } from '@app/components/skeleton';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { formatCustom, LeaderboardId } from '@nex/data';
 import { getLeaderboardColor } from '../../helper/colors';
@@ -187,9 +188,10 @@ export default function RatingChartSkia(props: IRatingChartProps) {
 
     // On web the typeface is fetched, so `useChartFont` is null for the first
     // render(s). Drawing then paints a chart with no axis labels, which pop in a
-    // moment later -- wait for the font so the chart appears once, complete.
+    // moment later -- wait for the font so the chart appears once, complete, and
+    // show the same skeleton the chart shows while its data loads.
     if (!font) {
-        return <View style={{ flex: 1, width: '100%', height: '100%' }} />;
+        return <Skeleton className="w-full h-full" />;
     }
 
     return (
