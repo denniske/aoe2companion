@@ -9,6 +9,7 @@
         "start:ios": "bash run.sh ios",
         "start:android": "bash run.sh android",
         "start:tunnel": "expo start -c --dev-client -p 8081 --tunnel",
+        "start:perf": "bash start.sh perf",
         "prebuild": "bash prebuild.sh",
         "dev:ios": "PLATFORM=ios bash publish-dev.sh",
         "dev:sim:ios": "PLATFORM=ios bash publish-dev-sim.sh",
