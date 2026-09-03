@@ -2,6 +2,15 @@
 export TMPDIR=/tmp/metro-cache-$GAME
 mkdir -p $TMPDIR
 
+# expo itself auto-loads .env, but only once it starts -- too late for the
+# --device flag below, which bash has to substitute before invoking expo. Load
+# it here too so DEVICE_ID_IOS is already in the shell's own environment.
+if [ -f .env ]; then
+    set -a
+    source .env
+    set +a
+fi
+
 PLATFORM=${1:-ios}
 
 # Native projects are baked by expo prebuild for one game's scheme/bundle id/app
@@ -37,5 +46,5 @@ else
     if [ ! -d ios ]; then
         bash prebuild.sh
     fi
-    npx expo run:ios --device $DEVICE_ID
+    npx expo run:ios --device $DEVICE_ID_IOS
 fi
