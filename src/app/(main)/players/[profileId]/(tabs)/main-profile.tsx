@@ -1,5 +1,5 @@
-import React from 'react';
-import { Platform, View } from 'react-native';
+import React, { useRef } from 'react';
+import { Platform, ScrollView as RNScrollView, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMatches } from '@app/api/helper/api';
@@ -51,13 +51,24 @@ export default function MainProfile() {
         onRefresh();
     }, []);
 
+    // Kept so collapsing the inactive leaderboards can take the removed height off the
+    // offset the page had before the collapse, rather than whatever it was clamped to.
+    const scrollRef = useRef<RNScrollView>(null);
+    const scrollYRef = useRef(0);
+    const scrollYBeforeCollapseRef = useRef(0);
+
     const openMatches = (focusSearch: boolean) =>
         router.navigate(`/players/${profileId}/main-matches${focusSearch ? '?focusSearch=1' : ''}`);
 
     return (
         <View className="flex-1">
             {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
-            <ScrollView refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}>
+            <ScrollView
+                ref={scrollRef}
+                scrollEventThrottle={16}
+                onScroll={(e) => (scrollYRef.current = e.nativeEvent.contentOffset.y)}
+                refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}
+            >
                 <View className="px-4 pt-4">
                     {profile === null ? (
                         <MyText>{getTranslation('main.profile.noleaderboarddata')}</MyText>
@@ -66,7 +77,14 @@ export default function MainProfile() {
                     )}
                 </View>
 
-                <ProfileLeaderboards profile={profile ?? undefined} leaderboardIds={[]} />
+                <ProfileLeaderboards
+                    profile={profile ?? undefined}
+                    leaderboardIds={[]}
+                    onBeforeCollapse={() => (scrollYBeforeCollapseRef.current = scrollYRef.current)}
+                    onCollapsed={(removedHeight) =>
+                        scrollRef.current?.scrollTo({ y: Math.max(0, scrollYBeforeCollapseRef.current - removedHeight), animated: false })
+                    }
+                />
 
                 <View className="px-4 gap-2">
                     <Text variant="header-lg">{getTranslation('main.heading.matches')}</Text>

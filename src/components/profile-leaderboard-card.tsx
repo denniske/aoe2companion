@@ -18,6 +18,7 @@ import { useLanguage } from '@app/queries/all';
 import { formatAgo } from '@nex/data';
 import { useTranslation } from '@app/helper/translate';
 import { router } from 'expo-router';
+import { PressableOpacity } from './pressable-opacity';
 
 export const ProfileLeaderboardCard: React.FC<{
     leaderboard: IProfileLeaderboardResult | null | undefined;
@@ -40,6 +41,10 @@ export const ProfileLeaderboardCard: React.FC<{
     // Web opens the modal in place; on a phone the card is the way into the
     // leaderboard's own screen, so it navigates instead.
     const canNavigate = showTabBar && !!leaderboard && !!profileId;
+    const openStats = (scrollTo?: 'civ' | 'map') =>
+        router.navigate(
+            `/players/${profileId}/main-stats?leaderboardId=${leaderboard!.leaderboardId}${scrollTo ? `&scrollTo=${scrollTo}` : ''}`
+        );
     const onPress = canOpenModal
         ? () => setIsVisible(true)
         : canNavigate
@@ -241,7 +246,11 @@ export const ProfileLeaderboardCard: React.FC<{
                 <View className="flex lg:hidden w-full gap-3">
                     <View className="h-px bg-border w-full" />
                     <View className="flex-row items-center gap-3">
-                        <View className="flex-row items-center gap-2 flex-1">
+                        <PressableOpacity
+                            className="flex-row items-center gap-2 flex-1"
+                            disabled={!canNavigate}
+                            onPress={canNavigate ? () => openStats('civ') : undefined}
+                        >
                             {topCiv ? (
                                 <Image source={getCivIcon(topCiv)} className={cn('w-8 h-8', appConfig.game === 'aoe4' && 'h-8 w-12')} />
                             ) : (
@@ -260,11 +269,15 @@ export const ProfileLeaderboardCard: React.FC<{
                                     </TextComponent>
                                 </View>
                             </View>
-                        </View>
+                        </PressableOpacity>
 
                         <View className="w-px bg-border self-stretch" />
 
-                        <View className="flex-row items-center gap-2 flex-1">
+                        <PressableOpacity
+                            className="flex-row items-center gap-2 flex-1"
+                            disabled={!canNavigate}
+                            onPress={canNavigate ? () => openStats('map') : undefined}
+                        >
                             {topMap ? (
                                 <Image
                                     source={getMapImage(topMap, 'thumb')}
@@ -286,7 +299,7 @@ export const ProfileLeaderboardCard: React.FC<{
                                     </TextComponent>
                                 </View>
                             </View>
-                        </View>
+                        </PressableOpacity>
                     </View>
                 </View>
             </Card>

@@ -1,8 +1,8 @@
 import { FlatList } from '@app/components/flat-list';
 import { leaderboardIdsByType } from '@app/helper/leaderboard';
 import { useIsFocused, useNavigationState, useRoute } from "expo-router/react-navigation";
-import React, { useEffect, useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { FlatList as RNFlatList, Platform, StyleSheet, View } from 'react-native';
 import { useLeaderboards, useProfileWithStats, useWithRefetching } from '@app/queries/all';
 import { useLocalSearchParams } from 'expo-router';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
@@ -17,7 +17,7 @@ import Rating from '@app/view/components/rating';
 
 export default function MainStats() {
     const getTranslation = useTranslation();
-    const params = useLocalSearchParams<{ profileId: string; leaderboardId?: string }>();
+    const params = useLocalSearchParams<{ profileId: string; leaderboardId?: string; scrollTo?: 'civ' | 'map' }>();
     const profileId = parseInt(params.profileId);
     const styles = useStyles();
     // Arriving from a leaderboard card preselects that leaderboard; opened on its
@@ -64,6 +64,24 @@ export default function MainStats() {
         ...(statsMap?.map((row) => ({ type: 'map' as const, data: row })) ?? Array(8).fill({ type: 'map' as const, data: null })),
     ];
 
+    // Arriving from a favourite civ/map on a card: jump to that section once the rows
+    // exist. The list is a flat array, so the target is the index of its header.
+    const listRef = useRef<RNFlatList<any>>(null);
+    const [hasScrolledToSection, setHasScrolledToSection] = useState(false);
+    const sectionIndex = params.scrollTo
+        ? list.findIndex(
+              (item) =>
+                  item.type === 'header' &&
+                  item.title === getTranslation(params.scrollTo === 'civ' ? 'main.stats.heading.civ' : 'main.stats.heading.map')
+          )
+        : -1;
+
+    useEffect(() => {
+        if (hasScrolledToSection || !statsLoaded || sectionIndex < 0) return;
+        setHasScrolledToSection(true);
+        listRef.current?.scrollToIndex({ index: sectionIndex, animated: true, viewPosition: 0 });
+    }, [hasScrolledToSection, statsLoaded, sectionIndex]);
+
     const route = useRoute();
     const state = useNavigationState((state) => state);
     const activeRoute = state.routes[state.index];
@@ -96,6 +114,7 @@ export default function MainStats() {
         <View className="flex-1">
             {Platform.OS === 'web' && isRefetching && <FlatListLoadingIndicator />}
             <FlatList
+                ref={listRef}
                 initialNumToRender={10}
                 contentContainerClassName="p-4"
                 data={list}
@@ -130,6 +149,15 @@ export default function MainStats() {
                     }
                 }}
                 keyExtractor={(item, index) => index.toString()}
+                onScrollToIndexFailed={({ index, averageItemLength }) => {
+                    // Rows this far down are not measured yet, so the estimate below lands
+                    // roughly a section short. Jump there anyway to force them to render,
+                    // then ask again a few times as the measurements come in.
+                    listRef.current?.scrollToOffset({ offset: index * averageItemLength, animated: false });
+                    for (const delay of [150, 400, 900]) {
+                        setTimeout(() => listRef.current?.scrollToIndex({ index, animated: true, viewPosition: 0 }), delay);
+                    }
+                }}
                 refreshControl={<RefreshControlThemed onRefresh={onRefresh} refreshing={isRefetching} />}
             />
         </View>
