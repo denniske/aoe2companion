@@ -6,6 +6,8 @@
         "postinstall": "// fingerprint.config.js: remove PackageJsonScriptsAll if you change this",
         "start": "bash start.sh",
         "start:web": "bash start.sh web",
+        "start:ios": "bash run.sh ios",
+        "start:android": "bash run.sh android",
         "start:tunnel": "expo start -c --dev-client -p 8081 --tunnel",
         "prebuild": "bash prebuild.sh",
         "dev:ios": "PLATFORM=ios bash publish-dev.sh",
