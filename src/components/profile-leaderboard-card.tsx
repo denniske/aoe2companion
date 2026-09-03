@@ -107,7 +107,12 @@ export const ProfileLeaderboardCard: React.FC<{
                                             leaderboard && leaderboard.total ? Math.max(1, (leaderboard.rank / leaderboard.total) * 100) : 0
                                         ).toFixed(),
                                     })}
-                                    <span className=""> {getTranslation('profilecard.ofplayers', { total: leaderboard?.total.toLocaleString(language) ?? '' })}</span>
+                                    {/* A nested Text, not a span: this card renders on native now,
+                                        where raw html elements have no view config and throw. */}
+                                    <Text variant="body-xs" color="subtle">
+                                        {' '}
+                                        {getTranslation('profilecard.ofplayers', { total: leaderboard?.total.toLocaleString(language) ?? '' })}
+                                    </Text>
                                 </TextComponent>
                             </View>
                         )}

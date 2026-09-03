@@ -37,7 +37,7 @@ if [ "$PLATFORM" = "android" ]; then
     if [ ! -d android ]; then
         bash prebuild.sh
     fi
-    npx expo run:android
+    npx expo run:android --device $DEVICE_ID_ANDROID
 else
     if [ -d ios ] && [ ! -d "ios/$EXPECTED_XCODE_DIR" ]; then
         echo "ios/ was built for the other game (expected ios/$EXPECTED_XCODE_DIR) -- deleting and re-running prebuild for GAME=$GAME"
