@@ -31,12 +31,20 @@ export const ProfileLeaderboards: React.FC<{ profile: IProfileResult | undefined
     const visibleLeaderboards = showInactive ? [...activeLeaderboards, ...inactiveLeaderboards] : activeLeaderboards;
 
     return (
-        <View className="p-4 gap-4 grid grid-cols-2">
+        <View className="p-4 gap-4 grid grid-cols-1 lg:grid-cols-2">
             {visibleLeaderboards.map((leaderboard, i) => {
                 const stats = profile?.stats.find((s) => s.leaderboardId === leaderboard?.leaderboardId);
                 const ratings = profile?.ratings.find((r) => r.leaderboardId === leaderboard?.leaderboardId);
 
-                return <ProfileLeaderboardCard key={leaderboard?.leaderboardId ?? i} leaderboard={leaderboard} stats={stats} ratings={ratings} />;
+                return (
+                    <ProfileLeaderboardCard
+                        key={leaderboard?.leaderboardId ?? i}
+                        profileId={profile?.profileId}
+                        leaderboard={leaderboard}
+                        stats={stats}
+                        ratings={ratings}
+                    />
+                );
             })}
 
             {inactiveLeaderboards.length > 0 && (

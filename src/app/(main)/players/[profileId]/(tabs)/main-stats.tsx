@@ -13,13 +13,16 @@ import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-ind
 import { StatsHeader, StatsRow } from '@app/view/components/stats-rows';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { createStylesheet } from '@app/theming-new';
+import Rating from '@app/view/components/rating';
 
 export default function MainStats() {
     const getTranslation = useTranslation();
-    const params = useLocalSearchParams<{ profileId: string }>();
+    const params = useLocalSearchParams<{ profileId: string; leaderboardId?: string }>();
     const profileId = parseInt(params.profileId);
     const styles = useStyles();
-    const [leaderboardId, setLeaderboardId] = useState<string>();
+    // Arriving from a leaderboard card preselects that leaderboard; opened on its
+    // own the screen falls back to the first pc leaderboard as before.
+    const [leaderboardId, setLeaderboardId] = useState<string | undefined>(params.leaderboardId);
 
     const { data: leaderboards } = useLeaderboards();
 
@@ -36,6 +39,10 @@ export default function MainStats() {
     const { data: profileWithStats, refetch, isRefetching } = useWithRefetching(useProfileWithStats(profileId, isFocused));
 
     const cachedData = profileWithStats?.stats.find((s) => s.leaderboardId === leaderboardId);
+
+    // The chart component takes a list of histories, so showing one leaderboard is
+    // a matter of handing it just that one.
+    const ratingHistories = profileWithStats?.ratings?.filter((r) => r.leaderboardId === leaderboardId);
 
     const statsCiv = cachedData?.civ;
     const statsMap = cachedData?.map;
@@ -108,6 +115,11 @@ export default function MainStats() {
                                             onLeaderboardIdChange={(x) => setLeaderboardId(x ?? undefined)}
                                         />
                                     </View>
+                                    {!!ratingHistories?.length && (
+                                        <View className="mb-6">
+                                            <Rating ratingHistories={ratingHistories} profile={profileWithStats} ready={profileWithStats != null} />
+                                        </View>
+                                    )}
                                     {statsLoaded && !hasStats && <MyText style={styles.info}>{getTranslation('main.stats.nomatches')}</MyText>}
                                 </View>
                             );

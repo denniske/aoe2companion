@@ -31,7 +31,7 @@ interface MainMatchesProps {
 
 export default function MainMatches(props: MainMatchesProps) {
     const getTranslation = useTranslation();
-    const params = useLocalSearchParams<{ profileId: string }>();
+    const params = useLocalSearchParams<{ profileId: string; focusSearch?: string }>();
     const profileId = parseInt(params.profileId);
     const styles = useStyles();
     const [text, setText] = useState('');
@@ -147,6 +147,7 @@ export default function MainMatches(props: MainMatchesProps) {
                     <View className="flex-1 max-w-md">
                         <Field
                             type="search"
+                            autoFocus={params.focusSearch === '1'}
                             placeholder={getTranslation('main.matches.search.placeholder')}
                             onChangeText={(text) => setText(text)}
                             value={text}

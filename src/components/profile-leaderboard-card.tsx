@@ -17,12 +17,14 @@ import { appConfig } from '@nex/dataset';
 import { useLanguage } from '@app/queries/all';
 import { formatAgo } from '@nex/data';
 import { useTranslation } from '@app/helper/translate';
+import { router } from 'expo-router';
 
 export const ProfileLeaderboardCard: React.FC<{
     leaderboard: IProfileLeaderboardResult | null | undefined;
     stats: IStatNew | undefined;
     ratings: IProfileRatingsLeaderboard | undefined;
-}> = ({ leaderboard, stats, ratings }) => {
+    profileId?: number;
+}> = ({ leaderboard, stats, ratings, profileId }) => {
     const getTranslation = useTranslation();
     const language = useLanguage();
     const topCiv = first(orderBy(stats?.civ, 'games', 'desc'));
@@ -35,6 +37,14 @@ export const ProfileLeaderboardCard: React.FC<{
     const streak = leaderboard?.streak ?? 0;
     const showTabBar = useShowTabBar();
     const canOpenModal = !showTabBar && leaderboard && stats && ratings;
+    // Web opens the modal in place; on a phone the card is the way into the
+    // leaderboard's own screen, so it navigates instead.
+    const canNavigate = showTabBar && !!leaderboard && !!profileId;
+    const onPress = canOpenModal
+        ? () => setIsVisible(true)
+        : canNavigate
+          ? () => router.navigate(`/players/${profileId}/main-stats?leaderboardId=${leaderboard!.leaderboardId}`)
+          : undefined;
     // Rank is only recalculated for active players, so an inactive card shows how
     // long ago they dropped off instead of a rank that stopped being true.
     const isInactive = leaderboard?.active === false;
@@ -48,10 +58,10 @@ export const ProfileLeaderboardCard: React.FC<{
             <Card
                 className="flex flex-1 px-4 items-center lg:items-stretch gap-4"
                 direction="vertical"
-                onPress={canOpenModal ? () => setIsVisible(true) : undefined}
+                onPress={onPress}
                 // Marks the card as interactive once its queries have resolved,
                 // so automated checks can wait for the modal to be openable.
-                testID={canOpenModal ? 'leaderboard-card-openable' : 'leaderboard-card-loading'}
+                testID={onPress ? 'leaderboard-card-openable' : 'leaderboard-card-loading'}
             >
                 <View className={cn('flex-row items-center gap-1 lg:gap-5', !leaderboard && 'min-w-24')}>
                     <TextComponent variant="header-lg" numberOfLines={1} color="subtle">
@@ -66,7 +76,7 @@ export const ProfileLeaderboardCard: React.FC<{
 
                     <View className="flex-1" />
 
-                    {!!(canOpenModal) && <Icon icon={faAngleRight} size={24} color="brand" />}
+                    {!!onPress && <Icon icon={faAngleRight} size={24} color="brand" />}
                 </View>
 
                 <TextComponent variant="label-lg" color="subtle" className={cn('flex lg:hidden -my-2', !leaderboard && 'max-w-24')}>

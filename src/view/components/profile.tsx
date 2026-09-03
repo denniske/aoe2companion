@@ -145,9 +145,11 @@ interface IProfileProps {
     data?: IProfileResult | null;
     ready: boolean;
     profileId?: number;
+    // The mobile profile shows the same cards as web instead of these rows.
+    showLeaderboardRows?: boolean;
 }
 
-export default function Profile({ data, ready, profileId }: IProfileProps) {
+export default function Profile({ data, ready, profileId, showLeaderboardRows = true }: IProfileProps) {
     const getTranslation = useTranslation();
     data = ready ? data : null;
 
@@ -218,7 +220,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 </View>
             )}
 
-            {!!leaderboardsPC?.length && (
+            {!!leaderboardsPC?.length && showLeaderboardRows && (
                 <View className="py-1 gap-y-2">
                     {leaderboardsPC.map((leaderboard) => (
                         <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />
@@ -242,7 +244,7 @@ export default function Profile({ data, ready, profileId }: IProfileProps) {
                 </View>
             )}
 
-            {!!leaderboardsConsole?.length && (
+            {!!leaderboardsConsole?.length && showLeaderboardRows && (
                 <View className="py-1 gap-y-2">
                     {leaderboardsConsole.map((leaderboard) => (
                         <LeaderboardRow1 key={leaderboard.leaderboardId} data={leaderboard} />

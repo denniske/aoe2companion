@@ -1023,6 +1023,7 @@
     "profilecard.favoritemap": "Favorite Map",
     "profilecard.winrate": "{percent} Winrate",
     "profilecard.matches": "{games} Matches",
+    "main.matches.showall": "Show all {games} matches",
     "profilecard.inactive": "Inactive",
     "profilecard.lastplayed": "Last played {time}",
     "profileleaderboards.showinactive": "Show {count} inactive",

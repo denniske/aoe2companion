@@ -1,7 +1,7 @@
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { IProfileResult, IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
-import { Link, Redirect, useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
+import { Link, Redirect, Stack, useLocalSearchParams, useNavigation, useRouter, withLayoutContext } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
@@ -12,7 +12,6 @@ import { useAccount, useAuthProfileId, useProfile, useProfileFast } from '@app/q
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
 import Constants from 'expo-constants';
-import { TabBarLabel } from '@app/view/components/tab-bar-label';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useUnlinkSteamMutation } from '@app/mutations/unlink-steam';
 import { useTournamentPlayer } from '@app/api/tournaments';
@@ -32,9 +31,6 @@ import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 import { Skeleton } from '@app/components/skeleton';
 
-import {
-    TopTabs
-} from 'expo-router/js-top-tabs';
 import { faCheckCircle, faFamily, faHeart as faHeartSolid, faLink, faUserTimes } from '@fortawesome/sharp-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/sharp-regular-svg-icons';
 
@@ -305,43 +301,14 @@ export default function UserPage() {
         return <Redirect href={`/players/${profileId}`} />;
     }
 
+    // The three screens are no longer tabs: main-profile is the whole profile, and
+    // main-stats / main-matches are pushed onto it. The header comes from the parent
+    // stack (set above), so this one renders none of its own.
     return (
-        <TopTabs
-            // tabBar={(props) => (
-            //     <View className={cn('bg-white dark:bg-blue-900', containerScrollClassName)}>
-            //         <MaterialTopTabBar {...props} />
-            //     </View>
-            // )}
-            screenOptions={{
-                swipeEnabled: true,
-                tabBarInactiveTintColor: theme === 'dark' ? 'white' : 'black',
-                tabBarActiveTintColor: theme === 'dark' ? 'white' : 'black',
-            }}
-        >
-            <TopTabs.Screen
-                name="main-profile"
-                initialParams={{ profileId }}
-                options={{
-                    title: appName,
-                    tabBarLabel: (x: any) => <TabBarLabel {...x} title={getTranslation('main.heading.profile')} />,
-                }}
-            />
-            <TopTabs.Screen
-                name="main-stats"
-                initialParams={{ profileId }}
-                options={{
-                    title: appName,
-                    tabBarLabel: (x: any) => <TabBarLabel {...x} title={getTranslation('main.heading.stats')} />,
-                }}
-            />
-            <TopTabs.Screen
-                name="main-matches"
-                initialParams={{ profileId }}
-                options={{
-                    title: appName,
-                    tabBarLabel: (x: any) => <TabBarLabel {...x} title={getTranslation('main.heading.matches')} />,
-                }}
-            />
-        </TopTabs>
+        <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="main-profile" initialParams={{ profileId }} options={{ title: appName }} />
+            <Stack.Screen name="main-stats" initialParams={{ profileId }} options={{ title: appName }} />
+            <Stack.Screen name="main-matches" initialParams={{ profileId }} options={{ title: appName }} />
+        </Stack>
     );
 }
