@@ -16,67 +16,71 @@ const versionAoe4 = '46.0.0';
 
 console.log('Building for', process.env.GAME, process.env.EAS_BUILD_PROFILE, process.env.EAS_BUILD_RUNNER);
 
-const app = process.env.GAME === 'aoe2' ? {
-    assetsFolder: 'assets',
-    version: versionAoe2,
-    name: "AoE II Companion",
-    description: "Track your AoE II Definitive Edition matches. This app fetches information about your matches so you are always up-to-date.",
-    slug: 'aoe2companion',
-    scheme: "aoe2companion",
-    sentryProject: "aoe2companion",
-    website: "aoe2companion.com",
-    associatedDomains: [
-        "applinks:www.aoe2companion.com",
-        "activitycontinuation:www.aoe2companion.com",
-        "webcredentials:www.aoe2companion.com",
-        "applinks:api.aoe2companion.com",
-        "activitycontinuation:api.aoe2companion.com",
-        "webcredentials:api.aoe2companion.com",
-    ],
-    package: "com.aoe2companion",
-    bundleIdentifier: "com.aoe2companion",
-    experienceId: "@denniske1001/aoe2companion",
-    projectId: "668efd6d-8482-4ad8-8235-e1e94b7d508e",
-    updateUrl: "https://u.expo.dev/668efd6d-8482-4ad8-8235-e1e94b7d508e",
-    splashBackgroundColor: "#ffebc7",
-    splashBackgroundColorDark: "#181C29",
-    adaptiveIconBackgroundColor: "#fbebd3",
-    googleServicesFile: "./google-services2.json",
-} : {
-    assetsFolder: 'assets4',
-    version: versionAoe4,
-    name: "AoE IV Companion",
-    description: "Track your AoE IV matches. This app fetches information about your matches so you are always up-to-date.",
-    slug: 'aoe4companion',
-    scheme: "aoe4companion",
-    sentryProject: "aoe4companion",
-    website: "aoe4companion.com",
-    associatedDomains: [
-        "applinks:www.aoe4companion.com",
-        "activitycontinuation:www.aoe4companion.com",
-        "webcredentials:www.aoe4companion.com",
-        "applinks:api.aoe4companion.com",
-        "activitycontinuation:api.aoe4companion.com",
-        "webcredentials:api.aoe4companion.com",
-    ],
-    package: "com.aoe4companion",
-    bundleIdentifier: "com.aoe4companion",
-    experienceId: "@denniske1001/aoe4companion",
-    projectId: "d8d79ec3-2477-4026-8c8a-456f79fc2f20",
-    updateUrl: "https://u.expo.dev/d8d79ec3-2477-4026-8c8a-456f79fc2f20",
-    splashBackgroundColor: "#000000",
-    splashBackgroundColorDark: "#121212",
-    adaptiveIconBackgroundColor: "#000000",
-    googleServicesFile: "./google-services4.json",
-};
+const app =
+    process.env.GAME === 'aoe2'
+        ? {
+              assetsFolder: 'assets',
+              version: versionAoe2,
+              name: 'AoE II Companion',
+              description:
+                  'Track your AoE II Definitive Edition matches. This app fetches information about your matches so you are always up-to-date.',
+              slug: 'aoe2companion',
+              scheme: 'aoe2companion',
+              sentryProject: 'aoe2companion',
+              website: 'aoe2companion.com',
+              associatedDomains: [
+                  'applinks:www.aoe2companion.com',
+                  'activitycontinuation:www.aoe2companion.com',
+                  'webcredentials:www.aoe2companion.com',
+                  'applinks:api.aoe2companion.com',
+                  'activitycontinuation:api.aoe2companion.com',
+                  'webcredentials:api.aoe2companion.com',
+              ],
+              package: 'com.aoe2companion',
+              bundleIdentifier: 'com.aoe2companion',
+              experienceId: '@denniske1001/aoe2companion',
+              projectId: '668efd6d-8482-4ad8-8235-e1e94b7d508e',
+              splashBackgroundColor: '#ffebc7',
+              splashBackgroundColorDark: '#181C29',
+              adaptiveIconBackgroundColor: '#fbebd3',
+              googleServicesFile: './google-services2.json',
+              updateCertificateFile: './update/certificate2.pem',
+          }
+        : {
+              assetsFolder: 'assets4',
+              version: versionAoe4,
+              name: 'AoE IV Companion',
+              description: 'Track your AoE IV matches. This app fetches information about your matches so you are always up-to-date.',
+              slug: 'aoe4companion',
+              scheme: 'aoe4companion',
+              sentryProject: 'aoe4companion',
+              website: 'aoe4companion.com',
+              associatedDomains: [
+                  'applinks:www.aoe4companion.com',
+                  'activitycontinuation:www.aoe4companion.com',
+                  'webcredentials:www.aoe4companion.com',
+                  'applinks:api.aoe4companion.com',
+                  'activitycontinuation:api.aoe4companion.com',
+                  'webcredentials:api.aoe4companion.com',
+              ],
+              package: 'com.aoe4companion',
+              bundleIdentifier: 'com.aoe4companion',
+              experienceId: '@denniske1001/aoe4companion',
+              projectId: 'd8d79ec3-2477-4026-8c8a-456f79fc2f20',
+              splashBackgroundColor: '#000000',
+              splashBackgroundColorDark: '#121212',
+              adaptiveIconBackgroundColor: '#000000',
+              googleServicesFile: './google-services4.json',
+              updateCertificateFile: './update/certificate4.pem',
+          };
 
 const sentryConfigPlugin = [
-    "@sentry/react-native/expo",
+    '@sentry/react-native/expo',
     {
-        "url": "https://sentry.io/",
-        "organization": "aoe2companion",
-        "project": app.sentryProject,
-    }
+        url: 'https://sentry.io/',
+        organization: 'aoe2companion',
+        project: app.sentryProject,
+    },
 ] as [string, any];
 
 const widgetPlugin = expoWidgets({
@@ -156,23 +160,29 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     githubUrl: 'https://github.com/denniske/aoe2companion',
     icon: `./${app.assetsFolder}/icon.png`,
 
-    // The custom update server does not work with local builds because
-    // npx expo run:<platform> has no --private-key-path
-    updates:
-        isProdBuild
-            ? {
-                  fallbackToCacheTimeout: 0,
-                  url: 'https://update.aoe2companion.com/api/manifest',
-                  codeSigningCertificate: './update/certificate.pem',
-                  codeSigningMetadata: {
-                      keyid: 'main',
-                      alg: 'rsa-v1_5-sha256',
-                  },
-              }
-            : {
-                  fallbackToCacheTimeout: 0,
-                  url: app.updateUrl,
-              },
+    // Self-hosted xprem, one instance per game -- update.aoe2companion.com and
+    // update.aoe4companion.com. Both the URL and the app id come from the entries above rather
+    // than from new fields: the id xprem uses is the EAS projectId, preserved by the import.
+    //
+    // Code signing is attached only for production builds. That is what keeps local builds
+    // working -- npx expo run:<platform> has no --private-key-path, so a signed config there
+    // could not be satisfied, which is why the custom server used to be switched off entirely.
+    updates: {
+        fallbackToCacheTimeout: 0,
+        url: `https://update.${app.slug}.com/manifest`,
+        codeSigningMetadata: !isProdBuild ? undefined : { keyid: 'main', alg: 'rsa-v1_5-sha256' },
+        codeSigningCertificate: !isProdBuild ? undefined : app.updateCertificateFile,
+        enabled: true,
+        requestHeaders: {
+            // A literal, not process.env.RELEASE_CHANNEL: an undefined value is dropped when the
+            // config is serialized, so the header would silently not be sent at all and every
+            // build would poll with no channel.
+            'expo-channel-name': 'production',
+            'expo-app-id': app.projectId,
+            // Branch surfing -- the branch to serve; empty means the channel decides.
+            'xprem-branch': '',
+        },
+    },
     plugins: [
         expoRouter({
             unstable_useServerRendering: true,
