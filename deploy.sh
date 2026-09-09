@@ -1,68 +1,39 @@
+# Build once, push once, deploy the web front end.
+#
+#   yarn deploy            # aoe2
+#   yarn deploy aoe4
+#   GAME=aoe4 yarn deploy
+#
+# Replaces the dokku deploy: same result (one image, kamal-proxy in front of it), but kamal owns the
+# build, the container swap and the proxy handover. The old script is kept at backup/deploy.sh.dokku.
+#
+# The react-compiler check and `expo export -p web` now run from .kamal/hooks/pre-build, so they
+# happen inside `kamal deploy` rather than ahead of it -- a failing compiler check still aborts the
+# deploy before anything is built or pushed.
+#
+# The image is built on the remote host (builder.remote in config/deploy.yml), not locally. That is
+# the point of the move: the old `docker buildx build --platform linux/amd64` emulated amd64 inside
+# colima on this arm Mac, which is what wedged the machine mid-deploy.
 
-# EXAMPLE:
-# yarn deploy
+[ -n "$1" ] && GAME="$1"
+GAME=${GAME:-aoe2}
+export GAME
+set -eo pipefail
 
-source ./scripts/load-fontawesome-token.sh
+echo "---------------------------------"
+echo "GAME:    $GAME"
+echo "SERVICE: web"
+echo "---------------------------------"
 
-echo "🔍 Checking components with react compiler..."
-if ! yarn lint:compiler --strict --failures-only; then
-  echo "❌ React compiler check failed. Aborting deploy."
-  exit 1
-fi
-echo "✅ React compiler check passed."
-
-# this was need before between builds when aoe2/aoe4 dataset import was done via babel alias
-#rm -rf $TMPDIR/metro-cache
-
-export TMPDIR=/tmp/metro-cache-$GAME
-mkdir -p $TMPDIR
-
-export SERVICE_NAME=web
-export APP_NAME=${GAME}-${SERVICE_NAME}
-export DOMAIN=${GAME}companion.com
-export PLATFORM=linux/amd64
-export IP=23.88.13.76
-
-export COMMIT_SHA1=$(git rev-parse HEAD)
-
-rm -rf $TMPDIR/haste-map-*
-rm -rf $TMPDIR/metro-cache
-
-npx expo export -p web --clear
-
-docker buildx build \
-  --secret id=FONTAWESOME_NPM_AUTH_TOKEN,src=<(printf '%s' "$FONTAWESOME_NPM_AUTH_TOKEN") \
-  --platform $PLATFORM -f ./Dockerfile -t denniske/${GAME}companion-$SERVICE_NAME:$COMMIT_SHA1 .
-
-# -p as well as -c: without it doppler falls back to a per-directory scope in
-# ~/.doppler, which is not part of the repo and is missing on a fresh clone or
-# after a doppler reset. It then fails with "You must specify a project" — and
-# because these are command substitutions, the failure is silent here and only
-# shows up later as "username is empty" from docker login.
-export DOPPLER_PROJECT=aoecompanion
-
-export DOCKERHUB_USERNAME=$(doppler secrets get DOCKERHUB_USERNAME -p $DOPPLER_PROJECT -c dev_${GAME} --plain)
-export DOCKERHUB_PASSWORD=$(doppler secrets get DOCKERHUB_PASSWORD -p $DOPPLER_PROJECT -c dev_${GAME} --plain)
-
-if [ -z "$DOCKERHUB_USERNAME" ] || [ -z "$DOCKERHUB_PASSWORD" ]; then
-  echo "❌ Could not read docker hub credentials from doppler ($DOPPLER_PROJECT / dev_${GAME}). Aborting deploy."
-  exit 1
+# Kamal derives the image tag from the git sha, and appends a RANDOM suffix when the tree is dirty
+# -- so a dirty tree means build and deploy cannot agree on a tag. Build and deploy happen in the
+# one invocation below, which is fine either way, but warn because it also makes the deploy
+# unreproducible.
+if [ -n "$(git status --porcelain)" ]; then
+  echo "WARNING: uncommitted changes -- the image tag gets a random suffix and is not reproducible."
+  echo
 fi
 
-echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-docker push denniske/${GAME}companion-$SERVICE_NAME:$COMMIT_SHA1
-export IMAGE_NAME=$(docker inspect --format='{{index .RepoDigests 0}}' denniske/${GAME}companion-$SERVICE_NAME:$COMMIT_SHA1)
+./bin/kamal deploy
 
-ssh -o StrictHostKeyChecking=no root@$IP "dokku apps:exists $APP_NAME || dokku apps:create $APP_NAME"
-ssh -o StrictHostKeyChecking=no root@$IP dokku proxy:set $APP_NAME caddy
-
-doppler run -p $DOPPLER_PROJECT -c dev_${GAME} --command 'ssh -o StrictHostKeyChecking=no root@$IP dokku config:set --no-restart $APP_NAME \
-                                                SERVICE_NAME=$SERVICE_NAME \
-                                                GAME=$GAME'
-
-ssh -o StrictHostKeyChecking=no root@$IP dokku domains:set $APP_NAME $DOMAIN www.$DOMAIN app.$DOMAIN
-
-ssh -o StrictHostKeyChecking=no root@$IP dokku resource:limit --cpu 3 --memory 5000 $APP_NAME
-ssh -o StrictHostKeyChecking=no root@$IP dokku git:from-image $APP_NAME $IMAGE_NAME
-
-echo "Finished building for ${GAME}"
+echo "Finished deploying web for ${GAME}"

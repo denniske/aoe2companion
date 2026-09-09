@@ -49,7 +49,7 @@ registry:
 
 builder:
   arch: amd64
-  remote: ssh://root@2.29.21.80
+  remote: ssh://root@23.88.13.76
   dockerfile: Dockerfile
   context: .
 
