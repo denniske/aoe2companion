@@ -88,7 +88,6 @@ export default function ProfilePage() {
                         fullProfile?.socialDouyuChannelUrl ||
                         fullProfile?.socialTwitchChannelUrl != null) && (
                         <View className="flex-row gap-x-2">
-                            <DouyuBadge channelUrl={'asdasd'} />
                             {!!(fullProfile?.socialDiscordInvitationUrl && fullProfile?.socialDiscordInvitation) && (
                                 <DiscordBadge
                                     invitationUrl={fullProfile?.socialDiscordInvitationUrl}

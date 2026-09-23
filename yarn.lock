@@ -4039,6 +4039,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/d3-time-format@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "@types/d3-time-format@npm:4.0.3"
+  checksum: 10/9dfc1516502ac1c657d6024bdb88b6dc7e21dd7bff88f6187616cf9a0108250f63507a2004901ece4f97cc46602005a2ca2d05c6dbe53e8a0f6899bd60d4ff7a
+  languageName: node
+  linkType: hard
+
 "@types/d3-time@npm:*, @types/d3-time@npm:^3.0.0":
   version: 3.0.4
   resolution: "@types/d3-time@npm:3.0.4"
@@ -4894,6 +4901,7 @@ __metadata:
     "@supabase/supabase-js": "npm:^2.49.10"
     "@tanstack/react-query": "npm:^5.62.0"
     "@types/compression": "npm:^1"
+    "@types/d3-time-format": "npm:^4.0.3"
     "@types/express": "npm:^5"
     "@types/humps": "npm:^2.0.6"
     "@types/lodash": "npm:^4.17.20"

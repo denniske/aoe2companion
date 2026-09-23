@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { PressableOpacity } from '@app/components/pressable-opacity';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import React, { useEffect, useMemo, useState } from 'react';
 import { formatDateShort, formatMonth, formatTime, formatYear, LeaderboardId } from '@nex/data';
 import { getLeaderboardTextColor } from '../../helper/colors';
@@ -9,6 +9,8 @@ import { useAppTheme } from '../../theming';
 import { isAfter } from 'date-fns';
 import { IProfileRatingsLeaderboard, IProfileResult } from '../../api/helper/api.types';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
+import { PerfChart } from '@app/view/components/perf-chart/PerfChart';
+import type { ChartSeries } from '@app/view/components/perf-chart/types';
 import { useAuthProfileId } from '@app/queries/all';
 import { usePrefData } from '@app/queries/prefs';
 import { useSavePrefsMutation } from '@app/mutations/save-account';
@@ -99,6 +101,22 @@ export default function Rating({ ratingHistories, profile, ready, ratingHistoryD
 
     const hasData = filteredRatingHistories?.some((rh) => rh.ratings.length > 0);
 
+    // PerfChart wants epoch-ms points sorted ascending; the api hands them back
+    // newest first.
+    const perfSeries = useMemo<ChartSeries[]>(
+        () =>
+            (filteredRatingHistories ?? [])
+                .filter((rh) => !hiddenLeaderboardIds?.includes(rh.leaderboardId) && rh.ratings.length > 0)
+                .map((rh) => ({
+                    id: rh.leaderboardId,
+                    color: getLeaderboardTextColor(rh.leaderboardId, theme.dark),
+                    data: rh.ratings
+                        .map((r) => ({ x: new Date(r.date!).getTime(), y: r.rating }))
+                        .sort((a, b) => a.x - b.x),
+                })),
+        [filteredRatingHistories, hiddenLeaderboardIds, theme.dark]
+    );
+
     // console.log('Rendering Rating chart, hasData', hasData, filteredRatingHistories);
 
     return (
@@ -112,16 +130,21 @@ export default function Rating({ ratingHistories, profile, ready, ratingHistoryD
             {/* The selectors sit right above; give the plot room to breathe. */}
             <ViewLoader ready={hasData}>
                 <View style={{ width: width, height: 300 }} className="mt-4">
-                    {
-                        hasData &&
-                        <RatingChart
-                            width={width}
-                            formatTick={formatTick}
-                            ratingHistoryDuration={ratingHistoryDuration}
-                            filteredRatingHistories={filteredRatingHistories}
-                            hiddenLeaderboardIds={hiddenLeaderboardIds}
-                        />
-                    }
+                    {hasData &&
+                        (Platform.OS === 'web' ? (
+                            <RatingChart
+                                width={width}
+                                formatTick={formatTick}
+                                ratingHistoryDuration={ratingHistoryDuration}
+                                filteredRatingHistories={filteredRatingHistories}
+                                hiddenLeaderboardIds={hiddenLeaderboardIds}
+                            />
+                        ) : (
+                            // Trying the renderer from the chart project on native. Web keeps the
+                            // victory chart, whose web build already works around CanvasKit not
+                            // being ready at module scope (see rating-chart.web.tsx).
+                            <PerfChart series={perfSeries} width={width} height={300} dark={theme.dark} />
+                        ))}
                 </View>
             </ViewLoader>
 

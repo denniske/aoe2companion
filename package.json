@@ -129,6 +129,7 @@
     "devDependencies": {
         "@biomejs/biome": "2.5.4",
         "@types/compression": "^1",
+        "@types/d3-time-format": "^4.0.3",
         "@types/express": "^5",
         "@types/humps": "^2.0.6",
         "@types/lodash": "^4.17.20",
