@@ -24,6 +24,11 @@ interface IUnitLineDict {
 }
 
 export const unitLineIds = [
+    'MountedCrossbowman',
+    'VarangianGuard',
+    'HearthTroop',
+    'Jarl',
+    'Jomsviking',
     'Hulk',
     'CatapultGalleon',
     'ChampiScout',
@@ -81,7 +86,7 @@ export const unitLineIds = [
     'SiegeTower',
     'Conquistador',
     'TurtleShip',
-    'Longboat',
+    'Longship',
     'Janissary',
     'BallistaElephant',
     'FlamingCamel',
@@ -147,6 +152,126 @@ export const unitLineIds = [
 ] as const;
 
 export const unitLines: IUnitLineDict = {
+    MountedCrossbowman: {
+        units: ['MountedCrossbowman', 'HeavyMountedCrossbowman'],
+        counteredBy: [
+            'Skirmisher',
+            'Knight',
+            'CamelRider',
+            'Scorpion',
+            'ChampiScout',
+            'EagleScout',
+            'Huskarl',
+            'GenoeseCrossbowman',
+        ],
+        upgrades: [
+            'Bloodlines',
+            'Fletching',
+            'BodkinArrow',
+            'Bracer',
+            'Chemistry',
+            'ThumbRing-11',
+            'Ballistics',
+            'Cranequins',
+            'OrdonnanceCompanies',
+            'PaddedArcherArmor',
+            'LeatherArcherArmor',
+            'RingArcherArmor',
+            'Husbandry',
+            'Devotion',
+            'Faith',
+            'Heresy',
+            'FirstCrusade',
+            'Conscription',
+        ],
+    },
+    VarangianGuard: {
+        units: ['VarangianGuard', 'EliteVarangianGuard'],
+        counteredBy: ['Militia'],
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'Hamask',
+            'Chieftains',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Gambesons',
+            'ShieldWall',
+            'Devotion',
+            'Faith',
+            'Heresy',
+            'Squires',
+            'Conscription',
+            'Gothikon',
+            'Logistica',
+        ],
+    },
+    HearthTroop: {
+        units: ['HearthTroop', 'EliteHearthTroop'],
+        unique: true,
+        civ: 'Saxons',
+        counteredBy: ['ScoutCavalry', 'Knight', 'CamelRider'],
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'Arson',
+            'Fletching-HearthTroop',
+            'BodkinArrow-HearthTroop',
+            'Bracer-HearthTroop',
+            'Chemistry-HearthTroop',
+            'Ballistics-HearthTroop',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'ShieldWall',
+            'Squires',
+            'Devotion',
+            'Faith',
+            'Heresy',
+            'Conscription',
+        ],
+    },
+    Jarl: {
+        units: ['Jarl', 'EliteJarl'],
+        unique: true,
+        civ: 'Varangians',
+        counteredBy: ['CamelRider', 'Monk'],
+        upgrades: [
+            'Bloodlines',
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'ScaleBardingArmor',
+            'ChainBardingArmor',
+            'PlateBardingArmor',
+            'Husbandry',
+            'Devotion',
+            'Faith',
+            'Conscription',
+        ],
+    },
+    Jomsviking: {
+        units: ['Jomsviking', 'EliteJomsviking'],
+        unique: true,
+        civ: 'Danes',
+        counteredBy: ['Archer', 'HandCannoneer', 'MountedCrossbowman'],
+        upgrades: [
+            'Forging',
+            'IronCasting',
+            'BlastFurnace',
+            'Arson',
+            'Hamask',
+            'ScaleMailArmor',
+            'ChainMailArmor',
+            'PlateMailArmor',
+            'Squires',
+            'Devotion',
+            'Conscription',
+        ],
+    },
     Hulk: {
         units: ['Hulk', 'WarHulk', 'Carrack'],
         counteredBy: ['Galley'],
@@ -168,7 +293,7 @@ export const unitLines: IUnitLineDict = {
     },
     CatapultGalleon: {
         units: ['CatapultGalleon'],
-        counteredBy: ['Galley', 'FireGalley', 'Hulk', 'DemolitionRaft', 'Longboat', 'Caravel', 'Monk', 'BombardCannon'],
+        counteredBy: ['Galley', 'FireGalley', 'Hulk', 'DemolitionRaft', 'Longship', 'Caravel', 'Monk', 'BombardCannon'],
         upgrades: [
             'SiegeEngineers-20-1',
             'Chemistry',
@@ -180,6 +305,7 @@ export const unitLines: IUnitLineDict = {
             'CarvelHull',
             'ClinkerConstruction',
             'Shipwright',
+            'NorthmensFury-Range',
         ],
     },
     ChampiScout: {
@@ -699,6 +825,7 @@ export const unitLines: IUnitLineDict = {
             'Mahayana',
             'Bimaristan',
             'FirstCrusade',
+            'ClericalRecruitment',
         ],
     },
     DemolitionRaft: {
@@ -762,7 +889,7 @@ export const unitLines: IUnitLineDict = {
     },
     CannonGalleon: {
         units: ['CannonGalleon', 'EliteCannonGalleon'],
-        counteredBy: ['Galley', 'FireGalley', 'Hulk', 'DemolitionRaft', 'Longboat', 'Caravel', 'Monk', 'BombardCannon'],
+        counteredBy: ['Galley', 'FireGalley', 'Hulk', 'DemolitionRaft', 'Longship', 'Caravel', 'Monk', 'BombardCannon'],
         upgrades: [
             'Artillery',
             'Arquebus',
@@ -776,6 +903,7 @@ export const unitLines: IUnitLineDict = {
             'ClinkerConstruction',
             'Shipwright',
             'WagenburgTactics',
+            'NorthmensFury',
         ],
     },
     Arambai: {
@@ -824,7 +952,7 @@ export const unitLines: IUnitLineDict = {
         units: ['Caravel', 'EliteCaravel'],
         unique: true,
         civ: 'Portuguese',
-        counteredBy: ['FireGalley', 'Longboat', 'TurtleShip', 'Mangonel', 'BombardCannon'],
+        counteredBy: ['FireGalley', 'Longship', 'TurtleShip', 'Mangonel', 'BombardCannon'],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -912,8 +1040,8 @@ export const unitLines: IUnitLineDict = {
             'Shinkichon-TurtleShip',
         ],
     },
-    Longboat: {
-        units: ['Longboat', 'EliteLongboat'],
+    Longship: {
+        units: ['Longship', 'EliteLongship'],
         unique: true,
         civ: 'Vikings',
         counteredBy: ['FireGalley', 'TurtleShip', 'Mangonel', 'BombardCannon'],
@@ -1024,6 +1152,7 @@ export const unitLines: IUnitLineDict = {
             'Faith',
             'Heresy',
             'Conscription',
+            'NorthmensFury',
         ],
     },
     BombardCannon: {
@@ -1049,7 +1178,7 @@ export const unitLines: IUnitLineDict = {
             'Cataphract',
             'SteppeLancer',
         ],
-        upgrades: ['SiegeEngineers-20-1', 'TorsionEngines', 'Artillery', 'Arquebus', 'Ironclad', 'Devotion', 'Faith', 'Heresy', 'WagenburgTactics'],
+        upgrades: ['SiegeEngineers-20-1', 'TorsionEngines', 'Artillery', 'Arquebus', 'Ironclad', 'Devotion', 'Faith', 'Heresy', 'WagenburgTactics', 'NorthmensFury'],
     },
     Mangonel: {
         units: ['Mangonel', 'Onager', 'SiegeOnager'],
@@ -1086,6 +1215,7 @@ export const unitLines: IUnitLineDict = {
             'Devotion',
             'Faith',
             'Heresy',
+            'NorthmensFury-Range',
         ],
     },
     BatteringRam: {
@@ -1114,7 +1244,7 @@ export const unitLines: IUnitLineDict = {
             'MagyarHuszar',
             'Coustillier',
         ],
-        upgrades: ['FurorCeltica', 'SiegeEngineers-20', 'Ironclad', 'Drill', 'Devotion', 'Faith', 'Heresy', 'TorsionEngines'],
+        upgrades: ['FurorCeltica', 'SiegeEngineers-20', 'Ironclad', 'Drill', 'Devotion', 'Faith', 'Heresy', 'TorsionEngines', 'NorthmensFury'],
     },
     Scorpion: {
         units: ['Scorpion', 'HeavyScorpion'],
@@ -1146,6 +1276,7 @@ export const unitLines: IUnitLineDict = {
             'Devotion',
             'Faith',
             'Heresy',
+            'NorthmensFury',
         ],
     },
     HandCannoneer: {
@@ -1460,7 +1591,6 @@ export const unitLines: IUnitLineDict = {
             'IronCasting',
             'BlastFurnace',
             'Arson',
-            'BeardedAxe',
             'ScaleMailArmor',
             'ChainMailArmor',
             'PlateMailArmor',
@@ -1522,6 +1652,7 @@ export const unitLines: IUnitLineDict = {
             'OrganGun',
             'Boyar',
             'Cataphract',
+            'Jarl',
         ],
         upgrades: [
             'Holcans',
@@ -1563,6 +1694,7 @@ export const unitLines: IUnitLineDict = {
             'OrganGun',
             'Slinger',
             'Mameluke',
+            'Jarl',
         ],
         upgrades: [
             'Forging',
@@ -1589,6 +1721,8 @@ export const unitLines: IUnitLineDict = {
             'CoiledSerpentArray',
             'LamellarArmor',
             'Tuntian',
+            'Hamask',
+            'ShieldWall',
         ],
     },
     Militia: {
@@ -1612,6 +1746,7 @@ export const unitLines: IUnitLineDict = {
             'Genitour',
             'Kipchak',
             'Mangudai',
+            'Jarl',
         ],
         upgrades: [
             'Fereters-HP',
@@ -1639,6 +1774,8 @@ export const unitLines: IUnitLineDict = {
             'Kshatriyas',
             'LamellarArmor',
             'Tuntian',
+            'Hamask',
+            'ShieldWall',
         ],
     },
     Legionary: {
@@ -1967,7 +2104,7 @@ export const unitLines: IUnitLineDict = {
     },
     SteppeLancer: {
         units: ['SteppeLancer', 'EliteSteppeLancer'],
-        counteredBy: ['Militia', 'Spearman', 'FlemishMilitia', 'Knight', 'CamelRider', 'Boyar', 'Konnik', 'Mameluke'],
+        counteredBy: ['Militia', 'Spearman', 'FlemishMilitia', 'Knight', 'CamelRider', 'Boyar', 'Konnik', 'Mameluke', 'VarangianGuard', 'Jomsviking'],
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -1999,6 +2136,8 @@ export const unitLines: IUnitLineDict = {
             'GenoeseCrossbowman',
             'Mameluke',
             'WarElephant',
+            'VarangianGuard',
+            'Jomsviking',
         ],
         upgrades: [
             'Bloodlines',
@@ -2024,7 +2163,7 @@ export const unitLines: IUnitLineDict = {
     },
     CamelRider: {
         units: ['CamelScout', 'CamelRider', 'HeavyCamelRider', 'ImperialCamelRider'],
-        counteredBy: ['Militia', 'Spearman', 'FlemishMilitia', 'Serjeant', 'Berserk', 'TeutonicKnight', 'GenoeseCrossbowman', 'Cataphract'],
+        counteredBy: ['Militia', 'Spearman', 'FlemishMilitia', 'Serjeant', 'Berserk', 'TeutonicKnight', 'GenoeseCrossbowman', 'Cataphract', 'VarangianGuard', 'Jomsviking'],
         upgrades: [
             'Bloodlines',
             'Forging',
@@ -2060,6 +2199,8 @@ export const unitLines: IUnitLineDict = {
             'Mameluke',
             'WarElephant',
             'Boyar',
+            'VarangianGuard',
+            'Jomsviking',
         ],
         upgrades: [
             'Bloodlines',
@@ -2082,6 +2223,7 @@ export const unitLines: IUnitLineDict = {
             'SzlachtaPrivileges',
             'Hauberk',
             'AznauriCavalry',
+            'VendelLegacy',
         ],
     },
     XolotlWarrior: {
@@ -2139,6 +2281,8 @@ export const unitLines: IUnitLineDict = {
             'Mameluke',
             'SteppeLancer',
             'Cataphract',
+            'VarangianGuard',
+            'Jomsviking',
         ],
         upgrades: [
             // 'FeudalAge-ScoutCavalry',
@@ -2560,6 +2704,7 @@ export const unitLines: IUnitLineDict = {
             'Mameluke',
             'Cataphract',
             'SteppeLancer',
+            'HearthTroop',
         ],
         upgrades: [
             'Fletching',
@@ -2588,7 +2733,7 @@ export const unitLines: IUnitLineDict = {
     },
     Archer: {
         units: ['Archer', 'Crossbowman', 'Arbalester'],
-        counteredBy: ['Skirmisher', 'Knight', 'ScoutCavalry', 'Scorpion', 'Mangonel', 'BombardCannon', 'BatteringRam', 'EagleScout'],
+        counteredBy: ['Skirmisher', 'Knight', 'ScoutCavalry', 'Scorpion', 'Mangonel', 'BombardCannon', 'BatteringRam', 'EagleScout', 'HearthTroop'],
         upgrades: [
             'Fletching',
             'BodkinArrow',
@@ -3389,10 +3534,10 @@ const unitsInternal = {
     'EliteTurtleShip': {
         dataId: '832',
     },
-    'Longboat': {
+    'Longship': {
         dataId: '250',
     },
-    'EliteLongboat': {
+    'EliteLongship': {
         dataId: '533',
     },
     'Janissary': {
@@ -3755,6 +3900,36 @@ const unitsInternal = {
     },
     'CatapultGalleon': {
         dataId: '2633',
+    },
+    'MountedCrossbowman': {
+        dataId: '2700',
+    },
+    'HeavyMountedCrossbowman': {
+        dataId: '2701',
+    },
+    'VarangianGuard': {
+        dataId: '2703',
+    },
+    'EliteVarangianGuard': {
+        dataId: '2704',
+    },
+    'HearthTroop': {
+        dataId: '2705',
+    },
+    'EliteHearthTroop': {
+        dataId: '2706',
+    },
+    'Jarl': {
+        dataId: '2708',
+    },
+    'EliteJarl': {
+        dataId: '2709',
+    },
+    'Jomsviking': {
+        dataId: '2711',
+    },
+    'EliteJomsviking': {
+        dataId: '2712',
     },
     'ChampiScout': {
         dataId: '2550',
@@ -4161,10 +4336,12 @@ export const sortedUnitLines: UnitLine[] = [
     'Spearman',
     'EagleScout',
     'FireLancer',
+    'VarangianGuard',
 
     'Archer',
     'Skirmisher',
     'CavalryArcher',
+    'MountedCrossbowman',
     'Slinger',
     'HandCannoneer',
 
@@ -4227,11 +4404,14 @@ export const sortedUnitLines: UnitLine[] = [
     'Ghulam',
     'Grenadier',
     'GuechaWarrior',
+    'HearthTroop',
     'HussiteWagon',
     'Huskarl',
     'JaguarWarrior',
     'Janissary',
+    'Jarl',
     'JianSwordsman',
+    'Jomsviking',
     'IbirapemaWarrior',
     'IronPagoda',
     'Kamayuk',
@@ -4243,7 +4423,7 @@ export const sortedUnitLines: UnitLine[] = [
     'KonnikDismounted',
     'Leitis',
     'LiaoDao',
-    'Longboat',
+    'Longship',
     'Longbowman',
     'LouChuan',
     'MagyarHuszar',

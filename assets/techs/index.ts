@@ -86,4 +86,5 @@ export const techIconImageDict: Record<string, any> = {
     'ClinkerConstruction': require('./ClinkerConstruction.png'),
     'Siphons': require('./Siphons.png'),
     'Incendiaries': require('./Incendiaries.png'),
+    'Cranequins': require('./Cranequins.png'),
 };

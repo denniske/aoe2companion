@@ -141,6 +141,7 @@ export const techSections: ITechSection[] = [
         data: [
             "ThumbRing",
             "ParthianTactics",
+            "Cranequins",
         ],
     },
     {

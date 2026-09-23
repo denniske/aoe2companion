@@ -410,6 +410,17 @@ export const changelog: IChangelog = {
 
     '216.0.0': [
         {
+            type: 'feature',
+            title: 'Implemented [AoE II DE The Viking Sagas](https://www.ageofempires.com/news/the-viking-sagas-available-now-for-age-of-empires-ii-definitive-edition/)',
+            content: 'Note: There are some missing unit upgrades that will be added later.',
+        },
+        {
+            type: 'feature',
+            title: 'Redesign of player page',
+            content:
+                'The player page design now matches the web version. It displays cards for each leaderboard and the most played map/civ. Inactive leaderboards are hidden by default but can be shown. Below the leaderboards recent matches of the player are shown. By clicking on leaderboard cards you can see the rating history and statistics.',
+        },
+        {
             type: 'bugfix',
             title: 'Hide civs without winrate data (Khitans, Jurchens) in winrate stats',
         },

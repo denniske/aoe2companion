@@ -18,6 +18,21 @@ export interface ICivEntry {
 
 export const civList: ICivEntry[] = [
     {
+        name: 'Danes',
+        uniqueUnits: ['Jomsviking'],
+        uniqueTechs: ['Hamask', 'NorthmensFury'],
+    },
+    {
+        name: 'Saxons',
+        uniqueUnits: ['HearthTroop'],
+        uniqueTechs: ['ClericalRecruitment', 'ShieldWall'],
+    },
+    {
+        name: 'Varangians',
+        uniqueUnits: ['Jarl'],
+        uniqueTechs: ['VendelLegacy', 'Gothikon'],
+    },
+    {
         name: 'Mapuche',
         uniqueUnits: ['Kona', 'BolasRider'],
         uniqueTechs: ['Malon', 'Butalmapu'],
@@ -115,7 +130,7 @@ export const civList: ICivEntry[] = [
     {
         name: 'Franks',
         uniqueUnits: ['ThrowingAxeman'],
-        uniqueTechs: ['BeardedAxe', 'Chivalry'],
+        uniqueTechs: ['OrdonnanceCompanies', 'Chivalry'],
     },
     {
         name: 'Georgians',
@@ -279,7 +294,7 @@ export const civList: ICivEntry[] = [
     },
     {
         name: 'Vikings',
-        uniqueUnits: ['Berserk', 'Longboat'],
+        uniqueUnits: ['Berserk'],
         uniqueTechs: ['Chieftains', 'Bogsveigar'],
     },
 ];
