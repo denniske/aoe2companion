@@ -784,13 +784,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 922,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 921,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -1794,13 +1794,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 460,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 24,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -2858,13 +2858,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 833,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 834,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -3910,13 +3910,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 578,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 579,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -4381,6 +4381,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Unit",
                 "Node ID": 5,
                 "Age ID": 3,
@@ -4397,6 +4409,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -4944,13 +4962,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 784,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 785,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -5421,6 +5439,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 437,
                 "Age ID": 3,
@@ -5431,6 +5461,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -5973,13 +6009,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 3,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 461,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -7007,13 +7043,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 685,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 686,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -7502,6 +7538,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 437,
                 "Age ID": 3,
@@ -7512,6 +7560,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -8059,13 +8113,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 754,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 755,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -9099,13 +9153,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 627,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 626,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -9636,6 +9690,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 104
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2703,
+                "Age ID": 3,
+                "Picture Index": 902
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2704,
+                "Age ID": 4,
+                "Picture Index": 903
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 602,
                 "Age ID": 2,
@@ -10145,13 +10211,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 464,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 61,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -10622,6 +10688,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 437,
                 "Age ID": 3,
@@ -10632,6 +10710,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -11173,13 +11257,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 482,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 5,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -12231,13 +12315,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 462,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 52,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -13289,13 +13373,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 689,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 690,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -13336,6 +13420,1082 @@ export const aoeTreeInternal = {
                 "Age ID": 3,
                 "Picture Index": 293,
                 "Picture Name": "MonkTengri"
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 46,
+                "Age ID": 3,
+                "Picture Index": 131
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 45,
+                "Age ID": 4,
+                "Picture Index": 11
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 316,
+                "Age ID": 3,
+                "Picture Index": 92
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 233,
+                "Age ID": 4,
+                "Picture Index": 84
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 319,
+                "Age ID": 3,
+                "Picture Index": 93
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 230,
+                "Age ID": 4,
+                "Picture Index": 82
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 441,
+                "Age ID": 3,
+                "Picture Index": 114
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 438,
+                "Age ID": 4,
+                "Picture Index": 109
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 439,
+                "Age ID": 3,
+                "Picture Index": 108
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 231,
+                "Age ID": 3,
+                "Picture Index": 83
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 252,
+                "Age ID": 3,
+                "Picture Index": 73
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 83,
+                "Age ID": 1,
+                "Picture Index": 15
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 8,
+                "Age ID": 2,
+                "Picture Index": 69
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 280,
+                "Age ID": 3,
+                "Picture Index": 89
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 101,
+                "Age ID": 1,
+                "Picture Index": 30
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 102,
+                "Age ID": 2,
+                "Picture Index": 31
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 103,
+                "Age ID": 3,
+                "Picture Index": 32
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 22,
+                "Age ID": 1,
+                "Picture Index": 6
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 213,
+                "Age ID": 2,
+                "Picture Index": 79
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 249,
+                "Age ID": 3,
+                "Picture Index": 42
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 55,
+                "Age ID": 2,
+                "Picture Index": 15
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 182,
+                "Age ID": 3,
+                "Picture Index": 62
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 278,
+                "Age ID": 2,
+                "Picture Index": 87
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 279,
+                "Age ID": 3,
+                "Picture Index": 88
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 202,
+                "Age ID": 2,
+                "Picture Index": 70
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 203,
+                "Age ID": 3,
+                "Picture Index": 71
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 221,
+                "Age ID": 4,
+                "Picture Index": 81
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 128,
+                "Age ID": 2,
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 48,
+                "Age ID": 3,
+                "Picture Index": 113
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 23,
+                "Age ID": 3,
+                "Picture Index": 7
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 17,
+                "Age ID": 4,
+                "Picture Index": 3
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 15,
+                "Age ID": 4,
+                "Picture Index": 58
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 14,
+                "Age ID": 2,
+                "Picture Index": 2
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 13,
+                "Age ID": 3,
+                "Picture Index": 1
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 12,
+                "Age ID": 4,
+                "Picture Index": 0
+            }
+        ]
+    },
+    "Danes": {
+        "civ_id": "DANES",
+        "civ_techs_buildings": [
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 87,
+                "Age ID": 2,
+                "Picture Index": 0
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 12,
+                "Age ID": 1,
+                "Picture Index": 2
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 101,
+                "Age ID": 2,
+                "Picture Index": 23
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 49,
+                "Age ID": 3,
+                "Picture Index": 22
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 103,
+                "Age ID": 2,
+                "Picture Index": 4
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 45,
+                "Age ID": 1,
+                "Picture Index": 13
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 209,
+                "Age ID": 3,
+                "Picture Index": 33
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 598,
+                "Age ID": 1,
+                "Picture Index": 38
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 79,
+                "Age ID": 2,
+                "Picture Index": 25
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 234,
+                "Age ID": 3,
+                "Picture Index": 27
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 235,
+                "Age ID": 4,
+                "Picture Index": 26
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 236,
+                "Age ID": 4,
+                "Picture Index": 42
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 72,
+                "Age ID": 1,
+                "Picture Index": 30
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 792,
+                "Age ID": 1,
+                "Picture Index": 44
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 487,
+                "Age ID": 2,
+                "Picture Index": 36
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 117,
+                "Age ID": 2,
+                "Picture Index": 31
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 155,
+                "Age ID": 3,
+                "Picture Index": 32
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 82,
+                "Age ID": 3,
+                "Picture Index": 7
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 104,
+                "Age ID": 3,
+                "Picture Index": 10
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 109,
+                "Age ID": 1,
+                "Picture Index": 28
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 70,
+                "Age ID": 1,
+                "Picture Index": 34
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 621,
+                "Age ID": 3,
+                "Picture Index": 28
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 276,
+                "Age ID": 4,
+                "Picture Index": 37
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 584,
+                "Age ID": 1,
+                "Picture Index": 39
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 562,
+                "Age ID": 1,
+                "Picture Index": 40
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 84,
+                "Age ID": 2,
+                "Picture Index": 16
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 68,
+                "Age ID": 1,
+                "Picture Index": 19
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 50,
+                "Age ID": 1,
+                "Picture Index": 35
+            }
+        ],
+        "civ_techs_units": [
+            {
+                "Node Type": "Unit",
+                "Node ID": 4,
+                "Age ID": 2,
+                "Picture Index": 17
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 24,
+                "Age ID": 3,
+                "Picture Index": 18
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 492,
+                "Age ID": 4,
+                "Picture Index": 90
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 7,
+                "Age ID": 2,
+                "Picture Index": 20
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 6,
+                "Age ID": 3,
+                "Picture Index": 21
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 5,
+                "Age ID": 4,
+                "Picture Index": 22
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 39,
+                "Age ID": 3,
+                "Picture Index": 19
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 474,
+                "Age ID": 4,
+                "Picture Index": 71
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 437,
+                "Age ID": 3,
+                "Picture Index": 112
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 436,
+                "Age ID": 4,
+                "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 74,
+                "Age ID": 1,
+                "Picture Index": 8
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 75,
+                "Age ID": 2,
+                "Picture Index": 10
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 77,
+                "Age ID": 3,
+                "Picture Index": 13
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 473,
+                "Age ID": 4,
+                "Picture Index": 12
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 567,
+                "Age ID": 4,
+                "Picture Index": 72
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 93,
+                "Age ID": 2,
+                "Picture Index": 31
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 358,
+                "Age ID": 3,
+                "Picture Index": 11
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 359,
+                "Age ID": 4,
+                "Picture Index": 104
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2703,
+                "Age ID": 3,
+                "Picture Index": 902
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2704,
+                "Age ID": 4,
+                "Picture Index": 903
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 602,
+                "Age ID": 2,
+                "Picture Index": 118
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 875,
+                "Age ID": 3,
+                "Picture Index": 116
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 215,
+                "Age ID": 3,
+                "Picture Index": 80
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 448,
+                "Age ID": 2,
+                "Picture Index": 64
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 546,
+                "Age ID": 3,
+                "Picture Index": 91
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 441,
+                "Age ID": 4,
+                "Picture Index": 103
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 38,
+                "Age ID": 3,
+                "Picture Index": 1
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 283,
+                "Age ID": 4,
+                "Picture Index": 49
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 569,
+                "Age ID": 4,
+                "Picture Index": 2
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 435,
+                "Age ID": 2,
+                "Picture Index": 110
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 39,
+                "Age ID": 3,
+                "Picture Index": 10
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1258,
+                "Age ID": 3,
+                "Picture Index": 74
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 422,
+                "Age ID": 4,
+                "Picture Index": 63
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 548,
+                "Age ID": 4,
+                "Picture Index": 73
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 280,
+                "Age ID": 3,
+                "Picture Index": 27
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 550,
+                "Age ID": 4,
+                "Picture Index": 101
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 588,
+                "Age ID": 4,
+                "Picture Index": 102
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 279,
+                "Age ID": 3,
+                "Picture Index": 80
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 542,
+                "Age ID": 4,
+                "Picture Index": 89
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1105,
+                "Age ID": 3,
+                "Picture Index": 212
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 36,
+                "Age ID": 4,
+                "Picture Index": 30
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 211,
+                "Age ID": 2,
+                "Picture Index": 49
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 212,
+                "Age ID": 3,
+                "Picture Index": 50
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 219,
+                "Age ID": 4,
+                "Picture Index": 51
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 199,
+                "Age ID": 2,
+                "Picture Index": 34
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 200,
+                "Age ID": 3,
+                "Picture Index": 35
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 201,
+                "Age ID": 4,
+                "Picture Index": 37
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 67,
+                "Age ID": 2,
+                "Picture Index": 17
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 68,
+                "Age ID": 3,
+                "Picture Index": 18
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 75,
+                "Age ID": 4,
+                "Picture Index": 21
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 81,
+                "Age ID": 2,
+                "Picture Index": 66
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 82,
+                "Age ID": 3,
+                "Picture Index": 23
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 80,
+                "Age ID": 4,
+                "Picture Index": 65
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 74,
+                "Age ID": 2,
+                "Picture Index": 63
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 76,
+                "Age ID": 3,
+                "Picture Index": 22
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 77,
+                "Age ID": 4,
+                "Picture Index": 64
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 13,
+                "Age ID": 1,
+                "Picture Index": 24
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 199,
+                "Age ID": 2,
+                "Picture Index": 41
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 545,
+                "Age ID": 1,
+                "Picture Index": 95
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1103,
+                "Age ID": 2,
+                "Picture Index": 203
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 529,
+                "Age ID": 3,
+                "Picture Index": 86
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 532,
+                "Age ID": 4,
+                "Picture Index": 85
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 906,
+                "Age ID": 2,
+                "Picture Index": 140
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 65,
+                "Age ID": 3,
+                "Picture Index": 41
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 539,
+                "Age ID": 2,
+                "Picture Index": 87
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 21,
+                "Age ID": 3,
+                "Picture Index": 25
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 442,
+                "Age ID": 4,
+                "Picture Index": 60
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 2626,
+                "Age ID": 2,
+                "Picture Index": 566
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 2627,
+                "Age ID": 3,
+                "Picture Index": 565
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 2628,
+                "Age ID": 4,
+                "Picture Index": 567
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1104,
+                "Age ID": 2,
+                "Picture Index": 202
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 527,
+                "Age ID": 3,
+                "Picture Index": 84
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 528,
+                "Age ID": 4,
+                "Picture Index": 83
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 17,
+                "Age ID": 2,
+                "Picture Index": 23
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 34,
+                "Age ID": 3,
+                "Picture Index": 147
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 35,
+                "Age ID": 4,
+                "Picture Index": 148
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 420,
+                "Age ID": 4,
+                "Picture Index": 55
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 691,
+                "Age ID": 4,
+                "Picture Index": 298
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2633,
+                "Age ID": 4,
+                "Picture Index": 591
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 250,
+                "Age ID": 3,
+                "Picture Index": 40
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 533,
+                "Age ID": 4,
+                "Picture Index": 474
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 50,
+                "Age ID": 3,
+                "Picture Index": 13
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 51,
+                "Age ID": 4,
+                "Picture Index": 14
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 194,
+                "Age ID": 3,
+                "Picture Index": 46
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 47,
+                "Age ID": 4,
+                "Picture Index": 12
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 64,
+                "Age ID": 4,
+                "Picture Index": 47
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 93,
+                "Age ID": 3,
+                "Picture Index": 25
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 377,
+                "Age ID": 4,
+                "Picture Index": 101
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 140,
+                "Age ID": 3,
+                "Picture Index": 76
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 63,
+                "Age ID": 4,
+                "Picture Index": 16
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 380,
+                "Age ID": 3,
+                "Picture Index": 104
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 608,
+                "Age ID": 4,
+                "Picture Index": 119
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 322,
+                "Age ID": 3,
+                "Picture Index": 61
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 374,
+                "Age ID": 3,
+                "Picture Index": 98
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 375,
+                "Age ID": 4,
+                "Picture Index": 99
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 908,
+                "Age ID": 3,
+                "Picture Index": 142
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 907,
+                "Age ID": 4,
+                "Picture Index": 141
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 909,
+                "Age ID": 3,
+                "Picture Index": 40
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 910,
+                "Age ID": 4,
+                "Picture Index": 143
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 373,
+                "Age ID": 4,
+                "Picture Index": 97
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 54,
+                "Age ID": 3,
+                "Picture Index": 60
+            },
+            {
+                "Node Type": "UniqueUnit",
+                "Node ID": 2711,
+                "Age ID": 3,
+                "Picture Index": 908
+            },
+            {
+                "Node Type": "UniqueUnit",
+                "Node ID": 2712,
+                "Age ID": 4,
+                "Picture Index": 909
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 440,
+                "Age ID": 3,
+                "Picture Index": 113
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 331,
+                "Age ID": 4,
+                "Picture Index": 29
+            },
+            {
+                "Node Type": "UniqueTech",
+                "Node ID": 1484,
+                "Age ID": 3,
+                "Picture Index": 33
+            },
+            {
+                "Node Type": "UniqueTech",
+                "Node ID": 1483,
+                "Age ID": 4,
+                "Picture Index": 107
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 379,
+                "Age ID": 4,
+                "Picture Index": 103
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 315,
+                "Age ID": 4,
+                "Picture Index": 91
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 321,
+                "Age ID": 4,
+                "Picture Index": 5
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 408,
+                "Age ID": 4,
+                "Picture Index": 19
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 125,
+                "Age ID": 3,
+                "Picture Index": 910
             },
             {
                 "Node Type": "Research",
@@ -14365,13 +15525,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 831,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 832,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -15405,13 +16565,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 574,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 575,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -15882,6 +17042,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 437,
                 "Age ID": 3,
@@ -15892,6 +17064,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -16433,13 +17611,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
-                "Node ID": 83,
+                "Node Type": "UniqueTech",
+                "Node ID": 1496,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 493,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -17467,13 +18645,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 923,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 924,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -18513,13 +19691,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 16,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 457,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -19595,13 +20773,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 835,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 836,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -20659,13 +21837,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 506,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 507,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -21705,13 +22883,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 483,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 21,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -22727,13 +23905,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 516,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 517,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -23204,6 +24382,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 437,
                 "Age ID": 3,
@@ -23214,6 +24404,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -23761,13 +24957,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 499,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 902,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -24789,13 +25985,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 484,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 59,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -25865,13 +27061,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 996,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 997,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -26953,13 +28149,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1006,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1007,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -28011,13 +29207,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 622,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 623,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -29075,13 +30271,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 486,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 445,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -30103,13 +31299,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 691,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 692,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -31131,13 +32327,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 514,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 515,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -32177,13 +33373,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 624,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 625,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -33217,13 +34413,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 576,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 577,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -34251,13 +35447,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1379,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1380,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -35285,13 +36481,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 485,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 4,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -36337,13 +37533,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 487,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 6,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -37371,13 +38567,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1365,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1366,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -38429,13 +39625,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 488,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 7,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -38906,6 +40102,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 437,
                 "Age ID": 3,
@@ -38916,6 +40124,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -39457,13 +40671,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 782,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 783,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -39940,6 +41154,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 437,
                 "Age ID": 3,
@@ -39950,6 +41176,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -40503,13 +41735,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1404,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 573,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -41531,14 +42763,1091 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 883,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 884,
+                "Age ID": 4,
+                "Picture Index": 107
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 379,
+                "Age ID": 4,
+                "Picture Index": 103
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 315,
+                "Age ID": 4,
+                "Picture Index": 91
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 321,
+                "Age ID": 4,
+                "Picture Index": 5
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 408,
+                "Age ID": 4,
+                "Picture Index": 19
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 125,
+                "Age ID": 3,
+                "Picture Index": 33,
+                "Picture Name": "MonkGeneric"
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 46,
+                "Age ID": 3,
+                "Picture Index": 131
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 45,
+                "Age ID": 4,
+                "Picture Index": 11
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 316,
+                "Age ID": 3,
+                "Picture Index": 92
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 233,
+                "Age ID": 4,
+                "Picture Index": 84
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 319,
+                "Age ID": 3,
+                "Picture Index": 93
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 230,
+                "Age ID": 4,
+                "Picture Index": 82
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 441,
+                "Age ID": 3,
+                "Picture Index": 114
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 438,
+                "Age ID": 4,
+                "Picture Index": 109
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 439,
+                "Age ID": 3,
+                "Picture Index": 108
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 231,
+                "Age ID": 3,
+                "Picture Index": 83
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 252,
+                "Age ID": 3,
+                "Picture Index": 73
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 83,
+                "Age ID": 1,
+                "Picture Index": 15
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 8,
+                "Age ID": 2,
+                "Picture Index": 69
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 280,
+                "Age ID": 3,
+                "Picture Index": 89
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 101,
+                "Age ID": 1,
+                "Picture Index": 30
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 102,
+                "Age ID": 2,
+                "Picture Index": 31
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 103,
+                "Age ID": 3,
+                "Picture Index": 32
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 22,
+                "Age ID": 1,
+                "Picture Index": 6
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 213,
+                "Age ID": 2,
+                "Picture Index": 79
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 249,
+                "Age ID": 3,
+                "Picture Index": 42
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 55,
+                "Age ID": 2,
+                "Picture Index": 15
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 182,
+                "Age ID": 3,
+                "Picture Index": 62
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 278,
+                "Age ID": 2,
+                "Picture Index": 87
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 279,
+                "Age ID": 3,
+                "Picture Index": 88
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 202,
+                "Age ID": 2,
+                "Picture Index": 70
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 203,
+                "Age ID": 3,
+                "Picture Index": 71
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 221,
+                "Age ID": 4,
+                "Picture Index": 81
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 128,
+                "Age ID": 2,
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 48,
+                "Age ID": 3,
+                "Picture Index": 113
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 23,
+                "Age ID": 3,
+                "Picture Index": 7
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 17,
+                "Age ID": 4,
+                "Picture Index": 3
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 15,
+                "Age ID": 4,
+                "Picture Index": 58
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 14,
+                "Age ID": 2,
+                "Picture Index": 2
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 13,
+                "Age ID": 3,
+                "Picture Index": 1
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 12,
+                "Age ID": 4,
+                "Picture Index": 0
+            }
+        ]
+    },
+    "Saxons": {
+        "civ_id": "SAXONS",
+        "civ_techs_buildings": [
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 87,
+                "Age ID": 2,
+                "Picture Index": 0
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 12,
+                "Age ID": 1,
+                "Picture Index": 2
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 101,
+                "Age ID": 2,
+                "Picture Index": 23
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 49,
+                "Age ID": 3,
+                "Picture Index": 22
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 103,
+                "Age ID": 2,
+                "Picture Index": 4
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 45,
+                "Age ID": 1,
+                "Picture Index": 13
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 209,
+                "Age ID": 3,
+                "Picture Index": 33
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 598,
+                "Age ID": 1,
+                "Picture Index": 38
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 79,
+                "Age ID": 2,
+                "Picture Index": 25
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 234,
+                "Age ID": 3,
+                "Picture Index": 27
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 235,
+                "Age ID": 4,
+                "Picture Index": 26
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 236,
+                "Age ID": 4,
+                "Picture Index": 42
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 72,
+                "Age ID": 1,
+                "Picture Index": 30
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 792,
+                "Age ID": 1,
+                "Picture Index": 44
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 487,
+                "Age ID": 2,
+                "Picture Index": 36
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 117,
+                "Age ID": 2,
+                "Picture Index": 31
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 155,
+                "Age ID": 3,
+                "Picture Index": 32
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 82,
+                "Age ID": 3,
+                "Picture Index": 7
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 104,
+                "Age ID": 3,
+                "Picture Index": 10
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 109,
+                "Age ID": 1,
+                "Picture Index": 28
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 70,
+                "Age ID": 1,
+                "Picture Index": 34
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 621,
+                "Age ID": 3,
+                "Picture Index": 28
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 276,
+                "Age ID": 4,
+                "Picture Index": 37
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 584,
+                "Age ID": 1,
+                "Picture Index": 39
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 562,
+                "Age ID": 1,
+                "Picture Index": 40
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 84,
+                "Age ID": 2,
+                "Picture Index": 16
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 68,
+                "Age ID": 1,
+                "Picture Index": 19
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 50,
+                "Age ID": 1,
+                "Picture Index": 35
+            }
+        ],
+        "civ_techs_units": [
+            {
+                "Node Type": "Unit",
+                "Node ID": 4,
+                "Age ID": 2,
+                "Picture Index": 17
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 24,
+                "Age ID": 3,
+                "Picture Index": 18
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 492,
+                "Age ID": 4,
+                "Picture Index": 90
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 7,
+                "Age ID": 2,
+                "Picture Index": 20
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 6,
+                "Age ID": 3,
+                "Picture Index": 21
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 5,
+                "Age ID": 4,
+                "Picture Index": 22
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 39,
+                "Age ID": 3,
+                "Picture Index": 19
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 474,
+                "Age ID": 4,
+                "Picture Index": 71
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 437,
+                "Age ID": 3,
+                "Picture Index": 112
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 436,
+                "Age ID": 4,
+                "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 74,
+                "Age ID": 1,
+                "Picture Index": 8
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 75,
+                "Age ID": 2,
+                "Picture Index": 10
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 77,
+                "Age ID": 3,
+                "Picture Index": 13
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 473,
+                "Age ID": 4,
+                "Picture Index": 12
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 567,
+                "Age ID": 4,
+                "Picture Index": 72
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 93,
+                "Age ID": 2,
+                "Picture Index": 31
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 358,
+                "Age ID": 3,
+                "Picture Index": 11
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 359,
+                "Age ID": 4,
+                "Picture Index": 104
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2703,
+                "Age ID": 3,
+                "Picture Index": 902
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2704,
+                "Age ID": 4,
+                "Picture Index": 903
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 602,
+                "Age ID": 2,
+                "Picture Index": 118
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 875,
+                "Age ID": 3,
+                "Picture Index": 116
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 215,
+                "Age ID": 3,
+                "Picture Index": 80
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 448,
+                "Age ID": 2,
+                "Picture Index": 64
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 546,
+                "Age ID": 3,
+                "Picture Index": 91
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 441,
+                "Age ID": 4,
+                "Picture Index": 103
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 38,
+                "Age ID": 3,
+                "Picture Index": 1
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 283,
+                "Age ID": 4,
+                "Picture Index": 49
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 569,
+                "Age ID": 4,
+                "Picture Index": 2
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 435,
+                "Age ID": 2,
+                "Picture Index": 110
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 39,
+                "Age ID": 3,
+                "Picture Index": 10
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1258,
+                "Age ID": 3,
+                "Picture Index": 74
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 422,
+                "Age ID": 4,
+                "Picture Index": 63
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 548,
+                "Age ID": 4,
+                "Picture Index": 73
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 280,
+                "Age ID": 3,
+                "Picture Index": 27
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 550,
+                "Age ID": 4,
+                "Picture Index": 101
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 588,
+                "Age ID": 4,
+                "Picture Index": 102
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 279,
+                "Age ID": 3,
+                "Picture Index": 80
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 542,
+                "Age ID": 4,
+                "Picture Index": 89
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1105,
+                "Age ID": 3,
+                "Picture Index": 212
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 36,
+                "Age ID": 4,
+                "Picture Index": 30
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 211,
+                "Age ID": 2,
+                "Picture Index": 49
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 212,
+                "Age ID": 3,
+                "Picture Index": 50
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 219,
+                "Age ID": 4,
+                "Picture Index": 51
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 199,
+                "Age ID": 2,
+                "Picture Index": 34
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 200,
+                "Age ID": 3,
+                "Picture Index": 35
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 201,
+                "Age ID": 4,
+                "Picture Index": 37
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 67,
+                "Age ID": 2,
+                "Picture Index": 17
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 68,
+                "Age ID": 3,
+                "Picture Index": 18
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 75,
+                "Age ID": 4,
+                "Picture Index": 21
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 81,
+                "Age ID": 2,
+                "Picture Index": 66
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 82,
+                "Age ID": 3,
+                "Picture Index": 23
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 80,
+                "Age ID": 4,
+                "Picture Index": 65
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 74,
+                "Age ID": 2,
+                "Picture Index": 63
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 76,
+                "Age ID": 3,
+                "Picture Index": 22
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 77,
+                "Age ID": 4,
+                "Picture Index": 64
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 13,
+                "Age ID": 1,
+                "Picture Index": 24
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 199,
+                "Age ID": 2,
+                "Picture Index": 41
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 545,
+                "Age ID": 1,
+                "Picture Index": 95
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1103,
+                "Age ID": 2,
+                "Picture Index": 203
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 529,
+                "Age ID": 3,
+                "Picture Index": 86
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 532,
+                "Age ID": 4,
+                "Picture Index": 85
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 906,
+                "Age ID": 2,
+                "Picture Index": 140
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 65,
+                "Age ID": 3,
+                "Picture Index": 41
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 539,
+                "Age ID": 2,
+                "Picture Index": 87
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 21,
+                "Age ID": 3,
+                "Picture Index": 25
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 442,
+                "Age ID": 4,
+                "Picture Index": 60
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 2626,
+                "Age ID": 2,
+                "Picture Index": 566
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 2627,
+                "Age ID": 3,
+                "Picture Index": 565
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 2628,
+                "Age ID": 4,
+                "Picture Index": 567
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1104,
+                "Age ID": 2,
+                "Picture Index": 202
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 527,
+                "Age ID": 3,
+                "Picture Index": 84
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 528,
+                "Age ID": 4,
+                "Picture Index": 83
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 17,
+                "Age ID": 2,
+                "Picture Index": 23
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 34,
+                "Age ID": 3,
+                "Picture Index": 147
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 35,
+                "Age ID": 4,
+                "Picture Index": 148
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 420,
+                "Age ID": 4,
+                "Picture Index": 55
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 691,
+                "Age ID": 4,
+                "Picture Index": 298
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2633,
+                "Age ID": 4,
+                "Picture Index": 591
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 250,
+                "Age ID": 3,
+                "Picture Index": 40
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 533,
+                "Age ID": 4,
+                "Picture Index": 474
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 50,
+                "Age ID": 3,
+                "Picture Index": 13
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 51,
+                "Age ID": 4,
+                "Picture Index": 14
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 194,
+                "Age ID": 3,
+                "Picture Index": 46
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 47,
+                "Age ID": 4,
+                "Picture Index": 12
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 64,
+                "Age ID": 4,
+                "Picture Index": 47
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 93,
+                "Age ID": 3,
+                "Picture Index": 25
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 377,
+                "Age ID": 4,
+                "Picture Index": 101
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 140,
+                "Age ID": 3,
+                "Picture Index": 76
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 63,
+                "Age ID": 4,
+                "Picture Index": 16
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 380,
+                "Age ID": 3,
+                "Picture Index": 104
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 608,
+                "Age ID": 4,
+                "Picture Index": 119
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 322,
+                "Age ID": 3,
+                "Picture Index": 61
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 374,
+                "Age ID": 3,
+                "Picture Index": 98
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 375,
+                "Age ID": 4,
+                "Picture Index": 99
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 908,
+                "Age ID": 3,
+                "Picture Index": 142
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 907,
+                "Age ID": 4,
+                "Picture Index": 141
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 909,
+                "Age ID": 3,
+                "Picture Index": 40
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 910,
+                "Age ID": 4,
+                "Picture Index": 143
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 373,
+                "Age ID": 4,
+                "Picture Index": 97
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 54,
+                "Age ID": 3,
+                "Picture Index": 60
+            },
+            {
+                "Node Type": "UniqueUnit",
+                "Node ID": 2705,
+                "Age ID": 3,
+                "Picture Index": 904
+            },
+            {
+                "Node Type": "UniqueUnit",
+                "Node ID": 2706,
+                "Age ID": 4,
+                "Picture Index": 905
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 440,
+                "Age ID": 3,
+                "Picture Index": 113
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 331,
+                "Age ID": 4,
+                "Picture Index": 29
+            },
+            {
+                "Node Type": "UniqueTech",
+                "Node ID": 1491,
+                "Age ID": 3,
+                "Picture Index": 33
+            },
+            {
+                "Node Type": "UniqueTech",
+                "Node ID": 1464,
                 "Age ID": 4,
                 "Picture Index": 107
             },
@@ -42571,13 +44880,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 28,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 454,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -43635,13 +45944,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 466
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1070,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1069,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -44118,6 +46427,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 437,
                 "Age ID": 3,
@@ -44128,6 +46449,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -44669,13 +46996,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 756,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 757,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -45727,13 +48054,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 455,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 513,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -46204,6 +48531,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 437,
                 "Age ID": 3,
@@ -46214,6 +48553,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -46755,13 +49100,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 492,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 440,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -47813,7 +50158,7 @@ export const aoeTreeInternal = {
                 "Picture Index": 113
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 687,
                 "Age ID": 3,
                 "Picture Index": 33
@@ -47825,7 +50170,7 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 688,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -48296,6 +50641,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 437,
                 "Age ID": 3,
@@ -48306,6 +50663,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -48847,13 +51210,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 489,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 11,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -49881,13 +52244,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1392,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1393,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -50921,13 +53284,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 491,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 10,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -51131,6 +53494,1082 @@ export const aoeTreeInternal = {
                 "Age ID": 2,
                 "Picture Index": 289,
                 "Picture Name": "TradeCartMiddleEastern"
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 48,
+                "Age ID": 3,
+                "Picture Index": 113
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 23,
+                "Age ID": 3,
+                "Picture Index": 7
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 17,
+                "Age ID": 4,
+                "Picture Index": 3
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 15,
+                "Age ID": 4,
+                "Picture Index": 58
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 14,
+                "Age ID": 2,
+                "Picture Index": 2
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 13,
+                "Age ID": 3,
+                "Picture Index": 1
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 12,
+                "Age ID": 4,
+                "Picture Index": 0
+            }
+        ]
+    },
+    "Varangians": {
+        "civ_id": "VARANGIANS",
+        "civ_techs_buildings": [
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 87,
+                "Age ID": 2,
+                "Picture Index": 0
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 12,
+                "Age ID": 1,
+                "Picture Index": 2
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 101,
+                "Age ID": 2,
+                "Picture Index": 23
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 49,
+                "Age ID": 3,
+                "Picture Index": 22
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 103,
+                "Age ID": 2,
+                "Picture Index": 4
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 45,
+                "Age ID": 1,
+                "Picture Index": 13
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 209,
+                "Age ID": 3,
+                "Picture Index": 33
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 598,
+                "Age ID": 1,
+                "Picture Index": 38
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 79,
+                "Age ID": 2,
+                "Picture Index": 25
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 234,
+                "Age ID": 3,
+                "Picture Index": 27
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 235,
+                "Age ID": 4,
+                "Picture Index": 26
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 236,
+                "Age ID": 4,
+                "Picture Index": 42
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 72,
+                "Age ID": 1,
+                "Picture Index": 30
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 792,
+                "Age ID": 1,
+                "Picture Index": 44
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 487,
+                "Age ID": 2,
+                "Picture Index": 36
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 117,
+                "Age ID": 2,
+                "Picture Index": 31
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 155,
+                "Age ID": 3,
+                "Picture Index": 32
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 82,
+                "Age ID": 3,
+                "Picture Index": 7
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 104,
+                "Age ID": 3,
+                "Picture Index": 10
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 109,
+                "Age ID": 1,
+                "Picture Index": 28
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 70,
+                "Age ID": 1,
+                "Picture Index": 34
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 621,
+                "Age ID": 3,
+                "Picture Index": 28
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 276,
+                "Age ID": 4,
+                "Picture Index": 37
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 584,
+                "Age ID": 1,
+                "Picture Index": 39
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 562,
+                "Age ID": 1,
+                "Picture Index": 40
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 84,
+                "Age ID": 2,
+                "Picture Index": 16
+            },
+            {
+                "Node Type": "BuildingTech",
+                "Node ID": 68,
+                "Age ID": 1,
+                "Picture Index": 19
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 50,
+                "Age ID": 1,
+                "Picture Index": 35
+            }
+        ],
+        "civ_techs_units": [
+            {
+                "Node Type": "Unit",
+                "Node ID": 4,
+                "Age ID": 2,
+                "Picture Index": 17
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 24,
+                "Age ID": 3,
+                "Picture Index": 18
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 492,
+                "Age ID": 4,
+                "Picture Index": 90
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 7,
+                "Age ID": 2,
+                "Picture Index": 20
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 6,
+                "Age ID": 3,
+                "Picture Index": 21
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 5,
+                "Age ID": 4,
+                "Picture Index": 22
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 39,
+                "Age ID": 3,
+                "Picture Index": 19
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 474,
+                "Age ID": 4,
+                "Picture Index": 71
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 437,
+                "Age ID": 3,
+                "Picture Index": 112
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 436,
+                "Age ID": 4,
+                "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 74,
+                "Age ID": 1,
+                "Picture Index": 8
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 75,
+                "Age ID": 2,
+                "Picture Index": 10
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 77,
+                "Age ID": 3,
+                "Picture Index": 13
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 473,
+                "Age ID": 4,
+                "Picture Index": 12
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 567,
+                "Age ID": 4,
+                "Picture Index": 72
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 93,
+                "Age ID": 2,
+                "Picture Index": 31
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 358,
+                "Age ID": 3,
+                "Picture Index": 11
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 359,
+                "Age ID": 4,
+                "Picture Index": 104
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2703,
+                "Age ID": 3,
+                "Picture Index": 902
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2704,
+                "Age ID": 4,
+                "Picture Index": 903
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 602,
+                "Age ID": 2,
+                "Picture Index": 118
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 875,
+                "Age ID": 3,
+                "Picture Index": 116
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 215,
+                "Age ID": 3,
+                "Picture Index": 80
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 448,
+                "Age ID": 2,
+                "Picture Index": 64
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 546,
+                "Age ID": 3,
+                "Picture Index": 91
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 441,
+                "Age ID": 4,
+                "Picture Index": 103
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 38,
+                "Age ID": 3,
+                "Picture Index": 1
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 283,
+                "Age ID": 4,
+                "Picture Index": 49
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 569,
+                "Age ID": 4,
+                "Picture Index": 2
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 435,
+                "Age ID": 2,
+                "Picture Index": 110
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 39,
+                "Age ID": 3,
+                "Picture Index": 10
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1258,
+                "Age ID": 3,
+                "Picture Index": 74
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 422,
+                "Age ID": 4,
+                "Picture Index": 63
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 548,
+                "Age ID": 4,
+                "Picture Index": 73
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 280,
+                "Age ID": 3,
+                "Picture Index": 27
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 550,
+                "Age ID": 4,
+                "Picture Index": 101
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 588,
+                "Age ID": 4,
+                "Picture Index": 102
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 279,
+                "Age ID": 3,
+                "Picture Index": 80
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 542,
+                "Age ID": 4,
+                "Picture Index": 89
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1105,
+                "Age ID": 3,
+                "Picture Index": 212
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 36,
+                "Age ID": 4,
+                "Picture Index": 30
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 211,
+                "Age ID": 2,
+                "Picture Index": 49
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 212,
+                "Age ID": 3,
+                "Picture Index": 50
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 219,
+                "Age ID": 4,
+                "Picture Index": 51
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 199,
+                "Age ID": 2,
+                "Picture Index": 34
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 200,
+                "Age ID": 3,
+                "Picture Index": 35
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 201,
+                "Age ID": 4,
+                "Picture Index": 37
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 67,
+                "Age ID": 2,
+                "Picture Index": 17
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 68,
+                "Age ID": 3,
+                "Picture Index": 18
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 75,
+                "Age ID": 4,
+                "Picture Index": 21
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 81,
+                "Age ID": 2,
+                "Picture Index": 66
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 82,
+                "Age ID": 3,
+                "Picture Index": 23
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 80,
+                "Age ID": 4,
+                "Picture Index": 65
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 74,
+                "Age ID": 2,
+                "Picture Index": 63
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 76,
+                "Age ID": 3,
+                "Picture Index": 22
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 77,
+                "Age ID": 4,
+                "Picture Index": 64
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 13,
+                "Age ID": 1,
+                "Picture Index": 24
+            },
+            {
+                "Node Type": "BuildingNonTech",
+                "Node ID": 199,
+                "Age ID": 2,
+                "Picture Index": 41
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 545,
+                "Age ID": 1,
+                "Picture Index": 95
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1103,
+                "Age ID": 2,
+                "Picture Index": 203
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 529,
+                "Age ID": 3,
+                "Picture Index": 86
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 532,
+                "Age ID": 4,
+                "Picture Index": 85
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 906,
+                "Age ID": 2,
+                "Picture Index": 140
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 65,
+                "Age ID": 3,
+                "Picture Index": 41
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 539,
+                "Age ID": 2,
+                "Picture Index": 87
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 21,
+                "Age ID": 3,
+                "Picture Index": 25
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 442,
+                "Age ID": 4,
+                "Picture Index": 60
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 2626,
+                "Age ID": 2,
+                "Picture Index": 566
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 2627,
+                "Age ID": 3,
+                "Picture Index": 565
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 2628,
+                "Age ID": 4,
+                "Picture Index": 567
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 1104,
+                "Age ID": 2,
+                "Picture Index": 202
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 527,
+                "Age ID": 3,
+                "Picture Index": 84
+            },
+            {
+                "Node Type": "UnitUpgrade",
+                "Node ID": 528,
+                "Age ID": 4,
+                "Picture Index": 83
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 17,
+                "Age ID": 2,
+                "Picture Index": 23
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 34,
+                "Age ID": 3,
+                "Picture Index": 147
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 35,
+                "Age ID": 4,
+                "Picture Index": 148
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 420,
+                "Age ID": 4,
+                "Picture Index": 55
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 691,
+                "Age ID": 4,
+                "Picture Index": 298
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2633,
+                "Age ID": 4,
+                "Picture Index": 591
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 250,
+                "Age ID": 3,
+                "Picture Index": 40
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 533,
+                "Age ID": 4,
+                "Picture Index": 474
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 50,
+                "Age ID": 3,
+                "Picture Index": 13
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 51,
+                "Age ID": 4,
+                "Picture Index": 14
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 194,
+                "Age ID": 3,
+                "Picture Index": 46
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 47,
+                "Age ID": 4,
+                "Picture Index": 12
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 64,
+                "Age ID": 4,
+                "Picture Index": 47
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 93,
+                "Age ID": 3,
+                "Picture Index": 25
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 377,
+                "Age ID": 4,
+                "Picture Index": 101
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 140,
+                "Age ID": 3,
+                "Picture Index": 76
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 63,
+                "Age ID": 4,
+                "Picture Index": 16
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 380,
+                "Age ID": 3,
+                "Picture Index": 104
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 608,
+                "Age ID": 4,
+                "Picture Index": 119
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 322,
+                "Age ID": 3,
+                "Picture Index": 61
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 374,
+                "Age ID": 3,
+                "Picture Index": 98
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 375,
+                "Age ID": 4,
+                "Picture Index": 99
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 908,
+                "Age ID": 3,
+                "Picture Index": 142
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 907,
+                "Age ID": 4,
+                "Picture Index": 141
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 909,
+                "Age ID": 3,
+                "Picture Index": 40
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 910,
+                "Age ID": 4,
+                "Picture Index": 143
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 373,
+                "Age ID": 4,
+                "Picture Index": 97
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 54,
+                "Age ID": 3,
+                "Picture Index": 60
+            },
+            {
+                "Node Type": "UniqueUnit",
+                "Node ID": 2708,
+                "Age ID": 3,
+                "Picture Index": 906
+            },
+            {
+                "Node Type": "UniqueUnit",
+                "Node ID": 2709,
+                "Age ID": 4,
+                "Picture Index": 907
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 440,
+                "Age ID": 3,
+                "Picture Index": 113
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 331,
+                "Age ID": 4,
+                "Picture Index": 29
+            },
+            {
+                "Node Type": "UniqueTech",
+                "Node ID": 1473,
+                "Age ID": 3,
+                "Picture Index": 33
+            },
+            {
+                "Node Type": "UniqueTech",
+                "Node ID": 1474,
+                "Age ID": 4,
+                "Picture Index": 107
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 379,
+                "Age ID": 4,
+                "Picture Index": 103
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 315,
+                "Age ID": 4,
+                "Picture Index": 91
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 321,
+                "Age ID": 4,
+                "Picture Index": 5
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 408,
+                "Age ID": 4,
+                "Picture Index": 19
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 125,
+                "Age ID": 3,
+                "Picture Index": 910
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 46,
+                "Age ID": 3,
+                "Picture Index": 131
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 45,
+                "Age ID": 4,
+                "Picture Index": 11
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 316,
+                "Age ID": 3,
+                "Picture Index": 92
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 233,
+                "Age ID": 4,
+                "Picture Index": 84
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 319,
+                "Age ID": 3,
+                "Picture Index": 93
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 230,
+                "Age ID": 4,
+                "Picture Index": 82
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 441,
+                "Age ID": 3,
+                "Picture Index": 114
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 438,
+                "Age ID": 4,
+                "Picture Index": 109
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 439,
+                "Age ID": 3,
+                "Picture Index": 108
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 231,
+                "Age ID": 3,
+                "Picture Index": 83
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 252,
+                "Age ID": 3,
+                "Picture Index": 73
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 83,
+                "Age ID": 1,
+                "Picture Index": 15
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 8,
+                "Age ID": 2,
+                "Picture Index": 69
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 280,
+                "Age ID": 3,
+                "Picture Index": 89
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 101,
+                "Age ID": 1,
+                "Picture Index": 30
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 102,
+                "Age ID": 2,
+                "Picture Index": 31
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 103,
+                "Age ID": 3,
+                "Picture Index": 32
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 22,
+                "Age ID": 1,
+                "Picture Index": 6
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 213,
+                "Age ID": 2,
+                "Picture Index": 79
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 249,
+                "Age ID": 3,
+                "Picture Index": 42
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 55,
+                "Age ID": 2,
+                "Picture Index": 15
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 182,
+                "Age ID": 3,
+                "Picture Index": 62
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 278,
+                "Age ID": 2,
+                "Picture Index": 87
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 279,
+                "Age ID": 3,
+                "Picture Index": 88
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 202,
+                "Age ID": 2,
+                "Picture Index": 70
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 203,
+                "Age ID": 3,
+                "Picture Index": 71
+            },
+            {
+                "Node Type": "Research",
+                "Node ID": 221,
+                "Age ID": 4,
+                "Picture Index": 81
+            },
+            {
+                "Node Type": "Unit",
+                "Node ID": 128,
+                "Age ID": 2,
+                "Picture Index": 34,
+                "Picture Name": "TradeCartEuropean"
             },
             {
                 "Node Type": "Research",
@@ -51979,13 +55418,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 628,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 629,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -52456,6 +55895,18 @@ export const aoeTreeInternal = {
                 "Picture Index": 71
             },
             {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2700,
+                "Age ID": 3,
+                "Picture Index": 900
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2701,
+                "Age ID": 4,
+                "Picture Index": 901
+            },
+            {
                 "Node Type": "Research",
                 "Node ID": 437,
                 "Age ID": 3,
@@ -52466,6 +55917,12 @@ export const aoeTreeInternal = {
                 "Node ID": 436,
                 "Age ID": 4,
                 "Picture Index": 111
+            },
+            {
+                "Node Type": "RegionalTech",
+                "Node ID": 1452,
+                "Age ID": 4,
+                "Picture Index": 56
             },
             {
                 "Node Type": "Unit",
@@ -52514,6 +55971,18 @@ export const aoeTreeInternal = {
                 "Node ID": 359,
                 "Age ID": 4,
                 "Picture Index": 104
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2703,
+                "Age ID": 3,
+                "Picture Index": 902
+            },
+            {
+                "Node Type": "RegionalUnit",
+                "Node ID": 2704,
+                "Age ID": 4,
+                "Picture Index": 903
             },
             {
                 "Node Type": "Research",
@@ -52858,18 +56327,25 @@ export const aoeTreeInternal = {
                 "Picture Index": 55
             },
             {
+                "Node Type": "Unit",
                 "Node ID": 691,
                 "Age ID": 4,
                 "Picture Index": 298
             },
             {
-                "Node Type": "UniqueUnit",
+                "Node Type": "RegionalUnit",
+                "Node ID": 2633,
+                "Age ID": 4,
+                "Picture Index": 591
+            },
+            {
+                "Node Type": "RegionalUnit",
                 "Node ID": 250,
                 "Age ID": 3,
                 "Picture Index": 40
             },
             {
-                "Node Type": "UniqueUnit",
+                "Node Type": "RegionalUnit",
                 "Node ID": 533,
                 "Age ID": 4,
                 "Picture Index": 474
@@ -53019,13 +56495,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 29
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 463,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 49,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -53058,8 +56534,7 @@ export const aoeTreeInternal = {
                 "Node Type": "Unit",
                 "Node ID": 125,
                 "Age ID": 3,
-                "Picture Index": 33,
-                "Picture Name": "MonkGeneric"
+                "Picture Index": 910
             },
             {
                 "Node Type": "Research",
@@ -54083,13 +57558,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 465
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1061,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1062,
                 "Age ID": 4,
                 "Picture Index": 107
@@ -55147,13 +58622,13 @@ export const aoeTreeInternal = {
                 "Picture Index": 467
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1080,
                 "Age ID": 3,
                 "Picture Index": 33
             },
             {
-                "Node Type": "Research",
+                "Node Type": "UniqueTech",
                 "Node ID": 1081,
                 "Age ID": 4,
                 "Picture Index": 107
