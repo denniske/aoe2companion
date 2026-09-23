@@ -105,6 +105,11 @@ const wikiLinks: Record<string, Record<string, string>> = {
 
         'JaguarWarrior': 'https://ageofempires.fandom.com/wiki/Jaguar_Warrior',
         'Berserk': 'https://ageofempires.fandom.com/wiki/Berserk',
+        'MountedCrossbowman': 'https://ageofempires.fandom.com/wiki/Mounted_Crossbowman',
+        'VarangianGuard': 'https://ageofempires.fandom.com/wiki/Varangian_Guard_(Age_of_Empires_II)',
+        'Jomsviking': 'https://ageofempires.fandom.com/wiki/Jomsviking',
+        'HearthTroop': 'https://ageofempires.fandom.com/wiki/Hearth_Troop',
+        'Jarl': 'https://ageofempires.fandom.com/wiki/Jarl_(Age_of_Empires_II)',
         'TeutonicKnight': 'https://ageofempires.fandom.com/wiki/Teutonic_Knight',
         'Samurai': 'https://ageofempires.fandom.com/wiki/Samurai_(Age_of_Empires_II)',
         'Huskarl': 'https://ageofempires.fandom.com/wiki/Huskarl_(Age_of_Empires_II)',
@@ -357,6 +362,13 @@ const wikiLinks: Record<string, Record<string, string>> = {
         'Artillery': 'https://ageofempires.fandom.com/wiki/Artillery_(Age_of_Empires_II)',
         'PaperMoney': 'https://ageofempires.fandom.com/wiki/Paper_Money',
         'Bogsveigar': 'https://ageofempires.fandom.com/wiki/Bogsveigar',
+        'Cranequins': 'https://ageofempires.fandom.com/wiki/Cranequins',
+        'Hamask': 'https://ageofempires.fandom.com/wiki/Hamask',
+        'NorthmensFury': 'https://ageofempires.fandom.com/wiki/Northmen%27s_Fury',
+        'ClericalRecruitment': 'https://ageofempires.fandom.com/wiki/Clerical_Recruitment',
+        'ShieldWall': 'https://ageofempires.fandom.com/wiki/Shield_Wall',
+        'VendelLegacy': 'https://ageofempires.fandom.com/wiki/Vendel_Legacy',
+        'Gothikon': 'https://ageofempires.fandom.com/wiki/Gothikon',
     },
 };
 
