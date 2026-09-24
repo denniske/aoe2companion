@@ -3,7 +3,6 @@
     "main": "expo-router/entry",
     "version": "1.0.0",
     "scripts": {
-        "postinstall": "// fingerprint.config.js: remove PackageJsonScriptsAll if you change this",
         "start": "NODE_OPTIONS=--max-old-space-size=8192 bash start.sh",
         "start:web": "NODE_OPTIONS=--max-old-space-size=8192 bash start.sh web",
         "start:ios": "bash run.sh ios",
