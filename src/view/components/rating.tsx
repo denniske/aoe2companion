@@ -9,7 +9,7 @@ import { useAppTheme } from '../../theming';
 import { isAfter } from 'date-fns';
 import { IProfileRatingsLeaderboard, IProfileResult } from '../../api/helper/api.types';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
-import { PerfChart } from '@app/view/components/perf-chart/PerfChart';
+import { PerfChart } from '@app/view/components/perf-chart/native-perf-chart';
 import type { ChartSeries } from '@app/view/components/perf-chart/types';
 import { useAuthProfileId } from '@app/queries/all';
 import { usePrefData } from '@app/queries/prefs';
@@ -21,7 +21,7 @@ import RatingChart from '@app/view/components/rating-chart';
 
 interface IRatingProps {
     ratingHistories?: IProfileRatingsLeaderboard[] | null;
-    profile?: IProfileResult | null;
+    profile?: Pick<IProfileResult, 'profileId'> | null;
     ready: boolean;
     // The screen can own the timespan instead, so its selector can sit in a row
     // with the other filters rather than inside the chart card.

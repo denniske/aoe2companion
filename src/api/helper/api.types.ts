@@ -200,7 +200,8 @@ export interface IProfileResult {
     shared: boolean;
     sharedHistory?: boolean;
     leaderboards: IProfileLeaderboardResult[];
-    ratings: IProfileRatingsLeaderboard[];
+    // Absent when fetched with exclude=ratings; /ratings serves them instead.
+    ratings?: IProfileRatingsLeaderboard[];
     stats: IStatNew[];
     linkedProfiles: ILinkedProfile[];
 
@@ -286,6 +287,7 @@ export interface IProfilesResultProfile {
     // country: string;
 
     profileId: number
+    sharedHistory?: boolean | null
     steamId: string
     platform: 'steam' | 'xbox' | 'psn'
     platformName: string
@@ -590,9 +592,22 @@ export interface IFetchProfileParams {
     profileId?: number | string;
     country?: string;
     extend?: string;
+    exclude?: string;
     stats_player_limit?: number;
     pageParam?: number;
     language: string;
+}
+
+export interface IProfileRatingsResponse {
+    profileId: number;
+    ratings: IProfileRatingsLeaderboard[];
+}
+
+export type IStatsDuration = 'max' | '1y' | '3m' | '1m' | '1w' | '1d';
+
+export interface IProfileStatsAllResult {
+    profileId: number;
+    durations: Partial<Record<IStatsDuration, IStatNew[]>>;
 }
 
 export interface IFetchProfilesParams {

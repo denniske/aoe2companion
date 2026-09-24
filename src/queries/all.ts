@@ -9,6 +9,8 @@ import {
     fetchMatchAnalysis,
     fetchMatchAnalysisSvg,
     fetchProfile,
+    fetchProfileRatings,
+    fetchProfileStatsAll,
     fetchProfiles,
 } from '@app/api/helper/api';
 import { fetchAccount, IAccount } from '@app/api/account';
@@ -67,11 +69,15 @@ export const useFollowedAndMeProfileIds = () =>
         return compact(uniq([data.profileId, ...data.followedPlayers.map((f) => f.profileId)]));
     });
 
-export const useProfile = (profileId: number, extend: string = 'avatar_medium_url,avatar_full_url') => {
+// The profile page and its tab layout share this, so both resolve to one request.
+export const useProfilePage = (profileId: number) =>
+    useProfile(profileId, 'avatar_medium_url,avatar_full_url,last_10_matches_won,stats_civ_map', 'ratings');
+
+export const useProfile = (profileId: number, extend: string = 'avatar_medium_url,avatar_full_url', exclude?: string) => {
     const language = useLanguage();
     return useQuery({
-        queryKey: ['profile', profileId, extend, language],
-        queryFn: () => fetchProfile({ language: language!, profileId, extend }),
+        queryKey: ['profile', profileId, extend, exclude, language],
+        queryFn: () => fetchProfile({ language: language!, profileId, extend, exclude }),
         enabled: !!language && !!profileId,
     });
 };
@@ -211,13 +217,21 @@ export const useProfilesByLiquipediaNames = (liquipediaNames?: string[], enabled
     });
 };
 
-export const useProfileWithStats = (profileId: number, isFocused: boolean) => {
+export const useProfileRatings = (profileId: number, leaderboardId: string | undefined, enabled: boolean = true) => {
     const language = useLanguage();
-    const extend = 'stats,profiles.avatar_medium_url,profiles.avatar_full_url';
     return useQuery({
-        queryKey: ['profile-with-stats', profileId, language],
-        queryFn: () => fetchProfile({ language: language!, profileId, extend }),
-        enabled: !!language && isFocused,
+        queryKey: ['profile-ratings', profileId, leaderboardId, language],
+        queryFn: async () => (await fetchProfileRatings({ language: language!, profileId, leaderboardId })).ratings,
+        enabled: !!language && !!profileId && !!leaderboardId && enabled,
+    });
+};
+
+export const useProfileStatsAll = (profileId: number, leaderboardId: string | undefined, enabled: boolean = true) => {
+    const language = useLanguage();
+    return useQuery({
+        queryKey: ['profile-stats-all', profileId, leaderboardId, language],
+        queryFn: async () => (await fetchProfileStatsAll({ language: language!, profileId, leaderboardId })).durations,
+        enabled: !!language && !!profileId && !!leaderboardId && enabled,
     });
 };
 

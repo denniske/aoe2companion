@@ -21,6 +21,8 @@ import {
     IMatchNew,
     INewsResult,
     IProfileResult,
+    IProfileRatingsResponse,
+    IProfileStatsAllResult,
     IProfilesResult,
     IVideosResult,
 } from './api.types';
@@ -42,6 +44,20 @@ export async function fetchProfile(params: IFetchProfileParams) {
     );
     const url = `${getHost('aoe2companion-data')}api/profiles/${profileId}?${queryString}`;
     return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IProfileResult;
+}
+
+export async function fetchProfileRatings(params: { profileId: number; leaderboardId?: string; language: string }) {
+    const { profileId, ...restParams } = params;
+    const queryString = makeQueryString(decamelizeKeys(restParams));
+    const url = `${getHost('aoe2companion-data')}api/profiles/${profileId}/ratings?${queryString}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IProfileRatingsResponse;
+}
+
+export async function fetchProfileStatsAll(params: { profileId: number; leaderboardId?: string; language: string }) {
+    const { profileId, ...restParams } = params;
+    const queryString = makeQueryString(decamelizeKeys(restParams));
+    const url = `${getHost('aoe2companion-data')}api/profiles/${profileId}/stats/all?${queryString}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IProfileStatsAllResult;
 }
 
 export async function fetchProfiles(params: IFetchProfilesParams) {

@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import { Card } from './card';
-import { IProfileRatingsLeaderboard, IStatNew , IProfileLeaderboardResult } from '@app/api/helper/api.types';
+import { IStatNew, IProfileLeaderboardResult } from '@app/api/helper/api.types';
 import { Skeleton, SkeletonText } from './skeleton';
 import { Text } from './text';
 import { first, orderBy, reverse, sumBy } from 'lodash';
@@ -23,9 +23,8 @@ import { PressableOpacity } from './pressable-opacity';
 export const ProfileLeaderboardCard: React.FC<{
     leaderboard: IProfileLeaderboardResult | null | undefined;
     stats: IStatNew | undefined;
-    ratings: IProfileRatingsLeaderboard | undefined;
     profileId?: number;
-}> = ({ leaderboard, stats, ratings, profileId }) => {
+}> = ({ leaderboard, stats, profileId }) => {
     const getTranslation = useTranslation();
     const language = useLanguage();
     const topCiv = first(orderBy(stats?.civ, 'games', 'desc'));
@@ -37,7 +36,7 @@ export const ProfileLeaderboardCard: React.FC<{
     const TextComponent = leaderboard ? Text : SkeletonText;
     const streak = leaderboard?.streak ?? 0;
     const showTabBar = useShowTabBar();
-    const canOpenModal = !showTabBar && leaderboard && stats && ratings;
+    const canOpenModal = !showTabBar && !!leaderboard && !!profileId;
     // Web opens the modal in place; on a phone the card is the way into the
     // leaderboard's own screen, so it navigates instead.
     const canNavigate = showTabBar && !!leaderboard && !!profileId;
@@ -310,8 +309,8 @@ export const ProfileLeaderboardCard: React.FC<{
                     name={leaderboard?.name}
                     isVisible={isVisible}
                     onClose={() => setIsVisible(false)}
-                    stats={stats}
-                    ratings={ratings}
+                    profileId={profileId!}
+                    leaderboardId={leaderboard!.leaderboardId}
                 />
             )}
         </>

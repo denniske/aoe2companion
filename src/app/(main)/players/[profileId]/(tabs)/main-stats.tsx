@@ -3,8 +3,9 @@ import { leaderboardIdsByType } from '@app/helper/leaderboard';
 import { useIsFocused, useNavigationState, useRoute } from "expo-router/react-navigation";
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList as RNFlatList, LayoutChangeEvent, Platform, StyleSheet, View } from 'react-native';
-import { useLeaderboards, useProfileWithStats, useWithRefetching } from '@app/queries/all';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { useLeaderboards, useProfileFast, useProfileRatings, useProfileStatsAll, useWithRefetching } from '@app/queries/all';
+import { IStatsDuration } from '@app/api/helper/api.types';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { HeaderTitle } from '@app/components/header-title';
 import { LeaderboardSelect } from '@app/components/select/leaderboard-select';
 import { useTranslation } from '@app/helper/translate';
@@ -22,29 +23,36 @@ export default function MainStats() {
     const params = useLocalSearchParams<{ profileId: string; leaderboardId?: string; scrollTo?: 'civ' | 'map' }>();
     const profileId = parseInt(params.profileId);
     const styles = useStyles();
-    // Arriving from a leaderboard card preselects that leaderboard; opened on its
-    // own the screen falls back to the first pc leaderboard as before.
-    const [leaderboardId, setLeaderboardId] = useState<string | undefined>(params.leaderboardId);
-
     const { data: leaderboards } = useLeaderboards();
+
+    // Read from the route rather than copied into state: the tab stays mounted, so state
+    // seeded from the first card tapped kept that leaderboard when a later card navigated
+    // here. Opened on its own the screen falls back to the first pc leaderboard, and only
+    // once that is known, so it does not fetch a placeholder leaderboard first.
+    const leaderboardId = params.leaderboardId ?? (leaderboards ? leaderboardIdsByType(leaderboards, 'pc')[0] : undefined);
+    // The select reports its value back on render, so only a real change may touch the
+    // route -- setParams, unlike a state setter, re-renders even for the same value.
+    const setLeaderboardId = (id: string | undefined) => {
+        if (id && id !== leaderboardId) router.setParams({ leaderboardId: id });
+    };
 
     const leaderboardTitle = leaderboards?.find((l) => l.leaderboardId === leaderboardId)?.leaderboardName;
 
-    useEffect(() => {
-        if (leaderboards == null) return;
-        if (leaderboardId == null) {
-            setLeaderboardId(leaderboardIdsByType(leaderboards, 'pc')[0]);
-        }
-    }, [leaderboards]);
+    // Owned here so the selector can sit beside the leaderboard one. It drives both the
+    // chart and the stats: stats/all returns every timespan, so switching is local.
+    const [ratingHistoryDuration, setRatingHistoryDuration] = useState<string>('max');
 
     const isFocused = useIsFocused();
-    const { data: profileWithStats, refetch, isRefetching } = useWithRefetching(useProfileWithStats(profileId, isFocused));
+    const { data: profile } = useProfileFast(profileId, isFocused);
+    const ratingsQuery = useWithRefetching(useProfileRatings(profileId, leaderboardId, isFocused));
+    const statsQuery = useWithRefetching(useProfileStatsAll(profileId, leaderboardId, isFocused));
+    const isRefetching = ratingsQuery.isRefetching || statsQuery.isRefetching;
+    const refetch = () => Promise.all([ratingsQuery.refetch(), statsQuery.refetch()]);
 
-    const cachedData = profileWithStats?.stats.find((s) => s.leaderboardId === leaderboardId);
+    const statsDurations = statsQuery.data;
+    const cachedData = (statsDurations?.[ratingHistoryDuration as IStatsDuration] ?? statsDurations?.max)?.[0];
 
-    // The chart component takes a list of histories, so showing one leaderboard is
-    // a matter of handing it just that one.
-    const ratingHistories = profileWithStats?.ratings?.filter((r) => r.leaderboardId === leaderboardId);
+    const ratingHistories = ratingsQuery.data;
 
     const statsCiv = cachedData?.civ;
     const statsMap = cachedData?.map;
@@ -70,10 +78,7 @@ export default function MainStats() {
     // exist. The list is a flat array, so the target is the index of its header.
     const listRef = useRef<RNFlatList<any>>(null);
     const [hasScrolledToSection, setHasScrolledToSection] = useState(false);
-    // Owned here so the selector can sit beside the leaderboard one. It drives the
-    // chart only -- the stats below are all-time aggregates from the api, which
-    // takes no date range, so they cannot follow it without a backend change.
-    const [ratingHistoryDuration, setRatingHistoryDuration] = useState<string>('max');
+    useEffect(() => setHasScrolledToSection(false), [params.leaderboardId, params.scrollTo]);
 
     // getItemLayout has to answer synchronously, but none of these heights are
     // constants in the styles -- so measure one of each shape as it renders and
@@ -128,7 +133,7 @@ export default function MainStats() {
         return <View />;
     }
 
-    if (profileWithStats?.sharedHistory === false) {
+    if (profile?.sharedHistory === false) {
         return (
             <View style={styles.container}>
                 <View style={styles.content}>
@@ -146,7 +151,7 @@ export default function MainStats() {
                     headerTitle: () => (
                         <HeaderTitle
                             title={leaderboardTitle ?? getTranslation('main.heading.stats')}
-                            subtitle={profileWithStats?.name ?? ''}
+                            subtitle={profile?.name ?? ''}
                         />
                     ),
                 }}
@@ -171,6 +176,7 @@ export default function MainStats() {
                                         <LeaderboardSelect
                                             leaderboardId={leaderboardId}
                                             onLeaderboardIdChange={(x) => setLeaderboardId(x ?? undefined)}
+                                            applySavedLeaderboard={!params.leaderboardId}
                                         />
                                         <TimespanSelect
                                             ratingHistoryDuration={ratingHistoryDuration}
@@ -181,8 +187,8 @@ export default function MainStats() {
                                         <View className="mb-6">
                                             <Rating
                                                 ratingHistories={ratingHistories}
-                                                profile={profileWithStats}
-                                                ready={profileWithStats != null}
+                                                profile={profile}
+                                                ready={ratingHistories != null}
                                                 ratingHistoryDuration={ratingHistoryDuration}
                                             />
                                         </View>

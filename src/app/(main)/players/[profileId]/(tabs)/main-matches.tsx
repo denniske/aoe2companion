@@ -6,7 +6,7 @@ import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { flatten } from 'lodash';
 import React, { useEffect, useRef, useState } from 'react';
 import { Platform, StyleSheet, View, FlatList as RNFlatList } from 'react-native';
-import { useAuthProfileId, useLanguage, useLeaderboards, useProfile } from '@app/queries/all';
+import { useAuthProfileId, useLanguage, useLeaderboards, useProfilePage } from '@app/queries/all';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { HeaderTitle } from '@app/components/header-title';
 import { Checkbox as CheckboxNew } from '@app/components/checkbox';
@@ -48,7 +48,7 @@ export default function MainMatches(props: MainMatchesProps) {
     // Bound to a local first: React Compiler cannot reorder a member expression
     // used as a destructuring default, and bails out on the whole component.
     const profileFromProps = props.profile;
-    const { data: profile = profileFromProps } = useProfile(props.profile === undefined ? profileId : 0);
+    const { data: profile = profileFromProps } = useProfilePage(props.profile === undefined ? profileId : 0);
 
     const language = useLanguage();
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } = useInfiniteQuery({

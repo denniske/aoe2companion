@@ -55,7 +55,6 @@ export const ProfileLeaderboards: React.FC<{
         >
             {visibleLeaderboards.map((leaderboard, i) => {
                 const stats = profile?.stats.find((s) => s.leaderboardId === leaderboard?.leaderboardId);
-                const ratings = profile?.ratings.find((r) => r.leaderboardId === leaderboard?.leaderboardId);
 
                 return (
                     <ProfileLeaderboardCard
@@ -63,7 +62,6 @@ export const ProfileLeaderboards: React.FC<{
                         profileId={profile?.profileId}
                         leaderboard={leaderboard}
                         stats={stats}
-                        ratings={ratings}
                     />
                 );
             })}

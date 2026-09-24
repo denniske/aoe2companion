@@ -3,7 +3,7 @@ import { Platform, ScrollView as RNScrollView, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMatches } from '@app/api/helper/api';
-import { useLanguage, useProfile, useWithRefetching } from '@app/queries/all';
+import { useLanguage, useProfilePage, useWithRefetching } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
 import { ScrollView } from '@app/components/scroll-view';
 import { useWebRefresh } from '@app/hooks/use-web-refresh';
@@ -32,7 +32,9 @@ export default function MainProfile() {
         data: profile,
         refetch,
         isRefetching,
-    } = useWithRefetching(useProfile(profileId, 'avatar_medium_url,avatar_full_url,last_10_matches_won,stats'));
+    } = useWithRefetching(useProfilePage(profileId));
+    // The cards only show the favourite civ and map, so stats_civ_map is enough, and the
+    // rating history is left to the leaderboard detail, which fetches its one leaderboard.
 
     // Just the first page - the full list, with its search and filters, lives on
     // the matches screen this section links to.

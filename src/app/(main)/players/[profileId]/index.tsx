@@ -1,7 +1,7 @@
 import { Redirect, Stack, useLocalSearchParams } from 'expo-router';
 import { View } from 'react-native';
 import MainMatches from './(tabs)/main-matches';
-import { useAccount, useAuthProfileId, useProfile, useProfileFast } from '@app/queries/all';
+import { useAccount, useAuthProfileId, useProfilePage, useProfileFast } from '@app/queries/all';
 import { useState } from 'react';
 import { UserMenu, UserTitle } from './(tabs)/_layout';
 import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
@@ -39,10 +39,7 @@ export default function ProfilePage() {
     const account = useAccount();
     const loggedIn = user && !user.is_anonymous && account.data;
 
-    const { data: fullProfile, isPending: isFullProfilePending } = useProfile(
-        profileId,
-        'avatar_medium_url,avatar_full_url,last_10_matches_won,stats'
-    );
+    const { data: fullProfile, isPending: isFullProfilePending } = useProfilePage(profileId);
     const { data: profile, isPending: isProfilePending } = useProfileFast(profileId);
     const isPending = isFullProfilePending || isProfilePending;
 

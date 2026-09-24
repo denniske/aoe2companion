@@ -8,7 +8,7 @@ import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
 import { Text } from '@app/components/text';
-import { useAccount, useAuthProfileId, useProfile, useProfileFast } from '@app/queries/all';
+import { useAccount, useAuthProfileId, useProfilePage, useProfileFast } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
 import Constants from 'expo-constants';
@@ -293,7 +293,7 @@ export default function UserPage() {
     const isSubScreen = pathname.includes('/main-stats') || pathname.includes('/main-matches');
 
     const { data: profile } = useProfileFast(profileId);
-    const { data: fullProfile } = useProfile(profileId);
+    const { data: fullProfile } = useProfilePage(profileId);
 
     useEffect(() => {
         navigation.setOptions({

@@ -5,14 +5,14 @@ import { Icon } from './icon';
 import { faTimes } from '@fortawesome/sharp-regular-svg-icons';
 import { ActivityIndicator, View } from 'react-native';
 import { StatsRow } from '@app/view/components/stats-rows';
-import { IProfileRatingsLeaderboard, IStatNew } from '@app/api/helper/api.types';
+import { IProfileRatingsLeaderboard, IStatsDuration } from '@app/api/helper/api.types';
 import { useTranslation } from '@app/helper/translate';
 import { Text } from './text';
 import { Card } from './card';
 import RatingChart from '@app/view/components/rating-chart';
 import { formatDateShort, formatMonth, formatTime, formatYear } from '@nex/data';
 import { InlinePlayerSearch } from './inline-player-search';
-import { useProfile } from '@app/queries/all';
+import { useProfileRatings, useProfileStatsAll } from '@app/queries/all';
 import { useResolveClassNames } from 'uniwind';
 import { TimespanSelect } from './select/timespan-select';
 import { getRatingTimespan } from '@app/utils/rating';
@@ -21,20 +21,32 @@ import { isAfter } from 'date-fns';
 export const ProfileLeaderboardModal = ({
     onClose,
     isVisible,
-    ratings,
-    stats,
+    profileId,
+    leaderboardId,
     name,
 }: {
     isVisible: boolean;
     onClose: () => void;
-    stats: IStatNew | undefined;
-    ratings: IProfileRatingsLeaderboard | undefined;
+    profileId: number;
+    leaderboardId: string;
     name?: string;
 }) => {
-    const [comparedProfileId, setComparedProfileId] = useState<number | null>(null);
+    const [compared, setCompared] = useState<{ profileId: number; name: string } | null>(null);
     const getTranslation = useTranslation();
-    const { data: compariedProfile, isLoading: isLoadingComparison } = useProfile(comparedProfileId || 0);
     const [ratingHistoryDuration, setRatingHistoryDuration] = useState<string>('max');
+
+    // The profile page drops ratings and the full stats, so the modal asks for just its
+    // leaderboard. stats/all holds every timespan, so the selector switches them locally.
+    const { data: ratingsList } = useProfileRatings(profileId, leaderboardId, isVisible);
+    const { data: statsDurations } = useProfileStatsAll(profileId, leaderboardId, isVisible);
+    const { data: comparedRatingsList, isLoading: isLoadingComparison } = useProfileRatings(
+        compared?.profileId ?? 0,
+        leaderboardId,
+        isVisible && !!compared
+    );
+
+    const ratings = ratingsList?.[0];
+    const stats = (statsDurations?.[ratingHistoryDuration as IStatsDuration] ?? statsDurations?.max)?.[0];
 
     const personalStyles = useResolveClassNames('text-gold-600');
     const compareStyles = useResolveClassNames('text-blue-500');
@@ -43,7 +55,7 @@ export const ProfileLeaderboardModal = ({
         const since = getRatingTimespan(ratingHistoryDuration);
 
         const allRatings: (IProfileRatingsLeaderboard & { color?: string; label?: string })[] = [];
-        const comparedRatings = compariedProfile?.ratings.find((r) => r.leaderboardId === ratings?.leaderboardId);
+        const comparedRatings = comparedRatingsList?.[0];
 
         if (ratings) {
             allRatings.push({
@@ -59,12 +71,12 @@ export const ProfileLeaderboardModal = ({
                 ...comparedRatings,
                 ratings: comparedRatings.ratings.filter((d) => since == null || isAfter(d.date!, since)),
                 color: compareStyles.color?.toString(),
-                label: compariedProfile?.name,
+                label: compared?.name,
             });
         }
 
         return allRatings;
-    }, [personalStyles, compareStyles, compariedProfile, ratings, name, ratingHistoryDuration]);
+    }, [personalStyles, compareStyles, compared, comparedRatingsList, ratings, name, ratingHistoryDuration]);
 
     return (
         <Transition appear show={isVisible} as={Fragment}>
@@ -162,7 +174,7 @@ export const ProfileLeaderboardModal = ({
                                                     <Text variant="label">{getTranslation('profilemodal.comparewith')}</Text>
                                                     <InlinePlayerSearch
                                                         showViewAll={false}
-                                                        onSelect={({ profileId }) => setComparedProfileId(profileId)}
+                                                        onSelect={(p) => setCompared({ profileId: p.profileId, name: p.name })}
                                                     />
                                                 </View>
                                             </View>

@@ -12,10 +12,13 @@ import { faComputerMouse, faGamepad } from '@fortawesome/free-solid-svg-icons';
 interface Props {
     leaderboardId?: string | null;
     onLeaderboardIdChange?: (leaderboardId: string | null) => void;
+    // Off when the screen was opened for a specific leaderboard, which the saved
+    // preference would otherwise replace.
+    applySavedLeaderboard?: boolean;
 }
 
 export function LeaderboardSelect(props: Props) {
-    const { leaderboardId, onLeaderboardIdChange } = props;
+    const { leaderboardId, onLeaderboardIdChange, applySavedLeaderboard = true } = props;
     const savedLeaderboards = usePrefData((state) => state?.selectedLeaderboards);
     const savePrefsMutation = useSavePrefsMutation();
 
@@ -28,7 +31,7 @@ export function LeaderboardSelect(props: Props) {
     };
 
     useEffect(() => {
-        if (savedLeaderboards && leaderboards) {
+        if (applySavedLeaderboard && savedLeaderboards && leaderboards) {
             let leaderboardId: string | null = null;
             const matchingLeaderboard = leaderboards.find((l) => l.leaderboardId === savedLeaderboards);
             if (savedLeaderboards === 'PC') {
@@ -45,7 +48,9 @@ export function LeaderboardSelect(props: Props) {
                 onLeaderboardIdSelected(leaderboard);
             }
         }
-    }, [savedLeaderboards, leaderboards, onLeaderboardIdSelected]);
+        // Not keyed on the callback: it is a new function every render, which re-ran this
+        // and re-applied the preference over any leaderboard picked since.
+    }, [savedLeaderboards, leaderboards, applySavedLeaderboard]);
 
     const selectedLeaderboard = leaderboards?.find((l) => l.leaderboardId === leaderboardId);
 

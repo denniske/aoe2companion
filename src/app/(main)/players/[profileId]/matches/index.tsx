@@ -1,7 +1,7 @@
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import MainMatches from '../(tabs)/main-matches';
 import { Redirect, Stack, useLocalSearchParams } from 'expo-router';
-import { useProfile } from '@app/queries/all';
+import { useProfilePage } from '@app/queries/all';
 import NotFound from '@app/app/(main)/+not-found';
 import { Header } from '@app/components/header';
 import { HeaderTitle } from '@app/components/header-title';
@@ -18,7 +18,7 @@ export default function Matches() {
     const showTabBar = useShowTabBar();
     const params = useLocalSearchParams<UserPageParams>();
     const profileId = !Number.isInteger(Number(params.profileId)) ? NaN : Number(params.profileId);
-    const { data: profile, isPending } = useProfile(profileId);
+    const { data: profile, isPending } = useProfilePage(profileId);
     const [leaderboardIds, setLeaderboardIds] = useState<string[]>([]);
 
     if (showTabBar) {
