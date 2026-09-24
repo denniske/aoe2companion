@@ -214,6 +214,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         expoFont(),
         expoLocalization(),
         expoWebBrowser(),
+        ['expo-build-properties', { ios: { enableSceneSupport: true } }],
         gradleJvmArgs as any,
     ],
     android: {

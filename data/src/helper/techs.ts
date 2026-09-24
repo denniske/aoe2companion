@@ -1920,7 +1920,7 @@ const techEffectDictInternal = {
     },
     FirstCrusade: {
         tech: 'FirstCrusade',
-        civ: 'Silicians',
+        civ: 'Sicilians',
         effect: {
             conversionDefense: '+4s average conversion time',
         },
