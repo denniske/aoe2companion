@@ -18,6 +18,8 @@ import { computeDomain, yTicks as computeYTicks } from './domain';
 import { computeXTicks } from './xaxis';
 import { lightTheme, darkTheme, type ChartSeries, type ChartTheme } from './types';
 
+const now = () => globalThis.performance?.now?.() ?? Date.now();
+
 export interface PerfChartProps {
     series: ChartSeries[];
     width: number;
@@ -55,18 +57,23 @@ export function PerfChart({
 }: PerfChartProps) {
     const theme = themeProp ?? (dark ? darkTheme : lightTheme);
     const onMeasureRef = useRef(onMeasure);
-    onMeasureRef.current = onMeasure;
+    useEffect(() => {
+        onMeasureRef.current = onMeasure;
+    }, [onMeasure]);
 
     const font = useMemo(
         () => matchFont({ fontFamily: Platform.OS === 'ios' ? 'Helvetica' : 'sans-serif', fontSize }),
         [fontSize],
     );
 
-    const scene = useMemo(() => {
-        const t0 = (globalThis.performance?.now?.() ?? Date.now());
+    const padTop = padding?.top ?? 10;
+    const padRight = padding?.right ?? 14;
+    const padBottom = padding?.bottom ?? 0;
+    const padLeft = padding?.left ?? 0;
 
-        const padTop = padding?.top ?? 10;
-        const padRight = padding?.right ?? 14;
+    const scene = useMemo(() => {
+        const t0 = now();
+
         const labelGap = 6;
 
         const domain = computeDomain(series);
@@ -78,10 +85,10 @@ export function PerfChart({
         const yLabels = yTickValues.map((v) => String(Math.round(v)));
         const yLabelWidth = yLabels.reduce((m, l) => Math.max(m, measureWidth(font, l)), 0);
 
-        const plotLeft = (padding?.left ?? 0) + yLabelWidth + labelGap;
+        const plotLeft = padLeft + yLabelWidth + labelGap;
         const plotRight = width - padRight;
         const plotTop = padTop;
-        const plotBottom = height - (padding?.bottom ?? 0) - fontSize - labelGap;
+        const plotBottom = height - padBottom - fontSize - labelGap;
 
         const plotW = Math.max(1, plotRight - plotLeft);
         const plotH = Math.max(1, plotBottom - plotTop);
@@ -159,10 +166,9 @@ export function PerfChart({
             buildMs: 0,
         };
 
-        result.buildMs = (globalThis.performance?.now?.() ?? Date.now()) - t0;
+        result.buildMs = now() - t0;
         return result;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [series, width, height, font, scatterRadius, fontSize, yTickCount, JSON.stringify(padding)]);
+    }, [series, width, height, font, scatterRadius, fontSize, yTickCount, padTop, padRight, padBottom, padLeft]);
 
     useEffect(() => {
         if (scene) onMeasureRef.current?.(scene.buildMs);
