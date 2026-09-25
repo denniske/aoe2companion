@@ -227,6 +227,8 @@ interface ILinkedProfile {
     hidden: any
     verified: boolean
     shared: boolean
+    // When the family-sharing link was last seen. Null for verified-only links.
+    sharedDate?: Date | null
 }
 
 

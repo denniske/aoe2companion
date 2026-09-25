@@ -408,6 +408,13 @@ export const changelog: IChangelog = {
     //     },
     // ],
 
+    '217.0.0': [
+        {
+            type: 'minor',
+            title: 'Linked profiles show when family sharing was last seen',
+        },
+    ],
+
     '216.0.0': [
         {
             type: 'feature',

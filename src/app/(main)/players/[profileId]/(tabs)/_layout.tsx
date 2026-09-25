@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
-import { Country } from '@nex/data';
+import { Country, formatAgo } from '@nex/data';
 import { Text } from '@app/components/text';
 import { useAccount, useAuthProfileId, useProfilePage, useProfileFast } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
@@ -139,15 +139,22 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
                                             onPress={() => setLinkedProfilesVisible(false)}
                                         >
                                             <Image source={{ uri: linkedProfile.avatarMediumUrl }} className="w-5 h-5 rounded-full" />
-                                            <Text variant="body">{linkedProfile.name}</Text>
-                                            {!!(linkedProfile.verified) && <Icon icon={faCheckCircle} color="brand" size={14} />}
-                                            {!linkedProfile.verified && linkedProfile.shared && <Icon icon={faFamily} color="brand" size={14} />}
-                                            {!!linkedProfile.clan && (
-                                                <MyText>
-                                                    {' '}
-                                                    ({getTranslation('main.profile.clan')}: {linkedProfile.clan})
-                                                </MyText>
-                                            )}
+                                            <View className="flex-1">
+                                                <View className="flex-row gap-2 items-center">
+                                                    <Text variant="body">{linkedProfile.name}</Text>
+                                                    {!!(linkedProfile.verified) && <Icon icon={faCheckCircle} color="brand" size={14} />}
+                                                    {!linkedProfile.verified && linkedProfile.shared && <Icon icon={faFamily} color="brand" size={14} />}
+                                                    {!!linkedProfile.clan && (
+                                                        <MyText>
+                                                            {' '}
+                                                            ({getTranslation('main.profile.clan')}: {linkedProfile.clan})
+                                                        </MyText>
+                                                    )}
+                                                </View>
+                                                {!!linkedProfile.sharedDate && (
+                                                    <Text variant="body-xs" color="subtle">{formatAgo(linkedProfile.sharedDate)}</Text>
+                                                )}
+                                            </View>
                                         </PressableOpacity>
                                     </Link>
                                 );
