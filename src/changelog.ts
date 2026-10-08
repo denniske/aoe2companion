@@ -400,14 +400,6 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    // '208.0.0': [
-    //     {
-    //         type: 'bugfix',
-    //         title: 'Live activities (iOS)',
-    //         content: 'A live activity will now also correctly open the match detail page when tapping on the dynamic island',
-    //     },
-    // ],
-
     '217.0.0': [
         {
             type: 'minor',
