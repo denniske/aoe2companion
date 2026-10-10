@@ -13,6 +13,7 @@ import { getCivIconLocal } from '@app/helper/civs';
 import { getTechIcon } from '@app/helper/techs';
 import { getUnitIcon } from '@app/helper/units';
 import {
+    Aoe4Explorer,
     allUnitSections,
     Building,
     buildingSections,
@@ -130,6 +131,46 @@ const Result: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
     );
 };
 
+// aoe4: civilizations plus the units/buildings/technologies explorer, so a trimmed-down landing
+// instead of the search over aoe2's bundled data.
+function Aoe4Explore() {
+    const getTranslation = useTranslation();
+    const civList = orderCivs(civs);
+
+    return (
+        <ScrollView className="flex-1" contentContainerClassName="gap-5 py-4">
+            <Stack.Screen options={{ animation: 'none', title: getTranslation('explore.title') }} />
+            {[
+                { title: getTranslation('explore.civilizations'), href: '/explore/civilizations', itemHref: (civ: Civ) => `/explore/civilizations/${civ}` },
+                ...(['units', 'buildings', 'technologies'] as const).map((path) => ({
+                    title: getTranslation(`explore.${path}`),
+                    href: `/explore/${path}`,
+                    itemHref: (civ: Civ) => `/explore/${path}?civ=${Object.entries(Aoe4Explorer.aoe4CivByAbbr).find(([, c]) => c === civ)?.[0]}`,
+                })),
+            ].map((section) => (
+                <View className="gap-2" key={section.href}>
+                    <View className="flex-row justify-between items-center px-4">
+                        <Text variant="header-lg">{section.title}</Text>
+                        <Link href={section.href as Href}>{getTranslation('explore.viewall')}</Link>
+                    </View>
+                    <FlatList
+                        initialNumToRender={5}
+                        showsHorizontalScrollIndicator={false}
+                        className="flex-none"
+                        horizontal
+                        data={civList}
+                        contentContainerClassName="gap-2.5 px-4"
+                        renderItem={({ item: civ }) => (
+                            <ExploreCard href={section.itemHref(civ) as Href} image={getCivIconLocal(civ)} text={getCivNameById(civ)} />
+                        )}
+                        keyExtractor={(item) => item}
+                    />
+                </View>
+            ))}
+        </ScrollView>
+    );
+}
+
 export default function Explore() {
     const getTranslation = useTranslation();
     const showTabBar = useShowTabBar();
@@ -224,7 +265,7 @@ export default function Explore() {
         : [];
 
     if (appConfig.game !== 'aoe2') {
-        return <Redirect href="/explore/civilizations" />;
+        return <Aoe4Explore />;
     }
 
     return (

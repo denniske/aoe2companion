@@ -26,3 +26,5 @@ export * from './helper/tree';
 export * from './helper/wiki-links';
 export * from './helper/supabase';
 export * from './lib/theming';
+// Namespaced: its Unit/Building/Technology would clash with the aoe2 names above.
+export * as Aoe4Explorer from './helper/aoe4-explorer.types';

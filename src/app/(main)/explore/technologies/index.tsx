@@ -1,3 +1,5 @@
+import Aoe4ItemList from '@app/view/aoe4-explorer/item-list';
+import { appConfig } from '@nex/dataset';
 import { Field } from '@app/components/field';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { SectionList } from '@app/components/section-list';
@@ -15,7 +17,11 @@ import { containerClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 
-export default function TechList() {
+export default function TechListScreen() {
+    return appConfig.game === 'aoe4' ? <Aoe4ItemList type="technologies" /> : <TechList />;
+}
+
+function TechList() {
     const getTranslation = useTranslation();
     const [text, setText] = useState('');
     const [scrollReady, setScrollReady] = useState(false);

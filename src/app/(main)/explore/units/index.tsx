@@ -1,3 +1,5 @@
+import { appConfig } from '@nex/dataset';
+import Aoe4ItemList from '@app/view/aoe4-explorer/item-list';
 import { Field } from '@app/components/field';
 import { SectionList } from '@app/components/section-list';
 import { Text } from '@app/components/text';
@@ -14,7 +16,11 @@ import cn from 'classnames';
 import { containerClassName } from '@app/styles';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 
-export default function UnitList() {
+export default function UnitListScreen() {
+    return appConfig.game === 'aoe4' ? <Aoe4ItemList type="units" /> : <UnitList />;
+}
+
+function UnitList() {
     const getTranslation = useTranslation();
     const [text, setText] = useState('');
     const [scrollReady, setScrollReady] = useState(false);

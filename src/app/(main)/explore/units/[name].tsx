@@ -1,3 +1,5 @@
+import { appConfig } from '@nex/dataset';
+import { Aoe4UnitDetails } from '@app/view/aoe4-explorer/item-details';
 import { HeaderTitle } from '@app/components/header-title';
 import { getUnitIcon } from '@app/helper/units';
 import {
@@ -31,7 +33,11 @@ import { Text } from '@app/components/text';
 import NotFound from '@app/app/(main)/+not-found';
 import { Card } from '@app/components/card';
 
-export default function UnitDetails() {
+export default function UnitDetailsScreen() {
+    return appConfig.game === 'aoe4' ? <Aoe4UnitDetails /> : <UnitDetails />;
+}
+
+function UnitDetails() {
     const getTranslation = useTranslation();
     const { name: unitName } = useLocalSearchParams<{ name: Unit }>();
 

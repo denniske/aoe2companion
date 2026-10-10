@@ -1,3 +1,5 @@
+import Aoe4ItemList from '@app/view/aoe4-explorer/item-list';
+import { appConfig } from '@nex/dataset';
 import { Field } from '@app/components/field';
 import { SectionList } from '@app/components/section-list';
 import { Text } from '@app/components/text';
@@ -13,7 +15,11 @@ import { useTranslation } from '@app/helper/translate';
 import cn from 'classnames';
 import { containerClassName } from '@app/styles';
 
-export default function BuildingList() {
+export default function BuildingListScreen() {
+    return appConfig.game === 'aoe4' ? <Aoe4ItemList type="buildings" /> : <BuildingList />;
+}
+
+function BuildingList() {
     const getTranslation = useTranslation();
     const [text, setText] = useState('');
     const [scrollReady, setScrollReady] = useState(false);
