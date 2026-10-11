@@ -4,16 +4,16 @@ import { FlatList } from '@app/components/flat-list';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { Text } from '@app/components/text';
 import { useTranslation } from '@app/helper/translate';
-import { Aoe4UnifiedItem, useAoe4ExplorerItems } from '@app/queries/aoe4-explorer';
+import { Aoe4UnifiedItem, useAoe4ExplorerItems, useAoe4Units } from '@app/queries/aoe4-explorer';
 import { containerClassName } from '@app/styles';
 import cn from 'classnames';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { orderBy, uniq } from 'lodash';
 import React, { useMemo, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { ageNumerals, Chip, CivChips, civNameForAbbr, ItemIcon, itemHref } from './shared';
+import { ageNumerals, Chip, CivChips, civNameForAbbr, ItemIcon, itemHref, upgradeTargetId } from './shared';
 
-type ListType = 'units' | 'buildings' | 'technologies';
+type ListType = 'units' | 'buildings' | 'technologies' | 'upgrades';
 
 // Groups as on aoe4world's explorer (src/query/utils.ts splitUnitsIntoGroups / splitBuildingsIntoGroups).
 function unitGroup(unit: Aoe4UnifiedItem) {
@@ -41,7 +41,7 @@ function buildingGroup(building: Aoe4UnifiedItem) {
     return 'Economy';
 }
 
-const config: Record<ListType, { titleKey: 'unit.title' | 'explore.buildings' | 'explore.technologies'; group: (item: Aoe4UnifiedItem) => string; groups: string[] }> = {
+const config: Record<ListType, { titleKey: 'unit.title' | 'explore.buildings' | 'explore.technologies' | 'unit.heading.upgrades'; group: (item: Aoe4UnifiedItem) => string; groups: string[] }> = {
     units: {
         titleKey: 'unit.title',
         group: unitGroup,
@@ -57,6 +57,11 @@ const config: Record<ListType, { titleKey: 'unit.title' | 'explore.buildings' | 
         group: (tech) => `Age ${ageNumerals[tech.minAge] ?? tech.minAge}`,
         groups: [1, 2, 3, 4].map((a) => `Age ${ageNumerals[a]}`),
     },
+    upgrades: {
+        titleKey: 'unit.heading.upgrades',
+        group: (upgrade) => `Age ${ageNumerals[upgrade.minAge] ?? upgrade.minAge}`,
+        groups: [1, 2, 3, 4].map((a) => `Age ${ageNumerals[a]}`),
+    },
 };
 
 type Row = { header: string } | { item: Aoe4UnifiedItem };
@@ -68,6 +73,16 @@ export default function Aoe4ItemList({ type }: { type: ListType }) {
     const { data: items, isLoading, error } = useAoe4ExplorerItems(type);
     const selectedAge = age ? Number(age) : undefined;
     const { titleKey, group, groups } = config[type];
+    // Upgrades are mostly named "Upgrade to Veteran"; the unit they apply to tells them apart.
+    const units = useAoe4Units().data;
+    const unitNames = useMemo(() => new Map((units ?? []).map((u) => [u.id, u.name])), [units]);
+    const subtitle = (item: Aoe4UnifiedItem) => {
+        if (type === 'upgrades') {
+            const target = upgradeTargetId(item.id, new Set(unitNames.keys()));
+            if (target) return unitNames.get(target);
+        }
+        return item.displayClasses.join(', ') || item.description;
+    };
 
     const allCivs = useMemo(() => orderBy(uniq(items?.flatMap((u) => u.civs) ?? []), civNameForAbbr), [items]);
 
@@ -141,12 +156,12 @@ export default function Aoe4ItemList({ type }: { type: ListType }) {
                                 </View>
                             ) : (
                                 <Card href={itemHref(row.item, civ) as any} flat>
-                                    <ItemIcon icon={row.item.icon} />
+                                    <ItemIcon icon={row.item.icon} type={row.item.type} />
                                     <View className="flex-1">
                                         <Text variant="label">{row.item.name}</Text>
                                         <Text variant="body-sm" color="subtle" numberOfLines={1}>
                                             {row.item.civs.length <= 2 ? row.item.civs.map(civNameForAbbr).join(', ') + ' · ' : ''}
-                                            {row.item.displayClasses.join(', ') || row.item.description}
+                                            {subtitle(row.item)}
                                         </Text>
                                     </View>
                                     <Text variant="label-sm" color="subtle">

@@ -1,7 +1,10 @@
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Text } from '@app/components/text';
 import { getCivIconLocal } from '@app/helper/civs';
-import { Aoe4Item, Aoe4UnifiedItem, useAoe4ItemLookup } from '@app/queries/aoe4-explorer';
+import { Aoe4Item, Aoe4UnifiedItem, IAoe4Patch, useAoe4ItemLookup, useAoe4Patches } from '@app/queries/aoe4-explorer';
+import { Icon } from '@app/components/icon';
+import { faCheck, faMinus, faPlus, faArrowRight } from '@fortawesome/sharp-solid-svg-icons';
+import { useState } from 'react';
 import { Aoe4Explorer, getCivNameById } from '@nex/data';
 import { Image } from '@/src/components/uniwind/image';
 import cn from 'classnames';
@@ -26,9 +29,9 @@ export function prettifyItemId(id: string) {
     return id.replace(/-\d+$/, '').replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-const pathByType: Partial<Record<Aoe4Item['type'], string>> = { unit: 'units', building: 'buildings', technology: 'technologies' };
+const pathByType: Partial<Record<Aoe4Item['type'], string>> = { unit: 'units', building: 'buildings', technology: 'technologies', upgrade: 'upgrades' };
 
-/** App route for an item, keeping the civ the user is looking at. Abilities and upgrades have no page. */
+/** App route for an item, keeping the civ the user is looking at. Abilities have no page. */
 export function itemHref(item: Pick<Aoe4UnifiedItem, 'id' | 'type'>, civ?: string) {
     const path = pathByType[item.type];
     if (!path) return undefined;
@@ -132,8 +135,23 @@ export const Aoe4Costs: React.FC<{ costs?: Aoe4Explorer.Item['costs'] }> = ({ co
     );
 };
 
-export const ItemIcon: React.FC<{ icon?: string; className?: string }> = ({ icon, className }) => (
-    <Image className={cn('rounded bg-gray-100 dark:bg-blue-950', className ?? 'w-10 h-10')} contentFit="contain" source={icon ? { uri: icon } : undefined} />
+// aoe4world's item colours (explorer tailwind.config.js `item`): the icons are drawn for them.
+export const itemColors: Record<Aoe4Item['type'], string> = {
+    unit: '#824F34',
+    building: '#345469',
+    technology: '#32806B',
+    upgrade: '#32806B',
+    ability: '#5C457B',
+};
+
+// The background sits on a wrapping View: the image component does not paint backgroundColor.
+export const ItemIcon: React.FC<{ icon?: string; type?: Aoe4Item['type']; className?: string }> = ({ icon, type, className }) => (
+    <View
+        className={cn('rounded overflow-hidden', !type && 'bg-gray-100 dark:bg-blue-950', className ?? 'w-10 h-10')}
+        style={type ? { backgroundColor: itemColors[type] } : undefined}
+    >
+        <Image className="w-full h-full" contentFit="contain" source={icon ? { uri: icon } : undefined} />
+    </View>
 );
 
 /** Icon + name of a referenced item, linked to its page when it has one. */
@@ -144,7 +162,7 @@ export const InlineItem: React.FC<{ id: string; civ?: string }> = ({ id: referen
     const item = lookup.get(id);
     const label = (
         <View className="flex-row items-center gap-1">
-            {item?.icon && <ItemIcon icon={item.icon} className="w-5 h-5" />}
+            {item?.icon && <ItemIcon icon={item.icon} type={item.type} className="w-5 h-5" />}
             <Text variant="label">{item?.name ?? prettifyItemId(id)}</Text>
         </View>
     );
@@ -201,7 +219,8 @@ export const AbilitiesSection: React.FC<{ abilities: Aoe4Explorer.UnifiedItem<Ao
             <View className="px-5 gap-4">
                 {sorted.map((ability) => (
                     <View key={ability.id} className="flex-row gap-3 items-start">
-                        <ItemIcon icon={ability.icon} className={cn('w-10 h-10', ability.active === 'manual' && 'bg-purple-900')} />
+                        {/* Only manual abilities get the ability colour on aoe4world; passive ones stay plain. */}
+                        <ItemIcon icon={ability.icon} type={ability.active === 'manual' ? 'ability' : undefined} />
                         <View className="flex-1 gap-1">
                             <Text variant="label">{ability.name}</Text>
                             {!!ability.description && <Text color="subtle">{ability.description}</Text>}
@@ -246,7 +265,7 @@ export const ItemRows: React.FC<{ title: string; items: Aoe4UnifiedItem[]; civ?:
                     const variation = variationsForCiv(item, civ)[0] ?? item.variations[0];
                     const row = (
                         <View className="flex-row items-center gap-3 lg:w-80">
-                            <ItemIcon icon={item.icon} />
+                            <ItemIcon icon={item.icon} type={item.type} />
                             <View className="flex-1">
                                 <Text variant="label" numberOfLines={1}>
                                     {item.name}
@@ -280,4 +299,80 @@ export function formatModifier(modifier: Aoe4Explorer.Modifier) {
         ...(modifier.select?.id?.map(prettifyItemId) ?? []),
     ].join(', ');
     return `${value} ${property}${target ? ` for ${target}` : ''}`;
+}
+
+const patchLineStyle = {
+    buff: { icon: faPlus, color: '#16a34a' },
+    nerf: { icon: faMinus, color: '#dc2626' },
+    fix: { icon: faCheck, color: '#6b7280' },
+    change: { icon: faArrowRight, color: '#ca8a04' },
+} as const;
+
+/** The patches that changed an item, newest first, limited to the civ when one is selected. */
+function patchesForItem(patches: IAoe4Patch[] | undefined, item: Aoe4UnifiedItem, civ?: string) {
+    const ref = `${pathByType[item.type] ?? item.type}/${item.id}`;
+    return (patches ?? []).flatMap((patch) => {
+        const lines = patch.changes
+            .filter((c) => c.items.includes(ref) && (!civ || !c.civs.length || c.civs.includes(civ)))
+            .flatMap((c) => c.diff.map((line) => ({ line, civs: line[2] ?? c.civs })))
+            .filter(({ civs }) => !civ || !civs.length || civs.includes(civ));
+        return lines.length ? [{ patch, lines }] : [];
+    });
+}
+
+export const PatchHistory: React.FC<{ item: Aoe4UnifiedItem; civ?: string }> = ({ item, civ }) => {
+    const { data: patches } = useAoe4Patches();
+    const [showAll, setShowAll] = useState(false);
+    const history = patchesForItem(patches, item, civ);
+    if (!history.length) return null;
+    const shown = showAll ? history : history.slice(0, 2);
+
+    return (
+        <View className="gap-3">
+            <SectionTitle>Patch History</SectionTitle>
+            <View className="px-5 gap-4">
+                {shown.map(({ patch, lines }) => (
+                    <View key={patch.id} className="gap-1.5">
+                        <Text variant="label" color="subtle">
+                            {patch.name}
+                        </Text>
+                        {lines.map(({ line: [type, text], civs }, i) => (
+                            <View key={i} className="flex-row gap-2 items-start">
+                                <View className="w-4 h-4 mt-0.5 rounded-full items-center justify-center" style={{ backgroundColor: patchLineStyle[type]?.color ?? '#6b7280' }}>
+                                    <Icon icon={patchLineStyle[type]?.icon ?? faArrowRight} size={9} color="text-white" />
+                                </View>
+                                {/* Civ flags only when the line is civ specific and we are not already filtered to that civ. */}
+                                {!civ && civs.length > 0 && civs.length < 4 && (
+                                    <View className="flex-row gap-1 mt-0.5">
+                                        {civs.map((c) => (
+                                            <Image key={c} className="w-6 h-4" contentFit="contain" source={getCivIconLocal(civEnumForAbbr(c))} />
+                                        ))}
+                                    </View>
+                                )}
+                                <Text className="flex-1">{text}</Text>
+                            </View>
+                        ))}
+                    </View>
+                ))}
+                {history.length > shown.length && (
+                    <PressableOpacity onPress={() => setShowAll(true)}>
+                        <Text variant="label">+ Show {history.length - shown.length} more patches</Text>
+                    </PressableOpacity>
+                )}
+            </View>
+        </View>
+    );
+};
+
+/**
+ * The unit an upgrade turns into. `unlocks` is empty throughout aoe4world's data, so this goes by
+ * id: "elite-men-at-arms-4" -> "man-at-arms". Covers all but a handful of unique-unit upgrades.
+ */
+export function upgradeTargetId(upgradeId: string, unitIds: Set<string>) {
+    const base = upgradeId
+        .replace(/-\d+$/, '')
+        .replace(/^(upgrade-to-|upgrade-|elite-|veteran-|hardened-|early-|imperial-)+/, '')
+        .replace(/men(-|$)/g, 'man$1')
+        .replace(/knechte$/, 'knecht');
+    return [base, base.replace(/s$/, ''), base.replace(/ies$/, 'y')].find((id) => unitIds.has(id));
 }

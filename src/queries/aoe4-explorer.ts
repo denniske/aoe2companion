@@ -122,3 +122,41 @@ export const useAoe4ItemLookup = () => {
         return lookup;
     }, [units, buildings, technologies, abilities, upgrades]);
 };
+
+// Patch history per item: aoe4world/explorer's hand-written patch notes (src/data/patches), converted
+// to JSON. Not published yet -- see the hand-over note -- so in dev it is read from public/.
+export type Aoe4PatchLine = ['nerf' | 'buff' | 'fix' | 'change', string, string[]?];
+
+export interface IAoe4PatchChange {
+    items: string[];
+    civs: string[];
+    diff: Aoe4PatchLine[];
+    note?: string;
+    uionly?: boolean;
+}
+
+export interface IAoe4Patch {
+    id: string;
+    name: string;
+    buildId?: string;
+    date: string;
+    season: number;
+    type: 'update' | 'patch';
+    officialUrl?: string;
+    changes: IAoe4PatchChange[];
+}
+
+export const useAoe4Patches = () => {
+    const { data: meta } = useAoe4ExplorerMeta();
+    return useQuery({
+        queryKey: ['aoe4-explorer', 'patches', meta?.language, meta?.aoe4worldDataCommit],
+        queryFn: async () => {
+            const published = meta?.devFallback ? undefined : await fetchJson<IAoe4Patch[]>(`${EXPLORER_BASE}/${meta!.language}/patches.json`).catch(() => undefined);
+            // DEV FALLBACK: public/aoe4-patches.dev.json, generated locally, not committed.
+            if (!published && __DEV__) return (await fetchJson<IAoe4Patch[]>('/aoe4-patches.dev.json').catch(() => undefined)) ?? [];
+            return published ?? [];
+        },
+        enabled: !!meta,
+        staleTime: Infinity,
+    });
+};

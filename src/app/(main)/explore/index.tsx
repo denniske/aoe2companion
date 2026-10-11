@@ -142,8 +142,8 @@ function Aoe4Explore() {
             <Stack.Screen options={{ animation: 'none', title: getTranslation('explore.title') }} />
             {[
                 { title: getTranslation('explore.civilizations'), href: '/explore/civilizations', itemHref: (civ: Civ) => `/explore/civilizations/${civ}` },
-                ...(['units', 'buildings', 'technologies'] as const).map((path) => ({
-                    title: getTranslation(`explore.${path}`),
+                ...(['units', 'buildings', 'technologies', 'upgrades'] as const).map((path) => ({
+                    title: path === 'upgrades' ? getTranslation('unit.heading.upgrades') : getTranslation(`explore.${path}`),
                     href: `/explore/${path}`,
                     itemHref: (civ: Civ) => `/explore/${path}?civ=${Object.entries(Aoe4Explorer.aoe4CivByAbbr).find(([, c]) => c === civ)?.[0]}`,
                 })),

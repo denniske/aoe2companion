@@ -75,3 +75,6 @@ expo-env.d.ts
 # kamal
 .kamal/secrets
 .dockerignore.bak
+
+# Generated locally from aoe4world/explorer patch notes, dev fallback only
+public/aoe4-patches.dev.json
