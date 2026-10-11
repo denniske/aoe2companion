@@ -124,7 +124,7 @@ export const useAoe4ItemLookup = () => {
 };
 
 // Patch history per item: aoe4world/explorer's hand-written patch notes (src/data/patches), converted
-// to JSON. Not published yet -- see the hand-over note -- so in dev it is read from public/.
+// and published by poc_collector's watch-data as <lang>/patches.json, with aoe4world's permission.
 export type Aoe4PatchLine = ['nerf' | 'buff' | 'fix' | 'change', string, string[]?];
 
 export interface IAoe4PatchChange {
@@ -147,16 +147,17 @@ export interface IAoe4Patch {
 }
 
 export const useAoe4Patches = () => {
-    const { data: meta } = useAoe4ExplorerMeta();
+    const language = explorerLanguage(useLanguage());
     return useQuery({
-        queryKey: ['aoe4-explorer', 'patches', meta?.language, meta?.aoe4worldDataCommit],
+        // Not keyed on meta.json: patch notes are published when aoe4world writes them up, not with the data.
+        queryKey: ['aoe4-explorer', 'patches', language],
         queryFn: async () => {
-            const published = meta?.devFallback ? undefined : await fetchJson<IAoe4Patch[]>(`${EXPLORER_BASE}/${meta!.language}/patches.json`).catch(() => undefined);
-            // DEV FALLBACK: public/aoe4-patches.dev.json, generated locally, not committed.
+            const published = await fetchJson<IAoe4Patch[]>(`${EXPLORER_BASE}/${language}/patches.json`).catch(() => undefined);
+            // DEV FALLBACK: public/aoe4-patches.dev.json (gitignored), until patches.json is on the CDN.
             if (!published && __DEV__) return (await fetchJson<IAoe4Patch[]>('/aoe4-patches.dev.json').catch(() => undefined)) ?? [];
             return published ?? [];
         },
-        enabled: !!meta,
-        staleTime: Infinity,
+        enabled: appConfig.game === 'aoe4',
+        staleTime: 60 * 60 * 1000,
     });
 };
