@@ -148,8 +148,7 @@ function ItemDetailsLayout<T extends Aoe4Item>({
                         title: item.name,
                         headerTitle: () => (
                             <HeaderTitle
-                                icon={item.icon ? { uri: item.icon } : undefined}
-                                iconStyle={{ backgroundColor: itemColors[item.type], borderRadius: 4 }}
+                                iconComponent={<ItemIcon icon={item.icon} type={item.type} className="w-10 h-10" />}
                                 title={item.name}
                                 subtitle={
                                     unique && item.type === 'unit'
@@ -208,7 +207,7 @@ export function Aoe4UnitDetails() {
 
     return (
         <ItemDetailsLayout item={unit} civ={civ}>
-            <Aoe4StatsPanel item={unit} civ={civ} technologies={unitTechnologies} />
+            <Aoe4StatsPanel item={unit} civ={civ} />
             <WeaponDetails item={unit} civ={civ} />
             <AbilitiesSection abilities={itemsAffecting(abilities, unit as Aoe4UnifiedItem, civ)} civ={civ} />
             <ItemRows title="Upgrades" items={unitUpgrades} civ={civ} />
@@ -234,7 +233,7 @@ export function Aoe4BuildingDetails() {
 
     return (
         <ItemDetailsLayout item={building} civ={civ}>
-            <Aoe4StatsPanel item={building} civ={civ} technologies={itemsAffecting(technologies, building as Aoe4UnifiedItem, civ)} />
+            <Aoe4StatsPanel item={building} civ={civ} />
             <WeaponDetails item={building} civ={civ} />
             <ItemRows title="Units" items={producedHere(units)} civ={civ} />
             <ItemRows title="Upgrades" items={producedHere(upgrades)} civ={civ} />

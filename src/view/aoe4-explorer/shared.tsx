@@ -219,8 +219,7 @@ export const AbilitiesSection: React.FC<{ abilities: Aoe4Explorer.UnifiedItem<Ao
             <View className="px-5 gap-4">
                 {sorted.map((ability) => (
                     <View key={ability.id} className="flex-row gap-3 items-start">
-                        {/* Only manual abilities get the ability colour on aoe4world; passive ones stay plain. */}
-                        <ItemIcon icon={ability.icon} type={ability.active === 'manual' ? 'ability' : undefined} />
+                        <ItemIcon icon={ability.icon} type="ability" />
                         <View className="flex-1 gap-1">
                             <Text variant="label">{ability.name}</Text>
                             {!!ability.description && <Text color="subtle">{ability.description}</Text>}
@@ -260,7 +259,7 @@ export const ItemRows: React.FC<{ title: string; items: Aoe4UnifiedItem[]; civ?:
         <View className="gap-2">
             <SectionTitle>{title}</SectionTitle>
             <View className="px-5 gap-2 lg:flex-row lg:flex-wrap">
-                {items.map((item) => {
+                {orderBy(items, [(item) => variationsForCiv(item, civ)[0]?.age ?? item.minAge, (item) => item.name]).map((item) => {
                     const href = itemHref(item, civ);
                     const variation = variationsForCiv(item, civ)[0] ?? item.variations[0];
                     const row = (
@@ -376,3 +375,20 @@ export function upgradeTargetId(upgradeId: string, unitIds: Set<string>) {
         .replace(/knechte$/, 'knecht');
     return [base, base.replace(/s$/, ''), base.replace(/ies$/, 'y')].find((id) => unitIds.has(id));
 }
+
+// Unit groups as on aoe4world's explorer (src/query/utils.ts splitUnitsIntoGroups).
+export function unitGroup(unit: Aoe4UnifiedItem) {
+    const has = (c: string) => unit.classes.includes(c);
+    if (has('leader')) return 'Heroes';
+    if (has('naval_unit') || has('naval_warship')) return 'Ships';
+    if (unit.variations.some((v) => v.producedBy.includes('mercenary-house') || v.producedBy.includes('foreign-engineering-company')))
+        return 'Mercenaries';
+    if (has('worker')) return 'Workers';
+    if (has('infantry')) return 'Infantry';
+    if (has('cavalry') || has('camel')) return 'Cavalry';
+    if (has('siege')) return 'Siege';
+    if (unit.displayClasses.some((c) => /Mixed/.test(c))) return 'Miscellaneous';
+    return 'Workers';
+}
+
+export const unitGroups = ['Workers', 'Infantry', 'Cavalry', 'Siege', 'Ships', 'Miscellaneous', 'Mercenaries', 'Heroes'];

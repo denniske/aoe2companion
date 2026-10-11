@@ -11,25 +11,11 @@ import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { orderBy, uniq } from 'lodash';
 import React, { useMemo, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { ageNumerals, Chip, CivChips, civNameForAbbr, ItemIcon, itemHref, upgradeTargetId } from './shared';
+import { ageNumerals, Chip, CivChips, civNameForAbbr, ItemIcon, itemHref, upgradeTargetId, unitGroup, unitGroups } from './shared';
 
 type ListType = 'units' | 'buildings' | 'technologies' | 'upgrades';
 
-// Groups as on aoe4world's explorer (src/query/utils.ts splitUnitsIntoGroups / splitBuildingsIntoGroups).
-function unitGroup(unit: Aoe4UnifiedItem) {
-    const has = (c: string) => unit.classes.includes(c);
-    if (has('leader')) return 'Heroes';
-    if (has('naval_unit') || has('naval_warship')) return 'Ships';
-    if (unit.variations.some((v) => v.producedBy.includes('mercenary-house') || v.producedBy.includes('foreign-engineering-company')))
-        return 'Mercenaries';
-    if (has('worker')) return 'Workers';
-    if (has('infantry')) return 'Infantry';
-    if (has('cavalry') || has('camel')) return 'Cavalry';
-    if (has('siege')) return 'Siege';
-    if (unit.displayClasses.some((c) => /Mixed/.test(c))) return 'Miscellaneous';
-    return 'Workers';
-}
-
+// Groups as on aoe4world's explorer (src/query/utils.ts splitBuildingsIntoGroups); units in shared.tsx.
 function buildingGroup(building: Aoe4UnifiedItem) {
     const has = (c: string) => building.classes.includes(c);
     if (has('landmark')) return 'Landmarks';
@@ -45,7 +31,7 @@ const config: Record<ListType, { titleKey: 'unit.title' | 'explore.buildings' | 
     units: {
         titleKey: 'unit.title',
         group: unitGroup,
-        groups: ['Workers', 'Infantry', 'Cavalry', 'Siege', 'Ships', 'Miscellaneous', 'Mercenaries', 'Heroes'],
+        groups: unitGroups,
     },
     buildings: {
         titleKey: 'explore.buildings',
