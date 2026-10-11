@@ -26,11 +26,12 @@ const maxSearchResults = Platform.OS === 'web' ? 20 : Infinity;
 
 const abbrByCiv = Object.fromEntries(Object.entries(Aoe4Explorer.aoe4CivByAbbr).map(([abbr, civ]) => [civ, abbr]));
 
-const ExploreCard: React.FC<{ text: string; href: Href; image?: ImageSourcePropType }> = ({ text, href, image }) => {
+// imageClassName: aoe4 map images get the gold border they have everywhere else in the app (match-card.tsx).
+const ExploreCard: React.FC<{ text: string; href: Href; image?: ImageSourcePropType; imageClassName?: string }> = ({ text, href, image, imageClassName }) => {
     const { isMedium } = useBreakpoints();
     return (
         <Card direction="vertical" className="w-20 md:w-36 items-center py-2.5 px-1 gap-1 md:py-4 md:px-2 md:gap-2 justify-between" href={href}>
-            {image && <Image className="w-8 h-8 md:w-12 md:h-12" source={image} contentFit="contain" />}
+            {image && <Image className={imageClassName ?? 'w-8 h-8 md:w-12 md:h-12'} source={image} contentFit="contain" />}
             <Text variant={isMedium ? 'label' : 'label-sm'} numberOfLines={1}>
                 {text}
             </Text>
@@ -96,7 +97,7 @@ export default function Aoe4Explore() {
                 title: map.mapName,
                 label: getTranslation('explore.maps'),
                 href: `/explore/maps/${map.mapId}`,
-                icon: <Image className="w-8 h-8" contentFit="contain" source={{ uri: cdnImageUrl(map.imageUrl, 'thumb') }} />,
+                icon: <Image className="w-8 h-8 border border-gold-500 rounded" contentFit="contain" source={{ uri: cdnImageUrl(map.imageUrl, 'thumb') }} />,
             })),
         ]);
     }, [units, buildings, technologies, upgrades, maps, civList]);
@@ -194,7 +195,12 @@ export default function Aoe4Explore() {
                                 data={orderBy(compact(maps), (map) => map.mapName)}
                                 contentContainerClassName="gap-2.5 px-4"
                                 renderItem={({ item: map }) => (
-                                    <ExploreCard href={`/explore/maps/${map.mapId}`} image={{ uri: cdnImageUrl(map.imageUrl, 'thumb') }} text={map.mapName} />
+                                    <ExploreCard
+                                        href={`/explore/maps/${map.mapId}`}
+                                        image={{ uri: cdnImageUrl(map.imageUrl, 'thumb') }}
+                                        imageClassName="w-8 h-8 md:w-12 md:h-12 border border-gold-500 rounded"
+                                        text={map.mapName}
+                                    />
                                 )}
                                 keyExtractor={(item) => item.mapId}
                             />
