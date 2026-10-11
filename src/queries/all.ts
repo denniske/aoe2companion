@@ -82,25 +82,12 @@ export const useProfile = (profileId: number, extend: string = 'avatar_medium_ur
     });
 };
 
-export const useMatch = (matchId: number) => {
+export const useMatch = (matchId: number, enabled: boolean = true) => {
     const language = useLanguage();
     return useQuery({
         queryKey: ['match', matchId, language],
         queryFn: () => fetchMatch({ language: language!, matchId }),
-        enabled: !!language && !!matchId,
-    });
-};
-
-// Backs the match row in the inline player search, so a typed number can be a match id as well as a
-// profile or steam id -- the two id spaces overlap, so both lookups run rather than guessing.
-export const useMatchBySearch = (matchId: number | null, enabled: boolean = true) => {
-    const language = useLanguage();
-    return useQuery({
-        queryKey: ['match', matchId, language],
-        queryFn: () => fetchMatch({ language: language!, matchId: matchId! }),
         enabled: !!language && !!matchId && enabled,
-        // A miss is the common case and costs one request: the 404 is not retried (query-client.ts).
-        // Not refetched on a timer either, unlike the match screen -- this is a lookup, not a view.
     });
 };
 

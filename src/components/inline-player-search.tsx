@@ -4,7 +4,7 @@ import { ActivityIndicator, Pressable, View } from 'react-native';
 import { RecentSearches } from '@app/view/components/recent-searches';
 import { Link, router } from 'expo-router';
 import useDebounce from '@app/hooks/use-debounce';
-import { useMatchBySearch, useProfilesByProfileIds, useProfilesBySearchInfiniteQuery, useProfilesBySteamId } from '@app/queries/all';
+import { useMatch, useProfilesByProfileIds, useProfilesBySearchInfiniteQuery, useProfilesBySteamId } from '@app/queries/all';
 import { MatchCard } from '@app/components/match/match-card';
 import compact from 'lodash/compact';
 import { IProfilesResultProfile } from '@app/api/helper/api.types';
@@ -46,7 +46,9 @@ export const InlinePlayerSearch: React.FC<{
     const { data: usersBySteamId } = useProfilesBySteamId(debouncedText, onlyDigits(debouncedText));
     const { data: usersByProfileId } = useProfilesByProfileIds([parseInt(debouncedText)], onlyDigits(debouncedText));
     // Only when the search navigates: a caller with onSelect is picking a profile, not browsing.
-    const { data: matchById } = useMatchBySearch(asMatchId(debouncedText), !onSelect);
+    // A miss is the common case and costs one request: the 404 is not retried (query-client.ts).
+    const matchId = asMatchId(debouncedText);
+    const { data: matchById } = useMatch(matchId ?? 0, !!matchId && !onSelect);
 
     const list =
         debouncedText.length < 2
