@@ -1,16 +1,14 @@
-import { Card } from '@app/components/card';
 import { Field } from '@app/components/field';
 import { FlatList } from '@app/components/flat-list';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
-import { Link } from '@app/components/link';
 import { PressableOpacity } from '@app/components/pressable-opacity';
-import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getCivIconLocal } from '@app/helper/civs';
 import { cdnImageUrl } from '@app/helper/maps';
 import { useTranslation } from '@app/helper/translate';
-import { useBreakpoints } from '@app/hooks/use-breakpoints';
-import { useMaps } from '@app/queries/all';
+import { useAoe4CivData, useMaps } from '@app/queries/all';
+import cn from 'classnames';
+import { Aoe4SectionButtons } from './section-buttons';
 import { Aoe4UnifiedItem, useAoe4Buildings, useAoe4Technologies, useAoe4Units, useAoe4Upgrades } from '@app/queries/aoe4-explorer';
 import { containerClassName } from '@app/styles';
 import { Aoe4Explorer, Civ, civs, getCivNameById, orderCivs } from '@nex/data';
@@ -26,16 +24,41 @@ const maxSearchResults = Platform.OS === 'web' ? 20 : Infinity;
 
 const abbrByCiv = Object.fromEntries(Object.entries(Aoe4Explorer.aoe4CivByAbbr).map(([abbr, civ]) => [civ, abbr]));
 
-// imageClassName: aoe4 map images get the gold border they have everywhere else in the app (match-card.tsx).
-const ExploreCard: React.FC<{ text: string; href: Href; image?: ImageSourcePropType; imageClassName?: string }> = ({ text, href, image, imageClassName }) => {
-    const { isMedium } = useBreakpoints();
+/**
+ * A civ with its strengths (the game's own class line) and the unique units it brings, which is
+ * what tells civs apart at a glance; the units link straight to their pages.
+ */
+const CivRow: React.FC<{ civ: Civ }> = ({ civ }) => {
+    const info = useAoe4CivData()?.[civ];
+    const units = useAoe4Units().data;
+    const abbr = abbrByCiv[civ];
+    const uniqueUnits = orderBy(
+        (units ?? []).filter((u) => u.unique && u.civs.includes(abbr)),
+        [(u) => u.minAge, (u) => u.name]
+    );
     return (
-        <Card direction="vertical" className="w-20 md:w-36 items-center py-2.5 px-1 gap-1 md:py-4 md:px-2 md:gap-2 justify-between" href={href}>
-            {image && <Image className={imageClassName ?? 'w-8 h-8 md:w-12 md:h-12'} source={image} contentFit="contain" />}
-            <Text variant={isMedium ? 'label' : 'label-sm'} numberOfLines={1}>
-                {text}
-            </Text>
-        </Card>
+        <View className="flex-row items-center gap-3 py-2.5">
+            <ExpoLink asChild href={`/explore/civilizations/${civ}`}>
+                <PressableOpacity className="flex-1 flex-row items-center gap-3">
+                    <Image className="w-16 h-9" contentFit="contain" source={getCivIconLocal(civ)} />
+                    <View className="flex-1">
+                        <Text variant="label">{getCivNameById(civ)}</Text>
+                        <Text variant="body-sm" color="subtle" numberOfLines={2}>
+                            {info?.classes}
+                        </Text>
+                    </View>
+                </PressableOpacity>
+            </ExpoLink>
+            <View className="hidden md:flex flex-row gap-1">
+                {uniqueUnits.slice(0, 6).map((unit) => (
+                    <ExpoLink key={unit.id} asChild href={itemHref(unit as Aoe4UnifiedItem, abbr) as Href}>
+                        <PressableOpacity>
+                            <ItemIcon icon={unit.icon} type="unit" className="w-8 h-8" />
+                        </PressableOpacity>
+                    </ExpoLink>
+                ))}
+            </View>
+        </View>
     );
 };
 
@@ -110,21 +133,12 @@ export default function Aoe4Explore() {
         return uniqBy(orderBy(matches, [(r) => !r.title.toLowerCase().startsWith(query), (r) => r.title.length]), 'key').slice(0, maxSearchResults);
     }, [allResults, search]);
 
-    const sections = [
-        { title: getTranslation('explore.civilizations'), href: '/explore/civilizations', itemHref: (civ: Civ) => `/explore/civilizations/${civ}` },
-        ...(['units', 'buildings', 'technologies', 'upgrades'] as const).map((path) => ({
-            title: path === 'upgrades' ? getTranslation('unit.heading.upgrades') : getTranslation(`explore.${path}`),
-            href: `/explore/${path}`,
-            itemHref: (civ: Civ) => `/explore/${path}?civ=${abbrByCiv[civ]}`,
-        })),
-    ];
-
     return (
         <KeyboardAvoidingView>
             <View className="flex-1 pt-4 gap-5">
                 <Stack.Screen options={{ animation: 'none', title: getTranslation('explore.title') }} />
 
-                <View className={containerClassName}>
+                <View className={cn('gap-3', containerClassName)}>
                     <Field
                         type="search"
                         value={search}
@@ -132,6 +146,7 @@ export default function Aoe4Explore() {
                         onSubmitEditing={() => results[0] && router.navigate(results[0].href as Href)}
                         placeholder={getTranslation('explore.search.placeholder')}
                     />
+                    <Aoe4SectionButtons />
                 </View>
 
                 {search ? (
@@ -158,54 +173,14 @@ export default function Aoe4Explore() {
                         )}
                     />
                 ) : (
-                    <ScrollView className="flex-1" contentContainerClassName="gap-5 pb-4" keyboardShouldPersistTaps="handled">
-                        {sections.map((section) => (
-                            <View className="gap-2" key={section.href}>
-                                <View className="flex-row justify-between items-center px-4">
-                                    <Text variant="header-lg">{section.title}</Text>
-                                    <Link href={section.href as Href}>{getTranslation('explore.viewall')}</Link>
-                                </View>
-                                <FlatList
-                                    initialNumToRender={5}
-                                    showsHorizontalScrollIndicator={false}
-                                    className="flex-none"
-                                    horizontal
-                                    keyboardShouldPersistTaps="always"
-                                    data={civList}
-                                    contentContainerClassName="gap-2.5 px-4"
-                                    renderItem={({ item: civ }) => (
-                                        <ExploreCard href={section.itemHref(civ) as Href} image={getCivIconLocal(civ)} text={getCivNameById(civ)} />
-                                    )}
-                                    keyExtractor={(item) => item}
-                                />
-                            </View>
-                        ))}
-
-                        <View className="gap-2">
-                            <View className="flex-row justify-between items-center px-4">
-                                <Text variant="header-lg">{getTranslation('explore.maps')}</Text>
-                                <Link href="/explore/maps">{getTranslation('explore.viewall')}</Link>
-                            </View>
-                            <FlatList
-                                initialNumToRender={5}
-                                showsHorizontalScrollIndicator={false}
-                                className="flex-none"
-                                horizontal
-                                keyboardShouldPersistTaps="always"
-                                data={orderBy(compact(maps), (map) => map.mapName)}
-                                contentContainerClassName="gap-2.5 px-4"
-                                renderItem={({ item: map }) => (
-                                    <ExploreCard
-                                        href={`/explore/maps/${map.mapId}`}
-                                        image={{ uri: cdnImageUrl(map.imageUrl, 'thumb') }}
-                                        imageClassName="w-8 h-8 md:w-12 md:h-12 border border-gold-500 rounded"
-                                        text={map.mapName}
-                                    />
-                                )}
-                                keyExtractor={(item) => item.mapId}
-                            />
-                        </View>
-                    </ScrollView>
+                    <FlatList
+                        keyboardShouldPersistTaps="handled"
+                        contentContainerClassName="px-4 pb-4"
+                        data={civList}
+                        keyExtractor={(civ) => civ}
+                        ItemSeparatorComponent={() => <View className="h-px bg-gray-200 dark:bg-gray-800 w-full" />}
+                        renderItem={({ item: civ }) => <CivRow civ={civ} />}
+                    />
                 )}
             </View>
         </KeyboardAvoidingView>
