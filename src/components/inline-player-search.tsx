@@ -48,7 +48,7 @@ export const InlinePlayerSearch: React.FC<{
     // Only when the search navigates: a caller with onSelect is picking a profile, not browsing.
     // A miss is the common case and costs one request: the 404 is not retried (query-client.ts).
     const matchId = asMatchId(debouncedText);
-    const { data: matchById } = useMatch(matchId ?? 0, !!matchId && !onSelect);
+    const { data: matchById } = useMatch(matchId ?? 0, !onSelect);
 
     const list =
         debouncedText.length < 2
