@@ -3,17 +3,15 @@ import { Icon } from '@app/components/icon';
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Text } from '@app/components/text';
 import { useTranslation } from '@app/helper/translate';
-import { useAoe4Technologies, useAoe4Units } from '@app/queries/aoe4-explorer';
-import Picker from '@app/view/components/picker';
+import { useAoe4Technologies } from '@app/queries/aoe4-explorer';
 import { Aoe4Explorer } from '@nex/data';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faBullseyeArrow, faFire, faHeart, faMeteor, faShield, faSwords, faBowArrow, faArrowUpRight, faXmark } from '@fortawesome/sharp-solid-svg-icons';
+import { faBullseyeArrow, faFire, faHeart, faMeteor, faShield, faSwords, faBowArrow, faArrowUpRight } from '@fortawesome/sharp-solid-svg-icons';
 import cn from 'classnames';
-import { router, useLocalSearchParams } from 'expo-router';
-import { orderBy, uniq } from 'lodash';
+import { uniq } from 'lodash';
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { ageNumerals, Aoe4Costs, CivChips, civNameForAbbr, InlineItems, ItemIcon, itemsAffecting, modifierSelects, Stat, unitGroup, unitGroups } from './shared';
+import { ageNumerals, Aoe4Costs, itemsAffecting, modifierSelects, Stat } from './shared';
 
 type Physical = Aoe4Explorer.Unit | Aoe4Explorer.Building;
 type PhysicalItem = Aoe4Explorer.UnifiedItem<Physical>;
@@ -239,45 +237,15 @@ const NumberCell: React.FC<{ stat?: NumberStat; compare?: NumberStat; comparing:
     );
 };
 
-/** Picks the unit to compare with; grouped like the units list. Kept in the URL so a comparison can be shared. */
-const ComparePicker: React.FC<{ value?: string; onSelect: (id: string) => void }> = ({ value, onSelect }) => {
-    const units = useAoe4Units().data ?? [];
-    const byId = new Map(units.map((u) => [u.id, u]));
-    const sections = [
-        { title: 'Compare', data: [''] },
-        ...unitGroups
-            .map((group) => ({ title: group, data: orderBy(units.filter((u) => unitGroup(u as any) === group), (u) => u.name).map((u) => u.id) }))
-            .filter((s) => s.data.length),
-    ];
-    return (
-        <Picker<string>
-            popupAlign="right"
-            itemHeight={40}
-            textMinWidth={150}
-            container="sectionlist"
-            value={value ?? ''}
-            sections={sections}
-            formatter={(id) => (id ? byId.get(id)?.name ?? id : 'Compare')}
-            icon={(id, inList) => (inList && id ? <ItemIcon icon={byId.get(id)?.icon} type="unit" className="w-6 h-6" /> : null)}
-            onSelect={onSelect}
-        />
-    );
-};
-
 /**
  * aoe4world-style stats: a tab per age, bars for the core stats with each technology that improves
- * them as its own green segment, and the derived numbers (DPS, speeds, range, sight) below. Units can
- * be compared with another unit (and civ) at the same age, each with the technologies its civ has.
+ * them as its own green segment, and the derived numbers (DPS, speeds, range, sight) below.
+ * The bar and number rows take a second `compare` value; nothing passes one yet (compare is off for now).
  */
 export const Aoe4StatsPanel: React.FC<{ item: PhysicalItem; civ: string }> = ({ item, civ }) => {
     const getTranslation = useTranslation();
     const technologies = useAoe4Technologies().data;
-    const units = useAoe4Units().data;
-    const params = useLocalSearchParams<{ compare?: string; compareCiv?: string }>();
     const isUnit = item.type === 'unit';
-    const compareItem = isUnit && params.compare ? (units?.find((u) => u.id === params.compare) as PhysicalItem | undefined) : undefined;
-    // Same civ as the main unit when it has the compared unit, otherwise the compared unit's first.
-    const compareCiv = compareItem && (params.compareCiv && compareItem.civs.includes(params.compareCiv) ? params.compareCiv : compareItem.civs.includes(civ) ? civ : compareItem.civs[0]);
 
     const ages = uniq(item.variations.filter((v) => v.civs.includes(civ)).map((v) => v.age));
     const minAge = Math.min(...ages);
@@ -285,8 +253,8 @@ export const Aoe4StatsPanel: React.FC<{ item: PhysicalItem; civ: string }> = ({ 
     const age = selected ?? Math.max(...ages);
 
     const stats = computeStats(item, civ, age, technologies, getTranslation);
-    const compare = compareItem && compareCiv ? computeStats(compareItem, compareCiv, age, technologies, getTranslation) : undefined;
-    const comparing = !!compareItem;
+    const compare = undefined as Stats | undefined;
+    const comparing = false as boolean;
     if (!stats) return null;
     const { variation } = stats;
 
@@ -310,38 +278,9 @@ export const Aoe4StatsPanel: React.FC<{ item: PhysicalItem; civ: string }> = ({ 
                 ))}
             </View>
 
-            {isUnit && (
-                <View className="gap-2">
-                    <View className="flex-row items-center gap-2 flex-wrap">
-                        <View className="flex-row items-center gap-2">
-                            <View className="w-3 h-3" style={{ backgroundColor: barColors.base }} />
-                            <Text variant="label">{variation.name}</Text>
-                        </View>
-                        {comparing && (
-                            <View className="flex-row items-center gap-2">
-                                <Text color="subtle">vs</Text>
-                                <View className="w-3 h-3" style={{ backgroundColor: barColors.compare }} />
-                                <Text variant="label">{compare?.variation.name ?? `${compareItem.name} (not in age ${ageNumerals[age]})`}</Text>
-                                <PressableOpacity onPress={() => router.setParams({ compare: undefined, compareCiv: undefined })}>
-                                    <Icon icon={faXmark} size={14} color="subtle" />
-                                </PressableOpacity>
-                            </View>
-                        )}
-                        <View className="ml-auto">
-                            <ComparePicker value={params.compare} onSelect={(id) => router.setParams({ compare: id || undefined, compareCiv: undefined })} />
-                        </View>
-                    </View>
-                    {comparing && compareItem.civs.length > 1 && (
-                        <View className="-mx-5">
-                            <CivChips civs={compareItem.civs} value={compareCiv} onChange={(abbr) => router.setParams({ compareCiv: abbr })} />
-                        </View>
-                    )}
-                </View>
-            )}
-
             <View className="gap-3 lg:flex-row lg:items-start">
                 <Card direction="vertical" className="gap-4 lg:flex-1">
-                    {!isUnit && <Text variant="header-sm">{variation.name}</Text>}
+                    <Text variant="header-sm">{variation.name}</Text>
                     {barKeys.map((key) => (
                         <StatBarRow key={key} stat={findBar(stats, key)} compare={findBar(compare, key)} comparing={comparing} />
                     ))}
@@ -358,21 +297,11 @@ export const Aoe4StatsPanel: React.FC<{ item: PhysicalItem; civ: string }> = ({ 
                             )}
                         </View>
                     </Stat>
-                    {variation.producedBy?.length > 0 && (
-                        <Stat label={getTranslation(isUnit ? 'unit.stats.heading.trainedin' : 'unit.stats.heading.builtin')}>
-                            <InlineItems ids={variation.producedBy} civ={civ} />
-                        </Stat>
-                    )}
                     <View className="flex-row flex-wrap gap-x-8 gap-y-4">
                         {numberKeys.map((key) => (
                             <NumberCell key={key} stat={findNumber(stats, key)} compare={findNumber(compare, key)} comparing={comparing} />
                         ))}
                     </View>
-                    {comparing && compareCiv && compareCiv !== civ && (
-                        <Text variant="body-sm" color="subtle">
-                            {compareItem.name}: {civNameForAbbr(compareCiv)}
-                        </Text>
-                    )}
                 </Card>
             </View>
         </View>

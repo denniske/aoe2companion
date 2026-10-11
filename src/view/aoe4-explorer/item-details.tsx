@@ -7,6 +7,7 @@ import {
     Aoe4Item,
     Aoe4UnifiedItem,
     useAoe4Abilities,
+    useAoe4Buildings,
     useAoe4Item,
     useAoe4Technologies,
     useAoe4Units,
@@ -16,7 +17,9 @@ import { Aoe4StatsPanel } from './stats';
 import NotFound from '@app/app/(main)/+not-found';
 import { Aoe4Explorer } from '@nex/data';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import { orderBy } from 'lodash';
+import { compact, orderBy, uniq } from 'lodash';
+import { Icon } from '@app/components/icon';
+import { faMinus, faPlus } from '@fortawesome/sharp-solid-svg-icons';
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import {
@@ -125,6 +128,25 @@ const TechnologyVariationCard: React.FC<{ variation: Aoe4Explorer.Technology; ci
     );
 };
 
+/** The game's description: "+ strength" / "- weakness" lines get a plus/minus icon, as on aoe4world. */
+const Description: React.FC<{ text: string }> = ({ text }) => (
+    <View className="px-5 gap-1">
+        {text.split('\n').map((line, i) => {
+            const sign = line.match(/^([+-])\s*/);
+            if (!sign) return <Text key={i}>{line}</Text>;
+            const plus = sign[1] === '+';
+            return (
+                <View key={i} className="flex-row items-center gap-2">
+                    <View className="w-4 h-4 rounded-full items-center justify-center" style={{ backgroundColor: plus ? '#16a34a' : '#dc2626' }}>
+                        <Icon icon={plus ? faPlus : faMinus} size={9} color="text-white" />
+                    </View>
+                    <Text className="flex-1">{line.slice(sign[0].length)}</Text>
+                </View>
+            );
+        })}
+    </View>
+);
+
 /** Header, description, civ picker and per-age variation cards; type specific sections go in children. */
 function ItemDetailsLayout<T extends Aoe4Item>({
     item,
@@ -162,7 +184,7 @@ function ItemDetailsLayout<T extends Aoe4Item>({
                     }}
                 />
 
-                {!!item.description && <Text className="px-5">{item.description}</Text>}
+                {!!item.description && <Description text={item.description} />}
 
                 {item.civs.length > 1 && <CivChips civs={item.civs} value={civ} onChange={(abbr) => router.setParams({ civ: abbr })} />}
 
@@ -196,11 +218,15 @@ export function Aoe4UnitDetails() {
     const abilities = useAoe4Abilities().data;
     const technologies = useAoe4Technologies().data;
     const upgrades = useAoe4Upgrades().data;
+    const buildings = useAoe4Buildings().data;
     const unitIds = useUnitIds();
     if (isLoading) return <ActivityIndicator className="mt-8" />;
     if (!unit) return <NotFound />;
 
     const unitTechnologies = itemsAffecting(technologies, unit as Aoe4UnifiedItem, civ);
+    const producedAt = compact(
+        uniq(variationsForCiv(unit, civ).flatMap((v) => v.producedBy)).map((id) => buildings?.find((b) => b.id === id))
+    ) as Aoe4UnifiedItem[];
     const unitUpgrades = (upgrades ?? []).filter(
         (u) => upgradeTargetId(u.id, unitIds) === unit.id && u.variations.some((v) => v.civs.includes(civ))
     ) as Aoe4UnifiedItem[];
@@ -209,6 +235,7 @@ export function Aoe4UnitDetails() {
         <ItemDetailsLayout item={unit} civ={civ}>
             <Aoe4StatsPanel item={unit} civ={civ} />
             <WeaponDetails item={unit} civ={civ} />
+            <ItemRows title="Produced at" items={producedAt} civ={civ} />
             <AbilitiesSection abilities={itemsAffecting(abilities, unit as Aoe4UnifiedItem, civ)} civ={civ} />
             <ItemRows title="Upgrades" items={unitUpgrades} civ={civ} />
             <ItemRows title="Technologies" items={unitTechnologies} civ={civ} />
