@@ -1,3 +1,5 @@
+import cn from 'classnames';
+import { appConfig } from '@nex/dataset';
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Link } from '@app/components/link';
 import { Text } from '@app/components/text';
@@ -135,7 +137,7 @@ export const RankedMaps: React.FC = () => {
                                     : selectedLeaderboard?.maps?.map((map) => (
                                               <ExpoLink asChild href={`/explore/maps/${map.mapId}`} key={map.mapId}>
                                                   <PressableOpacity className="flex-col justify-between items-center w-[25%] mb-4">
-                                                      <Image source={{ uri: map.imageUrl }} className="mb-2 w-[75px] h-[75px]" />
+                                                      <Image source={{ uri: map.imageUrl }} className={cn('mb-2 w-[75px] h-[75px]', appConfig.game === 'aoe4' && 'border border-gold-500 rounded')} />
                                                       <Text variant="label-sm" className="text-center mb-0.5">
                                                           {map.mapName}
                                                       </Text>

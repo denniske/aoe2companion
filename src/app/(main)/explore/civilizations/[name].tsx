@@ -18,6 +18,8 @@ import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { useCivVideo } from '@app/utils/video';
 import { useAoe4CivData } from '@app/queries/all';
 import { Text } from '@app/components/text';
+import { Aoe4CivJumpTo } from '@app/view/aoe4-explorer/civ-jump-to';
+import { Aoe4SectionButtons } from '@app/view/aoe4-explorer/section-buttons';
 import { useTranslation } from '@app/helper/translate';
 
 export default function CivDetails() {
@@ -134,6 +136,11 @@ export function Civ4Details({ civ }: { civ: Civ }) {
             <ScrollView>
                 <View style={styles.detailsContainer}>
                     <MyText style={styles.contentDescription}>{civData.summary}</MyText>
+
+                    <View className="mb-4">
+                        <Aoe4SectionButtons civ={civ} />
+                    </View>
+                    <Aoe4CivJumpTo civ={civ} />
 
                     {civData.overview.map((item) => (
                         <Fragment key={item.title}>

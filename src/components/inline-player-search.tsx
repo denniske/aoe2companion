@@ -4,7 +4,8 @@ import { ActivityIndicator, Pressable, View } from 'react-native';
 import { RecentSearches } from '@app/view/components/recent-searches';
 import { Link, router } from 'expo-router';
 import useDebounce from '@app/hooks/use-debounce';
-import { useProfilesByProfileIds, useProfilesBySearchInfiniteQuery, useProfilesBySteamId } from '@app/queries/all';
+import { useMatch, useProfilesByProfileIds, useProfilesBySearchInfiniteQuery, useProfilesBySteamId } from '@app/queries/all';
+import { MatchCard } from '@app/components/match/match-card';
 import compact from 'lodash/compact';
 import { IProfilesResultProfile } from '@app/api/helper/api.types';
 import PlayerList from '@app/view/components/player-list';
@@ -15,6 +16,16 @@ import cn from 'classnames';
 
 function onlyDigits(str: string) {
     return /^\d+$/.test(str);
+}
+
+// match_id is validated server-side as a postgres int. Anything above answers 400, and unlike the 404
+// for an unknown id a 400 is retried -- so a steam id would cost four requests for nothing.
+const PG_INT_MAX = 2147483647;
+
+function asMatchId(str: string) {
+    if (!onlyDigits(str)) return null;
+    const id = Number(str);
+    return id > 0 && id <= PG_INT_MAX ? id : null;
 }
 
 export const InlinePlayerSearch: React.FC<{
@@ -34,6 +45,10 @@ export const InlinePlayerSearch: React.FC<{
     const { data: userPages, isFetching } = useProfilesBySearchInfiniteQuery(debouncedText);
     const { data: usersBySteamId } = useProfilesBySteamId(debouncedText, onlyDigits(debouncedText));
     const { data: usersByProfileId } = useProfilesByProfileIds([parseInt(debouncedText)], onlyDigits(debouncedText));
+    // Only when the search navigates: a caller with onSelect is picking a profile, not browsing.
+    // A miss is the common case and costs one request: the 404 is not retried (query-client.ts).
+    const matchId = asMatchId(debouncedText);
+    const { data: matchById } = useMatch(matchId ?? 0, !onSelect);
 
     const list =
         debouncedText.length < 2
@@ -113,6 +128,20 @@ export const InlinePlayerSearch: React.FC<{
                                 shouldLink={!onSelect}
                                 keyExtractor={(item) => (typeof item === 'string' ? item : item.profileId.toString())}
                             />
+
+                            {!!matchById && (
+                                // Navigates itself rather than via MatchCard's clickable: that press is not
+                                // exposed, and the dropdown has to close on it like on a player row.
+                                <Pressable
+                                    className="px-3 pt-2"
+                                    onPress={() => {
+                                        viewAll();
+                                        router.navigate(`/matches/${matchById.matchId}`);
+                                    }}
+                                >
+                                    <MatchCard match={matchById} flat />
+                                </Pressable>
+                            )}
 
                             {showViewAll && list.length > 5 && (
                                 <View className="px-4">

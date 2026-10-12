@@ -1,3 +1,5 @@
+import { Aoe4TechnologyDetails } from '@app/view/aoe4-explorer/item-details';
+import { appConfig } from '@nex/dataset';
 import React from 'react';
 import { View } from 'react-native';
 import { Image } from '@/src/components/uniwind/image';
@@ -48,7 +50,11 @@ function capitalizeFirstLetter(string: string | number) {
     return string.toString().charAt(0).toUpperCase() + string.toString().slice(1);
 }
 
-export default function TechDetails() {
+export default function TechDetailsScreen() {
+    return appConfig.game === 'aoe4' ? <Aoe4TechnologyDetails /> : <TechDetails />;
+}
+
+function TechDetails() {
     const getTranslation = useTranslation();
     const formatOnly = (civ: string) => `${getTranslation('unit.effect.only')} ${getCivNameById(civ as Civ)}`;
     const { name: tech } = useLocalSearchParams<{ name: Tech }>();

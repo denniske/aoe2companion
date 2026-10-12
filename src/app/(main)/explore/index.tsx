@@ -37,6 +37,7 @@ import React, { useState } from 'react';
 import { ImageSourcePropType, Platform, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { useInfiniteBuilds, useMaps } from '@app/queries/all';
+import Aoe4Explore from '@app/view/aoe4-explorer/explore-index';
 import { BuildCard } from '@app/view/components/build-order/build-card';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
 import { containerClassName } from '@app/styles';
@@ -224,7 +225,7 @@ export default function Explore() {
         : [];
 
     if (appConfig.game !== 'aoe2') {
-        return <Redirect href="/explore/civilizations" />;
+        return <Aoe4Explore />;
     }
 
     return (

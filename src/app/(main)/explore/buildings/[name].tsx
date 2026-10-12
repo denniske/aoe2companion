@@ -1,3 +1,5 @@
+import { Aoe4BuildingDetails } from '@app/view/aoe4-explorer/item-details';
+import { appConfig } from '@nex/dataset';
 import { HeaderTitle } from '@app/components/header-title';
 import { ScrollView } from '@app/components/scroll-view';
 import { getBuildingIcon } from '@app/helper/buildings';
@@ -14,7 +16,11 @@ import { Text } from '@app/components/text';
 import NotFound from '@app/app/(main)/+not-found';
 import { Card } from '@app/components/card';
 
-export default function BuildingDetails() {
+export default function BuildingDetailsScreen() {
+    return appConfig.game === 'aoe4' ? <Aoe4BuildingDetails /> : <BuildingDetails />;
+}
+
+function BuildingDetails() {
     const { name: building } = useLocalSearchParams<{ name: Building }>();
     if (!hasBuildingLine(building)) {
         return <NotFound />;

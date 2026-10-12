@@ -82,12 +82,12 @@ export const useProfile = (profileId: number, extend: string = 'avatar_medium_ur
     });
 };
 
-export const useMatch = (matchId: number) => {
+export const useMatch = (matchId: number, enabled: boolean = true) => {
     const language = useLanguage();
     return useQuery({
         queryKey: ['match', matchId, language],
         queryFn: () => fetchMatch({ language: language!, matchId }),
-        enabled: !!language && !!matchId,
+        enabled: !!language && !!matchId && enabled,
     });
 };
 
