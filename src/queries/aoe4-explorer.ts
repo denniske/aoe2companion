@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 import { Aoe4Explorer } from '@nex/data';
 import { appConfig } from '@nex/dataset';
+import { ICivilization } from '@app/api/helper/api.types';
 import { useLanguage } from '@app/queries/all';
 
 // aoe4 explorer data: aoe4world's parser run on the game files by poc_collector (watch-data),
@@ -14,6 +15,69 @@ const EXPLORER_BASE = 'https://backend.cdn.aoe2companion.com/explorer/aoe4';
 // same files. Same shape, icons point at data.aoe4world.com instead of our CDN. Remove once
 // explorer/aoe4/en/meta.json is live.
 const DEV_FALLBACK_BASE = 'https://data.aoe4world.com';
+
+// DEV ONLY: locally generated variants of the data (scripts/serve-aoe4-explorer-variants.mjs), picked
+// with the switcher on the explore page. undefined is the normal CDN path.
+const DEV_VARIANTS_BASE = 'http://localhost:8787';
+const DEV_VARIANT_STORAGE_KEY = 'aoe4-explorer-dev-variant';
+let devVariant: string | undefined = (() => {
+    try {
+        return (__DEV__ && globalThis.localStorage?.getItem(DEV_VARIANT_STORAGE_KEY)) || undefined;
+    } catch {
+        return undefined;
+    }
+})();
+const devVariantListeners = new Set<() => void>();
+
+export const setAoe4ExplorerDevVariant = (variant: string | undefined) => {
+    devVariant = variant;
+    try {
+        if (variant) globalThis.localStorage?.setItem(DEV_VARIANT_STORAGE_KEY, variant);
+        else globalThis.localStorage?.removeItem(DEV_VARIANT_STORAGE_KEY);
+    } catch {}
+    devVariantListeners.forEach((l) => l());
+};
+
+export const useAoe4ExplorerDevVariant = () =>
+    useSyncExternalStore(
+        (l) => (devVariantListeners.add(l), () => devVariantListeners.delete(l)),
+        () => devVariant
+    );
+
+// DEV ONLY: shows what the pages leave out to match aoe4world, like a building's full weapon list
+// and its influence lines, for comparing the data variants.
+const DEV_SHOW_RAW_STORAGE_KEY = 'aoe4-explorer-dev-show-raw';
+let devShowRaw: boolean = (() => {
+    try {
+        return __DEV__ && globalThis.localStorage?.getItem(DEV_SHOW_RAW_STORAGE_KEY) === '1';
+    } catch {
+        return false;
+    }
+})();
+
+export const setAoe4ExplorerDevShowRaw = (show: boolean) => {
+    devShowRaw = show;
+    try {
+        if (show) globalThis.localStorage?.setItem(DEV_SHOW_RAW_STORAGE_KEY, '1');
+        else globalThis.localStorage?.removeItem(DEV_SHOW_RAW_STORAGE_KEY);
+    } catch {}
+    devVariantListeners.forEach((l) => l());
+};
+
+export const useAoe4ExplorerDevShowRaw = () =>
+    useSyncExternalStore(
+        (l) => (devVariantListeners.add(l), () => devVariantListeners.delete(l)),
+        () => devShowRaw
+    );
+
+/** The variants the local server has, or none when it is not running. */
+export const useAoe4ExplorerDevVariants = () =>
+    useQuery({
+        queryKey: ['aoe4-explorer', 'dev-variants'],
+        queryFn: () => fetchJson<string[]>(`${DEV_VARIANTS_BASE}/`).catch(() => undefined),
+        enabled: __DEV__ && appConfig.game === 'aoe4',
+        retry: false,
+    });
 
 // Only English is published for now. Any other language falls back to it.
 const EXPLORER_LANGUAGES = ['en'];
@@ -28,6 +92,8 @@ export interface IAoe4ExplorerMeta {
     items: Partial<Record<Aoe4ExplorerType, number>>;
     /** Set when the data comes from DEV_FALLBACK_BASE rather than our CDN. */
     devFallback?: boolean;
+    /** Set when the data comes from a local variant (DEV_VARIANTS_BASE). */
+    devVariant?: string;
 }
 
 interface Aoe4ExplorerItemTypes {
@@ -49,7 +115,8 @@ async function fetchJson<T>(url: string): Promise<T | undefined> {
     return await response.json();
 }
 
-async function fetchExplorerMeta(language: string): Promise<IAoe4ExplorerMeta> {
+async function fetchExplorerMeta(language: string, variant: string | undefined): Promise<IAoe4ExplorerMeta> {
+    if (variant) return { aoe4worldDataCommit: variant, steamBuildId: variant, generatedAt: '', language, items: {}, devVariant: variant };
     // A network error counts as unpublished too: the CDN may not send CORS headers on a 404.
     const meta = await fetchJson<IAoe4ExplorerMeta>(`${EXPLORER_BASE}/${language}/meta.json`).catch(() => undefined);
     if (meta) return meta;
@@ -57,7 +124,11 @@ async function fetchExplorerMeta(language: string): Promise<IAoe4ExplorerMeta> {
 }
 
 async function fetchExplorerItems<K extends Aoe4ExplorerType>(meta: IAoe4ExplorerMeta, type: K) {
-    const url = meta.devFallback ? `${DEV_FALLBACK_BASE}/${type}/all-optimized.json` : `${EXPLORER_BASE}/${meta.language}/${type}.json`;
+    const url = meta.devVariant
+        ? `${DEV_VARIANTS_BASE}/${meta.devVariant}/${type}/all-optimized.json`
+        : meta.devFallback
+          ? `${DEV_FALLBACK_BASE}/${type}/all-optimized.json`
+          : `${EXPLORER_BASE}/${meta.language}/${type}.json`;
     const file = await fetchJson<Aoe4Explorer.ExplorerFile<Aoe4ExplorerItemTypes[K]>>(url);
     if (!file) throw new Error(`${url}: not found`);
     return Aoe4Explorer.optimizedToUnified(file.data);
@@ -65,9 +136,10 @@ async function fetchExplorerItems<K extends Aoe4ExplorerType>(meta: IAoe4Explore
 
 export const useAoe4ExplorerMeta = () => {
     const language = explorerLanguage(useLanguage());
+    const variant = useAoe4ExplorerDevVariant();
     return useQuery({
-        queryKey: ['aoe4-explorer', 'meta', language],
-        queryFn: () => fetchExplorerMeta(language),
+        queryKey: ['aoe4-explorer', 'meta', language, variant],
+        queryFn: () => fetchExplorerMeta(language, variant),
         enabled: appConfig.game === 'aoe4',
         staleTime: 10 * 60 * 1000,
     });
@@ -159,5 +231,25 @@ export const useAoe4Patches = () => {
         },
         enabled: appConfig.game === 'aoe4',
         staleTime: 60 * 60 * 1000,
+    });
+};
+
+/**
+ * The civ pages' text, keyed by civ enum, from the same publish as the items (civilizations.json,
+ * written by watch-data from aoe4world/data's civilizations/*.json). undefined while it loads, and
+ * when this language is not published: the caller then uses the copy bundled with the app.
+ */
+export const useAoe4ExplorerCivOverview = () => {
+    const { data: meta } = useAoe4ExplorerMeta();
+    const url = meta?.devVariant
+        ? `${DEV_VARIANTS_BASE}/${meta.devVariant}/civilizations.json`
+        : meta && !meta.devFallback
+          ? `${EXPLORER_BASE}/${meta.language}/civilizations.json`
+          : undefined;
+    return useQuery({
+        queryKey: ['aoe4-explorer', 'civilizations', url, meta?.aoe4worldDataCommit, meta?.steamBuildId],
+        queryFn: () => fetchJson<Record<string, Omit<ICivilization, 'civ' | 'name'>>>(url!).catch(() => undefined),
+        enabled: !!url,
+        staleTime: Infinity,
     });
 };

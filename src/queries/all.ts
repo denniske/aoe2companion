@@ -22,6 +22,7 @@ import { getCivIdByEnum, getCivNameById, getSupabaseClient } from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ICivilization, IFetchProfilesParams } from '@app/api/helper/api.types';
 import { loadCivOverview } from '@app/helper/civ-overview';
+import { useAoe4ExplorerCivOverview } from '@app/queries/aoe4-explorer';
 import { withCacheBust } from '@app/api/util';
 
 export const QUERY_KEY_ACCOUNT = () => ['account'];
@@ -314,16 +315,17 @@ export const useBuild = (buildId: string) => {
 
 // aoe4 only. Keyed by the app's Civ enum so screens can look a civ up directly.
 //
-// The text comes from the game's own localization, extracted by the collector and
-// bundled here as one file per language. Same shape the /api/civilizations endpoint
-// returns, so moving to it later is a swap of this function body.
+// The text comes from the game's own localization: published with the explorer data
+// (useAoe4ExplorerCivOverview), or, for a language that is not published yet, the copy
+// the collector extracted and bundled here as one file per language.
 export const useAoe4CivData = () => {
     const language = useLanguage();
+    const published = useAoe4ExplorerCivOverview().data;
 
     return useMemo(() => {
         if (appConfig.game !== 'aoe4') return undefined;
 
-        const overviews = loadCivOverview(language);
+        const overviews = published ?? loadCivOverview(language);
 
         return Object.fromEntries(
             Object.entries(overviews).flatMap(([civEnum, overview]) => {
@@ -333,5 +335,5 @@ export const useAoe4CivData = () => {
                 return [[civ, { ...overview, civ: civEnum, name: getCivNameById(civ) }] as const];
             })
         ) as Record<string, ICivilization>;
-    }, [language]);
+    }, [language, published]);
 };

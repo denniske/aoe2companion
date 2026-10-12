@@ -8,6 +8,7 @@ import {
     Aoe4UnifiedItem,
     useAoe4Abilities,
     useAoe4Buildings,
+    useAoe4ExplorerDevShowRaw,
     useAoe4Item,
     useAoe4Technologies,
     useAoe4Units,
@@ -80,12 +81,16 @@ const VariationHeader: React.FC<{ variation: Aoe4Item }> = ({ variation }) => (
     </View>
 );
 
-/** What the bars leave out: per-weapon bonuses and ranges, and a building's influence. */
+/**
+ * DEV ONLY ("show raw info"): every weapon and a building's influence lines. Hidden otherwise, as on
+ * aoe4world: the stats show the main weapon, and influences that matter are abilities of their own.
+ */
 const WeaponDetails: React.FC<{ item: Aoe4Explorer.UnifiedItem<Physical>; civ: string }> = ({ item, civ }) => {
+    const showRaw = useAoe4ExplorerDevShowRaw();
     const variation = variationsForCiv(item, civ).at(-1);
     const weapons = variation?.weapons ?? [];
     const influences = variation?.type === 'building' ? variation.influences ?? [] : [];
-    if (!weapons.length && !influences.length) return null;
+    if (!showRaw || (!weapons.length && !influences.length)) return null;
     return (
         <View className="px-5">
             <Card direction="vertical" className="gap-3 lg:flex-row lg:flex-wrap lg:gap-8 lg:items-start">
