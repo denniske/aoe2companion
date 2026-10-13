@@ -182,9 +182,13 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
 
             {!!(profile.verified) &&
                 (Platform.OS === 'web' ? (
-                    <Link href={`https://liquipedia.net/ageofempires/${profile.socialLiquipedia}`} target="_blank">
+                    profile.socialLiquipedia ? (
+                        <Link href={`https://liquipedia.net/ageofempires/${profile.socialLiquipedia}`} target="_blank">
+                            <Icon icon={faCheckCircle} color="brand" size={20} />
+                        </Link>
+                    ) : (
                         <Icon icon={faCheckCircle} color="brand" size={20} />
-                    </Link>
+                    )
                 ) : (
                     <PressableOpacity
                         className="w-8 items-center justify-center"
