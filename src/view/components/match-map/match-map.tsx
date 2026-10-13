@@ -289,7 +289,7 @@ export default function MatchMap(props: Props) {
     const gaiaDraw = Object.keys(gaiaObjects).map((key) => {
         const info = gaiaObjects[key as keyof typeof gaiaObjects];
         return analysis
-            .gaia!.filter((o) => info.names.includes(o.name) || (info as any).objectIds?.includes(o.name))
+            .gaia!.filter((o) => info.names.includes(o.name) || (info as any).objectIds?.includes(o.objectId))
             .map((o) => ({
                 position: o.position,
                 color: info.color,

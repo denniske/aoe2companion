@@ -107,7 +107,7 @@ export const buildingSizes: Record<string, { names: string[]; objectIds?: number
 
 export const gaiaObjects: Record<string, { names: string[]; objectIds?: number[]; color: string }> = {
     bush: {
-        names: ['Forage Bush', 'Fruit Bush'],
+        names: ['Forage Bush', 'Fruit Bush', 'Pineapple Bush'],
         color: '#A5C56C',
     },
     gold: {
@@ -120,6 +120,13 @@ export const gaiaObjects: Record<string, { names: string[]; objectIds?: number[]
     },
     animal: {
         names: [
+            'Arabian Wolf',
+            'Arctic Hare',
+            'Arctic Wolf',
+            'Argali',
+            'Black Bear',
+            'Black Panther',
+            'Caiman',
             'Cow A',
             'Cow B',
             'Cow C',
@@ -128,8 +135,12 @@ export const gaiaObjects: Record<string, { names: string[]; objectIds?: number[]
             'Deer',
             'Dire Wolf',
             'Elephant',
+            'Elk',
             // 'Falcon',
             'Goose',
+            'Guanaco',
+            'Hare A',
+            'Hare B',
             // 'Hawk',
             // 'Horse A',
             // 'Horse B',
@@ -142,29 +153,42 @@ export const gaiaObjects: Record<string, { names: string[]; objectIds?: number[]
             'Komodo Dragon',
             'Lion',
             'Llama',
+            'Lynx',
             // 'Macaw',
             'Ostrich',
+            'Peacock',
             // 'Penguin',
+            'Pheasant',
             'Pig',
+            'Polar Bear',
             'Rabid Wolf',
+            'Rhea',
             'Rhinoceros',
-            'Sheep',
             // 'Seagulls',
+            'Seal',
+            'Sheep',
             'Snow Leopard',
             // 'Stork',
+            'Tapir',
             'Tiger',
             'Turkey',
             // 'Vulture',
+            'Walrus',
             'Water Buffalo',
+            'Wild Alpaca',
             'Wild Bactrian Camel',
             'Wild Boar',
             'Wild Camel',
+            'Wild Chicken A',
+            'Wild Chicken B',
+            'Wild Chicken C',
             'Wild Horse',
             'Wolf',
             'Zebra',
         ],
         objectIds: [
-            // some names are undefined need to know object id
+            // Names missing from aoc-reference-data (Gazelle and Mouflon are added by
+            // SiegeEngineers/aoc-reference-data#182; keep the ids until aoc-mgz ships it)
             // Hunnic Horse
             1869,
             // Gazelle
