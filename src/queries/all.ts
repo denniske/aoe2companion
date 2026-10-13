@@ -24,8 +24,10 @@ import { ICivilization, IFetchProfilesParams } from '@app/api/helper/api.types';
 import { loadCivOverview } from '@app/helper/civ-overview';
 import { useAoe4ExplorerCivOverview } from '@app/queries/aoe4-explorer';
 import { withCacheBust } from '@app/api/util';
+import { QUERY_KEY_ACCOUNT, useAccountData, useLanguage } from '@app/queries/account';
 
-export const QUERY_KEY_ACCOUNT = () => ['account'];
+export { QUERY_KEY_ACCOUNT, useAccountData, useLanguage };
+
 
 export const accountQueryOptions = () =>
     queryOptions({
@@ -54,16 +56,7 @@ export const useAccount = () => {
     return { ...account, logout };
 };
 
-export const useAccountData = <T>(select?: (data: IAccount) => T) =>
-    useQuery({
-        queryKey: QUERY_KEY_ACCOUNT(),
-        queryFn: async () => await fetchAccount(),
-        select,
-        staleTime: 10 * 1000, // 10s
-    }).data;
-
 export const useAuthProfileId = () => useAccountData((data) => data.profileId);
-export const useLanguage = () => useAccountData((data) => data.language);
 
 export const useFollowedAndMeProfileIds = () =>
     useAccountData((data) => {

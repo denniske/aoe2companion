@@ -3,7 +3,7 @@ import { useMemo, useSyncExternalStore } from 'react';
 import { Aoe4Explorer } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { ICivilization } from '@app/api/helper/api.types';
-import { useLanguage } from '@app/queries/all';
+import { useLanguage } from '@app/queries/account';
 
 // aoe4 explorer data: aoe4world's parser run on the game files by poc_collector (watch-data),
 // published to S3 under explorer/aoe4/<lang>/. meta.json is written last on each publish, so
