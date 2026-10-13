@@ -8,11 +8,9 @@ import { Card } from '@app/components/card';
 import { useTranslation } from '@app/helper/translate';
 import { Text } from '@app/components/text';
 import { Slider2 } from '@app/view/components/slider2';
-import { formatDateShort, formatMonth, formatTime, formatYear } from '@nex/data';
 import React from 'react';
-import { Area, Bar, CartesianChart, Line } from 'victory-native-date';
-import { DashPathEffect } from '@shopify/react-native-skia';
-import { useChartFont } from '@app/view/components/chart-font';
+import { PerfChart } from '@app/view/components/perf-chart/PerfChart';
+import { AutoSize } from '@app/view/components/perf-chart/auto-size';
 import { useAppTheme } from '@app/theming';
 import { useCSSVariable, useUniwind } from 'uniwind';
 
@@ -21,8 +19,8 @@ import { useCSSVariable, useUniwind } from 'uniwind';
 // See winrate.tsx.
 
 
-// Font comes from the platform-split chart-font module: the system font on
-// native, a bundled typeface on web (where matchFont is unavailable).
+const chartPadding = { top: 15, right: 15, bottom: 15, left: 15 };
+const gridDash = [4, 4];
 
 const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingResponse; breakdown: WinrateBreakdown; civ: string }> = ({
     width,
@@ -33,7 +31,6 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
     const appTheme = useAppTheme();
     const getTranslation = useTranslation();
     const { theme } = useUniwind();
-    const font = useChartFont();
     const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
         { key: 'win_rate', label: getTranslation('winrates.chart.winratebyrating'), domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
         { key: 'play_rate', label: getTranslation('winrates.chart.playratebyrating'), domain: [0, 0.08], tickFormat: (y) => `${Math.round(y * 100)}%` },
@@ -61,43 +58,31 @@ const StatsByRatingSlider: React.FC<{ width: number; grouping: WinrateGroupingRe
                         </Text>
                         {width > 0 && (
                             <>
-                                <CartesianChart
-                                    data={data}
-                                    padding={15}
-                                    domain={{
-                                        x: [-0.5, data.length - 0.5],
-                                        y: domain,
-                                    }}
-                                    xAxis={{
-                                        font,
-                                        labelColor: appTheme.textColor,
-                                        tickCount: data.length,
-                                        lineWidth: 0,
-                                        formatXLabel: (x) =>
-                                            grouping.elo_groupings.find((eg) => eg.name === data[x].elo)?.label.replace(/ *\([^)]*\) */g, '') ?? '',
-                                        linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                    }}
-                                    yAxis={[
-                                        {
-                                            font,
-                                            labelColor: appTheme.textColor,
-                                            yKeys: [key as any],
-                                            linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                            formatYLabel: tickFormat,
-                                        },
-                                    ]}
-                                    xKey="index"
-                                    yKeys={[key]}
-                                >
-                                    {({ points, chartBounds }) => (
-                                        <Bar
-                                            points={points[key]}
-                                            chartBounds={chartBounds}
-                                            barWidth={width / (data.length + 3)}
-                                            color={theme === 'dark' ? colorGold200 : colorBlue500}
+                                <AutoSize className="flex-1">
+                                    {(size) => (
+                                        <PerfChart
+                                            {...size}
+                                            dark={appTheme.dark}
+                                            padding={chartPadding}
+                                            gridDash={gridDash}
+                                            series={[
+                                                {
+                                                    id: key,
+                                                    color: theme === 'dark' ? colorGold200 : colorBlue500,
+                                                    bar: true,
+                                                    data: data.map((d) => ({ x: d.index, y: d[key] as number })),
+                                                },
+                                            ]}
+                                            xAxis={{
+                                                type: 'band',
+                                                grid: false,
+                                                formatLabel: (x) =>
+                                                    grouping.elo_groupings.find((eg) => eg.name === data[x]?.elo)?.label.replace(/ *\([^)]*\) */g, '') ?? '',
+                                            }}
+                                            yAxis={{ domain, formatLabel: tickFormat }}
                                         />
                                     )}
-                                </CartesianChart>
+                                </AutoSize>
                             </>
                         )}
                     </Card>
@@ -112,7 +97,6 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
     const { theme } = useUniwind();
     const getTranslation = useTranslation();
     const { patches } = useWinratesPatches();
-    const font = useChartFont();
     const graphs: { key: keyof PriorCivStat; label: string; domain: [number, number]; tickFormat?: (x: any) => string }[] = [
         { key: 'win_rate', label: getTranslation('winrates.chart.winratebypatch'), domain: [0.4, 0.6], tickFormat: (y) => `${Math.round(y * 100)}%` },
         { key: 'play_rate', label: getTranslation('winrates.chart.playratebypatch'), domain: [0, 0.08], tickFormat: (y) => `${Math.round(y * 100)}%` },
@@ -122,18 +106,6 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
     const colorGold200 = useCSSVariable('--color-gold-200') as string;
     const colorBlue500 = useCSSVariable('--color-blue-500') as string;
 
-    const formatTick = (date: Date) => {
-        if (date.getMonth() == 0 && date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
-            return formatYear(date);
-        }
-        if (date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
-            return formatMonth(date);
-        }
-        if (date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
-            return formatDateShort(date);
-        }
-        return formatTime(date);
-    };
 
 
     return (
@@ -164,56 +136,28 @@ const StatsByPatchSlider: React.FC<{ width: number; breakdown: WinrateBreakdown;
                         </Text>
                         {width > 0 && (
                             <>
-                                <CartesianChart
-                                    data={data}
-                                    padding={15}
-                                    domain={{
-                                        // No x domain: index-space bounds would push the
-                                        // date timestamps off-scale. Let the time scale
-                                        // derive its bounds from the dates themselves.
-                                        y: domain,
-                                    }}
-                                    xAxis={{
-                                        font,
-                                        labelColor: appTheme.textColor,
-                                        lineWidth: 0,
-                                        // tickCount: data.length,
-                                        formatXLabel: (x) => formatTick(x instanceof Date ? x : new Date(x)),
-                                        // formatXLabel: (x) => formatCustom(x instanceof Date ? x : new Date(x), 'yy-MMM'),
-                                        // formatXLabel: (x) => formatCustom(new Date(x), 'yyyy MMM d'),
-                                        // labelRotate: -25,
-                                        linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                    }}
-                                    yAxis={[
-                                        {
-                                            font,
-                                            labelColor: appTheme.textColor,
-                                            yKeys: [key],
-                                            linePathEffect: <DashPathEffect intervals={[4, 4]} />,
-                                            formatYLabel: tickFormat,
-                                        },
-                                    ]}
-                                    xKey={'date' as any}
-                                    yKeys={[key as any]}
-                                >
-                                    {({ points, chartBounds }) =>
-                                        domain[0] < domain[1] ? (
-                                            <Area
-                                                points={points[key]}
-                                                y0={chartBounds.bottom}
-                                                animate={{ type: 'timing', duration: 300 }}
-                                                color={theme === 'dark' ? colorGold200 : colorBlue500}
-                                            />
-                                        ) : (
-                                            <Line
-                                                points={points[key]}
-                                                color={theme === 'dark' ? colorGold200 : colorBlue500}
-                                                strokeWidth={3}
-                                                animate={{ type: 'timing', duration: 300 }}
-                                            />
-                                        )
-                                    }
-                                </CartesianChart>
+                                <AutoSize className="flex-1">
+                                    {(size) => (
+                                        <PerfChart
+                                            {...size}
+                                            dark={appTheme.dark}
+                                            padding={chartPadding}
+                                            gridDash={gridDash}
+                                            series={[
+                                                {
+                                                    id: key,
+                                                    color: theme === 'dark' ? colorGold200 : colorBlue500,
+                                                    // A top-down domain (rank) reads as a line; filling
+                                                    // "below" it would shade the better ranks.
+                                                    ...(domain[0] < domain[1] ? { area: true } : { strokeWidth: 3 }),
+                                                    data: data.map((d) => ({ x: d.date.getTime(), y: d[key] as number })).sort((a, b) => a.x - b.x),
+                                                },
+                                            ]}
+                                            xAxis={{ type: 'time', grid: false }}
+                                            yAxis={{ domain, formatLabel: tickFormat }}
+                                        />
+                                    )}
+                                </AutoSize>
                             </>
                         )}
                     </Card>

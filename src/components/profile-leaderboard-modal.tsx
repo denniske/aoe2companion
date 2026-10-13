@@ -10,7 +10,7 @@ import { useTranslation } from '@app/helper/translate';
 import { Text } from './text';
 import { Card } from './card';
 import RatingChart from '@app/view/components/rating-chart';
-import { formatDateShort, formatMonth, formatTime, formatYear } from '@nex/data';
+import { AutoSize } from '@app/view/components/perf-chart/auto-size';
 import { InlinePlayerSearch } from './inline-player-search';
 import { useProfileRatings, useProfileStatsAll } from '@app/queries/all';
 import { useResolveClassNames } from 'uniwind';
@@ -127,36 +127,17 @@ export const ProfileLeaderboardModal = ({
 
                                     {!!(ratings) && (
                                         <View className="z-50" style={{ height: 400 }}>
-                                            <RatingChart
-                                                allowMouseInteraction
-                                                width={1200}
-                                                formatTick={(date) => {
-                                                    if (
-                                                        date.getMonth() == 0 &&
-                                                        date.getDate() == 1 &&
-                                                        date.getHours() == 0 &&
-                                                        date.getMinutes() == 0 &&
-                                                        date.getSeconds() == 0
-                                                    ) {
-                                                        return formatYear(date);
-                                                    }
-                                                    if (
-                                                        date.getDate() == 1 &&
-                                                        date.getHours() == 0 &&
-                                                        date.getMinutes() == 0 &&
-                                                        date.getSeconds() == 0
-                                                    ) {
-                                                        return formatMonth(date);
-                                                    }
-                                                    if (date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
-                                                        return formatDateShort(date);
-                                                    }
-                                                    return formatTime(date);
-                                                }}
-                                                filteredRatingHistories={ratingHistories}
-                                                hiddenLeaderboardIds={[]}
-                                                ratingHistoryDuration={ratingHistoryDuration}
-                                            />
+                                            <AutoSize className="flex-1">
+                                                {({ width, height }) => (
+                                                    <RatingChart
+                                                        allowMouseInteraction
+                                                        width={width}
+                                                        height={height}
+                                                        filteredRatingHistories={ratingHistories}
+                                                        hiddenLeaderboardIds={[]}
+                                                    />
+                                                )}
+                                            </AutoSize>
                                             <View className="flex-row gap-8 justify-center mt-4 items-center">
                                                 {ratingHistories.map((history) => (
                                                     <View className="flex-row gap-2 items-center overflow-hidden shrink" key={history.label}>

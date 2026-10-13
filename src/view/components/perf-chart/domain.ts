@@ -42,7 +42,9 @@ export function computeDomain(series: ChartSeries[], yPaddingRatio = 0.08): Doma
     const span = yMax - yMin || 1;
     const pad = span * yPaddingRatio;
     const niceStep = niceNum(span / 4, true);
-    yMin = Math.floor((yMin - pad) / niceStep) * niceStep;
+    // Counts and totals never go negative, so the padding must not either.
+    const floor = yMin >= 0 ? 0 : -Infinity;
+    yMin = Math.max(floor, Math.floor((yMin - pad) / niceStep) * niceStep);
     yMax = Math.ceil((yMax + pad) / niceStep) * niceStep;
 
     return { xMin, xMax, yMin, yMax };

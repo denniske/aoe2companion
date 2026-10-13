@@ -405,8 +405,11 @@ export const changelog: IChangelog = {
             type: 'minor',
             title: 'Linked profiles show when family sharing was last seen',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix winrates charts',
+        },
     ],
-
     '216.0.0': [
         {
             type: 'feature',

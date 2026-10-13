@@ -19,12 +19,11 @@ export type { IRatingChartProps };
 
 // Shown while the chart chunk and CanvasKit load. Fills the same box the chart
 // will occupy so nothing shifts once it swaps in.
-const chartFallback = (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator animating size="small" color="#999" />
-    </View>
-);
-
 export default function RatingChart(props: IRatingChartProps) {
-    return <SkiaLoader getComponent={loadRatingChart} componentProps={props} fallback={chartFallback} />;
+    const fallback = (
+        <View style={{ width: props.width, height: props.height, alignItems: 'center', justifyContent: 'center' }}>
+            <ActivityIndicator animating size="small" color="#999" />
+        </View>
+    );
+    return <SkiaLoader getComponent={loadRatingChart} componentProps={props} fallback={fallback} />;
 }

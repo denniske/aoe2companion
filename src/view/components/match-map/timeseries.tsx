@@ -1,13 +1,11 @@
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { StyleSheet, View } from 'react-native';
-import React, { Fragment, useMemo } from 'react';
-import { orderBy } from 'lodash';
-import { CartesianChart, Line, Scatter } from 'victory-native-date';
+import React, { useMemo } from 'react';
+import { PlayerLineChart } from '@app/view/components/match-map/player-line-chart';
+import type { ChartSeries } from '@app/view/components/perf-chart/types';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
 import { getTimestampMs, ILegendInfo } from '@app/view/components/match-map/match-map';
-import { useAppTheme } from '@app/theming';
 import { Text } from '@app/components/text';
-import { useChartFont } from '@app/view/components/match-map/map-utils';
 import { Icon } from '@app/components/icon';
 import { faInfoCircle } from '@fortawesome/sharp-solid-svg-icons';
 import { showAlert } from '@app/helper/alert';
@@ -21,50 +19,32 @@ interface Props {
 }
 
 export default function Timeseries({ teams, metric, title, description, explanation }: Props) {
-    const theme = useAppTheme();
-    const font = useChartFont();
 
-    console.log('Timeseries', 'metric', metric, 'teams', teams?.length);
+    const series = useMemo<ChartSeries[]>(() => {
+        if (!teams) return [];
 
-    const dataset = useMemo(() => {
-        const start = new Date();
-
-        if (!teams) {
-            return { yKeys: [], data: [] };
-        }
-
-        const data = orderBy(
-            teams
-                .flatMap((team) => team.players)
-                .flatMap((player) =>
-                    player.timeseries.map((entry) => ({
-                        x: getTimestampMs(entry.timestamp) / 1000 / 60,
-                        [player.color]: entry[metric],
-                    }))
-                ),
-            [(x) => x]
-        );
-
-        const end = new Date();
-        console.log('MEMO CALC data', end.getTime() - start.getTime(), 'ms');
-
-        return {
-            yKeys: teams.flatMap((team) => team.players).map((p) => p.color),
-            data,
-        };
+        return teams
+            .flatMap((team) => team.players)
+            .map((player) => ({
+                id: player.color,
+                color: player.color,
+                scatter: true,
+                strokeWidth: 1.25,
+                data: player.timeseries
+                    .map((entry) => ({ x: getTimestampMs(entry.timestamp) / 1000 / 60, y: entry[metric] as number }))
+                    .sort((a, b) => a.x - b.x),
+            }));
     }, [teams, metric]);
 
     const showExplanation = () => {
         showAlert(title, explanation || 'No additional explanation available.');
     };
 
-    if (font === null) {
-        return null;
-    }
+    const hasData = series.some((s) => s.data.length > 0);
 
     return (
         <View style={styles.container}>
-            <ViewLoader ready={dataset.data?.length > 0}>
+            <ViewLoader ready={hasData}>
                 <Text className="" variant="header-sm">
                     {title}
                 </Text>
@@ -78,44 +58,7 @@ export default function Timeseries({ teams, metric, title, description, explanat
                         </PressableOpacity>
                     )}
                 </View>
-                <View style={{ height: 160, marginVertical: 12 }}>
-                    {dataset.data?.length > 0 && (
-                        <CartesianChart
-                            // style={{ height: 160 }}
-                            data={dataset.data}
-                            xKey={'x' as never}
-                            yKeys={dataset.yKeys as never}
-                            axisOptions={
-                                {
-                                    // the chart needs this empty config for some reason
-                                }
-                            }
-                            xAxis={{
-                                font,
-                                labelColor: theme.textColor,
-                                lineColor: theme.dark ? '#454545' : '#BBB',
-                            }}
-                            yAxis={[
-                                {
-                                    font,
-                                    labelColor: theme.textColor,
-                                    lineColor: theme.dark ? '#454545' : '#BBB',
-                                },
-                            ]}
-                        >
-                            {({ points }) => (
-                                <>
-                                    {dataset.yKeys.map((key) => (
-                                        <Fragment key={key}>
-                                            <Line points={(points as any)[key].filter((p: any) => p.yValue != null)} color={key} strokeWidth={1.25} />
-                                            <Scatter points={(points as any)[key]} shape="circle" radius={2} style="fill" color={key} />
-                                        </Fragment>
-                                    ))}
-                                </>
-                            )}
-                        </CartesianChart>
-                    )}
-                </View>
+                {hasData && <PlayerLineChart series={series} />}
             </ViewLoader>
         </View>
     );

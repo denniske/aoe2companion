@@ -3,11 +3,12 @@ import { ILeaderboardPlayer } from '@app/api/helper/api.types';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { isAfter, isToday, isWithinInterval, isYesterday, subDays, subHours } from 'date-fns';
-import { maxBy, merge, minBy, orderBy } from 'lodash';
+import { maxBy, minBy, orderBy } from 'lodash';
 import { Fragment, useEffect, useState } from 'react';
-import { LineSegment, VictoryAxis, VictoryChart, VictoryCursorContainer, VictoryLabel, VictoryLine, VictoryScatter, VictoryTheme } from 'victory';
+import { LazyPerfChart } from '@app/view/components/perf-chart/lazy-perf-chart';
+import type { ChartTheme } from '@app/view/components/perf-chart/types';
 import { formatStreakShort, LastFiveMatches } from './last-five-matches';
-import { formatCustom, formatDateShort, formatMonth, formatTime, formatYear } from '@nex/data';
+import { formatCustom } from '@nex/data';
 import { MatchCard } from './match-card';
 import { reformatTeamMatch } from '../util';
 import { Icon } from '@app/components/icon';
@@ -20,18 +21,13 @@ import { Link } from 'expo-router';
 import { START_DATE } from '../dates';
 import { RatingDiff } from './rating-diff';
 
-const formatTick = (tick: any, index: number, ticks: any[]) => {
-    const date = ticks[index] as Date;
-    if (date.getMonth() == 0 && date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
-        return formatYear(date);
-    }
-    if (date.getDate() == 1 && date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
-        return formatMonth(date);
-    }
-    if (date.getHours() == 0 && date.getMinutes() == 0 && date.getSeconds() == 0) {
-        return formatDateShort(date);
-    }
-    return formatTime(ticks[index]);
+// The modal is always drawn on the dark overlay background.
+const chartTheme: ChartTheme = {
+    dark: true,
+    textColor: '#FFFFFF',
+    gridColor: '#272e43',
+    axisColor: '#90a4ae',
+    background: 'transparent',
 };
 
 export const PlayerModal = ({
@@ -142,19 +138,9 @@ export const PlayerModal = ({
           }
         : undefined;
 
-    const themeCustomizations = {
-        axis: {
-            style: {
-                tickLabels: {
-                    fill: 'white',
-                },
-            },
-        },
-    };
 
     const stats = profile?.stats.find((s) => s.leaderboardId === leaderboardId);
 
-    const chartTheme = merge({ ...VictoryTheme.material }, themeCustomizations);
 
     const tabs = ['Civilizations', 'Maps', 'Opponents'] as const;
     const [tab, setTab] = useState<(typeof tabs)[number]>('Civilizations');
@@ -389,103 +375,26 @@ export const PlayerModal = ({
                                                 </div>
 
                                                 {ratingHistory && (
-                                                    <VictoryChart
+                                                    <LazyPerfChart
                                                         width={350}
                                                         height={250}
                                                         theme={chartTheme}
-                                                        padding={{
-                                                            left: 50,
-                                                            bottom: 30,
-                                                            top: 20,
-                                                            right: 20,
-                                                        }}
-                                                        scale={{ x: 'time' }}
-                                                        containerComponent={
-                                                            <VictoryCursorContainer
-                                                                cursorComponent={<LineSegment style={{ stroke: 'white' }} />}
-                                                                cursorDimension="x"
-                                                                cursorLabel={({ datum }) => {
-                                                                    const labels = [
-                                                                        `${formatCustom(datum.x, 'Pp')} - ${
-                                                                            orderBy(ratingHistory.ratings, 'date', 'desc').find(
-                                                                                (r) => !isAfter(r.date, datum.x)
-                                                                            )?.rating ?? 'No Rating'
-                                                                        }`,
-                                                                    ];
-                                                                    return labels as unknown as number;
-                                                                }}
-                                                                cursorLabelComponent={
-                                                                    <VictoryLabel
-                                                                        backgroundStyle={
-                                                                            ratingHistory
-                                                                                ? [
-                                                                                      {
-                                                                                          fill: 'black',
-                                                                                          borderRadius: 100,
-                                                                                          strokeWidth: 1,
-                                                                                          stroke: 'white',
-                                                                                      },
-                                                                                  ]
-                                                                                : undefined
-                                                                        }
-                                                                        backgroundPadding={{ top: 5, bottom: 5, right: 8, left: 8 }}
-                                                                        style={{ fill: 'white' }}
-                                                                    />
-                                                                }
-                                                            />
-                                                        }
-                                                    >
-                                                        <VictoryAxis
-                                                            crossAxis
-                                                            gridComponent={
-                                                                <LineSegment
-                                                                    active={false}
-                                                                    style={{
-                                                                        stroke: 'transparent',
-                                                                    }}
-                                                                />
-                                                            }
-                                                            tickFormat={formatTick}
-                                                            tickCount={5}
-                                                        />
-                                                        <VictoryAxis
-                                                            dependentAxis
-                                                            crossAxis
-                                                            gridComponent={
-                                                                <LineSegment
-                                                                    active={false}
-                                                                    style={{
-                                                                        stroke: '#272e43',
-                                                                    }}
-                                                                />
-                                                            }
-                                                        />
-                                                        <VictoryLine
-                                                            name={'line-' + ratingHistory.leaderboardId}
-                                                            key={'line-' + ratingHistory.leaderboardId}
-                                                            data={ratingHistory.ratings}
-                                                            x="date"
-                                                            y="rating"
-                                                            style={{
-                                                                data: {
-                                                                    stroke: '#D00E4D',
-                                                                },
-                                                            }}
-                                                        />
-                                                        <VictoryScatter
-                                                            name={'scatter-' + ratingHistory.leaderboardId}
-                                                            key={'scatter-' + ratingHistory.leaderboardId}
-                                                            data={ratingHistory.ratings}
-                                                            x="date"
-                                                            y="rating"
-                                                            size={1.5}
-                                                            style={{
-                                                                data: {
-                                                                    fill: 'red',
-                                                                },
-                                                            }}
-                                                        />
-                                                    </VictoryChart>
+                                                        padding={{ left: 10, bottom: 10, top: 20, right: 20 }}
+                                                        xAxis={{ grid: false }}
+                                                        series={[
+                                                            {
+                                                                id: ratingHistory.leaderboardId,
+                                                                label: 'Rating',
+                                                                color: '#D00E4D',
+                                                                scatter: true,
+                                                                scatterRadius: 1.5,
+                                                                data: ratingHistory.ratings
+                                                                    .map((r) => ({ x: new Date(r.date).getTime(), y: r.rating }))
+                                                                    .sort((a, b) => a.x - b.x),
+                                                            },
+                                                        ]}
+                                                        cursor={{ formatX: (x) => formatCustom(new Date(x), 'Pp') }}
+                                                    />
                                                 )}
                                             </>
                                         )}
