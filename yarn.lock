@@ -4994,6 +4994,7 @@ __metadata:
     expo-device: "npm:57.0.2"
     expo-file-system: "npm:57.0.7"
     expo-font: "npm:57.0.4"
+    expo-glass-effect: "npm:~57.0.4"
     expo-image: "npm:57.0.5"
     expo-keep-awake: "npm:57.0.2"
     expo-linking: "npm:57.0.10"
@@ -7443,7 +7444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-glass-effect@npm:^57.0.3":
+"expo-glass-effect@npm:^57.0.3, expo-glass-effect@npm:~57.0.4":
   version: 57.0.4
   resolution: "expo-glass-effect@npm:57.0.4"
   peerDependencies:

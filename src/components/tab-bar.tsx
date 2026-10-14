@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Pressable, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
+import { GlassView, isLiquidGlassAvailable } from './uniwind/glass-effect';
 import { Icon } from './icon';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faArrowUp, faBars, faChartSimple, faChess, faHome, faLandmark, faRankingStar } from '@fortawesome/sharp-solid-svg-icons';
@@ -42,6 +43,10 @@ export function useCurrentTabName() {
 
     return name;
 }
+
+// Liquid glass needs iOS 26+; everywhere else keep the solid bar.
+const useGlass = Platform.OS === 'ios' && isLiquidGlassAvailable();
+const Bar = useGlass ? GlassView : View;
 
 export const TabBar: React.FC = () => {
     const getTranslation = useTranslation();
@@ -138,11 +143,18 @@ export const TabBar: React.FC = () => {
                 className={`absolute px-4 pb-2 w-full ${showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`}
                 style={animatedStyle}
             >
+                {/* With glass, keep only a light fade (like iOS's scroll edge effect) so content stays visible through the bar. */}
                 <View
                     style={{ position: 'absolute', left: 0, right: 0, bottom: -bottom, top: -16 }}
-                    className="bg-gradient-to-b from-[0%] to-[25%] from-gold-50/0 to-gold-50/90 dark:from-blue-950/0 dark:to-blue-950/90"
+                    className={
+                        useGlass
+                            ? 'bg-gradient-to-b from-[0%] to-[60%] from-gold-50/0 to-gold-50/35 dark:from-blue-950/0 dark:to-blue-950/35'
+                            : 'bg-gradient-to-b from-[0%] to-[25%] from-gold-50/0 to-gold-50/90 dark:from-blue-950/0 dark:to-blue-950/90'
+                    }
                 />
-                <View className="flex-row p-2 rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black max-w-2xl w-full mx-auto">
+                <Bar
+                    className={`flex-row p-2 max-w-2xl w-full mx-auto ${useGlass ? 'rounded-2xl' : 'rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black'}`}
+                >
                     {routes.map((route) => {
                         // console.log('ROUTE', route.key, route.path);
 
@@ -178,7 +190,7 @@ export const TabBar: React.FC = () => {
                             </Pressable>
                         );
                     })}
-                </View>
+                </Bar>
             </Animated.View>
         </>
     );
