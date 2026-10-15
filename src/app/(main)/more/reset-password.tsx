@@ -51,7 +51,7 @@ export default function ResetPasswordPage() {
             <View style={styles.container}>
                 <View style={[styles.verticallySpaced, styles.mt20]}>
                     {/*<MyText>Password</MyText>*/}
-                    <Field placeholder={getTranslation('resetpassword.placeholder.newpassword')} type="password" onChangeText={setPassword} value={password} autoFocus={true} />
+                    <Field placeholder={getTranslation('resetpassword.placeholder.newpassword')} type="password" autoComplete="new-password" textContentType="newPassword" onChangeText={setPassword} value={password} autoFocus={true} />
                 </View>
 
                 <View style={[styles.verticallySpaced, styles.mt20]}>

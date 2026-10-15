@@ -28,12 +28,22 @@ export const Field: React.FC<FieldProps> = ({ type: inputType = 'default', style
             autoCorrect: false,
             returnKeyType: 'search',
             accessibilityRole: 'search',
+            // Without this, browser password managers treat the header search as
+            // the username field of any login form further down the page.
+            autoComplete: 'off',
         },
         password: {
             textContentType: 'password',
+            autoComplete: 'current-password',
             secureTextEntry,
         },
-        email: {},
+        email: {
+            textContentType: 'username',
+            autoComplete: 'username',
+            keyboardType: 'email-address',
+            autoCapitalize: 'none',
+            autoCorrect: false,
+        },
     };
 
     // Padding follows the buttons that are actually rendered: reserving room on
