@@ -402,6 +402,10 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '217.0.0': [
         {
+            type: 'feature',
+            title: 'Added polish language',
+        },
+        {
             type: 'minor',
             title: 'Linked profiles show when family sharing was last seen',
         },
