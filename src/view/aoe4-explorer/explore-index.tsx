@@ -123,7 +123,7 @@ export default function Aoe4Explore() {
                 icon: <Image className="w-8 h-8 border border-gold-500 rounded" contentFit="contain" source={{ uri: cdnImageUrl(map.imageUrl, 'thumb') }} />,
             })),
         ]);
-    }, [units, buildings, technologies, upgrades, maps, civList]);
+    }, [units, buildings, technologies, upgrades, maps, civList, getTranslation]);
 
     const results = useMemo(() => {
         const query = search.trim().toLowerCase();

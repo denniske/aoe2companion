@@ -91,7 +91,7 @@ export default function Aoe4ItemList({ type }: { type: ListType }) {
             rows.push({ header: g }, ...inGroup.map((item) => ({ item })));
         }
         return { rows, first: rows.find((r): r is { item: Aoe4UnifiedItem } => 'item' in r)?.item };
-    }, [items, civ, selectedAge, text]);
+    }, [items, civ, selectedAge, text, groups, group]);
 
     return (
         <KeyboardAvoidingView>

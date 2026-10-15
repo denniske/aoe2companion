@@ -45,8 +45,8 @@ export function useCurrentTabName() {
 }
 
 // Liquid glass needs iOS 26+; everywhere else keep the solid bar.
-const useGlass = Platform.OS === 'ios' && isLiquidGlassAvailable();
-const Bar = useGlass ? GlassView : View;
+const glassAvailable = Platform.OS === 'ios' && isLiquidGlassAvailable();
+const Bar = glassAvailable ? GlassView : View;
 
 export const TabBar: React.FC = () => {
     const getTranslation = useTranslation();
@@ -147,13 +147,13 @@ export const TabBar: React.FC = () => {
                 <View
                     style={{ position: 'absolute', left: 0, right: 0, bottom: -bottom, top: -16 }}
                     className={
-                        useGlass
+                        glassAvailable
                             ? 'bg-gradient-to-b from-[0%] to-[60%] from-gold-50/0 to-gold-50/35 dark:from-blue-950/0 dark:to-blue-950/35'
                             : 'bg-gradient-to-b from-[0%] to-[25%] from-gold-50/0 to-gold-50/90 dark:from-blue-950/0 dark:to-blue-950/90'
                     }
                 />
                 <Bar
-                    className={`flex-row p-2 max-w-2xl w-full mx-auto ${useGlass ? 'rounded-2xl' : 'rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black'}`}
+                    className={`flex-row p-2 max-w-2xl w-full mx-auto ${glassAvailable ? 'rounded-2xl' : 'rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black'}`}
                 >
                     {routes.map((route) => {
                         // console.log('ROUTE', route.key, route.path);
