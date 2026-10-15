@@ -78,7 +78,7 @@ export function LinkedAvatarAccount({profileId, avatarUrl, name, games}: {profil
             <Image source={{ uri: avatarUrl }} className="w-8 h-8 rounded-md" />
             <PressableOpacity className="flex-col gap-0" onPress={() => openLink(aoecompanionProfileUrl)}>
                 <Text variant="header-xs">{name}</Text>
-                <Text variant="body">{getTranslation('leaderboard.games', { games })}</Text>
+                <Text variant="body">{getTranslation('leaderboard.games', { games, count: games })}</Text>
             </PressableOpacity>
         </View>
     );

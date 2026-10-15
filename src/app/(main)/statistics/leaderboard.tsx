@@ -1,7 +1,7 @@
 import { countryEarth, CountrySelect, isCountry } from '@app/components/select/country-select';
 import { withCacheBust } from '@app/api/util';
 import { leaderboardsByType } from '@app/helper/leaderboard';
-import { useTranslation } from '@app/helper/translate';
+import { usePluralForms, useTranslation } from '@app/helper/translate';
 import { useAuthProfileId, useFollowedAndMeProfileIds, useLanguage, useLeaderboards } from '@app/queries/all';
 import { AnimatedValueText } from '@app/view/components/animated-value-text';
 import { MyText } from '@app/view/components/my-text';
@@ -311,7 +311,7 @@ export default function LeaderboardPage() {
     // ~250 countries. See components/leaderboard/leaderboard-row.tsx.
     const rowStyles = useLeaderboardRowStyles();
     // Fetched with its `{games}` placeholder intact; the row fills in the number.
-    const gamesLabel = getTranslation('leaderboard.games') ?? '';
+    const gamesLabel = usePluralForms('leaderboard.games');
     const { width: windowWidth } = useWindowDimensions();
     const showGames = windowWidth >= 360;
     // The selected country, not a separate "country the rows came from" state: the
@@ -350,7 +350,7 @@ export default function LeaderboardPage() {
     // }, [myRankPlayer, showMyRank]);
 
     const _renderHeader = () => {
-        const players = getTranslation('leaderboard.players', { players: total });
+        const players = getTranslation('leaderboard.players', { players: total, count: total });
         // const updated = leaderboard.data?.updated ? getTranslation('leaderboard.updated', { updated: formatAgo(leaderboard.data.updated) }) : '';
         return (
             <>

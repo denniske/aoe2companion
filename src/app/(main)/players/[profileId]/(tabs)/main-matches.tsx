@@ -138,7 +138,7 @@ export default function MainMatches(props: MainMatchesProps) {
                         headerTitle: () => (
                             <HeaderTitle
                                 title={getTranslation('main.heading.matches')}
-                                subtitle={profile ? getTranslation('profilecard.games', { games: Number(profile.games).toLocaleString(language) }) : ''}
+                                subtitle={profile ? getTranslation('profilecard.games', { games: Number(profile.games).toLocaleString(language), count: Number(profile.games) }) : ''}
                             />
                         ),
                     }}

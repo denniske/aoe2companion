@@ -60,7 +60,7 @@ export const CivWinrateCard = ({ civ, maxPlayrate = 8, clickable = true }: { civ
                 <Text variant="label-lg" numberOfLines={1}>
                     {getCivNameById(capitalize(civ.civ_name) as Civ)}
                 </Text>
-                <Text>{getTranslation('winrates.games', { games: civ.num_games.toLocaleString(language) })}</Text>
+                <Text>{getTranslation('winrates.games', { games: civ.num_games.toLocaleString(language), count: civ.num_games })}</Text>
             </View>
         </Card>
     );

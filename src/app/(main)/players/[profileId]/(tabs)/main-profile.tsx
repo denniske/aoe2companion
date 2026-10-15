@@ -103,7 +103,7 @@ export default function MainProfile() {
 
                     <Card onPress={() => openMatches(false)} className="justify-center gap-2">
                         <Text variant="header" color="brand">
-                            {getTranslation('main.matches.showall', { games: profile ? Number(profile.games).toLocaleString(language) : '' })}
+                            {getTranslation('main.matches.showall', { games: profile ? Number(profile.games).toLocaleString(language) : '', count: profile ? Number(profile.games) : undefined })}
                         </Text>
                         <Icon icon={faAngleRight} size={18} color="brand" />
                     </Card>

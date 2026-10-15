@@ -156,7 +156,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                     footer(player)
                 ) : (
                     <Text color="subtle" variant={isMedium ? 'body-sm' : 'body-xs'} numberOfLines={1} allowFontScaling={false}>
-                        {getTranslation('profilecard.matches', { games: player.games || '<10' })}
+                        {getTranslation('profilecard.matches', { games: player.games || '<10', count: player.games || undefined })}
                     </Text>
                 )}
             </Card>
@@ -185,7 +185,7 @@ function Player<PlayerType extends IPlayerListPlayer>({
                         footer(player)
                     ) : (
                         <Text variant="body-sm" color="subtle">
-                            {getTranslation('profilecard.matches', { games: player.games || '<10' })}
+                            {getTranslation('profilecard.matches', { games: player.games || '<10', count: player.games || undefined })}
                         </Text>
                     )}
                 </View>

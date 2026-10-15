@@ -1,6 +1,6 @@
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { isCountry } from '@app/components/select/country-select';
-import { useTranslation } from '@app/helper/translate';
+import { pickPlural, PluralForms, usePluralForms, useTranslation } from '@app/helper/translate';
 import { ImageLoader } from '@app/view/components/loader/image-loader';
 import { TextLoader } from '@app/view/components/loader/text-loader';
 import React from 'react';
@@ -100,7 +100,7 @@ function LeaderboardRowLegacyInner(props: LeaderboardRowLegacyProps) {
 
                 {Dimensions.get('window').width >= 360 && (
                     <TextLoader ready={player?.games} style={styles.cellGames}>
-                        {getTranslation('leaderboard.games', { games: player?.games })}
+                        {getTranslation('leaderboard.games', { games: player?.games, count: player?.games })}
                     </TextLoader>
                 )}
             </View>
@@ -126,7 +126,7 @@ export interface LeaderboardRowProps {
     /** `Dimensions.get('window').width >= 360` from the screen. */
     showGames: boolean;
     /** The raw `leaderboard.games` string, still holding its `{games}` placeholder. */
-    gamesLabel: string;
+    gamesLabel: PluralForms;
     authProfileId?: number | null;
     /** Already resolved to `Math.max(myRankWidth || 43, rankWidth || 43)`. */
     rankWidth: number;
@@ -202,7 +202,7 @@ function LeaderboardRowInner(props: LeaderboardRowProps) {
                         // The placeholder is always literally `{games}` in every
                         // translation, so a plain replace saves building a RegExp
                         // per row the way getTranslation() does.
-                        <Text style={styles.cellGames}>{gamesLabel.replace('{games}', String(player.games))}</Text>
+                        <Text style={styles.cellGames}>{pickPlural(gamesLabel, player.games).replace('{games}', String(player.games))}</Text>
                     ) : (
                         <Text style={styles.cellGamesSkeleton} />
                     ))}
@@ -218,8 +218,7 @@ export const LeaderboardRow = React.memo(LeaderboardRowInner);
  * fill it in without a translation lookup of its own.
  */
 export function useLeaderboardGamesLabel() {
-    const getTranslation = useTranslation();
-    return getTranslation('leaderboard.games') ?? '';
+    return usePluralForms('leaderboard.games');
 }
 
 const padding = 8;

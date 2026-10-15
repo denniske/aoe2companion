@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '@app/service/query-client';
 import { QUERY_KEY_ACCOUNT, useAccountData, useLanguage } from '@app/queries/all';
 import { MMKV, useMMKV, useMMKVString } from 'react-native-mmkv';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { appConfig } from '@nex/dataset';
 
 export type IGetTranslation = (key: keyof typeof local001, params?: Record<string, string | number>) => string;
@@ -65,7 +65,7 @@ export function getTranslationInternal(key: keyof typeof local001, params?: Reco
     const translations = queryClient.getQueryData<Record<string, string>>(['translations', language]);
     const translationsEn = queryClient.getQueryData<Record<string, string>>(['translations', 'en']);
 
-    let translated = resolveKey(translations, language, key, params) ?? resolveKey(translationsEn, 'en', key, params);
+    let translated: any = resolveKey(translations, language, key, params) ?? resolveKey(translationsEn, 'en', key, params);
     if (translated && params) {
         for (const key in params) {
             translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), params![key]);
@@ -105,15 +105,36 @@ export function useTranslation() {
     }
 
     return (key: keyof typeof local001, params?: Record<string, string | number | undefined>) => {
-        let translated = resolveKey(translations, language, key, params) ?? resolveKey(translationsEn, 'en', key, params);
+        let translated: any = resolveKey(translations, language, key, params) ?? resolveKey(translationsEn, 'en', key, params);
         if (translated && params) {
             for (const key in params) {
-                translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), String(params![key]));
+                translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), params![key]);
             }
         }
         // console.log('getTranslation', language, key, translated);
         return translated;
     };
+}
+
+export type PluralForms = { language: string; one: string; few: string; many: string; other: string };
+
+/**
+ * Resolves every plural form of `key` once, with its other placeholders intact, for
+ * hot paths like leaderboard rows that fill in the number themselves via `pickPlural`.
+ */
+export function usePluralForms(key: keyof typeof local001): PluralForms {
+    const getTranslation = useTranslation();
+    const language = useLanguage() || mmkvLanguage || 'en';
+    // 1, 2, 5 and 1.5 land in one / few / many / other for every language we ship.
+    const one = getTranslation(key, { count: 1 }) ?? '';
+    const few = getTranslation(key, { count: 2 }) ?? '';
+    const many = getTranslation(key, { count: 5 }) ?? '';
+    const other = getTranslation(key, { count: 1.5 }) ?? '';
+    return useMemo(() => ({ language, one, few, many, other }), [language, one, few, many, other]);
+}
+
+export function pickPlural(forms: PluralForms, count: number) {
+    return forms[pluralCategory(forms.language, count)];
 }
 
 export function useTranslations(language?: string) {

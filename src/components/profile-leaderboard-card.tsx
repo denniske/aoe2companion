@@ -75,7 +75,7 @@ export const ProfileLeaderboardCard: React.FC<{
                     <View className="w-px bg-border self-stretch hidden lg:flex" />
 
                     <TextComponent variant="label-lg" color="subtle" className="hidden lg:flex">
-                        {getTranslation('profilecard.games', { games: games?.toLocaleString(language) ?? '' })}
+                        {getTranslation('profilecard.games', { games: games?.toLocaleString(language) ?? '', count: games })}
                     </TextComponent>
 
                     <TextComponent variant="body-sm" color="subtle" className="hidden lg:flex">
@@ -104,7 +104,7 @@ export const ProfileLeaderboardCard: React.FC<{
                             <View className="items-center flex-1 lg:flex-none">
                                 <View className="flex-row items-baseline gap-2 flex lg:hidden">
                                     <TextComponent variant="label" color="subtle" className={cn(!leaderboard && 'max-w-24')}>
-                                        {getTranslation('profilecard.games', { games: games?.toLocaleString(language) ?? '' })}
+                                        {getTranslation('profilecard.games', { games: games?.toLocaleString(language) ?? '', count: games })}
                                     </TextComponent>
                                     {!!leaderboard && (
                                         <Text variant="body-xs" color="subtle">
@@ -125,7 +125,7 @@ export const ProfileLeaderboardCard: React.FC<{
                                         where raw html elements have no view config and throw. */}
                                     <Text variant="body-xs" color="subtle">
                                         {' '}
-                                        {getTranslation('profilecard.ofplayers', { total: leaderboard?.total.toLocaleString(language) ?? '' })}
+                                        {getTranslation('profilecard.ofplayers', { total: leaderboard?.total.toLocaleString(language) ?? '', count: leaderboard?.total })}
                                     </Text>
                                 </TextComponent>
                             </View>
@@ -210,7 +210,7 @@ export const ProfileLeaderboardCard: React.FC<{
                             })}
                         </TextComponent>
 
-                        <TextComponent color="subtle">{getTranslation('profilecard.matches', { games: topCiv?.games ?? '' })}</TextComponent>
+                        <TextComponent color="subtle">{getTranslation('profilecard.matches', { games: topCiv?.games ?? '', count: topCiv?.games })}</TextComponent>
                     </View>
                     <View className="w-px bg-border self-stretch hidden lg:flex" />
 
@@ -237,7 +237,7 @@ export const ProfileLeaderboardCard: React.FC<{
                             })}
                         </TextComponent>
 
-                        <TextComponent numberOfLines={1}>{getTranslation('profilecard.matches', { games: topMap?.games ?? '' })}</TextComponent>
+                        <TextComponent numberOfLines={1}>{getTranslation('profilecard.matches', { games: topMap?.games ?? '', count: topMap?.games })}</TextComponent>
                     </View>
                 </View>
 
@@ -265,7 +265,7 @@ export const ProfileLeaderboardCard: React.FC<{
                                         {!topCiv?.wins || isNaN(topCiv?.wins) ? '-' : ((topCiv.wins / topCiv.games) * 100).toFixed(0) + '%'}
                                     </TextComponent>
                                     <TextComponent variant="body-xs" color="subtle" numberOfLines={1}>
-                                        {getTranslation('profilecard.matches', { games: topCiv?.games ?? '' })}
+                                        {getTranslation('profilecard.matches', { games: topCiv?.games ?? '', count: topCiv?.games })}
                                     </TextComponent>
                                 </View>
                             </View>
@@ -295,7 +295,7 @@ export const ProfileLeaderboardCard: React.FC<{
                                         {!topMap?.wins || isNaN(topMap?.wins) ? '-' : ((topMap.wins / topMap.games) * 100).toFixed(0) + '%'}
                                     </TextComponent>
                                     <TextComponent variant="body-xs" color="subtle" numberOfLines={1}>
-                                        {getTranslation('profilecard.matches', { games: topMap?.games ?? '' })}
+                                        {getTranslation('profilecard.matches', { games: topMap?.games ?? '', count: topMap?.games })}
                                     </TextComponent>
                                 </View>
                             </View>

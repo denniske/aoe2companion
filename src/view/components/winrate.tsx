@@ -84,7 +84,7 @@ export default function CivDetails() {
 
                         <ProgressBar percent={stats.win_rate * 100} status={stats.win_rate >= 0.5 ? 'positive' : 'negative'} />
 
-                        <Text className="self-center">{getTranslation('winrates.wins', { wins: stats.wins.toLocaleString(language) })}</Text>
+                        <Text className="self-center">{getTranslation('winrates.wins', { wins: stats.wins.toLocaleString(language), count: stats.wins })}</Text>
                     </Card>
 
                     <Card direction="vertical" className="px-4 py-3 flex-1">
@@ -93,7 +93,7 @@ export default function CivDetails() {
                         </Text>
 
                         <ProgressBar percent={stats.play_rate * 100} max={8} />
-                        <Text className="self-center">{getTranslation('winrates.games', { games: stats.num_games.toLocaleString(language) })}</Text>
+                        <Text className="self-center">{getTranslation('winrates.games', { games: stats.num_games.toLocaleString(language), count: stats.num_games })}</Text>
                     </Card>
                 </View>
 
