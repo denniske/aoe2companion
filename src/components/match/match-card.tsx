@@ -24,10 +24,12 @@ export interface MatchCardProps extends MatchProps {
     clickable?: boolean;
     flat?: boolean;
     linkMap?: boolean;
+    /** For narrow containers: no teams column and no fixed desktop width. */
+    compact?: boolean;
 }
 
 export function MatchCard(props: MatchCardProps) {
-    const { flat, match, highlightedUsers, linkMap = false, clickable } = props;
+    const { flat, match, highlightedUsers, linkMap = false, clickable, compact } = props;
     const players = flatten(match?.teams.map((t) => t.players));
     const freeForAll = isMatchFreeForAll(match);
     let attributes = [teamRatio(match)];
@@ -90,7 +92,7 @@ export function MatchCard(props: MatchCardProps) {
                     </View>
                 }
             >
-                <View className="flex-1 lg:flex-none lg:min-w-3xs lg:max-w-3xs">
+                <View className={compact ? 'flex-1 min-w-0' : 'flex-1 lg:flex-none lg:min-w-3xs lg:max-w-3xs'}>
                     <MapLinkComponent asChild href={`/explore/maps/${match.map}`}>
                         <PressableOpacity disabled={!linkMap}>
                             <Text numberOfLines={1} variant="header-sm">
@@ -106,7 +108,7 @@ export function MatchCard(props: MatchCardProps) {
                     <ElapsedTimeOrDuration match={match} />
                 </View>
 
-                {!!(isLarge) && (
+                {!!(isLarge && !compact) && (
                     <View className="flex-1 px-4">
                         <MatchTeams
                             match={match}

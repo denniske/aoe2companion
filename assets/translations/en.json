@@ -435,6 +435,7 @@
     "search.findmyaccount.description": "Enter your AoE username to track your games",
     "search.findmyaccount.action": "Choose",
     "search.placeholder.players": "Search Players",
+    "search.placeholder.playersOrMatch": "Player Name / Match ID",
     "search.placeholder.player": "Search for player",
     "privacy.title": "Privacy",
     "api.title": "API",

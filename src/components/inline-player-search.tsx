@@ -90,7 +90,7 @@ export const InlinePlayerSearch: React.FC<{
                 iconColor={iconColor}
                 className={cn('h-full border-transparent dark:border-border', className)}
                 type="search"
-                placeholder={getTranslation('search.placeholder.players')}
+                placeholder={getTranslation(onSelect ? 'search.placeholder.players' : 'search.placeholder.playersOrMatch')}
                 onFocus={() => setIsFocused(true)}
                 style={{ zIndex: 1, height: 48 }}
                 onChangeText={setText}
@@ -139,7 +139,7 @@ export const InlinePlayerSearch: React.FC<{
                                         router.navigate(`/matches/${matchById.matchId}`);
                                     }}
                                 >
-                                    <MatchCard match={matchById} flat />
+                                    <MatchCard match={matchById} flat compact />
                                 </Pressable>
                             )}
 
