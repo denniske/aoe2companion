@@ -93,6 +93,7 @@
     "main.profile.clan": "Clan",
     "main.profile.games": "{games} games",
     "main.profile.drops": "{drops} drops",
+    "main.profile.drops_one": "{drops} drop",
     "main.profile.reset.title": "Profil zurücksetzen?",
     "main.profile.reset.note": "Möchten Sie die Profilseite zurücksetzen?",
     "main.profile.reset.action.cancel": "Stornieren",

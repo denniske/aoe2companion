@@ -14,6 +14,42 @@ export function setTranslations(language: string, newTranslations: Record<string
     queryClient.setQueryData(['translations', language], newTranslations);
 }
 
+// Hermes has no Intl.PluralRules, so the CLDR rules for our languages are inlined.
+export function pluralCategory(language: string, n: number): 'one' | 'few' | 'many' | 'other' {
+    const lang = language.split('-')[0];
+    const i = Math.abs(Math.trunc(n));
+    if (i !== Math.abs(n)) return 'other';
+    const mod10 = i % 10;
+    const mod100 = i % 100;
+    switch (lang) {
+        case 'ja':
+        case 'ko':
+        case 'zh':
+        case 'vi':
+        case 'ms':
+        case 'tr':
+            return 'other';
+        case 'fr':
+        case 'hi':
+            return i <= 1 ? 'one' : 'other';
+        case 'pl':
+            if (i === 1) return 'one';
+            return mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14) ? 'few' : 'many';
+        case 'ru':
+            if (mod10 === 1 && mod100 !== 11) return 'one';
+            return mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14) ? 'few' : 'many';
+        default:
+            return i === 1 ? 'one' : 'other';
+    }
+}
+
+// With a numeric `count` param, `key_one` / `key_few` / `key_many` / `key_other` are tried before `key`.
+function resolveKey(translations: Record<string, string> | undefined, language: string | undefined, key: string, params?: Record<string, any>) {
+    const count = params?.count;
+    if (!translations || typeof count !== 'number' || !language) return translations?.[key];
+    return translations[`${key}_${pluralCategory(language, count)}`] ?? translations[`${key}_other`] ?? translations[key];
+}
+
 export function getTranslationInternal(key: keyof typeof local001, params?: Record<string, any>) {
     const language = getLanguage();
 
@@ -29,7 +65,7 @@ export function getTranslationInternal(key: keyof typeof local001, params?: Reco
     const translations = queryClient.getQueryData<Record<string, string>>(['translations', language]);
     const translationsEn = queryClient.getQueryData<Record<string, string>>(['translations', 'en']);
 
-    let translated = (translations && key in translations) ? translations[key] : translationsEn?.[key];
+    let translated = resolveKey(translations, language, key, params) ?? resolveKey(translationsEn, 'en', key, params);
     if (translated && params) {
         for (const key in params) {
             translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), params![key]);
@@ -69,10 +105,10 @@ export function useTranslation() {
     }
 
     return (key: keyof typeof local001, params?: Record<string, string | number | undefined>) => {
-        let translated = translations && key in translations ? translations[key] : translationsEn?.[key];
+        let translated = resolveKey(translations, language, key, params) ?? resolveKey(translationsEn, 'en', key, params);
         if (translated && params) {
             for (const key in params) {
-                translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), params![key]);
+                translated = translated.replace(new RegExp(`\{${key}\}`, 'gi'), String(params![key]));
             }
         }
         // console.log('getTranslation', language, key, translated);

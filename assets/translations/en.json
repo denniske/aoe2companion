@@ -93,6 +93,7 @@
     "main.profile.clan": "Clan",
     "main.profile.games": "{games} games",
     "main.profile.drops": "{drops} drops",
+    "main.profile.drops_one": "{drops} drop",
     "main.profile.reset.title": "Reset profile?",
     "main.profile.reset.note": "Do you want to reset profile page?",
     "main.profile.reset.action.cancel": "Cancel",

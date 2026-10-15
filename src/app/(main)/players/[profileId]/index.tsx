@@ -73,10 +73,10 @@ export default function ProfilePage() {
                 <View className="flex-row gap-4 items-center">
                     <View className="flex-col">
                         <TextComponent alt variant="label-lg" className="min-w-24">
-                            {games} Matches
+                            {getTranslation('main.profile.games', { games })}
                         </TextComponent>
                         <TextComponent alt variant="label-sm" className="min-w-24">
-                            {drops} Drops ({games === 0 ? '0' : ((drops / games) * 100).toFixed(2)}%)
+                            {getTranslation('main.profile.drops', { drops, count: drops })} ({games === 0 ? '0' : ((drops / games) * 100).toFixed(2)}%)
                         </TextComponent>
                     </View>
 

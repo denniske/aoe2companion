@@ -92,7 +92,7 @@
     "main.profile.heading.streak": "ストリーク",
     "main.profile.clan": "クラン",
     "main.profile.games": "{games}ゲーム",
-    "main.profile.drops": "{drops}ドロップ",
+    "main.profile.drops": "{drops}回の切断",
     "main.profile.reset.title": "プロファイルをリセットしますか？",
     "main.profile.reset.note": "プロフィールページをリセットしますか？",
     "main.profile.reset.action.cancel": "キャンセル",

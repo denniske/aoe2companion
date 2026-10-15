@@ -92,7 +92,7 @@
     "main.profile.heading.streak": "줄",
     "main.profile.clan": "씨족",
     "main.profile.games": "{games} 게임",
-    "main.profile.drops": "{drops} 방울",
+    "main.profile.drops": "{drops}회 접속 끊김",
     "main.profile.reset.title": "프로필을 재설정 하시겠습니까?",
     "main.profile.reset.note": "프로필 페이지를 재설정 하시겠습니까?",
     "main.profile.reset.action.cancel": "취소",

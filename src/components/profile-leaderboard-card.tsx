@@ -79,7 +79,7 @@ export const ProfileLeaderboardCard: React.FC<{
                     </TextComponent>
 
                     <TextComponent variant="body-sm" color="subtle" className="hidden lg:flex">
-                        {getTranslation('main.profile.drops', { drops: leaderboard?.drops?.toLocaleString(language) ?? '' })}
+                        {getTranslation('main.profile.drops', { drops: leaderboard?.drops?.toLocaleString(language) ?? '', count: leaderboard?.drops })}
                     </TextComponent>
 
                     <View className="flex-1" />
@@ -108,7 +108,7 @@ export const ProfileLeaderboardCard: React.FC<{
                                     </TextComponent>
                                     {!!leaderboard && (
                                         <Text variant="body-xs" color="subtle">
-                                            {getTranslation('main.profile.drops', { drops: leaderboard.drops?.toLocaleString(language) ?? '0' })}
+                                            {getTranslation('main.profile.drops', { drops: leaderboard.drops?.toLocaleString(language) ?? '0', count: leaderboard.drops ?? 0 })}
                                         </Text>
                                     )}
                                 </View>
