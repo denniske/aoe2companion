@@ -134,6 +134,7 @@ export default function SettingsPage() {
         'es-mx': 'Español (Mexico)',
         fr: 'Français',
         it: 'Italiano',
+        pl: 'Polski',
         pt: 'Português-Brasil',
         ru: 'Pусский',
         vi: 'Tiếng Việ',

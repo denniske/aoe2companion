@@ -7,6 +7,7 @@ import { appConfig } from '@nex/dataset';
 import { ms } from 'date-fns/locale/ms';
 import { fr } from 'date-fns/locale/fr';
 import { it } from 'date-fns/locale/it';
+import { pl } from 'date-fns/locale/pl';
 import { pt } from 'date-fns/locale/pt';
 import { ru } from 'date-fns/locale/ru';
 import { vi } from 'date-fns/locale/vi';
@@ -59,6 +60,7 @@ const localeMapping = {
     fr: fr,
     'es-mx': es,
     it: it,
+    pl: pl,
     pt: pt,
     ru: ru,
     vi: vi,

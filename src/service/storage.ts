@@ -15,7 +15,7 @@ import { genericCivIcon, getCivIconLocal } from '@app/helper/civs';
 import { cdnImageUrl } from '@app/helper/maps';
 
 
-const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
+const supportedMainLocales = ['ms', 'fr', 'es', 'it', 'pl', 'pt', 'ru', 'vi', 'tr', 'de', 'en', 'es', 'hi', 'ja', 'ko'];
 
 // console.log('WIDGET', `group.${Constants.expoConfig?.ios?.bundleIdentifier}`);
 // console.log('WIDGET', Widget.getAppGroupPath(`group.${Constants.expoConfig?.ios?.bundleIdentifier}`));

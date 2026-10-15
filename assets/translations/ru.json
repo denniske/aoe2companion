@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "Привяжите канал Discord, чтобы показать его в профиле",
     "account.discord.channel": "Канал Discord",
+    "account.discord.server": "Сервер Discord (ссылка-приглашение)",
     "account.discord.unlink": "Отвязать аккаунт Discord",
     "account.discord.link": "Привязать Discord",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

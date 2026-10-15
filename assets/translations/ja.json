@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "Discordチャンネルを連携してプロフィールに表示します",
     "account.discord.channel": "Discordチャンネル",
+    "account.discord.server": "Discordサーバー（招待リンク）",
     "account.discord.unlink": "Discordアカウントの連携を解除",
     "account.discord.link": "Discordを連携",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

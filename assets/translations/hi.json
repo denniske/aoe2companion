@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "अपने प्रोफ़ाइल में दिखाने के लिए अपना Discord चैनल लिंक करें",
     "account.discord.channel": "Discord चैनल",
+    "account.discord.server": "Discord सर्वर (आमंत्रण लिंक)",
     "account.discord.unlink": "Discord खाता अनलिंक करें",
     "account.discord.link": "Discord लिंक करें",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

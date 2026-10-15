@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "Pautkan saluran Discord anda untuk memaparkannya dalam profil",
     "account.discord.channel": "Saluran Discord",
+    "account.discord.server": "Pelayan Discord (pautan jemputan)",
     "account.discord.unlink": "Nyahpaut Akaun Discord",
     "account.discord.link": "Pautkan Discord",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

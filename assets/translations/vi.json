@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "Liên kết kênh Discord để hiển thị trên hồ sơ của bạn",
     "account.discord.channel": "Kênh Discord",
+    "account.discord.server": "Máy chủ Discord (liên kết mời)",
     "account.discord.unlink": "Hủy liên kết tài khoản Discord",
     "account.discord.link": "Liên kết Discord",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

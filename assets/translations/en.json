@@ -304,6 +304,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "Link your Discord channel to show it in your profile",
     "account.discord.channel": "Discord channel",
+    "account.discord.server": "Discord server (invite link)",
     "account.discord.unlink": "Unlink Discord Account",
     "account.discord.link": "Link Discord",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

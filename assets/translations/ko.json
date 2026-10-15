@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "Discord 채널을 연결하여 프로필에 표시하세요",
     "account.discord.channel": "Discord 채널",
+    "account.discord.server": "Discord 서버 (초대 링크)",
     "account.discord.unlink": "Discord 계정 연결 해제",
     "account.discord.link": "Discord 연결",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

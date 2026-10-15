@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "連結你的 Discord 頻道並顯示在個人檔案中",
     "account.discord.channel": "Discord 頻道",
+    "account.discord.server": "Discord 伺服器（邀請連結）",
     "account.discord.unlink": "解除 Discord 帳號連結",
     "account.discord.link": "連結 Discord",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

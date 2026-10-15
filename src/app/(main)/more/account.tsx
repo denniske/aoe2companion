@@ -368,6 +368,7 @@ export default function AccountPage() {
 
                                 {!account.data.discordInvitation && (
                                     <>
+                                        <Text variant="label">{getTranslation('account.discord.server')}</Text>
                                         <View className="flex-row gap-2 items-center">
                                             <Field
                                                 className="w-60"

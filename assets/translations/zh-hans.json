@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "关联你的 Discord 频道并显示在个人资料中",
     "account.discord.channel": "Discord 频道",
+    "account.discord.server": "Discord 服务器（邀请链接）",
     "account.discord.unlink": "解除 Discord 账号绑定",
     "account.discord.link": "关联 Discord",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

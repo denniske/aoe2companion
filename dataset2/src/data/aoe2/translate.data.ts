@@ -5,6 +5,7 @@ export const translateStringsSourceData: Record<string, Record<string, string>> 
     'fr': require('../../../../assets/data/fr/strings.json'),
     'es-mx': require('../../../../assets/data/es-mx/strings.json'),
     'it': require('../../../../assets/data/it/strings.json'),
+    'pl': require('../../../../assets/data/pl/strings.json'),
     'pt': require('../../../../assets/data/pt/strings.json'),
     'ru': require('../../../../assets/data/ru/strings.json'),
     'vi': require('../../../../assets/data/vi/strings.json'),

@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "Verknüpfe deinen Discord-Kanal, um ihn in deinem Profil anzuzeigen",
     "account.discord.channel": "Discord-Kanal",
+    "account.discord.server": "Discord-Server (Einladungslink)",
     "account.discord.unlink": "Discord-Konto trennen",
     "account.discord.link": "Discord verknüpfen",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

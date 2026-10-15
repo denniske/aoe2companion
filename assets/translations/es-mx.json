@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "Vincula tu canal de Discord para mostrarlo en tu perfil",
     "account.discord.channel": "Canal de Discord",
+    "account.discord.server": "Servidor de Discord (enlace de invitación)",
     "account.discord.unlink": "Desvincular la cuenta de Discord",
     "account.discord.link": "Vincular Discord",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

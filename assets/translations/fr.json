@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "Liez votre salon Discord pour l'afficher sur votre profil",
     "account.discord.channel": "Salon Discord",
+    "account.discord.server": "Serveur Discord (lien d'invitation)",
     "account.discord.unlink": "Dissocier le compte Discord",
     "account.discord.link": "Lier Discord",
     "account.discord.placeholder.invitation": "https://discord.gg/...",

@@ -302,6 +302,7 @@
     "account.discord.title": "Discord",
     "account.discord.description": "Discord kanalını bağlayarak profilinde göster",
     "account.discord.channel": "Discord kanalı",
+    "account.discord.server": "Discord sunucusu (davet bağlantısı)",
     "account.discord.unlink": "Discord Hesabının Bağlantısını Kaldır",
     "account.discord.link": "Discord'u Bağla",
     "account.discord.placeholder.invitation": "https://discord.gg/...",
