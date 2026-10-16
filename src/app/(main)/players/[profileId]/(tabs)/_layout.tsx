@@ -333,9 +333,9 @@ export default function UserPage() {
                 header: (props) => <Header {...props} />,
             }}
         >
-            <Stack.Screen name="main-profile" initialParams={{ profileId }} options={{ title: appName }} />
-            <Stack.Screen name="main-stats" initialParams={{ profileId }} options={{ headerShown: true }} />
-            <Stack.Screen name="main-matches" initialParams={{ profileId }} options={{ headerShown: true }} />
+            <Stack.Screen name="main-profile" options={{ title: appName }} />
+            <Stack.Screen name="main-stats" options={{ headerShown: true }} />
+            <Stack.Screen name="main-matches" options={{ headerShown: true }} />
         </Stack>
     );
 }

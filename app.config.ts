@@ -185,7 +185,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     plugins: [
         expoRouter({
-            unstable_useServerRendering: true,
             sitemap: !isProdBuild,
             redirects: [
                 { source: '/leaderboard', destination: '/statistics/leaderboard' },
@@ -214,7 +213,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         expoFont(),
         expoLocalization(),
         expoWebBrowser(),
-        ['expo-build-properties', { ios: { enableSceneSupport: true } }],
         gradleJvmArgs as any,
     ],
     android: {

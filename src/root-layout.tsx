@@ -560,7 +560,7 @@ function AppWrapper() {
                     style={{ paddingTop: insets.top }}
                     onLayout={onLayoutRootView}
                 >
-                    <StatusBar barStyle={contentTheme} backgroundColor="transparent" translucent />
+                    <StatusBar barStyle={contentTheme} />
 
                     {/*<FloatingDevTools*/}
                     {/*    apps={[*/}

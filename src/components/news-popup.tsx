@@ -1,6 +1,6 @@
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { BottomSheet } from '@app/view/bottom-sheet';
-import { useRef } from 'react';
+import { type ComponentRef, useRef } from 'react';
 import { Platform, View } from 'react-native';
 import WebView from 'react-native-webview';
 import { Icon } from '@app/components/icon';
@@ -9,7 +9,7 @@ import { BlurView } from 'expo-blur';
 import { INews } from '@app/api/helper/api.types';
 
 export const NewsPopup: React.FC<{ news: INews; visible: boolean; onClose: () => void }> = ({ news, visible, onClose }) => {
-    const webviewRef = useRef<WebView>(null);
+    const webviewRef = useRef<ComponentRef<typeof WebView>>(null);
 
     const hideCookieBannerScript = `
         (function() {
@@ -61,11 +61,10 @@ export const NewsPopup: React.FC<{ news: INews; visible: boolean; onClose: () =>
                         overScrollMode="never"
                         bounces={false}
                         scrollEnabled={true}
-                        {...(Platform.OS === 'ios' ? { decelerationRate: 'normal' } : {})}
+                        decelerationRate="normal"
                         ref={webviewRef}
                         source={{ uri: news.link }}
-                        style={{ width: '100%', backgroundColor: 'rgba(255, 255, 255, 0)' }} // or #181c29
-                        className={'flex-1'}
+                        style={{ flex: 1, width: '100%', backgroundColor: 'rgba(255, 255, 255, 0)' }} // or #181c29
                         onLoadProgress={({ nativeEvent }) => {
                             webviewRef.current?.injectJavaScript(hideCookieBannerScript);
                         }}
