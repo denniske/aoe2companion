@@ -10,18 +10,30 @@ import { getMatchFromOngoingMatch } from '@app/helper/match';
 import { ScrollView } from '@app/components/scroll-view';
 import { MatchCard } from '@app/components/match/match-card';
 import { useLobbies } from '@app/api/socket/lobbies';
+import { useQueueing } from '@app/api/socket/queueing';
+import { QueueingPlayer } from '@app/components/live/queueing-player';
 import { Card } from '@app/components/card';
 import MatchInfo from '@app/components/match/match-info';
 import MatchTeams from '@app/components/match/match-teams';
 import MatchAnalysis from '@app/view/components/match-map/match-analysis';
 import { Button } from '@app/components/button';
-import { useAuthProfileId } from '@app/queries/all';
+import { useAccount, useAuthProfileId } from '@app/queries/all';
 
 export default function CurrentLobbyOrMatchPage() {
     const getTranslation = useTranslation();
     const authProfileId = useAuthProfileId();
+    const { data: account } = useAccount();
 
     const profileIds = useMemo(() => (authProfileId ? [authProfileId] : []), [authProfileId]);
+
+    // A queue is what comes before a lobby or a match, so it is the first thing this page can
+    // show about the player, and the only state the other two subscriptions cannot see.
+    const { players: queueingPlayers } = useQueueing({ profileIds, enabled: profileIds.length > 0 });
+
+    const nameOf = (profileId: number) =>
+        profileId === authProfileId
+            ? getTranslation('matches.queueing.you')
+            : account?.followedPlayers?.find((f) => f.profileId === profileId)?.name;
 
     const {
         matches,
@@ -87,7 +99,11 @@ export default function CurrentLobbyOrMatchPage() {
                 </Card>
             )}
 
-            {!lobby && !match && !isLoading && connected && (
+            {queueingPlayers.map((player) => (
+                <QueueingPlayer key={player.advertisementId} player={player} nameOf={nameOf} />
+            ))}
+
+            {!lobby && !match && queueingPlayers.length === 0 && !isLoading && connected && (
                 <Card direction="vertical">
                     <Text className="text-center">{getTranslation('matches.current.empty')}</Text>
                 </Card>
