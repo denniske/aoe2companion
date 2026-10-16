@@ -54,7 +54,7 @@ import { cacheLiveActivityAssets, widgetGroupDir } from '@app/service/storage';
 import { addPushToStartTokenListener, ExpoWidgetsEvents } from 'expo-widgets';
 import { setAccountLiveActivityToken } from '@app/api/account';
 import { addUserInteractionListener } from 'expo-widgets/src/Widgets';
-import { ObserveRoot, useObserve } from 'expo-observe';
+import { Observe, ObserveRoot, useObserve } from 'expo-observe';
 
 // Important:
 // Evaluating this module runs createLiveActivity('MatchActivity', …),
@@ -91,6 +91,10 @@ function onAppStateChange(status: AppStateStatus) {
 }
 
 SplashScreen.preventAutoHideAsync();
+
+// Sentry already records unhandled JS errors (with our own grouping in beforeSend); keep Observe
+// to startup and navigation metrics so the same error isn't recorded twice.
+Observe.configure({ errorHandlingEnabled: false });
 
 // Introduced in SDK 52, but it seems to be not available when imported from expo router.
 // SplashScreen.setOptions({

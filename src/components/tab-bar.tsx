@@ -12,6 +12,7 @@ import { useTranslation } from '@app/helper/translate';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { Button } from '@app/components/button';
 import { v4 as uuidv4 } from 'uuid';
+import { useSideTabBar } from '@app/hooks/use-side-tab-bar';
 
 export function useCurrentTabName() {
     // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
@@ -52,6 +53,7 @@ export const TabBar: React.FC = () => {
     const getTranslation = useTranslation();
     const insets = useSafeAreaInsets();
     const { bottom } = insets;
+    const sideTabBar = useSideTabBar();
     const router = useRouter();
     const routeName = useCurrentTabName();
 
@@ -121,6 +123,57 @@ export const TabBar: React.FC = () => {
             path: '/more',
         },
     ];
+    const renderItem = (route: (typeof routes)[number]) => {
+        const label = route.label;
+        const isFocused = routeName?.startsWith(route.key) || route.additionalRoutes.some((r) => routeName?.startsWith(r));
+
+        const onPress = () => {
+            if (router.canDismiss()) {
+                router.dismissAll();
+            }
+            router.replace(route.path);
+        };
+
+        return (
+            <Pressable
+                onPress={() => onPress()}
+                key={route.label}
+                className={`justify-center items-center py-2 ${sideTabBar ? 'w-20 py-3' : 'flex-1'} ${isFocused && 'bg-blue-800 dark:bg-gold-700'} rounded-lg`}
+            >
+                {!!(route.icon) && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon} />}
+                {/* Six slots share the width, so a long label used to wrap and
+                    push the row taller. Clip instead -- the translations below
+                    are kept short enough that this rarely bites. */}
+                <Text
+                    allowFontScaling={false}
+                    numberOfLines={1}
+                    variant="nav"
+                    color={isFocused ? 'white' : 'brand'}
+                    className={`uppercase mt-2`}
+                >
+                    {label}
+                </Text>
+            </Pressable>
+        );
+    };
+
+    // A rail beside the content: it covers nothing, so it stays visible while scrolling and
+    // needs no scroll-to-top arrow.
+    if (sideTabBar) {
+        return (
+            <View
+                className="justify-center"
+                style={{ paddingLeft: insets.left + 8, paddingRight: 8, paddingTop: insets.top + 8, paddingBottom: insets.bottom + 8 }}
+            >
+                <Bar
+                    className={`gap-1 p-2 ${glassAvailable ? 'rounded-2xl' : 'rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black'}`}
+                >
+                    {routes.map((route) => renderItem(route))}
+                </Bar>
+            </View>
+        );
+    }
+
     return (
         <>
             <Animated.View className="absolute px-4 pb-2 w-full" style={animatedArrowStyle}>
@@ -155,41 +208,7 @@ export const TabBar: React.FC = () => {
                 <Bar
                     className={`flex-row p-2 max-w-2xl w-full mx-auto ${glassAvailable ? 'rounded-2xl' : 'rounded-lg bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black'}`}
                 >
-                    {routes.map((route) => {
-                        // console.log('ROUTE', route.key, route.path);
-
-                        const label = route.label;
-                        const isFocused = routeName?.startsWith(route.key) || route.additionalRoutes.some((r) => routeName?.startsWith(r));
-
-                        const onPress = () => {
-                            if (router.canDismiss()) {
-                                router.dismissAll();
-                            }
-                            router.replace(route.path);
-                        };
-
-                        return (
-                            <Pressable
-                                onPress={() => onPress()}
-                                key={route.label}
-                                className={`justify-center items-center py-2 flex-1 ${isFocused && 'bg-blue-800 dark:bg-gold-700'} rounded-lg`}
-                            >
-                                {!!(route.icon) && <Icon color={isFocused ? 'white' : 'brand'} size={22} icon={route.icon} />}
-                                {/* Six slots share the width, so a long label used to wrap and
-                                    push the row taller. Clip instead -- the translations below
-                                    are kept short enough that this rarely bites. */}
-                                <Text
-                                    allowFontScaling={false}
-                                    numberOfLines={1}
-                                    variant="nav"
-                                    color={isFocused ? 'white' : 'brand'}
-                                    className={`uppercase mt-2`}
-                                >
-                                    {label}
-                                </Text>
-                            </Pressable>
-                        );
-                    })}
+                    {routes.map((route) => renderItem(route))}
                 </Bar>
             </Animated.View>
         </>

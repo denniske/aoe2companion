@@ -1,3 +1,4 @@
+import { useTabBarBottomOffset } from '@app/hooks/use-side-tab-bar';
 import { countryEarth, CountrySelect, isCountry } from '@app/components/select/country-select';
 import { withCacheBust } from '@app/api/util';
 import { leaderboardsByType } from '@app/helper/leaderboard';
@@ -101,7 +102,8 @@ export default function LeaderboardFlashListPage() {
     const flatListRef = React.useRef<FlashListRef<any>>(null);
     const [rankWidth, setRankWidth] = useState<number>(43);
     const [myRankWidth, setMyRankWidth] = useState<number>(0);
-    const bottom = insets.bottom + 82;
+    const tabBarBottomOffset = useTabBarBottomOffset();
+    const bottom = insets.bottom + tabBarBottomOffset;
 
     const list = useRef<LeaderboardListRow[]>([]);
     // Pages already spliced into `list`, so a re-render that hands back the same

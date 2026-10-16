@@ -1,3 +1,4 @@
+import { useTabBarBottomOffset } from '@app/hooks/use-side-tab-bar';
 import { useFocusEffect } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Platform, ScrollView, ScrollViewProps, useWindowDimensions, type ScrollViewInstance } from 'react-native';
@@ -22,12 +23,13 @@ export const useScrollView = ({
     const shouldDisableScroll = !showTabBar && !horizontal;
     const scrollViewRef = useRef<ScrollViewInstance>(null);
     const { bottom } = useSafeAreaInsets();
+    const tabBarBottomOffset = useTabBarBottomOffset();
 
     // const tw = useTw();
     // const style = tw.style(contentContainerStyle);
     // const paddingBottom = ((style.paddingBottom || 0) as number) + (Platform.OS === 'ios' ? 0 : bottomOffset);
 
-    const bottomOffset = horizontal || shouldDisableScroll ? 0 : bottom + 82;
+    const bottomOffset = horizontal || shouldDisableScroll ? 0 : bottom + tabBarBottomOffset;
     const paddingBottom = 20 + (Platform.OS === 'ios' ? bottomOffset - 20 : bottomOffset);
     const scrollToTop = useScrollToTop();
     const { setScrollPosition } = useMutateScroll();
