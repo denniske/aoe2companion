@@ -7,7 +7,8 @@ import { FlashList } from '@shopify/flash-list';
 import { useQueries } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useWindowDimensions, View, ViewToken } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
+import type { ViewToken } from '@shopify/flash-list';
 
 /**
  * The leaderboard's paging model, minus the leaderboard.
@@ -86,7 +87,7 @@ export default function LeaderboardRowSkeletonListPage() {
         });
     }, [results]);
 
-    const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken[] }) => {
+    const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken<LeaderboardListRow>[] }) => {
         if (viewableItems.length === 0) return;
 
         const first = viewableItems[0].index ?? 0;

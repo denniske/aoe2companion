@@ -1,7 +1,7 @@
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { noop } from 'lodash';
 import { useRef } from 'react';
-import { SectionListProps, View } from 'react-native';
+import { SectionBase, SectionListProps, View } from 'react-native';
 
 export function SectionListWeb<ItemT>({
     contentContainerClassName,
@@ -39,7 +39,7 @@ export function SectionListWeb<ItemT>({
                     )}
 
                     <View className="flex-row flex-wrap gap-x-2">
-                        {section.data.map((item, itemIndex) => (
+                        {(section as SectionBase<ItemT>).data.map((item, itemIndex) => (
                             <View key={itemIndex}>
                                 {renderItem?.({
                                     item,

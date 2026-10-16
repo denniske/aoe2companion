@@ -4,6 +4,7 @@ import { Image, ImageSourcePropType, Platform, StyleSheet, View } from 'react-na
 import { useAppTheme } from '../../../theming';
 import { MyText } from '@app/view/components/my-text';
 import { Building, iconHeight, iconWidth, Tech, Unit } from '@nex/data';
+import { Image as IconImage, type ImageSourceProp } from '@app/components/uniwind/image';
 import { getAbilityIcon } from '@app/view/components/tech-tree';
 import { createStylesheet } from '../../../theming-new';
 import { openLink } from '../../../helper/url';
@@ -27,7 +28,7 @@ interface ITip {
     building?: Building;
     tech?: Tech;
     url?: string;
-    imageIcon?: ImageSourcePropType;
+    imageIcon?: ImageSourceProp;
     icon?: string;
 }
 
@@ -337,7 +338,7 @@ export default function TipsPage() {
                                         <Icon icon={faVideo} size={16} />
                                     </View>
                                 )}
-                                {!tip.icon && <Image style={styles.unitIconBig} source={tip.imageIcon ? tip.imageIcon : getAbilityIcon(tip)} />}
+                                {!tip.icon && <IconImage style={styles.unitIconBig} source={tip.imageIcon ? tip.imageIcon : getAbilityIcon(tip)} />}
                                 <View style={styles.textContainer}>
                                     <MyText style={[styles.title, { fontWeight: currentTipIndex === i ? 'bold' : 'normal' }]}>{tip.title}</MyText>
                                     <MyText style={styles.description}>{tip.description}</MyText>

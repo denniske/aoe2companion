@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View, type ViewInstance } from 'react-native';
 import Animated, { type SharedValue, useAnimatedProps, useAnimatedStyle, useDerivedValue, useSharedValue } from 'react-native-reanimated';
 
 export interface CursorLookup {
@@ -42,7 +42,7 @@ export function CursorOverlay({
     // text measurement — layout reports the real width.
     const boxWidth = useSharedValue(0);
 
-    const overlayRef = useRef<View | null>(null);
+    const overlayRef = useRef<ViewInstance | null>(null);
 
     useEffect(() => {
         // Listen on the document and resolve our own node at event time. Binding

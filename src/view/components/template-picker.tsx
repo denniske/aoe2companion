@@ -23,13 +23,14 @@ export default function TemplatePicker<T>(props: IPickerProps<T>) {
     const { value, values, onSelect, style, disabled, template = defaultTemplate } = props;
 
     const renderItem = (v: T, i: number) => {
-        let style: ViewStyle = {};
+        const style: ViewStyle = {
+            borderTopLeftRadius: 5,
+            borderBottomLeftRadius: 5,
+            borderTopRightRadius: 5,
+            borderBottomRightRadius: 5,
+            paddingVertical: 5,
+        };
         const selected = v == value;
-        style.borderTopLeftRadius = 5;
-        style.borderBottomLeftRadius = 5;
-        style.borderTopRightRadius = 5;
-        style.borderBottomRightRadius = 5;
-        style.paddingVertical = 5;
         return (
             <TouchableHighlight
                 key={i}

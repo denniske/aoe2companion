@@ -1,6 +1,6 @@
 import {Animated, Dimensions, Platform} from "react-native";
 
-export function getValue(animatedValue: Animated.AnimatedValue) {
+export function getValue(animatedValue: Animated.Value) {
     // @ts-ignore
     return animatedValue._value;
 }

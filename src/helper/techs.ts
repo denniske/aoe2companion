@@ -1,9 +1,10 @@
+import type { ImageSourceProp } from '@app/components/uniwind/image';
 import {Tech, techs } from "@nex/data";
-import {ImageSourcePropType} from "react-native";
+
 import { techIconImageDict } from '@/assets/techs';
 
 
-export function getTechIcon(tech: Tech): ImageSourcePropType {
+export function getTechIcon(tech: Tech): ImageSourceProp {
     const techEntry = techs[tech];
 
     if (techEntry?.age === 'CastleAge') {

@@ -78,7 +78,7 @@ export const useFavoritedBuilds = () => {
 
                     // The path actually can also be any string like an md5 of the actual path
                     const civilizationPath = Paths.join(widgetGroupDir, `${camelCase(build.civilization)}.png`);
-                    const civilizationSource = () => Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon).uri;
+                    const civilizationSource = () => Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon)?.uri;
 
                     favoriteBuilds.push({
                         ...build,

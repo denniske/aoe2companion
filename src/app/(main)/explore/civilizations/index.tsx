@@ -98,7 +98,7 @@ export default function CivList() {
                     data={orderCivs(list.filter((c) => c !== 'Indians'))}
                     renderItem={({ item, index }) => (isMedium ? renderItemRow(item, index) : renderItem(item, index))}
                     keyExtractor={(item, index) => index.toString()}
-                    ItemSeparatorComponent={isMedium ? () => <View className="h-px bg-border" /> : null}
+                    ItemSeparatorComponent={isMedium ? () => <View className="h-px bg-border" /> : undefined}
                 />
             </View>
         </KeyboardAvoidingView>

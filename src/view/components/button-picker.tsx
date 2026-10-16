@@ -1,4 +1,5 @@
-import { ImageSourcePropType, StyleProp, View, ViewStyle } from 'react-native';
+import type { ImageSourceProp } from '@app/components/uniwind/image';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import React from 'react';
 import { Button } from '@app/components/button';
 import { TextColor, textColors } from '@app/utils/text.util';
@@ -9,7 +10,7 @@ interface IPickerProps<T> {
     value?: T;
     values: T[];
     formatter?: (value: T, props: { color: string }) => string;
-    image?: (value: T) => ImageSourcePropType;
+    image?: (value: T) => ImageSourceProp;
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
     flex?: boolean;

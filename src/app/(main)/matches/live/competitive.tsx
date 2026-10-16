@@ -27,7 +27,7 @@ export default function OngoingMatchesPage() {
                 className="flex-1"
                 contentContainerClassName="p-4 gap-2"
                 ListEmptyComponent={
-                    isLoading ? null : (
+                    isLoading ? undefined : (
                         <Text>{getTranslation('competitive.activeGames.empty')}</Text>
                     )
                 }

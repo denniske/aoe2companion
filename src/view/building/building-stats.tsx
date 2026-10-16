@@ -1,4 +1,5 @@
-import {Image, StyleSheet, View} from "react-native";
+import {StyleSheet, View} from "react-native";
+import { Image } from "@app/components/uniwind/image";
 import {MyText} from "../components/my-text";
 import {
     Building, buildingSections, getBuildingData, getBuildingName, getUnitClassName,

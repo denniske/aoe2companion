@@ -1,3 +1,4 @@
+import type { ImageSourceProp } from '@app/components/uniwind/image';
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
@@ -34,7 +35,7 @@ import { Image } from '@/src/components/uniwind/image';
 import { Href, Redirect, router, Stack, Link as ExpoLink, RouteSegments } from 'expo-router';
 import { compact, orderBy, uniq } from 'lodash';
 import React, { useState } from 'react';
-import { ImageSourcePropType, Platform, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 import { useInfiniteBuilds, useMaps } from '@app/queries/all';
 import Aoe4Explore from '@app/view/aoe4-explorer/explore-index';
@@ -84,7 +85,7 @@ type Item =
 
 const typeAttributes: Record<
     Item['type'],
-    { path: 'civilizations' | 'units' | 'buildings' | 'technologies' | 'maps'; labelKey: string; title: (name: any) => string; icon: (name: any) => ImageSourcePropType }
+    { path: 'civilizations' | 'units' | 'buildings' | 'technologies' | 'maps'; labelKey: string; title: (name: any) => string; icon: (name: any) => ImageSourceProp }
 > = {
     civ: { path: 'civilizations', labelKey: 'explore.civilization', title: getCivNameById, icon: getCivIconLocal },
     unit: { path: 'units', labelKey: 'explore.unit', title: getUnitName, icon: getUnitIcon },
@@ -93,7 +94,7 @@ const typeAttributes: Record<
     map: { path: 'maps', labelKey: 'explore.map', title: getTechName, icon: getTechIcon },
 };
 
-const ExploreCard: React.FC<{ text: string; href: Href; image?: ImageSourcePropType; icon?: IconDefinition }> = ({ text, href, image, icon }) => {
+const ExploreCard: React.FC<{ text: string; href: Href; image?: ImageSourceProp; icon?: IconDefinition }> = ({ text, href, image, icon }) => {
     const { isMedium } = useBreakpoints();
 
     return (

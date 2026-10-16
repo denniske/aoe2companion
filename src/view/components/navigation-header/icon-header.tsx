@@ -1,4 +1,5 @@
-import {GestureResponderEvent, ImageSourcePropType, LayoutChangeEvent, Platform, StyleSheet, View} from "react-native";
+import type { ImageSourceProp } from '@app/components/uniwind/image';
+import { GestureResponderEvent, LayoutChangeEvent, Platform, StyleSheet, View } from 'react-native';
 import {Image, ImageBackground} from "expo-image";
 import React from "react";
 import {MyText} from "../my-text";
@@ -6,8 +7,8 @@ import {iconHeight, iconWidth} from "@nex/data";
 import {createStylesheet} from '../../../theming-new';
 
 interface IconHeaderProps {
-    icon: ImageSourcePropType;
-    badgeIcon?: ImageSourcePropType;
+    icon: ImageSourceProp;
+    badgeIcon?: ImageSourceProp;
     text: string;
     subtitle?: string;
     onLayout: (e: LayoutChangeEvent) => void;

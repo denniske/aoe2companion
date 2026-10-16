@@ -1,11 +1,6 @@
+import type { ImageSourceProp } from '@app/components/uniwind/image';
 import { PressableOpacity } from '@app/components/pressable-opacity';
-import {
-    GestureResponderEvent,
-    ImageSourcePropType,
-    StyleSheet,
-    TextInput,
-    View,
-} from 'react-native';
+import { GestureResponderEvent, StyleSheet, TextInput, View, type TextInputInstance } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { createStylesheet } from '../../theming-new';
 import { useRef, useState } from 'react';
@@ -13,8 +8,8 @@ import { MyText } from './my-text';
 import { Image } from '@/src/components/uniwind/image';
 
 interface FilterProps<Value> {
-    options: { value: Value; label: string; icon?: ImageSourcePropType }[];
-    icon?: ImageSourcePropType;
+    options: { value: Value; label: string; icon?: ImageSourceProp }[];
+    icon?: ImageSourceProp;
     label: string;
     value: Value;
     onChange: (value: Value) => void;
@@ -27,7 +22,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon, onPress 
     const styles = useStyles();
     const initialValue = options.find((o) => o.value == value)?.label ?? '';
     const [search, setSearch] = useState<string>();
-    const filterField = useRef<TextInput>(null);
+    const filterField = useRef<TextInputInstance>(null);
     const blurTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     const [isFocused, setIsFocused] = useState(false);
     const filteredOptions = search ? options.filter(
@@ -107,7 +102,7 @@ export const Filter = <Value,>({ options, label, value, onChange, icon, onPress 
 const ResultRow: React.FC<{
     index: number;
     label: string;
-    icon?: ImageSourcePropType;
+    icon?: ImageSourceProp;
     onPress: (e: GestureResponderEvent) => void;
 }> = ({ label, icon, onPress, index }) => {
     const styles = useStyles();

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import { Platform, StyleSheet, ViewStyle } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import Snackbar from '../snackbar';
 import { useSelector } from '../../../redux/reducer';
 import { compareBuild } from 'semver';
@@ -65,6 +65,7 @@ export default function ChangelogSnackbar() {
 
 const styles = StyleSheet.create({
     bar: {
-        ...(Platform.OS === 'web' ? { '-webkit-app-region': 'no-drag' } : {}),
-    } as ViewStyle,
+        // Electron-only property, not part of RN's style types.
+        ...(Platform.OS === 'web' ? ({ '-webkit-app-region': 'no-drag' } as {}) : {}),
+    },
 });

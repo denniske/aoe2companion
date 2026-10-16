@@ -1,5 +1,6 @@
+import type { ImageSourceProp } from '@app/components/uniwind/image';
 import { Age, Building, Civ, getPictureName, Other, Tech, Unit, UnitLine, unitLines } from '@nex/data';
-import {ImageSourcePropType} from "react-native";
+
 import { getBuildingIcon } from './buildings';
 import { getTechIcon } from './techs';
 import { unitIconImageDict } from '@/assets/units';
@@ -46,20 +47,20 @@ export function getEliteUniqueResearchIcon() {
 // steps fall back to the elite unique research icon.
 // Monk and TradeCart are only in the dict under their per-civ picture names, so the
 // generic icons are needed whenever no civ is given.
-const extraUnitIcons: Record<string, ImageSourcePropType> = {
+const extraUnitIcons: Record<string, ImageSourceProp> = {
     'Sheep': require('../../assets/units/Sheep.png'),
     'Boar': require('../../assets/units/Boar.png'),
     'Monk': require('../../assets/units/Monk.png'),
     'TradeCart': require('../../assets/units/TradeCart.png'),
 };
 
-function getUnitIconImage(unit: string | undefined): ImageSourcePropType | undefined {
+function getUnitIconImage(unit: string | undefined): ImageSourceProp | undefined {
     if (!unit) return undefined;
     return unitIconImageDict[unit] ?? extraUnitIcons[unit];
 }
 
 // Use .webp for smaller files later
-export function getUnitIcon(unit: Unit, civ?: Civ): ImageSourcePropType {
+export function getUnitIcon(unit: Unit, civ?: Civ): ImageSourceProp {
     if (['Monk', 'TradeCart'].includes(unit) && civ) {
         const pictureName = getPictureName(unit, civ);
         if (pictureName) {

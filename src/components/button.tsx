@@ -1,6 +1,7 @@
+import type { ImageSourceProp } from '@app/components/uniwind/image';
 import { TextColor, TextVariant } from '@app/utils/text.util';
 import { Href, Link, router } from 'expo-router';
-import { ImageSourcePropType, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 import { PressableOpacityProps } from '@app/components/pressable-opacity';
 
 import { Icon, IconProps } from './icon';
@@ -16,7 +17,7 @@ export interface ButtonProps extends Omit<PressableOpacityProps, 'children'> {
     size?: 'small' | 'medium' | 'large';
     align?: TextProps['align'];
     color?: TextColor;
-    image?: ImageSourcePropType;
+    image?: ImageSourceProp;
 }
 
 export const Button: React.FC<ButtonProps> = ({

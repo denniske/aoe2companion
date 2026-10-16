@@ -1,7 +1,7 @@
 import { useScrollView } from '@app/hooks/use-scroll-view';
 import { containerScrollClassName } from '@app/styles';
 import { forwardRef } from 'react';
-import { ScrollView as ScrollViewRN, ScrollViewProps as ScrollViewPropsRN } from 'react-native';
+import { ScrollView as ScrollViewRN, ScrollViewProps as ScrollViewPropsRN, type ScrollViewInstance } from 'react-native';
 import cn from 'classnames';
 
 export interface ScrollViewProps extends Omit<ScrollViewPropsRN, 'contentContainerStyle'> {
@@ -11,7 +11,7 @@ export interface ScrollViewProps extends Omit<ScrollViewPropsRN, 'contentContain
 export const ScrollView = forwardRef(
     function ScrollView(
         { contentContainerStyle, contentContainerClassName, ...props }: ScrollViewProps,
-        ref: React.ForwardedRef<ScrollViewRN>
+        ref: React.ForwardedRef<ScrollViewInstance>
     ) {
         const scrollViewProps = useScrollView({ contentContainerStyle, ref, ...props });
 

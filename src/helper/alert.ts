@@ -1,5 +1,5 @@
 import { Alert, Platform } from 'react-native'
-import { AlertButton, AlertOptions } from 'react-native/Libraries/Alert/Alert';
+import type { AlertButton, AlertOptions } from 'react-native';
 
 const alertPolyfill = (
     title: string,

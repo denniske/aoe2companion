@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Platform, ScrollView as RNScrollView, View } from 'react-native';
+import { Platform, View, type ScrollViewInstance } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMatches } from '@app/api/helper/api';
@@ -55,7 +55,7 @@ export default function MainProfile() {
 
     // Kept so collapsing the inactive leaderboards can take the removed height off the
     // offset the page had before the collapse, rather than whatever it was clamped to.
-    const scrollRef = useRef<RNScrollView>(null);
+    const scrollRef = useRef<ScrollViewInstance>(null);
     const scrollYRef = useRef(0);
     const scrollYBeforeCollapseRef = useRef(0);
 

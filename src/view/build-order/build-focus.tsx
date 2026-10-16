@@ -1,6 +1,6 @@
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import React, { useRef, useState } from 'react';
-import { FlatList, GestureResponderEvent, Modal, Platform, View, ViewToken } from 'react-native';
+import { FlatList, GestureResponderEvent, Modal, Platform, View, ListViewToken } from 'react-native';
 import { Step } from '../components/build-order/step';
 import { SafeAreaProvider, SafeAreaView } from '@/src/components/uniwind/safe-area-context';
 import { Icon } from '@app/components/icon';
@@ -28,7 +28,7 @@ export const BuildFocus: React.FC<{
     // component out of React Compiler. It only closes over setCurrentStep, which is
     // stable, so the compiler caches it once per instance and the identity is just
     // as stable as the ref was.
-    const handleViewableItemsChanged = ({ changed, viewableItems }: { viewableItems: ViewToken[]; changed: ViewToken[] }) => {
+    const handleViewableItemsChanged = ({ changed, viewableItems }: { viewableItems: ListViewToken[]; changed: ListViewToken[] }) => {
         if (changed) {
             const viewableSteps = viewableItems.map((item) => item.index ?? 0);
             setCurrentStep(viewableSteps[0]);

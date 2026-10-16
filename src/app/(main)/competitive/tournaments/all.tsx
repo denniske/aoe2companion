@@ -98,7 +98,7 @@ export default function AllTournaments() {
                                     {getTranslation('tournaments.gotoliquipedia')}
                                 </Button>
                             </View>
-                        ) : null
+                        ) : undefined
                     }
                     className="flex-1"
                     refreshControl={<RefreshControlThemed {...refreshControlProps} />}

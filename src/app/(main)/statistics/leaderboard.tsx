@@ -8,7 +8,7 @@ import { MyText } from '@app/view/components/my-text';
 import { useQueries, useQueryClient } from '@tanstack/react-query';
 import { router, Stack } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent, Platform, StyleSheet, useWindowDimensions, View, ViewToken } from 'react-native';
+import { NativeScrollEvent, NativeSyntheticEvent, Platform, StyleSheet, useWindowDimensions, View, ListViewToken } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useDerivedValue, useSharedValue } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
@@ -385,10 +385,10 @@ export default function LeaderboardPage() {
     // onViewableItemsChanged on the fly is not supported" if the identity ever
     // changes, so the list gets a wrapper that never changes and the effect below
     // keeps it pointed at the current closure. FlashList had no such rule.
-    const viewabilityHandler = useRef<(info: { viewableItems: ViewToken[] }) => void>(undefined);
-    const onViewableItemsChangedStable = useCallback((info: { viewableItems: ViewToken[] }) => viewabilityHandler.current?.(info), []);
+    const viewabilityHandler = useRef<(info: { viewableItems: ListViewToken[] }) => void>(undefined);
+    const onViewableItemsChangedStable = useCallback((info: { viewableItems: ListViewToken[] }) => viewabilityHandler.current?.(info), []);
 
-    const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+    const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ListViewToken[] }) => {
         if (viewableItems.length === 0) return;
         if (!total) return;
 

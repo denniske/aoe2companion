@@ -1,4 +1,5 @@
-import { Image, StyleSheet, TextStyle, View } from 'react-native';
+import { StyleSheet, TextStyle, View } from 'react-native';
+import { Image } from '@app/components/uniwind/image';
 import { MyText } from '../components/my-text';
 import {
     Age,

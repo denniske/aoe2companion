@@ -1,16 +1,5 @@
 import { TextVariant } from '@app/utils/text.util';
-import {
-    Dimensions,
-    EmitterSubscription,
-    LayoutRectangle,
-    NativeEventSubscription,
-    Platform,
-    Pressable,
-    StyleProp,
-    View,
-    ViewProps,
-    ViewStyle,
-} from 'react-native';
+import { Dimensions, EmitterSubscription, LayoutRectangle, NativeEventSubscription, Platform, Pressable, StyleProp, View, ViewProps, ViewStyle, type ViewInstance } from 'react-native';
 
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { PressableOpacityProps } from '@app/components/pressable-opacity';
@@ -22,7 +11,7 @@ import { Gesture, GestureDetector, TapGestureHandler } from 'react-native-gestur
 import { RenderInPortal } from '@app/components/portal/render-in-portal';
 import * as React from 'react';
 import { FC, MutableRefObject, ReactNode, useEffect, useRef, useState } from 'react';
-import { KeyboardEvent as RNKeyboardEvent } from 'react-native/Libraries/Components/Keyboard/Keyboard';
+import type { KeyboardEvent as RNKeyboardEvent } from 'react-native';
 
 const WINDOW_LAYOUT = Dimensions.get('window');
 
@@ -96,8 +85,8 @@ export const MenuNew: FC<MenuProps> = ({
 
     const keyboardHeightRef = useRef(0);
     const prevVisible = useRef<boolean | null>(null);
-    const anchorRef = useRef<View | null>(null);
-    const menuRef = useRef<View | null>(null);
+    const anchorRef = useRef<ViewInstance | null>(null);
+    const menuRef = useRef<ViewInstance | null>(null);
     const prevRendered = useRef(false);
 
     const keyboardDidShow = (e: RNKeyboardEvent) => {

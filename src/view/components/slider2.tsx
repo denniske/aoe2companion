@@ -1,7 +1,7 @@
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { compact } from 'lodash';
 import { useRef, useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View, ScrollView, ViewStyle } from 'react-native';
+import { NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View, ScrollView, ViewStyle, type FlatListInstance, type ScrollViewInstance } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils';
 
@@ -22,7 +22,7 @@ export const Slider2: React.FC<SliderProps> = ({
                                                   paginationStyle,
                                                   ...props
                                               }) => {
-    const scrollView = useRef<FlatList>(null);
+    const scrollView = useRef<FlatListInstance>(null);
     const [slideWidth, setSlideWidth] = useState(0);
     const [activeIndex, setActiveIndex] = useState(0);
     const slides = compact(allSlides);
@@ -36,7 +36,7 @@ export const Slider2: React.FC<SliderProps> = ({
     };
 
     const scrollToIndex = (index: number) => {
-        (scrollView.current?.getScrollResponder() as ScrollView | undefined)?.scrollTo({ x: slideWidth * index, animated: true });
+        (scrollView.current?.getScrollResponder() as ScrollViewInstance | undefined)?.scrollTo({ x: slideWidth * index, animated: true });
     };
 
     return (

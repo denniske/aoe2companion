@@ -1,5 +1,6 @@
+import type { ImageSourceProp } from '@app/components/uniwind/image';
 import { createStylesheet } from '../../../theming-new';
-import { ImageSourcePropType, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { getTechIcon } from '../../../helper/techs';
 import {getAgeIcon, getOtherIcon, getUnitIcon} from '../../../helper/units';
 import { Icon } from '@app/components/icon';
@@ -16,7 +17,7 @@ type Size = 'small' | 'large';
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-const taskMap: Record<NonNullable<IBuildOrderStep['task']>, ImageSourcePropType> = {
+const taskMap: Record<NonNullable<IBuildOrderStep['task']>, ImageSourceProp> = {
     wood: getOtherIcon('Wood'),
     food: getOtherIcon('Food'),
     gold: getOtherIcon('Gold'),

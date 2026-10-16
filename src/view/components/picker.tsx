@@ -6,7 +6,7 @@ import {
     Platform,
     Pressable,
     SectionList,
-    SectionListData,
+    SectionBase,
     StyleProp,
     StyleSheet,
     View,
@@ -22,7 +22,7 @@ import { faAngleDown, faChevronDown } from '@fortawesome/sharp-solid-svg-icons';
 interface IPickerProps<T> {
     value?: T;
     values?: T[];
-    sections?: SectionListData<T>[];
+    sections?: (SectionBase<T> & { title?: string | null })[];
     formatter: (value: T, inList?: boolean) => string;
     sectionFormatter?: (value: string) => string;
     icon?: (value: T, inList?: boolean) => React.ReactNode;
@@ -126,9 +126,10 @@ export default function Picker<T>(props: IPickerProps<T>) {
         </>
     );
 
-    const flatListProps: Partial<FlatListProps<T>> = {};
+    const flatListProps: Partial<FlatListProps<T>> = container === 'flatlist' && itemHeight
+        ? { getItemLayout: (_data, index) => ({ length: itemHeight, offset: itemHeight * index, index }) }
+        : {};
     if (container === 'flatlist' && itemHeight) {
-        flatListProps.getItemLayout = (data, index) => ({ length: itemHeight, offset: itemHeight * index, index });
 
         // flatListProps.initialScrollIndex = value !== undefined ? Math.max(0, values!.indexOf(value)) : 0;
 

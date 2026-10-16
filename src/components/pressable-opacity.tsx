@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { Pressable, PressableProps, View } from 'react-native';
+import { Pressable, PressableProps, View, type ViewInstance } from 'react-native';
 
 export interface PressableOpacityProps extends PressableProps {
     className?: string;
@@ -13,7 +13,7 @@ export interface PressableOpacityProps extends PressableProps {
  * uniwind's `active:` variant instead, so the style change happens without any
  * JS-driven animation.
  */
-export const PressableOpacity = forwardRef<View, PressableOpacityProps>(({ className, ...props }, ref) => {
+export const PressableOpacity = forwardRef<ViewInstance, PressableOpacityProps>(({ className, ...props }, ref) => {
     return <Pressable ref={ref} className={`active:opacity-20 ${className ?? ''}`} {...props} />;
 });
 

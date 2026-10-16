@@ -1,6 +1,6 @@
 import { useFocusEffect } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { Platform, ScrollView, ScrollViewProps, useWindowDimensions } from 'react-native';
+import { Platform, ScrollView, ScrollViewProps, useWindowDimensions, type ScrollViewInstance } from 'react-native';
 import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { useMutateScroll, useScrollToTop } from '@app/redux/reducer';
 import { useShowTabBar } from './use-show-tab-bar';
@@ -20,7 +20,7 @@ export const useScrollView = ({
 }: UseScrollViewProps): Omit<ScrollViewProps, 'hitSlop'> & { ref: React.RefObject<any> } & { initialNumToRender?: number } => {
     const showTabBar = useShowTabBar();
     const shouldDisableScroll = !showTabBar && !horizontal;
-    const scrollViewRef = useRef<ScrollView>(null);
+    const scrollViewRef = useRef<ScrollViewInstance>(null);
     const { bottom } = useSafeAreaInsets();
 
     // const tw = useTw();
@@ -38,7 +38,7 @@ export const useScrollView = ({
 
     useEffect(() => {
         if (scrollToTop && !horizontal) {
-            const scrollView = ((ref || scrollViewRef) as React.RefObject<ScrollView>).current?.getScrollResponder() as ScrollView;
+            const scrollView = ((ref || scrollViewRef) as React.RefObject<ScrollViewInstance>).current?.getScrollResponder() as ScrollViewInstance;
             scrollView?.scrollTo({
                 y: 0,
                 animated: true,

@@ -1,6 +1,7 @@
+import type { ImageSourceProp } from '@app/components/uniwind/image';
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { Image, ImageProps } from '@/src/components/uniwind/image';
-import { ImageSourcePropType, View } from 'react-native';
+import { View } from 'react-native';
 
 import { Text, TextProps } from './text';
 import { openLink } from '@app/helper/url';
@@ -13,7 +14,7 @@ export interface HeaderTitleProps {
     subtitle?: string | React.ReactNode | true;
     subtitleLink?: string;
     iconComponent?: React.ReactNode;
-    icon?: ImageSourcePropType | true;
+    icon?: ImageSourceProp | true;
     iconStyle?: ImageProps['style'];
     iconContentFit?: ImageProps['contentFit'];
     align?: TextProps['align'];

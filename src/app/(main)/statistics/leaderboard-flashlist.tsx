@@ -8,7 +8,8 @@ import { MyText } from '@app/view/components/my-text';
 import { useQueries, useQueryClient } from '@tanstack/react-query';
 import { router, Stack } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent, Platform, StyleSheet, useWindowDimensions, View, ViewToken } from 'react-native';
+import { NativeScrollEvent, NativeSyntheticEvent, Platform, StyleSheet, useWindowDimensions, View } from 'react-native';
+import type { ViewToken } from '@shopify/flash-list';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useDerivedValue, useSharedValue } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
@@ -376,7 +377,7 @@ export default function LeaderboardFlashListPage() {
     // Asking for a page is now just adding it to `requestedPages`; whether that
     // costs a request is react-query's business, so the checks that used to guard
     // this — in flight already, already loaded, something else loading — are gone.
-    const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+    const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken<LeaderboardListRow>[] }) => {
         if (viewableItems.length === 0) return;
         if (!total) return;
 

@@ -117,7 +117,7 @@ export default function Search({ title, selectedUser, actionText, action, initia
                                     {getTranslation('search.condition.1')}
                                 </Text>
                             </>
-                        ) : null
+                        ) : undefined
                     }
                     onEndReached={Platform.OS === 'web' ? undefined : onEndReached}
                     onEndReachedThreshold={0.1}
