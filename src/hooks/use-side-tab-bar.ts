@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Dimensions, Platform, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from '@/src/components/uniwind/safe-area-context';
 import { useBreakpoints } from './use-breakpoints';
 
@@ -22,10 +22,18 @@ export type TabBarPlacement =
 export const useTabBarPlacement = (): TabBarPlacement => {
     const { isSmall } = useBreakpoints();
     const { left, right } = useSafeAreaInsets();
+    const window = useWindowDimensions();
 
     if (Platform.OS === 'ios' && !Platform.isPad) {
         if (right > 0 && left === 0) return { position: 'side', side: 'right', compact: true };
         if (left > 0 && right === 0) return { position: 'side', side: 'left', compact: true };
+        // The left app in iPhone Duo Split View gets no inset at all (only the right app gets the
+        // status strip), but Apple still puts its controls on its outer, left edge. An iPhone
+        // window narrower than the screen can only be Split View, and without an inset it is the
+        // left one.
+        if (left === 0 && right === 0 && window.width < Dimensions.get('screen').width) {
+            return { position: 'side', side: 'left', compact: true };
+        }
     }
     if (Platform.OS === 'android' && isSmall) {
         return { position: 'side', side: 'left', compact: false };

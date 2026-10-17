@@ -178,7 +178,8 @@ export const TabBar: React.FC = () => {
     // iPhone Duo: a capsule at the bottom of the strip the system reserves for bars, under the
     // status bar, filling exactly that inset.
     if (placement.position === 'side' && placement.compact) {
-        const stripWidth = placement.side === 'right' ? insets.right : insets.left;
+        // Without a reserved strip (left app in Split View) the rail takes its own column.
+        const stripWidth = Math.max(placement.side === 'right' ? insets.right : insets.left, 64);
         return (
             <View className="justify-end items-center" style={{ width: stripWidth, paddingBottom: insets.bottom + 8 }}>
                 <Bar
