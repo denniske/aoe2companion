@@ -1,6 +1,6 @@
 import { useLobbies } from '@app/api/socket/lobbies';
 import { useOngoing } from '@app/api/socket/ongoing';
-import { useQueueing } from '@app/api/socket/queueing';
+import { groupQueueingPlayers, useQueueing } from '@app/api/socket/queueing';
 import { Card } from '@app/components/card';
 import { Icon } from '@app/components/icon';
 import { LiveMatch } from '@app/components/live/live-match';
@@ -39,6 +39,8 @@ export default function LiveVerifiedPage() {
 
     const { matches, isLoading: isLoadingOngoing, connected: connectedOngoing } = useOngoing({ verified: true });
 
+    const queueingGroups = useMemo(() => groupQueueingPlayers(queueingPlayers), [queueingPlayers]);
+
     const nameOf = useQueueingPlayerNames(queueingPlayers);
 
     // Newest first: the ongoing subscription hands them over in whatever order the snapshot had.
@@ -51,10 +53,10 @@ export default function LiveVerifiedPage() {
         <ScrollView contentContainerClassName="p-4 gap-4">
             <Stack.Screen options={{ title: 'Verified Players Dashboard' }} />
 
-            <Text variant="header-lg">Queueing ({queueingPlayers.length})</Text>
+            <Text variant="header-lg">Queueing ({queueingGroups.length})</Text>
 
-            {queueingPlayers.map((player) => (
-                <QueueingPlayer key={player.advertisementId} player={player} nameOf={nameOf} />
+            {queueingGroups.map((group) => (
+                <QueueingPlayer key={group.key} group={group} nameOf={nameOf} />
             ))}
 
             {queueingPlayers.length === 0 && (

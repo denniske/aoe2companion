@@ -3,6 +3,7 @@ import { useFocusEffect } from 'expo-router';
 import { useIsFocused } from 'expo-router/react-navigation';
 import { decamelizeKeys } from 'humps';
 import { produce } from 'immer';
+import { min, sortBy } from 'lodash';
 import { useRef, useState } from 'react';
 import { ICloseEvent, w3cwebsocket } from 'websocket';
 
@@ -141,6 +142,34 @@ export function initQueueingSubscription(handler: IConnectionHandler, profileIds
         },
         profileIds,
         verified
+    );
+}
+
+export interface IQueueingGroup {
+    key: string;
+    // One entry per tracked player. More than one means they were matched into the same match --
+    // two opponents we happened to be watching both of -- which is one card, not two.
+    players: IQueueingPlayer[];
+}
+
+/**
+ * What the dashboards render: one card per queue, or per match once the queues have resolved into
+ * one. Searching first, matched last, each ordered by how long it has been going on.
+ */
+export function groupQueueingPlayers(players: IQueueingPlayer[]): IQueueingGroup[] {
+    const groups = new Map<string, IQueueingPlayer[]>();
+
+    for (const player of players) {
+        // Keyed by the match once there is one, so everyone put into it shares a card, and by the
+        // advertisement until then, which is what a party already shares.
+        const key = player.match ? `match-${player.match.matchId}` : `queue-${player.advertisementId}`;
+        groups.set(key, [...(groups.get(key) ?? []), player]);
+    }
+
+    return sortBy(
+        [...groups.entries()].map(([key, groupPlayers]) => ({ key, players: groupPlayers })),
+        (group) => (group.players.some((player) => player.match) ? 1 : 0),
+        (group) => min(group.players.map((player) => new Date(player.queueingSince).getTime()))
     );
 }
 

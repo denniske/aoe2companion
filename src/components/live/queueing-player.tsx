@@ -1,5 +1,5 @@
 import { fetchProfiles } from '@app/api/helper/api';
-import { IQueueingPlayer } from '@app/api/socket/queueing';
+import { IQueueingGroup, IQueueingPlayer } from '@app/api/socket/queueing';
 import { Card } from '@app/components/card';
 import { Icon } from '@app/components/icon';
 import { Text } from '@app/components/text';
@@ -8,25 +8,30 @@ import { useLanguage } from '@app/queries/all';
 import { faMagnifyingGlass, faSwords } from '@fortawesome/sharp-solid-svg-icons';
 import { formatAgo } from '@nex/data';
 import { Image } from 'expo-image';
-import { groupBy, sortBy, uniq } from 'lodash';
+import { groupBy, min, sortBy, uniq } from 'lodash';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 
 type NameOf = (profileId: number) => string | undefined;
 
 interface Props {
-    player: IQueueingPlayer;
+    group: IQueueingGroup;
     // Queueing events carry profile ids only. Names come from whatever the page already knows --
     // the account, its followed players -- and fall back to the id.
     nameOf: NameOf;
 }
 
-export const QueueingPlayer: React.FC<Props> = ({ player, nameOf }) => {
+export const QueueingPlayer: React.FC<Props> = ({ group, nameOf }) => {
     const getTranslation = useTranslation();
 
+    // One entry unless two players we track were put into the same match, in which case they
+    // share this card and both are named. Everything but the subjects is the same on each entry.
+    const player = group.players[0];
+
     const name = (profileId: number) => nameOf(profileId) ?? profileId.toString();
-    // The whole party is the subject of the sentence: "A + B are searching for a match".
-    const searching = [player.profileId, ...player.partyProfileIds].map(name);
+    // Everyone this card is about is the subject of the sentence: the tracked players and, while
+    // they are still searching, the party they are searching with.
+    const searching = uniq(group.players.flatMap((p) => [p.profileId, ...p.partyProfileIds])).map(name);
 
     const teams = useMemo(
         () => sortBy(Object.entries(groupBy(player.match?.players ?? [], (p) => p.team)), ([team]) => team),
@@ -87,7 +92,9 @@ export const QueueingPlayer: React.FC<Props> = ({ player, nameOf }) => {
             {/* Cancelling a search is invisible to us, so this says how old the information is
                 rather than claiming the player is still searching right now. */}
             <Text variant="body-xs" color="subtle">
-                {getTranslation('matches.queueing.since', { time: formatAgo(new Date(player.queueingSince)) })}
+                {getTranslation('matches.queueing.since', {
+                    time: formatAgo(new Date(min(group.players.map((p) => p.queueingSince)) as string)),
+                })}
             </Text>
         </Card>
     );
