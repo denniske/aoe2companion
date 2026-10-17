@@ -5,12 +5,14 @@ import { TabBar } from "@app/components/tab-bar";
 import { useShowTabBar } from "@app/hooks/use-show-tab-bar";
 import { useSideTabBar } from "@app/hooks/use-side-tab-bar";
 import { Stack } from "expo-router";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
+import { useSafeAreaInsets } from "@/src/components/uniwind/safe-area-context";
 import { Aoe4DevVariantSwitcher, isAoe4ExplorerRoute } from "@app/view/aoe4-explorer/dev-variant-switcher";
 
 export default function Layout() {
     const showTabBar = useShowTabBar()
     const sideTabBar = useSideTabBar()
+    const insets = useSafeAreaInsets()
 
     const stack = (
         <Stack
@@ -36,8 +38,19 @@ export default function Layout() {
         return (
             <View className="flex-1 flex-row">
                 <TabBar />
-                <View className="flex-1">{stack}</View>
+                <View className="flex-1" style={{ paddingRight: insets.right }}>{stack}</View>
             </View>
+        );
+    }
+
+    // Keep content clear of horizontal insets: the notch in landscape, and on iPhone Duo the
+    // vertical rail iOS moves the status bar into. The tab bar pads itself.
+    if (Platform.OS !== 'web') {
+        return (
+            <>
+                <View className="flex-1" style={{ paddingLeft: insets.left, paddingRight: insets.right }}>{stack}</View>
+                <TabBar />
+            </>
         );
     }
 

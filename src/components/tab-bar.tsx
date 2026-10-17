@@ -194,7 +194,7 @@ export const TabBar: React.FC = () => {
 
             <Animated.View
                 className={`absolute px-4 pb-2 w-full ${showTabBar ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                style={animatedStyle}
+                style={[animatedStyle, { paddingLeft: 16 + insets.left, paddingRight: 16 + insets.right }]}
             >
                 {/* With glass, keep only a light fade (like iOS's scroll edge effect) so content stays visible through the bar. */}
                 <View
