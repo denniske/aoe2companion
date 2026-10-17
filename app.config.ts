@@ -84,6 +84,7 @@ const sentryConfigPlugin = [
 ] as [string, any];
 
 const widgetPlugin = expoWidgets({
+    enableAndroid: true,
     enablePushNotifications: true,
     widgets:
         process.env.GAME === 'aoe2'
@@ -94,6 +95,13 @@ const widgetPlugin = expoWidgets({
                       description: 'AA Quick access to your favorite build order',
                       contentMarginsDisabled: false, // false!
                       supportedFamilies: [WidgetFamily.systemMedium, WidgetFamily.systemLarge],
+                      android: {
+                          targetCellWidth: 4,
+                          targetCellHeight: 3,
+                          minWidth: 250,
+                          minHeight: 110,
+                          resizeMode: 'both',
+                      },
                   },
               ]
             : [],

@@ -1,0 +1,31 @@
+diff --git a/android/src/main/java/expo/modules/widgets/WidgetInteractionAction.kt b/android/src/main/java/expo/modules/widgets/WidgetInteractionAction.kt
+index b0b6479c2292763fd18eaee78b5e8d2dc4234493..2be411dea8edf9f1c94fdb8cc41060405899a87a 100644
+--- a/android/src/main/java/expo/modules/widgets/WidgetInteractionAction.kt
++++ b/android/src/main/java/expo/modules/widgets/WidgetInteractionAction.kt
+@@ -5,6 +5,7 @@ import android.content.Intent
+ import android.net.Uri
+ import androidx.glance.action.Action
+ import androidx.glance.appwidget.action.actionSendBroadcast
++import androidx.glance.appwidget.action.actionStartActivity
+ import expo.modules.widgets.notifications.ExpoWidgetsNotificationReceiver
+ 
+ internal const val WIDGET_INTERACTION_ACTION = "expo.modules.widgets.ACTION_WIDGET_INTERACTION"
+@@ -26,7 +27,18 @@ internal data class WidgetInteraction(
+   val target: String
+ )
+ 
++// A target of `open:<uri>` opens that uri in the app instead of broadcasting an interaction. A
++// broadcast receiver cannot start an activity itself on Android 14+, so the deep link has to be the
++// click's own PendingIntent.
++internal const val WIDGET_OPEN_URL_PREFIX = "open:"
++
+ internal fun WidgetInteraction.toGlanceAction(context: Context): Action {
++  if (target.startsWith(WIDGET_OPEN_URL_PREFIX)) {
++    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(target.removePrefix(WIDGET_OPEN_URL_PREFIX)))
++      .setPackage(context.packageName)
++      .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
++    return actionStartActivity(intent)
++  }
+   val intent = when (source) {
+     is InteractionSource.Widget -> Intent(WIDGET_INTERACTION_ACTION)
+       .setComponent(widgetProviderComponentName(context, source.name))

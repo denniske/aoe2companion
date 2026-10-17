@@ -11,6 +11,7 @@ import { appConfig } from '@nex/dataset';
 import { Paths } from 'expo-file-system';
 import { md5, widgetGroupDir, widgetSetFileIfNotExists } from '@app/service/storage';
 import AABuilds from '@app/widgets/AABuilds.widget';
+import { widgetsDirectory } from 'expo-widgets';
 import Constants from 'expo-constants';
 
 // Read straight off the module API rather than via useAsyncStorage: that hook builds
@@ -68,22 +69,30 @@ export const useFavoritedBuilds = () => {
         const favoriteBuildsResult = await fetchBuilds({ build_ids: favoriteBuildIds });
         const builds = favoriteBuildsResult.builds;
 
-        if (Platform.OS === 'ios' && appConfig.game === 'aoe2') {
+        if ((Platform.OS === 'ios' || Platform.OS === 'android') && appConfig.game === 'aoe2') {
             await (async () => {
                 const favoriteBuilds = [];
+                // iOS widgets read from the app group; Android ones from expo-widgets' own directory.
+                const widgetDir = Platform.OS === 'ios' ? widgetGroupDir : widgetsDirectory;
 
                 for (const build of builds) {
-                    const imagePath = Paths.join(widgetGroupDir, `${await md5(build.imageURL)}.png`);
+                    const imagePath = Paths.join(widgetDir, `${await md5(build.imageURL)}.png`);
                     const imageSource = () => build.imageURL;
 
                     // The path actually can also be any string like an md5 of the actual path
-                    const civilizationPath = Paths.join(widgetGroupDir, `${camelCase(build.civilization)}.png`);
-                    const civilizationSource = () => Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon)?.uri;
+                    const civilizationPath = Paths.join(widgetDir, `${camelCase(build.civilization)}.png`);
+                    const civilizationAsset = Image.resolveAssetSource(getCivIconLocal(build.civilization) ?? genericCivIcon)?.uri;
+
+                    // An Android release build resolves bundled assets to a bare drawable name rather
+                    // than a url. The widget loads those itself, and there is nothing to download.
+                    const isDrawableName = Platform.OS === 'android' && civilizationAsset != null && !civilizationAsset.includes(':');
 
                     favoriteBuilds.push({
                         ...build,
                         imageUrl: await widgetSetFileIfNotExists(imagePath, imageSource),
-                        civilizationImageUrl: await widgetSetFileIfNotExists(civilizationPath, civilizationSource),
+                        civilizationImageUrl: isDrawableName
+                            ? civilizationAsset
+                            : await widgetSetFileIfNotExists(civilizationPath, () => civilizationAsset),
                     });
                 }
 
