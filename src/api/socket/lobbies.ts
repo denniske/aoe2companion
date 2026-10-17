@@ -138,7 +138,11 @@ export function initLobbySubscription(
                                 lobbies.push(event.data);
                                 break;
                             case 'lobbyUpdated':
-                                Object.assign(lobby, event.data);
+                                // An unfiltered subscription gets the lobby itself, so there is
+                                // nothing to update if we never received it.
+                                if (lobby != null) {
+                                    Object.assign(lobby, event.data);
+                                }
                                 break;
                             case 'lobbyRemoved': {
                                 // `indexOf` is -1 for a lobby we never received, and `splice(-1, 1)`
@@ -154,10 +158,23 @@ export function initLobbySubscription(
                                 lobby.players[event.data.slot] = event.data;
                                 break;
                             case 'slotUpdated':
-                                Object.assign(lobby.players[event.data.slot], event.data);
+                                // A filtered subscription is only sent the slots that match it, so
+                                // the first event about a slot can be an update -- for a player who
+                                // was already sitting there when we subscribed, or one the filter
+                                // only started matching now. Object.assign onto the missing slot
+                                // threw "Cannot convert undefined or null to object" and took the
+                                // whole app down.
+                                lobby.players = lobby.players || [];
+                                if (lobby.players[event.data.slot] == null) {
+                                    lobby.players[event.data.slot] = event.data;
+                                } else {
+                                    Object.assign(lobby.players[event.data.slot], event.data);
+                                }
                                 break;
                             case 'slotRemoved':
-                                delete lobby.players[event.data.slot];
+                                if (lobby.players != null) {
+                                    delete lobby.players[event.data.slot];
+                                }
                                 break;
                         }
                     }

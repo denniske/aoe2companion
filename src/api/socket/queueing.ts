@@ -18,6 +18,9 @@ export interface IQueueingMatch {
     server: string;
     matchedAt: string;
     players: IQueueingMatchPlayer[];
+    // Arrives a cycle or two after the match itself: the map is only known once the match reaches
+    // the database. The advertisement has a map field of its own but it is not the one played.
+    mapImageUrl?: string;
 }
 
 export interface IQueueingPlayer {

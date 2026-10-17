@@ -7,6 +7,7 @@ import { useTranslation } from '@app/helper/translate';
 import { useLanguage } from '@app/queries/all';
 import { faMagnifyingGlass, faSwords } from '@fortawesome/sharp-solid-svg-icons';
 import { formatAgo } from '@nex/data';
+import { Image } from 'expo-image';
 import { groupBy, sortBy, uniq } from 'lodash';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
@@ -24,7 +25,8 @@ export const QueueingPlayer: React.FC<Props> = ({ player, nameOf }) => {
     const getTranslation = useTranslation();
 
     const name = (profileId: number) => nameOf(profileId) ?? profileId.toString();
-    const party = player.partyProfileIds.map(name);
+    // The whole party is the subject of the sentence: "A + B are searching for a match".
+    const searching = [player.profileId, ...player.partyProfileIds].map(name);
 
     const teams = useMemo(
         () => sortBy(Object.entries(groupBy(player.match?.players ?? [], (p) => p.team)), ([team]) => team),
@@ -35,37 +37,50 @@ export const QueueingPlayer: React.FC<Props> = ({ player, nameOf }) => {
         <Card direction="vertical">
             <View className="flex-row items-center gap-2 flex-wrap">
                 <Icon icon={player.match ? faSwords : faMagnifyingGlass} size={14} color="subtle" />
-                <Text variant="label">{name(player.profileId)}</Text>
+
+                {searching.map((playerName, index) => (
+                    <Fragment key={playerName}>
+                        {index !== 0 && <Text color="subtle">+</Text>}
+                        <Text variant="label">{playerName}</Text>
+                    </Fragment>
+                ))}
+
                 <Text color="subtle">
                     {player.match
-                        ? getTranslation('matches.queueing.matched')
-                        : party.length > 0
-                          ? getTranslation('matches.queueing.searching.with', { players: party.join(', ') })
-                          : getTranslation('matches.queueing.searching')}
+                        ? getTranslation(searching.length > 1 ? 'matches.queueing.matched.plural' : 'matches.queueing.matched')
+                        : getTranslation(searching.length > 1 ? 'matches.queueing.searching.plural' : 'matches.queueing.searching')}
                 </Text>
             </View>
 
             {/* Once matched, the advertisement names everyone in the match and which side they are
-                on -- a minute before the match reaches the ongoing list. There is no map: the
-                advertisement's map field is the host's own setting, not what the matchmaker
-                picked, and it disagrees with the played map about half the time. */}
+                on, a minute before the match reaches the ongoing list. The map image is not in the
+                advertisement -- it is filled in later, once the match itself is known. */}
             {!!player.match && (
-                <View className="gap-1">
-                    <View className="flex-row items-start flex-wrap" style={{ columnGap: 12 }}>
-                        {teams.map(([team, players], index) => (
-                            <Fragment key={team}>
-                                {index !== 0 && <Text variant="label">{getTranslation('match.versus')}</Text>}
-                                <View>
-                                    {players.map((p) => (
-                                        <Text key={p.profileId}>{name(p.profileId)}</Text>
-                                    ))}
-                                </View>
-                            </Fragment>
-                        ))}
+                <View className="flex-row items-start gap-3">
+                    {!!player.match.mapImageUrl && (
+                        <Image
+                            className="w-14 h-14 md:w-20 md:h-20"
+                            source={{ uri: player.match.mapImageUrl }}
+                            contentFit="cover"
+                        />
+                    )}
+                    <View className="gap-1 flex-1">
+                        <View className="flex-row items-start flex-wrap" style={{ columnGap: 12 }}>
+                            {teams.map(([team, players], index) => (
+                                <Fragment key={team}>
+                                    {index !== 0 && <Text variant="label">{getTranslation('match.versus')}</Text>}
+                                    <View>
+                                        {players.map((p) => (
+                                            <Text key={p.profileId}>{name(p.profileId)}</Text>
+                                        ))}
+                                    </View>
+                                </Fragment>
+                            ))}
+                        </View>
+                        <Text variant="body-xs" color="subtle">
+                            {player.match.server} · {player.match.matchId}
+                        </Text>
                     </View>
-                    <Text variant="body-xs" color="subtle">
-                        {player.match.server} · {player.match.matchId}
-                    </Text>
                 </View>
             )}
 

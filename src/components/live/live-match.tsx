@@ -24,7 +24,7 @@ export function LiveMatch({ data, expanded = false, clickable }: IGameProps) {
         return (
             <Card>
                 <View style={styles.row}>
-                    <ImageLoader style={styles.map} />
+                    <ImageLoader className="w-14 h-14 md:w-20 md:h-20 mr-2.5" />
                     <View style={styles.header}>
                         <TextLoader numberOfLines={1} style={[styles.matchTitle, { marginVertical: 2, height: 10 }]} />
                         <TextLoader numberOfLines={1} style={[styles.matchContent, { marginVertical: 2, height: 10 }]} />
@@ -41,7 +41,7 @@ export function LiveMatch({ data, expanded = false, clickable }: IGameProps) {
         <View className="gap-4">
             <Card direction="vertical" href={clickable ? `/matches/lobbies/${data.matchId}` : undefined}>
                 <View style={styles.row}>
-                    <Image style={styles.map} source={{ uri: data.mapImageUrl }} />
+                    <Image className="w-14 h-14 md:w-20 md:h-20 mr-2.5" source={{ uri: data.mapImageUrl }} />
                     <View style={styles.header}>
                         <Text numberOfLines={1} variant="header-sm">
                             {data.mapName} - {data.name}
@@ -79,11 +79,6 @@ const useStyles = createStylesheet(theme => StyleSheet.create({
     header: {
         // backgroundColor: 'red',
         flex: 1,
-    },
-    map: {
-        marginRight: 10,
-        width: 50,
-        height: 50,
     },
     row: {
         // backgroundColor: 'purple',
