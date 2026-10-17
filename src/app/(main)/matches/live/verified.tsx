@@ -1,20 +1,18 @@
-import { fetchProfiles } from '@app/api/helper/api';
 import { useLobbies } from '@app/api/socket/lobbies';
 import { useOngoing } from '@app/api/socket/ongoing';
 import { useQueueing } from '@app/api/socket/queueing';
 import { Card } from '@app/components/card';
 import { Icon } from '@app/components/icon';
 import { LiveMatch } from '@app/components/live/live-match';
-import { QueueingPlayer } from '@app/components/live/queueing-player';
+import { QueueingPlayer, useQueueingPlayerNames } from '@app/components/live/queueing-player';
 import { MatchCard } from '@app/components/match/match-card';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getMatchFromOngoingMatch } from '@app/helper/match';
-import { useLanguage } from '@app/queries/all';
 import { faPlus } from '@fortawesome/sharp-regular-svg-icons';
 import { Stack } from 'expo-router';
-import { uniq } from 'lodash';
-import React, { Fragment, useEffect, useMemo, useState } from 'react';
+import { orderBy } from 'lodash';
+import React, { Fragment, useMemo } from 'react';
 import { View } from 'react-native';
 
 /**
@@ -43,7 +41,11 @@ export default function LiveVerifiedPage() {
 
     const nameOf = useQueueingPlayerNames(queueingPlayers);
 
-    const matchList = matches.map((m) => getMatchFromOngoingMatch(m));
+    // Newest first: the ongoing subscription hands them over in whatever order the snapshot had.
+    const matchList = useMemo(
+        () => orderBy(matches.map((m) => getMatchFromOngoingMatch(m)), (m) => new Date(m.started).getTime(), 'desc'),
+        [matches]
+    );
 
     return (
         <ScrollView contentContainerClassName="p-4 gap-4">
@@ -127,43 +129,4 @@ export default function LiveVerifiedPage() {
             )}
         </ScrollView>
     );
-}
-
-/**
- * Queueing events carry profile ids and nothing else. The other two dashboards know the names of
- * the players they subscribed with; here there is no such list, so the names are looked up once
- * per id and kept -- a player who stops queueing and comes back is not fetched again.
- */
-function useQueueingPlayerNames(players: { profileId: number; partyProfileIds: number[] }[]) {
-    const language = useLanguage();
-    const [names, setNames] = useState<Record<number, string>>({});
-
-    const wantedIds = useMemo(
-        () => uniq(players.flatMap((player) => [player.profileId, ...player.partyProfileIds])),
-        [players]
-    );
-
-    useEffect(() => {
-        const missingIds = wantedIds.filter((profileId) => !(profileId in names));
-        if (missingIds.length === 0 || !language) return;
-
-        let cancelled = false;
-
-        fetchProfiles({ language, profileIds: missingIds }).then((response) => {
-            if (cancelled) return;
-            setNames((previous) => ({
-                ...previous,
-                // Every id that was asked for is recorded, so an id the API has no profile for
-                // is not requested again on every event batch.
-                ...Object.fromEntries(missingIds.map((profileId) => [profileId, profileId.toString()])),
-                ...Object.fromEntries(response.profiles.map((profile) => [profile.profileId, profile.name])),
-            }));
-        });
-
-        return () => {
-            cancelled = true;
-        };
-    }, [wantedIds, names, language]);
-
-    return (profileId: number) => names[profileId];
 }

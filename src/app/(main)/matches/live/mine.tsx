@@ -11,7 +11,7 @@ import { ScrollView } from '@app/components/scroll-view';
 import { MatchCard } from '@app/components/match/match-card';
 import { useLobbies } from '@app/api/socket/lobbies';
 import { useQueueing } from '@app/api/socket/queueing';
-import { QueueingPlayer } from '@app/components/live/queueing-player';
+import { QueueingPlayer, useQueueingPlayerNames } from '@app/components/live/queueing-player';
 import { Card } from '@app/components/card';
 import MatchInfo from '@app/components/match/match-info';
 import MatchTeams from '@app/components/match/match-teams';
@@ -30,10 +30,11 @@ export default function CurrentLobbyOrMatchPage() {
     // show about the player, and the only state the other two subscriptions cannot see.
     const { players: queueingPlayers } = useQueueing({ profileIds, enabled: profileIds.length > 0 });
 
-    const nameOf = (profileId: number) =>
+    const nameOf = useQueueingPlayerNames(queueingPlayers, (profileId) =>
         profileId === authProfileId
             ? getTranslation('matches.queueing.you')
-            : account?.followedPlayers?.find((f) => f.profileId === profileId)?.name;
+            : account?.followedPlayers?.find((f) => f.profileId === profileId)?.name
+    );
 
     const {
         matches,

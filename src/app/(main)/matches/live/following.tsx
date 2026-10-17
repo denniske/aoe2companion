@@ -10,7 +10,7 @@ import { ScrollView } from '@app/components/scroll-view';
 import { MatchCard } from '@app/components/match/match-card';
 import { useLobbies } from '@app/api/socket/lobbies';
 import { useQueueing } from '@app/api/socket/queueing';
-import { QueueingPlayer } from '@app/components/live/queueing-player';
+import { QueueingPlayer, useQueueingPlayerNames } from '@app/components/live/queueing-player';
 import { useAccount } from '@app/queries/all';
 import { Icon } from '@app/components/icon';
 import { Card } from '@app/components/card';
@@ -30,7 +30,9 @@ export default function LiveFollowingPage() {
     // state the two subscriptions below cannot show.
     const { players: queueingPlayers } = useQueueing({ profileIds, enabled: profileIds.length > 0 });
 
-    const nameOf = (profileId: number) => account?.followedPlayers?.find((f) => f.profileId === profileId)?.name;
+    const nameOf = useQueueingPlayerNames(queueingPlayers, (profileId) =>
+        account?.followedPlayers?.find((f) => f.profileId === profileId)?.name
+    );
 
     const {
         matches,
