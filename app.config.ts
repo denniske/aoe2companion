@@ -91,8 +91,8 @@ const widgetPlugin = expoWidgets({
             ? [
                   {
                       name: 'AABuilds',
-                      displayName: 'AA Build Orders',
-                      description: 'AA Quick access to your favorite build order',
+                      displayName: 'Favorite Build Orders',
+                      description: 'Quick access to your favorite build orders',
                       contentMarginsDisabled: false, // false!
                       supportedFamilies: [WidgetFamily.systemMedium, WidgetFamily.systemLarge],
                       android: {
