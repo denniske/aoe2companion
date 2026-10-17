@@ -12,7 +12,7 @@ import { useTranslation } from '@app/helper/translate';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { Button } from '@app/components/button';
 import { v4 as uuidv4 } from 'uuid';
-import { useSideTabBar } from '@app/hooks/use-side-tab-bar';
+import { useTabBarPlacement } from '@app/hooks/use-side-tab-bar';
 
 export function useCurrentTabName() {
     // useRootNavigationState does not trigger a re-render when the route changes, but usePathname does
@@ -53,7 +53,9 @@ export const TabBar: React.FC = () => {
     const getTranslation = useTranslation();
     const insets = useSafeAreaInsets();
     const { bottom } = insets;
-    const sideTabBar = useSideTabBar();
+    const placement = useTabBarPlacement();
+    const sideTabBar = placement.position === 'side';
+    const compact = placement.position === 'side' && placement.compact;
     const router = useRouter();
     const routeName = useCurrentTabName();
 
@@ -134,6 +136,22 @@ export const TabBar: React.FC = () => {
             router.replace(route.path);
         };
 
+        // Symbols only in the iPhone Duo strip, as Apple asks for vertical bars.
+        if (compact) {
+            return (
+                <Pressable
+                    onPress={() => onPress()}
+                    key={route.label}
+                    accessibilityRole="tab"
+                    accessibilityLabel={label}
+                    accessibilityState={{ selected: !!isFocused }}
+                    className={`w-12 h-12 justify-center items-center rounded-full ${isFocused && 'bg-blue-800 dark:bg-gold-700'}`}
+                >
+                    <Icon color={isFocused ? 'white' : 'brand'} size={20} icon={route.icon} />
+                </Pressable>
+            );
+        }
+
         return (
             <Pressable
                 onPress={() => onPress()}
@@ -157,8 +175,23 @@ export const TabBar: React.FC = () => {
         );
     };
 
-    // A rail beside the content: it covers nothing, so it stays visible while scrolling and
-    // needs no scroll-to-top arrow.
+    // iPhone Duo: a capsule at the bottom of the strip the system reserves for bars, under the
+    // status bar, filling exactly that inset.
+    if (placement.position === 'side' && placement.compact) {
+        const stripWidth = placement.side === 'right' ? insets.right : insets.left;
+        return (
+            <View className="justify-end items-center" style={{ width: stripWidth, paddingBottom: insets.bottom + 8 }}>
+                <Bar
+                    className={`gap-1 p-1 rounded-full ${glassAvailable ? '' : 'bg-white dark:bg-blue-900 shadow-xl shadow-blue-50 dark:shadow-black'}`}
+                >
+                    {routes.map((route) => renderItem(route))}
+                </Bar>
+            </View>
+        );
+    }
+
+    // Android navigation rail beside the content: it covers nothing, so it stays visible while
+    // scrolling and needs no scroll-to-top arrow.
     if (sideTabBar) {
         return (
             <View

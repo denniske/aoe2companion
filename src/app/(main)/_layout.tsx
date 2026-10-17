@@ -3,7 +3,7 @@ import { Header } from "@app/components/header";
 import { NavBar } from "@app/components/navbar";
 import { TabBar } from "@app/components/tab-bar";
 import { useShowTabBar } from "@app/hooks/use-show-tab-bar";
-import { useSideTabBar } from "@app/hooks/use-side-tab-bar";
+import { useTabBarPlacement } from "@app/hooks/use-side-tab-bar";
 import { Stack } from "expo-router";
 import { Platform, View } from "react-native";
 import { useSafeAreaInsets } from "@/src/components/uniwind/safe-area-context";
@@ -11,7 +11,7 @@ import { Aoe4DevVariantSwitcher, isAoe4ExplorerRoute } from "@app/view/aoe4-expl
 
 export default function Layout() {
     const showTabBar = useShowTabBar()
-    const sideTabBar = useSideTabBar()
+    const placement = useTabBarPlacement()
     const insets = useSafeAreaInsets()
 
     const stack = (
@@ -34,11 +34,15 @@ export default function Layout() {
         />
     );
 
-    if (sideTabBar) {
+    // The rail takes the inset on its own side; pad the content on the other.
+    if (placement.position === 'side') {
+        const railLeft = placement.side === 'left';
         return (
-            <View className="flex-1 flex-row">
+            <View className={railLeft ? 'flex-1 flex-row' : 'flex-1 flex-row-reverse'}>
                 <TabBar />
-                <View className="flex-1" style={{ paddingRight: insets.right }}>{stack}</View>
+                <View className="flex-1" style={railLeft ? { paddingRight: insets.right } : { paddingLeft: insets.left }}>
+                    {stack}
+                </View>
             </View>
         );
     }
