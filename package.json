@@ -124,7 +124,7 @@
         "redux": "^5.0.1",
         "source-map-support": "^0.5.10",
         "tslib": "^2.0.0",
-        "uniwind": "patch:uniwind@npm%3A1.9.0#~/.yarn/patches/uniwind-npm-1.9.0-d68797ccc9.patch",
+        "uniwind": "1.13.0",
         "uuid": "^3.4.0",
         "websocket": "^1.0.34"
     },
