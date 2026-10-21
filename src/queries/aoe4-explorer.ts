@@ -79,8 +79,8 @@ export const useAoe4ExplorerDevVariants = () =>
         retry: false,
     });
 
-// Only English is published for now. Any other language falls back to it.
-const EXPLORER_LANGUAGES = ['en'];
+// The app languages watch-data publishes (poc_collector aoe4GameLanguageMap). Any other falls back to English.
+const EXPLORER_LANGUAGES = ['en', 'de', 'es', 'es-mx', 'fr', 'hi', 'it', 'ja', 'ko', 'ms', 'pl', 'pt', 'ru', 'tr', 'vi', 'zh-hans', 'zh-hant'];
 
 export type Aoe4ExplorerType = 'units' | 'buildings' | 'technologies' | 'upgrades' | 'abilities';
 
@@ -219,12 +219,12 @@ export interface IAoe4Patch {
 }
 
 export const useAoe4Patches = () => {
-    const language = explorerLanguage(useLanguage());
     return useQuery({
         // Not keyed on meta.json: patch notes are published when aoe4world writes them up, not with the data.
-        queryKey: ['aoe4-explorer', 'patches', language],
+        // English only: aoe4world writes them by hand.
+        queryKey: ['aoe4-explorer', 'patches'],
         queryFn: async () => {
-            const published = await fetchJson<IAoe4Patch[]>(`${EXPLORER_BASE}/${language}/patches.json`).catch(() => undefined);
+            const published = await fetchJson<IAoe4Patch[]>(`${EXPLORER_BASE}/en/patches.json`).catch(() => undefined);
             // DEV FALLBACK: public/aoe4-patches.dev.json (gitignored), until patches.json is on the CDN.
             if (!published && __DEV__) return (await fetchJson<IAoe4Patch[]>('/aoe4-patches.dev.json').catch(() => undefined)) ?? [];
             return published ?? [];
