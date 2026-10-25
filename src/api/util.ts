@@ -138,10 +138,14 @@ export async function fetchJson(input: RequestInfo, init?: RequestInit, reviver?
     input = applyCacheBust(input);
 
     const headers: Record<string, string> = {
-        'User-Agent': `AoEIICompanion/${getAppVersion()} (${getAppPlatform()})`,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
     };
+    // Browsers own the User-Agent. Firefox sends ours as a custom header, which forces a CORS
+    // preflight that third parties like discord.com reject.
+    if (Platform.OS !== 'web') {
+        headers['User-Agent'] = `AoEIICompanion/${getAppVersion()} (${getAppPlatform()})`;
+    }
 
     if (needsAuth(getUrl(input))) {
         const { data, error } = await getSupabaseClient().auth.getSession();

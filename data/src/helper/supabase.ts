@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Platform } from 'react-native'
 import { MMKV } from 'react-native-mmkv';
-import { SupabaseAuthClientOptions } from '@supabase/supabase-js/dist/module/lib/types';
+import type { SupportedStorage } from '@supabase/supabase-js';
 import * as Sentry from '@sentry/react-native';
 
 const mmkv = new MMKV();
@@ -14,7 +14,7 @@ const SUPABASE_MIGRATED = 'supabase_async_to_mmkv_migrated';
 
 let supabaseClient: SupabaseClient<any, 'public', 'public', any, any>;
 
-const mmkvStorageAdapter: SupabaseAuthClientOptions['storage'] = {
+const mmkvStorageAdapter: SupportedStorage = {
     getItem: (key: string) => {
         const value = mmkv.getString(key);
         return value ?? null;
