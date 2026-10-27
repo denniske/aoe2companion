@@ -411,14 +411,14 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '217.0.0': [
-        {
-            type: 'minor',
-            title: 'Implemented [AoE II DE Update 188329](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-188329/)',
-        },
+    '218.0.0': [
         {
             type: 'feature',
             title: 'Add polish language',
+        },
+        {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 188329](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-188329/)',
         },
         {
             type: 'minor',
