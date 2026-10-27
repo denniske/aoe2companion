@@ -60,7 +60,7 @@ export default function MainProfile() {
     const scrollYBeforeCollapseRef = useRef(0);
 
     const openMatches = (focusSearch: boolean) =>
-        router.navigate(`/players/${profileId}/main-matches${focusSearch ? '?focusSearch=1' : ''}`);
+        router.navigate(`/players/${profileId}/matches${focusSearch ? '?focusSearch=1' : ''}`);
 
     return (
         <View className="flex-1">

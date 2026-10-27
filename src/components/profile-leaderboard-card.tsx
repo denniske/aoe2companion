@@ -42,12 +42,12 @@ export const ProfileLeaderboardCard: React.FC<{
     const canNavigate = showTabBar && !!leaderboard && !!profileId;
     const openStats = (scrollTo?: 'civ' | 'map') =>
         router.navigate(
-            `/players/${profileId}/main-stats?leaderboardId=${leaderboard!.leaderboardId}${scrollTo ? `&scrollTo=${scrollTo}` : ''}`
+            `/players/${profileId}/stats?leaderboardId=${leaderboard!.leaderboardId}${scrollTo ? `&scrollTo=${scrollTo}` : ''}`
         );
     const onPress = canOpenModal
         ? () => setIsVisible(true)
         : canNavigate
-          ? () => router.navigate(`/players/${profileId}/main-stats?leaderboardId=${leaderboard!.leaderboardId}`)
+          ? () => router.navigate(`/players/${profileId}/stats?leaderboardId=${leaderboard!.leaderboardId}`)
           : undefined;
     // Rank is only recalculated for active players, so an inactive card shows how
     // long ago they dropped off instead of a rank that stopped being true.

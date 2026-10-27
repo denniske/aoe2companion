@@ -1,6 +1,6 @@
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
-import MainMatches from '../(tabs)/main-matches';
-import { Redirect, Stack, useLocalSearchParams } from 'expo-router';
+import MainMatches from '@app/components/profile-matches';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { useProfilePage } from '@app/queries/all';
 import NotFound from '@app/app/(main)/+not-found';
 import { Header } from '@app/components/header';
@@ -21,8 +21,9 @@ export default function Matches() {
     const { data: profile, isPending } = useProfilePage(profileId);
     const [leaderboardIds, setLeaderboardIds] = useState<string[]>([]);
 
+    // On a phone the list sets its own header and owns its leaderboard filter.
     if (showTabBar) {
-        return <Redirect href={`/players/${profileId}/main-profile`} />;
+        return <MainMatches />;
     }
 
     if ((!isPending && !profile) || isNaN(profileId)) {

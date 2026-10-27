@@ -1,17 +1,16 @@
 import { PressableOpacity } from '@app/components/pressable-opacity';
 import { IProfileResult, IProfilesResultProfile } from '@app/api/helper/api.types';
 import { Icon } from '@app/components/icon';
-import { Link, Redirect, Stack, useLocalSearchParams, useNavigation, usePathname, useRouter, withLayoutContext } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { Link, useRouter } from 'expo-router';
+import React, { useState } from 'react';
 import { Platform, View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country, formatAgo } from '@nex/data';
 import { Text } from '@app/components/text';
-import { useAccount, useAuthProfileId, useProfilePage, useProfileFast } from '@app/queries/all';
+import { useAccount, useAuthProfileId } from '@app/queries/all';
 import { useFollowMutation } from '@app/mutations/follow';
 import { useUnfollowMutation } from '@app/mutations/unfollow';
-import Constants from 'expo-constants';
 import { useSaveAccountMutation } from '@app/mutations/save-account';
 import { useUnlinkSteamMutation } from '@app/mutations/unlink-steam';
 import { useTournamentPlayer } from '@app/api/tournaments';
@@ -23,14 +22,9 @@ import { getCountryName } from '@app/helper/flags';
 import { MenuNew } from '@app/components/menu';
 import { useTranslation } from '@app/helper/translate';
 import { showAlert } from '@app/helper/alert';
-import { useUniwind } from 'uniwind';
 import { LinkedAoEAccount, LinkedAoECompanionAccount, LinkedPlatformAccount } from '@app/components/linked-account';
-import cn from 'classnames';
-import { containerScrollClassName } from '@app/styles';
-import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { UserLoginWrapper } from '@app/components/user-login-wrapper';
 import { Skeleton } from '@app/components/skeleton';
-import { Header } from '@app/components/header';
 
 import { faCheckCircle, faFamily, faHeart as faHeartSolid, faLink, faUserTimes } from '@fortawesome/sharp-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/sharp-regular-svg-icons';
@@ -244,10 +238,6 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
     );
 }
 
-type UserPageParams = {
-    profileId: string;
-};
-
 export function UserTitle({ profile }: UserMenuProps) {
     const getTranslation = useTranslation();
 
@@ -287,55 +277,3 @@ export function UserTitle({ profile }: UserMenuProps) {
 //         - Alternate account
 //     </Text>
 // )
-
-export default function UserPage() {
-    const showTabBar = useShowTabBar();
-    const getTranslation = useTranslation();
-    const params = useLocalSearchParams<UserPageParams>();
-    const profileId = parseInt(params.profileId);
-    const appName = Constants.expoConfig?.name || Constants.expoConfig2?.extra?.expoClient?.name;
-    const { theme } = useUniwind();
-    const navigation = useNavigation();
-    // main-stats and main-matches are pushed on top of the profile. They get their
-    // own header from the inner stack, whose back button pops back to the profile;
-    // the profile's own header (which belongs to the parent stack, and whose back
-    // button leaves the profile entirely) is hidden while one of them is open.
-    const pathname = usePathname();
-    const isSubScreen = pathname.includes('/main-stats') || pathname.includes('/main-matches');
-
-    const { data: profile } = useProfileFast(profileId);
-    const { data: fullProfile } = useProfilePage(profileId);
-
-    useEffect(() => {
-        navigation.setOptions({
-            headerShown: !isSubScreen,
-            headerTitle: () => <UserTitle profile={profile} />,
-            headerRight: () => <UserMenu profile={profile} fullProfile={fullProfile} />,
-        });
-    }, [profile, fullProfile, isSubScreen]);
-
-    // console.log('PROFILE LAYOUT', profileId);
-
-    if (!showTabBar) {
-        return <Redirect href={`/players/${profileId}`} />;
-    }
-
-    // The three screens are no longer tabs: main-profile is the whole profile, and
-    // main-stats / main-matches are pushed onto it. The header comes from the parent
-    // stack (set above), so this one renders none of its own.
-    return (
-        <Stack
-            screenOptions={{
-                headerShown: false,
-                // The same header the parent stack renders, so the pushed screens match it
-                // in background, height and behaviour instead of getting the platform
-                // default (which on ios comes with its own material).
-                header: (props) => <Header {...props} />,
-            }}
-        >
-            <Stack.Screen name="main-profile" options={{ title: appName }} />
-            <Stack.Screen name="main-stats" options={{ headerShown: true }} />
-            <Stack.Screen name="main-matches" options={{ headerShown: true }} />
-        </Stack>
-    );
-}

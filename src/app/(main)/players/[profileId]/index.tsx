@@ -1,9 +1,10 @@
-import { Redirect, Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { View } from 'react-native';
-import MainMatches from './(tabs)/main-matches';
+import MainMatches from '@app/components/profile-matches';
+import NativeProfile from '@app/components/native-profile';
 import { useAccount, useAuthProfileId, useProfilePage, useProfileFast } from '@app/queries/all';
 import { useState } from 'react';
-import { UserMenu, UserTitle } from './(tabs)/_layout';
+import { UserMenu, UserTitle } from '@app/components/profile-header';
 import { LeaderboardsSelect } from '@app/components/select/leaderboards-select';
 import { useShowTabBar } from '@app/hooks/use-show-tab-bar';
 import { ScrollView } from '@app/components/scroll-view';
@@ -50,24 +51,34 @@ export default function ProfilePage() {
 
     const TextComponent = fullProfile ? Text : SkeletonText;
 
-    // Non-Web: Redirect to sub component
-    if (showTabBar) {
-        return <Redirect href={`/players/${profileId}/main-profile`} />;
-    }
-
     if ((!isPending && !fullProfile && !profile) || isNaN(profileId)) {
         return <NotFound />;
     }
 
+    const header = (
+        <Stack.Screen
+            options={{
+                title: profile?.name,
+                headerTitle: () => <UserTitle profile={profile} />,
+                headerRight: () => <UserMenu profile={profile} fullProfile={fullProfile} />,
+            }}
+        />
+    );
+
+    // On a phone the profile is its own layout, rendered here rather than redirected to,
+    // so the screen that slides in already holds its skeletons and they fill in place.
+    if (showTabBar) {
+        return (
+            <>
+                {header}
+                <NativeProfile />
+            </>
+        );
+    }
+
     return (
         <ScrollView>
-            <Stack.Screen
-                options={{
-                    title: profile?.name,
-                    headerTitle: () => <UserTitle profile={profile} />,
-                    headerRight: () => <UserMenu profile={profile} fullProfile={fullProfile} />,
-                }}
-            />
+            {header}
 
             <View className="flex flex-row justify-between items-center px-4 pt-4">
                 <View className="flex-row gap-4 items-center">
