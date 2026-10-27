@@ -9,7 +9,7 @@ import { getMatchFromOngoingMatch } from '@app/helper/match';
 import { ScrollView } from '@app/components/scroll-view';
 import { MatchCard } from '@app/components/match/match-card';
 import { useLobbies } from '@app/api/socket/lobbies';
-import { groupQueueingPlayers, useQueueing } from '@app/api/socket/queueing';
+import { groupQueueingPlayers, QUEUEING_ON_DASHBOARDS, useQueueing } from '@app/api/socket/queueing';
 import { QueueingPlayer, useQueueingPlayerNames } from '@app/components/live/queueing-player';
 import { useAccount } from '@app/queries/all';
 import { Icon } from '@app/components/icon';
@@ -28,7 +28,7 @@ export default function LiveFollowingPage() {
 
     // A followed player who is queueing is in neither a lobby nor a match yet, so this is the one
     // state the two subscriptions below cannot show.
-    const { players: queueingPlayers } = useQueueing({ profileIds, enabled: profileIds.length > 0 });
+    const { players: queueingPlayers } = useQueueing({ profileIds, enabled: QUEUEING_ON_DASHBOARDS && profileIds.length > 0 });
 
     const queueingGroups = useMemo(() => groupQueueingPlayers(queueingPlayers), [queueingPlayers]);
 
@@ -78,16 +78,20 @@ export default function LiveFollowingPage() {
         <ScrollView contentContainerClassName="p-4 gap-4">
             <Stack.Screen options={{ title: getTranslation('matches.currentfollowing.title') }} />
 
-            <Text variant="header-lg">{getTranslation('matches.currentfollowing.queueing')}</Text>
+            {QUEUEING_ON_DASHBOARDS && (
+                <>
+                    <Text variant="header-lg">{getTranslation('matches.currentfollowing.queueing')}</Text>
 
-            {queueingGroups.map((group) => (
-                <QueueingPlayer key={group.key} group={group} nameOf={nameOf} />
-            ))}
+                    {queueingGroups.map((group) => (
+                        <QueueingPlayer key={group.key} group={group} nameOf={nameOf} />
+                    ))}
 
-            {queueingPlayers.length === 0 && !isLoading && connected && (
-                <Card direction="vertical">
-                    <Text className="text-center">{getTranslation('matches.currentfollowing.queueing.empty')}</Text>
-                </Card>
+                    {queueingPlayers.length === 0 && !isLoading && connected && (
+                        <Card direction="vertical">
+                            <Text className="text-center">{getTranslation('matches.currentfollowing.queueing.empty')}</Text>
+                        </Card>
+                    )}
+                </>
             )}
 
             <Text variant="header-lg">{getTranslation('matches.currentfollowing.lobbies')}</Text>

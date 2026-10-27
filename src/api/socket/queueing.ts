@@ -173,6 +173,10 @@ export function groupQueueingPlayers(players: IQueueingPlayer[]): IQueueingGroup
     );
 }
 
+// Off on the mine and following dashboards until the data format is settled. The verified
+// dashboard is for debugging and keeps it on.
+export const QUEUEING_ON_DASHBOARDS = false;
+
 interface IUseQueueingParams {
     profileIds?: number[];
     verified?: boolean;

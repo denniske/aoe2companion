@@ -418,10 +418,6 @@ export const changelog: IChangelog = {
         },
         {
             type: 'feature',
-            title: 'Show queueing status in live dashboards and competitive page',
-        },
-        {
-            type: 'feature',
             title: 'Add polish language',
         },
         {

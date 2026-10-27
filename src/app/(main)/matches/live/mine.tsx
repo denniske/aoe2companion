@@ -10,7 +10,7 @@ import { getMatchFromOngoingMatch } from '@app/helper/match';
 import { ScrollView } from '@app/components/scroll-view';
 import { MatchCard } from '@app/components/match/match-card';
 import { useLobbies } from '@app/api/socket/lobbies';
-import { groupQueueingPlayers, useQueueing } from '@app/api/socket/queueing';
+import { groupQueueingPlayers, QUEUEING_ON_DASHBOARDS, useQueueing } from '@app/api/socket/queueing';
 import { QueueingPlayer, useQueueingPlayerNames } from '@app/components/live/queueing-player';
 import { Card } from '@app/components/card';
 import MatchInfo from '@app/components/match/match-info';
@@ -28,7 +28,7 @@ export default function CurrentLobbyOrMatchPage() {
 
     // A queue is what comes before a lobby or a match, so it is the first thing this page can
     // show about the player, and the only state the other two subscriptions cannot see.
-    const { players: queueingPlayers } = useQueueing({ profileIds, enabled: profileIds.length > 0 });
+    const { players: queueingPlayers } = useQueueing({ profileIds, enabled: QUEUEING_ON_DASHBOARDS && profileIds.length > 0 });
 
     const queueingGroups = useMemo(() => groupQueueingPlayers(queueingPlayers), [queueingPlayers]);
 
