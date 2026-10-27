@@ -75,14 +75,19 @@ export const MatchPlayer: React.FC<MatchPlayerProps> = ({ match, player, highlig
 
     return (
         <View
-            className={cn('items-center gap-2 py-1.5 px-2 bg-clip-padding', reverse ? 'flex-row-reverse text-right' : 'flex-row', className)}
-            style={
-                appConfig.game === 'aoe2' && {
-                    backgroundImage: `linear-gradient(to ${reverse ? 'left' : 'right'}, ${playerColor}33, #00000000, #00000000)`,
-                    borderColor: `${playerColor}${highlight ? 'FF' : '33'}`,
-                }
-            }
+            className={cn('items-center gap-2 py-1.5 px-2', reverse ? 'flex-row-reverse text-right' : 'flex-row', className)}
+            style={appConfig.game === 'aoe2' && { borderColor: `${playerColor}${highlight ? 'FF' : '4D'}` }}
         >
+            {/* The gradient sits on its own layer: native ignores bg-clip-padding and paints a
+                row's background under its border, which made the border on the gradient's
+                strong end blend into it. An absolute child stays inside the border on both. */}
+            {appConfig.game === 'aoe2' && (
+                <View
+                    pointerEvents="none"
+                    className="absolute inset-0"
+                    style={{ backgroundImage: `linear-gradient(to ${reverse ? 'left' : 'right'}, ${playerColor}33, #00000000, #00000000)` }}
+                />
+            )}
             {hasCiv ? (
                 <Link href={`/explore/civilizations/${getLocalCivEnum(player.civ!)}`} asChild>
                     <PressableOpacity className={civClassName} onPress={onClose}>
