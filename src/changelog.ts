@@ -10,6 +10,17 @@ export interface IChangelog {
 }
 
 export const changelog4: IChangelog = {
+    '47.0.0': [
+        {
+            type: 'feature',
+            title: 'Explorer',
+            content: 'Explore the civs, units, buildings and technologies of the game.',
+        },
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 58)',
+        },
+    ],
     '46.0.0': [
         {
             type: 'feature',
@@ -402,12 +413,24 @@ export const changelog4: IChangelog = {
 export const changelog: IChangelog = {
     '217.0.0': [
         {
+            type: 'minor',
+            title: 'Implemented [AoE II DE Update 188329](https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-188329/)',
+        },
+        {
             type: 'feature',
-            title: 'Added polish language',
+            title: 'Show queueing status in live dashboards and competitive page',
+        },
+        {
+            type: 'feature',
+            title: 'Add polish language',
         },
         {
             type: 'minor',
             title: 'Linked profiles show when family sharing was last seen',
+        },
+        {
+            type: 'minor',
+            title: 'Internal Framework Update (SDK 58)',
         },
         {
             type: 'bugfix',
@@ -434,7 +457,7 @@ export const changelog: IChangelog = {
     '215.0.0': [
         {
             type: 'bugfix',
-            title: 'Added missing translations using AI',
+            title: 'Add missing translations using AI',
         },
         {
             type: 'bugfix',

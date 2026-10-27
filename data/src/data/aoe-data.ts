@@ -21237,12 +21237,12 @@ export const aoeDataInternal = {
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 70,
                     "Gold": 80
                 },
                 "FrameDelay": 12,
                 "GarrisonCapacity": 0,
-                "HP": 230,
+                "HP": 220,
                 "ID": 873,
                 "LanguageNameId": 5682,
                 "LineOfSight": 7,
@@ -21323,12 +21323,12 @@ export const aoeDataInternal = {
                 "ChargeEvent": 0,
                 "ChargeType": 0,
                 "Cost": {
-                    "Food": 60,
+                    "Food": 70,
                     "Gold": 80
                 },
                 "FrameDelay": 24,
                 "GarrisonCapacity": 0,
-                "HP": 280,
+                "HP": 270,
                 "ID": 875,
                 "LanguageNameId": 5684,
                 "LineOfSight": 7,
@@ -31482,11 +31482,11 @@ export const aoeDataInternal = {
                         "Class": 4
                     },
                     {
-                        "Amount": 1,
+                        "Amount": 2,
                         "Class": 8
                     },
                     {
-                        "Amount": 1,
+                        "Amount": 2,
                         "Class": 30
                     },
                     {
@@ -32109,7 +32109,7 @@ export const aoeDataInternal = {
                 "RechargeDuration": 30.000028610256777,
                 "RechargeRate": 0.033333,
                 "ReloadTime": 2,
-                "Speed": 1.5,
+                "Speed": 1.45,
                 "TrainTime": 34,
                 "Trait": 0,
                 "TraitPiece": 0,
@@ -33532,10 +33532,6 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 31
-                    },
-                    {
-                        "Amount": 0,
-                        "Class": 36
                     }
                 ],
                 "Attack": 9,
@@ -33618,10 +33614,6 @@ export const aoeDataInternal = {
                     {
                         "Amount": 0,
                         "Class": 31
-                    },
-                    {
-                        "Amount": 0,
-                        "Class": 36
                     }
                 ],
                 "Attack": 10,
