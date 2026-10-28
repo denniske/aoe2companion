@@ -1,4 +1,3 @@
-import { fetchLeaderboard } from '@app/api/helper/api';
 import { ILeaderboardDef } from '@app/api/helper/api.types';
 import { Button } from '@app/components/button';
 import { Field } from '@app/components/field';
@@ -6,16 +5,14 @@ import { countryEarth, CountrySelect, isCountry } from '@app/components/select/c
 import { Text } from '@app/components/text';
 import { Image } from '@app/components/uniwind/image';
 import { useTranslation } from '@app/helper/translate';
-import useDebounce from '@app/hooks/use-debounce';
-import { useFollowedAndMeProfileIds, useLanguage, useLeaderboards } from '@app/queries/all';
+import { useLeaderboardSearch } from '@app/hooks/use-leaderboard-search';
+import { useFollowedAndMeProfileIds, useLeaderboards } from '@app/queries/all';
 import { containerClassName } from '@app/styles';
 import ButtonPicker from '@app/view/components/button-picker';
 import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
 import { formatAgo } from '@nex/data';
-import { useInfiniteQuery } from '@tanstack/react-query';
 import cn from 'classnames';
 import { Link, Stack, useLocalSearchParams } from 'expo-router';
-import { flatten } from 'lodash';
 import React, { useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { LeaderboardOfficialSelect } from '@app/components/select/leaderboard-official-select';
@@ -86,9 +83,6 @@ function PlayerList({
     leaderboardCountry: string | null;
 }) {
     const getTranslation = useTranslation();
-    const debouncedSearch = useDebounce(search, 600);
-    const language = useLanguage();
-
     const followingIds = useFollowedAndMeProfileIds();
 
     const params = useMemo(() => {
@@ -104,25 +98,7 @@ function PlayerList({
         return { country: leaderboardCountry };
     }, [followingIds, leaderboardCountry]);
 
-    const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery({
-        queryKey: ['leaderboard-players', debouncedSearch, leaderboardId, params],
-        queryFn: (context) => {
-            return fetchLeaderboard({
-                ...context,
-                ...params,
-                pageParam: `${context.pageParam}`,
-                search: context.queryKey[1] as string,
-                leaderboardId: context.queryKey[2] as string,
-                extend: ['players.avatar_medium_url'],
-                language: language!,
-            });
-        },
-        enabled: !!language,
-        initialPageParam: 1,
-        getNextPageParam: (lastPage, pages) => (lastPage.players.length === lastPage.perPage ? lastPage.page + 1 : null),
-    });
-
-    const isLoading = (isFetching && !isFetchingNextPage) || debouncedSearch !== search;
+    const { players, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useLeaderboardSearch({ leaderboardId, params, search });
 
     return (
         <View>
@@ -156,7 +132,7 @@ function PlayerList({
                         </tr>
                     </thead>
                     <tbody>
-                        {flatten(data?.pages?.map((p) => p.players) || []).map((player) => (
+                        {players.map((player) => (
                             <tr key={player.profileId} className="border-b border-border">
                                 <td className="py-4 px-6">
                                     <Text variant="label-lg">#{player.rank}</Text>

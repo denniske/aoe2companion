@@ -26,6 +26,9 @@ import { LeaderboardOfficialSelect } from '@app/components/select/leaderboard-of
 import { Icon } from '@app/components/icon';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 import { LeaderboardListRow, LeaderboardRow, ROW_HEIGHT, useLeaderboardRowStyles } from '@app/components/leaderboard/leaderboard-row';
+import { Field } from '@app/components/field';
+import { useLeaderboardSearch } from '@app/hooks/use-leaderboard-search';
+import FlatListLoadingIndicator from '@app/view/components/flat-list-loading-indicator';
 
 const pageSize = 100;
 
@@ -147,6 +150,12 @@ export default function LeaderboardPage() {
         }
         return { country: leaderboardCountry };
     }, [leaderboardCountry, followingIds]);
+
+    // Searching swaps the paged list for a plain list of matches. The paged list
+    // stays mounted underneath, so clearing the search lands back where you were.
+    const [search, setSearch] = useState('');
+    const searching = search.trim().length > 0;
+    const searchResults = useLeaderboardSearch({ leaderboardId, params: queryParams, search: search.trim(), enabled: searching });
 
     // const myRank = useLazyApi({}, fetchLeaderboard, { leaderboardId, ...getParams(1, auth?.profileId) });
 
@@ -320,13 +329,16 @@ export default function LeaderboardPage() {
     // reset effect empties the list the moment the selection changes, so there is no
     // window in which rows from the previous country are still on screen.
     const showCountryRank = isCountry(leaderboardCountry);
+    // Matches jump all over the leaderboard, so the rank column is sized for the
+    // longest rank among them, not for whatever the paged list has on screen.
+    const searchRankWidth = Math.max(43, ...searchResults.players.map((p) => ((showCountryRank ? p.rankCountry : p.rank) ?? 0).toFixed(0).length * 10 + 10));
     const finalRankWidth = Math.max(myRankWidth || 43, rankWidth || 43);
 
     // LeaderboardPage compiles now, so the compiler would keep this stable on its
     // own; the useCallback is kept only because its deps are already correct and
     // removing it buys nothing.
     const _renderRow = useCallback(
-        (row: LeaderboardListRow) => {
+        (row: LeaderboardListRow, rankWidth = finalRankWidth) => {
             return (
                 <LeaderboardRow
                     player={row.player}
@@ -338,7 +350,7 @@ export default function LeaderboardPage() {
                     showGames={showGames}
                     gamesLabel={gamesLabel}
                     authProfileId={authProfileId}
-                    rankWidth={finalRankWidth}
+                    rankWidth={rankWidth}
                     styles={rowStyles}
                     onSelect={onSelect}
                 />
@@ -551,9 +563,37 @@ export default function LeaderboardPage() {
                 <CountrySelect country={leaderboardCountry} onCountryChange={setLeaderboardCountry} />
             </View>
 
+            {/* Below the selects on purpose: the search only looks inside the selected leaderboard and country. */}
+            <View className={cn('pb-4', containerClassName)}>
+                <Field value={search} onChangeText={setSearch} placeholder={getTranslation('search.placeholder.player')} type="search" />
+            </View>
+
             {/*<Button onPress={() => scrollFlatListTo(300)}>Scroll</Button>*/}
 
-            <View style={[styles.content, { opacity: loading ? 0.7 : 1 }]}>
+            {searching && (
+                <View style={styles.content}>
+                    <FlatList
+                        data={searchResults.players}
+                        keyExtractor={(player: ILeaderboardPlayer) => player.profileId.toString()}
+                        renderItem={({ item, index }: { item: ILeaderboardPlayer; index: number }) => _renderRow({ index, player: item }, searchRankWidth)}
+                        getItemLayout={(_data, index) => ({ length: ROW_HEIGHT, offset: ROW_HEIGHT * index, index })}
+                        keyboardDismissMode="on-drag"
+                        keyboardShouldPersistTaps="handled"
+                        style={{ opacity: searchResults.isLoading ? 0.5 : 1 }}
+                        onEndReached={() => {
+                            if (searchResults.hasNextPage && !searchResults.isFetchingNextPage) searchResults.fetchNextPage();
+                        }}
+                        ListFooterComponent={<View style={{ paddingBottom: bottom }}>{!!searchResults.isFetchingNextPage && <FlatListLoadingIndicator />}</View>}
+                        ListEmptyComponent={
+                            <View style={styles.centered}>
+                                {searchResults.isLoading ? <FlatListLoadingIndicator /> : <MyText>{getTranslation('leaderboard.noplayerfound')}</MyText>}
+                            </View>
+                        }
+                    />
+                </View>
+            )}
+
+            <View style={[styles.content, { opacity: loading ? 0.7 : 1 }, searching && { display: 'none' }]}>
                 <FlatList
                     ref={flatListRef}
                     onScrollEndDrag={handleOnScrollEndDrag}

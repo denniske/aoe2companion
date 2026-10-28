@@ -414,6 +414,10 @@ export const changelog: IChangelog = {
     '218.0.0': [
         {
             type: 'feature',
+            title: 'Search for players in the leaderboard',
+        },
+        {
+            type: 'feature',
             title: 'Add polish language',
         },
         {
