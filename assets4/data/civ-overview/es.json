@@ -94,7 +94,7 @@
             },
             {
                 "title": "Influencia",
-                "description": "Construye el ovoo sobre afloramientos de piedra para generar influencia y cosechar piedra sin necesidad de aldeanos. Los ovoos cosechan +70, 100, 130, 160 de piedra por minuto después de cada subida de edad.\nLos edificios que se encuentran bajo la influencia de un ovoo pueden duplicar la producción de unidades o investigar versiones mejoradas de las tecnologías utilizando piedra."
+                "description": "Construye el ovoo sobre afloramientos de piedra para generar influencia y cosechar piedra sin necesidad de aldeanos. Los ovoos cosechan +70, 100, 140, 170 de piedra por minuto después de cada subida de edad.\nLos edificios que se encuentran bajo la influencia de un ovoo pueden duplicar la producción de unidades o investigar versiones mejoradas de las tecnologías utilizando piedra."
             },
             {
                 "title": "Unidades únicas",
@@ -181,7 +181,7 @@
             },
             {
                 "title": "Recompensas de botín",
-                "description": "Recolectar de los animales otorga una recompensa de oro y, al alcanzar ciertos umbrales de recompensa total, proporciona bonificaciones económicas a los aldeanos y a las cabañas de caza.\n100 de recompensa\n• Un 5% más de velocidad de recolección de comida\n• Las cabañas de caza generan un 10% más de oro\n400 de recompensa\n• Un 10% más de velocidad de recolección de comida\n• Las cabañas de caza generan un 25% más de oro\n1000 de recompensa\n• Un 15% más de velocidad de recolección de comida\n• Las cabañas de caza generan un 40% más de oro."
+                "description": "Recolectar de los animales otorga una recompensa de oro y, al alcanzar ciertos umbrales de recompensa total, proporciona bonificaciones económicas a los aldeanos y a las cabañas de caza.\n100 de recompensa\n• Un 10% más de velocidad de recolección de comida\n• Las cabañas de caza generan un 10% más de oro\n400 de recompensa\n• Un 15% más de velocidad de recolección de comida\n• Las cabañas de caza generan un 25% más de oro\n1000 de recompensa\n• Un 20% más de velocidad de recolección de comida\n• Las cabañas de caza generan un 40% más de oro."
             },
             {
                 "title": "Influencia",
@@ -228,12 +228,16 @@
                 "description": "Los aldeanos llevan un +40% más de recursos que otras civilizaciones."
             },
             {
+                "title": "Bursa",
+                "description": "El alojamiento obligatorio en las universidades proporciona un aumento de 30 en la capacidad de acogida de cada universidad, y la libertad para elegir el plan de estudios reduce los costes de investigación en las universidades en un 10% %."
+            },
+            {
                 "title": "Influencia",
                 "description": "Los edificios construidos bajo la influencia de un centro urbano obtienen la habilidad Reparaciones de emergencia, que se puede activar para reparar +150 de salud del edificio cada segundo durante 20 segundos."
             },
             {
                 "title": "Unidades únicas",
-                "description": "Prelado: utiliza la habilidad Inspiración divina en los aldeanos y aumenta un 35% su velocidad de recolección durante 30 segundos.\nLandsknecht: infantería cuerpo a cuerpo ligera con una gran espada a dos manos capaz de infligir un daño significativo en la zona.\nJinete negro: poderoso artillero montado acorazado. La producción está limitada por el número de fortalezas construidas."
+                "description": "Prelado: utiliza la habilidad Inspiración divina en los aldeanos y aumenta un 40% su velocidad de recolección durante 30 segundos.\nLandsknecht: infantería cuerpo a cuerpo ligera con una gran espada a dos manos capaz de infligir un daño significativo en la zona.\nJinete negro: poderoso artillero montado acorazado. La producción está limitada por el número de fortalezas construidas."
             }
         ]
     },
@@ -336,14 +340,13 @@
                 "title": "Bonificaciones de civilización",
                 "list": [
                     "Investiga tecnologías únicas que benefician a los camellos, al ejército, a la religión, a la economía y al comercio.",
-                    "Las unidades de camellos reducen el daño de la caballería enemiga cercana un 20%.",
-                    "Los molinos construidos cerca de los arbustos con bayas crean cerezales y aumentan la capacidad de alimentos en 100.",
-                    "La recolección de los arbustos con bayas es un 25% más rápida, pero no puede recolectarse de los jabalíes.",
+                    "Las unidades de camellos reducen el daño de la caballería enemiga cercana un 20% %.\n •Los molinos construidos cerca de los arbustos con bayas crean cerezales y aumentan la capacidad de alimentos en 100.",
+                    "La recolección de los arbustos con bayas es un 25% % más rápida, pero no puede recolectarse de los jabalíes.",
                     "La capacidad de transporte de bayas aumenta en 3.",
-                    "Los comerciantes terrestres son un 33% más baratos.",
-                    "Los muelles son un 50% más baratos.",
+                    "Los comerciantes terrestres son un 33% % más baratos.",
+                    "Los muelles son un 50% % más baratos.",
                     "Avanza a la siguiente edad sin necesidad de que los aldeanos mejoren las alas de la Casa de la sabiduría.",
-                    "Entra en la Edad de Oro construyendo edificios bajo la influencia de la Casa de la sabiduría, lo que aumenta la velocidad de recolección de recursos, los tiempos de investigación y la velocidad de producción."
+                    "Entra en la Edad de Oro construyendo edificios bajo la influencia de la Casa de la sabiduría; con esto conseguirás bonificaciones por todo el imperio."
                 ]
             },
             {
@@ -372,7 +375,7 @@
             },
             {
                 "title": "Edad de oro",
-                "description": "Construye para acercarte a la Edad de Oro, lo que mejorará la economía y la tecnología.\nLos edificios que estén bajo la influencia de la Casa de la sabiduría reciben +5 de armadura contra el fuego y aportan un punto hacia la Edad de Oro. El umbral para los desbloqueos es de 10, 30 y 60 edificios.\n• Nivel 1: la velocidad de recolección de recursos de los aldeanos aumenta un 15%\n• Nivel 2: aumenta la de velocidad de investigación un 20%\n• Nivel 3: aumenta la velocidad de recolección de todos los recursos un 20%. Aumenta la de velocidad de investigación un 20%. Aumenta la velocidad de producción un 20%."
+                "description": "Construye para acercarte a la Edad de Oro, lo que mejorará la economía y la tecnología.\nLos edificios que estén bajo la influencia de la Casa de la sabiduría reciben +5 de armadura contra el fuego y aportan un punto hacia la Edad de Oro. El umbral para los desbloqueos es de 10, 20, 30, 50 y 75 edificios.\n• Nivel 1: La velocidad de recolección de los aldeanos aumenta un 15%\n• Nivel 2: La velocidad de construcción de los aldeanos aumenta un 20%\n• Nivel 3: El daño de los jinetes de camello aumenta un 20%.\n• Nivel 4: Los comerciantes generan un 20% más de oro.\n• Nivel 5: El daño de la infantería cuerpo a cuerpo aumenta un 10%."
             },
             {
                 "title": "Unidades únicas",
@@ -518,7 +521,7 @@
             },
             {
                 "title": "Aceite de oliva",
-                "description": "Recolecta un recurso único que se utiliza para contratar unidades mercenarias. Los aldeanos recolectan aceite de oliva equivalente al 50% de los alimentos recolectados de los arbustos con bayas, al 20% de los olivares y al 10% del pescado costero.\nLos barcos pesqueros generan aceite de oliva equivalente al 20% de los alimentos provenientes de la pesca y los comerciantes proporcionan un 20% de aceite de oliva en función de la cantidad que se comercializa."
+                "description": "Recolecta un recurso único que se utiliza para contratar unidades mercenarias. Los aldeanos recolectan aceite de oliva equivalente al 50% de los alimentos recolectados de los arbustos con bayas, al 15% de los olivares y al 10% del pescado costero.\nLos barcos pesqueros generan aceite de oliva equivalente al 20% de los alimentos provenientes de la pesca y los comerciantes proporcionan un 20% de aceite de oliva en función de la cantidad que se comercializa."
             },
             {
                 "title": "Mercenarios",
@@ -766,7 +769,7 @@
             {
                 "title": "Bonificaciones de civilización",
                 "list": [
-                    "Los aldeanos llevan un 40% más de recursos, recolectan un 28% más rápido y construyen y reparan edificios un 20% más rápido.",
+                    "Los aldeanos llevan un 40% más de recursos, recolectan un 27% más rápido y construyen y reparan edificios un 20% más rápido.",
                     "Las unidades de infantería y caballería son mucho más fuertes, pero también más caras de producir y requieren el doble de población",
                     "Coloca reliquias en puestos de avanzada, torres de piedra y fortalezas para conseguir bonificaciones defensivas y económicas.",
                     "Las reliquias colocadas en los muelles aumentan la velocidad de ataque de los barcos un 5% más por reliquia (máx. un 20% más).",
@@ -776,7 +779,7 @@
             },
             {
                 "title": "Aldeanos eficientes",
-                "description": "Los aldeanos recolectan un 28% más rápido y construyen y reparan edificios un 20% más rápido, pero crearlos cuesta un 20% más de comida."
+                "description": "Los aldeanos recolectan un 27% más rápido y construyen y reparan edificios un 20% más rápido, pero crearlos cuesta un 20% más de comida."
             },
             {
                 "title": "Fervor religioso",
@@ -841,7 +844,7 @@
             },
             {
                 "title": "Conservación del paisaje",
-                "description": "Los aldeanos depositan madera automáticamente sin un campamento maderero.\nLa madera se recoge un 20% más rápido en cada edad y un 20% de la madera recolectada se convierte en comida adicional."
+                "description": "Los aldeanos depositan madera automáticamente sin un campamento maderero.\nLa madera se recoge un 20%/15%/15% más rápido en cada edad y un 20% de la madera recolectada se convierte en comida adicional."
             },
             {
                 "title": "Expertos en asedio",
@@ -959,8 +962,8 @@
             {
                 "title": "Bonificaciones de civilización",
                 "list": [
-                    "Los centros urbanos, elefantes trabajadores y muelles proporcionan recursos adicionales cuando los aldeanos y barcos pesqueros depositan recursos.",
-                    "Los elefante trabajadores se mueven con libertad y actúan como depósitos universales de recursos.",
+                    "Los centros urbanos, elefantes de trabajo y muelles proporcionan recursos adicionales cuando los aldeanos depositan recursos.",
+                    "Los elefantes de trabajo se mueven con libertad y actúan como depósitos universales de recursos.",
                     "Toda la tecnología es más cara, pero la investigación es casi instantánea.",
                     "Los fuertes de Tughluqabad actúan como fortalezas y están disponibles desde la Edad Feudal (II).",
                     "Los fuertes de Tughluqabad se pueden mejorar para aumentar las defensas y desbloquear gobernadores.",
@@ -974,7 +977,7 @@
             },
             {
                 "title": "Compañeros de trabajo",
-                "description": "Lleva a tus aldeanos de vuelta con elefantes trabajadores. Estos elefantes actúan como un punto de entrega universal y puede moverse libremente, ahorrando tiempo y recursos para que tus aldeanos se centren en el trabajo.\nLos elefantes trabajadores, centros urbanos y muelles proporcionan recursos adicionales cuando los aldeanos y barcos pesqueros depositan recursos."
+                "description": "Lleva a tus aldeanos de vuelta con elefantes de trabajo. Estos elefantes actúan como un punto de entrega universal y pueden moverse libremente, guardar tiempo y recursos para que tus aldeanos se centren en el trabajo.\nLos elefantes de trabajo, centros urbanos y muelles proporcionan recursos adicionales cuando los aldeanos depositan recursos."
             },
             {
                 "title": "Erudición",
@@ -1132,7 +1135,7 @@
             },
             {
                 "title": "Praderas",
-                "description": "Selecciona entre 3 ubicaciones al completar un edificio distintivo para construir praderas, que gradualmente generan hasta 5 caballos en su campo. Los caballos aumentan la salud de todas las unidades de caballería cuerpo a cuerpo en 2 y la salud de la caballería a distancia en 1, o pueden ser usados por los establos dentro de la influencia de las praderas para entrenar rápidamente a cualquier unidad a caballo. Las praderas producen un nuevo caballo cada 90/60/45 segundos en las edades Feudal/de los Castillos/Imperial."
+                "description": "Selecciona entre 3 ubicaciones al completar un edificio distintivo para construir praderas, que gradualmente generan hasta 5 caballos en su campo. Los caballos aumentan la salud de todas las unidades de caballería cuerpo a cuerpo en 2 y la salud de la caballería a distancia en 1, o pueden ser usados por los establos dentro de la influencia de las praderas para entrenar rápidamente a cualquier unidad a caballo. Las praderas producen un nuevo caballo cada 75/60/45 segundos en las edades Feudal/de los Castillos/Imperial."
             },
             {
                 "title": "Legado yurchen",
@@ -1162,6 +1165,124 @@
                     "Espadachín zhanmadao: Infantería acorazada disponible solo en la Edad Imperial que inflige un daño cuerpo a cuerpo impresionante con bonificación contra la caballería.",
                     "Defensores de Meng'an Mouke: Los granaderos a caballo y de Meng'an Mouke se generan en emplazamientos únicos para defender automáticamente el territorio de los Jin."
                 ]
+            }
+        ]
+    },
+    "vikings": {
+        "summary": "Los vikingos son saqueadores del norte que arrasaron a sus enemigos con poderosa infantería cuerpo a cuerpo capaz de sobrevivir en tierras hostiles. Sus flexibles casas comunales les permiten aumentar la población y fortalecer su economía con facilidad. Las sagas y la religión nórdica inspiran a sus guerreros a luchar sin miedo por el honor de los dioses.",
+        "classes": "Casas comunales, infantería, sagas",
+        "era": "793 - 1523 d. C.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Las sagas pueden otorgar bonificaciones al completar diversas misiones.",
+                    "Los aldeanos se reclutan automáticamente en los centros urbanos hasta alcanzar la capacidad de aldeanos, que puede aumentarse construyendo casas comunales.",
+                    "Las casas comunales pueden mejorarse con diversos complementos y reclutar bóndi.",
+                    "La unidad Völur puede aumentar la velocidad de producción de las casas comunales o crear arboledas sagradas sobre reliquias.",
+                    "La infantería militar puede curarse consumiendo comida de depósitos de comida.",
+                    "Los vikingos carecen de murallas de piedra, pero las empalizadas pueden mejorarse a murallas danevirke, que reciben menos daño por fuego."
+                ]
+            },
+            {
+                "title": "Sagas",
+                "description": "Las sagas son misiones que pueden completarse en cualquier momento y que desbloquean bonificaciones permanentes."
+            },
+            {
+                "title": "Migración del norte",
+                "description": "Los centros urbanos reclutan automáticamente aldeanos sin coste hasta alcanzar la capacidad de aldeanos. La capacidad de aldeanos aumenta en +10 por cada casa comunal construida."
+            },
+            {
+                "title": "Casa comunal",
+                "description": "Las casas comunales pueden mejorarse con uno de cuatro complementos distintos. La granja añade dos huertos, que tienen una velocidad de recolección superior a la de las granjas normales. Las colmenas de paja generan oro de forma pasiva. Los telares mejoran automáticamente la armadura de las unidades militares. La herrería mejora automáticamente el daño de las unidades militares."
+            },
+            {
+                "title": "Völur",
+                "description": "Los völur son unidades de apoyo que pueden desplazarse entre casas comunales, aumentando durante un tiempo la producción de los colmenas de paja y las granjas. Los völur también pueden sacrificarse para crear una arboleda sagrada sobre reliquias, que recluta berserkers de forma pasiva y posee un aura que aumenta la armadura de las unidades cercanas."
+            },
+            {
+                "title": "Bóndi",
+                "description": "Los bóndi son lanceros únicos con mayor salud y armadura. Cuando varios bóndi están cerca unos de otros, obtienen temporalmente la bonificación muralla escudo, que aumenta su salud."
+            },
+            {
+                "title": "Berserker",
+                "description": "El berserker es una unidad única de armadura ligera que inflige un gran daño, se mueve con rapidez y empuña dos hachas. La banda de guerreros en trance se activa cuando su salud es baja, regenerando salud y aumentando el daño."
+            },
+            {
+                "title": "A plato puesto",
+                "description": "La infantería militar puede curarse recolectando comida de depósitos como arbustos con bayas, ciervos o jabalíes."
+            },
+            {
+                "title": "Långskip y drakkar",
+                "description": "El långskip es un barco arquero único que también sirve como transporte. Cada unidad embarcada aumenta la salud del barco y el número de flechas que dispara. El drakkar sustituye al barco espingarda y puede lanzar redes sobre los barcos enemigos para ralentizarlos."
+            },
+            {
+                "title": "Influencia",
+                "description": "Construye casas comunales bajo la influencia del muelle para abaratar los barcos de todos los muelles un 4% por cada casa comunal, hasta alcanzar una reducción máxima del 16%."
+            }
+        ]
+    },
+    "scots": {
+        "summary": "El pueblo escocés dispone de una infantería resistente, experta en emboscadas desde el sigilo. Las casas torre y las fortalezas protegen a sus comunidades y su valioso ganado de los saqueadores del campo. Congregan refuerzos rápidamente en el salón de congregación, investigan poderosas tecnologías de las Tierras Altas o las Tierras Bajas y aseguran el Reino de Escocia.",
+        "classes": "Infantería, defensa, congregar",
+        "era": "843 - 1707 d. C.",
+        "overview": [
+            {
+                "title": "Bonificaciones de civilización",
+                "list": [
+                    "Los ghillies pueden emplear sigilo en campo abierto.",
+                    "La infantería obtiene bonificaciones de visión y velocidad de movimiento en los bosques sigilosos.",
+                    "Las casas torre reemplazan los puestos de avanzada, producen res de las Tierras Altas y aumentan la población.",
+                    "La res de las Tierras Altas pasta en arbustos con bayas para obtener comida con el tiempo.",
+                    "Los edificios distintivos de las Tierras Altas aumentan la capacidad de res de las Tierras Altas.",
+                    "Se pueden congregar unidades rápidamente en el salón de congregación desde la Edad Feudal (II).",
+                    "Investiga poderosas tecnologías de las Tierras Bajas y las Tierras Altas en el salón de congregación.",
+                    "Los kirkmen pueden crear estanques para obtener oro y aumentar la velocidad de recolección de los trabajadores cercanos.",
+                    "Los edificios distintivos de las Tierras Bajas aumentan el límite de construcción de estanques.",
+                    "Las fortalezas destruidas pueden repararse durante un tiempo limitado antes de ser destruidas por completo.",
+                    "Las fortalezas destruidas provocan un efecto de tierra quemada que reduce la eficacia en combate de los enemigos cercanos.",
+                    "Las aspilleras navales cuestan un 50% menos."
+                ]
+            },
+            {
+                "title": "Casas nobles",
+                "description": "Las casas torre sustituyen a los puestos de avanzada, producen res de las Tierras Altas y ghillies, y aumentan la población."
+            },
+            {
+                "title": "Riqueza de las Tierras Altas",
+                "description": "Protege la res de las Tierras Altas mientras pasta en Arbustos con bayas, generando comida con el tiempo mientras se alimenta. La capacidad de res aumenta con cada edificio distintivo de las Tierras Altas construido."
+            },
+            {
+                "title": "Emboscada de las Tierras Altas",
+                "description": "La infantería posee un profundo conocimiento y vínculo con sus tierras, lo que le permite luchar con ventaja dentro y alrededor de los bosques sigilosos. No sufre penalizaciones de visión mientras está en bosques sigilosos y aumenta su velocidad de movimieno cuando la emboscada de las Tierras Altas está activa."
+            },
+            {
+                "title": "Schiltron escocés",
+                "description": "El gallowglass puede resistir cargas de caballería de forma predeterminada, y los hombres de armas pueden hacerlo tras investigar el hacha de Lochaber."
+            },
+            {
+                "title": "Tierras Bajas y Tierras Altas",
+                "description": "Elige entre un edificio distintivo de las Tierras Altas o de las Tierras Bajas cada vez que avances de edad. El salón de congregación alberga tecnologías únicas de ambas regiones. Al construir edificios distintivos de una región, las tecnologías asociadas reducen su coste a la mitad."
+            },
+            {
+                "title": "Responder a la llamada",
+                "description": "Congregar guerreros rápidamente en el salón de congregación desde la Edad Feudal (II)"
+            },
+            {
+                "title": "Estanques monásticos",
+                "description": "Crea estanques cosechables con un kirkman para conseguir oro. Los trabajadores cercanos a los estanques activos aumentan su velocidad de recolección. Los edificios distintivos de las Tierras Bajas incrementan el número máximo de estanques."
+            },
+            {
+                "title": "Ruinas del castillo",
+                "description": "Al ser destruidas, las fortalezas emplean tácticas de tierra quemada y sabotean la zona inmediata durante un tiempo. Si hay enemigos en la zona de sabotaje, su eficacia en combate se reduce temporalmente. Durante este tiempo, las fortalezas se convierten en ruinas de fortaleza y pueden salvarse de la destrucción total si se reparan. Las ruinas de fortaleza pueden restaurarse por completo hasta un máximo de 600 de piedra, tras lo cual la reparación es gratuita."
+            },
+            {
+                "title": "Red defensiva del loch",
+                "description": "Las aspilleras defensivas del muelle cuestan un 50% menos."
+            },
+            {
+                "title": "Influencia",
+                "description": "Construye edificios militares alrededor del salón de congregación para aumentar su nivel y mejorar la eficacia al congregar guerreros.\nNivel 1: Desbloquea la congregación de arqueros de las Tierras Altas y añade una carga de congregación.\nNivel 2: Reduce el coste de congregación y añade una carga de congregación.\nNivel 3: Reduce el coste de congregación, añade una carga de congregación y aumenta la salud de los guerreros congregados."
             }
         ]
     }

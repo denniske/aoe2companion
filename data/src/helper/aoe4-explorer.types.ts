@@ -294,7 +294,9 @@ export const aoe4CivByAbbr: Record<CivAbbr, string> = {
   od: 'OrderOfTheDragon',
   ot: 'Ottomans',
   ru: 'Rus',
+  sco: 'Scots',
   sen: 'SengokuDaimyo',
   tug: 'TughlaqDynasty',
+  vik: 'Vikings',
   zx: 'ZhuXiSLegacy',
 };

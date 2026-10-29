@@ -11,11 +11,6 @@ import { useLanguage } from '@app/queries/account';
 // meta.json changes, and an unchanged one is served from the query cache.
 const EXPLORER_BASE = 'https://backend.cdn.aoe2companion.com/explorer/aoe4';
 
-// DEV FALLBACK: until watch-data has published (the CDN 404s), read aoe4world's own copy of the
-// same files. Same shape, icons point at data.aoe4world.com instead of our CDN. Remove once
-// explorer/aoe4/en/meta.json is live.
-const DEV_FALLBACK_BASE = 'https://data.aoe4world.com';
-
 // DEV ONLY: locally generated variants of the data (scripts/serve-aoe4-explorer-variants.mjs), picked
 // with the switcher on the explore page. undefined is the normal CDN path.
 const DEV_VARIANTS_BASE = 'http://localhost:8787';
@@ -90,8 +85,6 @@ export interface IAoe4ExplorerMeta {
     generatedAt: string;
     language: string;
     items: Partial<Record<Aoe4ExplorerType, number>>;
-    /** Set when the data comes from DEV_FALLBACK_BASE rather than our CDN. */
-    devFallback?: boolean;
     /** Set when the data comes from a local variant (DEV_VARIANTS_BASE). */
     devVariant?: string;
 }
@@ -117,18 +110,15 @@ async function fetchJson<T>(url: string): Promise<T | undefined> {
 
 async function fetchExplorerMeta(language: string, variant: string | undefined): Promise<IAoe4ExplorerMeta> {
     if (variant) return { aoe4worldDataCommit: variant, steamBuildId: variant, generatedAt: '', language, items: {}, devVariant: variant };
-    // A network error counts as unpublished too: the CDN may not send CORS headers on a 404.
-    const meta = await fetchJson<IAoe4ExplorerMeta>(`${EXPLORER_BASE}/${language}/meta.json`).catch(() => undefined);
-    if (meta) return meta;
-    return { aoe4worldDataCommit: 'aoe4world', steamBuildId: 'aoe4world', generatedAt: '', language, items: {}, devFallback: true };
+    const meta = await fetchJson<IAoe4ExplorerMeta>(`${EXPLORER_BASE}/${language}/meta.json`);
+    if (!meta) throw new Error(`${EXPLORER_BASE}/${language}/meta.json: not found`);
+    return meta;
 }
 
 async function fetchExplorerItems<K extends Aoe4ExplorerType>(meta: IAoe4ExplorerMeta, type: K) {
     const url = meta.devVariant
         ? `${DEV_VARIANTS_BASE}/${meta.devVariant}/${type}/all-optimized.json`
-        : meta.devFallback
-          ? `${DEV_FALLBACK_BASE}/${type}/all-optimized.json`
-          : `${EXPLORER_BASE}/${meta.language}/${type}.json`;
+        : `${EXPLORER_BASE}/${meta.language}/${type}.json`;
     const file = await fetchJson<Aoe4Explorer.ExplorerFile<Aoe4ExplorerItemTypes[K]>>(url);
     if (!file) throw new Error(`${url}: not found`);
     return Aoe4Explorer.optimizedToUnified(file.data);
@@ -243,7 +233,7 @@ export const useAoe4ExplorerCivOverview = () => {
     const { data: meta } = useAoe4ExplorerMeta();
     const url = meta?.devVariant
         ? `${DEV_VARIANTS_BASE}/${meta.devVariant}/civilizations.json`
-        : meta && !meta.devFallback
+        : meta
           ? `${EXPLORER_BASE}/${meta.language}/civilizations.json`
           : undefined;
     return useQuery({

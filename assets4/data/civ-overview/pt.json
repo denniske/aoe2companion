@@ -104,7 +104,7 @@
             },
             {
                 "title": "Influência",
-                "description": "Construa o Ovoo sobre afloramentos de Pedra para gerar influência e coletar Pedra sem precisar usar Aldeões. Ovoos coletam +70, 100, 130, 160 de Pedra por minuto após cada avanço de era.\nConstruções dentro da influência de um Ovoo podem dobrar as unidades de produção ou pesquisar versões melhoradas de tecnologias usando Pedra."
+                "description": "Construa o Ovoo sobre afloramentos de Pedra para gerar influência e coletar Pedra sem precisar usar Aldeões. Ovoos coletam +70, 100, 140, 170 de Pedra por minuto após cada avanço de era.\nConstruções dentro da influência de um Ovoo podem dobrar as unidades de produção ou pesquisar versões melhoradas de tecnologias usando Pedra."
             },
             {
                 "title": "Unidades Exclusivas",
@@ -191,7 +191,7 @@
             },
             {
                 "title": "Recompensas de Prêmio",
-                "description": "A coleta de animais selvagens concede uma recompensa em Ouro e atingir certas metas do total de recompensas oferece bônus econômicos para Aldeões e Cabanas de Caça. \n 100 Recompensa\n• +5% de coleta de alimentos\n• As Cabanas de Caça geram 10% mais de Ouro\n400 Recompensa\n• +10% taxa de coleta de comida\n• As Cabanas de Caça geram 25% mais de Ouro\n1000 Recompensa\n• +15% taxa de coleta de comida\n• As Cabanas de Caça geram 40% mais de Ouro"
+                "description": "A coleta de animais selvagens concede uma recompensa em Ouro e atingir certas metas do total de recompensas oferece bônus econômicos para Aldeões e Cabanas de Caça. \n 100 Recompensa\n• +10% de coleta de alimentos\n• As Cabanas de Caça geram 10% mais de Ouro\n400 Recompensa\n• +15% taxa de coleta de comida\n• As Cabanas de Caça geram 25% mais de Ouro\n1000 Recompensa\n• +20% taxa de coleta de comida\n• As Cabanas de Caça geram 40% mais de Ouro"
             },
             {
                 "title": "Influência",
@@ -238,12 +238,16 @@
                 "description": "Aldeões carregam +40% mais recursos do que os de outras civilizações."
             },
             {
+                "title": "Bursas",
+                "description": "A moradia obrigatória nas Universidades oferece +30 de espaço populacional em cada Universidade, e a liberdade de escolha curricular reduz os custos de pesquisa nas Universidades em -10%."
+            },
+            {
                 "title": "Influência",
                 "description": "Construções dentro da influência de um Centro Urbano ganham a habilidade Reparos Emergenciais, que pode ser ativada para reparar a construção em +150 de vida por segundo durante 20 segundos."
             },
             {
                 "title": "Unidades Exclusivas",
-                "description": "Prelado: Use a habilidade Inspiração Sagrada nos Aldeões, aumentando sua taxa de coleta em +35% por 30 segundos.\nLansquenete: Infantaria corpo a corpo leve com uma grande espada de duas mãos capaz de causar danos significativos em área.\nCavaleiro Negro: Poderoso artilheiro blindado montado. A produção é limitada pelo número de Fortalezas construídas."
+                "description": "Prelado: Use a habilidade Inspiração Sagrada nos Aldeões, aumentando sua taxa de coleta em +40% por 30 segundos.\nLansquenete: Infantaria corpo a corpo leve com uma grande espada de duas mãos capaz de causar danos significativos em área.\nCavaleiro Negro: Poderoso artilheiro blindado montado. A produção é limitada pelo número de Fortalezas construídas."
             }
         ]
     },
@@ -345,15 +349,15 @@
             {
                 "title": "Bônus da Civilização",
                 "list": [
-                    "Pesquise tecnologias exclusivas que beneficiam unidades de Camelos, Militares, Religiosas, Econômicas e Comerciais.",
-                    "Unidades a camelo reduzem em -20% o dano das unidades a cavalo inimigas próximas.",
-                    "Moinhos construídos perto de Arbustos de Frutas Silvestres criam Pomares, aumentando a capacidade de Comida em +100.",
-                    "Colete +25% mais rápido de Arbustos de Frutas Silvestres, mas sem a possibilidade de coletar de Javalis.",
-                    "Capacidade de carga de Frutas Silvestres aumentada em +3.",
-                    "Mercadores terrestres são -33% mais baratos.",
+                    "Pesquise tecnologias exclusivas que beneficiem Camelos, Militares, Religião, Economia e Comércio.",
+                    "Unidades de camelos reduzem o dano em -20% contra a cavalaria inimiga próxima.",
+                    "Moinhos construídos próximos aos Arbustos Frutíferos criam Pomares, aumentando a capacidade de Comida em +100,",
+                    "Coleta dos Arbustos Frutíferos +25% mais rápido, mas não consegue coletar dos Javalis.",
+                    "Capacidade de transporte de frutas aumentada em +3.",
+                    "Comerciantes de Terras são -33% mais baratos.",
                     "Docas são -50% mais baratas.",
-                    "Avance nas eras melhorando alas na Casa da Sabedoria, sem precisar de Aldeões.",
-                    "Entre em uma Era de Ouro colocando edificações dentro da influência da Casa da Sabedoria, o que acelera a taxa de coleta de recursos, o tempo de pesquisa e a velocidade de produção."
+                    "Avançam era sem a necessidade de Aldeões ao melhorar alas na Casa da Sabedoria.",
+                    "Entre em uma Era de Ouro criando construções sob a influência da Casa da Sabedoria, ganhando bônus por todo o império."
                 ]
             },
             {
@@ -382,7 +386,7 @@
             },
             {
                 "title": "Era de Ouro",
-                "description": "Construa para chegar à Era de Ouro, melhorando economia e tecnologia.\nEdificações dentro da influência da Casa da Sabedoria recebem +5 de armadura contra fogo e contribuem com um ponto para a Era de Ouro. Os limites para desbloqueio são de 10, 30 e 60 edificações.\n• Nível 1: +15% de taxa de coleta de Aldeão\n• Nível 2: +20% de velocidade de pesquisa\n• Nível 3: +20% de taxa de coleta de Aldeão para todos os recursos. +20% de velocidade de pesquisa. +20% de velocidade de produção."
+                "description": "Construa em direção à sua Era de Ouro – melhorando a economia e a tecnologia. \nConstruções sob a influência da Casa da Sabedoria recebem +5 de armadura de fogo e contribuem com um ponto para a Era de Ouro. O limite para desbloqueios é 10, 20, 30, 50 e 75 construções.\n• Nível 1: Taxa de coleta de Aldeões +15%\n• Nível 2: Taxa de construção de Aldeões +20%\n• Nível 3: Cameleiros +20% de dano.\n• Nível 4: Mercadores geram +20% de ouro.\n• Nível 5: Infantaria corpo a corpo +10% de dano."
             },
             {
                 "title": "Unidades Exclusivas",
@@ -528,7 +532,7 @@
             },
             {
                 "title": "Azeite",
-                "description": "Colete um recurso exclusivo que é usado para contratar unidades Mercenárias. Aldeões coletam Azeite igual a 50% da Comida coletada por Arbustos de Frutas Silvestres, 20% dos Olivais e 10% de peixes da costa.\nBarcos de Pesca geram Azeite igual a 20% de Comida de Peixes e Mercadores fornecem 20% de Azeite com base na quantidade sendo negociada."
+                "description": "Colete um recurso exclusivo que é usado para contratar unidades Mercenárias. Aldeões coletam Azeite igual a 50% da Comida coletada por Arbustos de Frutas Silvestres, 15% dos Olivais e 10% de peixes da costa.\nBarcos de Pesca geram Azeite igual a 20% de Comida de Peixes e Mercadores fornecem 20% de Azeite com base na quantidade sendo negociada."
             },
             {
                 "title": "Mercenários",
@@ -776,7 +780,7 @@
             {
                 "title": "Bônus da Civilização",
                 "list": [
-                    "Aldeões carregam +40% mais recursos, coletam +28% mais rápido, fazem e reparam construções +20% mais rápido.",
+                    "Aldeões carregam +40% mais recursos, coletam +27% mais rápido, fazem e reparam construções +20% mais rápido.",
                     "Unidades de infantaria e cavalaria são muito mais fortes, mas também mais caras para produzir e tomam o dobro de população",
                     "Coloque Relíquias em Postos Avançados, Torres de Pedra e Torres de Menagem para bônus defensivos e econômicos.",
                     "Relíquias colocadas em Docas aumentam a velocidade de ataque dos navios em +5% por Relíquia (Máx. de +20%).",
@@ -786,7 +790,7 @@
             },
             {
                 "title": "Aldeões Eficientes",
-                "description": "Aldeões coletam 28% mais rápido, constroem e reparam construções 20% mais rápido, mas custam 20% mais Comida para produzir."
+                "description": "Aldeões coletam 27% mais rápido, constroem e reparam construções 20% mais rápido, mas custam 20% mais Comida para produzir."
             },
             {
                 "title": "Fervor Religioso",
@@ -851,7 +855,7 @@
             },
             {
                 "title": "Preservação da Paisagem",
-                "description": "Aldeões depositam madeira automaticamente sem um Campo Madeireiro.\nMadeira é coletada +20% mais rápido em cada Era e 20% da madeira coletada é produzida como comida adicional."
+                "description": "Aldeões depositam madeira automaticamente sem um Campo Madeireiro.\nMadeira é coletada +20%/+15%/+15% mais rápido em cada Era e 20% da madeira coletada é produzida como comida adicional."
             },
             {
                 "title": "Especialistas em Cerco",
@@ -982,7 +986,7 @@
             {
                 "title": "Bônus da Civilização",
                 "list": [
-                    "Centros Urbanos, Elefantes Trabalhadores e Docas fornecem recursos bônus quando Aldeões e Navios de Pesca chegam.",
+                    "Centros Urbanos, Elefantes Trabalhadores e Docas fornecem recursos bônus quando Aldeões chegam.",
                     "Os Elefantes Trabalhadores se movem livremente e agem como depósitos universais de recursos. \n•Toda a tecnologia encarece, mas a pesquisa é quase instantânea.",
                     "Os Fortes Tughlaqabad atuam como fortalezas e estão disponíveis desde a Era Feudal (II).",
                     "Os Fortes Tughlaqabad podem ser melhorados para aumentar as defesas e desbloquear Governadores.",
@@ -996,7 +1000,7 @@
             },
             {
                 "title": "Companheiros de Trabalho",
-                "description": "Dê um descanso aos seus Aldeões com Elefantes Trabalhadores. Esses elefantes atuam como entregas universais e podem se movimentar livremente, economizando tempo e recursos para que os aldeões se concentrem no trabalho.\nElefantes Trabalhadores, Centros Urbanos e Docas fornecem recursos bônus quando Aldeões e Navios de Pesca entregam."
+                "description": "Dê um descanso aos seus Aldeões com Elefantes Trabalhadores. Esses elefantes atuam como entregas universais e podem se movimentar livremente, economizando tempo e recursos para que os aldeões se concentrem no trabalho.\nElefantes Trabalhadores, Centros Urbanos e Docas fornecem recursos bônus quando Aldeões entregam."
             },
             {
                 "title": "Erudição",
@@ -1163,7 +1167,7 @@
             },
             {
                 "title": "Pastagens",
-                "description": "Escolha entre 3 locais ao completar um Marco para construir Pastagens, que gradualmente geram até 5 Cavalos em seu campo. Cavalos aumentam a Vida de toda a Cavalaria Corpo a Corpo em +2 e de toda a Cavalaria à Distância em +1, ou podem ser usados por Estábulos dentro da Influência das Pastagens para treinar rapidamente qualquer unidade montada. Pastagens produzem um novo Cavalo a cada 90/60/45 segundos na Era Feudal/Castelos/Imperial."
+                "description": "Escolha entre 3 locais ao completar um Marco para construir Pastagens, que gradualmente geram até 5 Cavalos em seu campo. Cavalos aumentam a Vida de toda a Cavalaria Corpo a Corpo em +2 e de toda a Cavalaria à Distância em +1, ou podem ser usados por Estábulos dentro da Influência das Pastagens para treinar rapidamente qualquer unidade montada. Pastagens produzem um novo Cavalo a cada 75/60/45 segundos na Era Feudal/Castelos/Imperial."
             },
             {
                 "title": "Legado de Jurchén",
@@ -1193,6 +1197,124 @@
                     "Espadachim Zhanma - Infantaria armada disponível apenas na Era Imperial, causa dano corpo a corpo impressionante com bônus contra cavalaria.",
                     "Defensores Meng’an Mouke - Meng’an Mouke e Granadeiros Montados surgem de posições únicas para defender automaticamente o território Jin."
                 ]
+            }
+        ]
+    },
+    "vikings": {
+        "summary": "Os Vikings são invasores do Norte que dominam seus inimigos com uma poderosa infantaria corpo a corpo capaz de viver dos recursos das terras inimigas. Suas versáteis Casas Longas permitem expandir facilmente a População e a economia. As Sagas e a religião nórdica inspiram seus guerreiros a lutar sem medo pela honra dos deuses.",
+        "classes": "Casas-longas, Infantaria, Sagas",
+        "era": "793–1523 d.C.",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Sagas podem conceder bônus ao concluir diferentes missões.",
+                    "Aldeões são recrutados automaticamente nos Centros Urbanos até a Capacidade de Aldeões, que pode ser aumentada com a construção de Casas-longas.",
+                    "Casas-longas podem receber diversas extensões e recrutar Bóndi.",
+                    "A unidade Völur pode aumentar a velocidade de produção das Casas-longas ou estabelecer Bosques Sagrados sobre Relíquias.",
+                    "Infantaria militar pode se curar consumindo Comida de fontes de Comida.",
+                    "Os Vikings não possuem Muralhas de Pedra, mas suas Paliçadas podem ser aprimoradas para Muralhas de Danevirke, que sofrem menos dano de fogo."
+                ]
+            },
+            {
+                "title": "Sagas",
+                "description": "Sagas são missões que podem ser concluídas a qualquer momento para desbloquear bônus permanentes."
+            },
+            {
+                "title": "Migração do Norte",
+                "description": "Centros Urbanos recrutam Aldeões automaticamente e sem custo até a Capacidade de Aldeões. A Capacidade de Aldeões aumenta em +10 para cada Casa-longa construída."
+            },
+            {
+                "title": "Casa-longa",
+                "description": "Casas-longas podem receber uma de quatro extensões diferentes. A Fazenda adiciona dois campos de vegetais, que possuem uma taxa de coleta maior do que Fazendas comuns. Os Cestos de Abelhas geram Ouro passivamente. Os Teares aprimoram automaticamente a armadura das unidades militares. A Forja aprimora automaticamente o dano das unidades militares."
+            },
+            {
+                "title": "Völur",
+                "description": "Völur são unidades de apoio que podem viajar entre Casas-longas, aumentando temporariamente a produção das Cestos de Abelhas e Fazendas. Völur também podem ser sacrificadas para estabelecer Bosques Sagrados sobre Relíquias, que recrutam Berserkers passivamente e possuem uma aura que aumenta a armadura das unidades próximas."
+            },
+            {
+                "title": "Bóndi",
+                "description": "Bóndi são lanceiros exclusivos com mais vida e armadura. Quando estão próximos uns dos outros, recebem temporariamente a bonificação Parede de Escudos, que aumenta sua vida."
+            },
+            {
+                "title": "Berserker",
+                "description": "O Berserker é uma unidade exclusiva de armadura leve com dano elevado, alta velocidade de movimento e equipada com dois machados. Berserkergang é ativado quando sua vida está baixo, regenerando vida e aumentando o dano."
+            },
+            {
+                "title": "Vivendo da Terra",
+                "description": "Infantaria militar pode se curar coletando Comida de fontes como Arbustos Frutíferos, Cervos ou Javalis."
+            },
+            {
+                "title": "Navio Longo e Drakkar",
+                "description": "O Navio Longo é uma embarcação arqueira exclusiva que também funciona como transporte. Cada unidade embarcada aumenta sua vida e a quantidade de flechas disparadas. O Drakkar substitui o Espringale e pode lançar redes em navios inimigos para reduzir a velocidade deles."
+            },
+            {
+                "title": "Influência",
+                "description": "Construa Casas-longas dentro da influência da Doca para reduzir o custo dos navios em todas as Docas em 4% para cada Casa-longa, até o máximo de 16%."
+            }
+        ]
+    },
+    "scots": {
+        "summary": "Os Escoceses mobilizam uma infantaria resistente, especializada em emboscar inimigos a partir da furtividade. Casas-torre e Torres de Menagem protegem suas comunidades e seu precioso gado dos invasores que percorrem o território. Mobilize reforços rapidamente no Salão de Reunião, pesquise poderosas tecnologias das Terras Altas ou das Terras Baixas e proteja o Reino da Escócia.",
+        "classes": "Infantaria, Defesa, Reunião",
+        "era": "843–1707 d.C.",
+        "overview": [
+            {
+                "title": "Bônus da Civilização",
+                "list": [
+                    "Ghillies podem ficar furtivos em terreno aberto.",
+                    "A infantaria recebe bônus de visão e velocidade de movimento dentro da Floresta Furtiva.",
+                    "Casas-torre substituem Postos Avançados, produzem Gado das Terras Altas e aumentam a População.",
+                    "O Gado das Terras Altas pasta em Arbustos Frutíferos e produz Comida ao longo do tempo.",
+                    "Marcos das Terras Altas aumentam a capacidade de Gado das Terras Altas.",
+                    "Reúna unidades rapidamente no Salão de Reunião a partir da Era Feudal (II).",
+                    "Pesquise poderosas tecnologias das Terras Baixas e das Terras Altas no Salão de Reunião.",
+                    "Kirkmen pode criar Viveiros de Peixes que geram Ouro e aumentar as taxas de coleta dos trabalhadores próximos.",
+                    "Marcos das Terras Baixas aumentam o limite de construção de Viveiros de Peixes.",
+                    "Torres de Menagem destruídas podem ser reparadas por um tempo limitado antes de serem completamente destruídas.",
+                    "Torres de Menagem destruídas criam um efeito de terra arrasada que reduz a eficácia em combate dos inimigos próximos.",
+                    "Fendas de Flechas Navais custam 50% menos."
+                ]
+            },
+            {
+                "title": "Casas Nobres",
+                "description": "Casas-torre substituem Postos Avançados, produzem Gado das Terras Altas e Ghillies e aumentam a População."
+            },
+            {
+                "title": "Riqueza das Terras Altas",
+                "description": "Proteja o Gado das Terras Altas enquanto ele pasta em Arbustos Frutíferos e fornece Comida ao longo do tempo. A capacidade de Gado aumenta a cada Marco das Terras Altas construído."
+            },
+            {
+                "title": "Emboscada das Terras Altas",
+                "description": "A Infantaria conhece profundamente suas terras e luta com vantagem dentro e ao redor de Florestas Furtivas. Não sofre penalidades de visão dentro de Florestas Furtivas, e sua velocidade de movimento aumenta enquanto Emboscada das Terras Altas estiver ativa."
+            },
+            {
+                "title": "Schiltron Escocês",
+                "description": "Gallowglass podem se preparar contra ataques de cavalaria desde o início, e Homens de Armas podem fazer o mesmo após a pesquisa de Machados Lochaber."
+            },
+            {
+                "title": "Terras Baixas e Terras Altas",
+                "description": "Sempre que avançar de Era, escolha entre um Marco das Terras Altas e um das Terras Baixas. O Salão de Reunião contém tecnologias exclusivas dessas regiões. Conforme Marcos de uma região são construídos, o custo das tecnologias associadas é reduzido pela metade graças ao apoio regional."
+            },
+            {
+                "title": "Atender ao Chamado",
+                "description": "Reúna guerreiros rapidamente no Salão de Reunião a partir da Era Feudal (II)."
+            },
+            {
+                "title": "Viveiros Monásticos",
+                "description": "Crie Viveiros de Peixes coletáveis com um Kirkman para obter Ouro. Trabalhadores próximos a Viveiros de Peixes ativos recebem taxas de coleta maiores. Marcos das Terras Baixas aumentam o limite máximo de Viveiros de Peixes."
+            },
+            {
+                "title": "Ruínas do Castelo",
+                "description": "Ao serem destruídas, Torres de Menagem adotam táticas de terra arrasada e sabotam a área ao redor durante um período. Se algum inimigo estiver dentro da área de sabotagem, sua eficácia de combate é reduzida temporariamente. Durante esse período, tornam-se Ruínas da Fortaleza e podem ser salvas da destruição total caso sejam reparadas. Ruínas de Torres de Menagem podem ser restauradas completamente por até 600 Pedra. Depois, repará-las é gratuito."
+            },
+            {
+                "title": "Rede Defensiva dos Loch",
+                "description": "Fendas de flechas defensivas das Docas custam 50% menos."
+            },
+            {
+                "title": "Influência",
+                "description": "Construa edifícios militares ao redor do Salão de Reunião para aumentar seu nível e melhorar a eficiência ao reunir guerreiros.\nNível 1: Libera o recrutamento de Arqueiros das Terras Altas. Adiciona uma carga de reunião.\nNível 2: Reduz o custo para reunir. Adiciona uma carga de reunião.\nNível 3: Reduz o custo para reunir. Adiciona uma carga de reunião. A vida dos guerreiros reunidos é aumentada."
             }
         ]
     }

@@ -104,7 +104,7 @@
             },
             {
                 "title": "Influence",
-                "description": "Construisez les ovoos sur les affleurements de pierre pour extraire de la pierre sans villageois et générer de l'influence. Les ovoos récoltent +70, 100, 130, 160 unité(s) de pierre par minute en fonction de l'âge.\nLes bâtiments construits dans la zone d'influence d'un ovoo sont capables de doubler leur production d'unités ou de développer des versions améliorées de technologies en utilisant de la pierre."
+                "description": "Construisez les ovoos sur les affleurements de pierre pour extraire de la pierre sans villageois et générer de l'influence. Les ovoos récoltent +70, 100, 140, 170 unité(s) de pierre par minute en fonction de l'âge.\nLes bâtiments construits dans la zone d'influence d'un ovoo sont capables de doubler leur production d'unités ou de développer des versions améliorées de technologies en utilisant de la pierre."
             },
             {
                 "title": "Unités uniques",
@@ -185,7 +185,7 @@
             },
             {
                 "title": "Récompenses de prime",
-                "description": "Récolter de la nourriture sur des animaux génère une prime d'or. Atteindre certains paliers octroie des bonus économiques aux villageois et aux cabanes de chasse.\n100 de prime d'or\n• +5% de taux de collecte de nourriture\n• Les cabanes de chasse génèrent 10% d'or supplémentaire\n400 de prime d'or\n• +10% de taux de collecte de nourriture\n• Les cabanes de chasse génèrent 25% d'or supplémentaire\n1000 de prime d'or\n• +15% de taux de collecte de nourriture\n• Les cabanes de chasse génèrent 40% d'or supplémentaire"
+                "description": "Récolter de la nourriture sur des animaux génère une prime d'or. Atteindre certains paliers octroie des bonus économiques aux villageois et aux cabanes de chasse.\n100 de prime d'or\n• +10% de taux de collecte de nourriture\n• Les cabanes de chasse génèrent 10% d'or supplémentaire\n400 de prime d'or\n• +15% de taux de collecte de nourriture\n• Les cabanes de chasse génèrent 25% d'or supplémentaire\n1000 de prime d'or\n• +20% de taux de collecte de nourriture\n• Les cabanes de chasse génèrent 40% d'or supplémentaire"
             },
             {
                 "title": "Influence",
@@ -232,12 +232,16 @@
                 "description": "Les villageois transportent +40% plus de ressources que les autres civilisations."
             },
             {
+                "title": "Bourse",
+                "description": "Le logement obligatoire dans les universités fournit +30 d'espace de population par université, et la liberté de choisir le programme réduit les coûts de développement des universités de -10%."
+            },
+            {
                 "title": "Influence",
                 "description": "Les bâtiments construits dans la zone d'influence d'un forum obtiennent la capacité Réparations d’urgence qui peut être activée pour réparer le bâtiment et restaurer 150 points de santé par seconde, pendant 20 secondes."
             },
             {
                 "title": "Unités uniques",
-                "description": "Prélat : utilisez la capacité Inspiration sacrée sur les villageois pour augmenter leur taux de collecte de +35% pendant 30 secondes.\nLansquenet : unité d’infanterie légère au corps-à-corps équipée d’une grande épée à deux mains capable d’infliger d’importants dégâts de zone.\nCavalier noir : puissant artilleur en armure monté dont la production est limitée par le nombre de donjons construits."
+                "description": "Prélat : utilisez la capacité Inspiration sacrée sur les villageois pour augmenter leur taux de collecte de +40% pendant 30 secondes.\nLansquenet : unité d’infanterie légère au corps-à-corps équipée d’une grande épée à deux mains capable d’infliger d’importants dégâts de zone.\nCavalier noir : puissant artilleur en armure monté dont la production est limitée par le nombre de donjons construits."
             }
         ]
     },
@@ -330,15 +334,15 @@
             {
                 "title": "Bonus de civilisation",
                 "list": [
-                    "Développez des technologies uniques qui profiteront aux chameaux, à l'armée, à la religion, à l'économie et au commerce.",
-                    "Les unités à chameaux réduisent les dégâts des unités de cavalerie ennemies à proximité de 20%.",
-                    "Construire des moulins à proximité de buissons de baies les transforme en vergers et augmente la limite de nourriture de 100.",
-                    "Les buissons de baies sont récoltés +25% plus rapidement, mais la récolte de la viande de sanglier est impossible.",
-                    "La capacité de transport des baies est augmentée de 3.",
-                    "Les marchands coûtent 33% moins cher.",
-                    "Les ports coûtent 50% moins cher.",
-                    "Passez à l'âge suivant sans l'aide des villageois en améliorant les ailes de la maison de la sagesse.",
-                    "Entrez dans un âge d'or en construisant des bâtiments dans la zone d'influence de la maison de la sagesse, en augmentant le taux de collecte des ressources, les temps de développement et la vitesse de production."
+                    "Développez des technologies uniques bénéficiant aux chameaux, à l'armée, à la religion, à l'économie et au commerce.",
+                    "Les unités à chameau réduisent de 20% les dégâts infligés par la cavalerie ennemie montée à proximité.",
+                    "Les moulins construits près des buissons de baies créent des vergers, augmentant la capacité alimentaire de +100.",
+                    "Vous récoltez les baies des buissons 25% plus vite, mais ne pouvez pas récolter de nourriture sur les sangliers.",
+                    "La capacité de transport des baies est augmentée de +3.",
+                    "Les marchands terrestres coûtent 33% de moins.",
+                    "Les ports sont 50% moins chers.",
+                    "Passez à l'âge suivant sans avoir besoin de villageois en améliorant les ailes de la maison de la sagesse.",
+                    "Entrez dans un âge d'or en construisant des bâtiments sous l'influence de la maison de la sagesse, afin d'obtenir des bonus dans tout l'empire."
                 ]
             },
             {
@@ -367,7 +371,7 @@
             },
             {
                 "title": "Âge d'or",
-                "description": "Tentez d'atteindre l'âge d'or de votre civilisation en améliorant l'économie et la technologie.\nLes bâtiments dans la zone d'influence de la Maison de la sagesse obtiennent +5 en armure de feu et contribuent à atteindre l'âge d'or. Les seuils de déverrouillage sont de 10, 30 et 60 bâtiments.\n• Rang 1 : +15% de taux de collecte des villageois\n• Rang 2 : +20% de vitesse de développement\n• Rang 3 : +20% de taux de collecte des villageois pour toutes les ressources. +20% de vitesse de développement. +20% de vitesse de production."
+                "description": "Développez votre âge d’or pour améliorer votre économie et vos technologies.\nLes bâtiments sous l’influence de la maison de la sagesse gagnent +5 point(s) d’armure de feu et contribuent d’un point à l’âge d’or. Les seuils de déblocage sont de 10, 20, 30, 50 et 75 bâtiments.\n• Niveau 1 : +15% à la vitesse de collecte des villageois\n• Niveau 2 : +20% à la vitesse de construction des villageois\n• Niveau 3 : +20% de dégâts pour les chameliers.\n• Niveau 4 : les marchands génèrent 20% d’or en plus.\n• Niveau 5 : +10% de dégâts pour l’infanterie de corps-à-corps."
             },
             {
                 "title": "Unités uniques",
@@ -512,7 +516,7 @@
             },
             {
                 "title": "Huile d’olive",
-                "description": "Collectez une ressource unique utilisée pour engager des unités mercenaires. Les villageois produisent une quantité d'huile d'olive équivalente à 50% de la nourriture récoltée sur les buissons de baies, 20% de la nourriture récoltée dans les oliveraies et 10% de la nourriture obtenue sur les poissons pêchés près de la côte.\nLes bateaux de pêche génèrent une quantité d'huile d'olive équivalente à 20% de la nourriture issue de la pêche et les marchands génèrent une quantité d'huile d'olive équivalente à 20% de la quantité de ressources échangée."
+                "description": "Collectez une ressource unique utilisée pour engager des unités mercenaires. Les villageois produisent une quantité d'huile d'olive équivalente à 50% de la nourriture récoltée sur les buissons de baies, 15% de la nourriture récoltée dans les oliveraies et 10% de la nourriture obtenue sur les poissons pêchés près de la côte.\nLes bateaux de pêche génèrent une quantité d'huile d'olive équivalente à 20% de la nourriture issue de la pêche et les marchands génèrent une quantité d'huile d'olive équivalente à 20% de la quantité de ressources échangée."
             },
             {
                 "title": "Mercenaires",
@@ -760,7 +764,7 @@
             {
                 "title": "Bonus de civilisation",
                 "list": [
-                    "Les villageois transportent +40% de ressources en plus, rassemblent les ressources 28% plus rapidement et construisent et réparent des bâtiments 20% plus rapidement.",
+                    "Les villageois transportent +40% de ressources en plus, rassemblent les ressources 27% plus rapidement et construisent et réparent des bâtiments 20% plus rapidement.",
                     "Les unités d'infanterie et de cavalerie sont bien plus puissantes, mais également plus chères à produire et consomment deux emplacements de population",
                     "Placez des reliques dans les postes avancés, les tours en pierre et les donjons pour obtenir des bonus défensifs et économiques.",
                     "Les reliques placées dans les ports augmentent la vitesse d'attaque des navires de +5% par relique (Max +20%).",
@@ -770,7 +774,7 @@
             },
             {
                 "title": "Villageois efficaces",
-                "description": "Les villageois collectent des ressources 28% plus rapidement, construisent et réparent des bâtiments 20% plus rapidement, mais coûtent 20% de nourriture en plus à produire."
+                "description": "Les villageois collectent des ressources 27% plus rapidement, construisent et réparent des bâtiments 20% plus rapidement, mais coûtent 20% de nourriture en plus à produire."
             },
             {
                 "title": "Zèle religieux",
@@ -835,7 +839,7 @@
             },
             {
                 "title": "Préservation du paysage",
-                "description": "Les villageois déposent automatiquement du bois sans camp de bûcherons.\nLe bois est récolté +20% plus rapidement à chaque âge et 20% du bois récolté est produit comme nourriture supplémentaire."
+                "description": "Les villageois déposent automatiquement du bois sans camp de bûcherons.\nLe bois est récolté +20%/+15%/+15% plus rapidement à chaque âge et 20% du bois récolté est produit comme nourriture supplémentaire."
             },
             {
                 "title": "Experts de siège",
@@ -966,22 +970,22 @@
             {
                 "title": "Bonus de civilisation",
                 "list": [
-                    "Les forums, éléphants de trait et ports fournissent des ressources supplémentaires lorsque les villageois et bateaux de pêche effectuent des dépôts.",
-                    "Les éléphants de trait se déplacement librement et servent de points de dépôt universels.",
-                    "Toutes les technologies coûtent plus cher, mais le développement est presque instantané.",
-                    "Les forts de Tughlaqabad agissent comme des donjons et sont disponibles à partir de l'âge féodal (II).",
-                    "Les forts de Tughlaqabad peuvent être améliorés pour augmenter les défenses et débloquer des gouverneurs.",
-                    "Sélectionnez un gouverneur dans n'importe quel fort pour guider la dynastie vers de nouveaux sommets.",
+                    "Les forums, les éléphants de trait et les ports fournissent des ressources supplémentaires lorsque les villageois y effectuent des dépôts.",
+                    "Les éléphants de trait se déplacent librement et servent de points de dépôt universels.",
+                    "Toutes les technologies coûtent plus cher, mais se développent presque instantanément.",
+                    "Les forts de Tughlaqabad font office de donjons et sont disponibles dès l'Âge féodal (II).",
+                    "Les forts de Tughlaqabad peuvent être améliorés afin de renforcer leurs défenses et de débloquer des gouverneurs.",
+                    "Sélectionnez un gouverneur dans n'importe quel fort afin de guider la dynastie vers de nouveaux sommets.",
                     "Les gouverneurs offrent des bonus économiques, de rythme, militaires, de développement et religieux.",
                     "Les unités d'infanterie peuvent construire des palissades.",
                     "Vous pouvez récolter à partir des buissons de baies 30% plus rapidement, mais ne pouvez pas obtenir de nourriture à partir des sangliers.",
-                    "Capacité de transport de baies augmentée +3.",
-                    "Les navires de pêche peuvent se défendre avec une attaque à distance."
+                    "Capacité de transport de baies augmentée de +3.",
+                    "Les bateaux de pêche peuvent se défendre avec une attaque à distance."
                 ]
             },
             {
                 "title": "Compagnons travailleurs",
-                "description": "Allégez la charge de travail de vos villageois grâce à des éléphants de trait. Ces éléphants servent de points de dépôt universels et sont capables de se déplacer partout, ce qui vous fera économiser du temps et des ressources et permettra aux villageois de se concentrer sur leur travail.\nLes éléphants de trait, forums et ports fournissent des ressources supplémentaires lorsque les villageois et bateaux de pêche effectuent des dépôts."
+                "description": "Allégez la charge de travail de vos villageois grâce à des éléphants de trait. Ces éléphants servent de points de dépôt universels et peuvent se déplacer partout. Ainsi, vous gagnez du temps et des ressources tout en permettant aux villageois de se concentrer sur leur tâche.\nLes éléphants de trait, les forums et les ports fournissent des ressources supplémentaires lorsque les villageois y effectuent des dépôts."
             },
             {
                 "title": "Érudition",
@@ -1148,7 +1152,7 @@
             },
             {
                 "title": "Prairies",
-                "description": "Choisissez parmi 3 emplacements après avoir terminé un monument pour y construire des prairies, qui font progressivement apparaître jusqu'à 5 chevaux dans leur champ. Les chevaux augmentent la santé de toutes les unités de cavalerie de corps-à-corps de +2 ainsi que celle des unités de cavalerie à distance de +1, et peuvent être utilisés par les écuries sous l'influence des prairies pour former rapidement n'importe quelle unité montée. Les prairies produisent un nouveau cheval toutes les 90/60/45 secondes aux âges féodal/des châteaux/impérial."
+                "description": "Choisissez parmi 3 emplacements après avoir terminé un monument pour y construire des prairies, qui font progressivement apparaître jusqu'à 5 chevaux dans leur champ. Les chevaux augmentent la santé de toutes les unités de cavalerie de corps-à-corps de +2 ainsi que celle des unités de cavalerie à distance de +1, et peuvent être utilisés par les écuries sous l'influence des prairies pour former rapidement n'importe quelle unité montée. Les prairies produisent un nouveau cheval toutes les 75/60/45 secondes aux âges féodal/des châteaux/impérial."
             },
             {
                 "title": "Héritage jürchen",
@@ -1178,6 +1182,104 @@
                     "Fantassin à zhanma : infanterie blindée disponible uniquement à l'âge impérial, infligeant des dégâts de corps-à-corps impressionnants avec un bonus contre la cavalerie.",
                     "Défenseurs Meng'an Mouke : les Meng'an Mouke et les grenadiers montés apparaissent depuis des emplacements uniques pour défendre automatiquement le territoire des Jin."
                 ]
+            }
+        ]
+    },
+    "vikings": {
+        "summary": "Les Vikings sont des pilleurs venus du nord qui écrasent leurs ennemis grâce à une puissante infanterie, capable de survivre sur les terres adverses. Leurs maisons longues flexibles leur permettent d’accroître leur population et leur économie avec aisance. Les sagas et la religion nordique inspirent leurs guerriers à combattre sans peur pour l’honneur des dieux.",
+        "classes": "Maisons longues, infanterie, sagas",
+        "era": "793 - 1523 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "description": "• Les sagas peuvent octroyer des bonus si vous accomplissez diverses quêtes.\n• Les villageois sont recrutés automatiquement depuis les forums jusqu'à la capacité maximale de villageois, qui peut être augmentée en construisant des maisons longues.\n• Les maisons longues peuvent être améliorées avec divers ajouts et recrutent des Bondi.\n• L'unité Völur peut accélérer la production des maisons longues ou installer des vergers sacrés sur des reliques.\n• L'infanterie militaire peut se soigner en consommant de la nourriture issue des dépôts de nourriture.\n• Les Vikings n'ont pas de murs en pierre, mais les palissades peuvent être améliorées en murs Danevirke, qui subissent moins de dégâts par le feu."
+            },
+            {
+                "title": "Sagas",
+                "description": "Les Sagas sont des quêtes pouvant être accomplies à tout moment, débloquant ainsi des bonus permanents."
+            },
+            {
+                "title": "Migration du Nord",
+                "description": "Les Forums recrutent automatiquement des villageois sans coût jusqu’à la capacité maximale de villageois. Cette capacité est augmentée de +10 pour chaque maison longue construite."
+            },
+            {
+                "title": "Maison longue",
+                "description": "Les maisons longues peuvent être améliorées avec l’un des quatre ajouts différents. La ferme ajoute deux champs maraîchers, qui ont un taux de collecte supérieur à celui des fermes classiques. Les ruches paysannes génèrent de l’or passivement. Les métiers à tisser améliorent automatiquement l’armure des unités militaires. La forge améliore automatiquement les dégâts des unités militaires."
+            },
+            {
+                "title": "Völur",
+                "description": "Les Völur sont des unités de soutien qui peuvent se déplacer entre les maisons longues, augmentant temporairement la production des ruches paysannes et des fermes. Les Völur peuvent également être sacrifiés pour établir un Verger sacré sur des reliques, qui recrute passivement des Berserk et possède une aura augmentant l’armure des unités proches."
+            },
+            {
+                "title": "Bondi",
+                "description": "Les Bondi sont des piquiers uniques dotés d’une santé et d’une armure accrues. Lorsqu’ils sont proches les uns des autres, ils bénéficient temporairement du mur de boucliers, ce qui augmente leur santé."
+            },
+            {
+                "title": "Berserk",
+                "description": "Le Berserk est une unité d’armure légère unique qui offre des dégâts élevés, une grande vitesse de déplacement et est armée de deux haches. La Fureur du Berserk se déclenche lorsque la santé est faible, régénérant ainsi la santé et augmentant les dégâts."
+            },
+            {
+                "title": "Vivre de la terre",
+                "description": "Les unités d’infanterie peuvent se soigner en récoltant de la nourriture sur des dépôts tels que les buissons de baies, le chevreuil ou le sanglier."
+            },
+            {
+                "title": "Bateau long et drakkar",
+                "description": "Le bateau long est un navire d'archers unique qui sert également de transport ; chaque unité embarquée augmente le nombre de flèches tirées et la santé. Le drakkar remplace le navire espringale et peut lancer des filets sur les navires ennemis pour les ralentir."
+            },
+            {
+                "title": "Influence",
+                "description": "Construisez des maisons longues dans la zone d’influence du port pour réduire le coût des navires dans tous les ports de 4% par maison longue, jusqu’à un maximum de 16%."
+            }
+        ]
+    },
+    "scots": {
+        "summary": "Les Écossais alignent une infanterie résiliente, experte dans l'art d'embusquer l'ennemi en toute furtivité. Les maisons-tours et les donjons protègent leurs communautés et leurs précieux troupeaux des pilleurs dans la campagne. Rassemblez rapidement des renforts au Hall de rassemblement, recherchez de puissantes technologies des Highlands ou des Lowlands et assurez la sécurité du royaume d'Écosse.",
+        "classes": "Infanterie, Défense, Rassemblement",
+        "era": "843 - 1707 de notre ère",
+        "overview": [
+            {
+                "title": "Bonus de civilisation",
+                "description": "• Les Ghillies peuvent se rendre furtifs en terrain découvert.\n• L'infanterie bénéficie de bonus de vision et de vitesse de déplacement dans les forêts denses.\n• Les maisons-tours remplacent les avant-postes, produisent des Highlands et augmentent la population.\n• Les Highlands paissent dans les buissons de baies pour produire de la nourriture au fil du temps.\n• Les monuments des Highlands augmentent la capacité de troupeau de Highlands.\n• Il est possible de rassembler rapidement des unités au hall de rassemblement dès l'âge féodal (II).\n• Développez de puissantes technologies des Lowlands et des Highlands au hall de rassemblement.\n• Les Kirkmen peuvent créer des viviers pour récolter de l'or et augmenter les taux de collecte des ouvriers à proximité.\n• Les monuments des Lowlands augmentent la limite de construction des viviers.\n• Les donjons détruits peuvent être réparés pendant un temps limité avant d'être complètement détruits. \n• Les donjons détruits créent un effet de terre brûlée réduisant l'efficacité au combat des ennemis proches.\n• Les meurtrières navales coûtent 50% de moins."
+            },
+            {
+                "title": "Maisons nobles",
+                "description": "Les maisons-tours remplacent les avant-postes, produisent des troupeaux de Highlands, des Ghillies et augmentent la population."
+            },
+            {
+                "title": "Richesse des Highlands",
+                "description": "Protégez les troupeaux de Highlands pendant qu’ils paissent aux buissons de baies, fournissant de la nourriture au fil du temps. La capacité du bétail augmente à chaque monument Highland construit."
+            },
+            {
+                "title": "Embuscade des Highlands",
+                "description": "L’infanterie possède une grande connaissance et une connexion profonde à ses terres, et sait bien se battre dans les forêts denses et alentour. Aucun malus de vision dans les forêts denses et la vitesse de déplacement est augmentée lorsque l’embuscade des Highlands est active."
+            },
+            {
+                "title": "Schiltron écossais",
+                "description": "Les Gallowglass peuvent se préparer par défaut contre les charges de cavalerie, et les hommes d’armes peuvent se préparer après la recherche des haches de Lochaber."
+            },
+            {
+                "title": "Lowlands et Highlands",
+                "description": "À chaque passage à l’Âge supérieur, choisissez entre un monument des Highlands ou des Lowlands. Le Hall de rassemblement détient des technologies uniques propres à ces terres. Lorsque vous construisez des monuments dans une région, le coût des technologies associées est réduit de moitié."
+            },
+            {
+                "title": "Répondez à l’appel",
+                "description": "Rassemblez rapidement des guerriers au Hall de rassemblement dès l’Âge féodal (II)."
+            },
+            {
+                "title": "Viviers monastiques",
+                "description": "Créez des viviers récoltables avec un Kirkman pour obtenir de l'or. Les travailleurs proches des viviers actifs bénéficient d'une vitesse de collecte accrue. Les monuments des Lowlands augmentent le nombre maximum de viviers."
+            },
+            {
+                "title": "Ruines du château",
+                "description": "Lorsqu'ils sont détruits, les donjons adoptent la tactique de la terre brûlée et sabotent la zone immédiate pendant un certain temps. Si des ennemis se trouvent dans la zone sabotée, leur efficacité au combat est temporairement réduite. Pendant cette période, les donjons deviennent des ruines de donjon et peuvent être réparés pour être sauvés de la destruction totale. Les ruines de donjon peuvent être entièrement restaurées jusqu'à un maximum de 600 unités de pierre, après quoi la réparation devient gratuite."
+            },
+            {
+                "title": "Réseau défensif du loch",
+                "description": "Les meurtrières défensives du port coûtent 50% moins cher."
+            },
+            {
+                "title": "Influence",
+                "description": "Construisez des bâtiments militaires autour du Hall de rassemblement pour augmenter son niveau et améliorer l'efficacité du rassemblement de guerriers.\nNiveau 1 : débloque le rassemblement des archers des Highlands. Ajoute une charge de rassemblement.\nNiveau 2 : réduit le coût des rassemblements. Ajoute une charge de rassemblement.\nNiveau 3 : réduit le coût des rassemblements. Ajoute une charge de rassemblement. Les guerriers rassemblés gagnent des points de santé supplémentaires."
             }
         ]
     }

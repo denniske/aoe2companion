@@ -104,7 +104,7 @@
             },
             {
                 "title": "Influence",
-                "description": "Construct the Ovoo over Stone outcroppings to generate influence and harvest Stone without the need for Villagers. Ovoos harvest +70, 100, 130, 160 Stone per minute after each age up.\nBuildings within the influence of an Ovoo are able to double produce units or research improved versions of technologies using Stone."
+                "description": "Construct the Ovoo over Stone outcroppings to generate influence and harvest Stone without the need for Villagers. Ovoos harvest +70, 100, 140, 170 Stone per minute after each age up.\nBuildings within the influence of an Ovoo are able to double produce units or research improved versions of technologies using Stone."
             },
             {
                 "title": "Unique Units",
@@ -191,7 +191,7 @@
             },
             {
                 "title": "Bounty Rewards",
-                "description": "Gathering from animals earns a bounty of Gold and reaching certain thresholds of total bounty provides economic bonuses to Villagers and Hunting Cabins.\n100 Bounty\n• +5% Food gather rate\n• Hunting Cabins generate 10% more Gold\n400 Bounty\n• +10% Food gather rate\n• Hunting Cabins generate 25% more Gold\n1000 Bounty\n• +15% Food gather rate\n• Hunting Cabins generate 40% more Gold"
+                "description": "Gathering from animals earns a bounty of Gold and reaching certain thresholds of total bounty provides economic bonuses to Villagers and Hunting Cabins.\n100 Bounty\n• +10% Food gather rate\n• Hunting Cabins generate 10% more Gold\n400 Bounty\n• +15% Food gather rate\n• Hunting Cabins generate 25% more Gold\n1000 Bounty\n• +20% Food gather rate\n• Hunting Cabins generate 40% more Gold"
             },
             {
                 "title": "Influence",
@@ -217,8 +217,9 @@
                     "Infantry move 5% faster in the Dark Age (I) and 10% faster from the Feudal Age (II).",
                     "Emplacements are -20% cheaper. Outpost sight range increased by +20%.",
                     "Villagers carry +40% more resources.",
-                    "Prelates can heal and use Holy Inspiration in the Dark Age (I) — inspired Villagers gather +35% faster for 30 seconds.",
-                    "Buildings within influence of a Town Center gain the Emergency Repairs ability which can be activated to repair the building."
+                    "Prelates can heal and use Holy Inspiration in the Dark Age (I) — inspired Villagers gather +40% faster for 30 seconds.",
+                    "Buildings within influence of a Town Center gain the Emergency Repairs ability which can be activated to repair the building.",
+                    "Universities provide population space and their technologies are cheaper."
                 ]
             },
             {
@@ -238,12 +239,16 @@
                 "description": "Villagers carry +40% more resources than other civilizations."
             },
             {
+                "title": "Bursae",
+                "description": "Mandatory housing at Universities provides +30 population space at each University, and the freedom to choose curriculum reduces research costs at Universities by -10%."
+            },
+            {
                 "title": "Influence",
                 "description": "Buildings constructed within the influence of a Town Center gain the Emergency Repairs ability which can be activated to repair the building for +150 health every second for 20 seconds."
             },
             {
                 "title": "Unique Units",
-                "description": "Prelate: Use the Holy Inspiration ability on Villagers increasing their gather rate by +35% for 30 seconds.\nLandsknecht: Light melee infantry with a large two-handed sword capable of doing significant area damage.\nBlack Rider: Powerful armored mounted gunner. Production is limited by the number of constructed Keeps."
+                "description": "Prelate: Use the Holy Inspiration ability on Villagers increasing their gather rate by +40% for 30 seconds.\nLandsknecht: Light melee infantry with a large two-handed sword capable of doing significant area damage.\nBlack Rider: Powerful armored mounted gunner. Production is limited by the number of constructed Keeps."
             }
         ]
     },
@@ -353,7 +358,7 @@
                     "Land Traders are -33% cheaper.",
                     "Docks are -50% cheaper.",
                     "Age up without the need for Villagers by upgrading wings on the House of Wisdom.",
-                    "Enter a Golden Age by constructing buildings in the House of Wisdoms influence, increasing resource gather rate, research times, and production speed."
+                    "Enter a Golden Age by constructing buildings in the House of Wisdom's influence, gaining bonuses across the empire."
                 ]
             },
             {
@@ -382,7 +387,7 @@
             },
             {
                 "title": "Golden Age",
-                "description": "Build towards your Golden Age – improving economy and technology.\nBuildings within the House of Wisdom's influence receive +5 fire armor and contribute one point towards the Golden Age. The threshold for unlocks are 10, 30, and 60 buildings.\n• Tier 1: Villager gather rate +15%\n• Tier 2: Research speed +20%\n• Tier 3: Villager gathering rate +20% for all resources. Research speeds +20%. Production speeds +20%."
+                "description": "Build towards your Golden Age – improving economy and technology.\nBuildings within the House of Wisdom's influence receive +5 fire armor and contribute one point towards the Golden Age. The threshold for unlocks are 10, 20, 30, 50, and 75 buildings.\n• Tier 1: Villager gather rate +15%\n• Tier 2: Villager construction rate +20%\n• Tier 3: Camel Riders +20% damage.\n• Tier 4: Traders generate +20% gold.\n• Tier 5: Melee Infantry +10% damage."
             },
             {
                 "title": "Unique Units",
@@ -528,7 +533,7 @@
             },
             {
                 "title": "Olive Oil",
-                "description": "Collect a unique resource that is used to hire Mercenary units. Villagers gather Olive Oil equal to 50% of Food gathered from Berry Bushes, 20% from Olive Groves, and 10% from Shore Fish.\nFishing Boats generate Olive Oil equal to 20% of Food from Fish and Traders provide 20% Olive Oil based on the amount being traded."
+                "description": "Collect a unique resource that is used to hire Mercenary units. Villagers gather Olive Oil equal to 50% of Food gathered from Berry Bushes, 15% from Olive Groves, and 10% from Shore Fish.\nFishing Boats generate Olive Oil equal to 20% of Food from Fish and Traders provide 20% Olive Oil based on the amount being traded."
             },
             {
                 "title": "Mercenaries",
@@ -776,7 +781,7 @@
             {
                 "title": "Civilization Bonuses",
                 "list": [
-                    "Villagers carry +40% more resources, gather +28% faster, and construct and repair buildings +20% faster.",
+                    "Villagers carry +40% more resources, gather +27% faster, and construct and repair buildings +20% faster.",
                     "Infantry and cavalry units are much stronger, but also more expensive to produce and take twice the population",
                     "Place Relics in Outposts, Stone Towers and Keeps for defensive and economic bonuses.",
                     "Relics placed in Docks increase ship attack speed by +5% per Relic (Max +20%).",
@@ -786,7 +791,7 @@
             },
             {
                 "title": "Efficient Villagers",
-                "description": "Villagers gather 28% quicker, construct and repair buildings 20% faster, but cost 20% more Food to produce."
+                "description": "Villagers gather 27% quicker, construct and repair buildings 20% faster, but cost 20% more Food to produce."
             },
             {
                 "title": "Religious Zeal",
@@ -851,7 +856,7 @@
             },
             {
                 "title": "Landscape Preservation",
-                "description": "Villagers automatically deposit wood without a Lumber Camp.\nWood is gathered +20% faster in each Age and 20% of the wood gathered is produced as additional food."
+                "description": "Villagers automatically deposit wood without a Lumber Camp.\nWood is gathered +20%/+15%/+15% faster in each Age and 20% of the wood gathered is produced as additional food."
             },
             {
                 "title": "Siege Experts",
@@ -982,7 +987,7 @@
             {
                 "title": "Civilization Bonuses",
                 "list": [
-                    "Town Centers, Worker Elephants, and Docks provide bonus resources when Villagers and Fishing Ships drop off.",
+                    "Town Centers, Worker Elephants, and Docks provide bonus resources when Villagers drop off.",
                     "Worker Elephants move freely and act as universal resource drop-offs.",
                     "All technology is more expensive but research near instantly.",
                     "Tughlaqabad Forts act as Keeps and are available from the Feudal Age (II).",
@@ -997,7 +1002,7 @@
             },
             {
                 "title": "Working Companions",
-                "description": "Take the load off your Villagers back with Worker Elephants. These elephants act as a universal drop-off and can move around freely, saving time and resources for Villagers to focus on working.\nWorker Elephants, Town Centers, and Docks provide bonus resources when Villagers and Fishing Ships drop off."
+                "description": "Take the load off your Villagers back with Worker Elephants. These elephants act as a universal drop-off and can move around freely, saving time and resources for Villagers to focus on working.\nWorker Elephants, Town Centers, and Docks provide bonus resources when Villagers drop off."
             },
             {
                 "title": "Erudition",
@@ -1164,7 +1169,7 @@
             },
             {
                 "title": "Grasslands",
-                "description": "Select from 3 locations upon completing a Landmark to build Grasslands, which gradually spawn up to 5 Horses in their field. Horses increase the health of all Melee Cavalry units by +2 and all Ranged Cavalry by +1, or can be used by Stables within the Influence of the Grasslands to quickly train any mounted unit. Grasslands produce a new Horse every 90/60/45 seconds in the Feudal/Castle/Imperial Ages."
+                "description": "Select from 3 locations upon completing a Landmark to build Grasslands, which gradually spawn up to 5 Horses in their field. Horses increase the health of all Melee Cavalry units by +2 and all Ranged Cavalry by +1, or can be used by Stables within the Influence of the Grasslands to quickly train any mounted unit. Grasslands produce a new Horse every 75/60/45 seconds in the Feudal/Castle/Imperial Ages."
             },
             {
                 "title": "Jurchen Legacy",
@@ -1194,6 +1199,124 @@
                     "Zhanma Swordsman - Armored Infantry available only in Imperial Age, deals impressive melee damage with bonus against cavalry.",
                     "Meng'an Mouke Defenders - Meng'an Mouke & Mounted Grenadiers spawn from unique emplacements to automatically defend Jin territory."
                 ]
+            }
+        ]
+    },
+    "vikings": {
+        "summary": "The Vikings are raiders from the north that overwhelmed their enemies with powerful melee infantry that could live off enemy lands. Their flexible Longhouses allow them to build up their population and economy with ease. Sagas and the Norse religion inspire their warriors to fight without fear for the honor of the gods.",
+        "classes": "Longhouses, Infantry, Sagas",
+        "era": "793 - 1523 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Sagas can grant bonuses by accomplishing various quests.",
+                    "Villagers are automatically recruited from Town Centers up to the Villager Capacity which can be increased by building Longhouses.",
+                    "Longhouses can be upgraded with various attachments and recruit Bondi.",
+                    "The Völur unit can increase the production speed of Longhouses or set up Sacred Groves on Relics.",
+                    "Military infantry can heal by consuming Food from Food deposits.",
+                    "The Vikings lack Stone walls, but palisades can be upgraded to Danevirke walls that take less fire damage."
+                ]
+            },
+            {
+                "title": "Sagas",
+                "description": "Sagas are quests that can be completed at any time which will unlock permanent bonuses."
+            },
+            {
+                "title": "Northern Migration",
+                "description": "Town Centers automatically recruit Villagers at no cost up to the Villager Capacity. The Villager Capacity is increased by +10 for each Longhouse constructed."
+            },
+            {
+                "title": "Longhouse",
+                "description": "Longhouses can be upgraded with one of four different attachments. The Farmstead adds two vegetable fields, which have a higher gather rate than normal Farms. The Bee Skeps will passively generate gold. Looms will automatically improve the armor of military units. The Smithy will automatically improve the damage of military units."
+            },
+            {
+                "title": "Völur",
+                "description": "Völur are support units that can travel between Longhouses, boosting the production of Bee Skeps and Farmsteads for a duration. The Völur can also be sacrificed to establish a Sacred Grove on Relics, which passively recruits Berserkers and has an aura that increases the armor of nearby units."
+            },
+            {
+                "title": "Bondi",
+                "description": "Bondi are unique spearmen that have increased health and armor. When Bondi are near each other, they gain a Shield Wall buff temporarily increasing their health."
+            },
+            {
+                "title": "Berserker",
+                "description": "The Berserker is a unique light armor unit that has high damage, fast movement speed, and is armed with two axes. Berserkergang is triggered at low health, which regenerates health and increases damage."
+            },
+            {
+                "title": "Living Off The Land",
+                "description": "Military infantry can heal themselves by gathering Food from deposits such as Berry Bushes, Deer or Boar."
+            },
+            {
+                "title": "Longship and Drakkar",
+                "description": "The Longship is a unique archer ship that also acts as a transport, each loaded unit increases the arrows fired and increases health. The Drakkar replaces the Springald Ship and can throw nets on enemy ships to slow them down."
+            },
+            {
+                "title": "Influence",
+                "description": "Construct Longhouses within the Dock's influence to reduce the cost of ships in all Docks by 4% for each Longhouse up to a maximum of 16%."
+            }
+        ]
+    },
+    "scots": {
+        "summary": "The Scots field resilient infantry that excel at ambushing enemies from stealth. Tower Houses and Keeps protect their communities and precious cattle from raiders across the countryside. Muster reinforcements quickly at the Mustering Hall and research powerful Highland or Lowland technologies and secure the Kingdom of Scotland.",
+        "classes": "Infantry, Defense, Mustering",
+        "era": "843 - 1707 CE",
+        "overview": [
+            {
+                "title": "Civilization Bonuses",
+                "list": [
+                    "Ghillies can stealth in the open.",
+                    "Infantry have vision and movement speed bonuses while in Stealth Forests.",
+                    "Tower Houses replace Outposts, produce Highland Cattle, and increase population.",
+                    "Highland Cattle graze at Berry Bushes to gather Food over time.",
+                    "Highland Landmarks increase Highland Cattle capacity.",
+                    "Muster units quickly at the Mustering Hall from Feudal Age (II).",
+                    "Research powerful technologies from the Lowlands and Highlands at the Mustering Hall.",
+                    "Kirkmen can create Fishponds to gather Gold and increase the gather rates of nearby workers.",
+                    "Lowland Landmarks increase the Fishpond build limit.",
+                    "Destroyed Keeps can be repaired for a limited time before being completely destroyed.",
+                    "Destroyed Keeps create a scorched-earth effect that reduces the combat effectiveness of nearby enemies.",
+                    "Naval arrowslits are 50% cheaper."
+                ]
+            },
+            {
+                "title": "Noble Houses",
+                "description": "Tower Houses replace Outposts, produce Highland Cattle, Ghillies, and increase population."
+            },
+            {
+                "title": "Highland Wealth",
+                "description": "Protect Highland Cattle while they graze at Berry Bushes, providing Food over time as they eat. Cattle capacity increases with each Highland Landmark built."
+            },
+            {
+                "title": "Highland Ambush",
+                "description": "Infantry have deep knowledge and connection to their lands and fight with advantage in and around Stealth Forests. No vision penalties while in Stealth Forests and movement speed is increased when Highland Ambush is active."
+            },
+            {
+                "title": "Scottish Schiltron",
+                "description": "Gallowglass can brace for cavalry charges by default, and Men-at-Arms can brace after Lochaber Axes is researched."
+            },
+            {
+                "title": "Lowlands and Highlands",
+                "description": "Choose between a Highland or a Lowland Landmark each time when aging up. The Mustering Hall holds unique technologies from these lands. As Landmarks are constructed from a region, the associated technologies halve in cost for its support."
+            },
+            {
+                "title": "Answer the Call",
+                "description": "Muster warriors quickly at the Mustering Hall from the Feudal Age (II)."
+            },
+            {
+                "title": "Monastic Fishponds",
+                "description": "Create harvestable Fishponds with a Kirkman to gather Gold. Workers near active Fishponds receive increased gather rates. Landmarks from the Lowlands increase the maximum Fishpond count."
+            },
+            {
+                "title": "Castle Ruins",
+                "description": "Upon destruction, Keeps adopt scorched earth tactics and sabotage the immediate area for a duration. If any enemies are within the area of sabotage their combat effectiveness is temporarily reduced. During this time Keeps become Keep Ruins and can be saved from total destruction if repaired. Keep Ruins can be fully restored for up to maximum of 600 Stone after which repairing Keep Ruins becomes free."
+            },
+            {
+                "title": "Loch Defensive Network",
+                "description": "Dock defensive arrowslits are 50% cheaper."
+            },
+            {
+                "title": "Influence",
+                "description": "Construct military buildings around the Mustering Hall to increase its level to improve the efficiency of mustering warriors.\nTier 1: Unlocks mustering of Highland Archers. Adds a muster charge. \nTier 2: Reduces cost to muster. Adds a muster charge.\nTier 3: Reduces cost to muster. Adds a muster charge. Mustered warrior health is increased."
             }
         ]
     }

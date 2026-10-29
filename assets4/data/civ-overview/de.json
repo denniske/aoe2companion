@@ -104,7 +104,7 @@
             },
             {
                 "title": "Einfluss",
-                "description": "Errichten Sie den Obo auf Steinvorkommen, um an Einfluss zu gewinnen und Steine abzubauen, ohne dafür Dorfbewohner zu benötigen. Obos bauen nach jedem Zeitalter-Aufstieg +70, 100, 130, 160 Steine pro Minute ab.\nGebäude im Einflussbereich eines Obos können die Produktion von Einheiten verdoppeln oder verbesserte Technologieversionen mit Steinen erforschen."
+                "description": "Errichten Sie den Obo auf Steinvorkommen, um an Einfluss zu gewinnen und Steine abzubauen, ohne dafür Dorfbewohner zu benötigen. Obos bauen nach jedem Zeitalter-Aufstieg +70, 100, 140, 170 Steine pro Minute ab.\nGebäude im Einflussbereich eines Obos können die Produktion von Einheiten verdoppeln oder verbesserte Technologieversionen mit Steinen erforschen."
             },
             {
                 "title": "Spezialeinheiten",
@@ -136,7 +136,7 @@
             },
             {
                 "title": "Kontinentale Wirtschaft",
-                "description": "Profitieren Sie von einer überlegenen Wirtschaft mit -50 günstigeren Ablieferplätzen für Rohstoffe und -35 günstigeren Wirtschaftstechnologien.\nDie Produktionsrate von Dorfzentren erhöht sich pro Zeitalter um +15%, +15%, +20%, +25%."
+                "description": "Profitieren Sie von einer überlegenen Wirtschaft mit -50% günstigeren Ablieferplätzen für Rohstoffe und -35% günstigeren Wirtschaftstechnologien.\nDie Produktionsrate von Dorfzentren erhöht sich pro Zeitalter um +15%, +15%, +20%, +25%."
             },
             {
                 "title": "Handelswirtschaft",
@@ -191,7 +191,7 @@
             },
             {
                 "title": "Prämienbelohnungen",
-                "description": "Das Sammeln von Tieren gewährt eine Goldprämie. Erreicht die Gesamtzahl der Prämien eine bestimmte Höhe, erhalten Dorfbewohner und Jagdhütten Wirtschaftsboni.\n100 Prämie\n• +5% Nahrungssammelrate\n• Jagdhütten generieren 10% mehr Gold\n400 Prämie\n• +10% Nahrungssammelrate\n• Jagdhütten generieren 25% mehr Gold\n1000 Prämie\n• +15% Nahrungssammelrate\n• Jagdhütten generieren 40% mehr Gold"
+                "description": "Das Sammeln von Tieren gewährt eine Goldprämie. Erreicht die Gesamtzahl der Prämien eine bestimmte Höhe, erhalten Dorfbewohner und Jagdhütten Wirtschaftsboni.\n100 Prämie\n• +10% Nahrungssammelrate\n• Jagdhütten generieren 10% mehr Gold\n400 Prämie\n• +15% Nahrungssammelrate\n• Jagdhütten generieren 25% mehr Gold\n1000 Prämie\n• +20% Nahrungssammelrate\n• Jagdhütten generieren 40% mehr Gold"
             },
             {
                 "title": "Einfluss",
@@ -223,7 +223,7 @@
             },
             {
                 "title": "Religiöser Eifer",
-                "description": "Demonstrieren Sie die Macht des Reiches, indem Sie Reliquien in Außenposten, Türmen und Bergfrieden platzieren – und ihre Rüstung um + 25%, den Schaden um + 25%, die Reichweite um + 25% und die Sichtweite um + 20% % erhöhen. \nIn Häfen platzierte Reliquien erhöhen die Angriffsgeschwindigkeit von Schiffen um + 5% pro Reliquie (Max. + 25%).\nIn Gebäuden platzierte Reliquien erzeugen + 80 Gold pro Minute."
+                "description": "Zeigen Sie Reichsmacht mit Reliquien in Außenposten, Türmen und Bergfrieden, für + 25% Rüstung, + 25% Schaden, + 25% Reichweite und + 20% % Sichtweite. \nReliquien in Häfen erhöhen die Schiffs-Angriffsgeschwindigkeit um + 5% pro Reliquie (Max. + 25%).\nRelquien in Gebäuden erzeugen + 80 Gold pro Minute."
             },
             {
                 "title": "Armee des Kaiserreichs",
@@ -238,12 +238,16 @@
                 "description": "Dorfbewohner können +40% mehr Rohstoffe als andere Zivilisationen tragen."
             },
             {
+                "title": "Börsen",
+                "description": "Pflichtunterkünfte an Universitäten gewähren jeder Universität ein um %1% erhöhtes Bevölkerungslimit. Die freie Wahl des Studienplans senkt die Forschungskosten an Universitäten um %2%."
+            },
+            {
                 "title": "Einfluss",
                 "description": "Gebäude, die im Einflussbereich eines Dorfzentrums errichtet wurden, erhalten die Fähigkeit „Notfallreparaturen“, die aktiviert werden kann, um das Gebäude 20 Sekunden lang um +150 TP pro Sekunde zu reparieren."
             },
             {
                 "title": "Spezialeinheiten",
-                "description": "Prälat: Verwenden Sie die Fähigkeit „Heilige Inspiration“ bei Dorfbewohnern, um ihre Sammelrate 30 Sekunden lang um +35% zu erhöhen.\nLandsknecht: leichte Nahkampf-Infanterieeinheit mit einem großen Zweihandschwert, das hohen Flächenschaden verursachen kann.\nSchwarzer Reiter: starker berittener Kanonier mit Rüstung. Die Ausbildung ist abhängig von der Zahl der errichteten Bergfriede."
+                "description": "Prälat: Verwenden Sie die Fähigkeit „Heilige Inspiration“ bei Dorfbewohnern, um ihre Sammelrate 30 Sekunden lang um +40% zu erhöhen.\nLandsknecht: leichte Nahkampf-Infanterieeinheit mit einem großen Zweihandschwert, das hohen Flächenschaden verursachen kann.\nSchwarzer Reiter: starker berittener Kanonier mit Rüstung. Die Ausbildung ist abhängig von der Zahl der errichteten Bergfriede."
             }
         ]
     },
@@ -341,14 +345,15 @@
             {
                 "title": "Zivilisationsboni",
                 "list": [
-                    "Kameleinheiten reduzieren den Schaden gegnerischer Kavallerien um 20%.",
-                    "In der Nähe von Beerensträuchern errichtete Mühlen erschaffen Obstgärten, wodurch die Nahrungskapazität um 100 Punkte erhöht wird.",
-                    "Sie sammeln um 25% schneller von Beerensträuchern, können aber von Wildschweinen nichts sammeln.",
-                    "Die Tragekapazität von Beeren ist um 3 Punkte erhöht.",
-                    "Händler auf dem Landweg sind um 33% günstiger.",
-                    "Häfen sind um 50% günstiger.",
-                    "Sie schreiten zum nächsten Zeitalter voran, indem Sie im Haus der Weisheit Flügel aufwerten, ohne dafür Dorfbewohner zu benötigen.",
-                    "Starten Sie in ein Goldenes Zeitalter, indem Sie Gebäude im Einflussbereich des Hauses der Weisheit errichten und so die Rohstoffsammelrate, Forschungsrate und Produktionsrate erhöhen."
+                    "Erforschen Sie einzigartige Technologien, von denen Kamele, Militär, Religion, Wirtschaft und Handel profitieren.",
+                    "Kameleinheiten reduzieren den Schaden gegnerischer Kavalleriepferde in der Nähe um %1%.",
+                    "In der Nähe von Beerensträuchern errichtete Mühlen erschaffen Gärten, wodurch die Nahrungskapazität um %2% erhöht wird.",
+                    "Das Sammeln von Beerensträuchern geht %3% schneller, aber Sie können nichts von Wildschweinen sammeln.",
+                    "Die Tragfähigkeit für Beeren ist um %4% erhöht.",
+                    "Händler auf dem Landweg sind um %5% günstiger.",
+                    "Häfen sind um %6% günstiger.",
+                    "Sie gelangen ins nächste Zeitalter, indem Sie im Haus der Weisheit Flügel aufwerten, ohne dafür Dorfbewohner zu benötigen.",
+                    "Betreten Sie ein Goldenes Zeitalter, indem Sie im Einflussbereich des Hauses der Weisheit Gebäude errichten und so im gesamten Imperium Boni erhalten."
                 ]
             },
             {
@@ -377,7 +382,7 @@
             },
             {
                 "title": "Goldenes Zeitalter",
-                "description": "Arbeiten Sie auf Ihr Goldenes Zeitalter hin – verbessern Sie Wirtschaft und Technologie.\nGebäude im Einflussbereich des Hauses der Weisheit erhalten +5 Brandschutz und tragen einen Punkt zum Erreichen des Goldenen Zeitalters bei. Die Schwellenwerte für die Freischaltung liegen bei 10, 30 und 60 Gebäuden.\n- Stufe 1: Sammelrate der Dorfbewohner +15%\n- Stufe 2: Forschungsrate +20%\n- Stufe 3: Sammelrate der Dorfbewohner +20% für alle Rohstoffe. Forschungsraten +20%, Produktionsraten +20%."
+                "description": "Entwickeln Sie sich durch den Aufbau von Wirtschaft und Technologie weiter zum Goldenen Zeitalter.\nGebäude im Einflussbereich des Hauses der Weisheit erhalten +%1% Brandschutz und tragen einen Punkt zum Goldenen Zeitalter bei. Freischaltungen erfolgen ab folgenden Gebäude-Grenzwerten: %2%, %3%, %4%, %5%, und %6%.\n• Stufe 1: Sammelrate der Dorfbewohner +15%\n• Stufe 2: Dorfbewohner-Baurate +20%\n• Stufe 3: Kamelreiter +20% Schaden.\n• Stufe 4: +20% Goldproduktion durch Händler##.\n• Stufe 5: Nahkampfinfanterie +10% Schaden."
             },
             {
                 "title": "Spezialeinheiten",
@@ -522,7 +527,7 @@
             },
             {
                 "title": "Olivenöl",
-                "description": "Sammeln Sie einen einzigartigen Rohstoff, um mit ihm Söldnereinheiten anzuwerben. Dorfbewohner sammeln Olivenöl, das 50% der Nahrung aus Beerensträuchern, 20% aus Olivenhainen und 10% aus Küstenfischen entspricht.\nFischerboote erzeugen Olivenöl, das 20% der Nahrung aus Fischen entspricht, und Händler liefern 20% Olivenöl basierend auf der gehandelten Menge."
+                "description": "Sammeln Sie einen einzigartigen Rohstoff, um mit ihm Söldnereinheiten anzuwerben. Dorfbewohner sammeln Olivenöl, das 50% der Nahrung aus Beerensträuchern, 15% aus Olivenhainen und 10% aus Küstenfischen entspricht.\nFischerboote erzeugen Olivenöl, das 20% der Nahrung aus Fischen entspricht, und Händler liefern 20% Olivenöl basierend auf der gehandelten Menge."
             },
             {
                 "title": "Söldner",
@@ -763,7 +768,7 @@
             {
                 "title": "Zivilisationsboni",
                 "list": [
-                    "Dorfbewohner tragen +40% mehr Ressourcen, sammeln +28% schneller und bauen und reparieren Gebäude +20% schneller.",
+                    "Dorfbewohner tragen +40% mehr Ressourcen, sammeln +27% schneller und bauen und reparieren Gebäude +20% schneller.",
                     "Infanterie- und Kavallerieeinheiten sind viel stärker, aber auch teurer in der Produktion und benötigen die doppelte Bevölkerungszahl",
                     "Reliquien können in Außenposten, Steintürmen und Bergfrieden platziert werden, um defensive und wirtschaftliche Boni zu erhalten.",
                     "Reliquien, die in Häfen platziert werden, erhöhen die Angriffsgeschwindigkeit von Schiffen um +5% pro Reliquie (max. +20%).",
@@ -773,11 +778,11 @@
             },
             {
                 "title": "Effiziente Dorfbewohner",
-                "description": "Dorfbewohner sammeln 28% schneller, errichten und reparieren Gebäude 20% schneller, aber kosten 20% mehr Nahrung in der Ausbildung."
+                "description": "Dorfbewohner sammeln 27% schneller, errichten und reparieren Gebäude 20% schneller, aber kosten 20% mehr Nahrung in der Ausbildung."
             },
             {
                 "title": "Religiöser Eifer",
-                "description": "Demonstrieren Sie die Macht des Reiches, indem Sie Reliquien in Außenposten, Türmen und Bergfrieden platzieren – und ihre Rüstung um + 25%, den Schaden um + 25%, die Reichweite um + 25% und die Sichtweite um + 20% % erhöhen. \nIn Häfen platzierte Reliquien erhöhen die Angriffsgeschwindigkeit von Schiffen um + 5% pro Reliquie (Max. + 25%).\nIn Gebäuden platzierte Reliquien erzeugen + 80 Gold pro Minute."
+                "description": "Zeigen Sie Reichsmacht mit Reliquien in Außenposten, Türmen und Bergfrieden, für + 25% Rüstung, + 25% Schaden, + 25% Reichweite und + 20% % Sichtweite. \nReliquien in Häfen erhöhen die Schiffs-Angriffsgeschwindigkeit um + 5% pro Reliquie (Max. + 25%).\nRelquien in Gebäuden erzeugen + 80 Gold pro Minute."
             },
             {
                 "title": "Elite-Ausrüstung",
@@ -838,7 +843,7 @@
             },
             {
                 "title": "Bewahrung der Landschaft",
-                "description": "Dorfbewohner lagern Holz automatisch ohne Holzfällerlager ein.\nHolz wird in jedem Zeitalter 20% schneller gesammelt, und 20% des gesammelten Holzes wird in zusätzliche Nahrung umgewandelt."
+                "description": "Dorfbewohner lagern Holz automatisch ohne Holzfällerlager ein.\nHolz wird in jedem Zeitalter +20%/+15%/+15% schneller gesammelt, und 20% des gesammelten Holzes wird in zusätzliche Nahrung umgewandelt."
             },
             {
                 "title": "Belagerungsexperten",
@@ -961,22 +966,22 @@
             {
                 "title": "Zivilisationsboni",
                 "list": [
-                    "Dorfzentren, Arbeitselefanten und Häfen bringen zusätzliche Rohstoffe, wenn Dorfbewohner und Fischerboote dort etwas abliefern.",
-                    "Arbeitselefanten fungieren als universelle Ablieferungsstellen und können sich frei bewegen.",
+                    "Dorfzentren, Arbeitselefanten und Häfen bringen zusätzliche Rohstoffe, wenn Dorfbewohner dort etwas abliefern.",
+                    "Arbeitselefanten können sich frei bewegen und fungieren als universelle Ablieferungsstellen.",
                     "Alle Technologien sind teurer, werden aber praktisch ohne Verzögerung entwickelt.",
                     "Tughlaqabad-Forts fungieren als Bergfriede und sind ab der Feudalzeit (II) verfügbar.",
                     "Tughlaqabad-Forts können weiterentwickelt werden, sodass sie die Verteidigung stärken und Gouverneure freischalten.",
                     "Wählen Sie in einem beliebigen Fort einen Gouverneur aus, um der Dynastie zu neuem Aufschwung zu verhelfen.",
-                    "Gouverneure bieten Boni für Wirtschaft, Tempo, Militär, Forschung sowie religiöse Boni.",
+                    "Gouverneure bieten Boni für Wirtschaft, Tempo, Militär und Forschung sowie religiöse Boni.",
                     "Infanterieeinheiten können Palisadenmauern errichten.",
-                    "Sie sammeln Rohstoffe von Beerensträuchern um +30% schneller, können jedoch keine Rohstoffe von Wildschweinen sammeln.",
-                    "Tragfähigkeit von Beeren um +3 Einheiten erhöht.",
+                    "Sie sammeln Rohstoffe von Beerensträuchern um 30% schneller, können jedoch keine Rohstoffe von Wildschweinen sammeln.",
+                    "Tragfähigkeit für Beeren um +3 Einheiten erhöht.",
                     "Fischkutter können sich selbst mit einem Fernangriff verteidigen."
                 ]
             },
             {
                 "title": "Arbeitsgefährten",
-                "description": "Mit Arbeitselefanten können Sie Ihre Dorfbewohnern etwas entlasten. Diese Elefanten fungieren als universelle Ablieferungsstellen und können sich frei bewegen. Dadurch sparen Ihre Dorfbewohner Zeit und Rohstoffe, um sich auf ihre Arbeit zu konzentrieren.\nArbeitselefanten, Dorfzentren und Häfen bringen zusätzliche Rohstoffe, wenn Dorfbewohner und Fischkutter dort etwas abliefern."
+                "description": "Mit Arbeitselefanten können Sie Ihre Dorfbewohner etwas entlasten. Diese Elefanten fungieren als universelle Ablieferungsstellen und können sich frei bewegen. Dadurch sparen Ihre Dorfbewohner Zeit und Rohstoffe und können sich auf ihre Arbeit konzentrieren.\nArbeitselefanten, Dorfzentren und Häfen bringen zusätzliche Rohstoffe, wenn Dorfbewohner dort etwas abliefern."
             },
             {
                 "title": "Gelehrsamkeit",
@@ -1143,7 +1148,7 @@
             },
             {
                 "title": "Grasländer",
-                "description": "Wählen Sie nach Fertigstellung eines Wahrzeichens einen von 3 Standorten, um Grasländer zu erstellen, die allmählich bis zu 5 Pferde auf ihrem Feld bereitstellen. Pferde erhöhen die Gesundheit aller Nahkampfkavallerieeinheiten um +2 und die von Fernkampfkavallerie um +1 oder können von Ställen im Einflussbereich der Grasländer verwendet werden, um berittene Einheiten schnell auszubilden. Grasländer erzeugen in der Feudal-/Ritter-/Imperialzeit alle 90/60/45 Sekunden ein neues Pferd."
+                "description": "Wählen Sie nach Fertigstellung eines Wahrzeichens einen von 3 Standorten, um Grasländer zu erstellen, die allmählich bis zu 5 Pferde auf ihrem Feld bereitstellen. Pferde erhöhen die Gesundheit aller Nahkampfkavallerieeinheiten um +2 und die von Fernkampfkavallerie um +1 oder können von Ställen im Einflussbereich der Grasländer verwendet werden, um berittene Einheiten schnell auszubilden. Grasländer erzeugen in der Feudal-/Ritter-/Imperialzeit alle 75/60/45 Sekunden ein neues Pferd."
             },
             {
                 "title": "Jurchen-Vermächtnis",
@@ -1173,6 +1178,124 @@
                     "Zhanma-Schwertkämpfer: Gepanzerte Infanterie, nur in der Imperialzeit verfügbar, verursacht beeindruckenden Nahkampfschaden mit Zusatzschaden gegen Kavallerie.",
                     "Meng'an-Mouke-Verteidiger: Meng'an-Mouke-Grenadiere und berittene Grenadiere spawnen aus Spezial-Stellungen, um automatisch Jin-Gebiet zu verteidigen."
                 ]
+            }
+        ]
+    },
+    "vikings": {
+        "summary": "Die Wikinger sind Plünderer aus dem Norden, die ihre Feinde mit mächtiger Nahkampf-Infanterie überwältigten und sich von den Ressourcen des feindlichen Landes ernähren konnten. Ihre flexiblen Langhäuser ermöglichen es ihnen, Bevölkerung und Wirtschaft mühelos auszubauen. Sagas und die nordische Religion inspirieren ihre Krieger dazu, furchtlos für die Ehre der Götter zu kämpfen.",
+        "classes": "Langhäuser, Infanterieeinheiten, Sagas",
+        "era": "793–1523 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Sagas können Boni gewähren, indem verschiedene Aufgaben erfüllt werden.",
+                    "Dorfbewohner werden automatisch aus den Dorfzentren rekrutiert, bis zum Dorfbewohner-Limit, das durch den Bau von Langhäusern erhöht werden kann.",
+                    "Langhäuser können mit verschiedenen Anbauten aufgewertet werden und rekrutieren Bondi.",
+                    "Die Völur-Einheit kann die Produktionsgeschwindigkeit von Langhäusern erhöhen oder auf Reliquien Heilige Haine errichten.",
+                    "Militärische Infanterieeinheiten können sich durch den Verzehr von Nahrung aus Nahrungsdepots heilen.",
+                    "Die Wikinger verfügen nicht über Steinmauern, aber Palisaden können zu Danewerk-Mauern aufgewertet werden, die weniger Feuerschaden nehmen."
+                ]
+            },
+            {
+                "title": "Sagas",
+                "description": "Sagas sind Aufgaben, die jederzeit abgeschlossen werden können und permanente Boni freischalten."
+            },
+            {
+                "title": "Nördliche Migration",
+                "description": "Dorfzentren rekrutieren Dorfbewohner automatisch und kostenlos bis zum Dorfbewohner-Limit. Das Limit wird für jedes gebaute Langhaus um +10 erhöht."
+            },
+            {
+                "title": "Langhaus",
+                "description": "Langhäuser können mit einem von vier verschiedenen Anbauten aufgewertet werden. Das Gehöft fügt zwei Gemüsefelder hinzu, die eine höhere Sammelrate als gewöhnliche Felder haben. Bienenkörbe erzeugen passiv Gold. Webstühle verbessern automatisch die Rüstung von Militäreinheiten. Der Waffenschmied verbessert automatisch den Schaden von Militäreinheiten."
+            },
+            {
+                "title": "Völur",
+                "description": "Völur sind Unterstützungseinheiten, die zwischen Langhäusern reisen und die Produktion von Bienenkörben und Gehöften für eine gewisse Zeit steigern. Die Völur können zudem geopfert werden, um auf Reliquien einen Heiligen Hain zu errichten, der Berserker passiv rekrutiert und eine Aura besitzt, die die Rüstung naher Einheiten erhöht."
+            },
+            {
+                "title": "Bondi",
+                "description": "Bondi sind einzigartige Speerkämpfer mit erhöhter Gesundheit und Rüstung. Sind sie nah beieinander, erhalten sie einen Schildmauer-Bonus, der ihre Gesundheit zeitweise steigert."
+            },
+            {
+                "title": "Berserker",
+                "description": "Der Berserker ist eine einzigartige Einheit mit leichter Rüstung, hohem Schaden, schnellem Tempo und zwei Äxten. Berserkergang wird bei niedriger Gesundheit ausgelöst, wodurch Gesundheit zurückgewonnen und der Schaden erhöht wird."
+            },
+            {
+                "title": "Brandschatzen",
+                "description": "Militärische Infanterieeinheiten können sich selbst heilen, indem sie Nahrung von Quellen wie Beerensträuchen, Hirschen oder Wildschweinen sammeln."
+            },
+            {
+                "title": "Langschiff und Drakkar",
+                "description": "Das Langschiff ist ein einzigartiges Bogenschützenschiff, das auch als Transportmittel dient; jede geladene Einheit erhöht die Anzahl der abgefeuerten Pfeile und steigert die Gesundheit. Der Drakkar ersetzt das Rutte-Schiff und kann Netze auf feindliche Schiffe werfen, um sie zu verlangsamen."
+            },
+            {
+                "title": "Einfluss",
+                "description": "Errichten Sie Langhäuser im Einflussbereich des Hafens, um die Schiffskosten in allen Häfen für jedes Langhaus um 4% zu senken, bis maximal 16%."
+            }
+        ]
+    },
+    "scots": {
+        "summary": "Die Schotten verfügen über zähe Infanteristen, die sich besonders darin auszeichnen, Feinde aus dem Hinterhalt anzugreifen. Tower Houses und Bergfriede schützen die Bevölkerung und das wertvolle Vieh vor Räubern, die durch das Land ziehen. Stellen Sie in der Musterhalle rasch Verstärkung auf, erforschen Sie mächtige Technologien der Highlands oder Lowlands und sichern Sie das Königreich Schottland.",
+        "classes": "Infanterie, Verteidigung, Mustern",
+        "era": "843–1707 n. Chr.",
+        "overview": [
+            {
+                "title": "Zivilisationsboni",
+                "list": [
+                    "Ghillies können sich im offenen Gelände tarnen.",
+                    "Infanterieeinheiten erhalten Sicht- und Bewegungsgeschwindigkeitsboni in Waldtarnungen.",
+                    "Tower Houses ersetzen Außenposten, erzeugen Hochlandrinder und erhöhen die Bevölkerung.",
+                    "Hochlandrinder grasen an Beerensträuchern, um mit der Zeit Nahrung zu sammeln.",
+                    "Highland-Wahrzeichen erhöhen die Kapazität für Hochlandrinder.",
+                    "Mustern Sie schnell Einheiten in der Musterhalle ab der Feudalzeit (II).",
+                    "Entwickeln Sie mächtige Technologien aus den Lowlands und Highlands in der Musterhalle.",
+                    "Kirkmen können Fischteiche errichten, um Gold zu sammeln und die Sammelraten nahegelegener Arbeiter zu erhöhen.",
+                    "Lowland-Wahrzeichen erhöhen das Bau-Limit für Fischteiche.",
+                    "Zerstörte Bergfriede können für begrenzte Zeit repariert werden, bevor sie vollständig zerstört werden.",
+                    "Zerstörte Bergfriede erzeugen einen Effekt der verbrannten Erde, der die Kampfeffektivität nahegelegener Feinde verringert.",
+                    "Schießscharten auf Schiffen sind 50% günstiger."
+                ]
+            },
+            {
+                "title": "Adelshäuser",
+                "description": "Tower Houses ersetzen Außenposten, erzeugen Hochlandrinder und Ghillies und erhöhen die Bevölkerungszahl."
+            },
+            {
+                "title": "Highland-Reichtum",
+                "description": "Schützen Sie Hochlandrinder, die an Beerensträuchern weiden und dabei im Laufe der Zeit Nahrung erzeugen. Das Vieh-Limit steigt mit jedem errichteten Highland-Wahrzeichen."
+            },
+            {
+                "title": "Highland-Hinterhalt",
+                "description": "Infanterieeinheiten verfügen über tiefes Wissen und eine enge Verbindung zu ihrem Land und kämpfen mit Vorteil in und um Waldtarnungen. Keine Sichtstrafen innerhalb von Waldtarnungen und erhöhte Bewegungsgeschwindigkeit, wenn Highland-Hinterhalt aktiv ist."
+            },
+            {
+                "title": "Schottischer Schiltron",
+                "description": "Gallowglass können standardmäßig gegen Kavallerie-Sturmangriffe standhalten, während Waffenknechte dies nach Erforschung der Lochaber-Äxte ebenfalls tun."
+            },
+            {
+                "title": "Lowlands und Highlands",
+                "description": "Sie wählen beim Aufstieg jeweils zwischen einem Wahrzeichen der Highlands oder Lowlands. Die Musterhalle bietet einzigartige Technologien aus diesen Regionen. Werden Wahrzeichen einer Region gebaut, halbieren sich die Kosten der zugehörigen Technologien zur Unterstützung."
+            },
+            {
+                "title": "Dem Ruf folgen",
+                "description": "Mustern Sie schnell Krieger in der Musterhalle ab der Feudalzeit (II)."
+            },
+            {
+                "title": "Monastische Fischteiche",
+                "description": "Legen Sie mit einem Kirkman Fischteiche an, um Gold zu sammeln. Arbeiter in der Nähe aktiver Fischteiche haben eine erhöhte Sammelrate. Wahrzeichen aus den Lowlands erhöhen die maximale Anzahl an Fischteichen."
+            },
+            {
+                "title": "Burgruinen",
+                "description": "Beim Zerstören wenden Bergfriede die Taktik der verbrannten Erde an und sabotieren das unmittelbare Umfeld für eine bestimmte Zeit. Befinden sich Feinde im sabotierten Bereich, wird ihre Kampfkraft vorübergehend verringert. Während dieser Zeit werden Bergfriede zu Bergfriedruinen und können vor der vollständigen Zerstörung bewahrt werden, wenn sie repariert werden. Bergfriedruinen können für max. 600 Steine vollständig wiederhergestellt werden, danach ist die Reparatur kostenlos."
+            },
+            {
+                "title": "Loch-Verteidigungsnetzwerk",
+                "description": "Verteidigungsschießscharten am Hafen sind 50% günstiger."
+            },
+            {
+                "title": "Einfluss",
+                "description": "Errichten Sie Militärgebäude rund um die Musterhalle, um deren Stufe zu erhöhen und die Effizienz beim Mustern von Kriegern zu verbessern.\nStufe 1: Ermöglicht das Mustern von Highland-Bogenschützen. Fügt eine Musterladung hinzu. \nStufe 2: Verringert die Kosten beim Mustern. Fügt eine Musterladung hinzu.\nStufe 3: Verringert die Kosten beim Mustern. Fügt eine Musterladung hinzu. Die Gesundheit gemusterter Krieger wird erhöht."
             }
         ]
     }

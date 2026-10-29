@@ -104,7 +104,7 @@
             },
             {
                 "title": "Influenza",
-                "description": "Costruisci l'ovoo sopra gli affioramenti di pietra per generare influenza e raccogliere pietra senza bisogno di abitanti del villaggio. Gli ovoo raccolgono +70, +100, +130, +160 unità di pietra al minuto dopo ogni avanzamento di età.\nLe costruzioni realizzate all'interno dell'area d'influenza di un ovoo sono in grado di raddoppiare la produzione di unità o di sviluppare tecnologie migliorate usando la pietra."
+                "description": "Costruisci l'ovoo sopra gli affioramenti di pietra per generare influenza e raccogliere pietra senza bisogno di abitanti del villaggio. Gli ovoo raccolgono +70, +100, +140, +170 unità di pietra al minuto dopo ogni avanzamento di età.\nLe costruzioni realizzate all'interno dell'area d'influenza di un ovoo sono in grado di raddoppiare la produzione di unità o di sviluppare tecnologie migliorate usando la pietra."
             },
             {
                 "title": "Unità riservate",
@@ -191,7 +191,7 @@
             },
             {
                 "title": "Ricompense delle taglie",
-                "description": "Raccogli risorse dagli animali per guadagnare una taglia d'oro. Quando l'ammontare totale delle taglie raggiunge una certa soglia, otterrai bonus economici per gli abitanti del villaggio e i capanni di caccia.\nTotale taglie: 100\n• Velocità di raccolta del cibo: +5%\n• I capanni di caccia generano 10% in più di oro\nTotale taglie: 400\n• Velocità di raccolta del cibo: +10%\n• I capanni di caccia generano 25% in più di oro\nTotale taglie: 1000\n• Velocità di raccolta del cibo: +15%\n• I capanni di caccia generano 40% in più di oro"
+                "description": "Raccogli risorse dagli animali per guadagnare una taglia d'oro. Quando l'ammontare totale delle taglie raggiunge una certa soglia, otterrai bonus economici per gli abitanti del villaggio e i capanni di caccia.\nTotale taglie: 100\n• Velocità di raccolta del cibo: +10%\n• I capanni di caccia generano 10% in più di oro\nTotale taglie: 400\n• Velocità di raccolta del cibo: +15%\n• I capanni di caccia generano 25% in più di oro\nTotale taglie: 1000\n• Velocità di raccolta del cibo: +20%\n• I capanni di caccia generano 40% in più di oro"
             },
             {
                 "title": "Influenza",
@@ -238,12 +238,16 @@
                 "description": "Capacità di trasporto degli abitanti del villaggio: +40% di risorse rispetto alle altre civiltà."
             },
             {
+                "title": "Bursae",
+                "description": "Gli alloggi obbligatori presso le università garantiscono +30 spazio popolazione in ciascuna università, mentre la libertà di scegliere il piano di studi riduce i costi di sviluppo delle università di -10%."
+            },
+            {
                 "title": "Influenza",
                 "description": "Le costruzioni realizzate all'interno dell'area d'influenza di un centro città ottengono l'abilità Riparazioni di emergenza, che può essere attivata per riparare la costruzione di +150 salute al secondo per una durata di 20 secondi."
             },
             {
                 "title": "Unità riservate",
-                "description": "Prelato: usa l'abilità Ispirazione sacra sugli abitanti del villaggio. Velolcità di raccolta: +35% per 30 secondi.\nLanzichenecco: fanteria corpo a corpo leggera con una grande spada a due mani in grado di causare ingenti danni ad area.\nCavaliere nero: potente cannoniere corazzato su cavalcatura. Il limite di produzione è legato al numero di fortezze costruite."
+                "description": "Prelato: usa l'abilità Ispirazione sacra sugli abitanti del villaggio. Velolcità di raccolta: +40% per 30 secondi.\nLanzichenecco: fanteria corpo a corpo leggera con una grande spada a due mani in grado di causare ingenti danni ad area.\nCavaliere nero: potente cannoniere corazzato su cavalcatura. Il limite di produzione è legato al numero di fortezze costruite."
             }
         ]
     },
@@ -346,14 +350,14 @@
                 "title": "Bonus civiltà",
                 "list": [
                     "Sviluppa tecnologie riservate che conferiscono benefici a cammelli, esercito, religione, economia e commercio.",
-                    "Le unità a cammello riducono del 20% i danni inflitti dalle unità di cavalleria nemiche nelle vicinanze.",
-                    "I mulini costruiti vicino a cespugli di bacche creano frutteti, aumentando la capacità di cibo di +100.",
+                    "Le unità a cammello riducono di un 20% i danni inflitti dalle unità di cavalleria nemiche nelle vicinanze.",
+                    "I mulini costruiti vicino a cespugli di bacche creano frutteti, aumentando la capacità di cibo di 100.",
                     "Velocità di raccolta dai cespugli di bacche: +25%. Non è possibile raccogliere risorse dai cinghiali.",
                     "Capacità di trasporto di bacche: +3.",
-                    "Costo dei mercanti di terra: -33%.",
+                    "Costo dei mercanti via terra: -33%.",
                     "Costo dei moli: -50%.",
                     "Avanza attraverso le età senza che gli abitanti del villaggio debbano costruire ali della casa della sapienza.",
-                    "Entra in un'età d'oro realizzando costruzioni nell'area d'influenza della casa della sapienza per accelerare la velocità di raccolta delle risorse, i tempi di sviluppo e la velocità di produzione."
+                    "Entra in un'età d'oro realizzando costruzioni sotto l'influenza della casa della sapienza, ottenendo bonus in tutto l'impero."
                 ]
             },
             {
@@ -382,7 +386,7 @@
             },
             {
                 "title": "Età d'oro",
-                "description": "Fatti strada verso la tua età d'oro: migliora economia ed esercito.\nLe costruzioni nell'area d'influenza della casa della sapienza ricevono +5 protezione dal fuoco e contribuiscono con un punto all'avanzamento verso l'età dell'oro. Le soglie per sbloccare il livello successivo sono di 10, 30, e 60 costruzioni.\n• Livello 1 – Velocità di raccolta degli abitanti del villaggio: +15%\n• Livello 2 – Velocità di sviluppo: +20%\n• Livello 3 – Velocità di raccolta degli abitanti del villaggio: +20% per tutte le risorse. Velocità di sviluppo: 20%. Velocità di produzione: +20%."
+                "description": "Fatti strada verso la tua età d'oro: migliora economia e tecnologia.\nLe costruzioni nell'area d'influenza della casa della sapienza ricevono +5 protezione dal fuoco e contribuiscono con un punto all'avanzamento verso l'età d'oro. Le soglie per sbloccare il livello successivo sono di 10, 20, 30, 50 e 75 costruzioni.\n• Livello 1 - Velocità di raccolta degli abitanti del villaggio: +15%.\n• Livello 2 - Velocità di costruzione degli abitanti del villaggio: +20%.\n• Livello 3 - Danni dei cammellieri: +20%.\n• Livello 4 - Oro generato dai mercanti: +20%.\n• Livello 5 - Danni delle unità di fanteria corpo a corpo: +10%."
             },
             {
                 "title": "Unità riservate",
@@ -528,7 +532,7 @@
             },
             {
                 "title": "Olio d'oliva",
-                "description": "Raccogli una risorsa riservata utilizzata per assoldare unità mercenarie. Gli abitanti del villaggio raccolgono olio d'oliva in proporzione al cibo raccolto da cespugli di bacche (50%), uliveti (20%) e pesce costiero (10%).\nLe barche da pesca generano una quantità di olio d'oliva pari a un 20% del cibo ottenuto dal pesce e i mercanti forniscono un 20% di olio d'oliva in base alla quantità commerciata."
+                "description": "Raccogli una risorsa riservata utilizzata per assoldare unità mercenarie. Gli abitanti del villaggio raccolgono olio d'oliva in proporzione al cibo raccolto da cespugli di bacche (50%), uliveti (15%) e pesce costiero (10%).\nLe barche da pesca generano una quantità di olio d'oliva pari a un 20% del cibo ottenuto dal pesce e i mercanti forniscono un 20% di olio d'oliva in base alla quantità commerciata."
             },
             {
                 "title": "Mercenari",
@@ -776,7 +780,7 @@
             {
                 "title": "Bonus civiltà",
                 "list": [
-                    "Gli abitanti del villaggio trasportano +40% di risorse in più, raccolgono +28% più velocemente ed edificano e riparano costruzioni +20% più velocemente.",
+                    "Gli abitanti del villaggio trasportano +40% di risorse in più, raccolgono +27% più velocemente ed edificano e riparano costruzioni +20% più velocemente.",
                     "Le unità di fanteria e cavalleria sono molto più forti, ma anche più costose da produrre, e richiedono il doppio della popolazione.",
                     "Posiziona reliquie in avamposti, torri di pietra e fortezze per ottenere bonus difensivi ed economici.",
                     "Le reliquie posizionate nei moli aumentano la velocità d'attacco delle navi di +5% per ogni reliquia (max +20%).",
@@ -786,7 +790,7 @@
             },
             {
                 "title": "Abitanti del villaggio efficienti",
-                "description": "Gli abitanti del villaggio raccolgono risorse più rapidamente (+28%) e costruiscono e riparano costruzioni più velocemente (+20%), ma produrli costa +20% di cibo in più."
+                "description": "Gli abitanti del villaggio raccolgono risorse più rapidamente (+27%) e costruiscono e riparano costruzioni più velocemente (+20%), ma produrli costa +20% di cibo in più."
             },
             {
                 "title": "Zelo religioso",
@@ -851,7 +855,7 @@
             },
             {
                 "title": "Conservazione del territorio",
-                "description": "Gli abitanti del villaggio depositano automaticamente legname senza una falegnameria.\nIl legname viene raccolto un +20% più velocemente in ogni età e un 20% del legname viene prodotto come cibo aggiuntivo."
+                "description": "Gli abitanti del villaggio depositano automaticamente il legname senza una Falegnameria.\nIl legname viene raccolto il +20%/+15%/+15% più velocemente in ogni Età e il 20% del legname raccolto viene prodotto come cibo aggiuntivo."
             },
             {
                 "title": "Esperti d'assedio",
@@ -977,22 +981,22 @@
             {
                 "title": "Bonus civiltà",
                 "list": [
-                    "Centri città, elefanti da lavoro e moli conferiscono risorse bonus quando abitanti e navi da pesca effettuano depositi.",
+                    "Centri città, elefanti da lavoro e moli conferiscono risorse bonus quando gli abitanti del villaggio effettuano depositi.",
                     "Gli elefanti da lavoro si muovono liberamente e agiscono come depositi di risorse universali.",
                     "Tutta la tecnologia è più costosa, ma lo sviluppo è quasi istantaneo.",
                     "I forti Tughlaqabad fungono da fortezze e sono disponibili a partire dall'età feudale (II).",
                     "I forti Tughlaqabad possono essere potenziati per incrementare le difese e sbloccare i governatori.",
                     "Seleziona un governatore in un forte qualsiasi per portare la dinastia a nuovi livelli.",
-                    "I governatori forniscono vantaggi economici, di tempo, militari, di sviluppo e religiosi.",
+                    "I governatori forniscono vantaggi economici, temporali, militari, di sviluppo e religiosi.",
                     "Le unità di fanteria sono in grado di costruire cinte a palizzata.",
                     "Velocità di raccolta dai cespugli di bacche: +30% . Non è possibile raccogliere cibo dai cinghiali.",
-                    "Capacità di trasporto delle bacche +3,",
+                    "Capacità di trasporto delle bacche +3.",
                     "Le barche da pesca possono difendersi autonomamente con un attacco a distanza."
                 ]
             },
             {
                 "title": "Compagni di lavoro",
-                "description": "Alleggerisci il carico dei tuoi abitanti del villaggio impiegando elefanti da lavoro. Questi elefanti fungono da depositi universali e possono muoversi liberamente, facendo risparmiare tempo e risorse e permettendo agli abitanti del villaggio di concentrarsi sul loro lavoro.\nGli elefanti da lavoro, i centri città e i moli conferiscono risorse bonus quando abitanti e navi da pesca effettuano depositi."
+                "description": "Alleggerisci il carico dei tuoi abitanti del villaggio impiegando elefanti da lavoro. Questi elefanti fungono da depositi universali e possono muoversi liberamente, facendo risparmiare tempo e risorse e permettendo agli abitanti del villaggio di concentrarsi sul loro lavoro.\nGli elefanti da lavoro, i centri città e i moli conferiscono risorse bonus quando gli abitanti del villaggio effettuano depositi."
             },
             {
                 "title": "Erudizione",
@@ -1159,7 +1163,7 @@
             },
             {
                 "title": "Praterie",
-                "description": "Al completamento di un luogo storico, scegli fra 3 luoghi dove costruire praterie, che generano gradualmente fino a 5 cavalli nel loro campo. I cavalli aumentano la salute di tutte le unità di cavalleria corpo a corpo (+2) e delle unità di cavalleria a distanza (+1), oppure possono essere utilizzati dalle scuderie nell'area di influenza delle praterie per addestrare rapidamente qualsiasi unità a cavallo. Le praterie producono rispettivamente un nuovo cavallo ogni 90 secondi nell'età feudale, 60 nell'età dei castelli e 45 nell'età imperiale."
+                "description": "Al completamento di un luogo storico, scegli fra 3 luoghi dove costruire praterie, che generano gradualmente fino a 5 cavalli nel loro campo. I cavalli aumentano la salute di tutte le unità di cavalleria corpo a corpo (+2) e delle unità di cavalleria a distanza (+1), oppure possono essere utilizzati dalle scuderie nell'area di influenza delle praterie per addestrare rapidamente qualsiasi unità a cavallo. Le praterie producono rispettivamente un nuovo cavallo ogni 75 secondi nell'età feudale, 60 nell'età dei castelli e 45 nell'età imperiale."
             },
             {
                 "title": "Eredità Jurchen",
@@ -1189,6 +1193,124 @@
                     "Cavaliere con zhǎnmǎ dāo: unità di fanteria corazzata, disponibile solo nell'età imperiale, che infligge danni corpo a corpo ingenti con un bonus contro la cavalleria.",
                     "Difensori Meng'an Mouke: granatieri a cavallo e Meng'an Mouke vengono generati da postazioni riservate per difendere automaticamente il territorio dei Jin."
                 ]
+            }
+        ]
+    },
+    "vikings": {
+        "summary": "I Vichinghi sono predoni provenienti dal nord che sopraffanno i nemici con una potente fanteria da mischia, capace di vivere sfruttando le terre nemiche. Le loro flessibili case lunghe consentono di far crescere facilmente la popolazione e l'economia. Le saghe e la religione norrena ispirano i loro guerrieri a combattere senza paura in nome degli dèi.",
+        "classes": "Case lunghe, fanteria, saghe",
+        "era": "793 - 1523 D.C.",
+        "overview": [
+            {
+                "title": "Bonus civiltà",
+                "list": [
+                    "Le saghe possono concedere bonus in seguito al completamento di varie missioni.",
+                    "Gli abitanti del villaggio vengono reclutati automaticamente dai centri città fino al raggiungimento del limite di popolazione, che può essere aumentato costruendo case lunghe.",
+                    "Le case lunghe possono essere migliorate con vari annessi e con il reclutamento di Bondi.",
+                    "L'unità völur può aumentare la velocità di produzione delle case lunghe o sviluppare boschi sacri sulle reliquie.",
+                    "La fanteria può curarsi consumando cibo dei depositi di cibo.",
+                    "I Vichinghi non dispongono di mura in pietra, ma le palizzate possono essere potenziate diventando mura Danevirke, che subiscono meno danni dal fuoco."
+                ]
+            },
+            {
+                "title": "Saghe",
+                "description": "Le saghe sono missioni che possono essere completate in qualsiasi momento e sbloccano bonus permanenti."
+            },
+            {
+                "title": "Migrazione nordica",
+                "description": "I centri città reclutano automaticamente abitanti del villaggio senza costi fino al raggiungimento del limite di popolazione, il quale aumenta di +10 per ogni casa lunga costruita."
+            },
+            {
+                "title": "Casa lunga",
+                "description": "Le case lunghe possono essere migliorate con uno di quattro diversi annessi. La tenuta aggiunge due campi orticoli, con un tasso di raccolta superiore rispetto alle normali fattorie. Le arnie di paglia genereranno oro passivamente. I telai miglioreranno automaticamente la corazza delle unità militari. La fucina migliorerà automaticamente i danni delle unità militari."
+            },
+            {
+                "title": "Völur",
+                "description": "I völur sono unità di supporto che possono viaggiare tra le case lunghe, aumentando la produzione delle arnie di paglia e delle tenute per un certo periodo di tempo. I völur possono anche essere sacrificati per creare un bosco sacro su reliquie, che recluta berserker passivamente e possiede un'aura che aumenta la corazza delle unità vicine."
+            },
+            {
+                "title": "Bondi",
+                "description": "I bondi sono lancieri speciali dotati di salute e corazza aumentate. Quando i bondi si trovano vicini gli uni agli altri, ottengono il bonus muro di scudi, che aumenta temporaneamente la loro salute."
+            },
+            {
+                "title": "Berserker",
+                "description": "Il berserker è un'unità speciale con corazza leggera che infligge danni elevati, ha un'elevata velocità di movimento ed è armata con due asce. Il berserkergang, che si attiva con bassi livelli di salute, rigenera la salute e accresce i danni."
+            },
+            {
+                "title": "Vivere della terra",
+                "description": "La fanteria può curarsi raccogliendo cibo da depositi quali cespugli di bacche, cervo o cinghiale."
+            },
+            {
+                "title": "Barcaccia e drakkar",
+                "description": "La barcaccia è una nave unica di arcieri che funge anche da mezzo trasporto; ogni unità caricata aumenta il numero di frecce scagliate e incrementa la salute. Il drakkar sostituisce la nave spingarda e può lanciare reti sulle navi nemiche per rallentarle."
+            },
+            {
+                "title": "Influenza",
+                "description": "Costruisci case lunghe sotto l'influenza del molo per ridurre il costo delle navi in tutti i moli di un 4% per ogni casa lunga, fino a un massimo del 16%."
+            }
+        ]
+    },
+    "scots": {
+        "summary": "Gli scozzesi schierano una fanteria resistente, abile nell'imboscarsi per sorprendere i nemici. Le case-torre e le fortezze difendono le comunità e il prezioso bestiame dai predoni che infestano le campagne. È possibile adunare rinforzi rapidamente nella sala dell'adunata e sviluppare potenti tecnologie delle Highlands o delle Lowlands per difendere il Regno di Scozia.",
+        "classes": "Fanteria, difesa, adunata",
+        "era": "843 - 1707 D.C.",
+        "overview": [
+            {
+                "title": "Bonus civiltà",
+                "list": [
+                    "I ghillie possono muoversi furtivamente in campo aperto.",
+                    "La fanteria ha bonus di visione e velocità di movimento nelle Foreste fitte.",
+                    "Le case-torre sostituiscono gli avamposti, producono bovini delle Highlands e aumentano la popolazione.",
+                    "Nel corso del tempo, i bovini delle Highlands pascolano tra i cespugli di bacche per trovare cibo.",
+                    "I luoghi storici delle Highlands aumentano il numero massimo di bovini delle Highlands.",
+                    "È possibile adunare rapidamente le unità nella sala dell'adunata a partire dall'età feudale (II).",
+                    "È possibile sviluppare potenti tecnologie delle Lowlands e delle Highlands nella sala dell'adunata.",
+                    "I kirkman possono creare peschiere per accumulare oro e aumentare i tassi di raccolta dei lavoratori vicini",
+                    "I luoghi storici delle Lowlands aumentano il limite di costruzione di peschiere.",
+                    "Le fortezze distrutte possono essere riparate per un tempo limitato prima della loro distruzione totale.",
+                    "Le fortezze distrutte creano un effetto di terra bruciata che riduce l'efficacia in combattimento dei nemici vicini.",
+                    "Le feritoie navali costano il 50% in meno."
+                ]
+            },
+            {
+                "title": "Case nobiliari",
+                "description": "Le case-torre sostituiscono gli avamposti, producono bovini delle Highlands, ghillie e aumentano la popolazione."
+            },
+            {
+                "title": "Ricchezza delle Highlands",
+                "description": "Proteggi i bovini delle Highlands mentre pascolano presso i cespugli di bacche, fornendo cibo nel tempo man mano che mangiano. La capacità del bestiame aumenta con ogni luogo storico delle Highlands costruito."
+            },
+            {
+                "title": "Imboscata delle Highlands",
+                "description": "La fanteria possiede una profonda conoscenza e un forte legame con il proprio territorio e combatte con vantaggio all'interno e nei dintorni delle foreste fitte. Non subisce penalità alla vista quando si trova nelle foreste fitte e la velocità di movimento aumenta quando è attiva l'abilità Imboscata delle Highlands."
+            },
+            {
+                "title": "Scottish Schiltron",
+                "description": "I gallowglass possono resistere alle cariche di cavalleria per impostazione predefinita, mentre la fanteria scelta può resistere dopo aver ricercato le asce Lochaber."
+            },
+            {
+                "title": "Lowlands e Highlands",
+                "description": "È possibile scegliere tra un luogo storico delle Highlands o delle Lowlands ogni volta che si avanza di età. La sala dell'adunata offre tecnologie speciali provenienti da queste terre. Quando vengono costruiti i luoghi storici di una regione, il supporto delle tecnologie correlate costa la metà."
+            },
+            {
+                "title": "Rispondi alla chiamata",
+                "description": "Aduna rapidamente guerrieri presso la sala dell'adunata dell’età feudale (II)."
+            },
+            {
+                "title": "Peschiere monastiche",
+                "description": "Crea peschiere utilizzabili per il raccolto di pesci con un kirkman per accumulare oro. I lavoratori vicino alle peschiere attive raccolgono più velocemente. I luoghi storici delle Lowlands aumentano il numero massimo di peschiere."
+            },
+            {
+                "title": "Rovine del castello",
+                "description": "Se distrutte, le fortezze adottano tattiche di terra bruciata e sabotano l'area circostante per un certo periodo. Se ci sono nemici nell'area di sabotaggio, la loro efficacia in combattimento viene temporaneamente ridotta. Durante questo periodo, le fortezze diventano rovine di fortezza e possono essere sottratte alla distruzione totale se riparate. Le rovine di fortezza possono essere completamente restaurate fino a un massimo di 600 pietra, dopodiché la riparazione diventa gratuita."
+            },
+            {
+                "title": "Rete difensiva del loch",
+                "description": "Le feritoie difensive del molo costano il 50% in meno."
+            },
+            {
+                "title": "Influenza",
+                "description": "Costruisci edifici militari attorno alla Sala dell'adunata per aumentarne il livello e migliorare l'efficienza nell'adunare guerrieri.\nLivello 1: sblocca l'adunata degli Arcieri delle Highlands. Aggiunge una carica di adunata. \nLivello 2: riduce il costo dell'adunata. Aggiunge una carica di adunata.\nLivello 3: riduce il costo dell'adunata. Aggiunge una carica di adunata. La salute dei guerrieri adunati aumenta."
             }
         ]
     }

@@ -104,7 +104,7 @@
             },
             {
                 "title": "Nüfuz",
-                "description": "Nüfuz oluşturmak ve Köylülere ihtiyaç duymadan Taş toplamak için Taş çıkıntıları üzerinde Ovo inşa et. Ovolar, her çağ atlandığında dakikada +70, 100, 130, 160 Taş toplar.\nOvoların etki alanına inşa edilmiş binalar iki kat daha fazla birim üretebilir veya Taş kullanarak teknolojilerin gelişmiş versiyonlarını araştırabilir."
+                "description": "Nüfuz oluşturmak ve Köylülere ihtiyaç duymadan Taş toplamak için Taş çıkıntıları üzerinde Ovo inşa et. Ovolar, her çağ atlandığında dakikada +70, 100, 140, 170 Taş toplar.\nOvoların etki alanına inşa edilmiş binalar iki kat daha fazla birim üretebilir veya Taş kullanarak teknolojilerin gelişmiş versiyonlarını araştırabilir."
             },
             {
                 "title": "Özgün Birimler",
@@ -191,7 +191,7 @@
             },
             {
                 "title": "Ödül Getirileri",
-                "description": "Hayvanlardan toplama yapmak bir miktar Altın kazandırır. Ayrıca belirli toplam ödül eşiklerine ulaşmak, Köylülere ve Av Kulübelerine ekonomi bonusu sağlar.\n100 Ödül\n• +%5 Yiyecek toplama hızı\n• Av Kulübeleri %10 daha fazla Altın üretir.\n400 Ödül\n• +%10 Yiyecek toplama hızı\n• Av Kabinleri %25 daha fazla Altın üretir.\n1000 Ödül\n• +%15 Yiyecek toplama hızı\n• Av Kabinleri %40 daha fazla Altın üretir."
+                "description": "Hayvanlardan toplama yapmak bir miktar Altın kazandırır. Ayrıca belirli toplam ödül eşiklerine ulaşmak, Köylülere ve Av Kulübelerine ekonomi bonusu sağlar.\n100 Ödül\n• +%10 Yiyecek toplama hızı\n• Av Kulübeleri %10 daha fazla Altın üretir.\n400 Ödül\n• +%15 Yiyecek toplama hızı\n• Av Kabinleri %25 daha fazla Altın üretir.\n1000 Ödül\n• +%20 Yiyecek toplama hızı\n• Av Kabinleri %40 daha fazla Altın üretir."
             },
             {
                 "title": "Nüfuz",
@@ -238,12 +238,16 @@
                 "description": "Köylüler, diğer medeniyetlerden +40% daha fazla kaynak taşır."
             },
             {
+                "title": "Bursae",
+                "description": "Üniversitelerdeki zorunlu barınmalar her üniversite için +30 nüfus alanı sağlar. Müfredat seçme özgürlüğü, Üniversitelerdeki araştırma maliyetlerini %10 azaltır."
+            },
+            {
                 "title": "Nüfuz",
                 "description": "Şehir Merkezi etki alanında inşa edilmiş binalar Acil Onarımlar yeteneğini kazanır ve bu da binanın 20 saniye boyunca her saniye +150 sağlıkla onarılması için etkinleştirilebilir."
             },
             {
                 "title": "Özgün Birimler",
-                "description": "Başrahip: Köylülerin toplama hızını 30 saniye boyunca +%35 artıran Kutsal Cesaretlendirme yeteneğini kullan.\nLandsknecht: Önemli ölçüde alan hasarı verebilen iki elli büyük bir kılıca sahip hafif yakın dövüş piyadesi.\nKara Atlı: Güçlü bir zırhlı atlı atış birimidir. Üretim miktarı inşa edilen İç Kale sayısıyla sınırlıdır."
+                "description": "Başrahip: Köylülerin toplama hızını 30 saniye boyunca +%40 artıran Kutsal Cesaretlendirme yeteneğini kullan.\nLandsknecht: Önemli ölçüde alan hasarı verebilen iki elli büyük bir kılıca sahip hafif yakın dövüş piyadesi.\nKara Atlı: Güçlü bir zırhlı atlı atış birimidir. Üretim miktarı inşa edilen İç Kale sayısıyla sınırlıdır."
             }
         ]
     },
@@ -346,14 +350,14 @@
                 "title": "Medeniyet Bonusları",
                 "list": [
                     "Deve, Askeriye, Din, Ekonomi ve Ticaret faydası sağlayan özgün teknolojileri araştır.",
-                    "Deve birimleri, yakındaki düşman atlı süvarilerin verdiği hasarı -%20 azaltır.",
-                    "Böğürtlen Çalılarının yakınında inşa edilen Değirmenler Bahçe oluşturarak Yiyecek kapasitesini +100 artırır.",
-                    "Böğürtlen Çalılarından +%25 daha hızlı toplanır ancak Yaban Domuzundan yiyecek toplanamaz.",
-                    "Böğürtlen taşıma kapasitesi +3 artar.",
-                    "Kara Tüccarları -%33 daha ucuzdur.",
-                    "Rıhtımlar -%50 daha ucuzdur.",
+                    "Deve birimleri, yakındaki düşman atlı süvarilerin verdiği hasarı %20 azaltır.",
+                    "Böğürtlen Çalılarının yakınında inşa edilen Değirmenler Bahçe oluşturarak Yiyecek kapasitesini 100 artırır.",
+                    "Böğürtlen Çalılarından %25 daha hızlı toplama yapılır ancak Yaban Domuzundan yiyecek toplanamaz.",
+                    "Böğürtlen taşıma kapasitesi 3 artar.",
+                    "Kara Tüccarları %33 daha ucuzdur.",
+                    "Rıhtımlar %50 daha ucuzdur.",
                     "Beyt'ül Hikmet’in kanatlarını yükselterek Köylülere ihtiyaç olmadan çağ atla.",
-                    "Beyt'ül Hikmet’in nüfuz alanında binalar inşa ederek bir Altın Çağ’a gir ve kaynak toplama hızını, araştırma sürelerini, üretim hızını artır."
+                    "Beyt'ül Hikmet’in etki alanında binalar inşa ederek bir Altın Çağ’a gir ve imparatorluğunun dört bir yanında bonuslar kazan."
                 ]
             },
             {
@@ -382,7 +386,7 @@
             },
             {
                 "title": "Altın Çağ",
-                "description": "Altın Çağı'na doğru ilerleyerek ekonomini ve teknolojini iyileştir.\nBeyt'ül Hikmet'in nüfuz alanındaki binalar +5 ateş zırhı kazanır ve Altın Çağ'a doğru bir puan kazandırır. Kilit açma eşikleri sırasıyla 10, 30 ve 60 binadır.\n• 1. Kademe: Köylü toplama hızı +%15\n• 2. Kademe: Araştırma hızı +%20\n• 3. Kademe: Tüm kaynaklar için Köylü toplama hızı +%20. Araştırma hızları +%20. Üretim hızları +%20."
+                "description": "Altın Çağ'a ulaşmak için ekonomini ve teknolojini geliştir.\nBeyt'ül Hikmet'in etki alanında bulunan binalar +5 ateş zırhı alır ve Altın Çağ'a bir puan katkıda bulunur. Kilit açma eşikleri sırasıyla 10, 20, 30, 50 ve 75 binalarıdır.\n• 1. Kademe: Köylü toplama hızı +?\n• 2. Kademe: Köylülerin inşa hızı +?\n• 3. Kademe: Deve Binicisi hasarı +?.\n• 4. Kademe: Tüccarların altın üretimi +?.\n• 5. Kademe: Yakın Dövüş Piyade hasarı +?."
             },
             {
                 "title": "Özgün Birimler",
@@ -528,7 +532,7 @@
             },
             {
                 "title": "Zeytinyağı",
-                "description": "Paralı Asker birimleri tutmak için kullanılan benzersiz bir kaynak topla. Köylüler, Böğürtlen Çalılarından toplanan Yiyeceğin %50, Zeytinliklerden toplananların %20 ve Kıyı Balıklarından toplananların %10 kadarına denk Zeytinyağı toplar.\nBalıkçı Tekneleri, Balıktan elde edilen Yiyeceğin %20 kadarına denk Zeytinyağı üretirken Tüccarlar ise ticareti yapılan miktara bağlı olarak %20 Zeytinyağı sağlar."
+                "description": "Paralı Asker birimleri tutmak için kullanılan benzersiz bir kaynak topla. Köylüler, Böğürtlen Çalılarından toplanan Yiyeceğin %50, Zeytinliklerden toplananların %15 ve Kıyı Balıklarından toplananların %10 kadarına denk Zeytinyağı toplar.\nBalıkçı Tekneleri, Balıktan elde edilen Yiyeceğin %20 kadarına denk Zeytinyağı üretirken Tüccarlar ise ticareti yapılan miktara bağlı olarak %20 Zeytinyağı sağlar."
             },
             {
                 "title": "Paralı Askerler",
@@ -776,7 +780,7 @@
             {
                 "title": "Medeniyet Bonusları",
                 "list": [
-                    "Köylüler +%40 daha fazla kaynak taşır, +%28 daha hızlı toplama yapar, binaları +%20 daha hızlı inşa eder ve tamir eder.",
+                    "Köylüler +%40 daha fazla kaynak taşır, +%27 daha hızlı toplama yapar, binaları +%20 daha hızlı inşa eder ve tamir eder.",
                     "Piyade ve süvari birimleri çok daha güçlü olur ancak aynı zamanda üretimleri de daha pahalıdır ve iki kat daha fazla nüfus kullanırlar.",
                     "Savunma ve ekonomi bonusu almak için Kadim Eserleri Karakollara, Taş Kulelere ve İç Kalelere yerleştirebilirsin.",
                     "Rıhtımlara yerleştirilen Kadim Eserler, gemi saldırı hızını Kadim Eser başına +%5 artırır (Maksimum +%20).",
@@ -786,7 +790,7 @@
             },
             {
                 "title": "Verimli Köylüler",
-                "description": "Köylüler %28 daha hızlı toplar, binaları %20 daha hızlı inşa eder ve onarır ancak üretmek için fazladan %20 Yiyecek gerektirir."
+                "description": "Köylüler %27 daha hızlı toplar, binaları %20 daha hızlı inşa eder ve onarır ancak üretmek için fazladan %20 Yiyecek gerektirir."
             },
             {
                 "title": "Dini Şevk",
@@ -851,7 +855,7 @@
             },
             {
                 "title": "Çevre Korumacılığı",
-                "description": "Köylüler bir Kereste Kampı olmadan otomatik olarak odun depolar.\nOdun her çağda %20 daha hızlı toplanır ve toplanan odunun %20 kadarı ek yiyecek olarak geri döner."
+                "description": "Köylüler bir Kereste Kampı olmadan otomatik olarak odun depolar.\nOdun her çağda +%20/+%15/+%15 daha hızlı toplanır ve toplanan odunun %20 kadarı ek yiyecek olarak geri döner."
             },
             {
                 "title": "Kuşatma Uzmanları",
@@ -982,22 +986,20 @@
             {
                 "title": "Medeniyet Bonusları",
                 "list": [
-                    "Şehir Merkezleri, İşçi Filler ve Rıhtımlar; Köylüler ve Balıkçı Gemileri kaynak bıraktığında fazladan kaynak sağlar.",
-                    "İşçi Filler istediği gibi hareket edebilir ve genel bir bırakma noktası görevi görür.",
-                    "Tüm teknolojiler daha pahalı olur ama araştırmalar neredeyse anında tamamlanır.",
-                    "Tuğlukabad Kaleleri, İç Kale görevi görür ve Feodal Çağ'dan (II) itibaren inşa edilebilir.",
+                    "Şehir Merkezleri, İşçi Filleri ve Rıhtımlar; Köylüler kaynak bıraktığında fazladan kaynak sağlar.",
+                    "İşçi filler istediği gibi hareket edebilir ve genel bir bırakma noktası görevi görür.",
+                    "Tüm teknolojiler daha pahalı olur ama araştırmalar neredeyse anında tamamlanır.\n•Tuğlukabad Kaleleri, İç Kale görevi görür ve Feodal Çağ'dan (II) itibaren inşa edilebilir.",
                     "Tuğlukabad Kaleleri savunma kabiliyetini iyileştirmek adına geliştirilebilir ve Valilerin kilidini açar.",
-                    "Herhangi bir kaleden bir Vali seçebilir, böylece hanedanlığı yeni zirvelere taşıyabilirsin.",
-                    "Valiler ekonomi, tempo, askeriye, araştırma ve din alanlarında çeşitli bonuslar sağlar.",
-                    "Piyade birimleri Çit Sur inşa edebilir.",
-                    "Böğürtlen Çalılarından +%30 daha hızlı toplama yapılır fakat Yaban Domuzlarından toplama yapılamaz.",
-                    "Böğürtlen taşıma kapasitesi +3 artar.",
-                    "Balıkçı Gemileri, menzilli saldırı yaparak kendini koruyabilir."
+                    "Herhangi bir kaleden bir Vali seçebilir, böylece hanedanlığı yeni zirvelere taşıyabilirsin.\n•Valiler ekonomi, tempo, askeriye, araştırma ve din alanlarında çeşitli bonuslar sağlar.",
+                    "Piyade birimleri Çift Sur inşa edebilir.",
+                    "Böğürtlen Çalılarından %30 daha hızlı toplama yapılır fakat Yaban Domuzlarından toplama yapılamaz.",
+                    "Böğürtlen taşıma kapasitesi 3 artar.",
+                    "Balıkçı gemileri menzilli saldırı yaparak kendini koruyabilir."
                 ]
             },
             {
                 "title": "İş Yoldaşları",
-                "description": "İşçi Filleri kullanarak Köylülerinin omuzlarındaki yükü hafifletebilirsin. Bu filler genel bir kaynak bırakma noktası görevi görür ve etrafta serbestçe ilerleyebilir. Köylülerin zamandan ve kaynaktan tasarruf etmesini sağlar, böylece Köylüler çalışmaya odaklanabilir.\nİşçi Filler, Şehir Merkezleri ve Rıhtımlar; Köylüler ve Balıkçı Gemileri kaynak bıraktığında fazladan kaynak sağlar."
+                "description": "İşçi Filleri kullanarak Köylülerinin omuzlarındaki yükü hafifletebilirsin. Bu filler genel bir kaynak bırakma noktası görevi görür ve etrafta serbestçe ilerleyebilir. Köylülerin zamandan ve kaynaktan tasarruf etmesini sağlar, böylece köylüler çalışmaya odaklanabilir.\nİşçi Filler, Şehir Merkezleri ve Rıhtımlar; Köylüler kaynak bıraktığında fazladan kaynak sağlar."
             },
             {
                 "title": "Bilginlik",
@@ -1164,7 +1166,7 @@
             },
             {
                 "title": "Çayır",
-                "description": "Çayır inşa etmek için bir Simgeyi tamamladıktan sonra 3 konum arasından seçim yap. Çayırlarda zaman içinde 5 adede kadar At oluşturulur. Atlar tüm Yakın Dövüş Süvari birimlerinin canını 2, tüm Menzilli Süvarilerin canını 1 artırır veya herhangi bir atlı birimi hızlı bir şekilde eğitmek için Çayırların Nüfuzu içindeki Ahırlar tarafından kullanılabilir. Çayırlarda Feodal Çağ'da her 90, Kale Çağı'nnda her 60 ve İmparatorluk Çağı'nda her 45 saniyede bir yeni bir At oluşturulur."
+                "description": "Çayır inşa etmek için bir Simgeyi tamamladıktan sonra 3 konum arasından seçim yap. Çayırlarda zaman içinde 5 adede kadar At oluşturulur. Atlar tüm Yakın Dövüş Süvari birimlerinin canını 2, tüm Menzilli Süvarilerin canını 1 artırır veya herhangi bir atlı birimi hızlı bir şekilde eğitmek için Çayırların Nüfuzu içindeki Ahırlar tarafından kullanılabilir. Çayırlarda Feodal Çağ'da her 75, Kale Çağı'nnda her 60 ve İmparatorluk Çağı'nda her 45 saniyede bir yeni bir At oluşturulur."
             },
             {
                 "title": "Jurchen Mirası",
@@ -1194,6 +1196,124 @@
                     "Zhanma Kılıç Ustası - Yalnızca İmparatorluk Çağı'nda kullanılabilen zırhlı piyade birimi. Yüksek saldırı gücüne sahiptir. Süvarilere karşı bonus saldırı gücüne sahiptir.",
                     "Meng'an Mouke Savunmacıları - Meng'an Mouke ve Atlı El Bombacıları eşsiz mevzilerden çıkarak otomatik olarak Jin bölgesini savunur."
                 ]
+            }
+        ]
+    },
+    "vikings": {
+        "summary": "Vikingler, kuzeyden gelen yağmacılardır. Düşmanlarını, düşmanların topraklarını yağmalayarak yaşayan güçlü yakın dövüş piyadeleri ile alt eder. Esnek Uzun Evleri sayesinde nüfus ve ekonomilerini kolaylıkla yükseltebilirler. Destanlar ve İskandinav dini nedeniyle savaşçılar, tanrıların lütfunu kazanmak için korkusuz bir şekilde savaşır.",
+        "classes": "Uzun Evler, Piyade, Destanlar",
+        "era": "M.S. 793 - 1523",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Destanlar, çeşitli görevlerin tamamlanmasıyla bonuslar sağlayabilir.",
+                    "Köylüler, Şehir Merkezlerinden otomatik olarak Köylü Kapasitesi kadar yetiştirilir. Bu kapasite, Uzun Ev inşa ederek artırılabilir.",
+                    "Uzun Evler, farklı eklentilerle yükseltilebilir ve Bondi birimi yetiştirilebilir.",
+                    "Völur birimi, Uzun Evlerin üretim hızını artırabilir veya Kadim Eserler üzerinde Kutsal Koru kurabilir.",
+                    "Askeri piyadeler, Yiyecek depolarından Yiyecek tüketerek iyileşebilir.",
+                    "Vikingler Taş surlara sahip değildir ancak çitler, daha az yangın hasarı alan Danevirke surlarına yükseltilebilir."
+                ]
+            },
+            {
+                "title": "Destanlar",
+                "description": "Destanlar, istediğin zaman tamamlayabileceğin ve kalıcı bonuslar sağlayan görevlerdir."
+            },
+            {
+                "title": "Kuzeye Göç",
+                "description": "Şehir Merkezleri, Köylü Kapasitesine kadar köylüleri otomatik ve ücretsiz olarak yetiştirir. İnşa edilen her Uzun Ev ile Köylü Kapasitesi +10 artar."
+            },
+            {
+                "title": "Uzun Ev",
+                "description": "Uzun Evler, dört farklı eklentiden biriyle yükseltilebilir. Çiftlik Evi iki sebze tarlası ekler ve bunlardan normal Çiftliklere kıyasla daha hızlı ürün toplanır. Sepet Kovanlar pasif olarak altın üretir. Dokuma Tezgahları askeri birimlerin zırhını otomatik olarak iyileştirir. Demirhane ise askeri birimlerin hasarını otomatik olarak artırır."
+            },
+            {
+                "title": "Völur",
+                "description": "Völur, Uzun Evler arasında dolaşabilen destek birimleri olup Sepet Kovanşar ve Çiftlik Evlerinin üretimini belirli bir süre artırırlar. Völur ayrıca adak olarak sunularak Kadim Eserler üzerinde Kutsal Koru kurabilir. Bu koru pasif olarak Vahşi Savaşçılar yetiştirir ve yakındaki birimlerin zırhını artıran bir aura sağlar."
+            },
+            {
+                "title": "Bondi",
+                "description": "Bondi, artırılmış can ve zırha sahip benzersiz mızraklı askerlerdir. Bondi, birbirine yakın olduğunda Kalkan Duvarı güçlendirmesi kazanırlar ve canları geçici olarak artar."
+            },
+            {
+                "title": "Vahşi Savaşçı",
+                "description": "Vahşi Savaşçı, hafif zırhlı benzersiz bir birimdir. Yüksek hasara sahiptir, hızlı hareket eder ve iki balta kuşanır. Canı düştüğünde Savaş Narası’nı tetikler, ardından canı yenilenir ve hasarı artar."
+            },
+            {
+                "title": "Yaban Sofrası",
+                "description": "Askeri piyadeler; Böğürtlen Çalısı, Geyik veya Yaban Domuzu gibi kaynaklardan Yiyecek toplayarak kendini iyileştirebilir."
+            },
+            {
+                "title": "Uzun Gemi ve Drakkar",
+                "description": "Uzun Gemi, benzersiz bir okçu gemisidir ve aynı zamanda taşıma işlevi görür; yüklenen her birim, atılan ok sayısını ve canı artırır. Drakkar, Springald Gemisi’nin yerine geçer ve düşman gemilerine ağ atarak onları yavaşlatabilir."
+            },
+            {
+                "title": "Nüfuz",
+                "description": "Rıhtım'ın etki alanında Uzun Evler inşa ederek her Uzun Ev için tüm Rıhtımlardaki gemi maliyetini %4 azaltırsın; bu indirim en fazla %16'ya kadar çıkabilir."
+            }
+        ]
+    },
+    "scots": {
+        "summary": "İskoçlar, pusulardan yararlanarak düşmanlarını gafil avlamada ustalaşmış, dayanıklı piyadeler sahaya sürer. Kule Evler ve İç Kaleler, kırsal bölgelerdeki toplulukları ve değerli sığır sürülerini akıncılara karşı korur. Toplanma Salonu'nda hızla takviye kuvvetler topla, güçlü Highlands veya Lowlands teknolojilerini araştır ve İskoçya Krallığı'nı güvence altına al.",
+        "classes": "Piyade, Savunma, Birlikleri Toplama",
+        "era": "M.S. 843-1707",
+        "overview": [
+            {
+                "title": "Medeniyet Bonusları",
+                "list": [
+                    "Ghillieler açık alanda gizlenebilir.",
+                    "Piyade, Gizlilik Ormanlarındayken görüş ve hareket hızı bonusları kazanır.",
+                    "Kule Evler Karakolların yerini alır, Highland Sığırı üretir ve nüfusu yükseltir.",
+                    "Highland Sığırı, Böğürtlen Çalılarında otlanarak zamanla Yiyecek verir.",
+                    "Highland Simgeleri, Highland Sığırı kapasitesini artırır.",
+                    "Feodal Çağ’dan (II) itibaren Toplanma Salonu’nda hızlıca birlikleri topla.",
+                    "Toplanma Salonu’ndan güçlü Lowlands ve Highlands teknolojilerini araştır.",
+                    "Kirkman'ler, Balık Havuzları oluşturarak altın toplayabilir ve çevresindeki işçilerin toplama hızlarını artırır.",
+                    "Lowland Simgeleri, oluşturulabilir Balık Havuzu sayısını artırır.",
+                    "Yıkılan İç Kaleler, tamamen yıkılmadan önce sınırlı süreyle onarılabilir.",
+                    "Yıkılan Kaleler, yakındaki düşmanların savaş etkinliğini azaltan bir yakıp yıkma etkisi oluşturur.",
+                    "Deniz ok yarıkları %50 daha ucuzdur."
+                ]
+            },
+            {
+                "title": "Asil Haneler",
+                "description": "Kule Evler, Karakolların yerine geçer; Highland Sığırı ve Ghillie üretir, ayrıca nüfusu artırır."
+            },
+            {
+                "title": "Highland Zenginliği",
+                "description": "Highland Sığırlarını, otlarken Böğürtlen Çalılarının başında koruyun; otladıkça zaman içinde Yiyecek sağlarlar. Sığır kapasitesi, inşa edilen her Highland Simgesiyle artar."
+            },
+            {
+                "title": "Highland Pususu",
+                "description": "Piyadeler, topraklarını derinlemesine tanır ve onlarla güçlü bir bağ kurar; Gizlilik Ormanlarında ve çevresinde avantajlı şekilde savaşırlar. Gizlilik Ormanlarındayken görüş cezası almaz ve Highland Pususu etkin olduğunda hareket hızları artar."
+            },
+            {
+                "title": "Scottish Schiltron",
+                "description": "Gallowglass, varsayılan olarak süvari hücumuna karşı dayanabilir; Silahşorlar ise Lochaber Baltaları araştırıldıktan sonra bu hücumlara dayanabilir."
+            },
+            {
+                "title": "Lowlands ve Highlands",
+                "description": "Çağ atladığınızda her seferinde bir Highland veya Lowland Simgesi arasında seçim yapın. Toplanma Salonu, bu topraklara özgü benzersiz teknolojileri barındırır. Bir bölgeye ait Simgeler inşa edildikçe, o bölgeye ait teknolojilerin maliyeti yarıya iner."
+            },
+            {
+                "title": "Çağrıya Yanıt Ver",
+                "description": "Feodal Çağ’da (II) Toplanma Salonu’nda savaşçıları hızla toplar."
+            },
+            {
+                "title": "Manastır Balık Havuzları",
+                "description": "Altın elde etmek için bir Kirkman ile hasat edilebilen Balık Havuzları oluşturabilirsin. Etkin Balık Havuzlarının yakınındaki işçiler daha hızlı toplama oranlarına sahip olur. Lowlands Simgeleri, maksimum Balık Havuzu sayısını artırır."
+            },
+            {
+                "title": "Kale Harabeleri",
+                "description": "İç Kaleler yıkıldığında yakıp yıkma taktikleri uygular ve çevredeki alanı bir süreliğine sabote eder. Bu sabote edilen alandaki düşmanların savaş etkinlikleri geçici olarak azalır. Bu süre zarfında İç Kaleler, İç Kale Harabelerine dönüşür ve onarılırsa tamamen yok olmaktan kurtarılabilir. İç Kale Harabeleri, en fazla 600 Taş karşılığında tamamen onarılabilir; bunun ardından İç Kaleleri onarmak ücretsiz hale gelir."
+            },
+            {
+                "title": "Loch Savunma Ağı",
+                "description": "Rıhtım savunma ok yarıkları %50 daha ucuzdur."
+            },
+            {
+                "title": "Nüfuz",
+                "description": "Toplanma Salonu seviyesini yükseltmek ve birlik toplama verimliliğini artırmak için salon etrafına askeri binalar inşa et.\nSeviye 1: Highland Okçusu toplama özelliği açılır. Bir birlik toplama hakkı eklenir. \nSeviye 2: Birlik toplama maliyeti düşer. Bir birlik toplama hakkı eklenir.\nSeviye 3: Birlik toplama maliyeti düşer. Bir birlik toplama hakkı eklenir. Toplanan savaşçıların canı artar."
             }
         ]
     }

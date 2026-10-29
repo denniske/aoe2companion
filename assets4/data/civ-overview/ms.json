@@ -104,7 +104,7 @@
             },
             {
                 "title": "Pengaruh",
-                "description": "Bina Ovoo di atas singkapan Batu untuk menjana pengaruh dan menuai Batu tanpa memerlukan Orang kampung. Ovoo menuai +70, 100, 130, 160 Batu setiap minit selepas setiap kemaraan zaman.\nBangunan dalam pengaruh Ovoo dapat menggandakan penghasilan unit atau penyelidikan versi teknologi yang lebih baik menggunakan Batu."
+                "description": "Bina Ovoo di atas singkapan Batu untuk menjana pengaruh dan menuai Batu tanpa memerlukan Orang kampung. Ovoo menuai +70, 100, 140, 170 Batu setiap minit selepas setiap kemaraan zaman.\nBangunan dalam pengaruh Ovoo dapat menggandakan penghasilan unit atau penyelidikan versi teknologi yang lebih baik menggunakan Batu."
             },
             {
                 "title": "Unit Unik",
@@ -191,7 +191,7 @@
             },
             {
                 "title": "Ganjaran",
-                "description": "Mengumpul daripada haiwan memperoleh ganjaran Emas dan mencapai ambang tertentu jumlah ganjaran memberikan bonus ekonomi kepada Orang Kampung dan Kabin Memburu.\n100 Ganjaran\n• +5% Kadar pengumpulan makanan\n• Kabin Memburu menjana 10% lebih banyak Emas\n400 Ganjaran\n• +10% Kadar pengumpulan makanan\n• Kabin Memburu menjana 25% lebih banyak Emas\n1000 Ganjaran\n • +15% Kadar pengumpulan makanan\n• Kabin Memburu menjana 40% lebih banyak Emas"
+                "description": "Mengumpul daripada haiwan memperoleh ganjaran Emas dan mencapai ambang tertentu jumlah ganjaran memberikan bonus ekonomi kepada Orang Kampung dan Kabin Memburu.\n100 Ganjaran\n• +10% Kadar pengumpulan makanan\n• Kabin Memburu menjana 10% lebih banyak Emas\n400 Ganjaran\n• +15% Kadar pengumpulan makanan\n• Kabin Memburu menjana 25% lebih banyak Emas\n1000 Ganjaran\n • +20% Kadar pengumpulan makanan\n• Kabin Memburu menjana 40% lebih banyak Emas"
             },
             {
                 "title": "Pengaruh",
@@ -238,12 +238,16 @@
                 "description": "Orang kampung membawa +40% lebih banyak sumber berbanding tamadun lain."
             },
             {
+                "title": "Bursae",
+                "description": "Perumahan mandatori di Universiti menyediakan +30 ruang populasi di setiap Universiti, dan kebebasan untuk memilih kurikulum mengurangkan kos penyelidikan di Universiti sebanyak -10%."
+            },
+            {
                 "title": "Pengaruh",
                 "description": "Bangunan yang dibina dalam pengaruh Pusat Bandar memperoleh keupayaan Pembaikan Kecemasan yang boleh diaktifkan untuk membaiki bangunan bagi +150 kesihatan setiap saat selama 20 saat."
             },
             {
                 "title": "Unit Unik",
-                "description": "Matran: Gunakan keupayaan Inspirasi Suci pada Orang Kampung untuk meningkatkan kadar pengumpulan mereka sebanyak +35% selama 30 saat.\nLandsknecht: Infantri melee ringan dengan pedang dua tangan besar yang mampu melakukan kerosakan kawasan yang ketara.\nPenunggang Hitam: Penembak berkuda berperisai yang berkuasa. Pengeluaran terhad kepada bilangan Menara Utama dibina."
+                "description": "Matran: Gunakan keupayaan Inspirasi Suci pada Orang Kampung untuk meningkatkan kadar pengumpulan mereka sebanyak +40% selama 30 saat.\nLandsknecht: Infantri melee ringan dengan pedang dua tangan besar yang mampu melakukan kerosakan kawasan yang ketara.\nPenunggang Hitam: Penembak berkuda berperisai yang berkuasa. Pengeluaran terhad kepada bilangan Menara Utama dibina."
             }
         ]
     },
@@ -345,15 +349,15 @@
             {
                 "title": "Bonus Tamadun",
                 "list": [
-                    "Jalankan penyelidikan teknologi unik yang memberikan manfaat kepada Unta, Tentera, Agama, Ekonomi dan Perdagangan.",
-                    "Unit unta mengurangkan kerosakan sebanyak -20% kepada kuda pasukan berkuda musuh yang berdekatan.",
-                    "Kilang yang dibina berhampiran Pokok Beri mencipta Kebun, meningkatkan kapasiti Makanan sebanyak +100.",
-                    "Pengumpulan daripada Pokok Beri +25% lebih cepat tetapi tidak boleh mengumpul daripada Babi.",
-                    "Kapasiti muatan Beri meningkat +3.",
-                    "Pedagang darat -33% lebih murah.",
-                    "Dok -50% lebih murah.",
-                    "Mara zaman tanpa memerlukan Orang Kampung dengan menaik taraf sayap di Rumah Kebijaksanaan.",
-                    "Masuk Zaman Keemasan dengan membina bangunan dalam pengaruh Rumah Kebijaksanaan, meningkatkan kadar pengumpulan sumber, masa penyelidikan dan kelajuan pengeluaran."
+                    "Menyelidik teknologi unik yang memberi manfaat kepada Unta, Ketenteraan, Agama, Ekonomi dan Perdagangan.",
+                    "Unit unta mengurangkan kerosakan yang diterima pasukan berkuda kuda musuh berdekatan sebanyak -20%.",
+                    "Kilang yang dibina berhampiran Semak Beri mencipta Kebun Buah, meningkatkan kapasiti Makanan sebanyak +100.",
+                    "Mengumpul hasil daripada Semak Beri +25% lebih pantas tetapi tidak boleh mengumpul daripada Babi Hutan.",
+                    "Kapasiti bawaan beri meningkat sebanyak +3.",
+                    "Pedagang Darat berharga -33% lebih murah.",
+                    "Limbungan berharga -50% lebih murah.",
+                    "Naik Zaman tanpa memerlukan Penduduk Kampung dengan menaik taraf sayap di House of Wisdom.",
+                    "Masuki Zaman Keemasan dengan membina bangunan dalam pengaruh House of Wisdom untuk memperoleh bonus di seluruh empayar."
                 ]
             },
             {
@@ -382,7 +386,7 @@
             },
             {
                 "title": "Zaman Kegemilangan",
-                "description": "Bina menuju ke Zaman Keemasan anda – meningkatkan ekonomi, teknologi dan ketenteraan.\nBangunan dalam pengaruh Rumah Kebijaksanaan akan menerima +5 perisai api dan menyumbangkan satu mata ke arah Zaman Keemasan. Ambang untuk buka kunci ialah 10, 30 dan 60 bangunan.\n• Peringkat 1: Kadar pengumpulan Orang Kampung +15%\n• Peringkat 2: Kelajuan penyelidikan +20%\n• Peringkat 3: Kadar pengumpulan Orang Kampung +20% untuk semua sumber. Kelajuan penyelidikan +20%. Kelajuan Pengeluaran +20%"
+                "description": "Bina jalan menuju Zaman Keemasan – meningkatkan ekonomi dan teknologi.\nBangunan dalam pengaruh Rumah Kebijaksanaan menerima +5 perisai api dan menyumbang satu mata ke arah Zaman Keemasan. Ambang untuk membuka kunci ialah 10, 20, 30, 50 dan 75 bangunan.\n• Peringkat 1: Kadar pengumpulan Orang Kampung +15%\n• Peringkat 2: Kadar pembinaan Orang Kampung +20%\n• Peringkat 3: Penunggang Unta +20% kerosakan.\n• Peringkat 4: Pedagang menjana +20% emas.\n• Peringkat 5: Infantri Jarak Dekat +10% kerosakan."
             },
             {
                 "title": "Unit Unik",
@@ -528,7 +532,7 @@
             },
             {
                 "title": "Minyak Zaitun",
-                "description": "Kumpulkan sumber unik yang digunakan untuk menyewa unit Askar Upahan. Orang kampung mengumpulkan Minyak Zaitun sama dengan 50% Makanan yang dikumpulkan dari Pokok Beri, 20% dari Kebun Zaitun, dan 10% dari Ikan Pantai.\nBot Nelayan menjana Minyak Zaitun sama dengan 20% Makanan dari Ikan dan Pedagang menyediakan 20% Minyak Zaitun berdasarkan jumlah yang didagangkan."
+                "description": "Kumpulkan sumber unik yang digunakan untuk menyewa unit Askar Upahan. Orang kampung mengumpulkan Minyak Zaitun sama dengan 50% Makanan yang dikumpulkan dari Pokok Beri, 15% dari Kebun Zaitun, dan 10% dari Ikan Pantai.\nBot Nelayan menjana Minyak Zaitun sama dengan 20% Makanan dari Ikan dan Pedagang menyediakan 20% Minyak Zaitun berdasarkan jumlah yang didagangkan."
             },
             {
                 "title": "Askar Upahan",
@@ -768,7 +772,7 @@
             {
                 "title": "Bonus Tamadun",
                 "list": [
-                    "Orang kampung membawa +40% lebih banyak sumber, mengumpulkan +28% lebih cepat, dan membina dan membaiki bangunan +20% lebih cepat.",
+                    "Orang kampung membawa +40% lebih banyak sumber, mengumpulkan +27% lebih cepat, dan membina dan membaiki bangunan +20% lebih cepat.",
                     "Unit infantri dan pasukan berkuda jauh lebih kuat, tetapi juga lebih mahal untuk menghasilkan dan menggunakan dua kali ganda penduduk",
                     "Tempatkan Relik di Menara Peninjau, Menara Batu dan Menara Utama untuk bonus pertahanan dan ekonomi.",
                     "Relik yang diletakkan di Dok meningkatkan kelajuan serangan kapal sebanyak +5% setiap Relik (Maks +20%).",
@@ -778,7 +782,7 @@
             },
             {
                 "title": "Orang Kampung yang Cekap",
-                "description": "Orang Kampung mengumpulkan 28% lebih cepat, membina dan membaiki bangunan 20% lebih cepat, tetapi kos 20% lebih banyak Makanan untuk dihasilkan."
+                "description": "Orang Kampung mengumpulkan 27% lebih cepat, membina dan membaiki bangunan 20% lebih cepat, tetapi kos 20% lebih banyak Makanan untuk dihasilkan."
             },
             {
                 "title": "Semangat Keagamaan",
@@ -843,7 +847,7 @@
             },
             {
                 "title": "Pemuliharaan Landskap",
-                "description": "Orang kampung mendepositkan kayu tanpa Khemah Balak secara automatik.\nKayu dikumpulkan +20% lebih cepat dalam setiap Zaman dan 20% daripada kayu yang dikumpulkan dihasilkan sebagai makanan tambahan."
+                "description": "Orang Kampung mendepositkan kayu tanpa Khemah Balak secara automatik.\nKayu dikumpul +20%/+15%/+15% lebih cepat dalam setiap Zaman dan 20% daripada kayu yang dikumpulkan dihasilkan sebagai makanan tambahan."
             },
             {
                 "title": "Pakar Pengepungan",
@@ -974,7 +978,7 @@
             {
                 "title": "Bonus Tamadun",
                 "list": [
-                    "Pusat Bandar, Gajah Bekerja dan Dok menyediakan sumber bonus apabila Orang Kampung dan Kapal Nelayan membuat penghantaran.",
+                    "Pusat Bandar, Gajah Bekerja dan Dok menyediakan sumber bonus apabila Orang Kampung membuat penghantaran.",
                     "Gajah pekerja boleh bergerak dengan bebas.",
                     "Semua teknologi lebih mahal tetapi dapat diselidik dengan hampir serta-merta.",
                     "Kubu Tughlaqabad bertindak sebagai Menara Utama dan tersedia dari Zaman Feudal (II).",
@@ -989,7 +993,7 @@
             },
             {
                 "title": "Rakan Sekerja",
-                "description": "Ringankan beban Orang Kampung anda dengan Gajah Pekerja. Gajah ini bertindak sebagai penghantaran universal dan boleh bergerak dengan bebas, menjimatkan masa serta sumber supaya Orang Kampung anda dapat menumpukan usaha pada pekerjaan.\nGajah Pekerja, Pusat Bandar dan Dok menyediakan sumber bonus apabila Orang Kampung dan Kapal Nelayan membuat penghantaran."
+                "description": "Ringankan beban Orang Kampung anda dengan Gajah Pekerja. Gajah ini bertindak sebagai penghantaran universal dan boleh bergerak dengan bebas, menjimatkan masa serta sumber supaya Orang Kampung anda dapat menumpukan usaha pada pekerjaan.\nGajah Pekerja, Pusat Bandar dan Dok menyediakan sumber bonus apabila Orang Kampung membuat penghantaran."
             },
             {
                 "title": "Pengetahuan",
@@ -1156,7 +1160,7 @@
             },
             {
                 "title": "Padang Rumput",
-                "description": "Pilih daripada 3 lokasi selepas melengkapkan Mercu Tanda untuk membina Padang Rumput, yang secara beransur-ansur menjelmakan sehingga 5 Kuda di ladang mereka. Kuda meningkatkan kesihatan semua unit Pasukan Berkuda Melee sebanyak +2 dan Pasukan Berkuda Jarak Jauh sebanyak +1, atau boleh digunakan oleh Kandang dalam Pengaruh Padang Rumput untuk melatih mana-mana unit berkuda dengan cepat. Padang rumput menghasilkan Kuda baharu setiap 90/60/45 saat dalam Zaman Feudal/Kastil/Empayar."
+                "description": "Pilih daripada 3 lokasi selepas melengkapkan Mercu Tanda untuk membina Padang Rumput, yang secara beransur-ansur menjelmakan sehingga 5 Kuda di ladang mereka. Kuda meningkatkan kesihatan semua unit Pasukan Berkuda Melee sebanyak +2 dan Pasukan Berkuda Jarak Jauh sebanyak +1, atau boleh digunakan oleh Kandang dalam Pengaruh Padang Rumput untuk melatih mana-mana unit berkuda dengan cepat. Padang rumput menghasilkan Kuda baharu setiap 75/60/45 saat dalam Zaman Feudal/Kastil/Empayar."
             },
             {
                 "title": "Legasi Jurchen",
@@ -1186,6 +1190,124 @@
                     "Askar Pedang Zhanma - Infantri Berperisai hanya tersedia dalam Zaman Imperial, memberikan kerosakan jarak dekat yang mengagumkan dengan bonus terhadap pasukan berkuda.",
                     "Pertahanan Meng'an Mouke - Grenadier Berkuda Meng'an Mouke menjelma daripada petempatan unik untuk mempertahankan wilayah Jin secara automatik."
                 ]
+            }
+        ]
+    },
+    "vikings": {
+        "summary": "Orang Viking ialah penyerang dari utara yang menundukkan musuh mereka dengan infantri jarak dekat yang gagah dan mampu hidup dari tanah musuh. Rumah Panjang mereka yang fleksibel membolehkan mereka membina populasi dan ekonomi dengan mudah. Saga dan agama Norse mengilhami para pejuang mereka untuk bertempur tanpa rasa takut demi kehormatan para dewa.",
+        "classes": "Rumah Panjang, Infantri, Saga",
+        "era": "793 - 1523 M",
+        "overview": [
+            {
+                "title": "Bonus Tamadun",
+                "list": [
+                    "Saga boleh memberikan bonus dengan menyelesaikan pelbagai pencarian.",
+                    "Orang Kampung direkrut secara automatik dari Pusat Bandar sehingga mencapai Kapasiti Orang Kampung, yang boleh dinaikkan dengan membina Rumah Panjang.",
+                    "Rumah Panjang boleh dinaik taraf dengan pelbagai sambungan dan merekrut Bondi.",
+                    "Unit Völur boleh meningkatkan kelajuan pengeluaran Rumah Panjang atau mendirikan Kebun Suci di atas Relik.",
+                    "Infantri tentera boleh sembuh dengan memakan Makanan dari simpanan Makanan.",
+                    "Orang Viking tidak memiliki tembok Batu, tetapi palisade boleh dinaik taraf menjadi tembok Danevirke yang kurang menerima kerosakan api."
+                ]
+            },
+            {
+                "title": "Saga",
+                "description": "Saga ialah misi yang boleh diselesaikan pada bila-bila masa dan akan membuka bonus kekal."
+            },
+            {
+                "title": "Penghijrahan Utara",
+                "description": "Pusat Bandar merekrut Orang Kampung secara automatik tanpa kos sehingga mencapai Kapasiti Orang Kampung. Kapasiti Orang Kampung akan meningkat sebanyak +10 untuk setiap Rumah Panjang yang dibina."
+            },
+            {
+                "title": "Rumah Panjang",
+                "description": "Rumah Panjang boleh dinaik taraf dengan salah satu daripada empat sambungan berbeza. Pusat Ladang menambah dua bidang sayur, yang mempunyai kadar kutipan lebih tinggi daripada Ladang biasa. Bakul Lebah akan menjana emas secara pasif. Alat Tenun akan meningkatkan baju zirah unit tentera secara automatik. Bengkel Tukang Besi akan meningkatkan kerosakan unit tentera secara automatik."
+            },
+            {
+                "title": "Völur",
+                "description": "Völur ialah unit sokongan yang boleh bergerak antara Rumah Panjang, meningkatkan pengeluaran Bakul Lebah dan Pusat Ladang untuk suatu tempoh. Völur juga boleh dikorbankan untuk mendirikan Kebun Suci di atas Relik, yang secara pasif merekrut Berserker dan mempunyai aura yang meningkatkan baju zirah unit berdekatan."
+            },
+            {
+                "title": "Bondi",
+                "description": "Bondi ialah askar lembing unik yang mempunyai kesihatan dan baju zirah yang lebih tinggi. Apabila Bondi berada berdekatan antara satu sama lain, mereka menerima buf Dinding Perisai yang sementara meningkatkan kesihatan mereka."
+            },
+            {
+                "title": "Berserker",
+                "description": "Berserker ialah unit baju zirah ringan unik yang mempunyai kerosakan tinggi, kelajuan pergerakan pantas, dan bersenjatakan dua kapak. Geng Berserker diaktifkan apabila kesihatan rendah, yang menjana semula kesihatan dan meningkatkan kerosakan."
+            },
+            {
+                "title": "Bergantung pada Hasil Bumi",
+                "description": "Infantri tentera boleh menyembuhkan diri dengan mengumpul Makanan dari sumber seperti Pokok Beri, Rusa atau Babi."
+            },
+            {
+                "title": "Kapal Panjang dan Drakkar",
+                "description": "Kapal Panjang ialah kapal pemanah unik yang juga berfungsi sebagai pengangkut; setiap unit yang dimuatkan akan menambah bilangan anak panah dilepaskan dan meningkatkan kesihatan. Drakkar menggantikan Kapal Springald dan boleh melontar jaring ke atas kapal musuh untuk memperlahankan mereka."
+            },
+            {
+                "title": "Pengaruh",
+                "description": "Bina Rumah Panjang dalam kawasan pengaruh Dok untuk mengurangkan kos kapal di semua Dok sebanyak 4% bagi setiap Rumah Panjang, sehingga maksimum 16%."
+            }
+        ]
+    },
+    "scots": {
+        "summary": "Orang Scot mengerahkan infantri yang tahan lasak dan mahir menyergap musuh dari tempat tersembunyi. Rumah Menara dan Menara Utama melindungi masyarakat serta ternakan berharga mereka daripada penceroboh di seluruh desa. Seru bantuan dengan pantas di Dewan Seruan dan kaji teknologi Tanah Tinggi atau Tanah Rendah yang hebat untuk mengamankan Kerajaan Scotland.",
+        "classes": "Infantri, Pertahanan, Seruan",
+        "era": "843 - 1707 M",
+        "overview": [
+            {
+                "title": "Bonus Tamadun",
+                "list": [
+                    "Ghillie boleh menyelinap di kawasan terbuka.",
+                    "Infantri mempunyai bonus penglihatan dan kelajuan pergerakan semasa berada di Hutan Selinap.",
+                    "Rumah Menara menggantikan Menara Peninjau, menghasilkan Lembu Tanah Tinggi, dan meningkatkan populasi.",
+                    "Lembu Tanah Tinggi meragut di Pokok Beri untuk mengumpul Makanan dari masa ke masa.",
+                    "Mercu Tanda Tanah Tinggi meningkatkan kapasiti Lembu Tanah Tinggi.",
+                    "Seru unit dengan pantas di Dewan Seruan dari Zaman Feudal (II).",
+                    "Selidik teknologi berkuasa dari Tanah Rendah dan Tanah Tinggi di Dewan Seruan.",
+                    "Kirkmen boleh mencipta Kolam Ikan untuk mengumpul Emas dan meningkatkan kadar pengumpulan pekerja berdekatan.",
+                    "Mercu Tanda Tanah Rendah meningkatkan had binaan Kolam Ikan.",
+                    "Menara Utama yang musnah boleh dibaiki untuk tempoh masa terhad sebelum dimusnahkan sepenuhnya.",
+                    "Menara Utama yang musnah mencipta kesan bumi hangus yang mengurangkan keberkesanan tempur musuh berdekatan.",
+                    "Liang pemanah laut 50% lebih murah."
+                ]
+            },
+            {
+                "title": "Rumah Bangsawan",
+                "description": "Rumah Menara menggantikan Menara Peninjau, menghasilkan Lembu Tanah Tinggi, Ghillie dan meningkatkan populasi."
+            },
+            {
+                "title": "Kekayaan Tanah Tinggi",
+                "description": "Lindungi Lembu Tanah Tinggi semasa mereka meragut di Pokok Beri, memberikan Makanan dari semasa ke semasa ketika makan. Kapasiti lembu meningkat dengan setiap Mercu Tanda Tanah Tinggi yang dibina."
+            },
+            {
+                "title": "Serang Hendap Tanah Tinggi",
+                "description": "Infantri mempunyai pengetahuan mendalam dan hubungan erat dengan tanah mereka serta bertempur dengan kelebihan di dalam dan sekitar Hutan Selinap. Tiada penalti penglihatan semasa berada di Hutan Selinap dan kelajuan pergerakan meningkat apabila Serang Hendap Tanah Tinggi diaktifkan."
+            },
+            {
+                "title": "Scottish Schiltron",
+                "description": "Gallowglass boleh bertahan menghadapi serangan pasukan berkuda secara lalai, manakala Askar Bersenjata boleh bertahan selepas Kapak Lochaber dikaji."
+            },
+            {
+                "title": "Tanah Rendah dan Tanah Tinggi",
+                "description": "Pilih antara Mercu Tanda Tanah Tinggi atau Tanah Rendah setiap kali menaik zaman. Dewan Seruan menyimpan teknologi unik dari kedua-dua tanah ini. Apabila Mercu Tanda dibina dari sesuatu wilayah, teknologi berkaitan akan berkurang separuh kos untuk sokongannya."
+            },
+            {
+                "title": "Sambut Seruan",
+                "description": "Seru pahlawan dengan pantas di Dewan Seruan dari Zaman Feudal (II)."
+            },
+            {
+                "title": "Kolam Ikan Monastik",
+                "description": "Cipta Kolam Ikan yang boleh dituai dengan Kirkman untuk mengutip Emas. Pekerja berhampiran Kolam Ikan aktif menerima kadar kutipan yang meningkat. Mercu Tanda dari Tanah Rendah meningkatkan jumlah maksimum Kolam Ikan."
+            },
+            {
+                "title": "Runtuhan Istana",
+                "description": "Apabila dimusnahkan, Menara Utama menggunakan taktik bumi hangus dan mensabotaj kawasan sekeliling untuk satu tempoh masa. Jika ada musuh dalam kawasan sabotaj, kecekapan tempur mereka akan dikurangkan buat sementara waktu. Dalam tempoh ini, Menara Utama menjadi Runtuhan Menara Utama dan boleh diselamatkan daripada kemusnahan sepenuhnya jika dibaiki. Runtuhan Menara Utama boleh dipulihkan sepenuhnya sehingga maksimum 600 Batu, selepas itu pembaikan menjadi percuma."
+            },
+            {
+                "title": "Rangkaian Pertahanan Loch",
+                "description": "Liang pemanah pertahanan dok adalah 50% lebih murah."
+            },
+            {
+                "title": "Pengaruh",
+                "description": "Bina bangunan tentera di sekitar Dewan Seruan untuk meningkatkan tahapnya dan menambah baik kecekapan seruan pahlawan.\nTahap 1: Membuka seruan Pemanah Tanah Tinggi. Menambah cas seruan. \nTahap 2: Mengurangkan kos untuk seru. Menambah cas seruan.\nTahap 3: Mengurangkan kos untuk seru. Menambah cas seruan. Kesihatan pahlawan yang diseru akan meningkat."
             }
         ]
     }

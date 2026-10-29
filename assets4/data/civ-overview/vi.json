@@ -104,7 +104,7 @@
             },
             {
                 "title": "Sức ảnh hưởng",
-                "description": "Xây dựng Ụ thiêng trên vỉa đá lộ thiên để tạo ra tầm ảnh hưởng và thu thập Đá mà không cần đến Dân làng. Ụ thiêng thu thập thêm +70, 100, 130, 160 Đá mỗi phút sau mỗi lần lên đời.\nCác công trình trong tầm ảnh hưởng của Ụ thiêng có thể tạo gấp đôi số đơn vị hoặc dùng Đá để nghiên cứu các phiên bản công nghệ cải tiến."
+                "description": "Xây dựng Ụ thiêng trên vỉa đá lộ thiên để tạo ra tầm ảnh hưởng và thu thập Đá mà không cần đến Dân làng. Ụ thiêng thu thập thêm +70, 100, 140, 170 Đá mỗi phút sau mỗi lần lên đời.\nCác công trình trong tầm ảnh hưởng của Ụ thiêng có thể tạo gấp đôi số đơn vị hoặc dùng Đá để nghiên cứu các phiên bản công nghệ cải tiến."
             },
             {
                 "title": "Đơn vị chuyên biệt",
@@ -191,7 +191,7 @@
             },
             {
                 "title": "Phần thưởng săn bắn",
-                "description": "Thu thập tài nguyên từ động vật có thể cho Vàng thưởng và đem đến các điểm thưởng kinh tế cho Dân làng và Nhà của thợ săn khi bạn đạt đến các ngưỡng nhất định về tổng tiền thưởng.\n100 Tiền thưởng\n • +5% tốc độ thu thập Lương thực\n• Nhà của thợ săn tạo ra thêm 10% Vàng\n400 Tiền thưởng\n• +10% tốc độ thu thập Lương thực\n• Nhà của thợ săn tạo ra thêm 25% Vàng\n1000 Tiền thưởng\n• +15%  tốc độ thu thập Lương thực\n• Nhà của thợ săn tạo ra thêm 40% Vàng"
+                "description": "Thu thập tài nguyên từ động vật có thể cho Vàng thưởng và đem đến các điểm thưởng kinh tế cho Dân làng và Nhà của thợ săn khi bạn đạt đến các ngưỡng nhất định về tổng tiền thưởng.\n100 Tiền thưởng\n • +10% tốc độ thu thập Lương thực\n• Nhà của thợ săn tạo ra thêm 10% Vàng\n400 Tiền thưởng\n• +15% tốc độ thu thập Lương thực\n• Nhà của thợ săn tạo ra thêm 25% Vàng\n1000 Tiền thưởng\n• +20%  tốc độ thu thập Lương thực\n• Nhà của thợ săn tạo ra thêm 40% Vàng"
             },
             {
                 "title": "Sức ảnh hưởng",
@@ -238,12 +238,16 @@
                 "description": "Khả năng mang tài nguyên của Dân làng cao hơn 40% so với các nền văn minh khác."
             },
             {
+                "title": "Học xá",
+                "description": "Chế độ nội trú bắt buộc tại các Đại học cung cấp +30 không gian dân số tại mỗi Đại học và quyền tự do lựa chọn chương trình giảng dạy giúp giảm -10% chi phí nghiên cứu tại các Đại học."
+            },
+            {
                 "title": "Sức ảnh hưởng",
                 "description": "Các công trình trong phạm vi ảnh hưởng của Nhà chính đạt được khả năng Sửa chữa khẩn cấp, khả năng này có thể được kích hoạt để hồi 150 máu/giây cho công trình đó trong 20 giây."
             },
             {
                 "title": "Đơn vị chuyên biệt",
-                "description": "Giáo sĩ cấp cao: Sử dụng khả năng Sự khích lệ linh thiêng đối với Dân làng để tăng +35% tốc độ thu thập của họ trong 30 giây.\nLandsknecht: Bộ binh cận chiến hạng nhẹ sử dụng đại kiếm cầm bằng hai tay, gây sát thương khu vực rất cao.\nKỵ sĩ đen: Pháo thủ bọc thép cưỡi thú mạnh mẽ. Giới hạn sản xuất theo số lượng thành lũy đã xây."
+                "description": "Giáo sĩ cấp cao: Sử dụng khả năng Sự khích lệ linh thiêng đối với Dân làng để tăng +40% tốc độ thu thập của họ trong 30 giây.\nLandsknecht: Bộ binh cận chiến hạng nhẹ sử dụng đại kiếm cầm bằng hai tay, gây sát thương khu vực rất cao.\nKỵ sĩ đen: Pháo thủ bọc thép cưỡi thú mạnh mẽ. Giới hạn sản xuất theo số lượng thành lũy đã xây."
             }
         ]
     },
@@ -347,13 +351,13 @@
                 "list": [
                     "Nghiên cứu công nghệ chuyên biệt có lợi cho Lạc đà, Quân sự, Tôn giáo, Kinh tế và Giao thương.",
                     "Đơn vị cưỡi lạc đà làm giảm -20% sát thương từ kỵ binh cưỡi ngựa của địch ở gần.",
-                    "Nhà xay lương được xây dựng gần Bụi quả mọng sẽ tạo ra Vườn cây ăn quả, giúp tăng khả năng mang Lương thực thêm +100.",
-                    "Tốc độ thu thập từ Bụi quả mọng tăng +25% nhưng không thể thu thập lương thực từ Lợn lòi.",
-                    "Khả năng mang quả mọng được tăng +3.",
-                    "Chi phí đào tạo Thương nhân trên bộ giảm -33%.",
-                    "Chi phí xây dựng Bến tàu giảm -50%.",
-                    "Lên đời không cần đến Dân làng bằng cách nâng cấp các cánh của Ngôi nhà Trí tuệ.",
-                    "Chuyển sang Thời hoàng kim bằng cách xây dựng các công trình trong phạm vi ảnh hưởng của Ngôi nhà Trí tuệ, giúp tăng tốc độ thu thập tài nguyên, tốc độ nghiên cứu và tốc độ sản xuất."
+                    "Nhà xay lương được xây dựng gần Bụi quả mọng sẽ biến chúng thành Vườn cây ăn quả, giúp tăng khả năng mang Lương thực thêm +100.",
+                    "Tốc độ thu thập từ Bụi quả mọng nhanh hơn +25% nhưng không thể lấy thịt Lợn lòi.",
+                    "Khả năng mang quả mọng được tăng thêm +3.",
+                    "Chi phí huấn luyện Thương nhân trên bộ rẻ hơn -33%.",
+                    "Chi phí xây dựng Bến cảng rẻ hơn -50%.",
+                    "Lên đời không cần đến Dân làng mà bằng cách nâng cấp các cánh của Ngôi nhà Trí tuệ.",
+                    "Chuyển sang Thời hoàng kim bằng cách xây dựng các công trình trong phạm vi ảnh hưởng của Ngôi nhà Trí tuệ, giúp nhận các chỉ số thưởng trên toàn đế chế."
                 ]
             },
             {
@@ -382,7 +386,7 @@
             },
             {
                 "title": "Thời hoàng kim",
-                "description": "Xây dựng để tiến lên Thời hoàng kim: cải thiện kinh tế, công nghệ và quân đội.\nCác công trình trong phạm vi ảnh hưởng của Ngôi nhà Trí tuệ được +5 giáp chống lửa và đóng góp một điểm cho quá trình tiến lên Thời hoàng kim. Các ngưỡng mở khóa là 10, 30 và 60 công trình.\n• Bậc 1: Tốc độ thu thập của Dân làng được +15%\n• Bậc 2: Tốc độ nghiên cứu được +20%\n• Bậc 3: Tốc độ thu thập của Dân làng được +20% cho tất cả các tài nguyên. Tốc độ nghiên cứu được +20%. Tốc độ sản xuất được +20%."
+                "description": "Xây dựng để tiến lên Thời Hoàng kim – cải thiện kinh tế và công nghệ.\nCác công trình trong phạm vi ảnh hưởng của Ngôi nhà trí tuệ nhận được thêm +5 giáp chống lửa và đóng góp một điểm cho quá trình tiến lên Thời Hoàng kim. Các ngưỡng mở khóa là 10, 20, 30, 50 và 75 công trình.\n• Cấp 1: Tốc độ thu thập của Dân làng tăng +15%\n• Cấp 2: Tốc độ xây dựng của Dân làng tăng +20%\n• Cấp 3: Kỵ sĩ lạc đà tăng +20% sát thương.\n• Cấp 4: Thương nhân tạo ra thêm +20% Vàng.\n• Cấp 5: Bộ binh cận chiến tăng +10% sát thương."
             },
             {
                 "title": "Đơn vị chuyên biệt",
@@ -528,7 +532,7 @@
             },
             {
                 "title": "Dầu ô liu",
-                "description": "Thu thập một tài nguyên chuyên biệt dùng để thuê các đơn vị Lính đánh thuê. Dân làng sẽ thu được số Dầu ô liu tương đương với 50% lương thực thu thập được từ Bụi quả mọng, 20% từ Rừng ô liu và 10% từ Cá ven bờ.\nTàu đánh cá tạo ra số Dầu ô liu tương đương với 20% lương thực thu thập được từ Cá còn Thương nhân cung cấp 20% Dầu ô liu dựa trên số lượng được giao dịch."
+                "description": "Thu thập một tài nguyên chuyên biệt dùng để thuê các đơn vị Lính đánh thuê. Dân làng sẽ thu được số Dầu ô liu tương đương với 50% lương thực thu thập được từ Bụi quả mọng, 15% từ Rừng ô liu và 10% từ Cá ven bờ.\nTàu đánh cá tạo ra số Dầu ô liu tương đương với 20% lương thực thu thập được từ Cá còn Thương nhân cung cấp 20% Dầu ô liu dựa trên số lượng được giao dịch."
             },
             {
                 "title": "Lính đánh thuê",
@@ -776,7 +780,7 @@
             {
                 "title": "Thưởng của nền văn minh",
                 "list": [
-                    "Dân làng mang thêm +40% tài nguyên, thu thập nhanh hơn +28% và xây dựng, sửa chữa các công trình nhanh hơn +20%.",
+                    "Dân làng mang thêm +40% tài nguyên, thu thập nhanh hơn +27% và xây dựng, sửa chữa các công trình nhanh hơn +20%.",
                     "Các đơn vị bộ binh và kỵ binh mạnh hơn nhiều, nhưng chi phí huấn luyện cũng tốn kém hơn và chiếm gấp đôi dân số",
                     "Đặt Thánh tích trong Tiền đồn, Tháp đá và Thành lũy để nhận khoản thưởng phòng thủ và kinh tế.",
                     "Mỗi Thánh tích đặt ở Bến tàu giúp tăng +5% tốc độ tấn công của tàu (Tối đa là +20%).",
@@ -786,7 +790,7 @@
             },
             {
                 "title": "Dân làng hiệu quả",
-                "description": "Dân làng thu thập nhanh hơn 28%, xây dựng các công trình nhanh hơn 20% nhưng tốn thêm 20% Lương thực để huấn luyện."
+                "description": "Dân làng thu thập nhanh hơn 27%, xây dựng các công trình nhanh hơn 20% nhưng tốn thêm 20% Lương thực để huấn luyện."
             },
             {
                 "title": "Nhiệt tâm tôn giáo",
@@ -851,7 +855,7 @@
             },
             {
                 "title": "Bảo tồn cảnh quan",
-                "description": "Dân làng tự động gửi gỗ mà không cần Trại đốn gỗ.\nTốc độ thu thập gỗ tăng +20% trong mỗi Thời đại và 20% gỗ đã thu được tạo thành lương thực bổ sung."
+                "description": "Dân làng tự động gửi gỗ mà không cần Trại đốn gỗ.\nGỗ được thu thập nhanh hơn +20%/+15%/+15% ở mỗi Đời và 20% số gỗ thu được sẽ chuyển thành lương thực bổ sung."
             },
             {
                 "title": "Chuyên gia công thành",
@@ -982,8 +986,8 @@
             {
                 "title": "Thưởng của nền văn minh",
                 "list": [
-                    "Nhà chính, Voi thợ và Bến tàu cung cấp tài nguyên thưởng khi Dân làng và Tàu đánh cá trả hàng.",
-                    "Voi thợ di chuyển tự do và hoạt động như một điểm trả tài nguyên chung.",
+                    "Nhà chính, Voi thợ và Bến tàu cung cấp tài nguyên thưởng khi Dân làng thả tài nguyên.",
+                    "Voi thợ di chuyển tự do và làm điểm trả tài nguyên chung.",
                     "Tất cả các công nghệ đều đắt hơn nhưng nghiên cứu gần như tức thì.",
                     "Pháo đài Tughlaqabad hoạt động như Thành lũy và có từ Thời đại phong kiến (II).",
                     "Pháo đài Tughlaqabad có thể được nâng cấp để tăng khả năng phòng thủ và mở khóa Thống đốc.",
@@ -997,7 +1001,7 @@
             },
             {
                 "title": "Cộng sự",
-                "description": "Giảm tải cho Dân làng bằng Voi thợ. Những con voi này đóng vai trò như một điểm tập kết và có thể di chuyển tự do, tiết kiệm thời gian và nguồn lực để Dân làng tập trung làm việc.\nVoi thợ, Nhà chính và Bến tàu cung cấp tài nguyên thưởng khi Dân làng và Tàu đánh cá trả hàng."
+                "description": "Giảm tải cho Dân làng bằng Voi thợ. Những con voi này đóng vai trò như một điểm tập kết và có thể di chuyển tự do, tiết kiệm thời gian và nguồn lực để Dân làng tập trung làm việc.\nVoi thợ, Nhà chính và Bến tàu cung cấp tài nguyên thưởng khi Dân làng thả tài nguyên."
             },
             {
                 "title": "Học thức uyên bác",
@@ -1164,7 +1168,7 @@
             },
             {
                 "title": "Thảo nguyên",
-                "description": "Chọn từ 3 địa điểm sau khi hoàn thành Địa danh để xây dựng Thảo nguyên, dần dần sinh ra 5 Ngựa trên cánh đồng. Ngựa tăng máu của tất cả đơn vị Kỵ binh cận chiến thêm +2 và tất cả đơn vị Kỵ binh đánh xa thêm +1, hoặc có thể được sử dụng bằng Chuồng ngựa trong phạm vi Ảnh hưởng của Thảo nguyên để nhanh chóng huấn luyện đơn vị cưỡi thú bất kỳ. Thảo nguyên tạo ra một Ngựa mới mỗi 90/60/45 giây vào Thời Phong kiến/Thời Lâu đài/Thời đại Đế quốc."
+                "description": "Chọn từ 3 địa điểm sau khi hoàn thành Địa danh để xây dựng Thảo nguyên, dần dần sinh ra 5 Ngựa trên cánh đồng. Ngựa tăng máu của tất cả đơn vị Kỵ binh cận chiến thêm +2 và tất cả đơn vị Kỵ binh đánh xa thêm +1, hoặc có thể được sử dụng bằng Chuồng ngựa trong phạm vi Ảnh hưởng của Thảo nguyên để nhanh chóng huấn luyện đơn vị cưỡi thú bất kỳ. Thảo nguyên tạo ra một Ngựa mới mỗi 75/60/45 giây vào Thời Phong kiến/Thời Lâu đài/Thời đại Đế quốc."
             },
             {
                 "title": "Di sản Nữ Chân",
@@ -1194,6 +1198,124 @@
                     "Lính Trảm Mã Đao – Bộ binh thiết giáp chỉ có ở Thời đại Đế quốc, gây sát thương thưởng cận chiến ấn tượng cho kỵ binh.",
                     "Thủ vệ Mãnh An Mưu Khắc – Lính ném lựu kỵ mã & Mãnh An Mưu Khắc xuất hiện từ các công sự chuyên biệt để tự động bảo vệ lãnh thổ của nhà Kim."
                 ]
+            }
+        ]
+    },
+    "vikings": {
+        "summary": "Người Viking là lính đột kích đến từ phương Bắc, áp đảo kẻ thù bằng lực lượng bộ binh cận chiến hùng mạnh, có thể sống sót nhờ khai phá đất đai của đối phương. Những Nhà Dài linh hoạt giúp họ dễ dàng phát triển dân số và kinh tế. Các sử thi và tôn giáo Bắc Âu truyền cảm hứng cho các chiến binh của họ chiến đấu không sợ hãi vì danh dự của các vị thần.",
+        "classes": "Nhà Dài, Bộ binh, Saga",
+        "era": "793 – 1523 SCN",
+        "overview": [
+            {
+                "title": "Thưởng của nền văn minh",
+                "list": [
+                    "Các Saga có thể mang lại phần thưởng khi hoàn thành nhiều nhiệm vụ khác nhau.",
+                    "Dân làng sẽ được tự động chiêu mộ từ Nhà chính cho đến khi đạt đến Giới hạn Dân làng, con số này có thể tăng lên bằng cách xây thêm Nhà Dài.",
+                    "Nhà Dài có thể được nâng cấp với nhiều phần bổ sung khác nhau và có thể chiêu mộ Bondi.",
+                    "Đơn vị Völur có thể tăng tốc độ sản xuất của Nhà Dài hoặc lập Rừng Thiêng trên các Thánh tích.",
+                    "Bộ binh quân sự có thể hồi phục bằng cách tiêu thụ Lương thực từ kho Lương thực.",
+                    "Người Viking không có tường Đá, nhưng hàng rào gỗ có thể nâng cấp thành tường Danevirke chịu ít sát thương lửa hơn."
+                ]
+            },
+            {
+                "title": "Saga",
+                "description": "Saga là các nhiệm vụ có thể hoàn thành bất cứ lúc nào để mở khóa phần thưởng vĩnh viễn."
+            },
+            {
+                "title": "Di Cư Phương Bắc",
+                "description": "Nhà chính sẽ tự động chiêu mộ Dân làng mà không tốn tài nguyên cho đến khi đạt Giới hạn Dân làng. Giới hạn Dân làng sẽ tăng thêm +10 cho mỗi Nhà Dài được xây dựng."
+            },
+            {
+                "title": "Nhà Dài",
+                "description": "Có thể nâng cấp Nhà Dài bằng một trong bốn công trình gắn kèm khác nhau. Trang Trại sẽ thêm hai ruộng rau, có tốc độ thu hoạch cao hơn Nông trại thông thường. Giỏ Ong Skeps sẽ tự động sinh vàng. Dệt may sẽ tự động tăng giáp cho đơn vị quân sự. Lò Rèn sẽ tự động tăng sát thương cho đơn vị quân sự."
+            },
+            {
+                "title": "Völur",
+                "description": "Völur là đơn vị quân hỗ trợ có thể di chuyển giữa các Nhà Dài, tăng sản lượng của Giỏ Ong Skeps và Trang Trại trong một thời gian nhất định. Völur cũng có thể bị hiến tế để lập Rừng Thiêng trên Thánh tích, nơi sẽ tự động chiêu mộ Cuồng Chiến Binh và tạo hào quang tăng giáp cho các đơn vị xung quanh."
+            },
+            {
+                "title": "Bondi",
+                "description": "Bondi là giáo binh chuyên biệt với lượng máu và giáp cao. Khi các Bondi ở gần nhau, họ nhận được hiệu ứng Tường khiên giúp tăng máu tạm thời."
+            },
+            {
+                "title": "Cuồng Chiến Binh",
+                "description": "Cuồng Chiến Binh là đơn vị giáp hạng nhẹ chuyên biệt, có sát thương cao, di chuyển nhanh và sử dụng hai rìu. Cơn Cuồng Nộ Berserker được kích hoạt khi máu thấp, giúp hồi phục máu và tăng sát thương."
+            },
+            {
+                "title": "Tự Cung Tự Cấp",
+                "description": "Bộ binh quân sự có thể tự hồi phục bằng cách thu thập Lương thực từ các nguồn như Bụi quả mọng, Hươu hoặc Lợn lòi."
+            },
+            {
+                "title": "Thuyền Dài và Thuyền Drakkar",
+                "description": "Thuyền Dài là tàu cung thủ chuyên biệt kiêm vận chuyển; mỗi đơn vị lên tàu sẽ tăng số mũi tên bắn ra và tăng máu. Thuyền Drakkar thay thế Máy phóng lao và có thể ném lưới lên tàu địch để làm chậm chúng."
+            },
+            {
+                "title": "Sức ảnh hưởng",
+                "description": "Xây Nhà Dài trong vùng ảnh hưởng của Bến tàu để giảm 4% chi phí đóng thuyền tại tất cả Bến tàu với mỗi Nhà Dài, tối đa 16%."
+            }
+        ]
+    },
+    "scots": {
+        "summary": "Người Scotland sở hữu bộ binh kiên cường, xuất sắc trong việc phục kích kẻ địch từ trạng thái tàng hình. Các Tháp Gia Cư và Thành lũy bảo vệ cộng đồng cùng đàn gia súc quý giá khỏi bọn cướp bóc khắp vùng nông thôn. Hãy tập hợp quân tiếp viện nhanh tại Nhà Tập Hợp và nghiên cứu các công nghệ mạnh mẽ của Vùng Cao Nguyên hoặc Vùng Đất Thấp để củng cố Vương quốc Scotland.",
+        "classes": "Bộ binh, Phòng thủ, Tập Hợp Quân",
+        "era": "843 – 1707 SCN",
+        "overview": [
+            {
+                "title": "Thưởng của nền văn minh",
+                "list": [
+                    "Ghillie có thể tàng hình ở vùng đất trống.",
+                    "Bộ binh có tầm nhìn và tốc độ di chuyển tăng khi ở trong Rừng tàng hình.",
+                    "Tháp Gia Cư thay thế Tiền đồn, sản xuất Bò Cao Nguyên và tăng dân số.",
+                    "Bò Cao Nguyên ăn tại Bụi quả mọng để thu Lương thực theo thời gian.",
+                    "Địa danh Cao Nguyên tăng sức chứa Bò Cao Nguyên.",
+                    "Tập hợp quân nhanh tại Nhà Tập Hợp từ Thời phong kiến (II).",
+                    "Nghiên cứu các công nghệ mạnh mẽ của Vùng Đất Thấp và Vùng Cao Nguyên tại Nhà Tập Hợp.",
+                    "Kirkmen có thể tạo Ao Cá để thu Vàng và tăng tốc độ thu hoạch cho công nhân lân cận.",
+                    "Địa danh Vùng Đất Thấp tăng giới hạn xây Ao Cá.",
+                    "Thành lũy bị phá hủy có thể sửa chữa trong thời gian giới hạn trước sụp đổ hoàn toàn.",
+                    "Thành lũy bị phá tạo hiệu ứng tiêu thổ làm giảm hiệu quả chiến đấu của địch lân cận.",
+                    "Lỗ châu mai trên biển rẻ hơn 50%."
+                ]
+            },
+            {
+                "title": "Nhà Quý Tộc",
+                "description": "Tháp Gia Cư thay thế Tiền đồn, dùng để tạo Bò Cao Nguyên, Ghillie và tăng giới hạn dân số."
+            },
+            {
+                "title": "Sự Thịnh Vượng Cao Nguyên",
+                "description": "Bảo vệ Bò Cao Nguyên khi chúng ăn tại Bụi quả mọng, cung cấp Lương thực theo thời gian khi ăn. Sức chứa bò tăng lên với mỗi Địa danh Cao Nguyên được xây dựng."
+            },
+            {
+                "title": "Phục Kích Cao Nguyên",
+                "description": "Bộ binh có hiểu biết sâu và gắn bó với vùng đất của mình, chiến đấu với lợi thế khi ở trong và quanh Rừng tàng hình. Không bị hạn chế tầm nhìn khi ở trong Rừng tàng hình và tốc độ di chuyển được tăng khi Phục Kích Cao Nguyên kích hoạt."
+            },
+            {
+                "title": "Đội Hình Schiltron Scotland",
+                "description": "Gallowglass có thể chống lại kỵ binh xung kích mặc định, còn Quân binh có thể chống lại sau khi nghiên cứu Rìu Lochaber."
+            },
+            {
+                "title": "Vùng Đất Thấp và Vùng Cao Nguyên",
+                "description": "Mỗi lần lên Đời, có thể chọn Địa danh ở Vùng Cao Nguyên hoặc Vùng Đất Thấp. Nhà Tập Hợp sở hữu các công nghệ độc quyền từ những vùng này. Khi Địa danh được xây dựng từ một khu vực, các công nghệ liên quan sẽ giảm một nửa chi phí để hỗ trợ khu vực đó."
+            },
+            {
+                "title": "Đáp Lời Hiệu Triệu",
+                "description": "Tập hợp chiến binh nhanh tại Nhà Tập Hợp từ Thời phong kiến (Đời II)."
+            },
+            {
+                "title": "Ao Cá Tu Viện",
+                "description": "Dùng Kirkman tạo ra các Ao Cá có thể thu hoạch để kiếm Vàng. Công nhân ở gần các Ao Cá đang hoạt động sẽ được tăng tốc độ thu thập tài nguyên. Các Địa danh từ Vùng Đất Thấp giúp gia tăng số lượng Ao Cá tối đa có thể xây."
+            },
+            {
+                "title": "Di tích Lâu Đài",
+                "description": "Khi bị phá hủy, Thành lũy áp dụng chiến thuật tiêu thổ và phá hoại khu vực xung quanh trong một khoảng thời gian. Nếu có bất kỳ kẻ địch nào nằm trong vùng bị phá hoại, hiệu quả chiến đấu của chúng sẽ tạm thời bị suy giảm. Trong thời gian này, Thành lũy trở thành Tàn tích Thành lũy và có thể thoát khỏi sự sụp đổ hoàn toàn nếu được sửa chữa. Tàn tích Thành lũy có thể được khôi phục hoàn toàn với tối đa 600 Đá, sau mức này việc sửa chữa Tàn tích Thành lũy sẽ trở nên miễn phí."
+            },
+            {
+                "title": "Mạng Lưới Phòng Thủ Hồ Loch",
+                "description": "Lỗ châu mai phòng thủ tại Bến tàu giảm 50% chi phí."
+            },
+            {
+                "title": "Sức ảnh hưởng",
+                "description": "Xây các công trình quân sự xung quanh Nhà Tập Hợp để tăng cấp, cải thiện hiệu quả tập hợp chiến binh.\nCấp 1: Mở khóa tập hợp Cung Thủ Cao Nguyên. Thêm một lượt tập hợp.\nCấp 2: Giảm chi phí tập hợp. Thêm một lượt tập hợp.\nCấp 3: Giảm chi phí tập hợp. Thêm một lượt tập hợp. Máu của chiến binh được tập hợp tăng lên."
             }
         ]
     }
