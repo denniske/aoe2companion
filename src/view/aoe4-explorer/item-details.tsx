@@ -1,6 +1,7 @@
 import { Card } from '@app/components/card';
 import { HeaderTitle } from '@app/components/header-title';
 import { ScrollView } from '@app/components/scroll-view';
+import { Aoe4WorldAttribution, aoe4WorldItemUrl } from './aoe4world-attribution';
 import { Text } from '@app/components/text';
 import { useTranslation } from '@app/helper/translate';
 import {
@@ -206,6 +207,8 @@ function ItemDetailsLayout<T extends Aoe4Item>({
 
                 {children}
                 <PatchHistory item={item as Aoe4UnifiedItem} civ={civ} />
+                <View className="flex-1" />
+                <Aoe4WorldAttribution name={item.name} url={aoe4WorldItemUrl(item)} className="px-5" />
             </View>
         </ScrollView>
     );

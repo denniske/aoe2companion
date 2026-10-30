@@ -9,7 +9,11 @@ import { useTranslation } from '@app/helper/translate';
 import { useAoe4CivData, useMaps } from '@app/queries/all';
 import cn from 'classnames';
 import { Aoe4SectionButtons } from './section-buttons';
-import { Aoe4UnifiedItem, useAoe4Buildings, useAoe4Technologies, useAoe4Units, useAoe4Upgrades } from '@app/queries/aoe4-explorer';
+import { Aoe4UnifiedItem, useAoe4Buildings, useAoe4ExplorerMeta, useAoe4Patches, useAoe4Technologies, useAoe4Units, useAoe4Upgrades } from '@app/queries/aoe4-explorer';
+import { Button } from '@app/components/button';
+import { openLink } from '@app/helper/url';
+import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
+import { AOE4WORLD_EXPLORER_URL, Aoe4WorldAttribution } from './aoe4world-attribution';
 import { containerClassName } from '@app/styles';
 import { Aoe4Explorer, Civ, civs, getCivNameById, orderCivs } from '@nex/data';
 import { Image } from '@/src/components/uniwind/image';
@@ -86,6 +90,28 @@ function itemResult(item: Aoe4UnifiedItem, label: string, alias?: string): Searc
     };
 }
 
+/**
+ * The game version the explorer data was parsed from. meta.json only knows the steam build, so this
+ * is the newest patch in aoe4world's patch notes released before the data was generated; a hotfix
+ * they have not written up yet shows as the patch before it.
+ */
+const GameVersion: React.FC = () => {
+    const meta = useAoe4ExplorerMeta().data;
+    const patches = useAoe4Patches().data;
+    if (!meta || meta.devVariant) return null;
+    const patch = orderBy(
+        (patches ?? []).filter((p) => p.buildId && new Date(p.date) <= new Date(meta.generatedAt)),
+        (p) => p.date,
+        'desc'
+    )[0];
+    if (!patch) return null;
+    return (
+        <Text variant="body-sm" color="subtle">
+            Game version {patch.buildId} ({patch.name})
+        </Text>
+    );
+};
+
 /** aoe4 explore landing: search over everything, then a row per section. */
 export default function Aoe4Explore() {
     const getTranslation = useTranslation();
@@ -135,8 +161,18 @@ export default function Aoe4Explore() {
 
     return (
         <KeyboardAvoidingView>
-            <View className="flex-1 pt-4 gap-5">
-                <Stack.Screen options={{ animation: 'none', title: getTranslation('explore.title') }} />
+            <View className="flex-1 pt-4 gap-2">
+                <Stack.Screen
+                    options={{
+                        animation: 'none',
+                        title: getTranslation('explore.title'),
+                        headerRight: () => (
+                            <Button icon={faExternalLinkSquareAlt} onPress={() => openLink(AOE4WORLD_EXPLORER_URL)}>
+                                AoE4 World Explorer
+                            </Button>
+                        ),
+                    }}
+                />
 
                 <View className={cn('gap-3', containerClassName)}>
                     <Field
@@ -147,6 +183,7 @@ export default function Aoe4Explore() {
                         placeholder={getTranslation('explore.search.placeholder')}
                     />
                     <Aoe4SectionButtons />
+                    <GameVersion />
                 </View>
 
                 {search ? (
@@ -180,6 +217,7 @@ export default function Aoe4Explore() {
                         keyExtractor={(civ) => civ}
                         ItemSeparatorComponent={() => <View className="h-px bg-gray-200 dark:bg-gray-800 w-full" />}
                         renderItem={({ item: civ }) => <CivRow civ={civ} />}
+                        ListFooterComponent={<Aoe4WorldAttribution className="pt-4" />}
                     />
                 )}
             </View>

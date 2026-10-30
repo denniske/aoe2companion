@@ -13,8 +13,24 @@ export const changelog4: IChangelog = {
     '47.0.0': [
         {
             type: 'feature',
+            title: 'Implement [Raiders of the North](https://www.ageofempires.com/news/raiders-of-the-north-for-age-of-empires-iv-available-now/)',
+        },
+        {
+            type: 'feature',
             title: 'Explorer',
             content: 'Explore the civs, units, buildings and technologies of the game.',
+        },
+        {
+            type: 'feature',
+            title: 'Search for players in the leaderboard',
+        },
+        {
+            type: 'feature',
+            title: 'Add polish language',
+        },
+        {
+            type: 'minor',
+            title: 'Linked profiles show when family sharing was last seen',
         },
         {
             type: 'minor',

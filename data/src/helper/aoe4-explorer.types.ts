@@ -300,3 +300,32 @@ export const aoe4CivByAbbr: Record<CivAbbr, string> = {
   vik: 'Vikings',
   zx: 'ZhuXiSLegacy',
 };
+
+/** aoe4world civ abbreviation -> its civ slug in aoe4world's URLs (aoe4world/data src/lib/config/civs.ts). */
+export const aoe4CivSlugByAbbr: Record<CivAbbr, string> = {
+  ab: 'abbasid',
+  ay: 'ayyubids',
+  by: 'byzantines',
+  ch: 'chinese',
+  de: 'delhi',
+  en: 'english',
+  fr: 'french',
+  gol: 'goldenhorde',
+  hr: 'hre',
+  hl: 'lancaster',
+  ja: 'japanese',
+  je: 'jeannedarc',
+  jin: 'jindynasty',
+  kt: 'templar',
+  mac: 'macedonian',
+  ma: 'malians',
+  mo: 'mongols',
+  od: 'orderofthedragon',
+  ot: 'ottomans',
+  ru: 'rus',
+  sco: 'scots',
+  sen: 'sengoku',
+  tug: 'tughlaq',
+  vik: 'vikings',
+  zx: 'zhuxi',
+};

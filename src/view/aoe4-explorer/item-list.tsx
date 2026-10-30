@@ -5,7 +5,7 @@ import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
 import { Text } from '@app/components/text';
 import { useTranslation } from '@app/helper/translate';
 import { Aoe4UnifiedItem, useAoe4ExplorerItems, useAoe4Units } from '@app/queries/aoe4-explorer';
-import { containerClassName } from '@app/styles';
+import { containerClassName, containerScrollClassName } from '@app/styles';
 import cn from 'classnames';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { orderBy, uniq } from 'lodash';
@@ -107,7 +107,7 @@ export default function Aoe4ItemList({ type }: { type: ListType }) {
                         onSubmitEditing={() => first && router.navigate(itemHref(first, civ) as any)}
                     />
                 </View>
-                <View className="gap-2 pt-3">
+                <View className={cn('gap-2 pt-3', containerScrollClassName)}>
                     <CivChips
                         civs={allCivs}
                         value={civ}
@@ -126,7 +126,7 @@ export default function Aoe4ItemList({ type }: { type: ListType }) {
                 {isLoading ? (
                     <ActivityIndicator className="mt-8" />
                 ) : error ? (
-                    <Text className="p-4">{String(error)}</Text>
+                    <Text className={cn('pt-4', containerClassName)}>{String(error)}</Text>
                 ) : (
                     <FlatList
                         data={rows}

@@ -1,6 +1,6 @@
 import { HeaderTitle } from '@app/components/header-title';
 import { ScrollView } from '@app/components/scroll-view';
-import { aoeCivKey, Civ, civDict, getCivNameById, parseCivDescription } from '@nex/data';
+import { Aoe4Explorer, aoeCivKey, Civ, civDict, getCivNameById, parseCivDescription } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { Image, ImageBackground } from '@/src/components/uniwind/image';
 import { Link, Stack, useLocalSearchParams } from 'expo-router';
@@ -19,6 +19,7 @@ import { useCivVideo } from '@app/utils/video';
 import { useAoe4CivData } from '@app/queries/all';
 import { Text } from '@app/components/text';
 import { Aoe4CivJumpTo } from '@app/view/aoe4-explorer/civ-jump-to';
+import { Aoe4WorldAttribution, aoe4WorldCivUrl } from '@app/view/aoe4-explorer/aoe4world-attribution';
 import { Aoe4SectionButtons } from '@app/view/aoe4-explorer/section-buttons';
 import { useTranslation } from '@app/helper/translate';
 
@@ -123,6 +124,7 @@ export default function CivDetails() {
 
 export function Civ4Details({ civ }: { civ: Civ }) {
     const civData = useAoe4CivData()?.[civ];
+    const abbr = Object.keys(Aoe4Explorer.aoe4CivByAbbr).find((a) => Aoe4Explorer.aoe4CivByAbbr[a] === civ) ?? '';
 
     if (!civData) return null;
 
@@ -154,6 +156,8 @@ export function Civ4Details({ civ }: { civ: Civ }) {
                                 ))}
                         </Fragment>
                     ))}
+
+                    <Aoe4WorldAttribution name={getCivNameById(civ)} url={aoe4WorldCivUrl(abbr)} className="mt-5" />
                 </View>
             </ScrollView>
         </>
