@@ -163,7 +163,9 @@ async function releaseIos() {
             },
         },
     }).catch((e) => {
-        if (!String(e).includes('409')) throw e; // already in this submission
+        // A 409 also covers "version not reviewable" (e.g. a missing age rating
+        // answer), so only swallow it when nothing else is wrong.
+        if (!String(e).includes('409') || String(e).includes('associatedErrors')) throw e;
     });
 
     await asc('PATCH', `/reviewSubmissions/${submission.id}`, {
