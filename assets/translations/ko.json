@@ -395,6 +395,7 @@
     "competitive.title": "경쟁전",
     "competitive.onlineVerifiedPlayers.title": "온라인 인증 플레이어",
     "competitive.onlineVerifiedPlayers.viewGames": "경기 보기",
+    "competitive.onlineVerifiedPlayers.openDashboard": "대시보드 열기",
     "competitive.activeGames.title": "진행 중인 경쟁전",
     "competitive.activeGames.empty": "진행 중인 경기가 없습니다.",
     "competitive.upcomingMatches.title": "예정된 대회 경기",

@@ -395,6 +395,7 @@
     "competitive.title": "Rekabetçi",
     "competitive.onlineVerifiedPlayers.title": "Çevrimiçi Doğrulanmış Oyuncular",
     "competitive.onlineVerifiedPlayers.viewGames": "Maçları Gör",
+    "competitive.onlineVerifiedPlayers.openDashboard": "Paneli Aç",
     "competitive.activeGames.title": "Devam Eden Rekabetçi Maçlar",
     "competitive.activeGames.empty": "Devam eden maç yok.",
     "competitive.upcomingMatches.title": "Yaklaşan Turnuva Maçları",

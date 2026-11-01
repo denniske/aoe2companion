@@ -404,6 +404,7 @@
     "competitive.title": "Wettkampf",
     "competitive.onlineVerifiedPlayers.title": "Verifizierte Spieler online",
     "competitive.onlineVerifiedPlayers.viewGames": "Matches anzeigen",
+    "competitive.onlineVerifiedPlayers.openDashboard": "Dashboard öffnen",
     "competitive.activeGames.title": "Laufende Wettkampfmatches",
     "competitive.activeGames.empty": "Keine laufenden Matches.",
     "competitive.upcomingMatches.title": "Kommende Turniermatches",

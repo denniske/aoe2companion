@@ -413,6 +413,7 @@
     "competitive.title": "Киберспорт",
     "competitive.onlineVerifiedPlayers.title": "Проверенные игроки онлайн",
     "competitive.onlineVerifiedPlayers.viewGames": "Показать матчи",
+    "competitive.onlineVerifiedPlayers.openDashboard": "Открыть панель",
     "competitive.activeGames.title": "Идущие киберспортивные матчи",
     "competitive.activeGames.empty": "Активных матчей нет.",
     "competitive.upcomingMatches.title": "Предстоящие турнирные матчи",

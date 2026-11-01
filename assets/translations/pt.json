@@ -405,6 +405,7 @@
     "competitive.title": "Competitivo",
     "competitive.onlineVerifiedPlayers.title": "Jogadores verificados online",
     "competitive.onlineVerifiedPlayers.viewGames": "Ver partidas",
+    "competitive.onlineVerifiedPlayers.openDashboard": "Abrir painel",
     "competitive.activeGames.title": "Partidas competitivas ativas",
     "competitive.activeGames.empty": "Nenhuma partida ativa.",
     "competitive.upcomingMatches.title": "Próximas partidas de torneio",

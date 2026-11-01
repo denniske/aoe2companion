@@ -416,6 +416,7 @@
     "competitive.title": "Competitive",
     "competitive.onlineVerifiedPlayers.title": "Online Verified Players",
     "competitive.onlineVerifiedPlayers.viewGames": "View Matches",
+    "competitive.onlineVerifiedPlayers.openDashboard": "Open Dashboard",
     "competitive.activeGames.title": "Active Competitive Matches",
     "competitive.activeGames.empty": "No active matches.",
     "competitive.upcomingMatches.title": "Upcoming Tournament Matches",

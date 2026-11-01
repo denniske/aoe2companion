@@ -395,6 +395,7 @@
     "competitive.title": "競技",
     "competitive.onlineVerifiedPlayers.title": "線上認證玩家",
     "competitive.onlineVerifiedPlayers.viewGames": "查看對戰",
+    "competitive.onlineVerifiedPlayers.openDashboard": "開啟儀表板",
     "competitive.activeGames.title": "進行中的競技對戰",
     "competitive.activeGames.empty": "沒有進行中的對戰。",
     "competitive.upcomingMatches.title": "即將進行的賽事對戰",

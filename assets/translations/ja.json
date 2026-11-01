@@ -395,6 +395,7 @@
     "competitive.title": "競技",
     "competitive.onlineVerifiedPlayers.title": "オンラインの認証済みプレイヤー",
     "competitive.onlineVerifiedPlayers.viewGames": "試合を見る",
+    "competitive.onlineVerifiedPlayers.openDashboard": "ダッシュボードを開く",
     "competitive.activeGames.title": "進行中の競技試合",
     "competitive.activeGames.empty": "進行中の試合はありません。",
     "competitive.upcomingMatches.title": "今後の大会の試合",

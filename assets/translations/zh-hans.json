@@ -395,6 +395,7 @@
     "competitive.title": "竞技",
     "competitive.onlineVerifiedPlayers.title": "在线认证玩家",
     "competitive.onlineVerifiedPlayers.viewGames": "查看对局",
+    "competitive.onlineVerifiedPlayers.openDashboard": "打开仪表板",
     "competitive.activeGames.title": "进行中的竞技对局",
     "competitive.activeGames.empty": "暂无进行中的对局。",
     "competitive.upcomingMatches.title": "即将进行的赛事对局",
