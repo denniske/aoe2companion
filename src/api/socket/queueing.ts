@@ -3,39 +3,53 @@ import { useFocusEffect } from 'expo-router';
 import { useIsFocused } from 'expo-router/react-navigation';
 import { decamelizeKeys } from 'humps';
 import { produce } from 'immer';
-import { min, sortBy } from 'lodash';
+import { sortBy } from 'lodash';
 import { useRef, useState } from 'react';
 import { ICloseEvent, w3cwebsocket } from 'websocket';
 
-export interface IQueueingMatchPlayer {
+export interface IQueueingPlayer {
     profileId: number;
+    name: string;
+    country?: string;
+    clan?: string;
+    verified: boolean;
+}
+
+export interface IQueueingMatchPlayer extends IQueueingPlayer {
     // 0 until the players have picked, which happens after the match has formed.
     civ: number;
     team: number;
+    // Null until the match reaches the database, which is when its leaderboard becomes known.
+    rating?: number;
+    rank?: number;
 }
 
-export interface IQueueingMatch {
-    matchId: number;
-    server: string;
-    matchedAt: string;
-    players: IQueueingMatchPlayer[];
-    // Arrives a cycle or two after the match itself: the map is only known once the match reaches
-    // the database. The advertisement has a map field of its own but it is not the one played.
-    mapImageUrl?: string;
-}
-
-export interface IQueueingPlayer {
-    profileId: number;
-    advertisementId: number;
+export interface IQueueingSearch {
+    // Opaque, stable for the lifetime of the search. Only used to pair updates and removals.
+    id: string;
+    status: 'queueing';
+    partyLeaderProfileId: number;
+    // Everyone searching together, the leader included.
+    players: IQueueingPlayer[];
     verified: boolean;
     queueingSince: string;
     lastSeen: string;
-    // The other players this one is searching with, empty for a solo search.
-    partyProfileIds: number[];
-    // Set once they have been matched. The entry is removed shortly afterwards, by which time the
-    // match has reached the ongoing-matches subscription.
-    match?: IQueueingMatch;
 }
+
+export interface IQueueingMatch {
+    id: string;
+    status: 'matched';
+    matchId: number;
+    server: string;
+    matchedAt: string;
+    verified: boolean;
+    // Both arrive a cycle or two after the match itself, once the match reaches the database.
+    leaderboard?: string;
+    mapImageUrl?: string;
+    players: IQueueingMatchPlayer[];
+}
+
+export type IQueueingItem = IQueueingSearch | IQueueingMatch;
 
 interface IConnectionHandler {
     onOpen?: () => void;
@@ -50,7 +64,7 @@ function initConnection(handler: IConnectionHandler, profileIds?: number[], veri
     const queryString = makeQueryString(
         decamelizeKeys({
             handler: 'queueing',
-            // No language: queueing events carry ids only, nothing the server localises.
+            // No language: nothing in a queueing event is localised.
             profileIds,
             verified,
         })
@@ -85,34 +99,38 @@ function initConnection(handler: IConnectionHandler, profileIds?: number[], veri
 
 interface IQueueingAddedEvent {
     type: 'queueingAdded';
-    data: IQueueingPlayer;
+    data: IQueueingItem;
 }
 
 interface IQueueingUpdatedEvent {
     type: 'queueingUpdated';
-    data: IQueueingPlayer;
+    data: IQueueingItem;
 }
+
+// Why an item went away. A search ends as `matched` when it turns into a match item, `left` when
+// the party left the multiplayer menu, `started` when it was seen in a game without a match item,
+// and `timeout` when it was around too long -- usually a cancel, which is invisible to the server.
+// A match item ends as `started`, `cancelled` (profileIds: the party that backed out) or `expired`.
+export type IQueueingRemovedReason = 'matched' | 'left' | 'started' | 'timeout' | 'cancelled' | 'expired';
 
 interface IQueueingRemovedEvent {
     type: 'queueingRemoved';
-    data: { advertisementId: number; profileId: number };
+    data: { id: string; reason: IQueueingRemovedReason; matchId?: number; profileIds?: number[] };
 }
 
 type IQueueingEvent = IQueueingAddedEvent | IQueueingUpdatedEvent | IQueueingRemovedEvent;
 
 export function initQueueingSubscription(handler: IConnectionHandler, profileIds?: number[], verified?: boolean): w3cwebsocket {
-    let _players: IQueueingPlayer[] = [];
+    let _items: IQueueingItem[] = [];
 
     return initConnection(
         {
             onOpen: handler.onOpen,
             onClose: handler.onClose,
             onPlayers: (events: IQueueingEvent[]) => {
-                _players = produce(_players, (players) => {
+                _items = produce(_items, (players) => {
                     for (const event of events) {
-                        // One player can only be in one queue at a time, but the advertisement id
-                        // is what the events are keyed by, so it is also what identifies an entry.
-                        const index = players.findIndex((player) => player.advertisementId == event.data.advertisementId);
+                        const index = players.findIndex((item) => item.id == event.data.id);
 
                         switch (event.type) {
                             case 'queueingAdded':
@@ -136,7 +154,7 @@ export function initQueueingSubscription(handler: IConnectionHandler, profileIds
                         }
                     }
                 });
-                handler.onPlayers?.(_players);
+                handler.onPlayers?.(_items);
             },
             onMessage: handler.onMessage,
         },
@@ -145,37 +163,17 @@ export function initQueueingSubscription(handler: IConnectionHandler, profileIds
     );
 }
 
-export interface IQueueingGroup {
-    key: string;
-    // One entry per tracked player. More than one means they were matched into the same match --
-    // two opponents we happened to be watching both of -- which is one card, not two.
-    players: IQueueingPlayer[];
-}
-
 /**
- * What the dashboards render: one card per queue, or per match once the queues have resolved into
- * one. Searching first, matched last, each ordered by how long it has been going on.
+ * What the dashboards render: one card per item. Searching first, matched last, each ordered by
+ * how long it has been going on.
  */
-export function groupQueueingPlayers(players: IQueueingPlayer[]): IQueueingGroup[] {
-    const groups = new Map<string, IQueueingPlayer[]>();
-
-    for (const player of players) {
-        // Keyed by the match once there is one, so everyone put into it shares a card, and by the
-        // advertisement until then, which is what a party already shares.
-        const key = player.match ? `match-${player.match.matchId}` : `queue-${player.advertisementId}`;
-        groups.set(key, [...(groups.get(key) ?? []), player]);
-    }
-
+export function sortQueueingItems(items: IQueueingItem[]): IQueueingItem[] {
     return sortBy(
-        [...groups.entries()].map(([key, groupPlayers]) => ({ key, players: groupPlayers })),
-        (group) => (group.players.some((player) => player.match) ? 1 : 0),
-        (group) => min(group.players.map((player) => new Date(player.queueingSince).getTime()))
+        items,
+        (item) => (item.status === 'matched' ? 1 : 0),
+        (item) => new Date(item.status === 'matched' ? item.matchedAt : item.queueingSince).getTime()
     );
 }
-
-// Off on the mine and following dashboards until the data format is settled. The verified
-// dashboard is for debugging and keeps it on.
-export const QUEUEING_ON_DASHBOARDS = false;
 
 interface IUseQueueingParams {
     profileIds?: number[];
@@ -189,7 +187,7 @@ interface IUseQueueingParams {
  * says "was queueing as of `queueingSince`" rather than "is queueing right now".
  */
 export const useQueueing = ({ profileIds, verified, enabled = true }: IUseQueueingParams) => {
-    const [players, setPlayers] = useState<IQueueingPlayer[]>([]);
+    const [items, setItems] = useState<IQueueingItem[]>([]);
     const [connected, setConnected] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const focused = useIsFocused();
@@ -210,8 +208,8 @@ export const useQueueing = ({ profileIds, verified, enabled = true }: IUseQueuei
                 onClose: () => {
                     setConnected(false);
                 },
-                onPlayers: (newPlayers: IQueueingPlayer[]) => {
-                    setPlayers(newPlayers);
+                onPlayers: (newItems: IQueueingItem[]) => {
+                    setItems(newItems);
                 },
                 onMessage: () => {
                     setIsLoading(false);
@@ -237,5 +235,5 @@ export const useQueueing = ({ profileIds, verified, enabled = true }: IUseQueuei
         };
     });
 
-    return { players, connected: connected || !focused, isLoading, connect: () => connect(profileIds, verified) };
+    return { items, connected: connected || !focused, isLoading, connect: () => connect(profileIds, verified) };
 };

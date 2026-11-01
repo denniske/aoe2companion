@@ -210,7 +210,7 @@ export default function Competitive() {
                 <View className="gap-2">
                     <View className="flex-row justify-between items-center px-4">
                         <Text variant="header-lg">{getTranslation('competitive.onlineVerifiedPlayers.title')}</Text>
-                        <Link href="/matches/live/competitive">{getTranslation('competitive.onlineVerifiedPlayers.viewGames')}</Link>
+                        <Link href="/matches/live/verified">{getTranslation('competitive.onlineVerifiedPlayers.openDashboard')}</Link>
                     </View>
 
                     <PlayerList

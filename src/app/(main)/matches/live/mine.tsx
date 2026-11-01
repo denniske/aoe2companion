@@ -10,8 +10,8 @@ import { getMatchFromOngoingMatch } from '@app/helper/match';
 import { ScrollView } from '@app/components/scroll-view';
 import { MatchCard } from '@app/components/match/match-card';
 import { useLobbies } from '@app/api/socket/lobbies';
-import { groupQueueingPlayers, QUEUEING_ON_DASHBOARDS, useQueueing } from '@app/api/socket/queueing';
-import { QueueingPlayer, useQueueingPlayerNames } from '@app/components/live/queueing-player';
+import { sortQueueingItems, useQueueing } from '@app/api/socket/queueing';
+import { QueueingPlayer } from '@app/components/live/queueing-player';
 import { Card } from '@app/components/card';
 import MatchInfo from '@app/components/match/match-info';
 import MatchTeams from '@app/components/match/match-teams';
@@ -28,15 +28,14 @@ export default function CurrentLobbyOrMatchPage() {
 
     // A queue is what comes before a lobby or a match, so it is the first thing this page can
     // show about the player, and the only state the other two subscriptions cannot see.
-    const { players: queueingPlayers } = useQueueing({ profileIds, enabled: QUEUEING_ON_DASHBOARDS && profileIds.length > 0 });
+    const { items: queueingItems } = useQueueing({ profileIds, enabled: profileIds.length > 0 });
 
-    const queueingGroups = useMemo(() => groupQueueingPlayers(queueingPlayers), [queueingPlayers]);
+    const queueingList = useMemo(() => sortQueueingItems(queueingItems), [queueingItems]);
 
-    const nameOf = useQueueingPlayerNames(queueingPlayers, (profileId) =>
+    const nameOf = (profileId: number) =>
         profileId === authProfileId
             ? getTranslation('matches.queueing.you')
-            : account?.followedPlayers?.find((f) => f.profileId === profileId)?.name
-    );
+            : account?.followedPlayers?.find((f) => f.profileId === profileId)?.name;
 
     const {
         matches,
@@ -102,11 +101,11 @@ export default function CurrentLobbyOrMatchPage() {
                 </Card>
             )}
 
-            {queueingGroups.map((group) => (
-                <QueueingPlayer key={group.key} group={group} nameOf={nameOf} />
+            {queueingList.map((item) => (
+                <QueueingPlayer key={item.id} item={item} nameOf={nameOf} subjectProfileIds={profileIds} />
             ))}
 
-            {!lobby && !match && queueingPlayers.length === 0 && !isLoading && connected && (
+            {!lobby && !match && queueingItems.length === 0 && !isLoading && connected && (
                 <Card direction="vertical">
                     <Text className="text-center">{getTranslation('matches.current.empty')}</Text>
                 </Card>

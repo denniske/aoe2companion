@@ -1,73 +1,68 @@
-import { fetchProfiles } from '@app/api/helper/api';
-import { IQueueingGroup, IQueueingPlayer } from '@app/api/socket/queueing';
+import { IQueueingItem } from '@app/api/socket/queueing';
 import { Card } from '@app/components/card';
 import { Icon } from '@app/components/icon';
 import { Text } from '@app/components/text';
 import { useTranslation } from '@app/helper/translate';
-import { useLanguage } from '@app/queries/all';
 import { faMagnifyingGlass, faSwords } from '@fortawesome/sharp-solid-svg-icons';
 import { formatAgo } from '@nex/data';
 import { Image } from 'expo-image';
-import { groupBy, min, sortBy, uniq } from 'lodash';
-import React, { Fragment, useEffect, useMemo, useState } from 'react';
+import { groupBy, sortBy } from 'lodash';
+import React, { Fragment, useMemo } from 'react';
 import { View } from 'react-native';
 
 type NameOf = (profileId: number) => string | undefined;
 
 interface Props {
-    group: IQueueingGroup;
-    // Queueing events carry profile ids only. Names come from whatever the page already knows --
-    // the account, its followed players -- and fall back to the id.
-    nameOf: NameOf;
+    item: IQueueingItem;
+    // The events carry every player's name. This only overrides it where the page has a better
+    // one for somebody, such as "You".
+    nameOf?: NameOf;
+    // Whose card this is: on a match card, these are named at the top. Everyone in it if omitted.
+    subjectProfileIds?: number[];
 }
 
-export const QueueingPlayer: React.FC<Props> = ({ group, nameOf }) => {
+export const QueueingPlayer: React.FC<Props> = ({ item, nameOf, subjectProfileIds }) => {
     const getTranslation = useTranslation();
 
-    // One entry unless two players we track were put into the same match, in which case they
-    // share this card and both are named. Everything but the subjects is the same on each entry.
-    const player = group.players[0];
+    const name = (player: { profileId: number; name: string }) => nameOf?.(player.profileId) ?? player.name ?? player.profileId.toString();
 
-    const name = (profileId: number) => nameOf(profileId) ?? profileId.toString();
-    // Everyone this card is about is the subject of the sentence: the tracked players and, while
-    // they are still searching, the party they are searching with.
-    const searching = uniq(group.players.flatMap((p) => [p.profileId, ...p.partyProfileIds])).map(name);
+    // The subject of the sentence: the party while searching, and the players this page follows
+    // once matched -- the whole match roster is shown below.
+    const subjects = item.status === 'queueing'
+        ? item.players
+        : item.players.filter((p) => subjectProfileIds == null || subjectProfileIds.includes(p.profileId));
+    const subjectNames = subjects.map(name);
 
     const teams = useMemo(
-        () => sortBy(Object.entries(groupBy(player.match?.players ?? [], (p) => p.team)), ([team]) => team),
-        [player.match]
+        () => (item.status === 'matched' ? sortBy(Object.entries(groupBy(item.players, (p) => p.team)), ([team]) => team) : []),
+        [item]
     );
 
     return (
         <Card direction="vertical">
             <View className="flex-row items-center gap-2 flex-wrap">
-                <Icon icon={player.match ? faSwords : faMagnifyingGlass} size={14} color="subtle" />
+                <Icon icon={item.status === 'matched' ? faSwords : faMagnifyingGlass} size={14} color="subtle" />
 
-                {searching.map((playerName, index) => (
-                    <Fragment key={playerName}>
+                {subjectNames.map((playerName, index) => (
+                    <Fragment key={index}>
                         {index !== 0 && <Text color="subtle">+</Text>}
                         <Text variant="label">{playerName}</Text>
                     </Fragment>
                 ))}
 
                 <Text color="subtle">
-                    {player.match
-                        ? getTranslation(searching.length > 1 ? 'matches.queueing.matched.plural' : 'matches.queueing.matched')
-                        : getTranslation(searching.length > 1 ? 'matches.queueing.searching.plural' : 'matches.queueing.searching')}
+                    {item.status === 'matched'
+                        ? getTranslation(subjectNames.length > 1 ? 'matches.queueing.matched.plural' : 'matches.queueing.matched')
+                        : getTranslation(subjectNames.length > 1 ? 'matches.queueing.searching.plural' : 'matches.queueing.searching')}
                 </Text>
             </View>
 
-            {/* Once matched, the advertisement names everyone in the match and which side they are
-                on, a minute before the match reaches the ongoing list. The map image is not in the
-                advertisement -- it is filled in later, once the match itself is known. */}
-            {!!player.match && (
+            {/* The roster and sides are known a minute before the match reaches the ongoing list.
+                Map and ratings are filled in later, once the match itself is known. */}
+            {item.status === 'matched' && (
                 <View className="flex-row items-start gap-3">
-                    {!!player.match.mapImageUrl && (
-                        <Image
-                            className="w-14 h-14 md:w-20 md:h-20"
-                            source={{ uri: player.match.mapImageUrl }}
-                            contentFit="cover"
-                        />
+                    {!!item.mapImageUrl && (
+                        <Image className="w-14 h-14 md:w-20 md:h-20" source={{ uri: item.mapImageUrl }} contentFit="cover" />
                     )}
                     <View className="gap-1 flex-1">
                         <View className="flex-row items-start flex-wrap" style={{ columnGap: 12 }}>
@@ -76,14 +71,17 @@ export const QueueingPlayer: React.FC<Props> = ({ group, nameOf }) => {
                                     {index !== 0 && <Text variant="label">{getTranslation('match.versus')}</Text>}
                                     <View>
                                         {players.map((p) => (
-                                            <Text key={p.profileId}>{name(p.profileId)}</Text>
+                                            <Text key={p.profileId}>
+                                                {name(p)}
+                                                {p.rating != null && <Text color="subtle"> ({p.rating})</Text>}
+                                            </Text>
                                         ))}
                                     </View>
                                 </Fragment>
                             ))}
                         </View>
                         <Text variant="body-xs" color="subtle">
-                            {player.match.server} · {player.match.matchId}
+                            {item.server} · {item.matchId}
                         </Text>
                     </View>
                 </View>
@@ -91,58 +89,11 @@ export const QueueingPlayer: React.FC<Props> = ({ group, nameOf }) => {
 
             {/* Cancelling a search is invisible to us, so this says how old the information is
                 rather than claiming the player is still searching right now. */}
-            <Text variant="body-xs" color="subtle">
-                {getTranslation('matches.queueing.since', {
-                    time: formatAgo(new Date(min(group.players.map((p) => p.queueingSince)) as string)),
-                })}
-            </Text>
+            {item.status === 'queueing' && (
+                <Text variant="body-xs" color="subtle">
+                    {getTranslation('matches.queueing.since', { time: formatAgo(new Date(item.queueingSince)) })}
+                </Text>
+            )}
         </Card>
     );
 };
-
-/**
- * Resolves every profile id a set of queueing entries mentions -- the player, their party and,
- * once matched, everyone in the match. Each id is fetched once and kept, so a player who stops
- * queueing and comes back is not fetched again. `known` wins where the page already has a better
- * name for somebody, such as "You".
- */
-export function useQueueingPlayerNames(players: IQueueingPlayer[], known?: NameOf): NameOf {
-    const language = useLanguage();
-    const [names, setNames] = useState<Record<number, string>>({});
-
-    const wantedIds = useMemo(
-        () =>
-            uniq(
-                players.flatMap((player) => [
-                    player.profileId,
-                    ...player.partyProfileIds,
-                    ...(player.match?.players ?? []).map((p) => p.profileId),
-                ])
-            ),
-        [players]
-    );
-
-    useEffect(() => {
-        const missingIds = wantedIds.filter((profileId) => !(profileId in names));
-        if (missingIds.length === 0 || !language) return;
-
-        let cancelled = false;
-
-        fetchProfiles({ language, profileIds: missingIds }).then((response) => {
-            if (cancelled) return;
-            setNames((previous) => ({
-                ...previous,
-                // Every id that was asked for is recorded, so an id the API has no profile for is
-                // not requested again on every event batch.
-                ...Object.fromEntries(missingIds.map((profileId) => [profileId, profileId.toString()])),
-                ...Object.fromEntries(response.profiles.map((profile) => [profile.profileId, profile.name])),
-            }));
-        });
-
-        return () => {
-            cancelled = true;
-        };
-    }, [wantedIds, names, language]);
-
-    return (profileId: number) => known?.(profileId) ?? names[profileId];
-}

@@ -1,10 +1,10 @@
 import { useLobbies } from '@app/api/socket/lobbies';
 import { useOngoing } from '@app/api/socket/ongoing';
-import { groupQueueingPlayers, useQueueing } from '@app/api/socket/queueing';
+import { sortQueueingItems, useQueueing } from '@app/api/socket/queueing';
 import { Card } from '@app/components/card';
 import { Icon } from '@app/components/icon';
 import { LiveMatch } from '@app/components/live/live-match';
-import { QueueingPlayer, useQueueingPlayerNames } from '@app/components/live/queueing-player';
+import { QueueingPlayer } from '@app/components/live/queueing-player';
 import { MatchCard } from '@app/components/match/match-card';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
@@ -22,7 +22,7 @@ import { View } from 'react-native';
  * player or following them, so its labels are deliberately untranslated English.
  */
 export default function LiveVerifiedPage() {
-    const { players: queueingPlayers, isLoading: isLoadingQueueing, connected: connectedQueueing } = useQueueing({ verified: true });
+    const { items: queueingItems, isLoading: isLoadingQueueing, connected: connectedQueueing } = useQueueing({ verified: true });
 
     const {
         lobbies: lobbiesWithMatchIds,
@@ -39,9 +39,7 @@ export default function LiveVerifiedPage() {
 
     const { matches, isLoading: isLoadingOngoing, connected: connectedOngoing } = useOngoing({ verified: true });
 
-    const queueingGroups = useMemo(() => groupQueueingPlayers(queueingPlayers), [queueingPlayers]);
-
-    const nameOf = useQueueingPlayerNames(queueingPlayers);
+    const queueingList = useMemo(() => sortQueueingItems(queueingItems), [queueingItems]);
 
     // Newest first: the ongoing subscription hands them over in whatever order the snapshot had.
     const matchList = useMemo(
@@ -53,13 +51,13 @@ export default function LiveVerifiedPage() {
         <ScrollView contentContainerClassName="p-4 gap-4">
             <Stack.Screen options={{ title: 'Verified Players Dashboard' }} />
 
-            <Text variant="header-lg">Queueing ({queueingGroups.length})</Text>
+            <Text variant="header-lg">Queueing ({queueingList.length})</Text>
 
-            {queueingGroups.map((group) => (
-                <QueueingPlayer key={group.key} group={group} nameOf={nameOf} />
+            {queueingList.map((item) => (
+                <QueueingPlayer key={item.id} item={item} subjectProfileIds={item.players.filter((p) => p.verified).map((p) => p.profileId)} />
             ))}
 
-            {queueingPlayers.length === 0 && (
+            {queueingItems.length === 0 && (
                 <Card direction="vertical">
                     {/* A socket that never connects leaves isLoading true forever, which on a
                         debugging page should say so rather than show nothing at all. */}
