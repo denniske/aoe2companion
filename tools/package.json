@@ -16,7 +16,6 @@
     "replay": "ts-node src/replay.ts",
     "insight": "ts-node src/insight.ts",
     "executor": "ts-node src/executor.ts",
-    "translate": "ts-node src/translate.ts",
     "reference": "ts-node src/reference.ts",
     "ages": "ts-node src/ages.ts",
     "fandom": "ts-node src/fandom.ts"
@@ -24,7 +23,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/translate": "^6.1.0",
     "@types/express": "^4.16.0",
     "await-spawn": "^4.0.2",
     "axios": "^0.21.4",
