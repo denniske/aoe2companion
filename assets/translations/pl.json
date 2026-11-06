@@ -1105,5 +1105,11 @@
     "matchanalysis.upload.unverified": "Ta analiza pochodzi z przesłanego nagrania i nie jest zweryfikowana.",
     "matchanalysis.upload.badge": "Przesłane przez użytkownika",
     "matchanalysis.upload.badgeinfo": "Przeanalizowano z nagrania przesłanego przez gracza. Zostało porównane z graczami, cywilizacjami, drużynami i wynikiem tego meczu.",
-    "matchanalysis.upload.nomatch": "Nie pasuje do żadnej gry w naszej bazie danych, więc nie jest powiązane z żadnym meczem."
+    "matchanalysis.upload.nomatch": "Nie pasuje do żadnej gry w naszej bazie danych, więc nie jest powiązane z żadnym meczem.",
+    "matchanalysis.buildorder.title": "Kolejność budowy",
+    "matchanalysis.buildorder.description": "Jednostki, technologie i budynki w kolejności, w jakiej zostały zlecone",
+    "matchanalysis.buildorder.showall": "Pokaż wszystko ({count})",
+    "matchanalysis.buildorder.showless": "Pokaż mniej",
+    "matchanalysis.eapm.average": "Średnia z meczu",
+    "matchanalysis.seed": "Ziarno mapy: {seed}"
 }

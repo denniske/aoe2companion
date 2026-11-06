@@ -1084,5 +1084,11 @@
     "civ.name.macedonian_dynasty": "Македонская династия",
     "civ.name.jin_dynasty": "Династия Цзинь",
     "civ.name.scots": "Скотты",
-    "civ.name.vikings": "Викинги"
+    "civ.name.vikings": "Викинги",
+    "matchanalysis.buildorder.title": "Порядок развития",
+    "matchanalysis.buildorder.description": "Юниты, технологии и здания в порядке постановки в очередь",
+    "matchanalysis.buildorder.showall": "Показать все ({count})",
+    "matchanalysis.buildorder.showless": "Показать меньше",
+    "matchanalysis.eapm.average": "Среднее за матч",
+    "matchanalysis.seed": "Сид карты: {seed}"
 }

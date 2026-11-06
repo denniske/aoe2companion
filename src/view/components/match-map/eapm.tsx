@@ -43,6 +43,28 @@ export default function Eapm({ teams }: Props) {
                 </Text>
 
                 {hasData && <PlayerLineChart series={series} />}
+
+                {hasData && (
+                    <View className="gap-0.5 mt-2">
+                        <Text variant="label-sm" color="subtle">
+                            {getTranslation('matchanalysis.eapm.average')}
+                        </Text>
+                        <View className="flex-row flex-wrap gap-x-4 gap-y-0.5">
+                            {teams
+                                .flatMap((team) => team.players)
+                                .filter((player) => player.averageEapm != null)
+                                .map((player) => (
+                                    <View key={player.color} className="flex-row items-center gap-1">
+                                        <View className="w-2 h-2 rounded-full" style={{ backgroundColor: player.color }} />
+                                        <Text variant="body-sm">{player.name}</Text>
+                                        <Text variant="body-sm" color="subtle">
+                                            {player.averageEapm}
+                                        </Text>
+                                    </View>
+                                ))}
+                        </View>
+                    </View>
+                )}
             </ViewLoader>
         </View>
     );

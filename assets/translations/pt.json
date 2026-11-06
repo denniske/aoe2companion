@@ -1080,5 +1080,11 @@
     "civ.name.macedonian_dynasty": "Dinastia Macedônica",
     "civ.name.jin_dynasty": "Dinastia Jin",
     "civ.name.scots": "Escoceses",
-    "civ.name.vikings": "Vikings"
+    "civ.name.vikings": "Vikings",
+    "matchanalysis.buildorder.title": "Ordem de construção",
+    "matchanalysis.buildorder.description": "Unidades, tecnologias e edifícios na ordem em que foram colocados na fila",
+    "matchanalysis.buildorder.showall": "Mostrar tudo ({count})",
+    "matchanalysis.buildorder.showless": "Mostrar menos",
+    "matchanalysis.eapm.average": "Média da partida",
+    "matchanalysis.seed": "Semente do mapa: {seed}"
 }

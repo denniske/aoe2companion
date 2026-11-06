@@ -1063,5 +1063,11 @@
     "civ.name.macedonian_dynasty": "Nhà Macedonia",
     "civ.name.jin_dynasty": "Nhà Kim",
     "civ.name.scots": "Người Scotland",
-    "civ.name.vikings": "Người Viking"
+    "civ.name.vikings": "Người Viking",
+    "matchanalysis.buildorder.title": "Thứ tự xây dựng",
+    "matchanalysis.buildorder.description": "Đơn vị, công nghệ và công trình theo thứ tự được xếp hàng",
+    "matchanalysis.buildorder.showall": "Hiện tất cả ({count})",
+    "matchanalysis.buildorder.showless": "Thu gọn",
+    "matchanalysis.eapm.average": "Trung bình cả trận",
+    "matchanalysis.seed": "Seed bản đồ: {seed}"
 }

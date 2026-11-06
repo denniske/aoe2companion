@@ -20,6 +20,7 @@ import {Card} from '@app/components/card';
 import Eapm from '@app/view/components/match-map/eapm';
 import {aoe2PlayerColorsLightModeChatLegend} from '@app/helper/colors';
 import Timeseries from '@app/view/components/match-map/timeseries';
+import BuildOrder from '@app/view/components/match-map/build-order';
 import {useDarkMode} from '@app/hooks/use-dark-mode';
 import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { useTranslation } from '@app/helper/translate';
@@ -39,6 +40,14 @@ export function getTimestampMs(timestamp: string) {
     const seconds = parseInt(parts[2]);
     const microseconds = parseInt(parts[3] ?? 0);
     return (hours * 60 * 60 + minutes * 60 + seconds) * 1000 + microseconds/1000;
+}
+
+// The same actions the eAPM chart counts, over the whole match. A player who resigned early is
+// averaged over the full duration too, which matches how the chart's tail reads.
+function getAverageEapm(eapmPerMinute: Record<string, number> | undefined, durationMs: number) {
+    if (!eapmPerMinute || durationMs <= 0) return undefined;
+    const actions = Object.values(eapmPerMinute).reduce((sum, n) => sum + n, 0);
+    return Math.round(actions / (durationMs / 60000));
 }
 
 export default function MatchMap(props: Props) {
@@ -118,6 +127,10 @@ export default function MatchMap(props: Props) {
                 resignation: getAnalysisPlayer(player.color)?.resignation,
                 uptimes: getAnalysisPlayer(player.color)?.uptimes,
                 timeseries: getAnalysisPlayer(player.color)?.timeseries,
+                queuedUnits: getAnalysisPlayer(player.color)?.queuedUnits,
+                queuedTechs: getAnalysisPlayer(player.color)?.queuedTechs,
+                queuedBuildings: getAnalysisPlayer(player.color)?.queuedBuildings,
+                averageEapm: getAverageEapm(getAnalysisPlayer(player.color)?.eapmPerMinute, getTimestampMs(analysis.duration)),
             };
         }),
     }));
@@ -411,6 +424,11 @@ export default function MatchMap(props: Props) {
                     <Legend time={time} legendInfo={teams as any} match={match} />
                 </View>
                 <TimeScrubber time={time} duration={duration}></TimeScrubber>
+                {analysis.map.seed != null && analysis.map.seed !== -1 && (
+                    <Text variant="body-sm" color="subtle" className="text-center">
+                        {getTranslation('matchanalysis.seed', { seed: analysis.map.seed })}
+                    </Text>
+                )}
             </Card>
             <View className="gap-2 md:flex-row md:flex-wrap justify-center">
                 <Card direction="vertical" className="max-w-full flex-1">
@@ -437,6 +455,9 @@ export default function MatchMap(props: Props) {
             </View>
             <Card direction="vertical">
                 <Uptimes time={time} teams={teams as any} />
+            </Card>
+            <Card direction="vertical">
+                <BuildOrder teams={teams as any} />
             </Card>
             <Card direction="vertical">
                 <Text>
@@ -476,5 +497,9 @@ export type ILegendInfo = {
             totalObjects: number
             totalResources: number
         }[]
+        queuedUnits?: { timestamp: string; unit: string; amount?: number }[]
+        queuedTechs?: { timestamp: string; unit: string }[]
+        queuedBuildings?: { timestamp: string; unit: string }[]
+        averageEapm?: number
     }[]
 }[]

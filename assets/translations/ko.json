@@ -1063,5 +1063,11 @@
     "civ.name.macedonian_dynasty": "마케도니아 왕조",
     "civ.name.jin_dynasty": "금 왕조",
     "civ.name.scots": "스코트족",
-    "civ.name.vikings": "바이킹"
+    "civ.name.vikings": "바이킹",
+    "matchanalysis.buildorder.title": "빌드 오더",
+    "matchanalysis.buildorder.description": "대기열에 넣은 순서대로 정렬한 유닛, 기술, 건물",
+    "matchanalysis.buildorder.showall": "모두 보기 ({count})",
+    "matchanalysis.buildorder.showless": "간단히 보기",
+    "matchanalysis.eapm.average": "경기 평균",
+    "matchanalysis.seed": "맵 시드: {seed}"
 }

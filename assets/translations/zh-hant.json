@@ -1063,5 +1063,11 @@
     "civ.name.macedonian_dynasty": "馬其頓王朝",
     "civ.name.jin_dynasty": "金朝",
     "civ.name.scots": "蘇格蘭人",
-    "civ.name.vikings": "維京人"
+    "civ.name.vikings": "維京人",
+    "matchanalysis.buildorder.title": "建造順序",
+    "matchanalysis.buildorder.description": "按加入佇列順序排列的單位、科技和建築",
+    "matchanalysis.buildorder.showall": "顯示全部 ({count})",
+    "matchanalysis.buildorder.showless": "收起",
+    "matchanalysis.eapm.average": "整場平均",
+    "matchanalysis.seed": "地圖種子：{seed}"
 }

@@ -1080,5 +1080,11 @@
     "civ.name.macedonian_dynasty": "Dinastia macedone",
     "civ.name.jin_dynasty": "Dinastia Jin",
     "civ.name.scots": "Scozzesi",
-    "civ.name.vikings": "Vichinghi"
+    "civ.name.vikings": "Vichinghi",
+    "matchanalysis.buildorder.title": "Ordine di costruzione",
+    "matchanalysis.buildorder.description": "Unità, tecnologie ed edifici nell'ordine in cui sono stati messi in coda",
+    "matchanalysis.buildorder.showall": "Mostra tutto ({count})",
+    "matchanalysis.buildorder.showless": "Mostra meno",
+    "matchanalysis.eapm.average": "Media della partita",
+    "matchanalysis.seed": "Seed della mappa: {seed}"
 }

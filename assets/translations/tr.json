@@ -1063,5 +1063,11 @@
     "civ.name.macedonian_dynasty": "Makedon Hanedanlığı",
     "civ.name.jin_dynasty": "Jin Hanedanı",
     "civ.name.scots": "İskoçlar",
-    "civ.name.vikings": "Vikingler"
+    "civ.name.vikings": "Vikingler",
+    "matchanalysis.buildorder.title": "İnşa sırası",
+    "matchanalysis.buildorder.description": "Birimler, teknolojiler ve binalar sıraya alındıkları düzende",
+    "matchanalysis.buildorder.showall": "Tümünü göster ({count})",
+    "matchanalysis.buildorder.showless": "Daha az göster",
+    "matchanalysis.eapm.average": "Maç ortalaması",
+    "matchanalysis.seed": "Harita tohumu: {seed}"
 }

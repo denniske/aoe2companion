@@ -1063,5 +1063,11 @@
     "civ.name.macedonian_dynasty": "Dinasti Macedonia",
     "civ.name.jin_dynasty": "Dinasti Jin",
     "civ.name.scots": "Orang Scotland",
-    "civ.name.vikings": "Orang Viking"
+    "civ.name.vikings": "Orang Viking",
+    "matchanalysis.buildorder.title": "Susunan binaan",
+    "matchanalysis.buildorder.description": "Unit, teknologi dan bangunan mengikut susunan ia dibaris gilir",
+    "matchanalysis.buildorder.showall": "Tunjuk semua ({count})",
+    "matchanalysis.buildorder.showless": "Tunjuk kurang",
+    "matchanalysis.eapm.average": "Purata perlawanan",
+    "matchanalysis.seed": "Benih peta: {seed}"
 }

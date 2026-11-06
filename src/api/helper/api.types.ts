@@ -995,6 +995,8 @@ export type IAnalysis = {
         queuedUnits: {
             timestamp: string
             unit: string
+            /** Shift-queued batch size. Missing in responses from before it was passed through. */
+            amount?: number
         }[]
         queuedTechs: {
             timestamp: string
@@ -1068,5 +1070,7 @@ export type IAnalysis = {
         name: string
         size: string
         zr: boolean
+        /** The lobby's Seed setting: -1 when none was set (custom lobbies), set by the server in ranked. */
+        seed?: number
     }
 }

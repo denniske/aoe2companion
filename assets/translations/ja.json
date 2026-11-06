@@ -1063,5 +1063,11 @@
     "civ.name.macedonian_dynasty": "マケドニア王朝",
     "civ.name.jin_dynasty": "金王朝",
     "civ.name.scots": "スコットランド人",
-    "civ.name.vikings": "バイキング"
+    "civ.name.vikings": "バイキング",
+    "matchanalysis.buildorder.title": "ビルドオーダー",
+    "matchanalysis.buildorder.description": "キューに入れた順のユニット・技術・建物",
+    "matchanalysis.buildorder.showall": "すべて表示 ({count})",
+    "matchanalysis.buildorder.showless": "表示を減らす",
+    "matchanalysis.eapm.average": "試合平均",
+    "matchanalysis.seed": "マップシード: {seed}"
 }

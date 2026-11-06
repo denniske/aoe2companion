@@ -1077,5 +1077,11 @@
     "civ.name.macedonian_dynasty": "Makedonische Dynastie",
     "civ.name.jin_dynasty": "Jin-Dynastie",
     "civ.name.scots": "Schotten",
-    "civ.name.vikings": "Wikinger"
+    "civ.name.vikings": "Wikinger",
+    "matchanalysis.buildorder.title": "Bauordnung",
+    "matchanalysis.buildorder.description": "Einheiten, Technologien und Gebäude in der Reihenfolge, in der sie in Auftrag gegeben wurden",
+    "matchanalysis.buildorder.showall": "Alle anzeigen ({count})",
+    "matchanalysis.buildorder.showless": "Weniger anzeigen",
+    "matchanalysis.eapm.average": "Durchschnitt im Spiel",
+    "matchanalysis.seed": "Map-Seed: {seed}"
 }

@@ -1066,5 +1066,11 @@
     "civ.name.macedonian_dynasty": "मैसेडोनियन राजवंश",
     "civ.name.jin_dynasty": "जिन राजवंश",
     "civ.name.scots": "स्कॉट",
-    "civ.name.vikings": "वाइकिंग"
+    "civ.name.vikings": "वाइकिंग",
+    "matchanalysis.buildorder.title": "बिल्ड ऑर्डर",
+    "matchanalysis.buildorder.description": "यूनिट, तकनीकें और इमारतें उसी क्रम में जिसमें उन्हें कतार में लगाया गया",
+    "matchanalysis.buildorder.showall": "सभी दिखाएँ ({count})",
+    "matchanalysis.buildorder.showless": "कम दिखाएँ",
+    "matchanalysis.eapm.average": "मैच औसत",
+    "matchanalysis.seed": "मैप सीड: {seed}"
 }

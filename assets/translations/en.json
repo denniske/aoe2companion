@@ -1096,5 +1096,11 @@
     "matchanalysis.resources.explanation": "Total resources (wood + food + gold + stone)",
     "matchanalysis.objects.title": "Objects",
     "matchanalysis.objects.description": "Total objects",
-    "matchanalysis.objects.explanation": "Total number of objects (include foundation), when a unit is lost, this counter updates after its displayable objects (body) dies"
+    "matchanalysis.objects.explanation": "Total number of objects (include foundation), when a unit is lost, this counter updates after its displayable objects (body) dies",
+    "matchanalysis.buildorder.title": "Build order",
+    "matchanalysis.buildorder.description": "Units, technologies and buildings in the order they were queued",
+    "matchanalysis.buildorder.showall": "Show all ({count})",
+    "matchanalysis.buildorder.showless": "Show less",
+    "matchanalysis.eapm.average": "Match average",
+    "matchanalysis.seed": "Map seed: {seed}"
 }
