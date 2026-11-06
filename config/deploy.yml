@@ -3,11 +3,13 @@
 # Mirrors deploy.sh: expo exports to dist/, the image copies dist/ + server.ts, and the container
 # runs `node server.ts`. GAME comes from the environment and picks the dataset and the domains,
 # so aoe4 uses config/deploy.aoe4.yml (a destination) rather than a second file here.
-# Shared with the collector and mgz repos on purpose. Docker label filters are exact, so a common
-# service name is what lets `kamal app stop` / `logs` in any of the three folders reach all of
-# them -- convenient for a whole-host action, and worth knowing before a routine single-service
-# restart, because the blast radius is not visible in the command you typed.
-service: aoe2
+# Its own service name, not the collector's. Kamal scopes the deploy lock and the post-deploy prune
+# by service, so a shared name made deploys from different repos wait on one lock and let each
+# repo's prune delete the others' stopped containers and :latest images. Containers are named
+# <service>-<role>-<version>, hence aoe-frontend-web. Renamed from `aoe2` on 2026-11-06: a rename
+# needs the old app stopped (`kamal app stop` with the old name) before the first deploy, because
+# the old container still holds the proxy hosts.
+service: aoe-frontend
 image: denniske/aoe2companion-web
 
 servers:
