@@ -1,4 +1,4 @@
-import { getHost, makeQueryString } from '@nex/data';
+import { getHost, getLanguage, makeQueryString } from '@nex/data';
 import { useFocusEffect } from 'expo-router';
 import { useIsFocused } from 'expo-router/react-navigation';
 import { decamelizeKeys } from 'humps';
@@ -6,6 +6,7 @@ import { produce } from 'immer';
 import { sortBy } from 'lodash';
 import { useRef, useState } from 'react';
 import { ICloseEvent, w3cwebsocket } from 'websocket';
+import { useLanguage } from '@app/queries/all';
 
 export interface IQueueingPlayer {
     profileId: number;
@@ -43,9 +44,14 @@ export interface IQueueingMatch {
     server: string;
     matchedAt: string;
     verified: boolean;
-    // Both arrive a cycle or two after the match itself, once the match reaches the database.
+    // Usually there from the start. The map can be missing for a cycle and can change until the
+    // match starts, so a queueingUpdated may replace it.
     leaderboard?: string;
     mapImageUrl?: string;
+    // The map's enum (rm_arabia) and its name in the connection's language. The enum is null for
+    // custom and mod maps; those still get a name.
+    map?: string | null;
+    mapName?: string | null;
     players: IQueueingMatchPlayer[];
 }
 
@@ -64,7 +70,8 @@ function initConnection(handler: IConnectionHandler, profileIds?: number[], veri
     const queryString = makeQueryString(
         decamelizeKeys({
             handler: 'queueing',
-            // No language: nothing in a queueing event is localised.
+            // The server names the map in this language.
+            language: getLanguage(),
             profileIds,
             verified,
         })
@@ -192,10 +199,13 @@ export const useQueueing = ({ profileIds, verified, enabled = true }: IUseQueuei
     const [isLoading, setIsLoading] = useState(true);
     const focused = useIsFocused();
     const socket = useRef<w3cwebsocket>(undefined);
+    // Map names come in the connection's language, so wait for it as useOngoing does rather than
+    // subscribing with the 'en' fallback for the whole session.
+    const language = useLanguage();
 
     const connect = (_profileIds?: number[], _verified?: boolean) => {
         // There is nothing to subscribe to, e.g. a subscription by profile ids without any profile id
-        if (!enabled) return;
+        if (!enabled || !language) return;
 
         // Reconnecting would otherwise leave the previous socket open
         socket.current?.close();
