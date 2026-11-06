@@ -13,6 +13,8 @@ import NotFound from '@app/app/(main)/+not-found';
 
 type MatchPageParams = {
     matchId: string;
+    /** Set by the recording upload, which lands here once the analysis is ready to load. */
+    analyze?: string;
 };
 
 export default function MatchPage() {
@@ -34,7 +36,7 @@ export default function MatchPage() {
                 <View className="lg:hidden">
                     <MatchTeams match={match} />
                 </View>
-                <MatchAnalysis match={match} matchError={matchError} matchLoading={matchLoading} />
+                <MatchAnalysis match={match} matchError={matchError} matchLoading={matchLoading} autoAnalyze={!!params.analyze} />
                 <MatchOptions match={match} />
             </View>
         </ScrollView>

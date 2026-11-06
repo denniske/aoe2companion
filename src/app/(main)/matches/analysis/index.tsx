@@ -34,8 +34,8 @@ export default function AnalysisUploadPage() {
         setError(null);
         setUploading(true);
         try {
-            const uploadId = await uploadRecording(file);
-            router.push(`/matches/analysis/${uploadId}`);
+            const { matchId, uploadId } = await uploadRecording(file);
+            router.push(matchId ? `/matches/${matchId}?analyze=1` : `/matches/analysis/${uploadId}`);
         } catch (e) {
             setError((e as Error).message);
         } finally {

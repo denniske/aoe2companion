@@ -14,6 +14,7 @@ interface Props {
     match?: IMatchNew;
     matchError?: Error | null;
     matchLoading?: boolean;
+    autoAnalyze?: boolean;
 }
 
 // Hoisted rather than written inline in JSX: React Compiler cannot lower a
@@ -24,8 +25,8 @@ const loadMatchMap = () => import('@app/view/components/match-map/match-map');
 
 export default function MatchAnalysis(props: Props) {
     const getTranslation = useTranslation();
-    const { match, matchError, matchLoading } = props;
-    const [analyzeNow, setAnalyzeNow] = React.useState(false);
+    const { match, matchError, matchLoading, autoAnalyze } = props;
+    const [analyzeNow, setAnalyzeNow] = React.useState(!!autoAnalyze);
 
     const {
         data: analysis,
@@ -62,6 +63,18 @@ export default function MatchAnalysis(props: Props) {
                         </View>
                     )}
                 </>
+            )}
+            {analysis?.source === 'upload' && !analysisError && (
+                <View className="flex-row items-center gap-2 mb-2">
+                    <View className="bg-blue-100 px-2 py-0.5 rounded-full">
+                        <Text variant="label-sm" color="text-blue-800">
+                            {getTranslation('matchanalysis.upload.badge')}
+                        </Text>
+                    </View>
+                    <Text variant="body-sm" color="subtle" className="flex-1">
+                        {getTranslation('matchanalysis.upload.badgeinfo')}
+                    </Text>
+                </View>
             )}
             {analysis && !analysisError && (
                 <SkiaLoader

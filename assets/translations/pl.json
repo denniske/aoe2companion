@@ -1095,5 +1095,15 @@
     "matchanalysis.resources.explanation": "Łączne zasoby (drewno + żywność + złoto + kamień)",
     "matchanalysis.objects.title": "Obiekty",
     "matchanalysis.objects.description": "Łączna liczba obiektów",
-    "matchanalysis.objects.explanation": "Łączna liczba obiektów (wraz z fundamentami); gdy jednostka ginie, licznik aktualizuje się po zniknięciu jej obiektów (ciała)"
+    "matchanalysis.objects.explanation": "Łączna liczba obiektów (wraz z fundamentami); gdy jednostka ginie, licznik aktualizuje się po zniknięciu jej obiektów (ciała)",
+    "matchanalysis.upload.link": "Analizuj nagranie",
+    "matchanalysis.upload.title": "Analizuj nagranie",
+    "matchanalysis.upload.description": "Prześlij nagraną grę (.aoe2record), aby zobaczyć przebieg gry na mapie, czasy awansu epok i więcej.",
+    "matchanalysis.upload.location": "Nagrania są zapisywane w folderze gry w SaveGame, na przykład Games/Age of Empires 2 DE/<steam id>/savegame.",
+    "matchanalysis.upload.choose": "Wybierz nagranie",
+    "matchanalysis.upload.openwebsite": "Prześlij na aoe2companion.com",
+    "matchanalysis.upload.unverified": "Ta analiza pochodzi z przesłanego nagrania i nie jest zweryfikowana.",
+    "matchanalysis.upload.badge": "Przesłane przez użytkownika",
+    "matchanalysis.upload.badgeinfo": "Przeanalizowano z nagrania przesłanego przez gracza. Zostało porównane z graczami, cywilizacjami, drużynami i wynikiem tego meczu.",
+    "matchanalysis.upload.nomatch": "Nie pasuje do żadnej gry w naszej bazie danych, więc nie jest powiązane z żadnym meczem."
 }

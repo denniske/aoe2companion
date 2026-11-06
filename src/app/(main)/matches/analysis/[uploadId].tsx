@@ -3,7 +3,6 @@ import { ActivityIndicator, View } from 'react-native';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
-import { Link } from '@app/components/link';
 import SkiaLoader from '@app/components/skia-loader';
 import { useTranslation } from '@app/helper/translate';
 import { useUploadedAnalysis, useWithRefetching } from '@app/queries/all';
@@ -38,17 +37,13 @@ export default function UploadedAnalysisPage() {
 
             {data && (
                 <>
-                    {/* The analysis comes from a file anyone could have edited, so say so, and only
-                        link to the official match instead of presenting this as its analysis. */}
+                    {/* Only recordings that did not verify against a match end up here, so this
+                        page never links to one: it shows what the file says and nothing more. */}
                     <View className="bg-yellow-100 p-4 rounded-lg gap-1">
                         <Text color="text-yellow-900">{getTranslation('matchanalysis.upload.unverified')}</Text>
-                        {data.matchedMatchId ? (
-                            <Link href={`/matches/${data.matchedMatchId}`} color="text-blue-800">{getTranslation('matchanalysis.upload.viewmatch')}</Link>
-                        ) : (
-                            <Text variant="body-sm" color="text-yellow-900">
-                                {getTranslation('matchanalysis.upload.nomatch')}
-                            </Text>
-                        )}
+                        <Text variant="body-sm" color="text-yellow-900">
+                            {getTranslation('matchanalysis.upload.nomatch')}
+                        </Text>
                     </View>
 
                     <SkiaLoader

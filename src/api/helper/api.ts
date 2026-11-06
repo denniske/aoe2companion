@@ -100,21 +100,23 @@ export async function fetchMatchAnalysisSvg(params: IFetchMatchParams) {
 
 export interface IUploadedAnalysis {
     uploadId: string;
-    /** Best guess at the official match the recording belongs to. Only ever used as a link. */
-    matchedMatchId?: number | null;
     match: IMatchNew;
     analysis: IAnalysis;
 }
 
-/** Uploads a recording (.aoe2record) for analysis and returns its upload id. */
-export async function uploadRecording(file: Blob) {
+/**
+ * Uploads a recording (.aoe2record) for analysis. A recording that verifies against a match in the
+ * database comes back as that match's id (its analysis is then the match's own); anything else as
+ * an upload id for a page of its own.
+ */
+export async function uploadRecording(file: Blob): Promise<{ matchId?: number; uploadId?: string }> {
     const url = `${getHost('aoe2companion-data')}api/analysis/upload`;
     const result = await fetchJson(url, {
         method: 'POST',
         body: file,
         headers: { 'Content-Type': 'application/octet-stream' },
     });
-    return result.uploadId as string;
+    return { matchId: result.matchId, uploadId: result.uploadId };
 }
 
 export async function fetchUploadedAnalysis(params: { uploadId: string; language: string }) {

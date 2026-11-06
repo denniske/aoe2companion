@@ -905,6 +905,8 @@ export interface IFetchBuildsParams {
 
 export type IAnalysis = {
     error?: string
+    /** 'upload' when a player uploaded the recording, 'replay' for the official one. */
+    source?: 'replay' | 'upload'
 
     guid: string
     version: string
