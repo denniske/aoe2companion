@@ -1069,5 +1069,6 @@
     "matchanalysis.buildorder.showall": "すべて表示 ({count})",
     "matchanalysis.buildorder.showless": "表示を減らす",
     "matchanalysis.eapm.average": "試合平均",
-    "matchanalysis.seed": "マップシード: {seed}"
+    "matchanalysis.seed": "マップシード: {seed}",
+    "matchanalysis.seed.random": "マップシード: ランダム (-1)"
 }

@@ -1069,5 +1069,6 @@
     "matchanalysis.buildorder.showall": "Hiện tất cả ({count})",
     "matchanalysis.buildorder.showless": "Thu gọn",
     "matchanalysis.eapm.average": "Trung bình cả trận",
-    "matchanalysis.seed": "Seed bản đồ: {seed}"
+    "matchanalysis.seed": "Seed bản đồ: {seed}",
+    "matchanalysis.seed.random": "Seed bản đồ: ngẫu nhiên (-1)"
 }

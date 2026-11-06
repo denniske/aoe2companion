@@ -1069,5 +1069,6 @@
     "matchanalysis.buildorder.showall": "顯示全部 ({count})",
     "matchanalysis.buildorder.showless": "收起",
     "matchanalysis.eapm.average": "整場平均",
-    "matchanalysis.seed": "地圖種子：{seed}"
+    "matchanalysis.seed": "地圖種子：{seed}",
+    "matchanalysis.seed.random": "地圖種子：隨機 (-1)"
 }

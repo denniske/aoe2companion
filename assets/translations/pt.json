@@ -1086,5 +1086,6 @@
     "matchanalysis.buildorder.showall": "Mostrar tudo ({count})",
     "matchanalysis.buildorder.showless": "Mostrar menos",
     "matchanalysis.eapm.average": "Média da partida",
-    "matchanalysis.seed": "Semente do mapa: {seed}"
+    "matchanalysis.seed": "Semente do mapa: {seed}",
+    "matchanalysis.seed.random": "Semente do mapa: aleatória (-1)"
 }

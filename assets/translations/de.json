@@ -1083,5 +1083,6 @@
     "matchanalysis.buildorder.showall": "Alle anzeigen ({count})",
     "matchanalysis.buildorder.showless": "Weniger anzeigen",
     "matchanalysis.eapm.average": "Durchschnitt im Spiel",
-    "matchanalysis.seed": "Map-Seed: {seed}"
+    "matchanalysis.seed": "Map-Seed: {seed}",
+    "matchanalysis.seed.random": "Map-Seed: zufällig (-1)"
 }

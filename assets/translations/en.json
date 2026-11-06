@@ -1102,5 +1102,6 @@
     "matchanalysis.buildorder.showall": "Show all ({count})",
     "matchanalysis.buildorder.showless": "Show less",
     "matchanalysis.eapm.average": "Match average",
-    "matchanalysis.seed": "Map seed: {seed}"
+    "matchanalysis.seed": "Map seed: {seed}",
+    "matchanalysis.seed.random": "Map seed: random (-1)"
 }

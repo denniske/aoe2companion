@@ -1086,5 +1086,6 @@
     "matchanalysis.buildorder.showall": "Tout afficher ({count})",
     "matchanalysis.buildorder.showless": "Afficher moins",
     "matchanalysis.eapm.average": "Moyenne de la partie",
-    "matchanalysis.seed": "Graine de la carte : {seed}"
+    "matchanalysis.seed": "Graine de la carte : {seed}",
+    "matchanalysis.seed.random": "Graine de la carte : aléatoire (-1)"
 }

@@ -1090,5 +1090,6 @@
     "matchanalysis.buildorder.showall": "Показать все ({count})",
     "matchanalysis.buildorder.showless": "Показать меньше",
     "matchanalysis.eapm.average": "Среднее за матч",
-    "matchanalysis.seed": "Сид карты: {seed}"
+    "matchanalysis.seed": "Сид карты: {seed}",
+    "matchanalysis.seed.random": "Сид карты: случайный (-1)"
 }

@@ -1072,5 +1072,6 @@
     "matchanalysis.buildorder.showall": "सभी दिखाएँ ({count})",
     "matchanalysis.buildorder.showless": "कम दिखाएँ",
     "matchanalysis.eapm.average": "मैच औसत",
-    "matchanalysis.seed": "मैप सीड: {seed}"
+    "matchanalysis.seed": "मैप सीड: {seed}",
+    "matchanalysis.seed.random": "मैप सीड: रैंडम (-1)"
 }

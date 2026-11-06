@@ -1111,5 +1111,6 @@
     "matchanalysis.buildorder.showall": "Pokaż wszystko ({count})",
     "matchanalysis.buildorder.showless": "Pokaż mniej",
     "matchanalysis.eapm.average": "Średnia z meczu",
-    "matchanalysis.seed": "Ziarno mapy: {seed}"
+    "matchanalysis.seed": "Ziarno mapy: {seed}",
+    "matchanalysis.seed.random": "Ziarno mapy: losowe (-1)"
 }

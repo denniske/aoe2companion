@@ -1069,5 +1069,6 @@
     "matchanalysis.buildorder.showall": "Tümünü göster ({count})",
     "matchanalysis.buildorder.showless": "Daha az göster",
     "matchanalysis.eapm.average": "Maç ortalaması",
-    "matchanalysis.seed": "Harita tohumu: {seed}"
+    "matchanalysis.seed": "Harita tohumu: {seed}",
+    "matchanalysis.seed.random": "Harita tohumu: rastgele (-1)"
 }

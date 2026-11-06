@@ -1069,5 +1069,6 @@
     "matchanalysis.buildorder.showall": "Tunjuk semua ({count})",
     "matchanalysis.buildorder.showless": "Tunjuk kurang",
     "matchanalysis.eapm.average": "Purata perlawanan",
-    "matchanalysis.seed": "Benih peta: {seed}"
+    "matchanalysis.seed": "Benih peta: {seed}",
+    "matchanalysis.seed.random": "Benih peta: rawak (-1)"
 }

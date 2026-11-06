@@ -424,9 +424,12 @@ export default function MatchMap(props: Props) {
                     <Legend time={time} legendInfo={teams as any} match={match} />
                 </View>
                 <TimeScrubber time={time} duration={duration}></TimeScrubber>
-                {analysis.map.seed != null && analysis.map.seed !== -1 && (
+                {analysis.map.seed != null && (
                     <Text variant="body-sm" color="subtle" className="text-center">
-                        {getTranslation('matchanalysis.seed', { seed: analysis.map.seed })}
+                        {/* -1: the lobby's Seed setting was left unset, so the game rolled one it does not record. */}
+                        {analysis.map.seed === -1
+                            ? getTranslation('matchanalysis.seed.random')
+                            : getTranslation('matchanalysis.seed', { seed: analysis.map.seed })}
                     </Text>
                 )}
             </Card>
