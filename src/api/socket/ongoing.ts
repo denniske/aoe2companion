@@ -178,5 +178,7 @@ export const useOngoing = ({profileIds, verified, enabled = true}: IUseOngoingPa
         };
     });
 
-    return { matches, connected: connected || !focused, isLoading, connect: () => connect(profileIds, verified) };
+    // A disabled subscription never connects, so it would otherwise stay loading forever --
+    // e.g. the verified page's lobby details while no verified player has a lobby open.
+    return { matches, connected: connected || !focused, isLoading: enabled && isLoading, connect: () => connect(profileIds, verified) };
 };
