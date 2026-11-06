@@ -58,7 +58,7 @@ export const QueueingPlayer: React.FC<Props> = ({ item, nameOf, subjectProfileId
             </View>
 
             {/* The roster and sides are known a minute before the match reaches the ongoing list.
-                Map and ratings are filled in later, once the match itself is known. */}
+                The map can still change until it starts. */}
             {item.status === 'matched' && (
                 <View className="flex-row items-start gap-3">
                     {!!item.mapImageUrl && (
@@ -80,6 +80,7 @@ export const QueueingPlayer: React.FC<Props> = ({ item, nameOf, subjectProfileId
                                 </Fragment>
                             ))}
                         </View>
+                        {!!item.mapName && <Text variant="label-sm">{item.mapName}</Text>}
                         <Text variant="body-xs" color="subtle">
                             {item.server} · {item.matchId}
                         </Text>
