@@ -1020,7 +1020,7 @@
     "matchanalysis.retry": "다시 시도",
     "matchanalysis.loading.skia": "분석을 불러오는 중 (Skia)...",
     "matchanalysis.loading": "분석을 불러오는 중...",
-    "matchanalysis.analyzematch": "경기 분석 (베타)",
+    "matchanalysis.analyzematch": "경기 분석",
     "matchanalysis.eapm.title": "eAPM",
     "matchanalysis.eapm.description": "분당 유효 행동 수",
     "matchanalysis.resources.title": "자원",

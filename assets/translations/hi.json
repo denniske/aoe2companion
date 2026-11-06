@@ -1023,7 +1023,7 @@
     "matchanalysis.retry": "पुनः प्रयास करें",
     "matchanalysis.loading.skia": "विश्लेषण लोड हो रहा है (Skia)...",
     "matchanalysis.loading": "विश्लेषण लोड हो रहा है...",
-    "matchanalysis.analyzematch": "मैच का विश्लेषण करें (बीटा)",
+    "matchanalysis.analyzematch": "मैच का विश्लेषण करें",
     "matchanalysis.eapm.title": "eAPM",
     "matchanalysis.eapm.description": "प्रति मिनट प्रभावी क्रियाएँ",
     "matchanalysis.resources.title": "संसाधन",

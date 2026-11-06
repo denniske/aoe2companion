@@ -5,6 +5,7 @@ import { Text } from '@app/components/text';
 import { useMatchAnalysis, useMatchAnalysisSvg, useWithRefetching } from '@app/queries/all';
 import SkiaLoader from '@app/components/skia-loader';
 import { Button } from '@app/components/button';
+import { Link } from '@app/components/link';
 import { appConfig } from '@nex/dataset';
 import { FetchNotOkError } from '@app/api/util';
 import { useTranslation } from '@app/helper/translate';
@@ -48,6 +49,11 @@ export default function MatchAnalysis(props: Props) {
                     <View className="bg-red-100 p-4 rounded-lg">
                         <Text color="text-red-800">{analysisError?.message}</Text>
                     </View>
+                    {(analysisError as FetchNotOkError)?.status === 404 && (
+                        <View className="flex-row justify-center my-3">
+                            <Link href="/matches/analysis">{getTranslation('matchanalysis.upload.link')}</Link>
+                        </View>
+                    )}
                     {(analysisError as FetchNotOkError)?.status === 503 && (
                         <View className="flex-row items-center justify-center h-20">
                             <View className="flex-row justify-center my-3 gap-2">

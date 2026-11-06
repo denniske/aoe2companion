@@ -142,6 +142,12 @@ export default function MatchesPage() {
                         </>
                     )}
                     <Link href="/matches/lobbies">{getTranslation('matches.viewlobbies')}</Link>
+                    {appConfig.game === 'aoe2' && (
+                        <>
+                            <View className="w-px bg-border self-stretch" />
+                            <Link href="/matches/analysis">{getTranslation('matchanalysis.upload.link')}</Link>
+                        </>
+                    )}
                 </View>
             </View>
 

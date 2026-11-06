@@ -1020,7 +1020,7 @@
     "matchanalysis.retry": "再試行",
     "matchanalysis.loading.skia": "分析を読み込み中（Skia）...",
     "matchanalysis.loading": "分析を読み込み中...",
-    "matchanalysis.analyzematch": "試合を分析（ベータ）",
+    "matchanalysis.analyzematch": "試合を分析",
     "matchanalysis.eapm.title": "eAPM",
     "matchanalysis.eapm.description": "1分あたりの有効操作数",
     "matchanalysis.resources.title": "資源",

@@ -8,6 +8,7 @@ import {
     fetchMatch,
     fetchMatchAnalysis,
     fetchMatchAnalysisSvg,
+    fetchUploadedAnalysis,
     fetchProfile,
     fetchProfileRatings,
     fetchProfileStatsAll,
@@ -101,6 +102,15 @@ export const useMatchAnalysis = (matchId: number, enabled: boolean) => {
         queryKey: ['match', matchId, 'analysis', language],
         queryFn: () => fetchMatchAnalysis({ language: language!, matchId }),
         enabled: !!language && !!matchId && enabled,
+    });
+};
+
+export const useUploadedAnalysis = (uploadId: string) => {
+    const language = useLanguage();
+    return useQuery({
+        queryKey: ['analysis-upload', uploadId, language],
+        queryFn: () => fetchUploadedAnalysis({ language: language!, uploadId }),
+        enabled: !!language && !!uploadId,
     });
 };
 

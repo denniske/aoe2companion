@@ -1087,7 +1087,7 @@
     "matchanalysis.retry": "Spróbuj ponownie",
     "matchanalysis.loading.skia": "Ładowanie analizy (Skia)...",
     "matchanalysis.loading": "Ładowanie analizy...",
-    "matchanalysis.analyzematch": "Analizuj mecz (beta)",
+    "matchanalysis.analyzematch": "Analizuj mecz",
     "matchanalysis.eapm.title": "eAPM",
     "matchanalysis.eapm.description": "Efektywne akcje na minutę",
     "matchanalysis.resources.title": "Zasoby",

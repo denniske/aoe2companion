@@ -1020,7 +1020,7 @@
     "matchanalysis.retry": "重試",
     "matchanalysis.loading.skia": "正在載入分析（Skia）...",
     "matchanalysis.loading": "正在載入分析...",
-    "matchanalysis.analyzematch": "分析對戰（測試版）",
+    "matchanalysis.analyzematch": "分析對戰",
     "matchanalysis.eapm.title": "eAPM",
     "matchanalysis.eapm.description": "每分鐘有效操作數",
     "matchanalysis.resources.title": "資源",

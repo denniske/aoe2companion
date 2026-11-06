@@ -98,6 +98,34 @@ export async function fetchMatchAnalysisSvg(params: IFetchMatchParams) {
     return `${getHost('aoe2companion-data')}api/matches/${params.matchId}/analysis/svg`;
 }
 
+export interface IUploadedAnalysis {
+    uploadId: string;
+    /** Best guess at the official match the recording belongs to. Only ever used as a link. */
+    matchedMatchId?: number | null;
+    match: IMatchNew;
+    analysis: IAnalysis;
+}
+
+/** Uploads a recording (.aoe2record) for analysis and returns its upload id. */
+export async function uploadRecording(file: Blob) {
+    const url = `${getHost('aoe2companion-data')}api/analysis/upload`;
+    const result = await fetchJson(url, {
+        method: 'POST',
+        body: file,
+        headers: { 'Content-Type': 'application/octet-stream' },
+    });
+    return result.uploadId as string;
+}
+
+export async function fetchUploadedAnalysis(params: { uploadId: string; language: string }) {
+    const url = `${getHost('aoe2companion-data')}api/analysis/upload/${params.uploadId}?language=${params.language}`;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IUploadedAnalysis;
+}
+
+export function getUploadedAnalysisSvgUrl(uploadId: string) {
+    return `${getHost('aoe2companion-data')}api/analysis/upload/${uploadId}/svg`;
+}
+
 export async function fetchMatches(params: IFetchMatchesParams) {
     const queryString = makeQueryString(
         decamelizeKeys({

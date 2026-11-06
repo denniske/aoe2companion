@@ -1037,7 +1037,7 @@
     "matchanalysis.retry": "Réessayer",
     "matchanalysis.loading.skia": "Chargement de l'analyse (Skia)...",
     "matchanalysis.loading": "Chargement de l'analyse...",
-    "matchanalysis.analyzematch": "Analyser la partie (bêta)",
+    "matchanalysis.analyzematch": "Analyser la partie",
     "matchanalysis.eapm.title": "eAPM",
     "matchanalysis.eapm.description": "Actions efficaces par minute",
     "matchanalysis.resources.title": "Ressources",

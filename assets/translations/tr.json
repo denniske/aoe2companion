@@ -1020,7 +1020,7 @@
     "matchanalysis.retry": "Yeniden Dene",
     "matchanalysis.loading.skia": "Analiz yükleniyor (Skia)...",
     "matchanalysis.loading": "Analiz yükleniyor...",
-    "matchanalysis.analyzematch": "Maçı analiz et (Beta)",
+    "matchanalysis.analyzematch": "Maçı analiz et",
     "matchanalysis.eapm.title": "eAPM",
     "matchanalysis.eapm.description": "Dakikada Etkili Eylem",
     "matchanalysis.resources.title": "Kaynaklar",

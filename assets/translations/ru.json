@@ -1041,7 +1041,7 @@
     "matchanalysis.retry": "Повторить",
     "matchanalysis.loading.skia": "Загрузка анализа (Skia)...",
     "matchanalysis.loading": "Загрузка анализа...",
-    "matchanalysis.analyzematch": "Анализировать матч (бета)",
+    "matchanalysis.analyzematch": "Анализировать матч",
     "matchanalysis.eapm.title": "eAPM",
     "matchanalysis.eapm.description": "Эффективных действий в минуту",
     "matchanalysis.resources.title": "Ресурсы",
