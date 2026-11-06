@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, Platform, View } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
+import { Href, Stack, useRouter } from 'expo-router';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { Button } from '@app/components/button';
@@ -22,6 +22,20 @@ function pickFileOnWeb(): Promise<File | null> {
     });
 }
 
+/**
+ * Where to go after uploading: a recording that verified against a match opens that match's page,
+ * anything else its own page. Outside the component because React Compiler cannot lower a try
+ * holding a conditional and would bail on the whole page.
+ */
+async function uploadAndGetTarget(file: File): Promise<{ href: Href } | { error: string }> {
+    try {
+        const { matchId, uploadId } = await uploadRecording(file);
+        return { href: (matchId ? `/matches/${matchId}?analyze=1` : `/matches/analysis/${uploadId}`) as Href };
+    } catch (e) {
+        return { error: (e as Error).message };
+    }
+}
+
 export default function AnalysisUploadPage() {
     const getTranslation = useTranslation();
     const router = useRouter();
@@ -33,14 +47,10 @@ export default function AnalysisUploadPage() {
         if (!file) return;
         setError(null);
         setUploading(true);
-        try {
-            const { matchId, uploadId } = await uploadRecording(file);
-            router.push(matchId ? `/matches/${matchId}?analyze=1` : `/matches/analysis/${uploadId}`);
-        } catch (e) {
-            setError((e as Error).message);
-        } finally {
-            setUploading(false);
-        }
+        const result = await uploadAndGetTarget(file);
+        setUploading(false);
+        if ('error' in result) setError(result.error);
+        else router.push(result.href);
     };
 
     return (
