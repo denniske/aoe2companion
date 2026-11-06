@@ -250,5 +250,7 @@ export const useLobbies = ({profileIds, verified, matchIds, enabled = true}: IUs
         };
     });
 
-    return { lobbies, connected: connected || !focused, isLoading, connect: () => connect(profileIds, verified, matchIds) };
+    // A disabled subscription never connects, so it would otherwise stay loading forever --
+    // e.g. the verified page's lobby details while no verified player has a lobby open.
+    return { lobbies, connected: connected || !focused, isLoading: enabled && isLoading, connect: () => connect(profileIds, verified, matchIds) };
 };

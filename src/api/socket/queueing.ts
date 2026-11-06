@@ -233,7 +233,7 @@ export const useQueueing = ({ profileIds, verified, enabled = true }: IUseQueuei
     };
 
     useFocusEffect(() => {
-        if (enabled) {
+        if (enabled && language) {
             connect(profileIds, verified);
             setIsLoading(true);
         }
@@ -245,5 +245,7 @@ export const useQueueing = ({ profileIds, verified, enabled = true }: IUseQueuei
         };
     });
 
-    return { items, connected: connected || !focused, isLoading, connect: () => connect(profileIds, verified) };
+    // A disabled subscription never connects, so it would otherwise stay loading forever --
+    // e.g. the verified page's lobby details while no verified player has a lobby open.
+    return { items, connected: connected || !focused, isLoading: enabled && isLoading, connect: () => connect(profileIds, verified) };
 };
