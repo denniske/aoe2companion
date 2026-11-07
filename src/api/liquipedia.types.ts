@@ -110,8 +110,20 @@ export type PlayoffRound = Round;
 
 export interface Map {
     name: string;
+    /** The map's page on Liquipedia. */
+    path: string;
     image?: string;
+    /** Land, Water, Hybrid, ... */
     category?: string;
+    creator?: string;
+    spawns?: string;
+}
+
+export interface Tab {
+    /** Empty for the main page of a tournament with subpages. */
+    name: string;
+    path: string;
+    active: boolean;
 }
 
 export interface Score {
@@ -154,6 +166,8 @@ export interface TournamentDetail extends Tournament {
     /** Matches outside any bracket or group: show matches, single match lists. */
     results: PlayoffMatch[];
     prizes: Prize[];
+    /** The tournament and its subpages, as the wiki shows them in tabs. Empty when there are none. */
+    tabs: Tab[];
     organizer?: string;
     venue?: string;
 }

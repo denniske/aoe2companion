@@ -11,11 +11,13 @@ import type {
     Group,
     GroupParticipant,
     Link,
+    Map,
     Playoff,
     PlayoffMatch,
     Player,
     Prize,
     Round,
+    Tab,
     Tournament,
     TournamentDetail,
 } from './liquipedia.types';
@@ -121,7 +123,8 @@ export function convertTournament(row: ILiquipediaTournament): Tournament {
         game: row.game,
         type: row.mode === '1v1' ? TournamentType.Individual : row.mode ? TournamentType.Team : TournamentType.Unknown,
         tier: tournamentCategory(row),
-        name: row.name,
+        // An event across games names the game as a part: "Royal Blood: Age of Empires II: Qualifier".
+        name: row.name.split(': ').filter((part) => part !== row.game).join(': '),
         path: row.pagename,
         start: parseDate(row.startdate),
         end: parseDate(row.enddate),
@@ -329,6 +332,19 @@ function convertPrizes(placements: ILiquipediaPlacement[]): Prize[] {
     });
 }
 
+/** Tab labels are the part of each page name below the main page: `Royal_Blood/AoE2/Qualifier` → "Qualifier". */
+function convertTabs(pagename: string, subpages: { pagename: string; name: string }[]): Tab[] {
+    if (subpages.length < 2) return [];
+    const depth = (page: string) => page.split('/').length;
+    const rootDepth = Math.min(...subpages.map((page) => depth(page.pagename)));
+    const isRoot = (page: string) => depth(page) === rootDepth && subpages.some((other) => depth(other.pagename) > rootDepth);
+    return subpages.map((page) => ({
+        name: isRoot(page.pagename) ? '' : page.pagename.split('/').slice(depth(page.pagename) - 1).join(' ').replace(/_/g, ' '),
+        path: page.pagename,
+        active: page.pagename === pagename,
+    }));
+}
+
 export function convertTournamentDetail(response: ILiquipediaTournamentResponse): TournamentDetail {
     const { tournament: row, matches, placements, standingstables, standingsentries } = response;
 
@@ -361,13 +377,25 @@ export function convertTournamentDetail(response: ILiquipediaTournamentResponse)
         (participant) => participant.name
     );
 
-    const maps = Object.values(jsonField<Record<string, { link?: string; map?: string }>>(row.maps) ?? {});
+    const mapNames = compact(Object.values(jsonField<Record<string, { link?: string; map?: string }>>(row.maps) ?? {}).map((map) => map.link || map.map));
     const organizers = Object.values(jsonField<Record<string, string>>(row.organizers) ?? {});
 
     return {
         ...convertTournament(row),
         format: row.format || undefined,
-        maps: compact(maps.map((map) => map.link || map.map)).map((name) => ({ name })),
+        maps: mapNames.map((name): Map => {
+            const path = name.replace(/ /g, '_');
+            const map = response.maps?.find((m) => m.pagename === path);
+            return {
+                name,
+                path,
+                image: liquipediaImage(map?.imageurl || map?.imagedarkurl),
+                category: map?.extradata?.maptype || undefined,
+                creator: compact([map?.extradata?.creator1dn, map?.extradata?.creator2dn, map?.extradata?.creator3dn]).join(', ') || undefined,
+                spawns: map?.extradata?.spawns || undefined,
+            };
+        }),
+        tabs: convertTabs(row.pagename, response.subpages ?? []),
         participants,
         playoffs,
         groups: convertGroups(standingstables, standingsentries, byId),

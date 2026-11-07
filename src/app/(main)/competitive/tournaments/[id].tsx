@@ -152,6 +152,22 @@ export default function TournamentDetail() {
                 }}
             />
 
+            {tournament.tabs.length > 0 && (
+                <View className="flex-row gap-1 justify-center flex-wrap px-4">
+                    {tournament.tabs.map((tab) => (
+                        <PressableOpacity
+                            onPress={() => router.setParams({ id: tab.path })}
+                            key={tab.path}
+                            disabled={tab.active}
+                        >
+                            <Tag size="small" selected={tab.active}>
+                                {tab.name || getTranslation('tournaments.overview')}
+                            </Tag>
+                        </PressableOpacity>
+                    ))}
+                </View>
+            )}
+
             <Slider
                 tabs={tabs}
                 slides={[

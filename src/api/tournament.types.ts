@@ -303,9 +303,29 @@ export interface ILiquipediaStandingsEntry {
     };
 }
 
+/** A row of v3's `datapoint` table with type map. */
+export interface ILiquipediaMap {
+    pagename: string;
+    name: string;
+    imageurl: string;
+    imagedarkurl: string;
+    extradata?: {
+        game?: string;
+        maptype?: string;
+        spawns?: string;
+        creator1dn?: string;
+        creator2dn?: string;
+        creator3dn?: string;
+    };
+}
+
 /** GET /api/tournament?pagename= on the tournament service. */
 export interface ILiquipediaTournamentResponse {
     tournament: ILiquipediaTournament;
+    /** The tournaments shown as tabs on this one, this one included. Empty when it has none. */
+    subpages?: { pagename: string; name: string }[];
+    /** The rows of the maps in tournament.maps that Liquipedia has data for. */
+    maps?: ILiquipediaMap[];
     matches: INewLiquipediaMatch[];
     placements: ILiquipediaPlacement[];
     standingstables: ILiquipediaStandingsTable[];
