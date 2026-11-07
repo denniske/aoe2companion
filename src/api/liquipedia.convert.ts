@@ -377,14 +377,20 @@ export function convertTournamentDetail(response: ILiquipediaTournamentResponse)
         (participant) => participant.name
     );
 
-    const mapNames = compact(Object.values(jsonField<Record<string, { link?: string; map?: string }>>(row.maps) ?? {}).map((map) => map.link || map.map));
+    // `link` is the map's page, `name` how the tournament calls it when that differs: aoe4's "Dry Arabia" is the page
+    // "Arabia (AoE4)".
+    const tournamentMaps = Object.values(jsonField<Record<string, { link?: string; name?: string; map?: string }>>(row.maps) ?? {}).filter(
+        (map) => map.link || map.map
+    );
     const organizers = Object.values(jsonField<Record<string, string>>(row.organizers) ?? {});
 
     return {
         ...convertTournament(row),
         format: row.format || undefined,
-        maps: mapNames.map((name): Map => {
-            const path = name.replace(/ /g, '_');
+        maps: tournamentMaps.map((tournamentMap): Map => {
+            const link = (tournamentMap.link || tournamentMap.map)!;
+            const name = tournamentMap.name || link;
+            const path = link.replace(/ /g, '_');
             const map = response.maps?.find((m) => m.pagename === path);
             return {
                 name,
