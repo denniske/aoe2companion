@@ -1,27 +1,13 @@
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
-import { getCivIconLocal } from '@app/helper/civs';
 import { getCountryName } from '@app/helper/flags';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
 import { Href } from 'expo-router';
 import React from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
+import { CivIcon, pct, winRateColor } from './stats-ui';
 import { mockCivs, mockCountries, mockCurrentlyPlayingHourly, mockMaps, mockMatchupCivs, mockMatchups, mockRatingGroups, mockTotals } from './mock-data';
-
-const pct = (value: number) => `${(value * 100).toFixed(1)}%`;
-
-// Red below 50%, green above; saturates at +-8 points, which is about the spread a
-// matchup table shows once it has enough games.
-function winRateColor(winRate: number) {
-    const t = Math.max(-1, Math.min(1, (winRate - 0.5) / 0.08));
-    const hue = 60 + t * 60;
-    return `hsl(${hue}, 70%, 45%)`;
-}
-
-const CivIcon: React.FC<{ civ: string; size?: number }> = ({ civ, size = 20 }) => (
-    <Image source={getCivIconLocal(civ)} style={{ width: size, height: size }} />
-);
 
 export const TeaserCard: React.FC<{ title: string; subtitle: string; href?: Href; className?: string; children: React.ReactNode }> = ({
     title,
@@ -136,7 +122,7 @@ export const CivWinratesTeaser: React.FC = () => {
 export const MatchupsTeaser: React.FC = () => {
     const cell = 34;
     return (
-        <TeaserCard title="Matchups" subtitle="How each civ fares against the others">
+        <TeaserCard title="Matchups" subtitle="How each civ fares against the others" href="/statistics/matchups">
             <View className="self-center">
                 <View className="flex-row">
                     <View style={{ width: cell, height: cell }} />
@@ -170,7 +156,7 @@ export const MatchupsTeaser: React.FC = () => {
 };
 
 export const MapCivTeaser: React.FC = () => (
-    <TeaserCard title="Maps" subtitle="Most played maps and their best civ">
+    <TeaserCard title="Maps" subtitle="Most played maps and their best civ" href="/statistics/maps">
         {mockMaps.map((map) => (
             <View key={map.map} className="py-1 gap-1">
                 <View className="flex-row items-center gap-2">
@@ -194,7 +180,7 @@ export const MapCivTeaser: React.FC = () => (
 );
 
 export const RatingGroupsTeaser: React.FC = () => (
-    <TeaserCard title="By rating" subtitle="Best civ per rating group">
+    <TeaserCard title="By rating" subtitle="Best civ per rating group" href="/statistics/rating">
         {mockRatingGroups.map((group) => (
             <View key={group.label} className="flex-row items-center gap-2 py-1.5">
                 <Text variant="label-sm" color="subtle" className="w-20">
@@ -218,7 +204,7 @@ export const RatingGroupsTeaser: React.FC = () => (
 export const CountriesTeaser: React.FC<{ className?: string }> = ({ className }) => {
     const max = mockCountries[0].players;
     return (
-        <TeaserCard title="Countries" subtitle="Players by country in RM 1v1" className={className}>
+        <TeaserCard title="Countries" subtitle="Players by country in RM 1v1" href="/statistics/countries" className={className}>
             {mockCountries.slice(0, 6).map((country) => (
                 <View key={country.country} className="py-1 gap-1">
                     <View className="flex-row items-center gap-2">
