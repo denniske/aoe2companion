@@ -8,6 +8,8 @@ import {
     RatingGroupsTeaser,
     StatsTotals,
 } from '@app/components/stats-overview/stats-overview-cards';
+import { SectionTitle } from '@app/components/stats-overview/stats-ui';
+import { Text } from '@app/components/text';
 import { useTranslation } from '@app/helper/translate';
 import { appConfig } from '@nex/dataset';
 import { Redirect, Stack } from 'expo-router';
@@ -36,11 +38,20 @@ export default function StatisticsPage() {
 
             <StatsTotals />
 
+            <SectionTitle title="Top players" />
             <View className="gap-4 md:flex-row">
                 <LeaderboardPreview className="md:flex-[2]" />
                 <CountriesTeaser className="md:flex-1" />
             </View>
 
+            <SectionTitle
+                title="Meta"
+                right={
+                    <Text variant="body-xs" color="subtle">
+                        RM 1v1 · last 30 days
+                    </Text>
+                }
+            />
             <View className="gap-4 md:flex-row">
                 <CivWinratesTeaser />
                 <MatchupsTeaser />

@@ -1,7 +1,7 @@
 import { Card } from '@app/components/card';
 import { countryStats } from '@app/components/stats-overview/mock-detail-data';
 import { StatsPage } from '@app/components/stats-overview/stats-page';
-import { pct } from '@app/components/stats-overview/stats-ui';
+import { pct, ShareBar } from '@app/components/stats-overview/stats-ui';
 import { Text } from '@app/components/text';
 import { getCountryName } from '@app/helper/flags';
 import ButtonPicker from '@app/view/components/button-picker';
@@ -81,9 +81,7 @@ export default function CountriesPage() {
                                 {row[sort].toLocaleString()}
                             </Text>
                         </View>
-                        <View className="ml-11 h-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                            <View className="h-full bg-gold-500" style={{ width: `${(row[sort] / max) * 100}%` }} />
-                        </View>
+                        <ShareBar fraction={row[sort] / max} className="ml-11" />
                     </View>
                 ))}
             </Card>
