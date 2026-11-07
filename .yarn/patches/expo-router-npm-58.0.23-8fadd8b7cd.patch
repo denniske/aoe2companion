@@ -1,0 +1,95 @@
+diff --git a/build/ExpoRoot.js b/build/ExpoRoot.js
+index 16d2be77b70c22a06a881853092ffaf80d0aed07..c99f49989616e9b694867aed38e72f81d6f5fe26 100644
+--- a/build/ExpoRoot.js
++++ b/build/ExpoRoot.js
+@@ -160,7 +160,7 @@ function ContextNavigator({ context, location: initialLocation = initialUrl, wra
+         value: routerConfig,
+         children: /*#__PURE__*/ (0, _jsxruntime().jsx)(_removalPrevention.RemovalPreventionProvider, {
+             children: /*#__PURE__*/ (0, _jsxruntime().jsx)(_NavigationContainer.NavigationContainer, {
+-                ref: _navigationRef.navigationRef,
++                ref: _navigationRef.setNavigationContainer,
+                 linking: linkingConfig,
+                 children: /*#__PURE__*/ (0, _jsxruntime().jsx)(WrapperComponent, {
+                     children: /*#__PURE__*/ (0, _jsxruntime().jsx)(Content, {
+diff --git a/build/global-state/navigationRef.js b/build/global-state/navigationRef.js
+index 4964dc3c5e624d5a3fa51b7fd1dd0d4afb590f0f..7968ce66555da3ef96d9757b0fce18b8fb870f68 100644
+--- a/build/global-state/navigationRef.js
++++ b/build/global-state/navigationRef.js
+@@ -2,6 +2,12 @@
+ Object.defineProperty(exports, "__esModule", {
+     value: true
+ });
++Object.defineProperty(exports, "setNavigationContainer", {
++    enumerable: true,
++    get: function() {
++        return setNavigationContainer;
++    }
++});
+ Object.defineProperty(exports, "navigationRef", {
+     enumerable: true,
+     get: function() {
+@@ -10,5 +16,23 @@ Object.defineProperty(exports, "navigationRef", {
+ });
+ const _createNavigationContainerRef = require("../react-navigation/core/createNavigationContainerRef");
+ const navigationRef = (0, _createNavigationContainerRef.createNavigationContainerRef)();
++// The containers of the mounted roots, oldest first. Two roots can be mounted at once: an Android
++// Activity relaunch mounts the new root before it unmounts the old one (expo/expo#51859).
++const mountedContainers = [];
++function setNavigationContainer(container) {
++    if (container == null) {
++        return;
++    }
++    mountedContainers.push(container);
++    navigationRef.current = container;
++    return ()=>{
++        mountedContainers.splice(mountedContainers.indexOf(container), 1);
++        const newestContainer = mountedContainers[mountedContainers.length - 1] ?? null;
++        // Setting `current` adds every listener that was added while it was null to the container again.
++        if (navigationRef.current !== newestContainer) {
++            navigationRef.current = newestContainer;
++        }
++    };
++}
+ 
+ //# sourceMappingURL=navigationRef.js.map
+diff --git a/build/global-state/routingQueueContext.js b/build/global-state/routingQueueContext.js
+index 54629aaf6eb7a8fd169c94405ff167884217106f..021726dea6f27cffe0fd04e024144a58dbd3bec0 100644
+--- a/build/global-state/routingQueueContext.js
++++ b/build/global-state/routingQueueContext.js
+@@ -59,7 +59,9 @@ const _useClientLayoutEffect = require("../react-navigation/core/useClientLayout
+ const _router = require("./router");
+ const _routingQueue = require("./routingQueue");
+ const EMPTY = [];
+-let boundBridges = 0;
++// The routers of the mounted bridges, oldest first. Two roots can be mounted at once: an Android
++// Activity relaunch mounts the new root before it unmounts the old one (expo/expo#51859).
++const boundRouters = [];
+ const throwMissingRoutingQueue = ()=>{
+     throw new Error('Attempted to navigate from a component rendered outside the Expo Router root. Render the component inside `ExpoRoot`. If this happened inside `ExpoRoot`, please report a bug at https://github.com/expo/expo/issues.');
+ };
+@@ -122,19 +124,20 @@ function useSetRoutingTransitionMode() {
+ }
+ function ImperativeRoutingQueueBridge({ enqueue, setTransitionMode }) {
+     (0, _useClientLayoutEffect.useClientLayoutEffect)(()=>{
+-        if (__DEV__ && boundBridges > 0) {
++        if (__DEV__ && boundRouters.length > 0) {
+             console.error([
+                 'Looks like you have multiple navigation containers consuming the shared imperative routing queue. Only one container will receive queued actions. Make sure that:',
+                 "- You don't have multiple NavigationContainers in the app",
+                 '- Only a single instance of the root component is rendered'
+             ].join('\n'));
+         }
+-        boundBridges++;
++        const boundRouter = (0, _router.createImperativeRouter)(enqueue, setTransitionMode);
++        boundRouters.push(boundRouter);
+         // The exported router identity must stay stable, so the bridge mutates it in place.
+-        Object.assign(_router.router, (0, _router.createImperativeRouter)(enqueue, setTransitionMode));
++        Object.assign(_router.router, boundRouter);
+         return ()=>{
+-            boundBridges--;
+-            Object.assign(_router.router, _router.unboundRouter);
++            boundRouters.splice(boundRouters.indexOf(boundRouter), 1);
++            Object.assign(_router.router, boundRouters[boundRouters.length - 1] ?? _router.unboundRouter);
+         };
+     }, [
+         enqueue,
