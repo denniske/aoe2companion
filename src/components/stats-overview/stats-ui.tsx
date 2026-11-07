@@ -126,7 +126,8 @@ export const SectionTitle: React.FC<{ title: string; right?: React.ReactNode }> 
 
 /**
  * A win-rate grid: one row per `rows` entry, one column per `columns` entry. Each
- * tile carries the edge in points and is tinted gold/steel by it. null is a mirror
+ * tile shows the plain win rate -- easier to read across a large grid than signed
+ * points -- and is tinted gold/steel by its edge over 50%. null is a mirror
  * or empty cell. Scrolls horizontally once it is wider than the screen.
  */
 export function WinRateHeatmap<R extends string, C extends string>({
@@ -174,7 +175,7 @@ export function WinRateHeatmap<R extends string, C extends string>({
                                 >
                                     {/* Dark text once the gold is strong enough to wash out white. */}
                                     <Text variant="body-tn" className={`tabular-nums ${v != null && v - 0.5 > FULL_EDGE * 0.6 ? 'text-blue-950!' : ''}`}>
-                                        {v == null ? '' : formatEdge(v, 0)}
+                                        {v == null ? '' : `${Math.round(v * 100)}%`}
                                     </Text>
                                 </View>
                             );
@@ -186,11 +187,11 @@ export function WinRateHeatmap<R extends string, C extends string>({
     );
 }
 
-/** The heatmap key: a strip from weaker to stronger, labelled in points. */
+/** The heatmap key: a strip from below 50% to above it. */
 export const EdgeLegend: React.FC = () => (
     <View className="flex-row items-center gap-2">
         <Text variant="body-xs" color="subtle">
-            weaker
+            below 50%
         </Text>
         <View className="flex-row rounded overflow-hidden">
             {[-0.08, -0.05, -0.02, 0, 0.02, 0.05, 0.08].map((edge) => (
@@ -198,7 +199,7 @@ export const EdgeLegend: React.FC = () => (
             ))}
         </View>
         <Text variant="body-xs" color="subtle">
-            stronger · points vs 50%
+            above 50% · win rate
         </Text>
     </View>
 );
