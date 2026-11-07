@@ -3,7 +3,7 @@ import { IProfileResult, IProfilesResultProfile } from '@app/api/helper/api.type
 import { Icon } from '@app/components/icon';
 import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import { HeaderTitle } from '@app/components/header-title';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country, formatAgo } from '@nex/data';
@@ -167,33 +167,23 @@ export function UserMenu({ profile, fullProfile }: UserMenuProps) {
 
             {!!(liquipediaProfile) && (
                 <TournamentPlayerPopup
-                    id={liquipediaProfile.name}
+                    id={profile.socialLiquipedia!}
                     title={liquipediaProfile.name}
                     isActive={showTournamentPlayer}
                     onClose={() => setShowTournamentPlayer(false)}
                 />
             )}
 
-            {!!(profile.verified) &&
-                (Platform.OS === 'web' ? (
-                    profile.socialLiquipedia ? (
-                        <Link href={`https://liquipedia.net/ageofempires/${profile.socialLiquipedia}`} target="_blank">
-                            <Icon icon={faCheckCircle} color="brand" size={20} />
-                        </Link>
-                    ) : (
-                        <Icon icon={faCheckCircle} color="brand" size={20} />
-                    )
-                ) : (
-                    <PressableOpacity
-                        className="w-8 items-center justify-center"
-                        onPress={() => setShowTournamentPlayer(true)}
-                        disabled={!liquipediaProfile}
-                        hitSlop={10}
-                    >
-                        <Icon icon={faCheckCircle} color="brand" size={20} />
-                        {/*<FontAwesome5 style={styles.menuIcon} name="check-circle" color="brand" size={20} />*/}
-                    </PressableOpacity>
-                ))}
+            {!!(profile.verified) && (
+                <PressableOpacity
+                    className="w-8 items-center justify-center"
+                    onPress={() => setShowTournamentPlayer(true)}
+                    disabled={!liquipediaProfile}
+                    hitSlop={10}
+                >
+                    <Icon icon={faCheckCircle} color="brand" size={20} />
+                </PressableOpacity>
+            )}
 
             <MenuNew
                 contentStyle={{

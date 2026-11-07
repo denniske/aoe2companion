@@ -38,3 +38,15 @@ export function isValidUrl(url: string): boolean {
         return false;
     }
 }
+
+/**
+ * GET a third-party JSON endpoint. Unlike fetchJson, which is for our own API, it sends no Content-Type or
+ * User-Agent: on web either would force a CORS preflight that third parties need not answer.
+ */
+export async function getJson<T>(url: string): Promise<T> {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`GET ${url} answered ${response.status}`);
+    }
+    return response.json();
+}

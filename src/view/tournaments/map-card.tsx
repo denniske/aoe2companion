@@ -1,76 +1,26 @@
-import { useMap } from '@app/api/tournaments';
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
 import { Image } from '@/src/components/uniwind/image';
-import { Map } from 'liquipedia';
-import { useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { Map } from '@app/api/liquipedia.types';
+import { Linking } from 'react-native';
 
-import { TournamentMarkdown } from './tournament-markdown';
-import {BottomSheet} from '../bottom-sheet';
-import { useTranslation } from '@app/helper/translate';
-
-const MapAttribute: React.FC<{ label: string; value?: string }> = ({ label, value }) =>
-    value === undefined ? null : (
-        <View className="flex-row">
-            <Text variant="label" className="w-24">
-                {label}
-            </Text>
-            <Text className="flex-1">{value}</Text>
-        </View>
-    );
-
+// Liquipedia's v3 API has no map data, so a map links to its wiki page rather than opening details in the app.
 export const MapCard: React.FC<{ map: Map }> = ({ map }) => {
-    const getTranslation = useTranslation();
-    const [isVisible, setIsVisible] = useState(false);
-    const { data: mapDetails, isLoading } = useMap(map.path ?? '', isVisible);
-
     return (
-        <View>
-            <Card direction="vertical" className="p-4 w-36 gap-0" disabled={!map.path} onPress={() => setIsVisible(true)}>
-                {!!map.image && <Image source={{ uri: map.image }} contentFit="contain" style={{ aspectRatio: 2 }} />}
-                <Text align="center" variant="label" className={map.image ? 'mt-2' : ''} numberOfLines={1}>
-                    {map.name}
+        <Card
+            direction="vertical"
+            className="p-4 w-36 gap-0"
+            onPress={() => Linking.openURL(`https://liquipedia.net/ageofempires/${encodeURIComponent(map.name.replace(/ /g, '_'))}`)}
+        >
+            {!!map.image && <Image source={{ uri: map.image }} contentFit="contain" style={{ aspectRatio: 2 }} />}
+            <Text align="center" variant="label" className={map.image ? 'mt-2' : ''} numberOfLines={1}>
+                {map.name}
+            </Text>
+            {!!map.category && (
+                <Text align="center" variant="body-xs" numberOfLines={1}>
+                    {map.category}
                 </Text>
-                {!!map.category && (
-                    <Text align="center" variant="body-xs" numberOfLines={1}>
-                        {map.category}
-                    </Text>
-                )}
-            </Card>
-            <BottomSheet closeButton isFullHeight isActive={isVisible} onClose={() => setIsVisible(false)} title={map.name ?? mapDetails?.name}>
-                <View className="mt-4">
-                    {isLoading ? (
-                        <ActivityIndicator size="large" />
-                    ) : (
-                        <View className="gap-2">
-                            <View className="flex-row items-center gap-4">
-                                {!!(mapDetails?.image || map.image) && (
-                                    <Image
-                                        source={{ uri: mapDetails?.image || map.image }}
-                                        contentFit="contain"
-                                        className="w-36"
-                                        style={{ aspectRatio: 2 }}
-                                    />
-                                )}
-                                <View className="flex-1">
-                                    <MapAttribute label={getTranslation('tournaments.map.creator')} value={mapDetails?.creator} />
-                                    <MapAttribute label={getTranslation('tournaments.map.type')} value={mapDetails?.type} />
-                                    <MapAttribute label={getTranslation('tournaments.map.walls')} value={mapDetails?.walls} />
-                                    <MapAttribute
-                                        label={getTranslation('tournaments.map.nomad')}
-                                        value={mapDetails?.nomad === undefined ? undefined : getTranslation(mapDetails.nomad ? 'tournaments.map.yes' : 'tournaments.map.no')}
-                                    />
-                                </View>
-                            </View>
-
-                            {mapDetails?.description ? <TournamentMarkdown>{mapDetails.description}</TournamentMarkdown> : null}
-
-                            {mapDetails?.overview ? <TournamentMarkdown>{mapDetails.overview}</TournamentMarkdown> : null}
-                        </View>
-                    )}
-                </View>
-            </BottomSheet>
-        </View>
+            )}
+        </Card>
     );
 };

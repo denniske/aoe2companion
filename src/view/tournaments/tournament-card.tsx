@@ -2,7 +2,7 @@ import { Card } from '@app/components/card';
 import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import { Image } from '@/src/components/uniwind/image';
-import { Tournament } from 'liquipedia';
+import { Tournament } from '@app/api/liquipedia.types';
 import { View } from 'react-native';
 
 import { formatPrizePool, formatTier, tournamentStatus } from '../../helper/tournaments';

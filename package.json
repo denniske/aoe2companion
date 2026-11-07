@@ -97,7 +97,6 @@
         "html-entities": "^2.4.0",
         "humps": "^2.0.1",
         "immer": "^11.1.15",
-        "liquipedia": "^1.2.1",
         "lodash": "^4.17.19",
         "postcss-loader": "^4.3.0",
         "react": "19.3.0",

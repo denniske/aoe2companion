@@ -1,7 +1,7 @@
 import { queryOptions, useQuery, useSuspenseQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { appConfig } from '@nex/dataset';
 import { fetchNews } from '@app/api/helper/api';
+import { getJson } from '@app/api/helper/util';
 
 export interface Post {
     id: number;
@@ -107,8 +107,7 @@ export const useMedia = (id: number) => {
         enabled: !!id,
         queryKey: ['media', id],
         queryFn: async () => {
-            const { data } = await axios.get(`https://www.ageofempires.com/wp-json/wp/v2/media/${id}`);
-            return data as Media;
+            return await getJson<Media>(`https://www.ageofempires.com/wp-json/wp/v2/media/${id}`);
         },
     });
 };

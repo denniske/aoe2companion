@@ -1,4 +1,3 @@
-import axios from "axios"
 import { flatten } from 'lodash';
 import * as console from 'console';
 
@@ -353,7 +352,7 @@ interface LinkObject {
 }
 
 async function getLinksAndTextUsingRegex(url: string): Promise<LinkObject[]> {
-    const htmlSource = await axios.get(url).then(response => response.data);
+    const htmlSource = await fetch(url).then(response => response.text());
     const linkRegex = /<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1[^>]*?>(.*?)<\/a>/g;
     const links: LinkObject[] = [];
     let match;

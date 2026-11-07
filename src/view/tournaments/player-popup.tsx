@@ -1,7 +1,6 @@
 import { useTournamentPlayer } from '@app/api/tournaments';
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
-import { format } from 'date-fns';
 import { Image } from '@/src/components/uniwind/image';
 import { ActivityIndicator, View } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
@@ -39,7 +38,7 @@ export const TournamentPlayerPopup: React.FC<{ id: string; title: string } & Pic
                                 <Attribute label={getTranslation('tournaments.player.name')} value={player.fullName} />
                                 <Attribute
                                     label={getTranslation('tournaments.player.age')}
-                                    value={`${player.age}${player.birthdate && !isNaN(player.birthdate?.valueOf()) ? ` (${formatCustom(player.birthdate, 'LLL d, y')})` : ''}`}
+                                    value={player.age != null && player.birthdate ? `${player.age} (${formatCustom(player.birthdate, 'LLL d, y')})` : undefined}
                                 />
                                 <Attribute
                                     label={getTranslation('tournaments.player.totalwinnings')}

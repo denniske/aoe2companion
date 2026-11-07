@@ -1,4 +1,3 @@
-import axios from "axios"
 import * as fs from "fs"
 import * as path from "path"
 
@@ -17,11 +16,8 @@ const list = [
 ]
 
 async function getReplay(match_id: number, profile_id: number) {
-        const response = await axios({
-            method: 'GET',
-            url: `https://aoe.ms/replay/?gameId=${match_id}&profileId=${profile_id}`
-        });
-        const json = response.data;
+        const response = await fetch(`https://aoe.ms/replay/?gameId=${match_id}&profileId=${profile_id}`);
+        const json = await response.text();
         console.log(json);
 }
 

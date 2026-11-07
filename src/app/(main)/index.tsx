@@ -1,4 +1,4 @@
-import { tournamentsEnabled, useFeaturedTournaments } from '@app/api/tournaments';
+import { useFeaturedTournaments } from '@app/api/tournaments';
 import { FlatList } from '@app/components/flat-list';
 import { FollowedPlayers } from '@app/components/followed-players';
 import { Link } from '@app/components/link';
@@ -345,31 +345,29 @@ export default function IndexPage() {
             {/*    </View>*/}
             {/*)}*/}
 
-            {tournamentsEnabled ? (
-                <View className="gap-2 pb-5 lg:pb-8">
-                    <View className="flex-row justify-between items-center">
-                        <Text variant="header-lg">
-                            {followedIds[0]
-                                ? getTranslation(isMedium ? 'home.favoriteTournaments' : 'home.favoriteTournament')
-                                : getTranslation(isMedium ? 'home.featuredTournaments' : 'home.featuredTournament')}
-                        </Text>
-                        <Link href="/competitive/tournaments">{getTranslation('home.viewAll')}</Link>
-                    </View>
-                    <View className="flex flex-row -mx-2">
+            <View className="gap-2 pb-5 lg:pb-8">
+                <View className="flex-row justify-between items-center">
+                    <Text variant="header-lg">
                         {followedIds[0]
-                            ? followedIds.slice(0, count).map((tournament) => (
-                                  <View key={tournament} style={{ width: `${100 / count}%` }} className="px-2">
-                                      <TournamentCardLarge path={tournament} />
-                                  </View>
-                              ))
-                            : tournaments.data.slice(0, count).map((tournament) => (
-                                  <View key={tournament.path} style={{ width: `${100 / count}%` }} className="px-2">
-                                      <TournamentCardLarge {...tournament} />
-                                  </View>
-                              ))}
-                    </View>
+                            ? getTranslation(isMedium ? 'home.favoriteTournaments' : 'home.favoriteTournament')
+                            : getTranslation(isMedium ? 'home.featuredTournaments' : 'home.featuredTournament')}
+                    </Text>
+                    <Link href="/competitive/tournaments">{getTranslation('home.viewAll')}</Link>
                 </View>
-            ) : null}
+                <View className="flex flex-row -mx-2">
+                    {followedIds[0]
+                        ? followedIds.slice(0, count).map((tournament) => (
+                              <View key={tournament} style={{ width: `${100 / count}%` }} className="px-2">
+                                  <TournamentCardLarge path={tournament} />
+                              </View>
+                          ))
+                        : tournaments.data.slice(0, count).map((tournament) => (
+                              <View key={tournament.path} style={{ width: `${100 / count}%` }} className="px-2">
+                                  <TournamentCardLarge {...tournament} />
+                              </View>
+                          ))}
+                </View>
+            </View>
 
             <View className="gap-2 pb-5 lg:pb-8">
                 <Text variant="header-lg">{getTranslation('home.recentnews')}</Text>

@@ -10,10 +10,10 @@ import { DismissKeyboard } from '@app/view/components/dismiss-keyboard';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { Stack } from 'expo-router';
-import { Tournament } from 'liquipedia';
+import { Tournament } from '@app/api/liquipedia.types';
 import { orderBy } from 'lodash';
 import { useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 
 
@@ -80,7 +80,7 @@ export default function TournamentsList() {
     const filteredTournaments =
         sections.length > 0
             ? sections
-            : query.isFetching || Platform.OS === 'web'
+            : query.isFetching
               ? []
               : [{ title: getTranslation('tournaments.noresults'), data: [] }];
 
@@ -108,16 +108,6 @@ export default function TournamentsList() {
             />
             <DismissKeyboard>
                 <SectionList
-                    ListEmptyComponent={
-                        Platform.OS === 'web' ? (
-                            <View className="items-center gap-4">
-                                <Text variant="label-lg">{getTranslation('tournaments.noweb')}</Text>
-                                <Button href="https://liquipedia.net/ageofempires/Portal:Tournaments">
-                                    {getTranslation('tournaments.gotoliquipedia')}
-                                </Button>
-                            </View>
-                        ) : undefined
-                    }
                     className="flex-1"
                     refreshControl={<RefreshControlThemed {...refreshControlProps} />}
                     ListHeaderComponent={listHeader}

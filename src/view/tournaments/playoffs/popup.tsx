@@ -6,7 +6,7 @@ import { faCheck } from '@fortawesome/sharp-solid-svg-icons';
 import { format, isPast } from 'date-fns';
 import { Image } from '@/src/components/uniwind/image';
 import { router } from 'expo-router';
-import { PlayoffMatch as IPlayoffMatch } from 'liquipedia';
+import { PlayoffMatch as IPlayoffMatch } from '@app/api/liquipedia.types';
 import { Fragment, useEffect } from 'react';
 import { ActivityIndicator, Linking, Platform, Pressable, StyleSheet, View } from 'react-native';
 
@@ -70,11 +70,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                         <View className="flex-row gap-2 justify-center">
                             <Pressable
                                 className="flex-row items-center justify-center gap-2 mb-2"
-                                onPress={() =>
-                                    Platform.OS === 'web'
-                                        ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
-                                        : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
-                                }
+                                onPress={() => router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)}
                             >
                                 {!!(tournament.league?.image) && <Image source={{ uri: tournament.league.image }} className="w-6 h-6" />}
                                 <Text variant="label-lg">{tournament.name}</Text>
@@ -131,7 +127,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                                                 <PlayoffPlayer key={playerIndex} player={player} />
                                             ))}
                                         </View>
-                                        <Icon icon={faCheck} size={16} style={{ color: game.winner === 0 ? 'green' : 'transparent' }} />
+                                        <Icon icon={faCheck} size={16} color={game.winner === 0 ? 'accent-[#22c55e]' : 'accent-[transparent]'} />
                                     </View>
                                     <MyText style={[styles.map, notPlayed && styles.mapNotPlayed]}>{game.map}</MyText>
                                     <View style={[styles.playersContainer, styles.reversed]}>
@@ -140,7 +136,7 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                                                 <PlayoffPlayer key={playerIndex} player={player} reverse />
                                             ))}
                                         </View>
-                                        <Icon icon={faCheck} size={16} style={{ color: game.winner === 1 ? 'green' : 'transparent' }} />
+                                        <Icon icon={faCheck} size={16} color={game.winner === 1 ? 'accent-[#22c55e]' : 'accent-[transparent]'} />
                                     </View>
                                 </View>
                             );
@@ -149,10 +145,16 @@ export const PlayoffPopup: React.FC<{ match: IPlayoffMatch; visible: boolean; se
                     {!!(match.note) && <TournamentMarkdown>{match.note}</TournamentMarkdown>}
                     <View style={styles.linksContainer}>
                         {match.links
-                            .filter((link) => link.image && link.url)
+                            .filter((link) => link.url)
                             .map((link) => (
                                 <PressableOpacity key={link.text} onPress={() => Linking.openURL(link.url)}>
-                                    <Image source={{ uri: link.image }} alt={link.text} contentFit="contain" style={styles.linkImage} />
+                                    {link.image ? (
+                                        <Image source={{ uri: link.image }} alt={link.text} contentFit="contain" style={styles.linkImage} />
+                                    ) : (
+                                        <Text variant="label" color="brand">
+                                            {link.text}
+                                        </Text>
+                                    )}
                                 </PressableOpacity>
                             ))}
                     </View>
@@ -196,7 +198,7 @@ const useStyles = createStylesheet((theme) =>
         linksContainer: {
             flexDirection: 'row',
             justifyContent: 'center',
-            gap: 8,
+            gap: 16,
         },
         linkImage: {
             width: 25,

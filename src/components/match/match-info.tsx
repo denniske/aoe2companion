@@ -10,7 +10,7 @@ import { ScrollView } from '@app/components/scroll-view';
 import { Icon } from '@app/components/icon';
 import { faClock, faMemoCircleInfo, faRunning, faWrench } from '@fortawesome/sharp-solid-svg-icons';
 import { appConfig } from '@nex/dataset';
-import { tournamentsEnabled, useUpcomingTournamentMatches } from '@app/api/tournaments';
+import { useUpcomingTournamentMatches } from '@app/api/tournaments';
 import { differenceInMilliseconds, differenceInMinutes } from 'date-fns';
 import { useRouter } from 'expo-router';
 import { matchTimedOut } from '@app/components/elapsed-time-or-duration';
@@ -82,11 +82,7 @@ export default function MatchInfo(props: Props) {
                 {!!(tournament) && (
                     <Pressable
                         className="flex-row items-center gap-1"
-                        onPress={() =>
-                            Platform.OS === 'web' && !tournamentsEnabled
-                                ? Linking.openURL(`https://liquipedia.net/ageofempires/${tournament.path}`)
-                                : router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)
-                        }
+                        onPress={() => router.navigate(`/competitive/tournaments/${encodeURIComponent(tournament.path)}`)}
                     >
                         {!!tournament.image && <Image source={{ uri: tournament.image }} className="w-5 h-5" />}
                         <Text color="subtle">

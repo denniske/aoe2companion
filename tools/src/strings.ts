@@ -1,4 +1,3 @@
-import axios from "axios"
 import * as fs from "fs"
 import * as path from "path"
 
@@ -55,16 +54,13 @@ const aoe2techtreeLanguageMap = {
 async function loadStringsAoE2TechTreeForLanguage(language: keyof typeof aoe2techtreeLanguageMap) {
     const dirPath = path.resolve(__dirname, '..', '..', 'assets', 'data', aoe2techtreeLanguageMap[language]);
     const filePath = path.resolve(__dirname, '..', '..', 'assets', 'data', aoe2techtreeLanguageMap[language], 'strings.json');
-    const response = await axios({
-        method: 'GET',
-        url: `https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/locales/${language}/strings.json`,
-    });
+    const response = await fetch(`https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/locales/${language}/strings.json`);
 
     if (!fs.existsSync(dirPath)){
         fs.mkdirSync(dirPath);
     }
 
-    const json = response.data;
+    const json = await response.json();
     fs.writeFileSync(filePath, JSON.stringify(json, null, 4));
 }
 
@@ -82,16 +78,13 @@ async function loadDataAoE2TechTree() {
 
     console.log("Loading data from aoe2techtree");
 
-    const response = await axios({
-        method: 'GET',
-        url: `https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/data.json`,
-    });
+    const response = await fetch(`https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/data.json`);
 
     if (!fs.existsSync(dirPath)){
         fs.mkdirSync(dirPath);
     }
 
-    const json = response.data;
+    const json = await response.json();
     fs.writeFileSync(filePath, `export const aoeDataInternal = ${JSON.stringify(json, null, 4)} as const;`);
 }
 
@@ -126,16 +119,13 @@ async function loadStringsAoe4Explorer() {
 async function loadStringAoe4Explorer(civ: string, explorerAbbreviation: string) {
     const dirPath = path.resolve(__dirname, '..', '..', 'app4', 'src', 'data');
     const filePath = path.resolve(__dirname, '..', '..', 'app4', 'src', 'data', `${civ.toLowerCase()}.ts`);
-    const response = await axios({
-        method: 'GET',
-        url: `https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${explorerAbbreviation}.json`,
-    });
+    const response = await fetch(`https://raw.githubusercontent.com/aoe4world/data/main/civilizations/${explorerAbbreviation}.json`);
 
     if (!fs.existsSync(dirPath)){
         fs.mkdirSync(dirPath);
     }
 
-    const json = response.data;
+    const json = await response.json();
     fs.writeFileSync(filePath, `export const civData${civ} = ${JSON.stringify(json, null, 4)} as const;`);
 }
 

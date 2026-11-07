@@ -1,5 +1,4 @@
 import { useRefreshControl, useTournaments } from '@app/api/tournaments';
-import { Button } from '@app/components/button';
 import { Dropdown } from '@app/components/dropdown';
 import { Field } from '@app/components/field';
 import { KeyboardAvoidingView } from '@app/components/keyboard-avoiding-view';
@@ -10,17 +9,18 @@ import {
     formatTierShort,
     sortedTiers,
     tournamentAbbreviation,
+    tournamentStatus,
     transformSearch,
 } from '@app/helper/tournaments';
 import { useAppTheme } from '@app/theming';
 import { DismissKeyboard } from '@app/view/components/dismiss-keyboard';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
-import { appConfig } from '@nex/dataset';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { GameVersion, TournamentCategory } from 'liquipedia';
+import { Tournament, TournamentCategory } from '@app/api/liquipedia.types';
+import { orderBy } from 'lodash';
 import { useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 
 export default function AllTournaments() {
@@ -28,7 +28,7 @@ export default function AllTournaments() {
     const params = useLocalSearchParams<{ league?: string }>();
     const { league } = params;
     const [category, setCategory] = useState<TournamentCategory>(sortedTiers[0]);
-    const { data: tournaments = [], ...query } = useTournaments((league as TournamentCategory) || category);
+    const { data: tournaments = [], ...query } = useTournaments(league ? { series: league } : { category });
     const [search, setSearch] = useState('');
     const theme = useAppTheme();
     // Keys are bound to locals first: React Compiler cannot lower a computed key
@@ -41,24 +41,23 @@ export default function AllTournaments() {
         [upcomingTitle]: getTranslation('tournaments.sortedbydate'),
         [recentTitle]: getTranslation('tournaments.sortedbydate'),
     };
-    const matchingTournaments = tournaments
-        .map((tournamentsSection) => {
-            return {
-                ...tournamentsSection,
-                data: tournamentsSection.data.filter(
-                    (tournament) =>
-                        tournament.game === (appConfig.game === 'aoe2' ? GameVersion.Age2 : GameVersion.Age4) &&
-                        (transformSearch(tournament.name).includes(transformSearch(search)) ||
-                            tournamentAbbreviation(tournament.name).includes(transformSearch(search)))
-                ),
-            };
-        })
-        .filter((tournamentSection) => tournamentSection.data.length);
+    const matchingTournaments = tournaments.filter(
+        (tournament) =>
+            transformSearch(tournament.name).includes(transformSearch(search)) ||
+            tournamentAbbreviation(tournament.name).includes(transformSearch(search))
+    );
+    const byStatus: Record<ReturnType<typeof tournamentStatus>, Tournament[]> = { ongoing: [], upcoming: [], past: [] };
+    matchingTournaments.forEach((tournament) => byStatus[tournamentStatus(tournament)].push(tournament));
+    const sections = [
+        { title: ongoingTitle, data: orderBy(byStatus.ongoing, [(t) => t.end ?? t.start], ['asc']) },
+        { title: upcomingTitle, data: orderBy(byStatus.upcoming, ['start', 'end'], ['asc', 'asc']) },
+        { title: recentTitle, data: orderBy(byStatus.past, [(t) => t.end ?? t.start], ['desc']) },
+    ].filter((section) => section.data.length);
 
     const filteredTournaments =
-        matchingTournaments.length > 0
-            ? matchingTournaments
-            : query.isFetching || Platform.OS === 'web'
+        sections.length > 0
+            ? sections
+            : query.isFetching
               ? []
               : [{ title: getTranslation('tournaments.noresults'), data: [] }];
 
@@ -86,20 +85,10 @@ export default function AllTournaments() {
 
     return (
         <KeyboardAvoidingView>
-            <Stack.Screen options={{ title: league ? decodeURI(league).replaceAll('_', ' ') : getTranslation('tournaments.alltitle') }} />
+            <Stack.Screen options={{ title: league ? decodeURIComponent(league).replaceAll('_', ' ') : getTranslation('tournaments.alltitle') }} />
             <DismissKeyboard>
                 <SectionList
                     ListHeaderComponentStyle={{ zIndex: 100 }}
-                    ListEmptyComponent={
-                        Platform.OS === 'web' ? (
-                            <View className="items-center gap-4">
-                                <Text variant="label-lg">{getTranslation('tournaments.noweb')}</Text>
-                                <Button href="https://liquipedia.net/ageofempires/Portal:Tournaments">
-                                    {getTranslation('tournaments.gotoliquipedia')}
-                                </Button>
-                            </View>
-                        ) : undefined
-                    }
                     className="flex-1"
                     refreshControl={<RefreshControlThemed {...refreshControlProps} />}
                     ListHeaderComponent={listHeader}

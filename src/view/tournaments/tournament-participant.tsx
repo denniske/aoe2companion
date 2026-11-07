@@ -2,14 +2,15 @@ import { PressableOpacity } from '@app/components/pressable-opacity';
 import { StyleSheet, ViewStyle } from 'react-native';
 import { createStylesheet } from '../../theming-new';
 import { MyText } from '../components/my-text';
-import { EventParticipant } from 'liquipedia';
+import { EventParticipant } from '@app/api/liquipedia.types';
 import { Image } from '@/src/components/uniwind/image';
+import { CountryImage } from '../components/country-image';
 import { getDifficultyIcon } from '../../helper/difficulties';
 import { router } from 'expo-router';
 import { FC } from 'react';
 
 interface EventParticipantWithProfileId extends EventParticipant {
-    profileId?: string;
+    profileId?: number;
 }
 
 export const TournamentParticipant: FC<{
@@ -32,7 +33,7 @@ export const TournamentParticipant: FC<{
             }}
             disabled={!participant.profileId}
         >
-            {!!(participant.image) && <Image source={{ uri: participant.image }} contentFit="contain" style={{ width: size * 2, height: size }} />}
+            {!!(participant.country) && <CountryImage country={participant.country} style={{ fontSize: size }} />}
             <MyText
                 style={[styles.name, { fontSize: size }, { fontWeight: participant.profileId ? (bold ? 'bold' : '600') : 'normal' }]}
                 numberOfLines={1}

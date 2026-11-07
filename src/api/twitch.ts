@@ -1,7 +1,7 @@
 import { getHost } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { getJson } from './helper/util';
 
 import { ITwitchChannel } from './following';
 
@@ -11,7 +11,7 @@ export const useLiveTwitchAccounts = () => {
         queryFn: async () => {
             const url = getHost('aoe2companion-api') + `twitch/live?game=${appConfig.game === 'aoe2' ? '13389' : '498482'}`;
 
-            const { data } = await axios.get(url);
+            const data = await getJson<unknown>(url);
             return (Array.isArray(data) ? data : []) as ITwitchChannel[];
         },
         staleTime: 1000 * 60 * 5,
