@@ -44,6 +44,10 @@ export function liquipediaImage(url?: string): string | undefined {
     return `${getHost('aoe2companion-tournament')}api/tournaments/image/${url.slice(prefix.length)}`;
 }
 
+// Liquipedia's own icon for a tournament without one, as the liquipedia package used to fall back to.
+const DEFAULT_TOURNAMENT_ICON =
+    'https://liquipedia.net/commons/images/thumb/3/35/Age_of_Empires_default_allmode.png/100px-Age_of_Empires_default_allmode.png';
+
 /** v3 writes a missing date as year 0, and a date without time as midnight. */
 function parseDate(value?: string): Date | undefined {
     if (!value || value.startsWith('0000') || value.startsWith('1970-01-01')) return undefined;
@@ -142,7 +146,7 @@ export function convertTournament(row: ILiquipediaTournament): Tournament {
                   : undefined,
         league: {
             name: row.seriespage?.replace(/_/g, ' ') ?? '',
-            image: liquipediaImage(row.iconurl || row.icondarkurl),
+            image: liquipediaImage(row.iconurl || row.icondarkurl || DEFAULT_TOURNAMENT_ICON),
             path: row.seriespage || undefined,
         },
     };
@@ -221,7 +225,7 @@ export function convertMatches(matches: INewLiquipediaMatch[] | undefined, tourn
                 ...tournament,
                 name: tournament?.name ?? match.tournament,
                 path: tournament?.path ?? match.parent,
-                image: tournament?.league?.image ?? liquipediaImage(match.iconurl),
+                image: tournament?.league?.image ?? liquipediaImage(match.iconurl || DEFAULT_TOURNAMENT_ICON),
             },
         } as ConvertedLiquipediaMatch;
     });
