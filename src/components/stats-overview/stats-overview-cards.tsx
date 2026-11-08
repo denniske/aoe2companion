@@ -3,6 +3,7 @@ import { Text } from '@app/components/text';
 import { getCountryName } from '@app/helper/flags';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
+import { appConfig } from '@nex/dataset';
 import { Href, Link } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
@@ -128,7 +129,14 @@ export const CivWinratesTeaser: React.FC = () => {
     const { data, error } = useMeta('civs');
     const byWinRate = [...(data?.civs ?? [])].filter((c) => c.games >= MIN_RANKED_GAMES).sort((a, b) => b.winRate - a.winRate);
     return (
-        <TeaserCard title="Civilizations" subtitle="Strongest and weakest civs in ranked 1v1" href="/statistics/winrates" linkLabel="All civ win rates">
+        <TeaserCard
+            title="Civilizations"
+            subtitle="Strongest and weakest civs in ranked 1v1"
+            // The win rates page still reads aoestats.io, which only has aoe2; aoe4 gets each civ's
+            // overall win rate on the matchups page instead.
+            href={appConfig.game === 'aoe2' ? '/statistics/winrates' : '/statistics/matchups'}
+            linkLabel={appConfig.game === 'aoe2' ? 'All civ win rates' : 'Civs and matchups'}
+        >
             {!data ? (
                 <MetaPlaceholder error={error} />
             ) : (

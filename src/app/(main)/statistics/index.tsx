@@ -11,18 +11,13 @@ import {
 import { SectionTitle } from '@app/components/stats-overview/stats-ui';
 import { Text } from '@app/components/text';
 import { useTranslation } from '@app/helper/translate';
-import { appConfig } from '@nex/dataset';
-import { Redirect, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
 
 // The leaderboard preview reads the leaderboard API; every other card reads /api/meta.
 export default function StatisticsPage() {
     const getTranslation = useTranslation();
-
-    if (appConfig.game !== 'aoe2') {
-        return <Redirect href="/statistics/leaderboard" />;
-    }
 
     // Cards are paired in rows of two on wide screens, each pair sized to hold about
     // the same amount of content so neither card in a row is left half empty.
