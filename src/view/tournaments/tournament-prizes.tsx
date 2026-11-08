@@ -1,6 +1,6 @@
 import { Card } from '@app/components/card';
 import { Image } from '@/src/components/uniwind/image';
-import { TournamentDetail } from 'liquipedia';
+import { TournamentDetail } from '@app/api/liquipedia.types';
 import { StyleSheet, View } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
 

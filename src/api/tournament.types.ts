@@ -1,4 +1,4 @@
-import { Match } from 'liquipedia';
+import type { Match } from './liquipedia.types';
 
 export type ConvertedLiquipediaMatch = Match & {
     finished: boolean;
@@ -235,4 +235,114 @@ export interface INewLiquipediaMatch {
         };
     }[];
     wiki: string;
+}
+
+export interface ILiquipediaTournament {
+    pagename: string;
+    objectname: string;
+    name: string;
+    shortname: string;
+    tickername: string;
+    game: string;
+    /** "1v1", "2v2", "team", ... */
+    mode: string;
+    /** "Online" or "Offline" */
+    type: string;
+    status: string;
+    startdate: string;
+    enddate: string;
+    liquipediatier: string;
+    liquipediatiertype: string;
+    prizepool: number;
+    participantsnumber: number;
+    format: string;
+    iconurl: string;
+    icondarkurl: string;
+    bannerurl: string;
+    seriespage: string;
+    /** JSON: {"1": {"link": "Arabia"}, ...} */
+    maps: string;
+    /** JSON: {"organizer1": "...", ...} */
+    organizers: string;
+    locations?: {
+        city1?: string;
+        venue1?: string;
+        region1?: string;
+        country1?: string;
+    };
+}
+
+export interface ILiquipediaStandingsTable {
+    pagename: string;
+    parent: string;
+    objectname: string;
+    standingsindex: number;
+    title: string;
+    section: string;
+    type: string;
+    matches: string[];
+}
+
+export interface ILiquipediaStandingsEntry {
+    pagename: string;
+    parent: string;
+    objectname: string;
+    standingsindex: number;
+    roundindex: number;
+    placement: number;
+    opponentname: string;
+    opponenttype: string;
+    opponentplayers?: { p1?: string; p1dn?: string; p1flag?: string };
+    /** "up", "stayup", "stay", "down" */
+    currentstatus: string;
+    definitestatus: string;
+    scoreboard?: {
+        points?: number;
+        match?: { w: number; l: number; d: number };
+        game?: { w: number; l: number; d: number };
+    };
+}
+
+/** A row of v3's `datapoint` table with type map. */
+export interface ILiquipediaMap {
+    pagename: string;
+    name: string;
+    imageurl: string;
+    imagedarkurl: string;
+    extradata?: {
+        game?: string;
+        maptype?: string;
+        spawns?: string;
+        creator1dn?: string;
+        creator2dn?: string;
+        creator3dn?: string;
+    };
+}
+
+/** GET /api/tournament?pagename= on the tournament service. */
+export interface ILiquipediaTournamentResponse {
+    tournament: ILiquipediaTournament;
+    /** The tournaments shown as tabs on this one, this one included. Empty when it has none. */
+    subpages?: { pagename: string; name: string }[];
+    /** The rows of the maps in tournament.maps that Liquipedia has data for. */
+    maps?: ILiquipediaMap[];
+    matches: INewLiquipediaMatch[];
+    placements: ILiquipediaPlacement[];
+    standingstables: ILiquipediaStandingsTable[];
+    standingsentries: ILiquipediaStandingsEntry[];
+}
+
+/** GET /api/tournaments/player?pagename= on the tournament service. */
+export interface ILiquipediaPlayer {
+    name: string;
+    fullName?: string;
+    nationality?: string;
+    birthdate?: string;
+    status?: string;
+    yearsActive?: string;
+    team?: string;
+    earnings?: number;
+    image?: string;
+    bio?: string;
+    links?: Record<string, string>;
 }

@@ -4,7 +4,7 @@ import { faCircleCheck, faClock, faMinus, faWavePulse } from '@fortawesome/sharp
 import { Text } from '@app/components/text';
 import { timeStatus } from '@app/helper/tournaments';
 import { format, isSameDay } from 'date-fns';
-import { PlayoffMatch } from 'liquipedia';
+import { PlayoffMatch } from '@app/api/liquipedia.types';
 import { orderBy } from 'lodash';
 import { View } from 'react-native';
 import { formatCustom } from '@nex/data';

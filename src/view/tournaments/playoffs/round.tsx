@@ -1,5 +1,5 @@
 import { View, ViewStyle } from 'react-native';
-import { PlayoffRound as IPlayoffRound } from 'liquipedia';
+import { PlayoffRound as IPlayoffRound } from '@app/api/liquipedia.types';
 import { PlayoffMatch } from './match';
 import { Text } from '@app/components/text';
 import { FC } from 'react';

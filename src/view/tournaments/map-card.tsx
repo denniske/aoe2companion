@@ -1,13 +1,12 @@
-import { useMap } from '@app/api/tournaments';
+import { Button } from '@app/components/button';
 import { Card } from '@app/components/card';
 import { Text } from '@app/components/text';
 import { Image } from '@/src/components/uniwind/image';
-import { Map } from 'liquipedia';
+import { Map } from '@app/api/liquipedia.types';
 import { useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
-import { TournamentMarkdown } from './tournament-markdown';
-import {BottomSheet} from '../bottom-sheet';
+import { BottomSheet } from '../bottom-sheet';
 import { useTranslation } from '@app/helper/translate';
 
 const MapAttribute: React.FC<{ label: string; value?: string }> = ({ label, value }) =>
@@ -20,14 +19,15 @@ const MapAttribute: React.FC<{ label: string; value?: string }> = ({ label, valu
         </View>
     );
 
+// The details are what Liquipedia's v3 API has on a map; its description is only on the wiki page, which the
+// popup links to.
 export const MapCard: React.FC<{ map: Map }> = ({ map }) => {
     const getTranslation = useTranslation();
     const [isVisible, setIsVisible] = useState(false);
-    const { data: mapDetails, isLoading } = useMap(map.path ?? '', isVisible);
 
     return (
         <View>
-            <Card direction="vertical" className="p-4 w-36 gap-0" disabled={!map.path} onPress={() => setIsVisible(true)}>
+            <Card direction="vertical" className="p-4 w-36 gap-0" onPress={() => setIsVisible(true)}>
                 {!!map.image && <Image source={{ uri: map.image }} contentFit="contain" style={{ aspectRatio: 2 }} />}
                 <Text align="center" variant="label" className={map.image ? 'mt-2' : ''} numberOfLines={1}>
                     {map.name}
@@ -38,37 +38,18 @@ export const MapCard: React.FC<{ map: Map }> = ({ map }) => {
                     </Text>
                 )}
             </Card>
-            <BottomSheet closeButton isFullHeight isActive={isVisible} onClose={() => setIsVisible(false)} title={map.name ?? mapDetails?.name}>
-                <View className="mt-4">
-                    {isLoading ? (
-                        <ActivityIndicator size="large" />
-                    ) : (
-                        <View className="gap-2">
-                            <View className="flex-row items-center gap-4">
-                                {!!(mapDetails?.image || map.image) && (
-                                    <Image
-                                        source={{ uri: mapDetails?.image || map.image }}
-                                        contentFit="contain"
-                                        className="w-36"
-                                        style={{ aspectRatio: 2 }}
-                                    />
-                                )}
-                                <View className="flex-1">
-                                    <MapAttribute label={getTranslation('tournaments.map.creator')} value={mapDetails?.creator} />
-                                    <MapAttribute label={getTranslation('tournaments.map.type')} value={mapDetails?.type} />
-                                    <MapAttribute label={getTranslation('tournaments.map.walls')} value={mapDetails?.walls} />
-                                    <MapAttribute
-                                        label={getTranslation('tournaments.map.nomad')}
-                                        value={mapDetails?.nomad === undefined ? undefined : getTranslation(mapDetails.nomad ? 'tournaments.map.yes' : 'tournaments.map.no')}
-                                    />
-                                </View>
-                            </View>
-
-                            {mapDetails?.description ? <TournamentMarkdown>{mapDetails.description}</TournamentMarkdown> : null}
-
-                            {mapDetails?.overview ? <TournamentMarkdown>{mapDetails.overview}</TournamentMarkdown> : null}
+            <BottomSheet closeButton isActive={isVisible} onClose={() => setIsVisible(false)} title={map.name}>
+                <View className="mt-4 gap-4">
+                    <View className="flex-row items-center gap-4">
+                        {!!map.image && <Image source={{ uri: map.image }} contentFit="contain" className="w-36" style={{ aspectRatio: 2 }} />}
+                        <View className="flex-1">
+                            <MapAttribute label={getTranslation('tournaments.map.creator')} value={map.creator} />
+                            <MapAttribute label={getTranslation('tournaments.map.type')} value={map.category} />
                         </View>
-                    )}
+                    </View>
+                    <Button align="center" href={`https://liquipedia.net/ageofempires/${encodeURIComponent(map.path)}`}>
+                        {getTranslation('tournaments.gotoliquipedia')}
+                    </Button>
                 </View>
             </BottomSheet>
         </View>

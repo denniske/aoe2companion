@@ -1,5 +1,5 @@
 import { Card } from '@app/components/card';
-import { PlayoffMatch as IPlayoffMatch } from 'liquipedia';
+import { PlayoffMatch as IPlayoffMatch } from '@app/api/liquipedia.types';
 import { useState } from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
 

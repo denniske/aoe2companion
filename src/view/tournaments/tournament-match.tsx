@@ -2,7 +2,7 @@ import { Card } from '@app/components/card';
 import { SkeletonText } from '@app/components/skeleton';
 import { Text } from '@app/components/text';
 import { format } from 'date-fns';
-import { PlayoffMatch as IPlayoffMatch } from 'liquipedia';
+import { PlayoffMatch as IPlayoffMatch } from '@app/api/liquipedia.types';
 import { useState } from 'react';
 import { View, ViewStyle } from 'react-native';
 

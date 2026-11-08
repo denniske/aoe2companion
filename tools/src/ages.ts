@@ -1,7 +1,4 @@
 import path from 'path';
-import axios from 'axios';
-import {createWriteStream} from 'fs';
-import {finished} from "stream";
 import * as fs from "fs";
 const spawn = require('await-spawn');
 
@@ -13,16 +10,12 @@ function sleep(ms: number) {
     });
 }
 
-export async function downloadFile(fileUrl: string, outputLocationPath: string): Promise<any> {
-    const writer = createWriteStream(outputLocationPath);
-    return axios({
-        method: 'get',
-        url: fileUrl,
-        responseType: 'stream',
-    }).then(async response => {
-        response.data.pipe(writer);
-        return finished(writer, (err) => {});
-    });
+export async function downloadFile(fileUrl: string, outputLocationPath: string): Promise<void> {
+    const response = await fetch(fileUrl);
+    if (!response.ok) {
+        throw new Error(`GET ${fileUrl} answered ${response.status}`);
+    }
+    fs.writeFileSync(outputLocationPath, Buffer.from(await response.arrayBuffer()));
 }
 
 function deleteIfExists(path: string) {

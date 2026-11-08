@@ -1,5 +1,5 @@
 import { FlatList } from '@app/components/flat-list';
-import { TournamentDetail } from 'liquipedia';
+import { TournamentDetail } from '@app/api/liquipedia.types';
 
 import { MapCard } from './map-card';
 

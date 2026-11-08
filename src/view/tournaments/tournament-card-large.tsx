@@ -1,5 +1,5 @@
 import { useTournament } from '@app/api/tournaments';
-import { Tournament } from 'liquipedia';
+import { Tournament } from '@app/api/liquipedia.types';
 
 import { TournamentCard, TournamentSkeletonCard } from './tournament-card';
 

@@ -1,5 +1,4 @@
 import path from 'path';
-import axios from 'axios';
 import fs from 'fs';
 import YAML from 'yaml'
 
@@ -11,19 +10,13 @@ require('dotenv').config();
 async function loadReferenceData() {
     const filePath = path.resolve(__dirname, '..', '..', 'data', 'src', 'data', 'aoe-reference-data.ts');
 
-    const response = await axios({
-        method: 'GET',
-        url: `https://raw.githubusercontent.com/SiegeEngineers/aoc-reference-data/master/data/players.yaml`,
-    });
+    const response = await fetch(`https://raw.githubusercontent.com/SiegeEngineers/aoc-reference-data/master/data/players.yaml`);
 
-    const players = YAML.parse(response.data);
+    const players = YAML.parse(await response.text());
 
-    const response2 = await axios({
-        method: 'GET',
-        url: `https://raw.githubusercontent.com/SiegeEngineers/aoc-reference-data/master/data/teams.json`,
-    });
+    const response2 = await fetch(`https://raw.githubusercontent.com/SiegeEngineers/aoc-reference-data/master/data/teams.json`);
 
-    const teams = response2.data;
+    const teams = await response2.json();
 
     const aoeReferenceData = {
         players,

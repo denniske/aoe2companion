@@ -1,47 +1,36 @@
-import { appConfig } from '@nex/dataset';
 import { differenceInMinutes, endOfDay, isPast, startOfDay } from 'date-fns';
-import {
-    Age2TournamentCategory,
-    Age4TournamentCategory,
-    Match,
-    Playoff,
-    PlayoffMatch,
-    Tournament,
-    TournamentCategory,
-    TournamentDetail,
-} from 'liquipedia';
-import { orderBy, startCase } from 'lodash';
+import { Match, Playoff, PlayoffMatch, Tournament, TournamentCategory, TournamentDetail } from '@app/api/liquipedia.types';
+import { orderBy } from 'lodash';
 import { formatCurrency } from 'react-native-format-currency';
 
-export const sortedTiers: TournamentCategory[] =
-    appConfig.game === 'aoe2'
-        ? [
-              Age2TournamentCategory.TierS,
-              Age2TournamentCategory.TierA,
-              Age2TournamentCategory.TierB,
-              Age2TournamentCategory.TierC,
-              Age2TournamentCategory.Weekly,
-              Age2TournamentCategory.Monthly,
-              Age2TournamentCategory.ShowMatches,
-              Age2TournamentCategory.Qualifiers,
-              Age2TournamentCategory.FFA,
-              Age2TournamentCategory.Miscellaneous,
-          ]
-        : [
-              Age4TournamentCategory.TierS,
-              Age4TournamentCategory.TierA,
-              Age4TournamentCategory.TierB,
-              Age4TournamentCategory.TierC,
-              Age4TournamentCategory.Weekly,
-              Age4TournamentCategory.Monthly,
-              Age4TournamentCategory.ShowMatches,
-              Age4TournamentCategory.Qualifiers,
-              Age4TournamentCategory.FFA,
-              Age4TournamentCategory.Miscellaneous,
-          ];
+export const sortedTiers: TournamentCategory[] = [
+    TournamentCategory.TierS,
+    TournamentCategory.TierA,
+    TournamentCategory.TierB,
+    TournamentCategory.TierC,
+    TournamentCategory.Weekly,
+    TournamentCategory.Monthly,
+    TournamentCategory.ShowMatches,
+    TournamentCategory.Qualifiers,
+    TournamentCategory.FFA,
+    TournamentCategory.Miscellaneous,
+];
+
+const tierNames: Record<TournamentCategory, string> = {
+    [TournamentCategory.TierS]: 'S Tier',
+    [TournamentCategory.TierA]: 'A Tier',
+    [TournamentCategory.TierB]: 'B Tier',
+    [TournamentCategory.TierC]: 'C Tier',
+    [TournamentCategory.Weekly]: 'Weekly',
+    [TournamentCategory.Monthly]: 'Monthly',
+    [TournamentCategory.ShowMatches]: 'Show Matches',
+    [TournamentCategory.Qualifiers]: 'Qualifier',
+    [TournamentCategory.FFA]: 'FFA',
+    [TournamentCategory.Miscellaneous]: 'Miscellaneous',
+};
 
 export const sortByTier = (tournament: Tournament) => {
-    return sortedTiers.indexOf(tournament.tier);
+    return tournament.tier ? sortedTiers.indexOf(tournament.tier) : sortedTiers.length;
 };
 export const sortByStatus = (tournament: Tournament) => {
     const status = tournamentStatus(tournament);
@@ -63,7 +52,7 @@ export const tournamentAbbreviation = (string: string) =>
 export const formatPrizePool = (prizePool: NonNullable<Tournament['prizePool']>) =>
     formatCurrency({ ...prizePool, amount: Math.round(prizePool.amount) })[0].replace(/(,\d{3})/i, 'K');
 
-export const formatTier = (tier: TournamentCategory) => startCase(tier.split('/').at(-1)?.split('Tournament')[0]);
+export const formatTier = (tier: TournamentCategory) => tierNames[tier] ?? tier;
 
 export const getMatches = (playoffs: Playoff[] | undefined) =>
     orderBy(

@@ -80,6 +80,17 @@ const sentryConfigPlugin = [
         url: 'https://sentry.io/',
         organization: 'aoe2companion',
         project: app.sentryProject,
+        // Uploads the R8 mapping during the release build and writes its UUID into the manifest
+        // (io.sentry.proguard-uuid). Without that UUID Sentry cannot match an uploaded map to an
+        // event, so a plain `sentry-cli debug-files upload --type proguard` after the build would
+        // leave Android stack traces obfuscated (dg.a0 instead of RNCWebViewManagerDelegate).
+        experimental_android: {
+            enableAndroidGradlePlugin: true,
+            includeProguardMapping: true,
+            autoUploadProguardMapping: true,
+            uploadNativeSymbols: false,
+            includeNativeSources: false,
+        },
     },
 ] as [string, any];
 

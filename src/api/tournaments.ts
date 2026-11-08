@@ -1,36 +1,42 @@
-import { sortByStart, sortByStatus, sortByTier, sortedTiers } from '@app/helper/tournaments';
-import { appConfig } from '@nex/dataset';
+import { sortByStart, sortByStatus, sortByTier } from '@app/helper/tournaments';
 import { useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
-import * as Application from 'expo-application';
-import { GameVersion, Liquipedia, MapDetail, Match, Tournament, TournamentCategory, TournamentDetail, TournamentSection } from 'liquipedia';
 import { orderBy } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
-import { Platform } from 'react-native';
 import { fetchJson } from '@app/api/util';
 import compact from 'lodash/compact';
-import { getHost, parseIntNullable } from '@nex/data';
+import { getHost } from '@nex/data';
 import { makeQueryString } from '@app/api/helper/util';
-import { parseISO, subDays } from 'date-fns';
-import { ConvertedLiquipediaMatch, ILiquipediaPlacement, INewLiquipediaMatch } from '@app/api/tournament.types';
+import { ILiquipediaPlayer, ILiquipediaTournament, ILiquipediaTournamentResponse, INewLiquipediaMatch } from '@app/api/tournament.types';
+import { convertMatches, convertPlayer, convertTournament, convertTournamentDetail } from '@app/api/liquipedia.convert';
+import { Tournament, TournamentCategory, TournamentDetail } from '@app/api/liquipedia.types';
 
-export const tournamentsEnabled = (false && __DEV__) || Platform.OS !== 'web';
+// Tournaments come from our tournament service, which keeps a copy of Liquipedia's v3 data. Every client used to
+// scrape the wiki itself, which Liquipedia's CORS policy ruled out on web.
+export const tournamentsEnabled = true;
 
-const liquipedia = new Liquipedia({
-    USER_AGENT: `${Application.applicationName}/${Application.nativeApplicationVersion} (hello@aoe2companion.com)`,
-});
+function tournamentApi<T>(path: string, params: Record<string, any> = {}): Promise<T> {
+    return fetchJson(`${getHost('aoe2companion-tournament')}api/${path}?${makeQueryString(params)}`);
+}
 
-export const useTournaments = (category: TournamentCategory | undefined) =>
-    useQuery<TournamentSection[]>({
-        queryKey: ['tournaments', category],
-        queryFn: async () => await liquipedia.aoe.getTournaments(category ?? sortedTiers[0]),
-        enabled: tournamentsEnabled && !!category,
+async function fetchTournaments(params: { upcoming?: boolean; category?: TournamentCategory; series?: string; limit?: number }) {
+    const rows = await tournamentApi<ILiquipediaTournament[]>('tournaments', params);
+    return rows.map(convertTournament);
+}
+
+/** A tier's tournaments, or with `series` a series' tournaments. Newest first. */
+export const useTournaments = ({ category, series }: { category?: TournamentCategory; series?: string }) =>
+    useQuery<Tournament[]>({
+        queryKey: ['tournaments', category, series],
+        staleTime: 120000,
+        queryFn: () => fetchTournaments(series ? { series } : { category, limit: 200 }),
+        enabled: tournamentsEnabled && !!(category || series),
     });
 
 export const useUpcomingTournaments = () =>
     useQuery<Tournament[]>({
-        queryKey: ['tournaments'],
-        staleTime: 120000, // 0
-        queryFn: async () => await liquipedia.aoe.getUpcomingTournaments(appConfig.game === 'aoe2' ? GameVersion.Age2 : GameVersion.Age4),
+        queryKey: ['tournaments', 'upcoming'],
+        staleTime: 120000,
+        queryFn: () => fetchTournaments({ upcoming: true }),
         enabled: tournamentsEnabled,
     });
 
@@ -43,13 +49,15 @@ export const useFeaturedTournaments = () => {
     return { data: orderBy(tournaments, [sortByTier, sortByStatus, sortByStart], ['asc', 'asc', 'asc']), ...query };
 };
 
-export const useAllTournaments = () =>
-    useQuery<Tournament[]>({
-        queryKey: ['tournaments'],
-        staleTime: 120000,
-        queryFn: async () => await liquipedia.aoe.getAllTournaments(),
-        enabled: tournamentsEnabled,
-    });
+// One request per tournament: the detail, its matches and its placements are all read from the same cached rows.
+// Ids arrive URL-encoded from routes and decoded from rows. MediaWiki titles cannot contain a percent-encoding, so
+// decoding is safe either way.
+const tournamentQuery = (id: string, enabled?: boolean) => ({
+    queryKey: ['tournament', id],
+    queryFn: () => tournamentApi<ILiquipediaTournamentResponse>('tournament', { pagename: decodeURIComponent(id).replace(/ /g, '_') }),
+    enabled: tournamentsEnabled && enabled !== false && !!id,
+    staleTime: 60000,
+});
 
 export const useTournament = (id: string, enabled?: boolean) => {
     const [currentId, setCurrentId] = useState(id);
@@ -61,155 +69,58 @@ export const useTournament = (id: string, enabled?: boolean) => {
             setCurrentId(id);
         }
     }, [query.isFetching, id]);
-    const cachedData: TournamentDetail | undefined = queryClient.getQueryData(['tournament', currentId]);
+    // While a new id loads, keep showing the previous tournament.
+    const cachedRows: ILiquipediaTournamentResponse | undefined = queryClient.getQueryData(['tournament', currentId]);
+    const cachedData = useMemo(() => cachedRows && convertTournamentDetail(cachedRows), [cachedRows]);
     const data: TournamentDetail | undefined = query.data ?? cachedData;
 
     return { ...query, data };
 };
 
 export const useTournamentDetail = (id: string, enabled?: boolean) =>
-    useQuery<TournamentDetail>({
-        queryKey: ['tournament', id],
-        staleTime: 120000,
-        queryFn: async () => await liquipedia.aoe.getTournament(id),
-        enabled: tournamentsEnabled && enabled,
-    });
-
-export const useTournamentPlayer = (id?: string) =>
     useQuery({
-        queryKey: ['player', id],
-        staleTime: 120000,
-        queryFn: async () => await liquipedia.aoe.getPlayer(id ?? ''),
-        enabled: tournamentsEnabled && !!id,
+        ...tournamentQuery(id, enabled),
+        select: convertTournamentDetail,
     });
 
-export const useTournamentPlayerOverview = (id?: string) =>
+export const useTournamentMatches = ({ tournamentId, enabled = true }: { tournamentId: string; enabled?: boolean }) => {
+    const { data: tournament } = useTournament(tournamentId);
+    const {
+        data: matches,
+        isLoading,
+        ...query
+    } = useQuery({
+        ...tournamentQuery(tournamentId, enabled),
+        select: (rows) => rows.matches,
+        refetchOnWindowFocus: true,
+    });
+
+    const liquipediaMatches = useMemo(() => convertMatches(matches, compact([tournament])), [matches, tournament]);
+
+    return {
+        data: liquipediaMatches,
+        isLoading,
+        ...query,
+    };
+};
+
+export const useTournamentPlacements = ({ tournamentId, enabled = true }: { tournamentId: string; enabled?: boolean }) =>
     useQuery({
-        queryKey: ['player', 'overview', id],
+        ...tournamentQuery(tournamentId, enabled),
+        select: (rows) => rows.placements,
+    });
+
+/** A player's page, by Liquipedia page name (a profile's socialLiquipedia). */
+export const useTournamentPlayer = (pagename?: string) =>
+    useQuery({
+        queryKey: ['player', pagename],
         staleTime: 120000,
-        queryFn: async () => await liquipedia.aoe.getPlayerOverview(id ?? ''),
-        enabled: tournamentsEnabled && !!id,
+        queryFn: async () => convertPlayer(await tournamentApi<ILiquipediaPlayer>('tournaments/player', { pagename })),
+        enabled: tournamentsEnabled && !!pagename,
     });
-
-async function getLiquipediaMatches(options: { tournamentId?: string; upcoming?: boolean }) {
-    // console.log('getLiquipediaMatches', options);
-
-    const yesterday = subDays(new Date(), 1);
-    const yesterdayString = yesterday.toISOString().split('T')[0]; // Format: YYYY-MM-DD
-    const conditions = [`[[game::${appConfig.liquipediaName}]]`];
-    if (options.tournamentId) {
-        conditions.push(`[[pagename::${options.tournamentId}]]`);
-    }
-    if (options.upcoming) {
-        conditions.push(`[[finished::0]] AND [[date::>${yesterdayString}]]`);
-    }
-
-    const queryString = makeQueryString({
-        limit: 100,
-        wiki: 'ageofempires',
-        offset: 0,
-        order: 'date asc',
-        conditions: conditions.join(' AND '),
-    });
-    return (
-        await fetchJson(`${getHost('aoe2companion-tournament')}api/external/match?${queryString}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-    )?.result;
-}
-
-async function getLiquipediaPlacements(options: { tournamentId?: string; upcoming?: boolean }) {
-    // console.log('getLiquipediaPlacements', options);
-
-    const conditions = [`[[game::${appConfig.liquipediaName}]]`];
-    if (options.tournamentId) {
-        conditions.push(`[[pagename::${options.tournamentId}]]`);
-    }
-
-    const queryString = makeQueryString({
-        limit: 100,
-        wiki: 'ageofempires',
-        offset: 0,
-        conditions: conditions.join(' AND '),
-    });
-    return (
-        await fetchJson(`${getHost('aoe2companion-tournament')}api/external/placement?${queryString}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-    )?.result;
-}
-
-function convertNewLiquipediaMatches(newLiquipediaMatches: INewLiquipediaMatch[] | undefined, tournaments?: (Tournament | TournamentDetail)[]) {
-    const list = compact(
-        newLiquipediaMatches?.map((match) => {
-            const tournament = tournaments?.find((tournament) => tournament.path === match.parent);
-
-            const links = [];
-
-            // If the streamurls parameter is set to true and rawstreams is set to true, the API will return links to the streaming providers page
-            // https://api.liquipedia.net/documentation/api/v3/match
-            if (match.stream.twitch) {
-                links.push({
-                    text: 'Twitch',
-                    url: `https://www.twitch.tv/${match.stream.twitch}`,
-                });
-            }
-            if (match.vod) {
-                links.push({
-                    text: 'Watch VOD',
-                    url: match.vod,
-                });
-            }
-            if (match.links.mapdraft) {
-                links.push({
-                    text: 'Map Draft',
-                    url: match.links.mapdraft,
-                });
-            }
-            if (match.links.civdraft) {
-                links.push({
-                    text: 'Civ Draft',
-                    url: match.links.civdraft,
-                });
-            }
-
-            const games = match.match2games.map((game) => ({
-                map: game.map,
-                winner: parseIntNullable(game.winner),
-                players: game.opponents.map((opponent) =>
-                    opponent.players.map((player) => ({
-                        name: player.pageName,
-                        civ: player.civ,
-                    }))
-                ),
-            }));
-
-            return {
-                format: match.mode,
-                finished: match.finished === 1,
-                startTime: match.date && match.date != '0000-01-01 00:00:00' ? parseISO(match.date + 'Z') : undefined,
-                participants: match.match2opponents.map((participant) => ({
-                    name: participant.name,
-                })) as [Match['participants'][0], Match['participants'][1]],
-                games,
-                links,
-                tournament: {
-                    ...tournament!,
-                    image: tournament?.league?.image,
-                },
-            } as ConvertedLiquipediaMatch;
-        })
-    );
-    return orderBy(list, m => m.startTime);
-}
 
 export const useUpcomingTournamentMatches = (enabled: boolean = true) => {
     const { data: upcomingTournaments, isLoading: isLoadingTournaments } = useUpcomingTournaments();
-    // const upcomingTournamentIds = upcomingTournaments?.map((tournament) => encodeURIComponent(tournament.path));
 
     const {
         data: matches,
@@ -217,13 +128,13 @@ export const useUpcomingTournamentMatches = (enabled: boolean = true) => {
         ...query
     } = useQuery<INewLiquipediaMatch[]>({
         queryKey: ['tournament', 'matches'],
-        queryFn: async () => await getLiquipediaMatches({ upcoming: true }),
+        queryFn: () => tournamentApi<INewLiquipediaMatch[]>('tournaments/matches'),
         enabled: tournamentsEnabled && enabled,
-        staleTime: 60000, // 0
+        staleTime: 60000,
         refetchOnWindowFocus: true,
     });
 
-    const liquipediaMatches = useMemo(() => convertNewLiquipediaMatches(matches, upcomingTournaments), [matches, upcomingTournaments]);
+    const liquipediaMatches = useMemo(() => convertMatches(matches, upcomingTournaments), [matches, upcomingTournaments]);
 
     return {
         data: liquipediaMatches,
@@ -231,58 +142,6 @@ export const useUpcomingTournamentMatches = (enabled: boolean = true) => {
         ...query,
     };
 };
-
-export const useTournamentMatches = ({ tournamentId, upcoming, enabled = true }: { tournamentId: string; upcoming?: boolean; enabled?: boolean }) => {
-    const { data: tournament, isLoading: isLoadingTournaments } = useTournament(tournamentId);
-
-    const {
-        data: matches,
-        isLoading,
-        ...query
-    } = useQuery<INewLiquipediaMatch[]>({
-        queryKey: ['tournament', 'matches', tournamentId],
-        queryFn: async () => await getLiquipediaMatches({ tournamentId, upcoming }),
-        enabled: tournamentsEnabled && enabled && tournamentId != null,
-        staleTime: 60000, // 0
-        refetchOnWindowFocus: true,
-    });
-
-    const liquipediaMatches = useMemo(() => convertNewLiquipediaMatches(matches, compact([tournament])), [matches, tournament]);
-
-    return {
-        data: liquipediaMatches,
-        isLoading: isLoadingTournaments || isLoading,
-        ...query,
-    };
-};
-
-export const useTournamentPlacements = ({ tournamentId, enabled = true }: { tournamentId: string; enabled?: boolean }) => {
-    const {
-        data: placements,
-        isLoading,
-        ...query
-    } = useQuery<ILiquipediaPlacement[]>({
-        queryKey: ['tournament', 'placements', tournamentId],
-        queryFn: async () => await getLiquipediaPlacements({ tournamentId }),
-        enabled: tournamentsEnabled && enabled && tournamentId != null,
-        staleTime: 60000, // 0
-        refetchOnWindowFocus: true,
-    });
-
-    // const liquipediaMatches = useMemo(() => convertNewLiquipediaMatches(matches, compact([tournament])), [matches, tournament]);
-
-    return {
-        data: placements,
-        ...query,
-    };
-};
-
-export const useMap = (path: string, enabled?: boolean) =>
-    useQuery<MapDetail>({
-        queryKey: ['tournament', 'maps', path],
-        queryFn: async () => await liquipedia.aoe.getMap(path),
-        enabled: tournamentsEnabled && enabled,
-    });
 
 export function useRefreshControl({ isFetching, refetch }: Pick<UseQueryResult, 'isFetching' | 'refetch'>) {
     const [refreshing, setFetching] = useState(!!isFetching);

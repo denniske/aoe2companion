@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
-import { Image } from '@/src/components/uniwind/image';
-import { EventParticipant } from 'liquipedia';
+import { CountryImage } from '../../components/country-image';
+import { EventParticipant } from '@app/api/liquipedia.types';
 import { MyText } from '../../components/my-text';
 import { createStylesheet } from '../../../theming-new';
 import { useTranslation } from '@app/helper/translate';
@@ -16,7 +16,7 @@ export const PlayoffParticipant: React.FC<{ size?: number; participant: EventPar
 
     return (
         <View style={[styles.nameContainer, reversed && styles.reversed]}>
-            {!!(participant.image) && <Image source={{ uri: participant.image }} contentFit="contain" style={{ width: size * 2, height: size }} />}
+            {!!(participant.country) && <CountryImage country={participant.country} style={{ fontSize: size }} />}
             <MyText numberOfLines={1} style={[{ fontSize: size, flex: 1, textAlign: reversed ? 'right' : 'left' }, winner && styles.winner]}>
                 {participant.name || getTranslation('tournaments.tbd')}
             </MyText>

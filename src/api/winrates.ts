@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { getJson, makeQueryString } from './helper/util';
 
 interface WinratePatch {
     number: number;
@@ -14,8 +14,7 @@ interface WinratePatch {
 export const useWinratesPatches = () => {
     const { data: patches, ...rest } = useQuery({
         queryFn: async () => {
-            const patches = await axios.get<WinratePatch[]>('https://aoestats.io/api/patches/');
-            return patches.data;
+            return await getJson<WinratePatch[]>('https://aoestats.io/api/patches/');
         },
         queryKey: ['winrates', 'patches'],
         staleTime: Infinity,
@@ -98,11 +97,8 @@ export const useWinrates = (params?: WinrateParams) => {
     const selectedPatch = patch ?? recentPatch;
     const { data, ...rest } = useQuery({
         queryFn: async () => {
-            const patches = await axios.get<WinrateResponse[]>(
-                'https://aoestats.io/api/stats/?patch=111772&grouping=random_map&elo_range=all&format=json',
-                { params: { patch: selectedPatch, grouping, elo_range: eloRange } }
-            );
-            return patches.data;
+            const query = makeQueryString({ patch: selectedPatch, grouping, elo_range: eloRange, format: 'json' });
+            return await getJson<WinrateResponse[]>(`https://aoestats.io/api/stats/?${query}`);
         },
         queryKey: ['winrates', 'stats', selectedPatch, grouping, eloRange],
         staleTime: Infinity,
@@ -153,11 +149,8 @@ export const useWinratesBreakdown = (params?: WinrateParams) => {
     const selectedPatch = patch ?? recentPatch;
     const { data, ...rest } = useQuery({
         queryFn: async () => {
-            const patches = await axios.get<WinrateBreakdownResponse[]>(
-                'https://aoestats.io/api/stats/breakdown/?patch=111772&grouping=random_map&elo_range=all&format=json',
-                { params: { patch: selectedPatch, grouping, elo_range: eloRange } }
-            );
-            return patches.data;
+            const query = makeQueryString({ patch: selectedPatch, grouping, elo_range: eloRange, format: 'json' });
+            return await getJson<WinrateBreakdownResponse[]>(`https://aoestats.io/api/stats/breakdown/?${query}`);
         },
         queryKey: ['winrates', 'breakdown', selectedPatch, grouping, eloRange],
         staleTime: Infinity,
@@ -181,8 +174,7 @@ export interface WinrateGroupingResponse {
 export const useWinrateGroupings = () => {
     const { data: groupings, ...rest } = useQuery({
         queryFn: async () => {
-            const patches = await axios.get<WinrateGroupingResponse[]>('https://aoestats.io/api/groupings/');
-            return patches.data;
+            return await getJson<WinrateGroupingResponse[]>('https://aoestats.io/api/groupings/');
         },
         queryKey: ['winrates', 'groupings'],
         staleTime: Infinity,

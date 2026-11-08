@@ -61,7 +61,8 @@ export const NewsPopup: React.FC<{ news: INews; visible: boolean; onClose: () =>
                         overScrollMode="never"
                         bounces={false}
                         scrollEnabled={true}
-                        decelerationRate="normal"
+                        // iOS only: the Android view (webview 14) casts decelerationRate to a number and crashes on "normal".
+                        {...(Platform.OS === 'ios' ? { decelerationRate: 'normal' as const } : {})}
                         ref={webviewRef}
                         source={{ uri: news.link }}
                         style={{ flex: 1, width: '100%', backgroundColor: 'rgba(255, 255, 255, 0)' }} // or #181c29

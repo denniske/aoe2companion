@@ -21,10 +21,11 @@ import { TournamentMaps } from '@app/view/tournaments/tournament-maps';
 import { TournamentMarkdown } from '@app/view/tournaments/tournament-markdown';
 import { TournamentMatch } from '@app/view/tournaments/tournament-match';
 import { TournamentPrizes } from '@app/view/tournaments/tournament-prizes';
+import { CountryImage } from '@app/view/components/country-image';
 import { format, isValid } from 'date-fns';
 import { Image } from '@/src/components/uniwind/image';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import { GameVersion, TournamentType } from 'liquipedia';
+import { TournamentType } from '@app/api/liquipedia.types';
 import { useState } from 'react';
 import { Linking, View } from 'react-native';
 import { formatCurrency } from 'react-native-format-currency';
@@ -43,25 +44,14 @@ export default function TournamentDetail() {
     const params = useLocalSearchParams<{ id: string[] }>();
     const id = typeof params.id === 'string' ? params.id : params.id?.join('/') ?? '';
     const { data: tournament, ...query } = useTournament(id);
-    const { data: mainTournament } = useTournament(tournament?.tabs[0]?.[0]?.path ?? id, false);
     const refreshControlProps = useRefreshControl(query);
     const [title, subtitle] = tournament?.name.split(': ') ?? [];
-    const tournamentImage = tournament?.league?.image ?? mainTournament?.league?.image;
-    const [showParticipantsNote, setShowParticipantsNote] = useState(false);
+    const tournamentImage = tournament?.league?.image;
     const [showFormatNote, setShowFormatNote] = useState(false);
     const [visiblePopup, setVisiblePopup] = useState<string>();
     const [playoffRoundWidth, setPlayoffRoundWidth] = useState(0);
     const { data: tournamentMatches } = useTournamentMatches({ tournamentId: id });
     const { data: tournamentPlacements } = useTournamentPlacements({ tournamentId: id });
-    const tournamentTabs =
-        tournament?.tabs.filter(
-            (tabs) => !tabs.some((tab) => [GameVersion.Age1, GameVersion.Age2, GameVersion.Age3, GameVersion.Age4].includes(tab.name as GameVersion))
-        ) ?? [];
-
-    // Not correctly parsed yet, so we use the placements to get the participant names
-    // const participantLiquipediaNames2 = tournament?.participants?.map((participant) => participant.name) ?? [];
-    // console.log('participantLiquipediaNames2', participantLiquipediaNames2);
-
     const participantLiquipediaNames = uniq([
         ...compact(tournamentPlacements?.map((placement) => placement.extradata.participantname)),
         ...compact(tournamentPlacements?.map((placement) => placement.opponentname)),
@@ -106,8 +96,8 @@ export default function TournamentDetail() {
 
     const filteredMatches = past ? tournamentMatches : tournamentMatches.filter((t) => !t.finished);
 
-    const start = tournament?.start ?? mainTournament?.start;
-    const end = tournament?.end ?? mainTournament?.end;
+    const start = tournament?.start;
+    const end = tournament?.end;
     const countryCode = tournament?.location?.country?.code;
     const tabs = [getTranslation('tournaments.overview'), getTranslation('tournaments.schedule'), getTranslation('tournaments.moreinfo')];
 
@@ -158,9 +148,25 @@ export default function TournamentDetail() {
                             />
                         </View>
                     ),
-                    headerRight: () => <HeaderButtons id={mainTournament?.path ?? id} />,
+                    headerRight: () => <HeaderButtons id={tournament.path} />,
                 }}
             />
+
+            {tournament.tabs.length > 0 && (
+                <View className="flex-row gap-1 justify-center flex-wrap px-4">
+                    {tournament.tabs.map((tab) => (
+                        <PressableOpacity
+                            onPress={() => router.setParams({ id: tab.path })}
+                            key={tab.path}
+                            disabled={tab.active}
+                        >
+                            <Tag size="small" selected={tab.active}>
+                                {tab.name || getTranslation('tournaments.overview')}
+                            </Tag>
+                        </PressableOpacity>
+                    ))}
+                </View>
+            )}
 
             <Slider
                 tabs={tabs}
@@ -182,14 +188,9 @@ export default function TournamentDetail() {
                         ) : null}
                         {tournament.participants.length > 0 && (
                             <View className="gap-2">
-                                <View className="flex-row items-center justify-between px-4">
-                                    <Text variant="header">{getTranslation('tournaments.participants')}</Text>
-                                    {!!tournament.participantsNote && (
-                                        <PressableOpacity onPress={() => setShowParticipantsNote((val) => !val)}>
-                                            <Icon icon={faInfoCircle} color="brand" />
-                                        </PressableOpacity>
-                                    )}
-                                </View>
+                                <Text variant="header" className="px-4">
+                                    {getTranslation('tournaments.participants')}
+                                </Text>
 
                                 <PlayerList
                                     variant="horizontal"
@@ -213,14 +214,8 @@ export default function TournamentDetail() {
                                             </Text>
                                         </View>
                                     )}
-                                    image={(player) => <Image source={{ uri: player?.image }} className="w-7 h-3.5 my-2" contentFit="contain" />}
+                                    image={(player) => <CountryImage country={player?.country} className="my-1" style={{ fontSize: 18 }} />}
                                 />
-
-                                {!!(tournament.participantsNote && showParticipantsNote) && (
-                                    <View className="pb-4 px-4">
-                                        <TournamentMarkdown>{tournament.participantsNote}</TournamentMarkdown>
-                                    </View>
-                                )}
                             </View>
                         )}
 
@@ -389,11 +384,6 @@ export default function TournamentDetail() {
                                                     horizontal
                                                     showsHorizontalScrollIndicator={false}
                                                 />
-                                                {!!tournament.resultsNote && (
-                                                    <View className="pt-4">
-                                                        <TournamentMarkdown>{tournament.resultsNote}</TournamentMarkdown>
-                                                    </View>
-                                                )}
                                             </View>
                                         </BottomSheet>
                                     </View>
@@ -403,58 +393,16 @@ export default function TournamentDetail() {
                     </View>,
                     <View className="gap-2 px-4" key="schedule">
                         <Text variant="header">{getTranslation('tournaments.fullschedule')}</Text>
-                        {!tournament.scheduleNote && tournament.schedule.length === 0 ? (
-                            <Text>{getTranslation('tournaments.schedulenotavailable')}</Text>
-                        ) : null}
-
-                        {!!(tournament.scheduleNote) && (
-                            <View className="pb-4">
-                                <TournamentMarkdown>{tournament.scheduleNote}</TournamentMarkdown>
-                            </View>
-                        )}
+                        {tournamentMatches.length === 0 ? <Text>{getTranslation('tournaments.schedulenotavailable')}</Text> : null}
 
                         <View className="gap-2">
-                            {(tournament.schedule.length
-                                ? tournament.schedule.map((event) => ({
-                                      startTime: isValid(event.date) ? event.date : null,
-                                      header: event.round ? { name: event.round, format: event.format } : undefined,
-                                      ...event,
-                                  }))
-                                : tournamentMatches
-                            ).map((event, index) => (
-                                <TournamentMatch
-                                    style={{ width: '100%' }}
-                                    key={`${event.startTime?.toISOString()}-${index.toString()}`}
-                                    match={event as any}
-                                />
+                            {tournamentMatches.map((match, index) => (
+                                <TournamentMatch style={{ width: '100%' }} key={`${match.startTime?.toISOString()}-${index.toString()}`} match={match} />
                             ))}
                         </View>
                     </View>,
                     <View className="gap-5 px-4" key="moreinfo">
-                        {tournamentTabs.length > 0 && (
-                            <View className="gap-2">
-                                {tournamentTabs.map((tabs, index) => (
-                                    <View className="flex-row gap-1 justify-center flex-wrap" key={index}>
-                                        {tabs.map((tab) => (
-                                            <PressableOpacity
-                                                onPress={() => {
-                                                    router.setParams({ id: encodeURIComponent(tab.path) });
-                                                }}
-                                                key={tab.path}
-                                                disabled={tab.active}
-                                            >
-                                                <Tag size="small" selected={tab.active}>
-                                                    {tab.name}
-                                                </Tag>
-                                            </PressableOpacity>
-                                        ))}
-                                    </View>
-                                ))}
-                            </View>
-                        )}
                         <View className="gap-5">
-                            <TournamentMarkdown textAlign="center">{tournament.description}</TournamentMarkdown>
-
                             <View className="gap-2 items-center">
                                 {!!(tournament.organizer) && (
                                     <Text variant="label-lg" align="center">
@@ -512,35 +460,7 @@ export default function TournamentDetail() {
                                     </View>
                                 )}
 
-                                {tournament.broadcastTalent?.length ? (
-                                    <View>
-                                        <Button onPress={() => setVisiblePopup('broadcast')}>{getTranslation('tournaments.broadcasttalent')}</Button>
-
-                                        <BottomSheet
-                                            closeButton
-                                            isActive={visiblePopup === 'broadcast'}
-                                            onClose={() => setVisiblePopup(undefined)}
-                                            title={getTranslation('tournaments.broadcasttalent')}
-                                        >
-                                            <Slider
-                                                className="mt-4"
-                                                tabs={tournament.broadcastTalent.map((broadcast) => broadcast.name)}
-                                                slides={tournament.broadcastTalent.map((broadcast) => (
-                                                    <TournamentMarkdown key={broadcast.name}>{broadcast.content}</TournamentMarkdown>
-                                                ))}
-                                            />
-                                        </BottomSheet>
-                                    </View>
-                                ) : null}
                             </View>
-                            {!!(tournament.rules) && (
-                                <View className="gap-2">
-                                    <Text variant="header">{getTranslation('tournaments.rules')}</Text>
-                                    <Card direction="vertical">
-                                        <TournamentMarkdown>{tournament.rules}</TournamentMarkdown>
-                                    </Card>
-                                </View>
-                            )}
                         </View>
                     </View>,
                 ]}

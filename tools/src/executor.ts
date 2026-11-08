@@ -1,4 +1,3 @@
-import axios from "axios"
 import * as fs from "fs"
 import * as path from "path"
 
@@ -11,12 +10,9 @@ function sleep(ms: number) {
 async function executeMgz(port: number) {
     // noinspection InfiniteLoopJS
     while (true) {
-        const response = await axios({
-            method: 'GET',
-            url: `http://195.201.24.178:${port}/won?match_id=30791021`,
-            // url: `http://localhost:${port}/won?match_id=30791021`,
-        });
-        const json = response.data;
+        const response = await fetch(`http://195.201.24.178:${port}/won?match_id=30791021`);
+        // const response = await fetch(`http://localhost:${port}/won?match_id=30791021`);
+        const json = await response.json();
         console.log(json);
     }
 }

@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { Image } from '@/src/components/uniwind/image';
-import { EventPlayer } from 'liquipedia';
+import { EventPlayer } from '@app/api/liquipedia.types';
 import { MyText } from '../../components/my-text';
 import { createStylesheet } from '../../../theming-new';
 import { CountryImage } from '../../components/country-image';

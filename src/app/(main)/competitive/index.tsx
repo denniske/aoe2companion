@@ -2,7 +2,7 @@ import { PressableOpacity } from '@app/components/pressable-opacity';
 import { IMatchesMatch } from '@app/api/helper/api.types';
 import { useLiveTwitchAccounts } from '@app/api/twitch';
 import { useOngoing } from '@app/api/socket/ongoing';
-import { tournamentsEnabled, useFeaturedTournaments, useUpcomingTournamentMatches } from '@app/api/tournaments';
+import { useFeaturedTournaments, useUpcomingTournamentMatches } from '@app/api/tournaments';
 import { FlatList } from '@app/components/flat-list';
 import { Icon } from '@app/components/icon';
 import { Link } from '@app/components/link';
@@ -17,7 +17,7 @@ import { TournamentMatch } from '@app/view/tournaments/tournament-match';
 import { matchAttributes } from '@nex/data';
 import { Image } from '@/src/components/uniwind/image';
 import { Stack, useFocusEffect } from 'expo-router';
-import { PlayoffMatch } from 'liquipedia';
+import { PlayoffMatch } from '@app/api/liquipedia.types';
 import { groupBy, orderBy } from 'lodash';
 import compact from 'lodash/compact';
 import { useEffect, useRef, useState } from 'react';
@@ -249,55 +249,51 @@ export default function Competitive() {
                     />
                 </View>
 
-                {!!(tournamentsEnabled) && (
-                    <View className="gap-2">
-                        <View className="flex-row justify-between items-center px-4">
-                            <Text variant="header-lg">{getTranslation('home.featuredTournaments')}</Text>
-                            <Link href="/competitive/tournaments">{getTranslation('home.viewAll')}</Link>
-                        </View>
-
-                        <FlatList
-                            initialNumToRender={3}
-                            showsHorizontalScrollIndicator={false}
-                            className="flex-none"
-                            horizontal
-                            keyboardShouldPersistTaps="always"
-                            data={isLoading ? Array(10).fill(null) : featuredTournaments.slice(0, 10)}
-                            contentContainerClassName="gap-2.5 px-4"
-                            renderItem={({ item }) => <TournamentCard direction="vertical" {...item} />}
-                            keyExtractor={(item, index) => item?.path || index}
-                        />
+                <View className="gap-2">
+                    <View className="flex-row justify-between items-center px-4">
+                        <Text variant="header-lg">{getTranslation('home.featuredTournaments')}</Text>
+                        <Link href="/competitive/tournaments">{getTranslation('home.viewAll')}</Link>
                     </View>
-                )}
 
-                {!!(tournamentsEnabled) && (
-                    <View className="gap-2">
-                        <Text className="px-4" variant="header-lg">
-                            {getTranslation('competitive.upcomingMatches.title')}
-                        </Text>
+                    <FlatList
+                        initialNumToRender={3}
+                        showsHorizontalScrollIndicator={false}
+                        className="flex-none"
+                        horizontal
+                        keyboardShouldPersistTaps="always"
+                        data={isLoading ? Array(10).fill(null) : featuredTournaments.slice(0, 10)}
+                        contentContainerClassName="gap-2.5 px-4"
+                        renderItem={({ item }) => <TournamentCard direction="vertical" {...item} />}
+                        keyExtractor={(item, index) => item?.path || index}
+                    />
+                </View>
 
-                        <FlatList
-                            data={isLoadingUpcomingMatches ? Array(10).fill(null) : filteredMatches}
-                            renderItem={(match) => (
-                                <TournamentMatch
-                                    onPress={() =>
-                                        setSelectedSet({
-                                            match: match.item as PlayoffMatch,
-                                            tournamentPath: encodeURIComponent(match.item.tournament?.path),
-                                        })
-                                    }
-                                    style={{ width: 200 }}
-                                    key={match.index}
-                                    match={match.item}
-                                />
-                            )}
-                            contentContainerClassName="gap-2.5 px-4"
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            ListEmptyComponent={<Text>{getTranslation('competitive.upcomingMatches.empty')}</Text>}
-                        />
-                    </View>
-                )}
+                <View className="gap-2">
+                    <Text className="px-4" variant="header-lg">
+                        {getTranslation('competitive.upcomingMatches.title')}
+                    </Text>
+
+                    <FlatList
+                        data={isLoadingUpcomingMatches ? Array(10).fill(null) : filteredMatches}
+                        renderItem={(match) => (
+                            <TournamentMatch
+                                onPress={() =>
+                                    setSelectedSet({
+                                        match: match.item as PlayoffMatch,
+                                        tournamentPath: match.item.tournament?.path,
+                                    })
+                                }
+                                style={{ width: 200 }}
+                                key={match.index}
+                                match={match.item}
+                            />
+                        )}
+                        contentContainerClassName="gap-2.5 px-4"
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        ListEmptyComponent={<Text>{getTranslation('competitive.upcomingMatches.empty')}</Text>}
+                    />
+                </View>
 
                 {!!(liveTwitch) && (
                     <View className="px-4 gap-3">
