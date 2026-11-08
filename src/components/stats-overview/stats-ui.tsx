@@ -1,8 +1,8 @@
 import { Text } from '@app/components/text';
-import { getCivIconLocal } from '@app/helper/civs';
+import { MetaCiv, MetaMap } from '@app/api/meta';
 import { cdnImageUrl } from '@app/helper/maps';
 import React from 'react';
-import { Image, ScrollView, View } from 'react-native';
+import { ActivityIndicator, Image, ScrollView, View } from 'react-native';
 
 /*
  * The statistics pages' visual language, deliberately the app's own rather than the
@@ -83,35 +83,31 @@ export const ShareBar: React.FC<{ fraction: number; className?: string }> = ({ f
     </View>
 );
 
-export const CivIcon: React.FC<{ civ: string; size?: number }> = ({ civ, size = 20 }) => (
-    <Image source={getCivIconLocal(civ)} style={{ width: size, height: size }} />
-);
+/** A civ's icon, from the image URL the meta API returns with every civ. */
+export const CivIcon: React.FC<{ civ?: Pick<MetaCiv, 'civImageUrl'>; size?: number }> = ({ civ, size = 20 }) =>
+    civ?.civImageUrl ? (
+        <Image source={{ uri: civ.civImageUrl }} style={{ width: size, height: size }} />
+    ) : (
+        <View style={{ width: size, height: size }} />
+    );
 
-// Mock map names to the CDN image the maps API serves for them. Once the stats come
-// from the backend, the response carries mapImageUrl and this goes away.
-const MAP_IMAGE_IDS: Record<string, string> = {
-    'Arabia': 'rm_arabia',
-    'Arena': 'rm_arena',
-    'Arabian Desert': 'rm_arabian_desert',
-    'Nomad': 'rm_nomad',
-    'Glade': 'rm_glade',
-    'Haboob': 'rm_haboob',
-    'Socotra': 'rm_socotra',
-    'Megarandom': 'rm_megarandom',
-    'Steppe': 'rm_steppe',
-    'Enclosed': 'rm_enclosed',
-    'Four Lakes': 'rm_four-lakes',
-    'Acropolis': 'rm_acropolis',
-    'Black Forest': 'rm_black-forest',
-    'Golden Pit': 'rm_golden-pit',
-    'Hill Fort': 'rm_hill-fort',
-};
-
-export const MapThumb: React.FC<{ map: string; size?: number }> = ({ map, size = 32 }) => {
-    const id = MAP_IMAGE_IDS[map];
-    const uri = id ? cdnImageUrl(`https://backend.cdn.aoe2companion.com/public/aoe2/de/maps/${id}.png`, 'thumb') : undefined;
+export const MapThumb: React.FC<{ map?: Pick<MetaMap, 'mapImageUrl'>; size?: number }> = ({ map, size = 32 }) => {
+    const uri = map?.mapImageUrl ? cdnImageUrl(map.mapImageUrl, 'thumb') : undefined;
     return uri ? <Image source={{ uri }} style={{ width: size, height: size }} resizeMode="contain" /> : <View style={{ width: size, height: size }} />;
 };
+
+/** Stand-in for a card body while its meta query loads, or the message when it failed. */
+export const MetaPlaceholder: React.FC<{ error?: unknown; height?: number }> = ({ error, height = 160 }) => (
+    <View style={{ minHeight: height }} className="items-center justify-center">
+        {error ? (
+            <Text variant="body-sm" color="subtle">
+                Could not load these statistics.
+            </Text>
+        ) : (
+            <ActivityIndicator />
+        )}
+    </View>
+);
 
 /** A section heading with the gold rule the stats pages use to separate blocks. */
 export const SectionTitle: React.FC<{ title: string; right?: React.ReactNode }> = ({ title, right }) => (

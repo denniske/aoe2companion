@@ -1,7 +1,7 @@
 import { Card } from '@app/components/card';
-import { countryStats } from '@app/components/stats-overview/mock-detail-data';
+import { useMeta } from '@app/api/meta';
 import { StatsPage } from '@app/components/stats-overview/stats-page';
-import { pct, ShareBar } from '@app/components/stats-overview/stats-ui';
+import { MetaPlaceholder, pct, ShareBar } from '@app/components/stats-overview/stats-ui';
 import { Text } from '@app/components/text';
 import { getCountryName } from '@app/helper/flags';
 import ButtonPicker from '@app/view/components/button-picker';
@@ -15,12 +15,23 @@ type SortKey = 'players' | 'games' | 'avgRating';
 const SORT_LABELS: Record<SortKey, string> = { players: 'Players', games: 'Games', avgRating: 'Avg rating' };
 
 export default function CountriesPage() {
+    const { data, error } = useMeta('countries');
     const [sort, setSort] = useState<SortKey>('players');
-    const rows = orderBy(countryStats, sort, 'desc');
-    const max = Math.max(...rows.map((r) => r[sort]));
+    const description = 'Where ranked 1v1 players come from and how they perform. The top 100 countries by players.';
+
+    if (!data) {
+        return (
+            <StatsPage title="Countries" description={description} mirrorsExcluded={false}>
+                <MetaPlaceholder error={error} height={400} />
+            </StatsPage>
+        );
+    }
+
+    const rows = orderBy(data.countries, (r) => r[sort] ?? 0, 'desc');
+    const max = Math.max(...rows.map((r) => r[sort] ?? 0));
 
     return (
-        <StatsPage title="Countries" description="Where players come from and how they perform.">
+        <StatsPage title="Countries" description={description} mirrorsExcluded={false}>
             <ButtonPicker value={sort} values={Object.keys(SORT_LABELS) as SortKey[]} formatter={(key) => SORT_LABELS[key]} onSelect={setSort} />
             <Card direction="vertical" className="gap-0">
                 {/* The extra columns only fit from md up; a phone keeps flag, name and the sorted value. */}
@@ -69,19 +80,19 @@ export default function CountriesPage() {
                                 {row.games.toLocaleString()}
                             </Text>
                             <Text variant="body-sm" className="hidden md:flex w-20" align="right">
-                                {row.avgRating}
+                                {row.avgRating ?? '–'}
                             </Text>
                             <Text variant="body-sm" className="hidden md:flex w-16" align="right">
                                 {pct(row.winRate)}
                             </Text>
                             <Text variant="body-sm" className="hidden md:flex w-16" align="right">
-                                {row.avgDurationMinutes}m
+                                {row.avgDurationMinutes != null ? `${Math.round(row.avgDurationMinutes)}m` : '–'}
                             </Text>
                             <Text variant="body-sm" className="md:hidden w-24" align="right">
-                                {row[sort].toLocaleString()}
+                                {(row[sort] ?? 0).toLocaleString()}
                             </Text>
                         </View>
-                        <ShareBar fraction={row[sort] / max} className="ml-11" />
+                        <ShareBar fraction={(row[sort] ?? 0) / max} className="ml-11" />
                     </View>
                 ))}
             </Card>

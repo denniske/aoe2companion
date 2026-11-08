@@ -16,8 +16,7 @@ import { Redirect, Stack } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
 
-// POC: the leaderboard preview uses live data, everything else is mock data from
-// components/stats-overview/mock-data.ts.
+// The leaderboard preview reads the leaderboard API; every other card reads /api/meta.
 export default function StatisticsPage() {
     const getTranslation = useTranslation();
 
@@ -48,7 +47,7 @@ export default function StatisticsPage() {
                 title="Meta"
                 right={
                     <Text variant="body-xs" color="subtle">
-                        RM 1v1 · last 30 days
+                        Ranked 1v1 · last 30 days
                     </Text>
                 }
             />
