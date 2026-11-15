@@ -57,18 +57,21 @@ export default function MatchupsPage() {
     return (
         <StatsPage title="Matchups" description="How each civilization does against every other one." matches={data.matches}>
             <Card direction="vertical" className="gap-4">
-                <View className="flex-row flex-wrap items-center gap-4">
-                    <CivIcon civ={civById.get(focus)} size={48} />
-                    <View className="flex-1 min-w-40">
-                        <Text variant="header-sm">{civById.get(focus)?.civName}</Text>
-                        <View className="flex-row items-center gap-2">
-                            <Text variant="body-sm" color="subtle">
-                                Overall
-                            </Text>
-                            {games > 0 && <EdgeText winRate={wins / games} />}
-                            <Text variant="body-sm" color="subtle">
-                                · {games.toLocaleString()} games
-                            </Text>
+                {/* Reversed column on mobile puts the picker above the chosen civ; from md up it sits to the right. */}
+                <View className="flex-col-reverse gap-4 md:flex-row md:items-center">
+                    <View className="flex-row items-center gap-4 md:flex-1">
+                        <CivIcon civ={civById.get(focus)} size={48} />
+                        <View className="flex-1">
+                            <Text variant="header-sm">{civById.get(focus)?.civName}</Text>
+                            <View className="flex-row items-center gap-2">
+                                <Text variant="body-sm" color="subtle">
+                                    Overall
+                                </Text>
+                                {games > 0 && <EdgeText winRate={wins / games} />}
+                                <Text variant="body-sm" color="subtle">
+                                    · {games.toLocaleString()} games
+                                </Text>
+                            </View>
                         </View>
                     </View>
                     <View className="w-full md:w-72">
