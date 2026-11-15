@@ -26,7 +26,9 @@ const loadMatchMap = () => import('@app/view/components/match-map/match-map');
 export default function MatchAnalysis(props: Props) {
     const getTranslation = useTranslation();
     const { match, matchError, matchLoading, autoAnalyze } = props;
-    const [analyzeNow, setAnalyzeNow] = React.useState(!!autoAnalyze);
+    const [analyzeNowPressed, setAnalyzeNow] = React.useState(!!autoAnalyze);
+    // An analysis that is already stored only costs an R2 read, so load it without the button.
+    const analyzeNow = analyzeNowPressed || !!match?.analysisSource;
 
     const {
         data: analysis,

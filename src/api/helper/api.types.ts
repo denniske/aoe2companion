@@ -441,6 +441,9 @@ export interface IMatchesResult {
 }
 
 export interface IMatchNew {
+    // Only sent by the single-match endpoint: set when an analysis is already stored for this match.
+    analysisSource?: 'replay' | 'upload' | null;
+
     gameModeName: string;
 
     gameVariant: string;
