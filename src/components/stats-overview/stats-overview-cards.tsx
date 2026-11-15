@@ -119,13 +119,14 @@ export const StatsTotals: React.FC = () => {
     );
 };
 
+// Fixed name column, bar filling the rest: a flex-1 name left a wide gap before a short bar.
 const CivEdgeRow: React.FC<{ civ: MetaCiv; winRate: number }> = ({ civ, winRate }) => (
     <View className="flex-row items-center gap-2 py-1">
         <CivIcon civ={civ} />
-        <Text variant="label-sm" className="flex-1" numberOfLines={1}>
+        <Text variant="label-sm" className="w-28" numberOfLines={1}>
             {civ.civName}
         </Text>
-        <BalanceBar winRate={winRate} className="w-16" />
+        <BalanceBar winRate={winRate} className="flex-1" />
         <View className="w-12 items-end">
             <EdgeText winRate={winRate} />
         </View>
@@ -255,10 +256,15 @@ export const RatingGroupsTeaser: React.FC = () => {
                             {best ? (
                                 <>
                                     <CivIcon civ={best} size={22} />
-                                    <Text variant="label-sm" className="flex-1" numberOfLines={1}>
+                                    <Text variant="label-sm" className="flex-1 md:flex-none md:w-28" numberOfLines={1}>
                                         {best.civName}
                                     </Text>
-                                    <EdgeText winRate={best.winRate} />
+                                    {/* Same bar as the Civilizations card, filling what was empty space. Below md
+                                        the level column leaves it no room, so the name takes the row instead. */}
+                                    <BalanceBar winRate={best.winRate} className="hidden md:flex flex-1" />
+                                    <View className="w-12 items-end">
+                                        <EdgeText winRate={best.winRate} />
+                                    </View>
                                 </>
                             ) : (
                                 <Text variant="body-xs" color="subtle" className="flex-1">
