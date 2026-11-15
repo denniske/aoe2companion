@@ -3,7 +3,6 @@ import { Text } from '@app/components/text';
 import { getCountryName } from '@app/helper/flags';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
-import { appConfig } from '@nex/dataset';
 import { Href } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
@@ -139,10 +138,8 @@ export const CivWinratesTeaser: React.FC = () => {
     return (
         <TeaserCard
             title="Winrates"
-            // The win rates screens draw aoe2's bundled civ icons and history art, so aoe4
-            // gets each civ's overall win rate on the matchups page instead.
-            href={appConfig.game === 'aoe2' ? '/statistics/winrates' : '/statistics/matchups'}
-            linkLabel={appConfig.game === 'aoe2' ? 'All winrates' : 'Civs and matchups'}
+            href="/statistics/winrates"
+            linkLabel="All winrates"
         >
             {!data ? (
                 <MetaPlaceholder error={error} />

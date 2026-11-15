@@ -5,11 +5,12 @@ import { HeaderTitle } from '@app/components/header-title';
 import { ProgressBar } from '@app/components/progress-bar';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
-import { getCivHistoryImage, getCivIconLocal } from '@app/helper/civs';
-import { Civ, getCivNameById } from '@nex/data';
+import { getCivHistoryImage } from '@app/helper/civs';
+import { Civ } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { ImageBackground } from '@/src/components/uniwind/image';
 import { Stack, useLocalSearchParams } from 'expo-router';
+import { capitalize } from 'lodash';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useAccountData } from '@app/queries/all';
@@ -37,6 +38,8 @@ export default function CivDetails() {
     const ranked = (civData?.civs ?? []).filter((c) => c.games >= MIN_RANKED_GAMES).sort((a, b) => b.winRate - a.winRate);
     const rank = ranked.findIndex((c) => c.civ === nameLower) + 1;
     const stats = civData?.civs.find((c) => c.civ === nameLower);
+    // Same scale as the list page: up to the most played civ, at least 8%.
+    const maxPlayrate = Math.max(8, Math.ceil(Math.max(0, ...(civData?.civs ?? []).map((c) => c.playRate)) * 100));
 
     // Play rate within a group is this civ's share of that group's civ picks.
     const ratings = (groupData?.groups ?? []).flatMap((group) => {
@@ -46,9 +49,10 @@ export default function CivDetails() {
         return [{ label: ratingGroupLabel(group).name, win_rate: groupCiv.winRate, play_rate: groupCiv.games / picks }];
     });
 
-    const civ = name!;
+    // aoe2's civ keys are the capitalized id (romans -> Romans); links now carry the raw id.
+    const civ = capitalize(nameLower) as Civ;
 
-    if (appConfig.game !== 'aoe2' || !stats || !groupData || !nameLower) {
+    if (!stats || !groupData || !nameLower) {
         return <View />;
     }
 
@@ -57,12 +61,15 @@ export default function CivDetails() {
             tintColor={theme === 'dark' ? 'white' : 'black'}
             imageStyle={styles.imageInner}
             contentFit="cover"
-            source={getCivHistoryImage(civ)}
+            // Only aoe2 has bundled civ history art; aoe4 gets the plain background.
+            source={appConfig.game === 'aoe2' ? getCivHistoryImage(civ) : undefined}
             style={styles.image}
         >
             <Stack.Screen
                 options={{
-                    headerTitle: () => <HeaderTitle icon={getCivIconLocal(civ)} title={getCivNameById(civ)} subtitle={getTranslation('winrates.subtitle')} />,
+                    // The plain title feeds the breadcrumb and the browser tab; headerTitle only draws the header.
+                    title: stats.civName,
+                    headerTitle: () => <HeaderTitle icon={{ uri: stats.civImageUrl }} title={stats.civName} subtitle={getTranslation('winrates.subtitle')} />,
                 }}
             />
             <ScrollView className="flex-1" contentContainerClassName="p-4 gap-5">
@@ -84,7 +91,7 @@ export default function CivDetails() {
                             {getTranslation('winrates.playrate')}
                         </Text>
 
-                        <ProgressBar percent={stats.playRate * 100} max={8} />
+                        <ProgressBar percent={stats.playRate * 100} max={maxPlayrate} />
                         <Text className="self-center">{getTranslation('winrates.games', { games: stats.games.toLocaleString(language), count: stats.games })}</Text>
                     </Card>
                 </View>

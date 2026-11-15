@@ -18,9 +18,12 @@ export default function WinratesPage() {
     const { data } = useMeta('civs');
     const civs: CivWinrateCardData[] | undefined = data?.civs
         .filter((c) => c.games >= MIN_RANKED_GAMES)
-        .map((c) => ({ civ_name: c.civ, win_rate: c.winRate, play_rate: c.playRate, num_games: c.games }));
+        .map((c) => ({ civ_name: c.civ, civName: c.civName, civImageUrl: c.civImageUrl, win_rate: c.winRate, play_rate: c.playRate, num_games: c.games }));
     const sortedWinrates = civs ? sortBy(civs, 'win_rate') : Array(5).fill(null);
     const sortedPlayrates = civs ? sortBy(civs, 'play_rate') : Array(5).fill(null);
+    // Bars run to the most played civ, at least 8%: aoe4 has fewer civs, so its top play
+    // rates pass the fixed 8% aoe2 used and the bar overflowed the card.
+    const maxPlayrate = Math.max(8, Math.ceil(Math.max(0, ...(civs ?? []).map((c) => c.play_rate)) * 100));
 
     return (
         <ScrollView className="flex-1" contentContainerClassName="gap-5">
@@ -40,7 +43,7 @@ export default function WinratesPage() {
                         .reverse()
                         .slice(0, 5)
                         .map((civ, index) => (
-                            <CivWinrateCard civ={civ} key={civ?.civ_name ?? index} />
+                            <CivWinrateCard civ={civ} maxPlayrate={maxPlayrate} key={civ?.civ_name ?? index} />
                         ))}
                 />
             </View>
@@ -53,7 +56,7 @@ export default function WinratesPage() {
                     className="pb-6"
                     paginationStyle={{ bottom: 0 }}
                     slides={[...sortedWinrates].slice(0, 5).map((civ, index) => (
-                        <CivWinrateCard civ={civ} key={civ?.civ_name ?? index} />
+                        <CivWinrateCard civ={civ} maxPlayrate={maxPlayrate} key={civ?.civ_name ?? index} />
                     ))}
                 />
             </View>
@@ -69,7 +72,7 @@ export default function WinratesPage() {
                         .reverse()
                         .slice(0, 5)
                         .map((civ, index) => (
-                            <CivWinrateCard civ={civ} key={civ?.civ_name ?? index} />
+                            <CivWinrateCard civ={civ} maxPlayrate={maxPlayrate} key={civ?.civ_name ?? index} />
                         ))}
                 />
             </View>
@@ -82,7 +85,7 @@ export default function WinratesPage() {
                     className="pb-6"
                     paginationStyle={{ bottom: 0 }}
                     slides={[...sortedPlayrates].slice(0, 5).map((civ, index) => (
-                        <CivWinrateCard civ={civ} key={civ?.civ_name ?? index} />
+                        <CivWinrateCard civ={civ} maxPlayrate={maxPlayrate} key={civ?.civ_name ?? index} />
                     ))}
                 />
             </View>
