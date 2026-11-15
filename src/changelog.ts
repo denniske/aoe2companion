@@ -427,7 +427,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '219.0.0': [
+    '220.0.0': [
         {
             type: 'feature',
             title: 'New Global Stats',
@@ -436,6 +436,10 @@ export const changelog: IChangelog = {
         {
             type: 'feature',
             title: 'Show queueing players in the personal, following and pro players dashboards',
+        },
+        {
+            type: 'feature',
+            title: 'Add build order and average EAPM to the match analysis',
         },
         {
             type: 'bugfix',
