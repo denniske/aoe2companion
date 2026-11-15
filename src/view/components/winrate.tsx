@@ -1,21 +1,12 @@
-import {
-    useWinrateGroupings,
-    useWinrates,
-    useWinratesBreakdown,
-    useWinratesPatches,
-    WinrateBreakdown,
-    WinrateGrouping,
-    WinrateGroupingResponse,
-} from '@app/api/winrates';
+import { MIN_CELL_GAMES, useMeta } from '@app/api/meta';
+import { MIN_RANKED_GAMES, ratingGroupLabel } from '@app/components/stats-overview/meta-helpers';
 import { Card } from '@app/components/card';
 import { HeaderTitle } from '@app/components/header-title';
-import { Icon } from '@app/components/icon';
-import { faCaretDown, faCaretUp } from '@fortawesome/sharp-solid-svg-icons';
 import { ProgressBar } from '@app/components/progress-bar';
 import { ScrollView } from '@app/components/scroll-view';
 import { Text } from '@app/components/text';
 import { getCivHistoryImage, getCivIconLocal } from '@app/helper/civs';
-import { Civ, formatDateShort, formatMonth, formatTime, formatYear, getCivNameById } from '@nex/data';
+import { Civ, getCivNameById } from '@nex/data';
 import { appConfig } from '@nex/dataset';
 import { ImageBackground } from '@/src/components/uniwind/image';
 import { Stack, useLocalSearchParams } from 'expo-router';
@@ -35,22 +26,31 @@ export default function CivDetails() {
     const { name } = useLocalSearchParams<{ name: Civ }>();
     const nameLower = name?.toLowerCase() ?? '';
     const { theme } = useUniwind();
-    const { winrates } = useWinrates();
-    const { breakdown } = useWinratesBreakdown();
-    const { groupings } = useWinrateGroupings();
+    // Our own /api/meta stats (ranked 1v1, last 30 days). We keep no per-patch history,
+    // so the old by-patch charts and the rank-change arrow are gone.
+    const { data: civData } = useMeta('civs');
+    const { data: groupData } = useMeta('rating-groups');
     const [width, setWidth] = useState(0);
-    const grouping = groupings?.find((g) => g.name === WinrateGrouping['1v1Random']);
 
     const language = useAccountData((data) => data.language);
-    const stats = winrates?.civs.find((civ) => civ.civ_name === nameLower);
+    // Rank among civs with enough games, the same cut the stats overview uses.
+    const ranked = (civData?.civs ?? []).filter((c) => c.games >= MIN_RANKED_GAMES).sort((a, b) => b.winRate - a.winRate);
+    const rank = ranked.findIndex((c) => c.civ === nameLower) + 1;
+    const stats = civData?.civs.find((c) => c.civ === nameLower);
+
+    // Play rate within a group is this civ's share of that group's civ picks.
+    const ratings = (groupData?.groups ?? []).flatMap((group) => {
+        const groupCiv = group.civs.find((c) => c.civ === nameLower);
+        if (!groupCiv || groupCiv.games < MIN_CELL_GAMES) return [];
+        const picks = group.civs.reduce((sum, c) => sum + c.games, 0);
+        return [{ label: ratingGroupLabel(group).name, win_rate: groupCiv.winRate, play_rate: groupCiv.games / picks }];
+    });
 
     const civ = name!;
 
-    if (appConfig.game !== 'aoe2' || !stats || !breakdown || !grouping || !nameLower) {
+    if (appConfig.game !== 'aoe2' || !stats || !groupData || !nameLower) {
         return <View />;
     }
-
-    const sameRank = stats.rank === stats.prior_rank;
 
     return (
         <ImageBackground
@@ -71,18 +71,10 @@ export default function CivDetails() {
                         <View className="flex-row justify-center items-center gap-2">
                             <Text variant="header">{getTranslation('winrates.winrate')}</Text>
 
-                            <View className="flex-row items-center">
-                                <Text variant="label-sm">#{stats.rank}</Text>
-                                {!sameRank && (
-                                    <Icon
-                                        icon={stats.rank > stats.prior_rank ? faCaretDown : faCaretUp}
-                                        color={stats.rank > stats.prior_rank ? 'accent-red-500' : 'accent-green-500'}
-                                    />
-                                )}
-                            </View>
+                            {rank > 0 && <Text variant="label-sm">#{rank}</Text>}
                         </View>
 
-                        <ProgressBar percent={stats.win_rate * 100} status={stats.win_rate >= 0.5 ? 'positive' : 'negative'} />
+                        <ProgressBar percent={stats.winRate * 100} status={stats.winRate >= 0.5 ? 'positive' : 'negative'} />
 
                         <Text className="self-center">{getTranslation('winrates.wins', { wins: stats.wins.toLocaleString(language), count: stats.wins })}</Text>
                     </Card>
@@ -92,14 +84,14 @@ export default function CivDetails() {
                             {getTranslation('winrates.playrate')}
                         </Text>
 
-                        <ProgressBar percent={stats.play_rate * 100} max={8} />
-                        <Text className="self-center">{getTranslation('winrates.games', { games: stats.num_games.toLocaleString(language), count: stats.num_games })}</Text>
+                        <ProgressBar percent={stats.playRate * 100} max={8} />
+                        <Text className="self-center">{getTranslation('winrates.games', { games: stats.games.toLocaleString(language), count: stats.games })}</Text>
                     </Card>
                 </View>
 
                 <SkiaLoader
                     getComponent={loadWinrateCharts}
-                    componentProps={{ width, grouping, breakdown, civ: nameLower }}
+                    componentProps={{ width, ratings }}
                     fallback={<View className="h-80" />}
                 />
             </ScrollView>

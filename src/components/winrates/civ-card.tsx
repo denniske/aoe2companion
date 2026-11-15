@@ -13,7 +13,10 @@ import { Text } from '../text';
 import { useAccountData } from '@app/queries/all';
 import { useTranslation } from '@app/helper/translate';
 
-export const CivWinrateCard = ({ civ, maxPlayrate = 8, clickable = true }: { civ?: WinrateCiv, maxPlayrate?: number, clickable?: boolean }) => {
+/** All the card reads: our /api/meta civ stats and the Red Bull overlay both map into this. */
+export type CivWinrateCardData = Pick<WinrateCiv, 'civ_name' | 'win_rate' | 'play_rate' | 'num_games'>;
+
+export const CivWinrateCard = ({ civ, maxPlayrate = 8, clickable = true }: { civ?: CivWinrateCardData, maxPlayrate?: number, clickable?: boolean }) => {
     const getTranslation = useTranslation();
     const language = useAccountData(data => data.language);
 

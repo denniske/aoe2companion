@@ -139,8 +139,8 @@ export const CivWinratesTeaser: React.FC = () => {
     return (
         <TeaserCard
             title="Civilizations"
-            // The win rates page still reads aoestats.io, which only has aoe2; aoe4 gets each civ's
-            // overall win rate on the matchups page instead.
+            // The win rates screens draw aoe2's bundled civ icons and history art, so aoe4
+            // gets each civ's overall win rate on the matchups page instead.
             href={appConfig.game === 'aoe2' ? '/statistics/winrates' : '/statistics/matchups'}
             linkLabel={appConfig.game === 'aoe2' ? 'All civ win rates' : 'Civs and matchups'}
         >

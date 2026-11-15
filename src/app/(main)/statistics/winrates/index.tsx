@@ -1,8 +1,8 @@
-import { useWinrates } from '@app/api/winrates';
-import { Link } from '@app/components/link';
+import { useMeta } from '@app/api/meta';
 import { ScrollView } from '@app/components/scroll-view';
+import { MIN_RANKED_GAMES } from '@app/components/stats-overview/meta-helpers';
 import { Text } from '@app/components/text';
-import { CivWinrateCard } from '@app/components/winrates/civ-card';
+import { CivWinrateCard, CivWinrateCardData } from '@app/components/winrates/civ-card';
 import { Slider2 } from '@app/view/components/slider2';
 import { Stack } from 'expo-router';
 import { sortBy } from 'lodash';
@@ -10,11 +10,17 @@ import React from 'react';
 import { View } from 'react-native';
 import { useTranslation } from '@app/helper/translate';
 
+// Our own /api/meta civ stats (ranked 1v1, last 30 days), mapped into the shape
+// CivWinrateCard takes. Civs under MIN_RANKED_GAMES are left out, as on the other
+// stats pages: a handful of games gives a meaningless extreme win rate.
 export default function WinratesPage() {
     const getTranslation = useTranslation();
-    const { winrates } = useWinrates();
-    const sortedWinrates = winrates ? sortBy(winrates?.civs, 'win_rate') : Array(5).fill(null);
-    const sortedPlayrates = winrates ? sortBy(winrates?.civs, 'play_rate') : Array(5).fill(null);
+    const { data } = useMeta('civs');
+    const civs: CivWinrateCardData[] | undefined = data?.civs
+        .filter((c) => c.games >= MIN_RANKED_GAMES)
+        .map((c) => ({ civ_name: c.civ, win_rate: c.winRate, play_rate: c.playRate, num_games: c.games }));
+    const sortedWinrates = civs ? sortBy(civs, 'win_rate') : Array(5).fill(null);
+    const sortedPlayrates = civs ? sortBy(civs, 'play_rate') : Array(5).fill(null);
 
     return (
         <ScrollView className="flex-1" contentContainerClassName="gap-5">
@@ -81,11 +87,8 @@ export default function WinratesPage() {
                 />
             </View>
 
-            <Text variant="body-sm" className="px-4 text-center">
-                Civ and map stats provided by{' '}
-                <Link variant="body-sm" href="https://aoestats.io">
-                    aoestats.io
-                </Link>
+            <Text variant="body-sm" color="subtle" className="px-4 pb-4 text-center">
+                Ranked 1v1 · last 30 days{data?.matches ? ` · ${data.matches.toLocaleString()} matches` : ''}
             </Text>
         </ScrollView>
     );
