@@ -9,7 +9,7 @@ import ButtonPicker from '@app/view/components/button-picker';
 import React, { useState } from 'react';
 import { Pressable, View } from 'react-native';
 
-const TOP_OPTIONS = [10, 25, 0];
+const TOP_OPTIONS = [10, 0];
 
 const MatchupRow: React.FC<{ civ?: MetaCiv; winRate: number; games: number }> = ({ civ, winRate, games }) => (
     <View className="flex-row items-center gap-2 py-1">
@@ -37,7 +37,7 @@ export default function MatchupsPage() {
 
     if (!data) {
         return (
-            <StatsPage title="Matchups" description="How each civilization does against every other one.">
+            <StatsPage title="Civ Matchups" description="How each civilization does against every other one.">
                 <MetaPlaceholder error={error} height={400} />
             </StatsPage>
         );
@@ -55,7 +55,7 @@ export default function MatchupsPage() {
     const wins = focusGames.reduce((sum, m) => sum + m.wins, 0);
 
     return (
-        <StatsPage title="Matchups" description="How each civilization does against every other one." matches={data.matches}>
+        <StatsPage title="Civ Matchups" description="How each civilization does against every other one." matches={data.matches}>
             <Card direction="vertical" className="gap-4">
                 {/* Reversed column on mobile puts the picker above the chosen civ; from md up it sits to the right. */}
                 <View className="flex-col-reverse gap-4 md:flex-row md:items-center">
@@ -120,7 +120,7 @@ export default function MatchupsPage() {
 
             <SectionTitle title="Matchup table" />
             <View className="flex-row flex-wrap gap-3 items-center justify-between">
-                <ButtonPicker value={top} values={TOP_OPTIONS} formatter={(value) => (value === 0 ? 'All civs' : `${value} most played`)} onSelect={setTop} />
+                <ButtonPicker value={top} values={TOP_OPTIONS} formatter={(value) => (value === 0 ? 'All civs' : `${value} civs`)} onSelect={setTop} />
                 <EdgeLegend />
             </View>
             <Card direction="vertical">

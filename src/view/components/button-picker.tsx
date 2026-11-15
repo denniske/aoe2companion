@@ -14,6 +14,9 @@ interface IPickerProps<T> {
     onSelect: (value: T) => void;
     style?: StyleProp<ViewStyle>;
     flex?: boolean;
+    /** Let the buttons wrap onto more rows instead of running past the screen edge. */
+    wrap?: boolean;
+    className?: string;
     disabled?: boolean;
 }
 
@@ -24,10 +27,10 @@ const defaultFormatter = (value: unknown) => `${value}`;
 
 // HMR reload breaks this component at least in tech tree. Why?
 export default function ButtonPicker<T>(props: IPickerProps<T>) {
-    const { value, values, onSelect, image, style, flex = false, disabled, formatter = defaultFormatter } = props;
+    const { value, values, onSelect, image, style, flex = false, wrap = false, className = '', disabled, formatter = defaultFormatter } = props;
 
     return (
-        <View className="rounded-lg overflow-hidden flex-row bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <View className={`rounded-lg overflow-hidden flex-row ${wrap ? 'flex-wrap' : ''} ${className} bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800`}>
             {
                 values!.map((val, i) => {
                     const selected = val == value;
@@ -35,7 +38,7 @@ export default function ButtonPicker<T>(props: IPickerProps<T>) {
                         <Button
                             key={i}
                             image={image?.(val)}
-                            className={`py-2 ${flex ? `flex-1` : `px-6`} justify-center ${selected ? '' : 'bg-transparent dark:bg-transparent hover:bg-white/50! dark:hover:bg-black/50!'}`}
+                            className={`py-2 ${flex ? `flex-1` : wrap ? `px-4 grow` : `px-6`} justify-center ${selected ? '' : 'bg-transparent dark:bg-transparent hover:bg-white/50! dark:hover:bg-black/50!'}`}
                             onPress={() => onSelect(val)}
                             color={selected ? 'white' : 'subtle'}
                             disabled={disabled}

@@ -32,7 +32,9 @@ export default function CountriesPage() {
 
     return (
         <StatsPage title="Countries" description={description} mirrorsExcluded={false}>
-            <ButtonPicker value={sort} values={Object.keys(SORT_LABELS) as SortKey[]} formatter={(key) => SORT_LABELS[key]} onSelect={setSort} />
+            <View className="flex-row">
+                <ButtonPicker value={sort} values={Object.keys(SORT_LABELS) as SortKey[]} formatter={(key) => SORT_LABELS[key]} onSelect={setSort} />
+            </View>
             <Card direction="vertical" className="gap-0">
                 {/* The extra columns only fit from md up; a phone keeps flag, name and the sorted value. */}
                 <View className="flex-row items-center gap-3 pb-2 border-b border-border">

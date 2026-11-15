@@ -6,7 +6,7 @@ import { BalanceBar, CivIcon, EdgeText, goldAlpha, MetaPlaceholder, SectionTitle
 import { Text } from '@app/components/text';
 import ButtonPicker from '@app/view/components/button-picker';
 import React, { useMemo, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 
 export default function RatingPage() {
     const { data, error } = useMeta('rating-groups');
@@ -34,7 +34,7 @@ export default function RatingPage() {
 
     if (!data) {
         return (
-            <StatsPage title="By rating" description={description}>
+            <StatsPage title="Skill Levels" description={description}>
                 <MetaPlaceholder error={error} height={400} />
             </StatsPage>
         );
@@ -45,19 +45,19 @@ export default function RatingPage() {
     const ranked = group.civs.filter((c) => c.games >= MIN_CELL_GAMES);
 
     return (
-        <StatsPage title="By rating" description={description} matches={data.matches}>
-            {/* Five groups do not fit a phone's width; let the picker scroll instead of overflowing. */}
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} className="grow-0">
-                <ButtonPicker
-                    value={groupIndex}
-                    values={data.groups.map((_, i) => i)}
-                    formatter={(i) => ratingGroupLabel(data.groups[i]).name}
-                    onSelect={(i) => {
-                        setGroupIndex(i);
-                        setShowAll(false);
-                    }}
-                />
-            </ScrollView>
+        <StatsPage title="Skill Levels" description={description} matches={data.matches}>
+            {/* Five groups do not fit a phone's width; wrap onto a second row instead of overflowing. */}
+            <ButtonPicker
+                wrap
+                className="self-start max-w-full"
+                value={groupIndex}
+                values={data.groups.map((_, i) => i)}
+                formatter={(i) => ratingGroupLabel(data.groups[i]).name}
+                onSelect={(i) => {
+                    setGroupIndex(i);
+                    setShowAll(false);
+                }}
+            />
 
             <Card className="flex-wrap gap-6">
                 {[

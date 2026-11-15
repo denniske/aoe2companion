@@ -553,7 +553,7 @@ export default function LeaderboardPage() {
         <View style={styles.container2}>
             <Stack.Screen
                 options={{
-                    title: getTranslation('leaderboard.title'),
+                    title: getTranslation('leaderboards.title'),
                     headerRight: () => null,
                 }}
             />

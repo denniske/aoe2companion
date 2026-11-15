@@ -172,7 +172,7 @@ export const MatchupsTeaser: React.FC = () => {
     const value = cellLookup(data?.matchups ?? [], (m) => m.civ, (m) => m.opponent);
     const civs = (data?.civs ?? []).slice(0, 6).map((c) => c.civ);
     return (
-        <TeaserCard title="Civilization matchups" href="/statistics/matchups" linkLabel="Full matchup table">
+        <TeaserCard title="Civ Matchups" href="/statistics/matchups" linkLabel="Full matchup table">
             {!data ? (
                 <MetaPlaceholder error={error} />
             ) : (

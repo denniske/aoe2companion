@@ -21,7 +21,7 @@ import { Pressable, View } from 'react-native';
 
 // Maps beyond the first dozen or so are a long tail of a few hundred games each.
 const TILE_COUNT = 15;
-const CIV_OPTIONS = [10, 25, 0];
+const CIV_OPTIONS = [10, 0];
 
 export default function MapsPage() {
     const { data, error } = useMeta('maps');
