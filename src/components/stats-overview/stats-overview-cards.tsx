@@ -4,7 +4,7 @@ import { getCountryName } from '@app/helper/flags';
 import { CountryImage } from '@app/view/components/country-image';
 import { Country } from '@nex/data';
 import { appConfig } from '@nex/dataset';
-import { Href, Link } from 'expo-router';
+import { Href } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
 import { MetaCiv, MIN_CELL_GAMES, useMeta } from '@app/api/meta';
@@ -26,7 +26,8 @@ export const TeaserCard: React.FC<{ title: string; subtitle: string; href?: Href
 }) => (
     // md:flex-1 only: on mobile the cards stack in a column, where flex-1's zero basis
     // shrinks the card below its content and the link spills out under the border.
-    <Card direction="vertical" className={`md:flex-1 gap-3 ${className ?? ''}`}>
+    // The whole card is the link, so the label below is plain text: anchors can't nest.
+    <Card direction="vertical" href={href} className={`group md:flex-1 gap-3 ${className ?? ''}`}>
         <View>
             <Text variant="label-lg">{title}</Text>
             <Text variant="body-sm" color="subtle">
@@ -36,11 +37,9 @@ export const TeaserCard: React.FC<{ title: string; subtitle: string; href?: Href
         {/* grow, not flex-1: flex-1 is a zero basis on web, which collapses the body under its content. */}
         <View className="grow">{children}</View>
         {href && (
-            <Link href={href} className="group self-start">
-                <Text variant="label-sm" className="text-gold-700! dark:text-gold-400! group-hover:underline">
-                    {linkLabel ?? 'Show more'} →
-                </Text>
-            </Link>
+            <Text variant="label-sm" className="self-start text-gold-700! dark:text-gold-400! group-hover:underline">
+                {linkLabel ?? 'Show more'} →
+            </Text>
         )}
     </Card>
 );
