@@ -3,7 +3,7 @@ import { getCountryName } from '@app/helper/flags';
 import { countriesDistinct, Country } from '@nex/data';
 import { CountryImageForDropDown, SpecialImageForDropDown } from '@app/view/components/country-image';
 import { appConfig } from '@nex/dataset';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import Picker from '@app/view/components/picker';
 import React from 'react';
 import { createStylesheet } from '@app/theming-new';
@@ -19,9 +19,11 @@ export function isCountry(x: string | null) {
 interface Props {
     country?: string | null;
     onCountryChange: (country: string | null) => void;
+    /** Defaults to a fixed 170px; pass a width to fill a flexible slot instead. */
+    style?: StyleProp<ViewStyle>;
 }
 
-export function CountrySelect({ country = null, onCountryChange }: Props) {
+export function CountrySelect({ country = null, onCountryChange, style = { width: 170 } }: Props) {
     const getTranslation = useTranslation();
     const router = useRouter();
 
@@ -90,7 +92,7 @@ export function CountrySelect({ country = null, onCountryChange }: Props) {
                 values={countryList}
                 formatter={formatCountry}
                 onSelect={onCountrySelected}
-                style={{ width: 170 }}
+                style={style}
             />
     );
 }

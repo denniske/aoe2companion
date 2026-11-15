@@ -32,7 +32,6 @@ export default function StatisticsPage() {
 
             <StatsTotals />
 
-            <SectionTitle title="Top players" />
             <View className="gap-4 md:flex-row">
                 <LeaderboardPreview className="md:flex-[2]" />
                 <CountriesTeaser className="md:flex-1" />

@@ -5,6 +5,7 @@ import { LeaderboardRow, useLeaderboardRowStyles } from '@app/components/leaderb
 import { CountrySelect, isCountry } from '@app/components/select/country-select';
 import { LeaderboardOfficialSelect } from '@app/components/select/leaderboard-official-select';
 import { Text } from '@app/components/text';
+import { useBreakpoints } from '@app/hooks/use-breakpoints';
 import { leaderboardsByType } from '@app/helper/leaderboard';
 import { usePluralForms, useTranslation } from '@app/helper/translate';
 import { useAuthProfileId, useLanguage, useLeaderboards } from '@app/queries/all';
@@ -16,9 +17,8 @@ import { useWindowDimensions, View } from 'react-native';
 const PREVIEW_SIZE = 5;
 
 // The top of the leaderboard, rendered with the leaderboard screen's own row so the
-// columns match what "Show full leaderboard" opens. Below md the card runs edge to
-// edge, so the rows get the full window width exactly like on that screen; inside
-// the page padding the name column was squeezed down to a few characters.
+// columns match what "Show full leaderboard" opens. The rows bleed through the
+// card's own padding (-mx-4) so the name column keeps as much width as it can.
 export const LeaderboardPreview: React.FC<{ className?: string }> = ({ className }) => {
     const getTranslation = useTranslation();
     const language = useLanguage();
@@ -47,6 +47,7 @@ export const LeaderboardPreview: React.FC<{ className?: string }> = ({ className
     const rowStyles = useLeaderboardRowStyles();
     const gamesLabel = usePluralForms('leaderboard.games');
     const { width: windowWidth } = useWindowDimensions();
+    const { isMedium } = useBreakpoints();
     const players = data?.players;
     // Same sizing rule as the leaderboard screen: ten pixels per digit plus the '#'.
     const rankWidth = Math.max(43, ...(players ?? []).map((p) => ((showCountryRank ? p.rankCountry : p.rank) ?? 0).toFixed(0).length * 10 + 10));
@@ -54,7 +55,7 @@ export const LeaderboardPreview: React.FC<{ className?: string }> = ({ className
     const fullHref = `/statistics/leaderboard?leaderboard=${leaderboardId ?? ''}${showCountryRank ? `&country=${leaderboardCountry}` : ''}`;
 
     return (
-        <Card direction="vertical" className={`-mx-4 rounded-none border-x-0 md:mx-0 md:rounded-lg md:border-x ${className ?? ''}`}>
+        <Card direction="vertical" className={className}>
             <View className="flex-row flex-wrap items-center justify-between gap-2">
                 <Text variant="label-lg">{getTranslation('leaderboards.title')}</Text>
                 <View className="flex-row gap-2 w-full md:w-auto">
@@ -62,7 +63,8 @@ export const LeaderboardPreview: React.FC<{ className?: string }> = ({ className
                         {leaderboardId && <LeaderboardOfficialSelect leaderboardId={leaderboardId} onLeaderboardIdChange={setLeaderboardId} />}
                     </View>
                     <View className="flex-1 md:flex-none">
-                        <CountrySelect country={leaderboardCountry} onCountryChange={setLeaderboardCountry} />
+                        {/* Below md the slot is half the card, narrower than the select's fixed 170px. */}
+                        <CountrySelect country={leaderboardCountry} onCountryChange={setLeaderboardCountry} style={isMedium ? undefined : { width: '100%' }} />
                     </View>
                 </View>
             </View>
@@ -73,7 +75,9 @@ export const LeaderboardPreview: React.FC<{ className?: string }> = ({ className
                             player={players?.[i]}
                             i={i}
                             showCountryRank={showCountryRank}
-                            showGames={windowWidth >= 360}
+                            // Higher than the leaderboard screen's 360: inside the card the
+                            // games column would squeeze names down to a few characters.
+                            showGames={windowWidth >= 420}
                             gamesLabel={gamesLabel}
                             authProfileId={authProfileId}
                             rankWidth={rankWidth}
