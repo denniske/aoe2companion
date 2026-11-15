@@ -24,7 +24,9 @@ export const TeaserCard: React.FC<{ title: string; subtitle: string; href?: Href
     className,
     children,
 }) => (
-    <Card direction="vertical" className={`flex-1 gap-3 ${className ?? ''}`}>
+    // md:flex-1 only: on mobile the cards stack in a column, where flex-1's zero basis
+    // shrinks the card below its content and the link spills out under the border.
+    <Card direction="vertical" className={`md:flex-1 gap-3 ${className ?? ''}`}>
         <View>
             <Text variant="label-lg">{title}</Text>
             <Text variant="body-sm" color="subtle">
