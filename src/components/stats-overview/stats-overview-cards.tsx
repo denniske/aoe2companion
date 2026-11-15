@@ -60,13 +60,25 @@ const ActivityBars: React.FC<{ values: number[]; labels: string[] }> = ({ values
                     />
                 ))}
             </View>
-            <View className="flex-row justify-between">
-                {labels.map((label, i) => (
-                    <Text key={i} variant="body-tn" color="subtle">
-                        {label}
-                    </Text>
-                ))}
-            </View>
+            {/* One label per bar: center each under its bar, in a cell matching the bar row's
+                flex-1 + gap-0.5. Otherwise the labels mark the start, middle and end of the range. */}
+            {labels.length === values.length ? (
+                <View className="flex-row gap-0.5">
+                    {labels.map((label, i) => (
+                        <Text key={i} variant="body-tn" color="subtle" className="flex-1 text-center">
+                            {label}
+                        </Text>
+                    ))}
+                </View>
+            ) : (
+                <View className="flex-row justify-between">
+                    {labels.map((label, i) => (
+                        <Text key={i} variant="body-tn" color="subtle">
+                            {label}
+                        </Text>
+                    ))}
+                </View>
+            )}
         </View>
     );
 };
