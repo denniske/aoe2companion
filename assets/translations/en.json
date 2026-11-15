@@ -1101,6 +1101,8 @@
     "matchanalysis.buildorder.description": "Units, technologies and buildings in the order they were queued",
     "matchanalysis.buildorder.showall": "Show all ({count})",
     "matchanalysis.buildorder.showless": "Show less",
+    "matchanalysis.buildorder.all": "All",
+    "matchanalysis.buildorder.military": "Military",
     "matchanalysis.eapm.average": "Match average",
     "matchanalysis.seed": "Map seed: {seed}",
     "matchanalysis.seed.random": "Map seed: random (-1)"
