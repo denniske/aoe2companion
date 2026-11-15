@@ -427,6 +427,21 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '219.0.0': [
+        {
+            type: 'feature',
+            title: 'New Global Stats',
+            content: 'Stats for all civilizations, maps and skill levels',
+        },
+        {
+            type: 'feature',
+            title: 'Show queueing players in the personal, following and pro players dashboards',
+        },
+        {
+            type: 'bugfix',
+            title: 'Mark units as unique correctly',
+        },
+    ],
     '218.0.0': [
         {
             type: 'feature',
