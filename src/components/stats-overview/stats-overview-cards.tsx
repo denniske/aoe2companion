@@ -179,7 +179,7 @@ export const MatchupsTeaser: React.FC = () => {
             {!data ? (
                 <MetaPlaceholder error={error} />
             ) : (
-                <View className="items-center">
+                <View className="items-start">
                     <WinRateHeatmap<string, string>
                         rows={civs}
                         columns={civs}
@@ -281,29 +281,34 @@ export const RatingGroupsTeaser: React.FC = () => {
 
 export const CountriesTeaser: React.FC<{ className?: string }> = ({ className }) => {
     const { data, error } = useMeta('countries');
-    const top = (data?.countries ?? []).slice(0, 6);
+    const top = (data?.countries ?? []).slice(0, 7);
     const max = top[0]?.players ?? 1;
     return (
         <TeaserCard title="Countries" href="/statistics/countries" linkLabel="All countries" className={className}>
             {!data ? (
                 <MetaPlaceholder error={error} />
             ) : (
-                top.map((country) => (
-                    <View key={country.country} className="flex-row items-center gap-2 py-1">
-                        <CountryImage country={country.country} />
-                        <View className="flex-1 gap-1">
-                            <View className="flex-row justify-between">
-                                <Text variant="label-sm" numberOfLines={1} className="flex-1">
-                                    {getCountryName(country.country as Country)}
-                                </Text>
-                                <Text variant="body-xs" color="subtle" className="tabular-nums">
-                                    {country.players.toLocaleString()}
-                                </Text>
+                // flex-1 + justify-between: beside the taller leaderboard on md+ the card is
+                // stretched, and this spreads the leftover height between the rows instead
+                // of leaving it empty at the bottom. Unstretched (mobile) it changes nothing.
+                <View className="flex-1 justify-between">
+                    {top.map((country) => (
+                        <View key={country.country} className="flex-row items-center gap-2 py-1">
+                            <CountryImage country={country.country} />
+                            <View className="flex-1 gap-1">
+                                <View className="flex-row justify-between">
+                                    <Text variant="label-sm" numberOfLines={1} className="flex-1">
+                                        {getCountryName(country.country as Country)}
+                                    </Text>
+                                    <Text variant="body-xs" color="subtle" className="tabular-nums">
+                                        {country.players.toLocaleString()}
+                                    </Text>
+                                </View>
+                                <ShareBar fraction={country.players / max} />
                             </View>
-                            <ShareBar fraction={country.players / max} />
                         </View>
-                    </View>
-                ))
+                    ))}
+                </View>
             )}
         </TeaserCard>
     );
