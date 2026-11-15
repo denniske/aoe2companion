@@ -138,11 +138,11 @@ export const CivWinratesTeaser: React.FC = () => {
     const byWinRate = [...(data?.civs ?? [])].filter((c) => c.games >= MIN_RANKED_GAMES).sort((a, b) => b.winRate - a.winRate);
     return (
         <TeaserCard
-            title="Civilizations"
+            title="Winrates"
             // The win rates screens draw aoe2's bundled civ icons and history art, so aoe4
             // gets each civ's overall win rate on the matchups page instead.
             href={appConfig.game === 'aoe2' ? '/statistics/winrates' : '/statistics/matchups'}
-            linkLabel={appConfig.game === 'aoe2' ? 'All civ win rates' : 'Civs and matchups'}
+            linkLabel={appConfig.game === 'aoe2' ? 'All winrates' : 'Civs and matchups'}
         >
             {!data ? (
                 <MetaPlaceholder error={error} />
