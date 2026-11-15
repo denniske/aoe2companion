@@ -43,29 +43,53 @@ export default function Eapm({ teams }: Props) {
                 </Text>
 
                 {hasData && <PlayerLineChart series={series} />}
-
-                {hasData && (
-                    <View className="gap-0.5 mt-2">
-                        <Text variant="label-sm" color="subtle">
-                            {getTranslation('matchanalysis.eapm.average')}
-                        </Text>
-                        <View className="flex-row flex-wrap gap-x-4 gap-y-0.5">
-                            {teams
-                                .flatMap((team) => team.players)
-                                .filter((player) => player.averageEapm != null)
-                                .map((player) => (
-                                    <View key={player.color} className="flex-row items-center gap-1">
-                                        <View className="w-2 h-2 rounded-full" style={{ backgroundColor: player.color }} />
-                                        <Text variant="body-sm">{player.name}</Text>
-                                        <Text variant="body-sm" color="subtle">
-                                            {player.averageEapm}
-                                        </Text>
-                                    </View>
-                                ))}
-                        </View>
-                    </View>
-                )}
             </ViewLoader>
+        </View>
+    );
+}
+
+/**
+ * Each player's eAPM over the whole match, one bar per player in their chart colour, so the
+ * averages compare at a glance and the rows double as the eAPM chart's legend. Its own card:
+ * beside Uptimes on desktop, under the eAPM chart on mobile. Renders nothing without data.
+ */
+export function EapmAverages({ teams }: Props) {
+    const getTranslation = useTranslation();
+    // Bars are scaled to the busiest player, so the longest bar always fills the row.
+    const maxAverage = Math.max(0, ...(teams ?? []).flatMap((team) => team.players).map((player) => player.averageEapm ?? 0));
+    if (maxAverage <= 0) return null;
+
+    return (
+        <View className="gap-2">
+            <View>
+                <Text variant="header-sm">{getTranslation('matchanalysis.eapm.average')}</Text>
+                <Text variant="body">{getTranslation('matchanalysis.eapm.description')}</Text>
+            </View>
+            {/* Teams are kept together, the way the Uptimes table groups them. */}
+            {teams.map((team, teamIndex) => {
+                const players = team.players.filter((player) => player.averageEapm != null);
+                if (players.length === 0) return null;
+                return (
+                    <View key={team.teamId ?? teamIndex} className="gap-1">
+                        {players.map((player) => (
+                            <View key={player.color} className="flex-row items-center gap-2">
+                                <Text variant="body-sm" numberOfLines={1} className="w-28">
+                                    {player.name}
+                                </Text>
+                                <View className="flex-1 h-2 rounded-full bg-gray-200 dark:bg-blue-800 overflow-hidden">
+                                    <View
+                                        className="h-full rounded-full"
+                                        style={{ width: `${(player.averageEapm! / maxAverage) * 100}%`, backgroundColor: player.color }}
+                                    />
+                                </View>
+                                <Text variant="label-sm" className="w-8 text-right tabular-nums">
+                                    {player.averageEapm}
+                                </Text>
+                            </View>
+                        ))}
+                    </View>
+                );
+            })}
         </View>
     );
 }

@@ -17,7 +17,7 @@ import Chat from '@app/view/components/match-map/chat';
 import Legend from './legend';
 import Uptimes from '@app/view/components/match-map/uptimes';
 import {Card} from '@app/components/card';
-import Eapm from '@app/view/components/match-map/eapm';
+import Eapm, { EapmAverages } from '@app/view/components/match-map/eapm';
 import {aoe2PlayerColorsLightModeChatLegend} from '@app/helper/colors';
 import Timeseries from '@app/view/components/match-map/timeseries';
 import BuildOrder from '@app/view/components/match-map/build-order';
@@ -134,6 +134,8 @@ export default function MatchMap(props: Props) {
             };
         }),
     }));
+
+    const hasEapmAverages = teams.some((team) => team.players.some((player) => (player.averageEapm ?? 0) > 0));
 
     const specials = compact(
         analysis.players.flatMap((p) => {
@@ -437,6 +439,14 @@ export default function MatchMap(props: Props) {
                 <Card direction="vertical" className="max-w-full flex-1">
                     <Eapm teams={teams as any} />
                 </Card>
+                {/* The eAPM averages sit under the eAPM chart on mobile and beside Uptimes from md up.
+                    Those are different rows and React Native has no CSS order, so it renders in both
+                    places with one hidden per breakpoint. */}
+                {hasEapmAverages && (
+                    <Card direction="vertical" className="md:hidden">
+                        <EapmAverages teams={teams as any} />
+                    </Card>
+                )}
                 <Card direction="vertical" className="max-w-full flex-1">
                     <Timeseries
                         teams={teams as any}
@@ -456,9 +466,16 @@ export default function MatchMap(props: Props) {
                     />
                 </Card>
             </View>
-            <Card direction="vertical">
-                <Uptimes time={time} teams={teams as any} />
-            </Card>
+            <View className="gap-2 md:flex-row">
+                {hasEapmAverages && (
+                    <Card direction="vertical" className="hidden md:flex md:flex-1">
+                        <EapmAverages teams={teams as any} />
+                    </Card>
+                )}
+                <Card direction="vertical" className="md:flex-[2]">
+                    <Uptimes time={time} teams={teams as any} />
+                </Card>
+            </View>
             <Card direction="vertical">
                 <BuildOrder teams={teams as any} />
             </Card>
