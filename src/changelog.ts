@@ -452,6 +452,11 @@ export const changelog: IChangelog = {
             type: 'bugfix',
             title: 'Fix winrates charts',
         },
+        {
+            type: 'bugfix',
+            title: 'Fix unique unit labels and lists',
+            content: 'Bombard Cannon and Hussar are no longer shown as unique units, Winged Hussar is now listed for Lithuanians, Savar for Persians and Imperial Skirmisher for Vietnamese.',
+        },
     ],
     '216.0.0': [
         {

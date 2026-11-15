@@ -149,7 +149,7 @@ export const civList: ICivEntry[] = [
     },
     {
         name: 'Incas',
-        uniqueUnits: ['Kamayuk', 'Slinger'],
+        uniqueUnits: ['Kamayuk'],
         uniqueTechs: ['AndeanSling', 'FabricShields'],
     },
     {
@@ -204,7 +204,7 @@ export const civList: ICivEntry[] = [
     },
     {
         name: 'Lithuanians',
-        uniqueUnits: ['Leitis'],
+        uniqueUnits: ['Leitis', 'WingedHussar'],
         uniqueTechs: ['HillForts', 'TowerShields'],
     },
     {
@@ -234,7 +234,7 @@ export const civList: ICivEntry[] = [
     },
     {
         name: 'Persians',
-        uniqueUnits: ['WarElephant'],
+        uniqueUnits: ['WarElephant', 'Savar'],
         uniqueTechs: ['Kamandaran', 'Citadels'],
     },
     {
@@ -289,7 +289,7 @@ export const civList: ICivEntry[] = [
     },
     {
         name: 'Vietnamese',
-        uniqueUnits: ['RattanArcher'],
+        uniqueUnits: ['RattanArcher', 'ImperialSkirmisher'],
         uniqueTechs: ['Chatras', 'PaperMoney'],
     },
     {

@@ -4,7 +4,7 @@ import { HeaderTitle } from '@app/components/header-title';
 import { getUnitIcon } from '@app/helper/units';
 import {
     getAbilityEnabledForAllCivs,
-    getCivForUniqueUnit,
+    getCivsForUniqueUnit,
     getCivNameById,
     getUnitDescription,
     getUnitLineIdForUnit,
@@ -14,7 +14,6 @@ import {
     getWikiLinkForUnit,
     hasUnitLine,
     Unit,
-    unitLines,
 } from '@nex/data';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React from 'react';
@@ -46,8 +45,7 @@ function UnitDetails() {
     }
 
     const unitLineId = getUnitLineIdForUnit(unitName);
-    const unitLine = unitLines[unitLineId];
-    const uniqueUnitCiv = unitLine.civ ?? getCivForUniqueUnit(unitLineId);
+    const uniqueUnitCivs = getCivsForUniqueUnit(unitName);
 
     return (
         <ScrollView>
@@ -59,7 +57,7 @@ function UnitDetails() {
                             <HeaderTitle
                                 icon={getUnitIcon(unitName)}
                                 title={getUnitName(unitName)}
-                                subtitle={uniqueUnitCiv ? getCivNameById(uniqueUnitCiv) + ' ' + getTranslation('explore.units.uniqueunit') : undefined}
+                                subtitle={uniqueUnitCivs.length > 0 ? uniqueUnitCivs.map(getCivNameById).join(' / ') + ' ' + getTranslation('explore.units.uniqueunit') : undefined}
                             />
                         ),
                     }}

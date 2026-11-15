@@ -1,4 +1,5 @@
-import {flatMap} from 'lodash';
+import {flatMap, uniq} from 'lodash';
+import {getAbilityEnabled} from './tree';
 import {Civ, civDict, civList, civs} from './civs';
 import {getRelatedUnitLines, getUnitLineIdForUnit, Unit, UnitLine, unitLines} from './units';
 import {appConfig} from "@nex/dataset";
@@ -139,11 +140,29 @@ const unitSections: IUnitSection[] = [
 // (Condottiero, Missionary, ...) never got one, so anything reading unitLine.civ showed
 // no civ for them. Derive it from the civ data instead, which covers every unique unit.
 const civByUniqueUnitLine: Partial<Record<UnitLine, Civ>> = Object.fromEntries(
-    flatMap(civList, civ => civ.uniqueUnits.map(unit => [getUnitLineIdForUnit(unit), civ.name]))
+    flatMap(civList, civ => civ.uniqueUnits
+        .map(unit => getUnitLineIdForUnit(unit))
+        // Only claim the line when its base unit is the civ's own. Civ-specific upgrades of
+        // a generic line (Houfnice -> Bombard Cannon, Winged Hussar -> Hussar, ...) must not
+        // turn the whole generic line into that civ's unique unit.
+        .filter(line => line && civ.uniqueUnits.includes(unitLines[line]?.units[0] as Unit))
+        .map(line => [line, civ.name]))
 );
 
-export function getCivForUniqueUnit(unit: Unit | UnitLine): Civ | undefined {
-    return civByUniqueUnitLine[unitLines[unit] ? (unit as UnitLine) : getUnitLineIdForUnit(unit as Unit)];
+// The civs a unit page should call this a unique unit of. A unit a civ lists itself
+// (Houfnice, Winged Hussar, ...) is unique to every civ that can actually build it - the
+// Winged Hussar is listed by the Poles but also built by the Lithuanians. Other units in
+// that line (the Bombard Cannon, the Hussar) are not unique. Every other unit falls back
+// to its line, so the Elite Kona still reads as a Mapuche unique unit.
+export function getCivsForUniqueUnit(unit: Unit): Civ[] {
+    const listedBy = civList.filter(civ => civ.uniqueUnits.includes(unit)).map(civ => civ.name);
+    if (listedBy.length > 0) {
+        const builtBy = civs.filter(civ => civ != 'Indians' && getAbilityEnabled({civ, unit}));
+        return uniq([...listedBy, ...builtBy]);
+    }
+    const lineId = getUnitLineIdForUnit(unit);
+    const civ = unitLines[lineId]?.civ ?? civByUniqueUnitLine[lineId];
+    return civ ? [civ] : [];
 }
 
 function getUniqueUnitsForSection(civ: Civ) {
@@ -162,6 +181,8 @@ function getUniqueUnitsForSection(civ: Civ) {
         'Missionary',
         'FlamingCamel',
         'Houfnice',
+        'Savar',
+        'ImperialSkirmisher',
         'MountedTrebuchet',
         'TractionTrebuchet',
     ];
