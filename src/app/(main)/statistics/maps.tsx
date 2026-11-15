@@ -21,14 +21,12 @@ import { Pressable, View } from 'react-native';
 
 // Maps beyond the first dozen or so are a long tail of a few hundred games each.
 const TILE_COUNT = 15;
-const MAP_OPTIONS = [10, 0];
 const CIV_OPTIONS = [10, 25, 0];
 
 export default function MapsPage() {
     const { data, error } = useMeta('maps');
     const civStats = useMeta('civs');
     const [selectedChoice, setSelected] = useState<string | null>(null);
-    const [mapCount, setMapCount] = useState(10);
     const [civCount, setCivCount] = useState(10);
 
     if (!data) {
@@ -43,7 +41,7 @@ export default function MapsPage() {
     const civById = indexBy(data.civs, (c) => c.civ);
     const value = cellLookup(data.mapCivs, (c) => c.map, (c) => c.civ);
     const selected = mapById.get(selectedChoice ?? '') ?? data.maps[0];
-    const maps = data.maps.slice(0, mapCount || undefined).map((m) => m.map);
+    const maps = data.maps.map((m) => m.map);
     // Columns by overall popularity, so "10 civs" means the ten most played everywhere.
     const civOrder = civStats.data?.civs.map((c) => c.civ) ?? data.civs.map((c) => c.civ);
     const civs = civOrder.slice(0, civCount || undefined);
@@ -126,7 +124,6 @@ export default function MapsPage() {
 
             <SectionTitle title="Map × civilization table" />
             <View className="flex-row flex-wrap gap-3 items-center">
-                <ButtonPicker value={mapCount} values={MAP_OPTIONS} formatter={(v) => (v === 0 ? 'All maps' : `${v} maps`)} onSelect={setMapCount} />
                 <ButtonPicker value={civCount} values={CIV_OPTIONS} formatter={(v) => (v === 0 ? 'All civs' : `${v} civs`)} onSelect={setCivCount} />
                 <View className="flex-1" />
                 <EdgeLegend />

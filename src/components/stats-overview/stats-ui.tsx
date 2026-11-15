@@ -145,41 +145,50 @@ export function WinRateHeatmap<R extends string, C extends string>({
     cell?: number;
     highlightRow?: R | null;
 }) {
+    const highlight = { backgroundColor: goldAlpha(0.15) };
+    // The row headers sit outside the ScrollView so they stay put while the cells
+    // scroll sideways; a highlighted row tints both halves.
     return (
-        <ScrollView horizontal showsHorizontalScrollIndicator>
-            <View>
-                <View className="flex-row">
-                    <View style={{ width: rowHeaderWidth, height: cell }} />
-                    {columns.map((column) => (
-                        <View key={column} style={{ width: cell, height: cell }} className="items-center justify-center">
-                            {columnHeader(column)}
-                        </View>
-                    ))}
-                </View>
+        <View className="flex-row">
+            <View style={{ width: rowHeaderWidth }}>
+                <View style={{ height: cell }} />
                 {rows.map((row) => (
-                    <View key={row} className="flex-row rounded-lg" style={highlightRow === row ? { backgroundColor: goldAlpha(0.15) } : undefined}>
-                        <View style={{ width: rowHeaderWidth, height: cell }} className="justify-center">
-                            {rowHeader(row)}
-                        </View>
-                        {columns.map((column) => {
-                            const v = value(row, column);
-                            return (
-                                <View
-                                    key={column}
-                                    style={{ width: cell - 4, height: cell - 4, margin: 2, backgroundColor: v == null ? 'transparent' : edgeFill(v) }}
-                                    className={`items-center justify-center rounded-md ${v == null ? '' : 'border border-gray-200/60 dark:border-blue-800'}`}
-                                >
-                                    {/* Dark text once the gold is strong enough to wash out white. */}
-                                    <Text variant="body-tn" className={`tabular-nums ${v != null && v - 0.5 > FULL_EDGE * 0.6 ? 'text-blue-950!' : ''}`}>
-                                        {v == null ? '' : `${Math.round(v * 100)}%`}
-                                    </Text>
-                                </View>
-                            );
-                        })}
+                    <View key={row} style={[{ height: cell }, highlightRow === row && highlight]} className="justify-center rounded-l-lg">
+                        {rowHeader(row)}
                     </View>
                 ))}
             </View>
-        </ScrollView>
+            <ScrollView horizontal showsHorizontalScrollIndicator className="shrink">
+                <View>
+                    <View className="flex-row">
+                        {columns.map((column) => (
+                            <View key={column} style={{ width: cell, height: cell }} className="items-center justify-center">
+                                {columnHeader(column)}
+                            </View>
+                        ))}
+                    </View>
+                    {rows.map((row) => (
+                        <View key={row} className="flex-row rounded-r-lg" style={highlightRow === row ? highlight : undefined}>
+                            {columns.map((column) => {
+                                const v = value(row, column);
+                                return (
+                                    <View
+                                        key={column}
+                                        style={{ width: cell - 4, height: cell - 4, margin: 2, backgroundColor: v == null ? 'transparent' : edgeFill(v) }}
+                                        className={`items-center justify-center rounded-md ${v == null ? '' : 'border border-gray-200/60 dark:border-blue-800'}`}
+                                    >
+                                        {/* Dark text once the gold is strong enough to wash out white. */}
+                                        <Text variant="body-tn" className={`tabular-nums ${v != null && v - 0.5 > FULL_EDGE * 0.6 ? 'text-blue-950!' : ''}`}>
+                                            {v == null ? '' : `${Math.round(v * 100)}%`}
+                                        </Text>
+                                    </View>
+                                );
+                            })}
+                        </View>
+                    ))}
+                </View>
+            </ScrollView>
+        </View>
     );
 }
 
