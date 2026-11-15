@@ -13,12 +13,11 @@ import { cellLookup, indexBy, MIN_RANKED_GAMES, ratingGroupLabel } from './meta-
 import { BalanceBar, CivIcon, EdgeText, goldAlpha, MapThumb, MetaPlaceholder, ShareBar, WinRateHeatmap } from './stats-ui';
 
 /**
- * One overview card: a heading, a one-line explanation, the preview, and a link
+ * One overview card: a heading, the preview, and a link
  * along the bottom edge into the page it summarises.
  */
-export const TeaserCard: React.FC<{ title: string; subtitle: string; href?: Href; linkLabel?: string; className?: string; children: React.ReactNode }> = ({
+export const TeaserCard: React.FC<{ title: string; href?: Href; linkLabel?: string; className?: string; children: React.ReactNode }> = ({
     title,
-    subtitle,
     href,
     linkLabel,
     className,
@@ -28,12 +27,7 @@ export const TeaserCard: React.FC<{ title: string; subtitle: string; href?: Href
     // shrinks the card below its content and the link spills out under the border.
     // The whole card is the link, so the label below is plain text: anchors can't nest.
     <Card direction="vertical" href={href} className={`group md:flex-1 gap-3 ${className ?? ''}`}>
-        <View>
-            <Text variant="label-lg">{title}</Text>
-            <Text variant="body-sm" color="subtle">
-                {subtitle}
-            </Text>
-        </View>
+        <Text variant="label-lg">{title}</Text>
         {/* grow, not flex-1: flex-1 is a zero basis on web, which collapses the body under its content. */}
         <View className="grow">{children}</View>
         {href && (
@@ -144,7 +138,6 @@ export const CivWinratesTeaser: React.FC = () => {
     return (
         <TeaserCard
             title="Civilizations"
-            subtitle="Strongest and weakest civs in ranked 1v1"
             // The win rates page still reads aoestats.io, which only has aoe2; aoe4 gets each civ's
             // overall win rate on the matchups page instead.
             href={appConfig.game === 'aoe2' ? '/statistics/winrates' : '/statistics/matchups'}
@@ -180,35 +173,20 @@ export const MatchupsTeaser: React.FC = () => {
     const civById = indexBy(data?.civs ?? [], (c) => c.civ);
     const value = cellLookup(data?.matchups ?? [], (m) => m.civ, (m) => m.opponent);
     const civs = (data?.civs ?? []).slice(0, 6).map((c) => c.civ);
-    // The most lopsided pairing with enough games behind it, as the card's headline.
-    const best = (data?.matchups ?? []).filter((m) => m.games >= MIN_RANKED_GAMES).sort((a, b) => b.winRate - a.winRate)[0];
     return (
-        <TeaserCard title="Matchups" subtitle="The six most played civs against each other" href="/statistics/matchups" linkLabel="Full matchup table">
+        <TeaserCard title="Civilization matchups" href="/statistics/matchups" linkLabel="Full matchup table">
             {!data ? (
                 <MetaPlaceholder error={error} />
             ) : (
-                <>
-                    <View className="items-center">
-                        <WinRateHeatmap<string, string>
-                            rows={civs}
-                            columns={civs}
-                            value={value}
-                            rowHeader={(civ) => <CivIcon civ={civById.get(civ)} />}
-                            columnHeader={(civ) => <CivIcon civ={civById.get(civ)} />}
-                        />
-                    </View>
-                    {best && (
-                        <View className="flex-row items-center gap-2 mt-3 rounded-lg bg-gray-100 dark:bg-blue-950 px-3 py-2">
-                            <Text variant="body-xs" color="subtle" className="flex-1">
-                                Most one-sided
-                            </Text>
-                            <CivIcon civ={civById.get(best.civ)} size={16} />
-                            <Text variant="label-xs">vs</Text>
-                            <CivIcon civ={civById.get(best.opponent)} size={16} />
-                            <EdgeText winRate={best.winRate} mode="edge" variant="label-xs" />
-                        </View>
-                    )}
-                </>
+                <View className="items-center">
+                    <WinRateHeatmap<string, string>
+                        rows={civs}
+                        columns={civs}
+                        value={value}
+                        rowHeader={(civ) => <CivIcon civ={civById.get(civ)} />}
+                        columnHeader={(civ) => <CivIcon civ={civById.get(civ)} />}
+                    />
+                </View>
             )}
         </TeaserCard>
     );
@@ -219,7 +197,7 @@ export const MapCivTeaser: React.FC = () => {
     const civById = indexBy(data?.civs ?? [], (c) => c.civ);
     const maxGames = data?.maps[0]?.games ?? 1;
     return (
-        <TeaserCard title="Maps" subtitle="Most played maps and who wins on them" href="/statistics/maps" linkLabel="All maps">
+        <TeaserCard title="Maps" href="/statistics/maps" linkLabel="All maps">
             {!data ? (
                 <MetaPlaceholder error={error} />
             ) : (
@@ -258,7 +236,7 @@ export const MapCivTeaser: React.FC = () => {
 export const RatingGroupsTeaser: React.FC = () => {
     const { data, error } = useMeta('rating-groups');
     return (
-        <TeaserCard title="By rating" subtitle="The strongest civ at each skill level" href="/statistics/rating" linkLabel="Civs by rating">
+        <TeaserCard title="Skill Levels" href="/statistics/rating" linkLabel="Civs by rating">
             {!data ? (
                 <MetaPlaceholder error={error} />
             ) : (
@@ -300,7 +278,7 @@ export const CountriesTeaser: React.FC<{ className?: string }> = ({ className })
     const top = (data?.countries ?? []).slice(0, 6);
     const max = top[0]?.players ?? 1;
     return (
-        <TeaserCard title="Countries" subtitle="Where ranked 1v1 players come from" href="/statistics/countries" linkLabel="All countries" className={className}>
+        <TeaserCard title="Countries" href="/statistics/countries" linkLabel="All countries" className={className}>
             {!data ? (
                 <MetaPlaceholder error={error} />
             ) : (
