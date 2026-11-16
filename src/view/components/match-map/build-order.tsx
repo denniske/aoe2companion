@@ -5,7 +5,7 @@ import type { ImageSourceProp } from '@app/components/uniwind/image';
 import { Text } from '@app/components/text';
 import { cdnImageUrl } from '@app/helper/maps';
 import { getAgeIcon } from '@app/helper/units';
-import { getTimestampMs, ILegendInfo } from '@app/view/components/match-map/match-map';
+import { getTimestampMs, ILegendInfo } from '@app/view/components/match-map/analysis-utils';
 import { useTranslation } from '@app/helper/translate';
 import { unitIconImageDict } from '@/assets/units';
 import { techIconImageDict } from '@/assets/techs';

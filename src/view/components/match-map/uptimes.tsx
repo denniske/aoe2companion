@@ -3,7 +3,7 @@ import { cdnImageUrl } from '@app/helper/maps';
 import { View } from 'react-native';
 import { runOnJS, SharedValue, useAnimatedReaction } from 'react-native-reanimated';
 import { isEqual, last } from 'lodash';
-import { getTimestampMs, ILegendInfo } from '@app/view/components/match-map/match-map';
+import { getTimestampMs, ILegendInfo } from '@app/view/components/match-map/analysis-utils';
 import { appConfig } from '@nex/dataset';
 import { getCivIcon } from '@app/helper/civs';
 import { Image } from '@/src/components/uniwind/image';

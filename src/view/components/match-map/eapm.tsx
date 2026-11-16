@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { PlayerLineChart } from '@app/view/components/match-map/player-line-chart';
 import type { ChartSeries } from '@app/view/components/perf-chart/types';
 import { ViewLoader } from '@app/view/components/loader/view-loader';
-import { ILegendInfo } from '@app/view/components/match-map/match-map';
+import { ILegendInfo } from '@app/view/components/match-map/analysis-utils';
 import { Text } from '@app/components/text';
 import { useTranslation } from '@app/helper/translate';
 
