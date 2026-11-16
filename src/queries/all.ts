@@ -21,7 +21,7 @@ import { useMemo, useState } from 'react';
 import { appConfig } from '@nex/dataset';
 import { getCivIdByEnum, getCivNameById, getSupabaseClient } from '@nex/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ICivilization, IFetchProfilesParams } from '@app/api/helper/api.types';
+import { IAnalysis, ICivilization, IFetchProfilesParams, IMatchNew } from '@app/api/helper/api.types';
 import { loadCivOverview } from '@app/helper/civ-overview';
 import { useAoe4ExplorerCivOverview } from '@app/queries/aoe4-explorer';
 import { withCacheBust } from '@app/api/util';
@@ -104,6 +104,38 @@ export const useMatchAnalysis = (matchId: number, enabled: boolean) => {
         enabled: !!language && !!matchId && enabled,
     });
 };
+
+/**
+ * The match with each player's colour taken from the replay when a stored analysis exists. The
+ * lobby colours Relic reports can differ from the ones the game actually ran with (seen in custom
+ * lobbies), and the map, chat and charts of the analysis all use the replay's, so the player cards
+ * follow them too. Players are linked by profile id; AI players have none and keep the lobby colour.
+ * Shares its cache with MatchAnalysis, so it never fetches anything that page would not.
+ */
+export const useMatchWithReplayColors = <T extends IMatchNew | undefined>(match: T): T => {
+    const { data: analysis } = useMatchAnalysis(match?.matchId ?? 0, !!match?.analysisSource);
+    return useMemo(() => applyReplayColors(match, analysis), [match, analysis]);
+};
+
+function applyReplayColors<T extends IMatchNew | undefined>(match: T, analysis: IAnalysis | undefined): T {
+    if (!match || !analysis?.players?.length) return match;
+    const byProfileId = new Map(
+        analysis.players.filter((p) => p.profileId != null && p.profileId > 0).map((p) => [p.profileId, p])
+    );
+    let changed = false;
+    const teams = match.teams.map((team) => ({
+        ...team,
+        players: team.players.map((player) => {
+            const replayPlayer = player.profileId > 0 ? byProfileId.get(player.profileId) : undefined;
+            if (replayPlayer?.colorId == null || !replayPlayer.colorHex) return player;
+            const color = replayPlayer.colorId + 1;
+            if (color === player.color && replayPlayer.colorHex === player.colorHex) return player;
+            changed = true;
+            return { ...player, color, colorHex: replayPlayer.colorHex };
+        }),
+    }));
+    return changed ? { ...match, teams } : match;
+}
 
 export const useUploadedAnalysis = (uploadId: string) => {
     const language = useLanguage();

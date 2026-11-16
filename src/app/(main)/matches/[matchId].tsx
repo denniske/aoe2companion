@@ -3,7 +3,7 @@ import { Stack, useLocalSearchParams } from 'expo-router';
 import { MatchCard } from '@app/components/match/match-card';
 import { View } from 'react-native';
 import { ScrollView } from '@app/components/scroll-view';
-import { useMatch, useWithRefetching } from '@app/queries/all';
+import { useMatch, useMatchWithReplayColors, useWithRefetching } from '@app/queries/all';
 import MatchAnalysis from '@app/view/components/match-map/match-analysis';
 import MatchOptions from '@app/components/match/match-options';
 import MatchInfo from '@app/components/match/match-info';
@@ -21,7 +21,8 @@ export default function MatchPage() {
     const params = useLocalSearchParams<MatchPageParams>();
     const matchId = parseInt(params.matchId);
 
-    const { data: match, error: matchError, isPending: matchLoading } = useWithRefetching(useMatch(matchId));
+    const { data: lobbyMatch, error: matchError, isPending: matchLoading } = useWithRefetching(useMatch(matchId));
+    const match = useMatchWithReplayColors(lobbyMatch);
 
     if (!match) {
         return matchLoading ? <LoadingScreen /> : <NotFound />;
