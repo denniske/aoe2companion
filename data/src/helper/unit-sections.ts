@@ -199,18 +199,13 @@ function getUniqueUnitsForSection(civ: Civ) {
     return allUnits;
 }
 
-const nonExtendedUnitsInSections = [
-    'ElephantArcher',
-    'BattleElephant',
-    'CannonGalleon',
-    'FireLancer',
-    'SteppeLancer',
-];
-
+// Lines in the generic sections are expanded to every unit in them, elite versions
+// included (Elite Skirmisher, Elite Genitour, Elite Longship, ...). Only the per-civ unique
+// sections stay collapsed to the base unit - the unit page shows their elite stats instead.
 export const allUnitSections = unitSections.map(section => ({
     ...section,
     data: flatMap(section.data.map(u => {
-        if (unitLines[u] && !unitLines[u].unique && !nonExtendedUnitsInSections.includes(u)) {
+        if (unitLines[u] && !section.civ) {
             return unitLines[u].units;
         }
         return [u];
