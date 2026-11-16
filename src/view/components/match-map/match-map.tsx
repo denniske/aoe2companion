@@ -109,13 +109,19 @@ export default function MatchMap(props: Props) {
         })
     );
 
-    const getAnalysisPlayer = (color: number) => analysis.players.find(p => (p.colorId ?? 0)+1 === color);
+    // Join by profile id: the match API's lobby colours and the rec's colours can disagree (seen in
+    // custom lobbies), and a colour join then hands players each other's data. AI players have no
+    // profile id, so they fall back to the colour.
+    const getAnalysisPlayer = (player: { profileId?: number; color: number }) =>
+        (player.profileId != null && player.profileId > 0
+            ? analysis.players.find((p) => p.profileId === player.profileId)
+            : undefined) ?? analysis.players.find((p) => (p.colorId ?? 0) + 1 === player.color);
 
     const teams = match.teams.map((team) => ({
         teamId: team.teamId,
         players: team.players.map((player) => {
-
-            const colorHex = getAnalysisPlayer(player.color)?.colorHex;
+            const analysisPlayer = getAnalysisPlayer(player);
+            const colorHex = analysisPlayer?.colorHex;
             const color = darkMode == 'light' ? aoe2PlayerColorsLightModeChatLegend[colorHex as any] ?? colorHex : colorHex;
 
             return {
@@ -123,14 +129,14 @@ export default function MatchMap(props: Props) {
                 name: player.name,
                 color,
                 civImageUrl: player.civImageUrl,
-                eapmPerMinute: getAnalysisPlayer(player.color)?.eapmPerMinute,
-                resignation: getAnalysisPlayer(player.color)?.resignation,
-                uptimes: getAnalysisPlayer(player.color)?.uptimes,
-                timeseries: getAnalysisPlayer(player.color)?.timeseries,
-                queuedUnits: getAnalysisPlayer(player.color)?.queuedUnits,
-                queuedTechs: getAnalysisPlayer(player.color)?.queuedTechs,
-                queuedBuildings: getAnalysisPlayer(player.color)?.queuedBuildings,
-                averageEapm: getAverageEapm(getAnalysisPlayer(player.color)?.eapmPerMinute, getTimestampMs(analysis.duration)),
+                eapmPerMinute: analysisPlayer?.eapmPerMinute,
+                resignation: analysisPlayer?.resignation,
+                uptimes: analysisPlayer?.uptimes,
+                timeseries: analysisPlayer?.timeseries,
+                queuedUnits: analysisPlayer?.queuedUnits,
+                queuedTechs: analysisPlayer?.queuedTechs,
+                queuedBuildings: analysisPlayer?.queuedBuildings,
+                averageEapm: getAverageEapm(analysisPlayer?.eapmPerMinute, getTimestampMs(analysis.duration)),
             };
         }),
     }));
@@ -499,7 +505,7 @@ export type ILegendInfo = {
         name: string
         civImageUrl: string
         color: string
-        eapmPerMinute: Record<string, number>
+        eapmPerMinute?: Record<string, number>
         resignation?: {
             payload: {
                 sequence: number
@@ -508,11 +514,11 @@ export type ILegendInfo = {
             timestamp: string
             type: string
         }
-        uptimes: {
+        uptimes?: {
             timestamp: string
             age: string
         }[]
-        timeseries: {
+        timeseries?: {
             timestamp: string
             totalObjects: number
             totalResources: number

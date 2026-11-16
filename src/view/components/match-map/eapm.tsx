@@ -24,7 +24,7 @@ export default function Eapm({ teams }: Props) {
                 color: player.color,
                 scatter: true,
                 strokeWidth: 1.25,
-                data: Object.entries(player.eapmPerMinute)
+                data: Object.entries(player.eapmPerMinute ?? {})
                     .map(([min, eapm]) => ({ x: parseInt(min), y: eapm as number }))
                     .sort((a, b) => a.x - b.x),
             }));

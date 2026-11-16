@@ -77,7 +77,7 @@ export default function Legend({ time, legendInfo, match }: Props) {
                 ...team,
                 players: team.players.map((player) => {
                     let age =
-                        last(player.uptimes.filter((uptime) => getTimestampMs(uptime.timestamp) < time))?.age ??
+                        last((player.uptimes ?? []).filter((uptime) => getTimestampMs(uptime.timestamp) < time))?.age ??
                         startingAges[match.startingAge] ??
                         'dark';
                     // console.log('age', player.name, age, match.startingAge, analysisAgeToAge[age]);

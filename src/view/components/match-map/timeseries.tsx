@@ -30,7 +30,7 @@ export default function Timeseries({ teams, metric, title, description, explanat
                 color: player.color,
                 scatter: true,
                 strokeWidth: 1.25,
-                data: player.timeseries
+                data: (player.timeseries ?? [])
                     .map((entry) => ({ x: getTimestampMs(entry.timestamp) / 1000 / 60, y: entry[metric] as number }))
                     .sort((a, b) => a.x - b.x),
             }));
