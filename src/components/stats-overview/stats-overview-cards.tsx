@@ -37,11 +37,14 @@ export const TeaserCard: React.FC<{ title: string; href?: Href; linkLabel?: stri
     </Card>
 );
 
-// Bars scaled from 80% of the series minimum, not zero: activity never drops near
-// zero, so a zero baseline flattens the daily curve into a solid block.
-const ActivityBars: React.FC<{ values: number[]; labels: string[] }> = ({ values, labels }) => {
+// By default bars are scaled from 80% of the series minimum, not zero: hourly activity
+// never drops near zero, so a zero baseline flattens the daily curve into a solid block.
+// `fromZero` is for totals, where bar height has to be proportional to the count: the
+// daily series ends in today's partial count, which as the minimum would otherwise set
+// the baseline and shrink its own bar to almost nothing.
+const ActivityBars: React.FC<{ values: number[]; labels: string[]; fromZero?: boolean }> = ({ values, labels, fromZero }) => {
     const max = Math.max(...values);
-    const min = Math.min(...values) * 0.8;
+    const min = fromZero ? 0 : Math.min(...values) * 0.8;
     return (
         <View className="gap-1">
             <View className="flex-row items-end gap-0.5 h-14">
@@ -110,6 +113,7 @@ export const StatsTotals: React.FC = () => {
                     {(today?.matches ?? 0).toLocaleString()}
                 </Text>
                 <ActivityBars
+                    fromZero
                     values={data.daily.map((d) => d.matches)}
                     labels={data.daily.map((d) => format(new Date(`${d.day}T12:00:00Z`), 'EEE'))}
                 />
