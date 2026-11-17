@@ -22,6 +22,7 @@ import { Skeleton, SkeletonText } from '@app/components/skeleton';
 import NotFound from '@app/app/(main)/+not-found';
 import { useTranslation } from '@app/helper/translate';
 import { Translated } from '@app/components/translated';
+import { LadderProfileSection } from '@app/view/ladder-tournament/ladder-profile-section';
 
 type UserPageParams = {
     profileId: string;
@@ -136,6 +137,8 @@ export default function ProfilePage() {
             <AnimateIn skipFirstAnimation>
                 <ProfileLeaderboards profile={fullProfile} leaderboardIds={leaderboardIds} />
             </AnimateIn>
+
+            <LadderProfileSection profileId={profileId} className="px-4 pt-4" />
 
             <MainMatches profile={fullProfile || null} leaderboardIds={leaderboardIds} />
         </ScrollView>

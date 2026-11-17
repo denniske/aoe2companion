@@ -12,6 +12,7 @@ import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { MyText } from '@app/view/components/my-text';
 import Profile from '@app/view/components/profile';
 import { ProfileLeaderboards } from '@app/components/profile-leaderboards';
+import { LadderProfileSection } from '@app/view/ladder-tournament/ladder-profile-section';
 import { Match } from '@app/components/match/match';
 import { Card } from '@app/components/card';
 import { PressableOpacity } from '@app/components/pressable-opacity';
@@ -87,6 +88,8 @@ export default function MainProfile() {
                         scrollRef.current?.scrollTo({ y: Math.max(0, scrollYBeforeCollapseRef.current - removedHeight), animated: false })
                     }
                 />
+
+                <LadderProfileSection profileId={profileId} className="px-4 pb-4" />
 
                 <View className="px-4 gap-2">
                     <Text variant="header-lg">{getTranslation('main.heading.matches')}</Text>

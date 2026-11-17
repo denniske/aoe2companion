@@ -14,6 +14,7 @@ import { Tag } from '@app/view/components/tag';
 import { PlayoffPopup } from '@app/view/tournaments/playoffs/popup';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
 import { TournamentMatch } from '@app/view/tournaments/tournament-match';
+import { LadderFeaturedCard } from '@app/view/ladder-tournament/ladder-featured-card';
 import { matchAttributes } from '@nex/data';
 import { Image } from '@/src/components/uniwind/image';
 import { Stack, useFocusEffect } from 'expo-router';
@@ -266,6 +267,10 @@ export default function Competitive() {
                         renderItem={({ item }) => <TournamentCard direction="vertical" {...item} />}
                         keyExtractor={(item, index) => item?.path || index}
                     />
+                </View>
+
+                <View className="px-4">
+                    <LadderFeaturedCard />
                 </View>
 
                 <View className="gap-2">

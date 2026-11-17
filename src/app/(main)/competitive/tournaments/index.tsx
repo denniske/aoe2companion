@@ -9,6 +9,7 @@ import { useAppTheme } from '@app/theming';
 import { DismissKeyboard } from '@app/view/components/dismiss-keyboard';
 import RefreshControlThemed from '@app/view/components/refresh-control-themed';
 import { TournamentCard } from '@app/view/tournaments/tournament-card';
+import { LadderFeaturedCard } from '@app/view/ladder-tournament/ladder-featured-card';
 import { Stack } from 'expo-router';
 import { Tournament } from '@app/api/liquipedia.types';
 import { orderBy } from 'lodash';
@@ -88,6 +89,7 @@ export default function TournamentsList() {
 
     const listHeader = (
         <View style={styles.container}>
+            <LadderFeaturedCard />
             <View style={styles.searchContainer}>
                 <Field type="search" value={search} onChangeText={setSearch} placeholder={getTranslation('tournaments.search')} />
             </View>
