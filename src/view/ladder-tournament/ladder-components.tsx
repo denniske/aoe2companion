@@ -1,4 +1,5 @@
 import {
+    LADDER_TOURNAMENT_URL,
     formatStage,
     LadderBadge,
     LadderPhase,
@@ -370,5 +371,15 @@ export const LadderTournamentTitle: React.FC<{ subtitle?: string; children?: Rea
                 {children}
             </View>
         </View>
+    );
+};
+
+/** "Data from laddertournament.com.br", linking to the organizer's site. */
+export const LadderSourceLink: React.FC = () => {
+    const getTranslation = useTranslation();
+    return (
+        <Link alt variant="body-xs" className="self-center" href={LADDER_TOURNAMENT_URL} target="_blank">
+            {getTranslation('ladderTournament.source')}
+        </Link>
     );
 };

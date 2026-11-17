@@ -9,6 +9,7 @@ import NotFound from '@app/app/(main)/+not-found';
 import {
     formatLadderDate,
     LadderPlayerLink,
+    LadderSourceLink,
     LadderSeasonDetails,
     LadderSeasonStats,
     LadderStandingsTable,
@@ -127,9 +128,7 @@ export default function LadderTournamentSeasonPage() {
                 ))}
             </View>
 
-            <Text variant="body-xs" color="subtle" className="self-center">
-                {getTranslation('ladderTournament.source')}
-            </Text>
+            <LadderSourceLink />
         </ScrollView>
     );
 }

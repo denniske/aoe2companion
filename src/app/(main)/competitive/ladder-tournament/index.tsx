@@ -12,6 +12,7 @@ import {
     formatLadderRange,
     formatRecord,
     LadderPlayerLink,
+    LadderSourceLink,
     LadderSeasonStats,
     LadderStandingsTable,
     LadderStatusPill,
@@ -153,9 +154,7 @@ export default function LadderTournamentPage() {
             )}
 
             {!!data && (
-                <Text variant="body-xs" color="subtle" className="self-center">
-                    {getTranslation('ladderTournament.source')}
-                </Text>
+                <LadderSourceLink />
             )}
         </ScrollView>
     );
