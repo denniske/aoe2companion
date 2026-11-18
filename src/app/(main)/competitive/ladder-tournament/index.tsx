@@ -21,8 +21,8 @@ import {
     useLadderSeasonTitle,
 } from '@app/view/ladder-tournament/ladder-components';
 import { Image } from '@app/components/uniwind/image';
-import { Stack } from 'expo-router';
-import { View } from 'react-native';
+import { Stack, useRouter } from 'expo-router';
+import { Pressable, View } from 'react-native';
 
 const TOP_PLAYERS = 5;
 const LATEST_CASTS = 4;
@@ -31,6 +31,7 @@ export default function LadderTournamentPage() {
     const getTranslation = useTranslation();
     const seasonTitle = useLadderSeasonTitle();
     const { isMedium } = useBreakpoints();
+    const router = useRouter();
     const { data, isPending, isError } = useLadderTournament();
 
     const featured = data?.seasons.find((season) => season.id === data.featuredSeasonId);
@@ -113,9 +114,10 @@ export default function LadderTournamentPage() {
                     <Text variant="header-lg">{getTranslation('ladderTournament.allSeasons')}</Text>
                     <Card direction="vertical" className="px-0! py-0! gap-0! overflow-hidden">
                         {data.seasons.map((season, index) => (
-                            <View
+                            <Pressable
                                 key={season.id}
-                                className={`flex-row flex-wrap items-center gap-x-4 gap-y-1.5 px-4 py-3 ${index > 0 ? 'border-t border-gray-100 dark:border-gray-800' : ''}`}
+                                onPress={() => router.push(`/competitive/ladder-tournament/${season.id}`)}
+                                className={`flex-row flex-wrap items-center gap-x-4 gap-y-1.5 px-4 py-3 hover:bg-gray-50 hover:dark:bg-blue-800 transition-colors ${index > 0 ? 'border-t border-gray-100 dark:border-gray-800' : ''}`}
                             >
                                 <View className={isMedium ? 'w-64 gap-1' : 'w-full gap-1'}>
                                     <Link alt href={`/competitive/ladder-tournament/${season.id}`} numberOfLines={1}>
@@ -140,7 +142,7 @@ export default function LadderTournamentPage() {
                                         </Text>
                                     </View>
                                 )}
-                            </View>
+                            </Pressable>
                         ))}
                     </Card>
                 </View>
