@@ -427,7 +427,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '224.0.0': [
+    '225.0.0': [
         {
             type: 'feature',
             title: 'New Global Stats',
