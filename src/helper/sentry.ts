@@ -24,6 +24,14 @@ export default function initSentry() {
         debug: false,
         enabled: !__DEV__ && Platform.OS !== 'web',
 
+        _experiments: {
+            // Cocoa's frame-based ANR tracker reports a foregrounded app that isn't rendering as a
+            // "fully blocked" hang (idle main thread, minutes long), and while that hang counts as
+            // ongoing, watchdog/OOM terminations are skipped. V2 uses a run-loop observer instead,
+            // so those terminations get reported again. See getsentry/sentry-react-native#6992.
+            enableWatchdogTerminationsV2: true,
+        },
+
         beforeSend: (event, hint) => {
             // FetchNotOkError is grouped on its constructor frame, which collapses every non-2xx
             // response from every endpoint into a single issue -- a 401 ends up hidden behind a wave
