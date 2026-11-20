@@ -1,0 +1,23 @@
+diff --git a/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt b/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt
+index aa8f2f54206ed05b8d8f1ed4beca4af1f884b9f2..fbb04acb2aaa048e10d33ad0e970e37f25438b8c 100644
+--- a/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt
++++ b/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt
+@@ -307,7 +307,17 @@ class ReactActivityDelegateWrapper(
+ 
+   override fun onNewIntent(intent: Intent?): Boolean {
+     if (!loadAppReady.isCompleted) {
+-      return false
++      // An intent can arrive before the app has loaded, e.g. when the process was killed but its
++      // task kept: tapping a notification then recreates the activity from the task's original
++      // launcher intent and delivers the notification intent through onNewIntent right after
++      // onCreate. Dropping it here meant expo-notifications never saw the tap, so queue it until
++      // the app is ready instead, like the other lifecycle callbacks.
++      launchLifecycleScopeWithLock {
++        loadAppReady.await()
++        reactActivityLifecycleListeners.forEach { it.onNewIntent(intent) }
++        delegate.onNewIntent(intent)
++      }
++      return false
+     }
+     val listenerResult = reactActivityLifecycleListeners
+       .map { it.onNewIntent(intent) }

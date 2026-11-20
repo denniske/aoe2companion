@@ -610,7 +610,9 @@ function AppWrapper() {
                     {/*    userRole="admin"*/}
                     {/*/>*/}
 
-                    {/*<StartupNavigationController />*/}
+                    {/* Native only: on web it broke fast refresh, and it has nothing to do there
+                        (no push notifications, main page redirect is native-only) */}
+                    {Platform.OS !== 'web' && <StartupNavigationController />}
                     <AccountController />
                     <LanguageController />
                     <LiveActivityController />

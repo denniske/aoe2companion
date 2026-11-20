@@ -427,10 +427,14 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '227.0.0': [
+    '228.0.0': [
         {
             type: 'bugfix',
             title: 'Fix data not loading on android',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix notification tap should redirect to match',
         },
     ],
     '226.0.0': [
