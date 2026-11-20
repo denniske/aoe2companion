@@ -427,7 +427,7 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
-    '225.0.0': [
+    '226.0.0': [
         {
             type: 'feature',
             title: 'New Global Stats',
@@ -444,6 +444,10 @@ export const changelog: IChangelog = {
         {
             type: 'bugfix',
             title: 'Mark units as unique correctly',
+        },
+        {
+            type: 'bugfix',
+            title: 'Fix data not loading on android',
         },
     ],
     '218.0.0': [
