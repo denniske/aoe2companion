@@ -50,7 +50,7 @@ export const HeaderTitle: React.FC<HeaderTitleProps> = ({
                     numberOfLines={1}
                     allowFontScaling={false}
                     align={align}
-                    className={cn(isSkeleton && 'w-3xs! md:w-xs!')}
+                    className={cn(isSkeleton && 'max-w-3xs md:max-w-xs')}
                 >
                     {title}
                 </TextComponent>
@@ -63,7 +63,7 @@ export const HeaderTitle: React.FC<HeaderTitleProps> = ({
                             allowFontScaling={false}
                             align={align}
                             color={!subtitleLink ? 'default' : 'link'}
-                            className={cn(isSkeleton && 'w-3xs! md:w-xs!')}
+                            className={cn(isSkeleton && 'max-w-3xs md:max-w-xs')}
                         >
                             {subtitle}
                         </TextComponent>

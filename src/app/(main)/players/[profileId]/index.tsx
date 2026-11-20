@@ -41,9 +41,14 @@ export default function ProfilePage() {
     const account = useAccount();
     const loggedIn = user && !user.is_anonymous && account.data;
 
-    const { data: fullProfile, isPending: isFullProfilePending } = useProfilePage(profileId);
-    const { data: profile, isPending: isProfilePending } = useProfileFast(profileId);
+    const fullProfileQuery = useProfilePage(profileId);
+    const profileQuery = useProfileFast(profileId);
+    const { data: fullProfile, isPending: isFullProfilePending } = fullProfileQuery;
+    const { data: profile, isPending: isProfilePending } = profileQuery;
     const isPending = isFullProfilePending || isProfilePending;
+    // A failed request is not a missing profile. Only a 404 means the player does not exist; anything
+    // else (a timeout, no network) used to land on Not Found too, with nothing to retry.
+    const loadError = [fullProfileQuery.error, profileQuery.error].find((e) => e && (e as any).status !== 404);
 
     const leaderboards = fullProfile?.leaderboards.filter((l) => leaderboardIds.length === 0 || leaderboardIds.includes(l.leaderboardId));
 
@@ -51,6 +56,24 @@ export default function ProfilePage() {
     const drops = sumBy(leaderboards, (x) => x.drops);
 
     const TextComponent = fullProfile ? Text : SkeletonText;
+
+    if (loadError && !fullProfile && !profile) {
+        return (
+            <View className="flex-1 justify-center items-center gap-4 p-4">
+                <Text variant="label-lg" color="subtle">
+                    {getTranslation('error.somethingwentwrong')}
+                </Text>
+                <Button
+                    onPress={() => {
+                        fullProfileQuery.refetch();
+                        profileQuery.refetch();
+                    }}
+                >
+                    {getTranslation('matchanalysis.retry')}
+                </Button>
+            </View>
+        );
+    }
 
     if ((!isPending && !fullProfile && !profile) || isNaN(profileId)) {
         return <NotFound />;

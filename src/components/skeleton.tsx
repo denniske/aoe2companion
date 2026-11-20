@@ -13,16 +13,22 @@ export const SkeletonText: React.FC<ViewProps & { variant?: TextVariant; numberO
     variant,
     numberOfLines = 1,
     className,
+    alt,
+    // Callers swap Text for SkeletonText and keep the same props, children included. Those must not
+    // reach the bars: children used to render inside them, and className/style were applied to both
+    // the wrapper and every bar.
+    children,
+    style,
     ...props
 }) => {
     const { fontSize, lineHeight } = textVariantStyles[variant ?? 'body'];
 
     return (
-        <View className={cn('w-full justify-around', className)} style={{ height: lineHeight * numberOfLines }} {...props}>
+        <View className={cn('w-full justify-around', className)} style={[style, { height: lineHeight * numberOfLines }]} {...props}>
             {Array(numberOfLines)
                 .fill(null)
                 .map((_, index) => (
-                    <Skeleton className={cn('w-full', className)} key={index} style={{ height: fontSize }} {...props}></Skeleton>
+                    <Skeleton className="w-full" alt={alt} key={index} style={{ height: fontSize }} />
                 ))}
         </View>
     );

@@ -260,14 +260,19 @@ export const ProfileLeaderboardCard: React.FC<{
                                 <TextComponent variant="label-sm" numberOfLines={1}>
                                     {topCiv?.civName}
                                 </TextComponent>
-                                <View className="flex-row items-baseline gap-1">
-                                    <TextComponent variant="body-xs" color="brand">
-                                        {!topCiv?.wins || isNaN(topCiv?.wins) ? '-' : ((topCiv.wins / topCiv.games) * 100).toFixed(0) + '%'}
-                                    </TextComponent>
-                                    <TextComponent variant="body-xs" color="subtle" numberOfLines={1}>
-                                        {getTranslation('profilecard.matches', { games: topCiv?.games ?? '', count: topCiv?.games })}
-                                    </TextComponent>
-                                </View>
+                                {leaderboard ? (
+                                    <View className="flex-row items-baseline gap-1">
+                                        <Text variant="body-xs" color="brand">
+                                            {!topCiv?.wins || isNaN(topCiv?.wins) ? '-' : ((topCiv.wins / topCiv.games) * 100).toFixed(0) + '%'}
+                                        </Text>
+                                        <Text variant="body-xs" color="subtle" numberOfLines={1}>
+                                            {getTranslation('profilecard.matches', { games: topCiv?.games ?? '', count: topCiv?.games })}
+                                        </Text>
+                                    </View>
+                                ) : (
+                                    // Two full-width skeletons side by side would be twice the row's width.
+                                    <SkeletonText variant="body-xs" />
+                                )}
                             </View>
                         </PressableOpacity>
 
@@ -290,14 +295,19 @@ export const ProfileLeaderboardCard: React.FC<{
                                 <TextComponent variant="label-sm" numberOfLines={1}>
                                     {topMap?.mapName}
                                 </TextComponent>
-                                <View className="flex-row items-baseline gap-1">
-                                    <TextComponent variant="body-xs" color="brand">
-                                        {!topMap?.wins || isNaN(topMap?.wins) ? '-' : ((topMap.wins / topMap.games) * 100).toFixed(0) + '%'}
-                                    </TextComponent>
-                                    <TextComponent variant="body-xs" color="subtle" numberOfLines={1}>
-                                        {getTranslation('profilecard.matches', { games: topMap?.games ?? '', count: topMap?.games })}
-                                    </TextComponent>
-                                </View>
+                                {leaderboard ? (
+                                    <View className="flex-row items-baseline gap-1">
+                                        <Text variant="body-xs" color="brand">
+                                            {!topMap?.wins || isNaN(topMap?.wins) ? '-' : ((topMap.wins / topMap.games) * 100).toFixed(0) + '%'}
+                                        </Text>
+                                        <Text variant="body-xs" color="subtle" numberOfLines={1}>
+                                            {getTranslation('profilecard.matches', { games: topMap?.games ?? '', count: topMap?.games })}
+                                        </Text>
+                                    </View>
+                                ) : (
+                                    // Two full-width skeletons side by side would be twice the row's width.
+                                    <SkeletonText variant="body-xs" />
+                                )}
                             </View>
                         </PressableOpacity>
                     </View>

@@ -427,6 +427,12 @@ export const changelog4: IChangelog = {
 };
 
 export const changelog: IChangelog = {
+    '227.0.0': [
+        {
+            type: 'bugfix',
+            title: 'Fix data not loading on android',
+        },
+    ],
     '226.0.0': [
         {
             type: 'feature',
@@ -444,10 +450,6 @@ export const changelog: IChangelog = {
         {
             type: 'bugfix',
             title: 'Mark units as unique correctly',
-        },
-        {
-            type: 'bugfix',
-            title: 'Fix data not loading on android',
         },
     ],
     '218.0.0': [

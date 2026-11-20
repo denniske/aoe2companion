@@ -17,7 +17,7 @@ import { faBolt, faChessRook, faSkull, faSwords } from '@fortawesome/sharp-solid
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { reverse } from 'lodash';
 import useAuth from '@/data/src/hooks/use-auth';
-import { Skeleton } from '@app/view/components/loader/skeleton';
+import { Skeleton } from '@app/components/skeleton';
 import { AnimateIn } from '@app/components/animate-in';
 import { useTranslation } from '@app/helper/translate';
 import { Translated } from '@app/components/translated';
@@ -191,7 +191,7 @@ export default function Profile({ data, ready, profileId, showLeaderboardRows = 
                 </View>
             )}
 
-            {!data && (
+            {!data && showLeaderboardRows && (
                 <>
                     <Skeleton className="h-8 w-20" />
                     <Skeleton className="h-8" />
