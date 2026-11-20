@@ -31,6 +31,7 @@ mkdir -p $TMPDIR
 echo "📦 Building ${PLATFORM} app for ${GAME}..."
 #eas build --profile "development-simulator-${GAME}" --platform $PLATFORM --local --output "$NAME"
 #eas build --profile "development-simulator-${GAME}" --platform $PLATFORM --local --non-interactive --output "$NAME"
+source ./scripts/load-android-ndk.sh
 eas build --profile "development-simulator-${GAME}" --platform $PLATFORM --local --non-interactive
 
 # unpack .tar.gz with the unarchiver if ios

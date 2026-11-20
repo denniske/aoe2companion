@@ -1,3 +1,13 @@
+# eas uses this file *instead of* .gitignore, so anything untracked that must
+# not be uploaded has to be listed here too.
+.claude
+.agents
+.ai
+.kamal
+.vscode
+screenshots
+*.aoe2record
+
 
 /android
 /ios

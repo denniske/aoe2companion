@@ -33,6 +33,7 @@ mkdir -p $TMPDIR
 
 echo "📦 Building ${PLATFORM} app for ${GAME}..."
 #eas build --profile "development-${GAME}" --platform $PLATFORM --local --output "$NAME"
+source ./scripts/load-android-ndk.sh
 eas build --profile "development-${GAME}" --platform $PLATFORM --local --non-interactive --output "$NAME"
 
 echo "✅ ${PLATFORM} app for ${GAME} built successfully!"

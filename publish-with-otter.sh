@@ -71,6 +71,7 @@ rm -rf $TMPDIR/metro-cache
 #mkdir -p $TMPDIR
 
 echo "📦 Building ${PLATFORM} app for ${GAME}..."
+source ./scripts/load-android-ndk.sh
 eas build --profile "production-${GAME}" --platform $PLATFORM --local --non-interactive --output "$NAME"
 
 echo "🚀 Submitting ${PLATFORM} app for ${GAME}..."

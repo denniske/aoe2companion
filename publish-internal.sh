@@ -32,6 +32,7 @@ export TMPDIR=/tmp/metro-cache-$GAME
 mkdir -p $TMPDIR
 
 echo "📦 Building ${PLATFORM} app for ${GAME}..."
+source ./scripts/load-android-ndk.sh
 eas build --profile "internal-${GAME}" --platform $PLATFORM --local --non-interactive --output "$NAME"
 
 echo "✅ ${PLATFORM} app for ${GAME} built successfully!"
