@@ -8,8 +8,8 @@
  * iOS: creates/updates the App Store version, sets release notes, attaches the
  * processed TestFlight build and submits it for review.
  * Android: finds the draft release on the production track that contains the
- * matching version code (uploaded by `yarn publish:android`), sets release
- * notes and rolls it out.
+ * matching version code (uploaded by `yarn publish:android`), names it after
+ * the version, sets release notes and rolls it out.
  *
  * Secrets come from doppler (aoecompanion / dev_<GAME>). No deps, run with bun.
  */
@@ -221,6 +221,9 @@ async function releaseAndroid() {
     }
     console.log(`[android] Release: ${release.name} [${release.versionCodes}] ${release.status}`);
 
+    // eas submit has no release-name option, and the draft can carry a stale name
+    // (226 went out as "220.0.0"), so name it after the version being published.
+    release.name = versionString;
     release.status = 'completed';
     delete release.userFraction;
     release.releaseNotes = Object.entries(RELEASE_NOTES).map(([language, text]) => ({ language, text }));
