@@ -27,7 +27,7 @@ import {
     IVideosResult,
 } from './api.types';
 import { dateReviver, getHost } from '@nex/data';
-import { fetchJson } from '@app/api/util';
+import { FETCH_TIMEOUT_SLOW_MS, fetchJson } from '@app/api/util';
 
 export async function fetchAssets() {
     const url = `${getHost('aoe2companion-data')}api/assets`;
@@ -91,7 +91,7 @@ export async function fetchMatchAnalysis(params: IFetchMatchParams) {
         })
     );
     const url = `${getHost('aoe2companion-data')}api/matches/${matchId}/analysis?${queryString}`;
-    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IAnalysis;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver, undefined, FETCH_TIMEOUT_SLOW_MS)) as IAnalysis;
 }
 
 export async function fetchMatchAnalysisSvg(params: IFetchMatchParams) {
@@ -115,13 +115,13 @@ export async function uploadRecording(file: Blob): Promise<{ matchId?: number; u
         method: 'POST',
         body: file,
         headers: { 'Content-Type': 'application/octet-stream' },
-    });
+    }, undefined, undefined, FETCH_TIMEOUT_SLOW_MS);
     return { matchId: result.matchId, uploadId: result.uploadId };
 }
 
 export async function fetchUploadedAnalysis(params: { uploadId: string; language: string }) {
     const url = `${getHost('aoe2companion-data')}api/analysis/upload/${params.uploadId}?language=${params.language}`;
-    return camelizeKeys(await fetchJson(url, undefined, dateReviver)) as IUploadedAnalysis;
+    return camelizeKeys(await fetchJson(url, undefined, dateReviver, undefined, FETCH_TIMEOUT_SLOW_MS)) as IUploadedAnalysis;
 }
 
 export function getUploadedAnalysisSvgUrl(uploadId: string) {

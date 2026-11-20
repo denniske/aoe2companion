@@ -133,7 +133,62 @@ function applyCacheBust(input: RequestInfo): RequestInfo {
     return input + (input.includes('?') ? '&' : '?') + REFETCH_PARAM;
 }
 
-export async function fetchJson(input: RequestInfo, init?: RequestInit, reviver?: any, signal?: AbortSignal) {
+// React Native's OkHttp client has no read timeout, and OkHttp multiplexes every request to a host
+// over one pooled HTTP/2 connection. When a network silently drops that connection (a NAT or router
+// expiring it while the app sat idle), every request to the host hangs on it forever: no error, so
+// react-query never retries, and the screen stays on its skeleton until the OS finally kills the
+// socket. Failing after this long turns that into a FetchTimeoutError, which react-query retries.
+const FETCH_TIMEOUT_MS = 20_000;
+
+// For requests that are legitimately slow: match analysis parses the recording on demand (p99 ~13s,
+// capped at 30s by the server) and recording uploads send several MB, possibly over mobile data.
+export const FETCH_TIMEOUT_SLOW_MS = 60_000;
+
+export class FetchTimeoutError extends Error {
+    constructor(
+        public url?: string,
+        public timeoutMs?: number,
+    ) {
+        super(`Request timed out after ${(timeoutMs ?? FETCH_TIMEOUT_MS) / 1000}s`);
+        this.name = 'FetchTimeoutError';
+    }
+}
+
+export async function fetchJson(
+    input: RequestInfo,
+    init?: RequestInit,
+    reviver?: any,
+    callerSignal?: AbortSignal,
+    timeoutMs: number = FETCH_TIMEOUT_MS,
+) {
+    // AbortSignal.timeout/any are not reliably available on Hermes, so the caller's signal (react-query
+    // cancellation) and the timeout are merged by hand. The timer covers reading the body too: a
+    // stalled connection can just as well hang after the headers arrived.
+    const controller = new AbortController();
+    let timedOut = false;
+    const timer = setTimeout(() => {
+        timedOut = true;
+        controller.abort();
+    }, timeoutMs);
+    const onCallerAbort = () => controller.abort();
+    const outerSignal = callerSignal ?? init?.signal ?? undefined;
+    if (outerSignal?.aborted) controller.abort();
+    else outerSignal?.addEventListener('abort', onCallerAbort);
+
+    try {
+        return await fetchJsonWithSignal(input, init, reviver, controller.signal);
+    } catch (e) {
+        // A caller's abort stays an AbortError, which react-query treats as cancellation. Our own
+        // timeout must not look like one, or it would be swallowed instead of retried.
+        if (timedOut && !outerSignal?.aborted) throw new FetchTimeoutError(getUrl(input), timeoutMs);
+        throw e;
+    } finally {
+        clearTimeout(timer);
+        outerSignal?.removeEventListener('abort', onCallerAbort);
+    }
+}
+
+async function fetchJsonWithSignal(input: RequestInfo, init: RequestInit | undefined, reviver: any, signal: AbortSignal) {
 
     input = applyCacheBust(input);
 

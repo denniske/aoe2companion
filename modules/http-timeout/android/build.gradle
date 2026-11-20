@@ -1,0 +1,23 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.httptimeout'
+version = '0.1.0'
+
+android {
+  namespace "expo.modules.httptimeout"
+  defaultConfig {
+    versionCode 1
+    versionName "0.1.0"
+  }
+  lintOptions {
+    abortOnError false
+  }
+}
+
+dependencies {
+  // OkHttpClientProvider. The version comes from the app's React Native gradle plugin.
+  implementation 'com.facebook.react:react-android'
+}
